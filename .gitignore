@@ -5,3 +5,4 @@ doc/app
 doc/plugins
 vendor/rails
 config/database.yml
+.DS_Store
