@@ -140,10 +140,13 @@ ActiveRecord::Schema.define do
     t.string    :zipcode
     t.string    :master # schoolmaster's name
     t.string    :telephone # school telephone number
+    
+    # 联系人信息考虑用单独模型
     t.string    :contact_name
     t.string    :contact_role
     t.string    :contact_telephone
     t.string    :contact_email
+    
     t.string    :length_of_schooling # 学制
     t.string    :teacher_amount
     t.string    :class_amount
@@ -155,6 +158,8 @@ ActiveRecord::Schema.define do
     t.integer   :pc_amount
     t.string    :incoming_from # PENDING: remove?
     t.integer   :incoming_average, :limit => 1 # PENDING: remove?
+    
+    # 其他组织支持考虑用单独模型
     t.integer   :ngo_support,      :limit => 1
     t.string    :ngo_name
     t.date      :ngo_start_at
@@ -168,6 +173,7 @@ ActiveRecord::Schema.define do
     t.text      :traffic_content_html
     t.string    :traffic_charge
     
+    # 发现提交人考虑用单独模型
     t.string    :finder_name
     t.string    :finder_qq
     t.string    :finder_msn
@@ -179,6 +185,7 @@ ActiveRecord::Schema.define do
     t.timestamps
   end
   
+  # 统一用角色权限做权控
   # create_table :school_moderators, :force => true do |t|
   #   t.integer   :school_id
   #   t.integer   :user_id
@@ -248,12 +255,13 @@ ActiveRecord::Schema.define do
     t.timestamps
   end
   
-  create_table :moderators, :force => true do |t|
-    t.integer   :space_id
-    t.integer   :user_id
-    t.datetime  :created_at
-  end
-  add_index :moderators, :space_id, :name => "moderators_space_id_index"
+  # 统一用角色权限做权控
+  # create_table :moderators, :force => true do |t|
+  #   t.integer   :space_id
+  #   t.integer   :user_id
+  #   t.datetime  :created_at
+  # end
+  # add_index :moderators, :space_id, :name => "moderators_space_id_index"
   
   create_table :topics, :force => true do |t|
     t.integer   :user_id
