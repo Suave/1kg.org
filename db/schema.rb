@@ -37,7 +37,7 @@ ActiveRecord::Schema.define do
     t.string  :qq
     t.string  :msn
     t.string  :gtalk
-    t.integer :area_id
+    t.integer :region_id
     t.integer :privacy
     t.boolean :identified, :default => false
     t.timestamps
@@ -64,14 +64,14 @@ ActiveRecord::Schema.define do
   add_index :messages, :sender_id, :name => "message_sender_id_index"
   add_index :messages, :receiver_id, :name => "message_receiver_id_index"
   
-  create_table :areas, :force => true do |t|
+  create_table :regions, :force => true do |t|
     t.integer   :parent_id
     t.integer   :lft
     t.integer   :rgt
     t.string    :title
   end
   
-  create_table :events, :force => true do |t|
+  create_table :activities, :force => true do |t|
     t.integer    :user_id
     t.string     :title
     t.integer    :category
@@ -84,16 +84,16 @@ ActiveRecord::Schema.define do
     t.text       :content_html
     t.integer    :school_id
     # PENDING: submitor upload a photo, but only record the permalink in this column
-    t.text       :photo_url
+    t.string     :photo_url
     t.boolean    :over, :default => false
     t.boolean    :hidden, :default => false
-    t.string     :from # record which page does the event has been submitted from
+    t.string     :from # record which page does the activity has been submitted from
   end
-  add_index :events, :user_id, :name => "events_user_id_index"
-  add_index :events, :school_id, :name => "events_school_id_index"
+  add_index :activities, :user_id, :name => "activitys_user_id_index"
+  add_index :activities, :school_id, :name => "activitys_school_id_index"
   
   create_table :participations, :force => true do |t|
-    t.integer   :event_id
+    t.integer   :activity_id
     t.integer   :user_id
     t.string    :phone
     t.string    :qq
@@ -101,15 +101,41 @@ ActiveRecord::Schema.define do
     t.string    :note
     t.datetime  :created_at
   end
-  add_index :participations, :event_id, :name => "participations_event_id_index"
+  add_index :participations, :activity_id, :name => "participations_activity_id_index"
   add_index :participations, :user_id, :name => "paticipations_user_id_index"
   
   create_table :schools, :force => true do |t|
-    t.integer   :area_id
     t.integer   :user_id
-    t.integer   :edu_type # 类型：小学、中学、板房？
-    
     t.string    :title # school name
+          
+    # 单独用一个 demand 模型？         
+    t.string    :urgency_need # PENDING: 
+    t.string    :books_need
+    t.string    :stationaries_need
+    t.string    :sports_need
+    t.string    :clothes_need
+    t.string    :accessories_need
+    t.string    :classes_need
+    t.string    :teachers_need
+    t.string    :others_need
+    
+    # 用一个 has_many :photos 就行了
+    # t.string    :photo_url # link from schools' photos
+    
+    t.boolean   :validated, :default => false
+    t.string    :validated_notes
+    t.boolean   :hidden,    :default => false
+    t.boolean   :meta,      :default => false
+    t.string    :from
+    t.timestamps
+  end  
+  add_index :schools, :area_id, :name => "schools_area_id_index"
+  add_index :schools, :user_id, :name => "schools_user_id_index"
+  
+  create_table :school_infomations, :force => true do |t|
+    t.integer   :school_id
+    t.integer   :region_id
+    t.integer   :type # 类型：小学、中学、板房？
     t.string    :address
     t.string    :zipcode
     t.string    :master # schoolmaster's name
@@ -118,7 +144,7 @@ ActiveRecord::Schema.define do
     t.string    :contact_role
     t.string    :contact_telephone
     t.string    :contact_email
-    t.string    :level_amount # 学制
+    t.string    :length_of_schooling # 学制
     t.string    :teacher_amount
     t.string    :class_amount
     t.string    :student_amount
@@ -142,16 +168,6 @@ ActiveRecord::Schema.define do
     t.text      :traffic_content_html
     t.string    :traffic_charge
     
-    t.string    :urgency_need # PENDING: 
-    t.string    :books_need
-    t.string    :stationaries_need
-    t.string    :sports_need
-    t.string    :clothes_need
-    t.string    :accessories_need
-    t.string    :classes_need
-    t.string    :teachers_need
-    t.string    :others_need
-    
     t.string    :finder_name
     t.string    :finder_qq
     t.string    :finder_msn
@@ -167,18 +183,16 @@ ActiveRecord::Schema.define do
     t.boolean   :meta,      :default => false
     t.string    :from
     t.timestamps
-  end  
-  add_index :schools, :area_id, :name => "schools_area_id_index"
-  add_index :schools, :user_id, :name => "schools_user_id_index"
-  
-  create_table :school_moderators, :force => true do |t|
-    t.integer   :school_id
-    t.integer   :user_id
-    t.string    :type # school moderator or school service group member
-    t.timestamps
   end
   
-  create_table :visiteds, :force => true do |t|
+  # create_table :school_moderators, :force => true do |t|
+  #   t.integer   :school_id
+  #   t.integer   :user_id
+  #   t.string    :type # school moderator or school service group member
+  #   t.timestamps
+  # end
+  
+  create_table :visits, :force => true do |t|
     t.integer   :school_id
     t.integer   :user_id
     t.datetime  :visited_at
@@ -214,7 +228,7 @@ ActiveRecord::Schema.define do
     
     t.integer   :user_id
     t.integer   :school_id
-    t.integer   :event_id
+    t.integer   :activity_id
     t.boolean   :hidden, :default => false
     t.string    :title
     t.text      :content
@@ -223,7 +237,7 @@ ActiveRecord::Schema.define do
   end
   add_index :photos, :user_id, :name => "photos_user_id_index"
   add_index :photos, :school_id, :name => "photos_school_id_index"
-  add_index :photos, :event_id, :name => "photos_event_id_index"
+  add_index :photos, :activity_id, :name => "photos_activity_id_index"
   
   create_table :spaces, :force => true do |t|
     t.string    :spacable_type
@@ -264,7 +278,7 @@ ActiveRecord::Schema.define do
   add_index :topics, :user_id, :name => "topics_user_id_index"
   add_index :topics, :space_id, :name => "topics_space_id_index"
   
-  create_table :posts, :force => true, do |t|
+  create_table :posts, :force => true do |t|
     t.integer   :space_id
     t.integer   :topic_id
     t.integer   :user_id
@@ -275,11 +289,11 @@ ActiveRecord::Schema.define do
   add_index :posts, :topic_id, :name => "posts_topic_id_index"
   add_index :posts, :user_id, :name => "posts_user_id_index"
   
-  create_table :service_groups, :force => true do |t|
+  create_table :groups, :force => true do |t|
     t.integer   :school_id
     t.integer   :user_id
     t.datetime  :created_at
   end
-  add_index :service_groups, :school_id, :name => "service_groups_school_id_index"
+  add_index :groups, :school_id, :name => "service_groups_school_id_index"
     
 end
