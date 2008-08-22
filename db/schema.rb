@@ -176,12 +176,6 @@ ActiveRecord::Schema.define do
     t.text      :advice
     t.text      :advice_html
     
-    t.string    :photo_url # link from schools' photos
-    t.boolean   :validated, :default => false
-    t.string    :validated_notes
-    t.boolean   :hidden,    :default => false
-    t.boolean   :meta,      :default => false
-    t.string    :from
     t.timestamps
   end
   
