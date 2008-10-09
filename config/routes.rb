@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :users
+
+  map.resource :session
+
   map.root :controller => "misc", :action => "index"
   
   map.resources :users do |user|
