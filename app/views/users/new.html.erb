@@ -1,16 +1,26 @@
+<% @page_title = "注 册" %>
+
+<% content_for :sidebar do -%>
+<h2>注册小贴士 <%= title_suffix %></h2>
+<p class="tip">如果收不到确认邮件，请发邮件联系 <a href="mailto:feedback@1kg.org">feedback@1kg.org</a>, 我们会帮您激活帐户</p>
+<p class="tip">> <%= link_to "已注册请登录", login_url %></p>
+<% end -%>
+
+
 <%= error_messages_for :user %>
 <% form_for :user, :url => users_path do |f| -%>
-<p><label for="login">Login</label><br/>
-<%= f.text_field :login %></p>
+<p><label for="email">邮件地址</label><br/>
+<%= f.text_field :email, :size => 20 %> <span class="notice">推荐使用<a href="http://www.gmail.com" target="_blank">Gmail</a>，不推荐使用QQ邮箱</span><br /><span class="tip">用此邮箱接收确认邮件才能完成注册</span></p>
 
-<p><label for="email">Email</label><br/>
-<%= f.text_field :email %></p>
 
-<p><label for="password">Password</label><br/>
-<%= f.password_field :password %></p>
+<p><label for="login">用户名</label><br/>
+<%= f.text_field :login, :size => 12 %><br /><span class="tip">中英文均可，以后可以改的</span></p>
 
-<p><label for="password_confirmation">Confirm Password</label><br/>
-<%= f.password_field :password_confirmation %></p>
+<p><label for="password">密码</label><br/>
+<%= f.password_field :password, :size => 12 %></p>
 
-<p><%= submit_tag 'Sign up' %></p>
+<p><label for="password_confirmation">密码确认</label><br/>
+<%= f.password_field :password_confirmation, :size => 12 %></p>
+
+<p><%= submit_tag '注 册' %></p>
 <% end -%>

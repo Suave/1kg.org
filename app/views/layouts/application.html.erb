@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="utf-8">
+  <head>
+    <title><%= @page_title.to_s + " | 多背一公斤" %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+ 		<link rel="stylesheet" href="/stylesheets/blueprint/screen.css" type="text/css" media="screen, projection" />
+ 		<link rel="stylesheet" href="/stylesheets/blueprint/print.css" type="text/css" media="print" />  
+ 		<link href="/stylesheets/base.css" type="text/css" rel="stylesheet" />   		
+    <%= javascript_include_tag :defaults %>
+  </head>
+  <body>
+    
+    <div id="wrapper" class="container">
+			<%= render :partial => "/shared/head" %>
+			
+			<div id="content">
+			  <div id="title" class="span-24 last"><h1><%= @page_title.to_s %></h1></div>
+  			
+				<div id="main" class="span-16 ">
+					<% if flash[:notice] -%>
+						<div class="flashNotice"><%= flash[:notice] %></div>
+					<% end -%>
+					<%= yield :layout %>
+				</div>
+
+				<div id="sidebar" class="span-7 last">
+					<%= yield :sidebar %>
+				</div>
+			</div>
+      <div class="clear"></div>
+			<%= render :partial => "/shared/footer" %>
+			
+    </div>
+
+		<%= render :partial => "/shared/stat" %>
+		
+  </body>
+</html>

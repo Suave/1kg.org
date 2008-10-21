@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
+  #include AuthenticatedSystem
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
@@ -21,8 +21,8 @@ class UsersController < ApplicationController
     @user.register! if @user.valid?
     if @user.errors.empty?
       self.current_user = @user
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!"
+      #redirect_back_or_default('/')
+      render :action => "wait_activation"
     else
       render :action => 'new'
     end

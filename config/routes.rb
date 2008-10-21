@@ -1,8 +1,15 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :users
-
+  map.with_options :controller => "users" do |user|
+    user.signup 'signup', :action => "new"
+  end
+  
   map.resource :session
-
+  map.with_options :controller => "sessions" do |session|
+    session.login 'login', :action => "new"
+    session.logout 'logout', :action => "destroy"
+  end
+  
   map.root :controller => "misc", :action => "index"
   
   map.resources :users do |user|

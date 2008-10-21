@@ -1,0 +1,20 @@
+<div id="logo" class="span-15" >	
+	<a href="/"><img src="/images/logo.gif" alt="多背一公斤" title="首页" /></a>
+</div>
+
+<div id="user_bar" class="span-9 last">
+	<% #if logged_in? && current_user.is_admin %>
+		<a href="/admin">管理</a> |
+	<% #end %>
+	<%#=image_tag 'loading.gif', :class=>'spinner', :style=>"display:none;"%>
+	<% unless logged_in? -%>
+	<a href="/login">登录</a> | <a href="/signup">注册</a>
+	<% else -%>
+	<%= current_user.login %> | <%#= link_to inbox_title(@unreads), messages_url %> | <%= link_to "我的主页", user_path(current_user.id) %> | <a href="/setting">设置</a> | <a href="/logout">注销</a>
+	<% end -%>
+	 | <%#= link_to "新手指南", help_url %><img src="/images/help.gif" style="vertical-align:bottom" />
+</div>
+
+<div id="nav">
+	<div class="span-24 last"><%= render :partial => "/shared/nav" %></div>
+</div>
