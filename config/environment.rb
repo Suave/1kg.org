@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
+#RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -64,4 +64,18 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
+  config.active_record.observers = :user_observer
+  
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_charset= "utf-8"
+  
 end
+
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.1and1.com",
+  :domain  => "1and1.com",
+  :port => 25,
+  :authentication => :login,
+  :user_name => "no-reply@1kg.cn",
+  :password => '1000g1000g'
+}

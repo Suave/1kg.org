@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation
 
-  acts_as_state_machine :initial => :pending
+  acts_as_state_machine :initial => :pending, :column => :state
   state :passive
   state :pending, :enter => :make_activation_code
   state :active,  :enter => :do_activate

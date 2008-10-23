@@ -20,8 +20,6 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.register! if @user.valid?
     if @user.errors.empty?
-      self.current_user = @user
-      #redirect_back_or_default('/')
       render :action => "wait_activation"
     else
       render :action => 'new'
@@ -30,11 +28,18 @@ class UsersController < ApplicationController
 
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
-    if logged_in? && !current_user.active?
-      current_user.activate!
-      flash[:notice] = "Signup complete!"
+    if logged_in? && !self.current_user.active?
+      self.current_user.activate!
+      flash[:notice] = "注册完成，补充一下你的个人信息吧"
+      redirect_back_or_default("/setting")
+    else
+      flash[:notice] = "激活码不正确，请联系 feedback@1kg.org"
+      redirect_back_or_default("/")
     end
-    redirect_back_or_default('/')
+    
+  end
+  
+  def edit
   end
 
   def suspend
