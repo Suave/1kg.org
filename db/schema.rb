@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
+    t.string   "avatar"
   end
 
 end

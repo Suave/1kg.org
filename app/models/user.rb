@@ -11,11 +11,17 @@ class User < ActiveRecord::Base
   validates_length_of       :login,    :within => 2..40
   validates_length_of       :email,    :within => 3..100
   validates_uniqueness_of   :email, :case_sensitive => false
+  
+  file_column :avatar, :magick => {
+                              :geometry => "72x72>",
+                              :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
+                            }
+  
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation
+  attr_accessible :login, :email, :password, :password_confirmation, :avatar
 
   acts_as_state_machine :initial => :pending, :column => :state
   state :passive
