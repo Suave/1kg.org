@@ -15,8 +15,9 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       redirect_back_or_default('/')
-      flash[:notice] = "#欢迎 {current_user.login}, 你已经登录"
+      flash[:notice] = "欢迎 #{current_user.login}, 你已经登录"
     else
+      flash[:notice] = "邮件地址或密码错误"
       render :action => 'new'
     end
   end

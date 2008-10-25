@@ -24,9 +24,7 @@ ActionController::Routing::Routes.draw do |map|
     
     user.resources :topics
   end
-  
-  map.setting "/settting", :controller => "profiles", :action => "edit"
-  
+    
   map.resources :schools do |school|
     school.resources :visits
     school.resources :photos

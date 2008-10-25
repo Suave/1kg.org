@@ -1,0 +1,25 @@
+<% content_for :sidebar do -%>
+  <%= render :partial => "setting_sidebar" %>
+<% end -%>
+
+<div class="tabbedPanel">
+  <%= render :partial => "setting_tabmenu" %>
+  
+  <div class="panel setting">
+    <div class="block">
+      <h3>用户名</h3>
+      <% form_for :user, :url => user_path(:id => @user, :for => 'login'), :html => {:method => 'put'} do |f| %>
+        <p><label>用户名</label> <%= f.text_field :login, :size => 20, :class => 'text' %></p>
+        <p><label>&nbsp;</label><%= submit_tag "修改用户名" %></p>
+      <% end -%>
+    </div>
+    <div class="block">
+      <h3>密码</h3>
+      <% form_for :user, :url => user_path(:id => @user, :for => 'password'), :html => {:method => 'put'} do |f| %>
+        <p><label>新密码</label><%= f.password_field :password, :size => 20, :class => "text" %></p>
+        <p><label>密码确认</label><%= f.password_field :password_confirmation, :size => 20, :class => "text" %></p>
+        <p><label>&nbsp;</label><%= submit_tag "修改密码" %></p>
+      <% end -%>
+    </div>
+  </div>
+</div>

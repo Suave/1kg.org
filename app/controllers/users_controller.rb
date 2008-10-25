@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge]
-  
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :update]
+  before_filter :login_required, :only => [:edit]
 
   # render new.rhtml
   def new
@@ -40,6 +40,46 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @page_title = "编辑个人信息"
+    @user = current_user
+    
+    if params[:type] == "account"
+      @type = "account"
+      render :action => "setting_account"
+    else
+      @type = "personal"
+      render :action => "setting_personal"
+    end
+  end
+  
+  def update
+    if params[:for] == 'login'
+      @user.update_attributes!(params[:user])
+      flash[:notice] = "用户名修改成功"
+      redirect_to setting_url(:type => 'account')
+      
+    elsif params[:for] == 'password'
+      @user.update_attributes!(params[:user])
+      #self.current_user = @user
+      flash[:notice] = "密码修改成功"
+      redirect_to setting_url(:type => 'account')
+      
+    elsif params[:for] == 'avatar'
+      # convert user's avatar to gif format, thanks for Robin Lu
+      iconfile = params[:user][:avatar_url]
+      unless iconfile.blank?
+        # if user upload avatar, convert file format
+        img = ::Magick::Image::from_blob(iconfile.read).first
+        img.crop_resized!(72,72)
+        filename = File.join(RAILS_ROOT + "/public/user/avatar_url/tmp", 'icon.gif')
+        img.write(filename)
+        iconfile = File.open(filename)
+        params[:user][:avatar_url] = iconfile
+      end
+      @user.update_attributes!(params[:user])
+      flash[:notice] = "头像修改成功"
+      redirect_to setting_url(:type => "personal")
+    end
   end
 
   def suspend
