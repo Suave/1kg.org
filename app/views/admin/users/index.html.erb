@@ -1,0 +1,61 @@
+<% @page_title = "用户管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回管理后台", admin_path %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="tabbedPanel">
+  <ul class="tab">
+    <li class="current"><%= link_to "管理员设置", admin_users_path(:for => "admin") %></li>
+  </ul>
+
+  <div class="panel setting">
+    <div class="block">
+      <h3>管理员名单</h3>
+      <table border="0" cellspacing="5" cellpadding="5">
+
+        <% User.admins.each do |admin| -%>
+        <tr>
+          <td><%= admin.login %></td>
+          <td>
+              <%= link_to "取消管理员", admin_user_path(admin, :remove => "admin"), :method => :put %>
+          </td>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+    <div class="block">
+      <h3>搜索用户</h3>
+      <p class="note">输入要查找的用户</p>
+      <% form_tag search_admin_users_path, :method => :get do -%>
+      <p><label>邮件或用户名:</label><%= text_field_tag 't' %> <%= submit_tag "查 找" %></p>
+      <% end -%>
+    </div>
+    <div class="block">
+      <h3>查找结果</h3>
+      <% if @users -%>
+      <table border="0" cellspacing="5" cellpadding="5">
+        <tr>
+          <th>用户名</th>
+          <th>操作</th>
+        </tr>
+        <% @users.each do |user| -%>
+        <tr>
+          <td><%= user.login %></td>
+          <td>
+            <% unless user.has_role?("roles.admin") -%>
+              <%= link_to "设为管理员", admin_user_path(user, :add => "admin"), :method => :put %>
+            <% else -%>
+              <%= link_to "取消管理员", admin_user_path(user, :remove => "admin"), :method => :put %>
+            <% end -%>
+          </td>
+        </tr>
+        <% end -%>
+      </table>
+      <% else -%>
+        <p class="center">没有搜索结果</p>
+      <% end -%>
+    </div>
+  </div>
+</div>

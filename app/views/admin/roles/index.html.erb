@@ -1,0 +1,24 @@
+<% @page_title = "角色管理 - 后台管理" %>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回管理后台", admin_url %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<p class="right"><h4>> <%= link_to "创建新角色", new_admin_role_path %></h4></p>
+<table border="0" cellspacing="5" cellpadding="5">
+  <tr>
+    <th>角色</th>
+    <th>描述</th>
+    <th>权限</th>
+    <th>操作</th>
+  </tr>
+  <% @roles.each do |role| -%>
+  <tr>
+    <td><%= role.identifier %></td>
+    <td><%= role.description %></td>
+    <td><%= role.permissions_identifier.join(", ") %></td>
+    <td><%= link_to "编辑", edit_admin_role_path(role) %> | <%= link_to "删除", admin_role_path(role), :confirm => "相关用户的角色都会被删除，你确认删除这个角色么?", :method => :delete %></td>
+  </tr>
+  <% end -%>
+</table>

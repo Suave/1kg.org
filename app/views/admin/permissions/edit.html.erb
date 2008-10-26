@@ -1,0 +1,19 @@
+<% @page_title = "权限管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回权限管理", admin_permissions_path %></p>
+  <p>> <%= link_to "返回后台管理", admin_path %></p>
+  
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<%= error_messages_for :permission %>
+<div class="setting">
+  <div class="block">
+    <h3>编辑权限</h3>
+    <% form_for :permission, :url => admin_permission_path(@permission), :html =>{:method => :put} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_permissions_path %></p>
+    <% end -%>
+  </div>
+</div>

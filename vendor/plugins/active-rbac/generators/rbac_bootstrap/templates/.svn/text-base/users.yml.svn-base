@@ -1,0 +1,18 @@
+# password == "password" for all users
+first:
+  id: 1
+  created_at: 2007-04-06 09:18:53
+  updated_at: 2007-04-06 09:18:53
+  email: root@localhost
+  password_hash_type: sha1
+  password_salt: h3iPpVWUKZ
+  password: ec3f896afcc96d72b7e7bcf6df902bd7da1a5f99
+
+second:
+  id: 2
+  created_at: 2007-04-06 09:18:53
+  updated_at: 2007-04-06 09:18:53
+  email: example@localhost
+  password_hash_type: sha1
+  password_salt: h3iPpVWUKZ
+  password: ec3f896afcc96d72b7e7bcf6df902bd7da1a5f99
