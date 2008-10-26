@@ -1,5 +1,6 @@
 require 'digest/sha1'
 class User < ActiveRecord::Base
+  acts_as_user
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
@@ -100,6 +101,18 @@ class User < ActiveRecord::Base
   # Returns true if the user has just been activated.
   def recently_activated?
     @activated
+  end
+  
+  def admin?
+    has_role?("roles.admin")
+  end
+  
+  def self.admins
+    admin_id = Role.find_by_identifier("roles.admin").id
+    u_t = User.table_name.to_s # user table name
+    ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
+    
+    find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{admin_id}")
   end
 
   protected

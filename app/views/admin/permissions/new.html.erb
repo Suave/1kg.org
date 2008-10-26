@@ -1,0 +1,20 @@
+<% @page_title = "权限管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回权限管理", admin_permissions_path %></p>
+  <p>> <%= link_to "返回后台管理", admin_path %></p>
+  
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<%= error_messages_for :permission %>
+<div class="setting">
+  <div class="block">
+    <h3>创建新权限</h3>
+    <p class="note">权限创建后需要添加给指定角色</p>
+    <% form_for :permission, :url => admin_permissions_path do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "创 建" %> 或 <%= link_to "取消", admin_permissions_path %></p>
+    <% end -%>
+  </div>
+</div>

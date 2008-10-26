@@ -3,9 +3,9 @@
 </div>
 
 <div id="user_bar" class="span-9 last">
-	<% #if logged_in? && current_user.is_admin %>
+	<% if logged_in? && current_user.admin? %>
 		<a href="/admin">管理</a> |
-	<% #end %>
+	<% end %>
 	<%#=image_tag 'loading.gif', :class=>'spinner', :style=>"display:none;"%>
 	<% unless logged_in? -%>
 	<a href="/login">登录</a> | <a href="/signup">注册</a>

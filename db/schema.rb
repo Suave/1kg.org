@@ -26,5 +26,37 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime "deleted_at"
     t.string   "avatar"
   end
+  add_index :users, [:email, :state]
+  
+  # for active-rbac (role-based authorization)
+  create_table(:roles) do |t|
+    t.datetime :created_at, :null => false
+    t.datetime :updated_at, :null => false
+  
+    t.string :identifier, :limit => 100, :null => false
+    t.string :description
+  end
+  add_index :roles, :identifier
+  
+  create_table(:roles_users, :id => false) do |t|
+    t.integer :role_id, :null => false
+    t.integer :user_id, :null => false
+  end  
+  add_index :roles_users, [ :role_id, :user_id ], :unique => true
 
+  create_table(:static_permissions) do |t|
+    t.datetime :created_at, :null => false
+    t.datetime :updated_at, :null => false
+
+    t.string :identifier, :limit => 100, :null => false
+    t.string :description
+  end
+  add_index :static_permissions, :identifier
+
+  create_table(:roles_static_permissions, :id => false) do |t|
+    t.integer :role_id, :null => false
+    t.integer :static_permission_id, :null => false
+  end
+  add_index :roles_static_permissions, [ :role_id, :static_permission_id ], :unique => true, :name => "role_id_and_static_permission_id"
+  # end definition of active-rbac
 end

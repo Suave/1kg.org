@@ -1,0 +1,31 @@
+9
+
+dir
+325
+svn://rubyforge.org/var/svn/active-rbac/active-rbac/trunk/plugin/generators
+svn://rubyforge.org/var/svn/active-rbac
+
+
+
+2007-11-30T22:05:46.553466Z
+323
+purestorm
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4650e9fc-61fd-0310-822b-911977c86511
+
+rbac_bootstrap
+dir
+

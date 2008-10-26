@@ -1,0 +1,13 @@
+
+<h2>Logout</h2>
+
+<div class="confirmation">
+  Do you really want to log out?
+</div>
+
+<% form_tag do -%>
+<div class="buttons">
+<%= submit_tag('Yes', { :name => 'submit_yes' }) -%>
+<%= submit_tag('No', { :name => 'submit_no' }) -%>
+</div>
+<% end -%>

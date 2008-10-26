@@ -43,7 +43,11 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
+  map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
+    admin.resources :roles
+    admin.resources :permissions
+    admin.resources :users, :collection => {:search => :get}
     admin.resources :regions
   end
 

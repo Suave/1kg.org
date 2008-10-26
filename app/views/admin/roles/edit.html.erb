@@ -1,0 +1,19 @@
+<% @page_title = "角色管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回角色管理", admin_roles_path %></p>
+  <p>> <%= link_to "返回后台管理", admin_url %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<%= error_messages_for :role %>
+<div class="setting">
+  <div class="block">
+  <h3>编辑角色</h3>
+  <p class="note">关系到整个网站的权限控制，请谨慎修改</p>
+<% form_for :role, :url => admin_role_path(@role), :html => {:method => :put} do |f| -%>
+  <%= render :partial => "form", :object => f %>
+  <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_roles_path %></p>
+<% end -%>
+  </div>
+</div>

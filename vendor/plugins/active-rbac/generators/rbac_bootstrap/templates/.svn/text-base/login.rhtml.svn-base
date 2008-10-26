@@ -1,0 +1,28 @@
+
+<h2>Login</h2>
+
+<p class="form-explanation">
+  Please enter your email and password to log in.
+</p>
+
+<% if @login_failed then -%>
+<div class="entity-validation-errors">Either the email or the password you provided is invalid.</div>
+<% end -%>
+
+<%= error_messages_for 'user' %>
+
+<% form_tag do -%>
+<% if @return_to then -%><%= hidden_field_tag('return_to', @return_to) %><% end -%>
+
+<dl>
+	<dt><label>Email</label></dt>
+	<dd><%= text_field_tag('user[login]', @user_login.to_s) %></dd>
+	
+	<dt><label>Password</label></dt>
+	<dd><%= password_field_tag('user[password]', '') %></dd>
+</dl>
+
+<div class="buttons">
+  <%= submit_tag('Login', { :name => 'submit_login' }) %>
+</div>
+<% end -%>
