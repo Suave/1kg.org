@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :roles
     admin.resources :permissions
     admin.resources :users, :collection => {:search => :get}
-    admin.resources :regions
+    admin.resources :geos
   end
 
   map.connect ':controller/:action/:id'

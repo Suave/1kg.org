@@ -58,6 +58,7 @@ module ActsAsUser
       
       klass.class_eval do
         # Protect the relation roles from mass assignment.
+        # comment following line for http://code.google.com/p/rolerequirement/issues/detail?id=9
         # attr_protected :roles
 
         has_and_belongs_to_many :roles, :class_name => options[:role_class].to_s, :uniq => true

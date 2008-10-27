@@ -1,0 +1,13 @@
+legacy:
+  adapter: mysql
+  host: localhost
+  username: root
+  password:
+  database: 1kgorg_dev
+  
+survival:
+  adapter: mysql
+  host: localhost
+  username: root
+  password:
+  database: survival_development

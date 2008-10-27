@@ -1,0 +1,17 @@
+<% @page_title = "地区管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回管理后台", admin_url %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="setting">
+  <p><h4>> <%= link_to "创建新地区", new_admin_geo_url %></h4></p>
+  <div class="block">
+    <h3>所有地区</h3>
+    <p class="note">点击地区可以进行编辑</p>
+    <% Geo.roots.each do |geo| -%>
+    <p><strong><%= link_to geo.name, edit_admin_geo_url(geo) %></strong><br />（<%= geo.children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %>）</p>
+    <% end -%>
+  </div>
+</div>

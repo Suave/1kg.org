@@ -59,4 +59,14 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
   end
   add_index :roles_static_permissions, [ :role_id, :static_permission_id ], :unique => true, :name => "role_id_and_static_permission_id"
   # end definition of active-rbac
+  
+  create_table "geos" do |t|
+    t.integer :parent_id
+    t.integer :lft
+    t.integer :rgt
+    t.string  :name
+    t.integer :zipcode
+    t.text    :description
+    t.text    :description_html
+  end
 end

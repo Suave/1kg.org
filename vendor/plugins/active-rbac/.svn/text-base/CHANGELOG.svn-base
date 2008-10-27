@@ -1,5 +1,0 @@
-== HEAD (trunk)
-
-* RbacBootstrapGenerator now extends Rails::Generator::Base instead of ...::NamedBase.
-* Changed .template to .file in the rbac_bootstrap_generator.rb.  This should remove the issue with generating the templates.
-* Added active_rbac/test_helper.rb with set_current_user()

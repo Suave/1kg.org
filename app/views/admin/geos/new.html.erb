@@ -1,0 +1,19 @@
+<% @page_title = "地区管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回地区管理", admin_geos_url %></p>
+  <p>> <%= link_to "返回管理界面", admin_url  %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>创建新地区</h3>
+    <% form_for :geo, :url => admin_geos_url do |f| -%>
+    <p><label>&nbsp;</label>新建的地区属于 <%= @parent.name if @parent %></p>
+    <input type="hidden" name="parent" value="<%= @parent.id if @parent %>" />
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "创 建" %> 或 <%= link_to "取消", admin_geos_url %></p>
+    <% end -%>
+  </div>
+</div>
