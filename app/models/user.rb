@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
                               :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
                             }
   
+  belongs_to :geo
+  
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation

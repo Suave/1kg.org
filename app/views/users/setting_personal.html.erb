@@ -20,6 +20,8 @@
     <div class="block">
       <h3>我住的城市</h3>
       <p class="note">选择居住的城市，了解同城的公益活动</p>
+      <p class="center">我住在：<%= @user.geo ? @user.geo.name : "还没选择" %></p>
+      <p class="center">> <%= link_to "选择居住地", edit_user_path(@user, :type => "live") %> <</p>
     </div>
   </div>
 </div>

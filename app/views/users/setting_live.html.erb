@@ -1,0 +1,35 @@
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回个人信息设置", edit_user_path(current_user, :type => "personal") %></p>
+  <%= render :partial => "setting_sidebar" %>
+<% end -%>
+
+<div class="tabbedPanel">
+  <%= render :partial => "setting_tabmenu" %>
+  
+  <div class="panel setting">
+    <div class="block">
+      <h3>选择我住的城市</h3>
+      <form>
+      <% unless @current_geo.blank? -%>
+        <p><label>当前浏览到</label><%= @current_geo.ancestors.collect{|g| link_to g.name, edit_user_path(:type => "live", :live => g.id)}.join(" > ") %> > <%= @current_geo.name %></p>
+      <% end -%>
+      
+      <% if @current_geo -%>
+      
+        <% unless @next_level_geos.blank? -%>
+        
+          <p><label><%= @current_geo.name %> 的下属地区</label><span style="display:block;margin-left:37%"><%= @next_level_geos.collect{|g| link_to g.name, edit_user_path(:type => "live", :live => g.id)}.join(", ") %></span></p>
+          
+        <% else -%>
+        
+          <p class="center">[ <%= link_to "我住在 #{@current_geo.name}", user_path(current_user, :for => "live", :geo => @current_geo.id), :method => :put %> ]</p>
+          
+        <% end -%>
+      
+      <% end -%>
+      <p><label>平级的地区</label><span style="display:block;margin-left:37%"><%= @same_level_geos.collect{|g| link_to g.name, edit_user_path(:type => "live", :live => g.id)}.join(", ") %></span></p>
+      <p><label>我现在的居住城市</label><%= @live_geo ? @live_geo.name : "还没选择" %></p>
+      </form>
+    </div>
+  </div>
+</div>
