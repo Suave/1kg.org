@@ -1,0 +1,31 @@
+<% @page_title = "地区管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回地区管理", admin_geos_url %></p>
+  <p>> <%= link_to "返回管理界面", admin_url %></p>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>属于 <%= @geo.name %> 的区域</h3>
+    <% unless @children.blank? -%>
+      <p><%= @children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %></p>
+    <% else -%>
+      <p class="center">没有</p>
+    <% end -%>
+    <p>> <%= link_to "新建地区属于#{@geo.name}的地区", new_admin_geo_url(:geo => @geo) %></p>
+  </div>
+  <div class="block">
+    <h3>编辑地区信息</h3>
+    <% form_for :geo, :url => admin_geo_url(@geo), :html => {:method => :put} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_geos_url %></p>
+    <% end -%>
+  </div>
+  <div class="block">
+    <h3>删除地区</h3>
+    <p class="notice center">注意，如果有讨论区，学校，活动，下属地区属于<%= @geo.name %>，请不要删除</p>
+    <p class="center">> <%= link_to "删除#{@geo.name}", admin_geo_url(@geo), :confirm => "确定删除么？", :method => :delete %> <</p>
+  </div>
+</div>
