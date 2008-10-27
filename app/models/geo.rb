@@ -2,6 +2,8 @@ class Geo < ActiveRecord::Base
   include BodyFormat
   acts_as_nested_set
   
+  has_many :users
+  
   before_save :format_content
   
   private

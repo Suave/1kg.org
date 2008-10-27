@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.integer  "geo_id"
   end
   add_index :users, [:email, :state]
   
@@ -69,4 +70,27 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.text    :description
     t.text    :description_html
   end
+  
+  create_table "boards" do |t|
+    t.datetime :created_at
+    t.datetime :updated_at
+    t.datetime :deleted_at
+    t.integer  :topics_count
+    t.datetime :last_modified_at
+    t.integer  :last_modified_by_id
+  end
+  
+  create_table "public_boards" do |t|
+    t.string  :title
+    t.text    :description
+    t.text    :description_html
+    t.integer :position
+  end
+  
+  create_table "city_boards" do |t|
+    t.integer :geo_id
+    t.text    :description
+    t.text    :description_html
+  end
+  
 end

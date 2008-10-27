@@ -46,6 +46,23 @@ class UsersController < ApplicationController
     if params[:type] == "account"
       @type = "account"
       render :action => "setting_account"
+    elsif params[:type] == "live"
+      @type = "personal"
+      
+      @live_geo = @user.geo
+      logger.info("LIVE GEO: #{@live_geo.inspect}")
+      @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
+      logger.info("CURRENT_GEO: #{@current_geo.inspect}")
+      if @current_geo
+        @same_level_geos = @current_geo.siblings
+        @next_level_geos = @current_geo.children
+      else
+        @same_level_geos = Geo.roots
+        logger.info("SAME LEVEL GEOS: #{@same_level_geos.inspect}")
+        @next_level_geos = nil
+      end
+      
+      render :action => "setting_live"
     else
       @type = "personal"
       render :action => "setting_personal"
@@ -57,12 +74,16 @@ class UsersController < ApplicationController
       @user.update_attributes!(params[:user])
       flash[:notice] = "用户名修改成功"
       redirect_to setting_url(:type => 'account')
+    
+    
       
     elsif params[:for] == 'password'
       @user.update_attributes!(params[:user])
       #self.current_user = @user
       flash[:notice] = "密码修改成功"
       redirect_to setting_url(:type => 'account')
+    
+    
       
     elsif params[:for] == 'avatar'
       # convert user's avatar to gif format, thanks for Robin Lu
@@ -79,6 +100,16 @@ class UsersController < ApplicationController
       @user.update_attributes!(params[:user])
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "personal")
+    
+    
+      
+    elsif params[:for] == 'live'
+      @geo = Geo.find(params[:geo])
+      @user.geo = @geo unless @geo.blank?
+      @user.save!
+      flash[:notice] = "居住地修改成功"
+      redirect_to setting_url(:type => "personal")
+      
     end
   end
 
