@@ -8,14 +8,16 @@
 
 <div class="setting">
   <div class="block">
-    <h3>属于 <%= @geo.name %> 的区域</h3>
-    <% unless @children.blank? -%>
-      <p><%= @children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %></p>
+    <h3>城市讨论区</h3>
+    <p class="note">每个地区只能有一个讨论区，请管理员注意</p>
+    <% if @geo.city_board -%>
+      <p class="center">已有 <%= @geo.name %> 讨论区 <%= link_to "查看", board_url(@geo.city_board.board.id) %></p>
     <% else -%>
-      <p class="center">没有</p>
+      <p class="center notice">还没有</p>
+      <p class="center"> > <%= link_to "新建#{@geo.name}讨论区", new_admin_board_path(:geo => @geo.id, :type => "city") %><</p>
     <% end -%>
-    <p>> <%= link_to "新建地区属于#{@geo.name}的地区", new_admin_geo_url(:geo => @geo) %></p>
   </div>
+  
   <div class="block">
     <h3>编辑地区信息</h3>
     <% form_for :geo, :url => admin_geo_url(@geo), :html => {:method => :put} do |f| -%>
@@ -23,6 +25,17 @@
     <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_geos_url %></p>
     <% end -%>
   </div>
+
+  <div class="block">
+    <h3>下属于 <%= @geo.name %> 的区域</h3>
+    <% unless @children.blank? -%>
+      <p><%= @children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %></p>
+    <% else -%>
+      <p class="center">没有</p>
+    <% end -%>
+    <p>> <%= link_to "新建地区属于#{@geo.name}的地区", new_admin_geo_url(:geo => @geo) %></p>
+  </div>
+
   <div class="block">
     <h3>删除地区</h3>
     <p class="notice center">注意，如果有讨论区，学校，活动，下属地区属于<%= @geo.name %>，请不要删除</p>

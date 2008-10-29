@@ -63,32 +63,33 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
   
   create_table "geos" do |t|
     t.integer :parent_id
-    t.integer :lft
-    t.integer :rgt
-    t.string  :name
+    t.integer :lft, :null => false
+    t.integer :rgt, :null => false
+    t.string  :name,:null => false
     t.integer :zipcode
-    t.text    :description
-    t.text    :description_html
   end
   
   create_table "boards" do |t|
+    t.integer  :talkable_id, :null => false
+    t.string   :talkable_type, :null => false
+    
     t.datetime :created_at
     t.datetime :updated_at
     t.datetime :deleted_at
-    t.integer  :topics_count
+    t.integer  :topics_count, :default => 0
     t.datetime :last_modified_at
     t.integer  :last_modified_by_id
   end
   
   create_table "public_boards" do |t|
-    t.string  :title
+    t.string  :title, :null => false, :limit => 100
     t.text    :description
     t.text    :description_html
-    t.integer :position
+    t.integer :position, :null => false, :default => 999
   end
   
   create_table "city_boards" do |t|
-    t.integer :geo_id
+    t.integer :geo_id, :null => false
     t.text    :description
     t.text    :description_html
   end
