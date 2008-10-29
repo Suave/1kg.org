@@ -22,6 +22,8 @@ class TopicsController < ApplicationController
   def show
     @board = Board.find(params[:board_id])
     @topic = Topic.find(params[:id])
+    @posts = @topic.posts
+    @post  = Post.new
   end
   
 end

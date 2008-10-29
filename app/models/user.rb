@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
                             }
   
   belongs_to :geo
+  has_many :topics
   
   before_save :encrypt_password
   
