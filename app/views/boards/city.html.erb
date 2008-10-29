@@ -1,9 +1,33 @@
-<% @page_title = "#{@city.geo_name}" -%>
+<% @page_title = "#{@city.name}同城" -%>
 
 <% content_for :sidebar do -%>
 <% end -%>
 
-<div style="border:2px solid pink; padding:3px">
-  <%= @city.description %>
+<div class="operations">
+  <%= link_to "写新帖子", new_board_topic_url(@board) %> | 
+</div>
+
+<div class="posting">
+  <div class="block">
+    <h3>介绍</h3>
+    <p><%= @city_board.description_html %></p>
+  </div>
+  
+  <div class="block">
+    <h3>所有话题</h3>
+    <table border="0" cellspacing="5" cellpadding="5">
+      <% @topics.each do |t| -%>
+      <tr>
+        <td><%= link_to t.title, board_topic_url(@board, t) %></td>
+        <td><%= link_to t.user.login, user_url(t.user) %></td>
+      </tr>
+      <% end -%>
+    </table>
+  </div>
+  
+  <div class="block">
+    <h3>谁住 <%= @city.name %></h3>
+    <%= @citizens.collect {|c| link_to c.login, user_url(c.id)}.join(", ") %>
+  </div>
 </div>
 

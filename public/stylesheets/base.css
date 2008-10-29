@@ -57,6 +57,9 @@ div.dbb { padding:15px 0 5px 0; border-bottom:1px dashed #ccc;}
 #main {margin-top:10px; margin-left:20px; padding:0;}
 #sidebar {margin:0; padding:0;}
 
+div.operations {border:1px solid #adadad; overflow:hidden; padding:5px; margin-bottom:10px;}
+
+
 /* --- for tabbed panel  --- */
 div.tabbedPanel {border:1px solid #adadad;overflow:hidden;position:relative;zoom:1;}
 div.tabbedPanel ul.tab {border-bottom: 1px solid #888; margin:0; padding: 15px 0px 0px 15px;background-color:#F5F5F5;zoom:1;}
@@ -79,3 +82,19 @@ div.setting form p.detail {color:green;clear:none;width:55%;float:left;margin:0p
 div.setting form p.info {clear:none;width:55%;float:left;margin:0px 10px;}
 div.setting form input, div.setting form select, div.setting form textarea {margin:0px 10px;}
 div.setting form input.text, div.setting form textarea {padding:2px;border: 1px solid #999;font-size:13px;}
+
+/* --- for posting form --- */
+/* --- for setting form --- */
+div.posting div.block {margin:5px 10px;clear:both;zoom:1;}
+div.posting div#errorExplanation,div.setting div#okExplanation {margin:5px 10px;}
+div.posting div.block h2 {color:#333;font-size:20px;padding:0px;}
+div.posting div.block h3 {font-size:1.2em; border-bottom: 1px solid #CCC;color:#333;padding-bottom:0.4em; margin-bottom:0.4em;zoom:1;font-weight: normal;}
+div.posting div.block p.note {color:#666;margin:0.4em 0pt;}
+div.posting form {padding-top:20px;}
+div.posting form p {margin:10px;clear:both;}
+div.posting form span.text {margin:0 10px; padding:2px;}
+div.posting form label {font-size: 1.2em; line-height:21px;float:left; margin-right:10px;text-align: right;width:15%;}
+div.posting form p.detail {color:green;clear:none;width:55%;float:left;margin:0px 10px;}
+div.posting form p.info {clear:none;width:55%;float:left;margin:0px 10px;}
+div.posting form input, div.posting form select, div.posting form textarea {margin:0px 10px;}
+div.posting form input.text, div.posting form textarea {padding:2px;border: 1px solid #999;font-size:13px;}
