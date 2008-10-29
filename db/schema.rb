@@ -94,4 +94,20 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.text    :description_html
   end
   
+  create_table "topics" do |t|
+    t.integer   :board_id, :null => false
+    t.integer   :user_id,  :null => false
+    t.string    :title,    :null => false, :limit => 200
+    t.text      :body
+    t.text      :body_html
+    t.datetime  :created_at
+    t.datetime  :updated_at
+    t.datetime  :last_replied_at
+    t.integer   :last_replied_by_id
+    t.datetime  :last_modified_at
+    t.integer   :last_modified_by_id
+    t.datetime  :deleted_at
+    t.boolean   :stiky, :default => false
+    t.boolean   :block, :default => false
+  end
 end
