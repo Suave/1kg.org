@@ -36,9 +36,9 @@ ActionController::Routing::Routes.draw do |map|
     activity.resources :photos
     activity.resource  :space
   end
-  
-  map.resources :spaces do |space|
-    space.resources :topics do |topic|
+
+  map.resources :boards do |board|
+    board.resources :topics do |topic|
       topic.resources :posts
     end
   end
@@ -49,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :permissions
     admin.resources :users, :collection => {:search => :get}
     admin.resources :geos
+    admin.resources :boards
   end
 
   map.connect ':controller/:action/:id'

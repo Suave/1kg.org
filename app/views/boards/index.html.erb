@@ -1,0 +1,7 @@
+<% @page_title = "社区" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<h3>同 城</h3>
+<%= @cities.collect {|c| link_to c.geo_name, board_url(c.board_id)}.join(", ") -%>

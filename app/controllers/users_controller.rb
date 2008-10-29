@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :update]
-  before_filter :login_required, :only => [:edit]
+  before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
   def new
@@ -50,15 +50,15 @@ class UsersController < ApplicationController
       @type = "personal"
       
       @live_geo = @user.geo
-      logger.info("LIVE GEO: #{@live_geo.inspect}")
+      #logger.info("LIVE GEO: #{@live_geo.inspect}")
       @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
-      logger.info("CURRENT_GEO: #{@current_geo.inspect}")
+      #logger.info("CURRENT_GEO: #{@current_geo.inspect}")
       if @current_geo
         @same_level_geos = @current_geo.siblings
         @next_level_geos = @current_geo.children
       else
         @same_level_geos = Geo.roots
-        logger.info("SAME LEVEL GEOS: #{@same_level_geos.inspect}")
+        #logger.info("SAME LEVEL GEOS: #{@same_level_geos.inspect}")
         @next_level_geos = nil
       end
       
