@@ -4,8 +4,35 @@
   <p>> <%= link_to "返回讨论区", board_url(@board) %></p>
 <% end -%>
 
-<div style="float:right"><%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %></div>
-<p><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></p>
-<div class="body">
-  <%= @topic.body_html %>
+<div class="topic">
+  <div class="avatar">
+    <%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %>
+  </div>
+  
+  <p><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></p>
+  
+  <div class="body">
+    <%= @topic.body_html %>
+  </div>
+</div>
+
+<div class="commentsList">
+  <% @posts.each do |p| -%>
+  <div class="block">
+    <div class="avatar"><%= avatar_for p.user, "large" %></div>
+    <div class="content">
+      <p class="meta"><%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %></p>
+      <%= p.body_html %>
+    </div>
+    <div class="border"></div>
+  </div>
+  <% end -%>
+</div>
+
+<div class="commentForm">
+  <h2>回帖：</h2>
+  <% form_for :post, :url => board_topic_posts_url(@board, @topic) do |f| -%>
+  <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
+  <p><%= submit_tag "发 布" %></p>
+  <% end -%>
 </div>

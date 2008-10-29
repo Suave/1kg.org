@@ -58,7 +58,7 @@ div.dbb { padding:15px 0 5px 0; border-bottom:1px dashed #ccc;}
 #sidebar {margin:0; padding:0;}
 
 div.operations {border:1px solid #adadad; overflow:hidden; padding:5px; margin-bottom:10px;}
-
+div.topic div.avatar {float:right; margin:10px;}
 
 /* --- for tabbed panel  --- */
 div.tabbedPanel {border:1px solid #adadad;overflow:hidden;position:relative;zoom:1;}
@@ -84,7 +84,6 @@ div.setting form input, div.setting form select, div.setting form textarea {marg
 div.setting form input.text, div.setting form textarea {padding:2px;border: 1px solid #999;font-size:13px;}
 
 /* --- for posting form --- */
-/* --- for setting form --- */
 div.posting div.block {margin:5px 10px;clear:both;zoom:1;}
 div.posting div#errorExplanation,div.setting div#okExplanation {margin:5px 10px;}
 div.posting div.block h2 {color:#333;font-size:20px;padding:0px;}
@@ -98,3 +97,17 @@ div.posting form p.detail {color:green;clear:none;width:55%;float:left;margin:0p
 div.posting form p.info {clear:none;width:55%;float:left;margin:0px 10px;}
 div.posting form input, div.posting form select, div.posting form textarea {margin:0px 10px;}
 div.posting form input.text, div.posting form textarea {padding:2px;border: 1px solid #999;font-size:13px;}
+
+/* --- for comment form --- */
+div.commentForm {margin:5px 10px; clear:both; zoom:1;}
+div.commentForm h2 {font-size:14px; color:black;}
+div.commentForm form p {margin:5px 0 10px 0; clear:both;}
+div.commentForm form input, div.commentForm form textarea {margin:0 10px;}
+div.commentForm form input.text, div.commentForm form textarea {padding:2px;border:1px solid #999;font-size:13px;}
+
+/* --- for comment list --- */
+div.commentsList div.block{margin:5px 10px; clear:both; zoom:1;}
+div.commentsList div.block div.content {margin-left:70px;}
+div.commentsList div.block div.avatar {float:left; margin-right:10px; text-align:right; width:50px;}
+div.commentsList div.block div.border {height:1px; clear:both; border-bottom:1px dashed #999; margin-bottom:20px;}
+div.commentsList .meta {color:#999;}

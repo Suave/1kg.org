@@ -25,5 +25,6 @@ class Admin::BoardsController < Admin::BaseController
   
   # TODO: create city board for each child geo
   def initial_generate
+    
   end
 end
