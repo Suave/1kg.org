@@ -1,14 +1,9 @@
-<% @page_title = "用户管理" -%>
-
 <% content_for :sidebar do -%>
-  <p>> <%= link_to "返回管理后台", admin_path %></p>
-  <%= render :partial => "/admin/shared/operation_list" %>
+  <%= render :partial => 'user_sidebar' %>
 <% end -%>
 
 <div class="tabbedPanel">
-  <ul class="tab">
-    <li class="current"><%= link_to "管理员设置", admin_users_path(:for => "admin") %></li>
-  </ul>
+  <%= render :partial => "user_menu" %>
 
   <div class="panel setting">
     <div class="block">
@@ -29,6 +24,7 @@
       <h3>搜索用户</h3>
       <p class="note">输入要查找的用户</p>
       <% form_tag search_admin_users_path, :method => :get do -%>
+      <%= hidden_field_tag "type", "admin" %>
       <p><label>邮件或用户名:</label><%= text_field_tag 't' %> <%= submit_tag "查 找" %></p>
       <% end -%>
     </div>

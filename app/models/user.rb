@@ -112,10 +112,13 @@ class User < ActiveRecord::Base
   
   def self.admins
     admin_id = Role.find_by_identifier("roles.admin").id
-    u_t = User.table_name.to_s # user table name
-    ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
-    
-    find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{admin_id}")
+    return search_role_members(admin_id)
+  end
+  
+  def self.moderators_of(board)
+    board_id = (board.class == Board ? board.id : board)
+    role_id = Role.find_by_identifier("roles.board.moderator.#{board_id}").id
+    return search_role_members(role_id)
   end
 
   protected
@@ -143,5 +146,12 @@ class User < ActiveRecord::Base
       @activated = true
       self.activated_at = Time.now.utc
       self.deleted_at = self.activation_code = nil
+    end
+
+    def self.search_role_members(role_id)
+      u_t = User.table_name.to_s # user table name
+      ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
+
+      find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end

@@ -23,7 +23,7 @@ class Admin::GeosController < Admin::BaseController
   
   def edit
     @geo = Geo.find(params[:id])
-    @children = @geo.children
+    #@children = @geo.children
   end
   
   def update
