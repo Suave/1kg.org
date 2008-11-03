@@ -50,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :users, :collection => {:search => :get}
     admin.resources :geos
     admin.resources :boards
+    admin.resources :moderators
   end
 
   map.connect ':controller/:action/:id'
