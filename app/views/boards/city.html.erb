@@ -3,6 +3,9 @@
 <% content_for :sidebar do -%>
 <% end -%>
 
+<div class="moderators">
+  版主：<%= User.moderators_of(@city_board.board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
+</div>
 
 <div class="operations">
   <%= link_to "写新帖子", new_board_topic_url(@board) %> | 

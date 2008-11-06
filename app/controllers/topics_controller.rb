@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_filter :login_required, :expect => [:show, :index]
+  before_filter :login_required, :except => [:show, :index]
   
   def new
     @board = Board.find(params[:board_id])

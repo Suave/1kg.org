@@ -79,3 +79,5 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "no-reply@1kg.cn",
   :password => '1000g1000g'
 }
+
+CalendarDateSelect.format = :iso_date
