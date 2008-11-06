@@ -97,6 +97,9 @@ div.posting form p.detail {color:green;clear:none;width:55%;float:left;margin:0p
 div.posting form p.info {clear:none;width:55%;float:left;margin:0px 10px;}
 div.posting form input, div.posting form select, div.posting form textarea {margin:0px 10px;}
 div.posting form input.text, div.posting form textarea {padding:2px;border: 1px solid #999;font-size:13px;}
+div.posting form input.calendar {padding-right:0; margin-right:0;}
+div.posting form img.calendar {margin-top:0; border:0px; cursor:pointer; vertical-align:bottom;}
+div.posting form img.indicator {margin-top:0; border:0px; vertical-align:bottom;}
 
 /* --- for comment form --- */
 div.commentForm {margin:5px 10px; clear:both; zoom:1;}

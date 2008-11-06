@@ -6,10 +6,12 @@
 
 <div class="posting">
   <div class="block">
-  <% form_for :topic, :url => board_topics_url(@board) do |f| -%>
+  <% form_for @topic, :url => board_topics_url(@board) do |f| -%>
   <p><label>发表在</label><span class="text"><%= @board_name %></span></p>
   <p><label>标题</label><%= f.text_field :title, :size => 20, :class => "text" %></p>
-  <p><label><%= avatar_for current_user, "large" %></label><%= f.text_area :body, :cols => 50, :rows => 20 %></p>
+  <div><label><%= avatar_for current_user, "large" %></label>
+    <%= fckeditor_textarea("topic", "body_html", :toolbarSet => 'Simple', :width => '80%', :height => '400px') %>
+  </div>
   <p><label>&nbsp;</label><%= submit_tag "发 布" %> 或 <%= link_to "取消", board_url(@board) %></p>
   <% end -%>
   </div>

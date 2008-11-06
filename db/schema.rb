@@ -123,4 +123,45 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.integer   :last_modified_by_id
     t.datetime  :deleted_at
   end
+  
+  create_table "activities" do |t|
+    t.integer   :user_id,     :null => false
+    t.integer   :school_id
+    t.boolean   :done,        :default => false # 活动是否结束
+    t.datetime  :created_at
+    t.datetime  :updated_at
+    t.datetime  :deleted_at
+    t.string    :ref
+    t.integer   :category,    :null => false
+    t.string    :title,       :null => false
+    t.string    :location,    :null => false
+    t.integer   :departure_id,   :null => false
+    t.integer   :arrival_id,     :null => false
+    t.datetime  :start_at
+    t.datetime  :end_at
+    t.datetime  :register_over_at
+    t.string    :expense_per_head
+    t.string    :expect_strength
+    t.text      :description
+    t.text      :description_html
+  end
+  
+  create_table "photos" do |t|
+    t.integer   :parent_id
+    t.string    :content_type
+    t.string    :filename
+    t.string    :thumbnail
+    t.integer   :size
+    t.integer   :width
+    t.integer   :height
+    t.integer   :user_id
+    t.string    :title,             :null => false
+    t.text      :description
+    t.text      :description_html
+    t.datetime  :created_at
+    t.datetime  :updated_at
+    t.datetime  :deleted_at
+  end
+    
+    
 end

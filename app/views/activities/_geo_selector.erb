@@ -1,0 +1,3 @@
+<select name="activity[<%= dom_id %>]" id="activity_<%= dom_id %>">
+  <%= options_for_select(@geos.collect{|g| [g.name, g.id]}) %>
+</select>
