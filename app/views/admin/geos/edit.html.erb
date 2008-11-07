@@ -67,13 +67,24 @@
   </div>
 
   <div class="block">
-    <h3>下属于 <%= @geo.name %> 的区域</h3>
-    <% unless @geo.children.blank? -%>
-      <p><%= @geo.children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %></p>
+    <% if @geo.child? -%>
+      
+      <h3>下属于 <%= @geo.name %> 的县</h3>
+      <p class="note">县 只用于学校信息</p>
+      <p><%= @geo.counties.collect{|c| link_to c.name, edit_admin_county_url(c)}.join(", ") %></p>
+      <p>> <%= link_to "新建属于#{@geo.name}的县", new_admin_county_url(:geo => @geo) %></p>
+      
     <% else -%>
-      <p class="center">没有</p>
+    
+      <h3>下属于 <%= @geo.name %> 的市</h3>
+      <% unless @geo.children.blank? -%>
+        <p><%= @geo.children.collect{|g| link_to g.name, edit_admin_geo_url(g)}.join(", ") %></p>
+      <% else -%>
+        <p class="center">没有</p>
+      <% end -%>
+      <p>> <%= link_to "新建属于#{@geo.name}的市", new_admin_geo_url(:geo => @geo) %></p>
+      
     <% end -%>
-    <p>> <%= link_to "新建地区属于#{@geo.name}的地区", new_admin_geo_url(:geo => @geo) %></p>
   </div>
 
   <div class="block">

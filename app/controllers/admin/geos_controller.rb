@@ -63,5 +63,29 @@ class Admin::GeosController < Admin::BaseController
       end
     end
   end
+
+  def county_migration
+    provinces = Area.find(:all, :conditions => "parent_id is null or parent_id=0")
+    provinces.each do |province|
+      new_province = Geo.find(:first, :conditions => ["name = ?", province.title])
+      next if new_province.blank?
+      
+      cities = Area.find(:all, :conditions => ["parent_id = ?", province.id])
+      
+      cities.each do |city|
+        new_city = new_province.children.find(:first, :conditions => ["name = ?", city.title])
+        if new_city.blank?
+          next
+        else
+          counties = Area.find(:all, :conditions => ["parent_id = ?", city.id])
+          counties.each do |county|
+            new_county = County.new(:geo_id => new_city.id, :name => county.title, :zipcode => county.zipcode)
+            new_county.save!
+          end
+        end
+      end
+    end
+    flash[:notice] = "县导入成功"
+  end
 =end
 end

@@ -1,0 +1,24 @@
+<% @page_title = "地区管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回地区管理", admin_geos_url %></p>
+  <p>> <%= link_to "返回#{@county.geo.name}", edit_admin_geo_url(@county.geo.id) %></p>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>编辑属于 <%= @county.geo.name %> 的县</h3>
+    <% form_for :county, :url => admin_county_url(@county), :html => {:method => :put} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", edit_admin_geo_url(@county.geo.id) %></p>
+    <% end -%>
+  </div>
+  
+  <div class="setting">
+    <div class="block">
+      <h3>删除 <%= @county.name %> 县</h3>
+      <p class="center notice">如果有位于这个县的学校，请不要删除这个县</p>
+      <p class="center"><%= link_to "删除", admin_county_url(@county), :confirm => "删除后无法回复, 确定要删除么？", :method => :delete  %></p>
+    </div>
+  </div>
+</div>

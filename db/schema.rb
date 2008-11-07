@@ -162,6 +162,45 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime  :updated_at
     t.datetime  :deleted_at
   end
-    
-    
+  
+  create_table "counties" do |t|
+    t.integer   :geo_id
+    t.string    :name,      :null => false
+    t.integer   :zipcode
+  end
+  
+  create_table "schools" do |t|
+    t.integer   :user_id
+    t.string    :ref
+    t.boolean   :validated,     :default => false
+    t.boolean   :meta,          :default => false
+    t.datetime  :created_at
+    t.datetime  :updated_at
+    t.datetime  :deleted_at
+    t.integer   :category
+    t.integer   :geo_id
+    t.integer   :county_id
+    t.string    :title,         :null => false
+    t.datetime  :last_modified_at
+    t.integer   :last_modified_by_id
+  end
+  
+  create_table "school_basics" do |t|
+    t.integer   :school_id
+    t.string    :address
+    t.integer   :zipcode
+    t.string    :master
+    t.string    :telephone
+    t.string    :level_amount
+    t.string    :teacher_amount
+    t.string    :student_amount
+    t.string    :class_amount
+    t.boolean   :has_library
+    t.boolean   :has_pc
+    t.boolean   :has_internet
+    t.boolean   :book_amount
+    t.boolean   :pc_amount
+    t.datetime  :last_modified_at
+    t.integer   :last_modified_by_id
+  end
 end
