@@ -1,0 +1,33 @@
+<% @page_title = "提交学校信息" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回", schools_url %></p>
+<% end -%>
+
+<div class="posting">
+  <div class="block">
+    <h3>学校基本信息</h3>
+    <p class="note">一份完整的学校信息可以大大增加旅行者去探访的可能，所以请认真填写下面的每一项内容</p>
+    
+    <% form_for :school, :url => schools_url do |f| -%>
+    <p><label>类型</label>
+      <select id="school_category" name="school[category]">
+        <% School.categories.each_with_index do |p,i| -%>
+          <option value="<%= i %>" <%= "selected=\"selected\"" if @school.category==i %>><%= p %></option>
+        <% end -%>
+      </select>
+    </p>
+    
+    <p><label>位于</label><%= geo_select "school", "geo" %></p>
+    
+    <p><label>校名</label><%= f.text_field :title, :size => 30 %></p>
+    
+    <% f.fields_for @school.basic do |b| -%>
+      <p><label>学校地址</label><%= b.text_field :address, :size => 40 %></p>
+    <% end -%>
+    
+    
+    <p><label>&nbsp;</label><%= submit_tag "提 交" %></p>
+    <% end -%>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<% @page_title = "地区管理" -%>
+
+<% content_for :sidebar do -%>
+  <p>> <%= link_to "返回地区管理", admin_geos_url %></p>
+  <p>> <%= link_to "返回#{@geo.name}", edit_admin_geo_url(@geo.id) %></p>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>新建 <%= @geo.name %> 的一个县</h3>
+    <% form_for :county, :url => admin_counties_url do |f| -%>
+    <%= f.hidden_field :geo_id, :value => @geo.id %>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "创 建" %> 或 <%= link_to "取消", edit_admin_geo_url(@geo.id) %></p>
+    <% end -%>
+  </div>
+</div>

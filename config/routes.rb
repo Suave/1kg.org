@@ -25,6 +25,10 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :topics
   end
     
+  map.resources :geos
+  map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
+  
+  
   map.resources :schools do |school|
     school.resources :visits
     school.resources :photos
@@ -49,6 +53,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :permissions
     admin.resources :users, :collection => {:search => :get}
     admin.resources :geos
+    admin.resources :counties
     admin.resources :boards
     admin.resources :moderators
   end
