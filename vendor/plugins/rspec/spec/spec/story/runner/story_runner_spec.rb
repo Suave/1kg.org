@@ -235,13 +235,21 @@ module Spec
         it 'should find a scenario in the current story by name' do
           # given
           story_runner = StoryRunner.new(ScenarioRunner.new)
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
           scenario = nil
+=======
+          $scenario = nil
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
           
           story_runner.Story 'title', 'narrative' do
             Scenario 'first scenario' do
             end
             Scenario 'second scenario' do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
               scenario = StoryRunner.scenario_from_current_story 'first scenario'
+=======
+              $scenario = StoryRunner.scenario_from_current_story 'first scenario'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
             end
           end
           
@@ -249,7 +257,11 @@ module Spec
           story_runner.run_stories
           
           # then
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
           scenario.name.should == 'first scenario'
+=======
+          $scenario.name.should == 'first scenario'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
         end
         
         it "should clean the steps between stories" do

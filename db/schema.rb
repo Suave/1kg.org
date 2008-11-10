@@ -195,11 +195,11 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.string    :teacher_amount
     t.string    :student_amount
     t.string    :class_amount
-    t.boolean   :has_library
-    t.boolean   :has_pc
-    t.boolean   :has_internet
-    t.boolean   :book_amount
-    t.boolean   :pc_amount
+    t.integer   :has_library,         :limit => 1
+    t.integer   :has_pc,              :limit => 1
+    t.integer   :has_internet,        :limit => 1
+    t.integer   :book_amount
+    t.integer   :pc_amount
     t.datetime  :last_modified_at
     t.integer   :last_modified_by_id
   end

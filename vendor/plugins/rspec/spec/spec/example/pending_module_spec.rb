@@ -37,6 +37,7 @@ module Spec
           end
         }.should raise_error(PendingExampleFixedError, /TODO/)
       end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/pending_module_spec.rb
       
       it "should have the correct file and line number for pending given with a block which fails" do
         file = __FILE__
@@ -140,6 +141,8 @@ module Spec
           error.pending_caller.should == error.pending_caller
         end
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/pending_module_spec.rb
     end
   end
 end

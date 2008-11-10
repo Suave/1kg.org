@@ -24,8 +24,19 @@
     
     <% f.fields_for @school.basic do |b| -%>
       <p><label>学校地址</label><%= b.text_field :address, :size => 40 %></p>
+      <p><label>邮编</label><%= b.text_field :zipcode, :size => 10 %></p>
+      <p><label>校长</label><%= b.text_field :master, :size => 10 %></p>
+      <p><label>学校电话</label><%= b.text_field :telephone, :size => 20 %></p>
+      <p><label>年级数</label><%= b.text_field :level_amount, :size => 10 %></p>
+      <p><label>班级</label><%= b.text_field :class_amount, :size => 10 %> 个</p>
+      <p><label>老师</label><%= b.text_field :teacher_amount, :size => 10 %> 人</p>
+      <p><label>学生</label><%= b.text_field :student_amount, :size => 10 %> 人</p>
+      <p><label>是否有图书室</label></p>
+      <p><label>学校有图书</label><%= b.text_field :book_amount, :size => 10 %> 册</p>
+      <p><label>是否有电脑</label></p>
+      <p><label>学校有电脑</label><%= b.text_field :pc_amount, :size => 10 %> 台</p>
+      <p><label>是否能上网</label></p>
     <% end -%>
-    
     
     <p><label>&nbsp;</label><%= submit_tag "提 交" %></p>
     <% end -%>

@@ -7,10 +7,17 @@ module Spec
         @expecteds = expecteds
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
       def matches?(given)
         @given = given
         @expecteds.each do |expected|
           return false unless given.include?(expected)
+=======
+      def matches?(actual)
+        @actual = actual
+        @expecteds.each do |expected|
+          return false unless actual.include?(expected)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
         end
         true
       end
@@ -29,7 +36,11 @@ module Spec
       
       private
         def _message(maybe_not="")
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
           "expected #{@given.inspect} #{maybe_not}to include #{_pretty_print(@expecteds)}"
+=======
+          "expected #{@actual.inspect} #{maybe_not}to include #{_pretty_print(@expecteds)}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
         end
         
         def _pretty_print(array)
@@ -51,7 +62,11 @@ module Spec
     #   should include(expected)
     #   should_not include(expected)
     #
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
     # Passes if given includes expected. This works for
+=======
+    # Passes if actual includes expected. This works for
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
     # collections and Strings. You can also pass in multiple args
     # and it will only pass if all args are found in collection.
     #

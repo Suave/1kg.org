@@ -14,7 +14,10 @@ module Spec
       end
 
       attr_reader :description_text, :description_args, :description_options, :spec_path, :registration_binding_block
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       alias :options :description_options
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 
       def inherited(klass)
         super
@@ -39,6 +42,7 @@ module Spec
       def describe(*args, &example_group_block)
         args << {} unless Hash === args.last
         if example_group_block
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
           options = args.last
           options[:spec_path] = eval("caller(0)[1]", example_group_block) unless options[:spec_path]
           if options[:shared]
@@ -63,6 +67,26 @@ module Spec
         end
       end
       
+=======
+          params = args.last
+          params[:spec_path] = eval("caller(0)[1]", example_group_block) unless params[:spec_path]
+          if params[:shared]
+            SharedExampleGroup.new(*args, &example_group_block)
+          else
+            self.subclass("Subclass") do
+              describe(*args)
+              module_eval(&example_group_block)
+            end
+          end
+        else
+          set_description(*args)
+          before_eval
+          self
+        end
+      end
+      alias :context :describe
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       # Use this to pull in examples from shared example groups.
       # See Spec::Runner for information about shared example groups.
       def it_should_behave_like(shared_example_group)
@@ -110,14 +134,22 @@ module Spec
         @predicate_matchers ||= {:an_instance_of => :is_a?}
       end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       # Creates an instance of the current example group class and adds it to
       # a collection of examples of the current example group.
       def example(description=nil, options={}, &implementation)
         e = new(description, options, &implementation)
+=======
+      # Creates an instance of Spec::Example::Example and adds
+      # it to a collection of examples of the current example group.
+      def it(description=nil, &implementation)
+        e = new(description, &implementation)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
         example_objects << e
         e
       end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       alias_method :it, :example
       alias_method :specify, :example
 
@@ -128,6 +160,15 @@ module Spec
       
       alias_method :xit, :xexample
       alias_method :xspecify, :xexample
+=======
+      alias_method :specify, :it
+
+      # Use this to temporarily disable an example.
+      def xit(description=nil, opts={}, &block)
+        Kernel.warn("Example disabled: #{description}")
+      end
+      alias_method :xspecify, :xit
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 
       def run
         examples = examples_to_run
@@ -420,6 +461,12 @@ module Spec
         end
       end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+=======
+      def before_eval
+      end
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       def add_method_examples(examples)
         instance_methods.sort.each do |method_name|
           if example_method?(method_name)

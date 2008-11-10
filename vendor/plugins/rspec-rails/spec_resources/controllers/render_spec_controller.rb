@@ -23,8 +23,11 @@ class RenderSpecController < ApplicationController
   def action_that_renders_nothing
     render :nothing => true
   end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec_resources/controllers/render_spec_controller.rb
   
   def action_with_alternate_layout
     render :layout => 'simple'
   end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec_resources/controllers/render_spec_controller.rb
 end

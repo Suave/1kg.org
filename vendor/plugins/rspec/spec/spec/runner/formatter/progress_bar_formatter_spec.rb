@@ -29,7 +29,11 @@ module Spec
             end
           end
           example = example_group.examples.first
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/formatter/progress_bar_formatter_spec.rb
           @formatter.example_pending(example, "message", "#{__FILE__}:#{__LINE__}")
+=======
+          @formatter.example_pending(example, "message")
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/formatter/progress_bar_formatter_spec.rb
           @io.rewind
           @formatter.dump_summary(3, 2, 1, 1)
           @io.string.should eql(%Q|
@@ -94,6 +98,7 @@ EOE
             end
           end
           example = example_group.examples.first
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/formatter/progress_bar_formatter_spec.rb
           @formatter.example_pending(example, "message", "#{__FILE__}:#{__LINE__}")
           @formatter.dump_pending
           @io.string.should =~ /Pending\:\nexample_group example \(message\)\n/
@@ -116,6 +121,12 @@ example_group example (message)
   Called from #{file}:#{line}
 HERE
         end
+=======
+          @formatter.example_pending(example, "message")
+          @formatter.dump_pending
+          @io.string.should =~ /Pending\:\nexample_group example \(message\)\n/
+        end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/formatter/progress_bar_formatter_spec.rb
       end
       
       describe "ProgressBarFormatter outputting to custom out" do

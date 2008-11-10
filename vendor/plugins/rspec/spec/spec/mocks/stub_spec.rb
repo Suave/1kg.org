@@ -14,7 +14,10 @@ module Spec
           end
         end
         @instance = @class.new
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/stub_spec.rb
         @stub = Object.new
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/stub_spec.rb
       end
 
       it "should return expected value when expected message is received" do

@@ -304,7 +304,11 @@ module Spec
 
           describe "#example_pending" do
             it "should push pending example name and message" do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/formatter/nested_text_formatter_spec.rb
               formatter.example_pending(example_group.examples.first, 'reason', "#{__FILE__}:#{__LINE__}")
+=======
+              formatter.example_pending(example_group.examples.first, 'reason')
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/formatter/nested_text_formatter_spec.rb
               expected_output = <<-OUT
               ExampleGroup
                 example (PENDING: reason)
@@ -313,7 +317,11 @@ module Spec
             end
 
             it "should dump pending" do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/formatter/nested_text_formatter_spec.rb
               formatter.example_pending(example_group.examples.first, 'reason', "#{__FILE__}:#{__LINE__}")
+=======
+              formatter.example_pending(example_group.examples.first, 'reason')
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/formatter/nested_text_formatter_spec.rb
               io.rewind
               formatter.dump_pending
               io.string.should =~ /Pending\:\nExampleGroup example \(reason\)\n/

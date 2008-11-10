@@ -7,8 +7,13 @@ module Spec
         @args = args
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/has.rb
       def matches?(given)
         given.__send__(predicate, *@args)
+=======
+      def matches?(target)
+        target.__send__(predicate, *@args)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/has.rb
       end
       
       def failure_message

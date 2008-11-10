@@ -32,7 +32,11 @@ module Spec
           ensure_that_base_view_path_is_not_set_across_example_groups
         end
 
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
         def initialize(defined_description, options={}, &implementation) #:nodoc:
+=======
+        def initialize(defined_description, &implementation) #:nodoc:
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
           super
           @controller_class_name = "Spec::Rails::Example::ViewExampleGroupController"
         end
@@ -150,9 +154,13 @@ module Spec
 
         protected
         def _assigns_hash_proxy
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
           @_assigns_hash_proxy ||= AssignsHashProxy.new self do
             @response.template
           end
+=======
+          @_assigns_hash_proxy ||= AssignsHashProxy.new @controller
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
         end
       end
 
@@ -174,9 +182,12 @@ module Spec
             include helper_module
           end
         end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
         
         def forget_variables_added_to_assigns
         end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
       end
     end
   end

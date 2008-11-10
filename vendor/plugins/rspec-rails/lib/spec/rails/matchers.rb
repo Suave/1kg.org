@@ -1,6 +1,9 @@
 dir = File.dirname(__FILE__)
 require 'spec/rails/matchers/assert_select'
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers.rb
 require 'spec/rails/matchers/change'
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers.rb
 require 'spec/rails/matchers/have_text'
 require 'spec/rails/matchers/include_text'
 require 'spec/rails/matchers/redirect_to'

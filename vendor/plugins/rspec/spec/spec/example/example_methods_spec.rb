@@ -84,12 +84,18 @@ module Spec
         end
 
         describe "eval_block" do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
           before(:each) do
             @example_group = Class.new(ExampleGroup)
           end
           
           describe "with a given description" do
             it "should provide the given description" do
+=======
+          describe "with a given description" do
+            it "should provide the given description" do
+              @example_group = Class.new(ExampleGroup) do end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
               @example = @example_group.it("given description") { 2.should == 2 }
               @example.eval_block
               @example.description.should == "given description"
@@ -98,11 +104,16 @@ module Spec
 
           describe "with no given description" do
             it "should provide the generated description" do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
+=======
+              @example_group = Class.new(ExampleGroup) do end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
               @example = @example_group.it { 2.should == 2 }
               @example.eval_block
               @example.description.should == "should == 2"
             end
           end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
           
           describe "with no implementation" do
             it "should raise an NotYetImplementedError" do
@@ -134,6 +145,8 @@ module Spec
               error.pending_caller.should == "#{file}:#{line_number}"
             end
           end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
         end
       end
 
@@ -159,6 +172,7 @@ module Spec
         end
       end
     end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
 
     describe "#options" do
       it "should expose the options hash" do
@@ -170,3 +184,7 @@ module Spec
 
   end
 end
+=======
+  end
+end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb

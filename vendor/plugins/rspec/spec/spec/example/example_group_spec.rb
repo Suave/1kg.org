@@ -68,8 +68,12 @@ module Spec
       include SandboxedOptions
       attr_reader :example_group, :formatter, :reporter
       before :each do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
         method_with_three_args = lambda { |arg1, arg2, arg3| }
         @formatter = mock("formatter", :null_object => true, :example_pending => method_with_three_args)
+=======
+        @formatter = mock("formatter", :null_object => true)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
         options.formatters << formatter
         options.backtrace_tweaker = mock("backtrace_tweaker", :null_object => true)
         @reporter = FakeReporter.new(options)
@@ -234,7 +238,11 @@ module Spec
             options.examples = ["should be run"]
           end
 
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
           it "should run only the example, when there is only one" do
+=======
+          it "should run only the example, when there in only one" do
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
             example_group.run
             examples_that_were_run.should == ["should be run"]
           end
