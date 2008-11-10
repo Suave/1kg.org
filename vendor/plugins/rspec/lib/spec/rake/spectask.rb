@@ -107,7 +107,11 @@ module Spec
       # A message to print to stderr when there are failures.
       attr_accessor :failure_message
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/rake/spectask.rb
       # Where RSpec's output is written. Defaults to $stdout.
+=======
+      # Where RSpec's output is written. Defaults to STDOUT.
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/rake/spectask.rb
       # DEPRECATED. Use --format FORMAT:WHERE in spec_opts.
       attr_accessor :out
 

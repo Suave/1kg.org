@@ -23,6 +23,7 @@ module Spec
         end
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should report line number of expectation of unreceived message after #should_receive after similar stub" do
         @mock.stub!(:wont_happen)
         expected_error_line = __LINE__; @mock.should_receive(:wont_happen).with("x", 3)
@@ -35,6 +36,8 @@ module Spec
         end
       end
       
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should pass when not receiving message specified as not to be received" do
         @mock.should_not_receive(:not_expected)
         @mock.rspec_verify
@@ -415,6 +418,7 @@ module Spec
         @mock.msg.should equal(:stub_value)
         @mock.rspec_verify
       end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
 
       it "should not require a different signature to replace a method stub" do
         @mock.stub!(:msg).and_return(:stub_value)
@@ -431,6 +435,9 @@ module Spec
         lambda {@mock.msg(:arg)}.should raise_error(MockExpectationError)
       end
 
+=======
+    
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should temporarily replace a method stub on a non-mock" do
         non_mock = Object.new
         non_mock.stub!(:msg).and_return(:stub_value)
@@ -440,6 +447,7 @@ module Spec
         non_mock.msg.should equal(:stub_value)
         non_mock.rspec_verify
       end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
 
       it "should return the stubbed value when no new value specified" do
         @mock.stub!(:msg).and_return(:stub_value)
@@ -466,6 +474,9 @@ module Spec
         File.rspec_verify
       end
 
+=======
+      
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should assign stub return values" do
         mock = Mock.new('name', :message => :response)
         mock.message.should == :response
@@ -491,6 +502,7 @@ module Spec
         @calls.should == 1
       end
     
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should call the block after #should_receive after a similar stub" do
         @mock.stub!(:foo).and_return(:bar)
         @mock.should_receive(:foo) { add_call }
@@ -500,6 +512,8 @@ module Spec
         @calls.should == 1
       end
     
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/mock_spec.rb
       it "should call the block after #once" do
         @mock.should_receive(:foo).once { add_call }
     

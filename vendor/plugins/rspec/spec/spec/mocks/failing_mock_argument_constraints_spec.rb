@@ -91,5 +91,43 @@ module Spec
       end
             
     end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
+=======
+      
+    describe "failing deprecated MockArgumentConstraints" do
+      before(:each) do
+        @mock = mock("test mock")
+        @reporter = Mock.new("reporter", :null_object => true)
+        Kernel.stub!(:warn)
+      end
+
+      after(:each) do
+        @mock.rspec_reset
+      end
+
+      it "should reject non boolean" do
+        @mock.should_receive(:random_call).with(:boolean)
+        lambda do
+          @mock.random_call("false")
+        end.should raise_error(MockExpectationError)
+      end
+      
+      it "should reject non numeric" do
+        @mock.should_receive(:random_call).with(:numeric)
+        lambda do
+          @mock.random_call("1")
+        end.should raise_error(MockExpectationError)
+      end
+      
+      it "should reject non string" do
+        @mock.should_receive(:random_call).with(:string)
+        lambda do
+          @mock.random_call(123)
+        end.should raise_error(MockExpectationError)
+      end
+      
+
+    end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
   end
 end

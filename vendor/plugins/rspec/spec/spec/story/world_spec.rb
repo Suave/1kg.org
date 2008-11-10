@@ -347,10 +347,17 @@ module Spec
 
       it 'should suppress listeners while it runs a GivenScenario' do
         # given
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         scenario_ran = false
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           scenario_ran = true
+=======
+        $scenario_ran = false
+
+        scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
+          $scenario_ran = true
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
           Given 'given' do end
           When 'event' do end
           Then 'outcome' do end
@@ -374,16 +381,27 @@ module Spec
         world.GivenScenario 'a scenario'
 
         # then
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         scenario_ran.should be_true
+=======
+        $scenario_ran.should be_true
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
       end
 
       it 'should interpret GivenScenario... And... as multiple givens' do
         # given
         world = World.create
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         steps = []
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           steps << 1
+=======
+        $steps = []
+
+        scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
+          $steps << 1
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         end
         Runner::StoryRunner.should_receive(:scenario_from_current_story).
           with('a scenario').and_return(scenario)
@@ -392,12 +410,20 @@ module Spec
         world.instance_eval do
           GivenScenario 'a scenario'
           And 'step 2' do
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
             steps << 2
+=======
+            $steps << 2
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
           end
         end
 
         # then
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         steps.should == [1,2]
+=======
+        $steps.should == [1,2]
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         World.step_mother.find(:given, 'step 2').should_not be_nil
       end
 

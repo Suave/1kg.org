@@ -12,19 +12,35 @@ module Spec
         @comparison = ""
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
       def matches?(given)
         @given = given
         if handling_predicate?
           begin
             return @result = given.__send__(predicate, *@args)
+=======
+      def matches?(actual)
+        @actual = actual
+        if handling_predicate?
+          begin
+            return @result = actual.__send__(predicate, *@args)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
           rescue => predicate_error
             # This clause should be empty, but rcov will not report it as covered
             # unless something (anything) is executed within the clause
             rcov_error_report = "http://eigenclass.org/hiki.rb?rcov-0.8.0"
           end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
           begin
             return @result = given.__send__(present_tense_predicate, *@args)
+=======
+          # This supports should_exist > target.exists? in the old world.
+          # We should consider deprecating that ability as in the new world
+          # you can't write "should exist" unless you have your own custom matcher.
+          begin
+            return @result = actual.__send__(present_tense_predicate, *@args)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
           rescue
             raise predicate_error
           end
@@ -34,12 +50,20 @@ module Spec
       end
       
       def failure_message
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
         return "expected #{@comparison}#{expected}, got #{@given.inspect}" unless handling_predicate?
+=======
+        return "expected #{@comparison}#{expected}, got #{@actual.inspect}" unless handling_predicate?
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
         return "expected #{predicate}#{args_to_s} to return true, got #{@result.inspect}"
       end
       
       def negative_failure_message
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
         return "expected not #{expected}, got #{@given.inspect}" unless handling_predicate?
+=======
+        return "expected not #{expected}, got #{@actual.inspect}" unless handling_predicate?
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
         return "expected #{predicate}#{args_to_s} to return false, got #{@result.inspect}"
       end
       
@@ -52,6 +76,7 @@ module Spec
       end
       
       def match_or_compare
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
         return @given ? true : false if @expected == :satisfy_if
         return @given == true if @expected == :true
         return @given == false if @expected == :false
@@ -63,6 +88,19 @@ module Spec
         return @given == @expected if @double_equal
         return @given === @expected if @triple_equal
         return @given.equal?(@expected)
+=======
+        return @actual ? true : false if @expected == :satisfy_if
+        return @actual == true if @expected == :true
+        return @actual == false if @expected == :false
+        return @actual.nil? if @expected == :nil
+        return @actual < @expected if @less_than
+        return @actual <= @expected if @less_than_or_equal
+        return @actual >= @expected if @greater_than_or_equal
+        return @actual > @expected if @greater_than
+        return @actual == @expected if @double_equal
+        return @actual === @expected if @triple_equal
+        return @actual.equal?(@expected)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
       end
       
       def ==(expected)
@@ -189,7 +227,11 @@ module Spec
     #   should_not be_nil
     #   should_not be_arbitrary_predicate(*args)
     #
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be.rb
     # Given true, false, or nil, will pass if given value is
+=======
+    # Given true, false, or nil, will pass if actual is
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be.rb
     # true, false or nil (respectively). Given no args means
     # the caller should satisfy an if condition (to be or not to be). 
     #

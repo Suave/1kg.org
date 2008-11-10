@@ -42,6 +42,7 @@ describe "ExampleGroup with test/unit/interop" do
       $?.should == 256
     end
   end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/interop/test/unit/spec_spec.rb
   
   describe "options hash" do
     it "should be exposed" do
@@ -49,4 +50,6 @@ describe "ExampleGroup with test/unit/interop" do
       output.should include("1 example, 0 failures")
     end
   end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/interop/test/unit/spec_spec.rb
 end

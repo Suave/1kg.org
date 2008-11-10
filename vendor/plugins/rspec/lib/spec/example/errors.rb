@@ -1,6 +1,7 @@
 module Spec
   module Example
     class ExamplePendingError < StandardError
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/errors.rb
       attr_reader :pending_caller
 
       def initialize(message=nil)
@@ -26,5 +27,11 @@ module Spec
     end
 
     class PendingExampleFixedError < StandardError; end
+=======
+    end
+
+    class PendingExampleFixedError < StandardError
+    end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/errors.rb
   end
 end

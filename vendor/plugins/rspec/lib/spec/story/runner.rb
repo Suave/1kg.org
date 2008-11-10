@@ -33,7 +33,11 @@ module Spec
         end
         
         def create_story_runner
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/story/runner.rb
           Runner::StoryRunner.new(scenario_runner, world_creator)
+=======
+          StoryRunner.new(scenario_runner, world_creator)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/story/runner.rb
         end
         
         # Use this to register a customer output formatter.

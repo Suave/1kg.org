@@ -15,14 +15,27 @@ module Spec
           super
           if where.is_a?(String)
             @output = File.open(where, 'w')
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
+=======
+          elsif where == STDOUT
+            @output = Kernel
+            def @output.flush
+              STDOUT.flush
+            end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
           else
             @output = where
           end
           @pending_examples = []
         end
         
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
         def example_pending(example, message, pending_caller)
           @pending_examples << [example.__full_description, message, pending_caller]
+=======
+        def example_pending(example, message)
+          @pending_examples << [example.__full_description, message]
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
         end
         
         def dump_failure(counter, failure)
@@ -70,14 +83,21 @@ module Spec
             @output.puts "Pending:"
             @pending_examples.each do |pending_example|
               @output.puts "#{pending_example[0]} (#{pending_example[1]})" 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
               @output.puts "  Called from #{pending_example[2]}"
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
             end
           end
           @output.flush
         end
         
         def close
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
           if IO === @output && @output != $stdout
+=======
+          if IO === @output
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
             @output.close 
           end
         end
@@ -108,7 +128,11 @@ module Spec
 
         def output_to_tty?
           begin
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
             @output.tty? || ENV.has_key?("AUTOTEST")
+=======
+            @output == Kernel || @output.tty?
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_text_formatter.rb
           rescue NoMethodError
             false
           end

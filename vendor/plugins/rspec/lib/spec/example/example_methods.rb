@@ -5,6 +5,14 @@ module Spec
       extend ModuleReopeningFix
       include ModuleInclusionWarnings
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_methods.rb
+=======
+
+      PENDING_EXAMPLE_BLOCK = lambda {
+        raise Spec::Example::ExamplePendingError.new("Not Yet Implemented")
+      }
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_methods.rb
       def execute(options, instance_variables)
         options.reporter.example_started(self)
         set_instance_variables_from_hash(instance_variables)
@@ -60,10 +68,13 @@ module Spec
       def description
         @_defined_description || ::Spec::Matchers.generated_description || "NO NAME"
       end
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_methods.rb
       
       def options
         @_options
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_methods.rb
 
       def __full_description
         "#{self.class.description} #{self.description}"
@@ -79,7 +90,11 @@ module Spec
       end
 
       def eval_block
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_methods.rb
         instance_eval(&@_implementation)
+=======
+        return instance_eval(&(@_implementation || PENDING_EXAMPLE_BLOCK))
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_methods.rb
       end
 
       def implementation_backtrace
@@ -103,4 +118,8 @@ module Spec
       end
     end
   end
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_methods.rb
 end
+=======
+end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_methods.rb

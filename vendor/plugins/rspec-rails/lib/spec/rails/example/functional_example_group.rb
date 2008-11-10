@@ -52,8 +52,11 @@ module Spec
         def cookies
           @cookies ||= Spec::Rails::Example::CookiesProxy.new(self)
         end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
         
         alias_method :orig_assigns, :assigns
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
 
         # :call-seq:
         #   assigns()
@@ -80,7 +83,10 @@ module Spec
             _assigns_hash_proxy[key]
           end
         end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
 
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
       end
     end
   end

@@ -45,9 +45,13 @@ module Spec
         # been provided a block), or when an ExamplePendingError is raised.
         # +message+ is the message from the ExamplePendingError, if it exists, or the
         # default value of "Not Yet Implemented"
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb
         # +pending_caller+ is the file and line number of the spec which
         # has called the pending method
         def example_pending(example, message, pending_caller)
+=======
+        def example_pending(example, message)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/base_formatter.rb
         end
 
         # This method is invoked after all of the examples have executed. The next method

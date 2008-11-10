@@ -85,7 +85,11 @@ module Spec
           @output.flush
         end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/html_formatter.rb
         def example_pending(example, message, pending_caller)
+=======
+        def example_pending(example, message)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/html_formatter.rb
           @output.puts "    <script type=\"text/javascript\">makeYellow('rspec-header');</script>" unless @header_red
           @output.puts "    <script type=\"text/javascript\">makeYellow('example_group_#{example_group_number}');</script>" unless @example_group_red
           move_progress

@@ -7,9 +7,15 @@ module Spec
         @actual = nil
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb
       def matches?(given_proc)
         begin
           given_proc.call
+=======
+      def matches?(proc)
+        begin
+          proc.call
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb
         rescue NameError => e
           raise e unless e.message =~ /uncaught throw/
           @actual = e.name.to_sym
@@ -56,7 +62,11 @@ module Spec
     #   should_not throw_symbol()
     #   should_not throw_symbol(:sym)
     #
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb
     # Given a Symbol argument, matches if the given proc throws the specified Symbol.
+=======
+    # Given a Symbol argument, matches if a proc throws the specified Symbol.
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/throw_symbol.rb
     #
     # Given no argument, matches if a proc throws any Symbol.
     #

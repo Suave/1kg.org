@@ -125,7 +125,11 @@ module Spec
 
         attr_reader :response, :request, :controller
 
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
         def initialize(defined_description, options={}, &implementation) #:nodoc:
+=======
+        def initialize(defined_description, &implementation) #:nodoc:
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
           super
           controller_class_name = self.class.controller_class_name
           if controller_class_name
@@ -158,9 +162,13 @@ module Spec
 
         protected
         def _assigns_hash_proxy
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
           @_assigns_hash_proxy ||= AssignsHashProxy.new self do
             @response.template
           end
+=======
+          @_assigns_hash_proxy ||= AssignsHashProxy.new @controller
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
         end
 
         private
@@ -185,15 +193,28 @@ module Spec
               unless integrate_views?
                 if @template.respond_to?(:finder)
                   (class << @template.finder; self; end).class_eval do
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
                     define_method :file_exists? do; true; end
                   end
                 else
                   (class << @template; self; end).class_eval do
                     define_method :file_exists? do; true; end
+=======
+                    define_method :file_exists? do
+                      true
+                    end
+                  end
+                else
+                  (class << @template; self; end).class_eval do
+                    define_method :file_exists? do
+                      true
+                    end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
                   end
                 end
                 (class << @template; self; end).class_eval do
                   define_method :render_file do |*args|
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
                     @first_render ||= args[0] unless args[0] =~ /^layouts/
                     @_first_render ||= args[0] unless args[0] =~ /^layouts/
                   end
@@ -201,23 +222,63 @@ module Spec
                   define_method :_pick_template do |*args|
                     @_first_render ||= args[0] unless args[0] =~ /^layouts/
                     PickedTemplate.new
+=======
+                    @first_render ||= args[0] # rails up 2.1.0
+                    @_first_render ||= args[0] # rails edge > 2.1.0
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
                   end
                 end
               end
             end
 
             if matching_message_expectation_exists(options)
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
               render_proxy.render(options, &block)
               @performed_render = true
             else
               if matching_stub_exists(options)
                 @performed_render = true
               else
+=======
+              expect_render_mock_proxy.render(options, &block)
+              @performed_render = true
+            else
+              unless matching_stub_exists(options)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
                 super(options, deprecated_status_or_extra_options, &block)
               end
             end
           end
           
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
+=======
+          def raise_with_disable_message(old_method, new_method)
+            raise %Q|
+      controller.#{old_method}(:render) has been disabled because it
+      can often produce unexpected results. Instead, you should
+      use the following (before the action):
+
+      controller.#{new_method}(*args)
+
+      See the rdoc for #{new_method} for more information.
+            |
+          end
+          def should_receive(*args)
+            if args[0] == :render
+              raise_with_disable_message("should_receive", "expect_render")
+            else
+              super
+            end
+          end
+          def stub!(*args)
+            if args[0] == :render
+              raise_with_disable_message("stub!", "stub_render")
+            else
+              super
+            end
+          end
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
           def response(&block)
             # NOTE - we're setting @update for the assert_select_spec - kinda weird, huh?
             @update = block
@@ -235,22 +296,33 @@ module Spec
           end
 
           def matching_message_expectation_exists(options)
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
             render_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
           end
         
           def matching_stub_exists(options)
             render_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
+=======
+            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
+          end
+        
+          def matching_stub_exists(options)
+            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
           end
         
         end
 
         Spec::Example::ExampleGroupFactory.register(:controller, self)
       end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
       
       class PickedTemplate
         def render_template(*ignore_args); end
         def render_partial(*ignore_args);  end
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/controller_example_group.rb
     end
   end
 end

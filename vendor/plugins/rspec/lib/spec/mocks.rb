@@ -1,5 +1,20 @@
 require 'spec/mocks/framework'
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks.rb
 require 'spec/mocks/extensions/object'
+=======
+require 'spec/mocks/methods'
+require 'spec/mocks/argument_constraint_matchers'
+require 'spec/mocks/spec_methods'
+require 'spec/mocks/proxy'
+require 'spec/mocks/mock'
+require 'spec/mocks/argument_expectation'
+require 'spec/mocks/message_expectation'
+require 'spec/mocks/order_group'
+require 'spec/mocks/errors'
+require 'spec/mocks/error_generator'
+require 'spec/mocks/extensions/object'
+require 'spec/mocks/space'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks.rb
 
 module Spec
   # == Mocks and Stubs

@@ -24,9 +24,14 @@ module Spec
     def exit?
       !Object.const_defined?(:Test) || Test::Unit.run?
     end
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec.rb
 
     def spec_command?
       $0.split('/').last == 'spec'
     end
   end
 end
+=======
+  end
+end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec.rb

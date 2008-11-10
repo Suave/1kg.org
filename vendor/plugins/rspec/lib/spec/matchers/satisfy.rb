@@ -6,6 +6,7 @@ module Spec
         @block = block
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/satisfy.rb
       def matches?(given, &block)
         @block = block if block
         @given = given
@@ -18,6 +19,20 @@ module Spec
 
       def negative_failure_message
         "expected #{@given} not to satisfy block"
+=======
+      def matches?(actual, &block)
+        @block = block if block
+        @actual = actual
+        @block.call(actual)
+      end
+      
+      def failure_message
+        "expected #{@actual} to satisfy block"
+      end
+
+      def negative_failure_message
+        "expected #{@actual} not to satisfy block"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/satisfy.rb
       end
     end
     

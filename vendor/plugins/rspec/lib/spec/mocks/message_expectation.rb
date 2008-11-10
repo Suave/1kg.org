@@ -3,10 +3,13 @@ module Spec
 
     class BaseExpectation
       attr_reader :sym
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       attr_writer :expected_received_count, :method_block, :expected_from
       protected :expected_received_count=, :method_block=, :expected_from=
       attr_accessor :error_generator
       protected :error_generator, :error_generator=
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       
       def initialize(error_generator, expectation_ordering, expected_from, sym, method_block, expected_received_count=1, opts={})
         @error_generator = error_generator
@@ -17,7 +20,11 @@ module Spec
         @return_block = nil
         @actual_received_count = 0
         @expected_received_count = expected_received_count
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         @args_expectation = ArgumentExpectation.new([ArgumentConstraints::AnyArgsConstraint.new])
+=======
+        @args_expectation = ArgumentExpectation.new([AnyArgsConstraint.new])
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         @consecutive = false
         @exception_to_raise = nil
         @symbol_to_throw = nil
@@ -27,6 +34,7 @@ module Spec
         @args_to_yield = []
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       def build_child(expected_from, method_block, expected_received_count, opts={})
         child = clone
         child.expected_from = expected_from
@@ -44,6 +52,8 @@ module Spec
       end
       protected :error_generator_opts=
       
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       def expected_args
         @args_expectation.args
       end
@@ -84,22 +94,32 @@ module Spec
       end
       
       def and_yield(*args)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         if @args_to_yield_were_cloned
           @args_to_yield.clear
           @args_to_yield_were_cloned = false
         end
         
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         @args_to_yield << args
         self
       end
   
       def matches(sym, args)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         @sym == sym and @args_expectation.args_match?(args)
+=======
+        @sym == sym and @args_expectation.check_args(args)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       end
       
       def invoke(args, block)
         if @expected_received_count == 0
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
           @failed_fast = true
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
           @actual_received_count += 1
           @error_generator.raise_expectation_error @sym, @expected_received_count, @actual_received_count, *args
         end
@@ -130,11 +150,14 @@ module Spec
           @actual_received_count += 1
         end
       end
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
 
       def called_max_times?
         @expected_received_count != :any && @expected_received_count > 0 &&
           @actual_received_count >= @expected_received_count
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
       
       protected
 
@@ -179,6 +202,7 @@ module Spec
           @return_block.call(*args)
         end
       end
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
 
       def clone_args_to_yield(args)
         @args_to_yield = args.clone
@@ -188,16 +212,26 @@ module Spec
       def failed_fast?
         @failed_fast
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
     end
     
     class MessageExpectation < BaseExpectation
       
       def matches_name_but_not_args(sym, args)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
         @sym == sym and not @args_expectation.args_match?(args)
       end
        
       def verify_messages_received   
         return if expected_messages_received? || failed_fast?
+=======
+        @sym == sym and not @args_expectation.check_args(args)
+      end
+       
+      def verify_messages_received   
+        return if expected_messages_received?
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/message_expectation.rb
     
         generate_error
       rescue Spec::Mocks::MockExpectationError => error
