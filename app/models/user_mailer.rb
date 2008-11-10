@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
     if ENV['RAILS_ENV'] == 'development'
       @body[:url]  = "http://localhost:3000/activate/#{user.activation_code}"
     else
-      @body[:url]  = "http://www.1kg.org/activate/#{user.activation_code}"
+      @body[:url]  = "http://dev.1kg.org/activate/#{user.activation_code}"
     end
   
   end
@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
   def activation(user)
     setup_email(user)
     @subject    += '你的帐户已经激活，欢迎加入多背一公斤'
-    @body[:url]  = "http://www.1kg.org/"
+    @body[:url]  = "http://dev.1kg.org/"
   end
   
   protected
