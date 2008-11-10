@@ -1,4 +1,5 @@
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb
 # require File.dirname(__FILE__) + '/../spec_helper'
 # 
 # describe "script/spec_server file", :shared => true do
@@ -96,6 +97,8 @@
 #   end
 # end
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "script/spec_server file", :shared => true do
@@ -192,4 +195,7 @@ describe "script/spec_server file with TextMate bundle" do
     end
   end
 end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/spec_server_spec.rb

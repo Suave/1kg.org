@@ -41,6 +41,7 @@ describe "include_text", :type => :controller do
       end
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
       it "should fail with incorrect text" do
         post 'text_action'
         lambda {
@@ -59,6 +60,8 @@ describe "include_text", :type => :controller do
           response.should include_text("this is the text for this action")
         }.should fail_with(/expected to find \"this is the text for this action\"/)
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
       it "should fail with matching text" do
         post 'text_action'
         lambda {
@@ -82,6 +85,9 @@ describe "include_text", :type => :controller do
       it "should pass using should_not with incorrect text" do
         post 'text_action'
         response.should_not include_text("the accordian guy")
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/include_text_spec.rb
       end
     end

@@ -1,10 +1,13 @@
 module Spec
   module Mocks
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
     
     class ArgumentExpectation
       attr_reader :args
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
   
     class MatcherConstraint
       def initialize(matcher)
@@ -147,12 +150,16 @@ module Spec
       @@constraint_classes[:numeric] = NumericArgConstraint
       @@constraint_classes[:boolean] = BooleanArgConstraint
       @@constraint_classes[:string] = StringArgConstraint
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
       
       def initialize(args, &block)
         @args = args
         @constraints_block = block
         
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
         if ArgumentConstraints::AnyArgsConstraint === args.first
           @match_any_args = true
@@ -190,6 +197,8 @@ module Spec
       end
       
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
         if [:any_args] == args
           @expected_params = nil
           warn_deprecated(:any_args.inspect, "any_args()")
@@ -253,6 +262,9 @@ module Spec
         return true
       end
   
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/argument_expectation.rb
     end
     

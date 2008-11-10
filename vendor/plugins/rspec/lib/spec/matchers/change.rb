@@ -5,6 +5,7 @@ module Spec
     class Change #:nodoc:
       def initialize(receiver=nil, message=nil, &block)
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
         @message = message || "result"
         @value_proc = block || lambda {
           receiver.__send__(message)
@@ -21,6 +22,8 @@ module Spec
         return false if @from unless @from == @before
         return false if @to unless @to == @after
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
         @receiver = receiver
         @message = message
         @block = block
@@ -37,6 +40,9 @@ EOF
         execute_change
         return false if @from && (@from != @before)
         return false if @to && (@to != @after)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
         return (@before + @amount == @after) if @amount
         return ((@after - @before) >= @minimum) if @minimum
@@ -44,6 +50,7 @@ EOF
         return @before != @after
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
       def raise_block_syntax_error
         raise MatcherError.new(<<-MESSAGE
@@ -55,15 +62,21 @@ MESSAGE
       def evaluate_value_proc
         @value_proc.call
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       def execute_change
         @before = @block.nil? ? @receiver.__send__(@message) : @block.call
         @target.call
         @after = @block.nil? ? @receiver.__send__(@message) : @block.call
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       end
       
       def failure_message
         if @to
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
           "#{@message} should have been changed to #{@to.inspect}, but is now #{@after.inspect}"
         elsif @from
@@ -80,6 +93,8 @@ MESSAGE
       end
       
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
           "#{result} should have been changed to #{@to.inspect}, but is now #{@after.inspect}"
         elsif @from
           "#{result} should have initially been #{@from.inspect}, but was #{@before.inspect}"
@@ -98,6 +113,9 @@ MESSAGE
         @message || "result"
       end
       
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       def actual_delta
         @after - @before
@@ -105,7 +123,11 @@ MESSAGE
       
       def negative_failure_message
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
         "#{@message} should not have changed, but did change from #{@before.inspect} to #{@after.inspect}"
+=======
+        "#{result} should not have changed, but did change from #{@before.inspect} to #{@after.inspect}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
 =======
         "#{result} should not have changed, but did change from #{@before.inspect} to #{@after.inspect}"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
@@ -193,8 +215,13 @@ MESSAGE
     # supported).
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
     def change(receiver=nil, message=nil, &block)
       Matchers::Change.new(receiver, message, &block)
+=======
+    def change(target=nil, message=nil, &block)
+      Matchers::Change.new(target, message, &block)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
 =======
     def change(target=nil, message=nil, &block)
       Matchers::Change.new(target, message, &block)

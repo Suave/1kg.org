@@ -67,6 +67,7 @@ describe "OptionParser" do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
   it "should print help to stdout if no args and spec_comand?" do
     Spec.stub!(:spec_command?).and_return(true)
     options = parse([])
@@ -80,12 +81,17 @@ describe "OptionParser" do
     @out.rewind
     @out.read.should == ""
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
   it "should print help to stdout if no args" do
     pending 'A regression since 1.0.8' do
       options = parse([])
       @out.rewind
       @out.read.should match(/Usage: spec \(FILE\|DIRECTORY\|GLOB\)\+ \[options\]/m)
     end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
   end
   
@@ -107,7 +113,11 @@ describe "OptionParser" do
     options = parse(["--version"])
     @out.rewind
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
     @out.read.should match(/rspec \d+\.\d+\.\d+/n)
+=======
+    @out.read.should match(/rspec version \d+\.\d+\.\d+/n)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb
 =======
     @out.read.should match(/rspec version \d+\.\d+\.\d+/n)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/option_parser_spec.rb

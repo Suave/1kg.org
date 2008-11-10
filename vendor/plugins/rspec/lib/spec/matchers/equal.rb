@@ -7,6 +7,7 @@ module Spec
       end
   
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/equal.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/equal.rb
       def matches?(given)
         @given = given
         @given.equal?(@expected)
@@ -19,6 +20,8 @@ module Spec
       def negative_failure_message
         return "expected #{@given.inspect} not to equal #{@expected.inspect} (using .equal?)", @expected, @given
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/equal.rb
       def matches?(actual)
         @actual = actual
         @actual.equal?(@expected)
@@ -30,6 +33,9 @@ module Spec
 
       def negative_failure_message
         return "expected #{@actual.inspect} not to equal #{@expected.inspect} (using .equal?)", @expected, @actual
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/equal.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/equal.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/equal.rb
       end
       
@@ -43,7 +49,11 @@ module Spec
     #   should_not equal(expected)
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/equal.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/equal.rb
     # Passes if given and expected are the same object (object identity).
+=======
+    # Passes if actual and expected are the same object (object identity).
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/equal.rb
 =======
     # Passes if actual and expected are the same object (object identity).
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/equal.rb

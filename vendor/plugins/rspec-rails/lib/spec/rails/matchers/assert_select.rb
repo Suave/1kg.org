@@ -17,7 +17,10 @@ module Spec # :nodoc:
           if ActionController::TestResponse === response_or_text and
                    response_or_text.headers.key?('Content-Type') and
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/assert_select.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/assert_select.rb
                    !response_or_text.headers['Content-Type'].blank? and
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/assert_select.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/assert_select.rb
                    response_or_text.headers['Content-Type'].to_sym == :xml

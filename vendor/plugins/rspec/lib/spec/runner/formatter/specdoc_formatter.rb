@@ -29,7 +29,11 @@ module Spec
         end
         
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb
         def example_pending(example, message, pending_caller)
+=======
+        def example_pending(example, message)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb
 =======
         def example_pending(example, message)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb

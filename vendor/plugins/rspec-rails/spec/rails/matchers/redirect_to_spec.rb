@@ -7,7 +7,11 @@ require File.dirname(__FILE__) + '/../../spec_helper'
     end
     controller_name :redirect_spec
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/redirect_to_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/redirect_to_spec.rb
     
+=======
+  
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/redirect_to_spec.rb
 =======
   
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/redirect_to_spec.rb

@@ -1,7 +1,10 @@
 require 'spec/mocks/framework'
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks.rb
 require 'spec/mocks/extensions/object'
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks.rb
 require 'spec/mocks/methods'
 require 'spec/mocks/argument_constraint_matchers'
 require 'spec/mocks/spec_methods'
@@ -14,6 +17,9 @@ require 'spec/mocks/errors'
 require 'spec/mocks/error_generator'
 require 'spec/mocks/extensions/object'
 require 'spec/mocks/space'
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks.rb
 
 module Spec

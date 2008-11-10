@@ -13,12 +13,16 @@ require File.expand_path("#{dir}/../spec_resources/helpers/view_spec_helper")
 require File.expand_path("#{dir}/../spec_resources/helpers/plugin_application_helper")
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/spec_helper.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/spec_helper.rb
 extra_controller_paths = File.expand_path("#{dir}/../spec_resources/controllers")
 
 unless ActionController::Routing.controller_paths.include?(extra_controller_paths)
   ActionController::Routing.instance_eval {@possible_controllers = nil}
   ActionController::Routing.controller_paths << extra_controller_paths
 end
+=======
+ActionController::Routing.controller_paths << File.expand_path("#{dir}/../spec_resources/controllers")
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/spec_helper.rb
 =======
 ActionController::Routing.controller_paths << File.expand_path("#{dir}/../spec_resources/controllers")
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/spec_helper.rb
@@ -48,12 +52,15 @@ class Proc
 end
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/spec_helper.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/spec_helper.rb
 Spec::Runner.configure do |config|
   config.before(:each, :type => :controller) do
   end
 end
 
 
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/spec_helper.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/spec_helper.rb
 ActionController::Routing::Routes.draw do |map|

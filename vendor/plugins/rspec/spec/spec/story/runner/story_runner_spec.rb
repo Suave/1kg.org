@@ -236,7 +236,11 @@ module Spec
           # given
           story_runner = StoryRunner.new(ScenarioRunner.new)
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
           scenario = nil
+=======
+          $scenario = nil
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
 =======
           $scenario = nil
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
@@ -246,7 +250,11 @@ module Spec
             end
             Scenario 'second scenario' do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
               scenario = StoryRunner.scenario_from_current_story 'first scenario'
+=======
+              $scenario = StoryRunner.scenario_from_current_story 'first scenario'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
 =======
               $scenario = StoryRunner.scenario_from_current_story 'first scenario'
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
@@ -258,7 +266,11 @@ module Spec
           
           # then
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
           scenario.name.should == 'first scenario'
+=======
+          $scenario.name.should == 'first scenario'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb
 =======
           $scenario.name.should == 'first scenario'
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/runner/story_runner_spec.rb

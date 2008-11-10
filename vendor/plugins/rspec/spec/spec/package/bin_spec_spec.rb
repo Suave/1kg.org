@@ -12,6 +12,7 @@ describe "The bin/spec script" do
     output.should_not =~ /warning/n
   end
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/package/bin_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/package/bin_spec_spec.rb
   
   it "should show the help w/ no args" do
     pending "Hangs on JRuby" if PLATFORM =~ /java/
@@ -20,6 +21,8 @@ describe "The bin/spec script" do
     output = ruby "-w #{spec_path} 2>&1"
     output.should =~ /^Usage: spec/
   end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/package/bin_spec_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/package/bin_spec_spec.rb
 end

@@ -1,7 +1,10 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../vendor/plugins/rspec/lib"))
 <<<<<<< HEAD:vendor/plugins/rspec-rails/generators/rspec/templates/script/spec
+<<<<<<< HEAD:vendor/plugins/rspec-rails/generators/rspec/templates/script/spec
 require 'rubygems'
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/generators/rspec/templates/script/spec
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/generators/rspec/templates/script/spec
 require 'spec'

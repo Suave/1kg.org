@@ -8,10 +8,16 @@ module Spec
       end
       
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
       def matches?(given)
         @given = given
         @names.each do |name|
           unless given.respond_to?(name)
+=======
+      def matches?(target)
+        @names.each do |name|
+          unless target.respond_to?(name)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
 =======
       def matches?(target)
         @names.each do |name|
@@ -25,17 +31,23 @@ module Spec
       
       def failure_message
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
         "expected #{@given.inspect} to respond to #{@names_not_responded_to.collect {|name| name.inspect }.join(', ')}"
       end
       
       def negative_failure_message
         "expected #{@given.inspect} not to respond to #{@names.collect {|name| name.inspect }.join(', ')}"
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
         "expected target to respond to #{@names_not_responded_to.collect {|name| name.inspect }.join(', ')}"
       end
       
       def negative_failure_message
         "expected target not to respond to #{@names.collect {|name| name.inspect }.join(', ')}"
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/respond_to.rb
       end
       

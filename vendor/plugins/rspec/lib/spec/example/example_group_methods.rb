@@ -15,7 +15,10 @@ module Spec
 
       attr_reader :description_text, :description_args, :description_options, :spec_path, :registration_binding_block
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       alias :options :description_options
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 
@@ -43,6 +46,7 @@ module Spec
         args << {} unless Hash === args.last
         if example_group_block
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
           options = args.last
           options[:spec_path] = eval("caller(0)[1]", example_group_block) unless options[:spec_path]
           if options[:shared]
@@ -68,6 +72,8 @@ module Spec
       end
       
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
           params = args.last
           params[:spec_path] = eval("caller(0)[1]", example_group_block) unless params[:spec_path]
           if params[:shared]
@@ -86,6 +92,9 @@ module Spec
       end
       alias :context :describe
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       # Use this to pull in examples from shared example groups.
       # See Spec::Runner for information about shared example groups.
@@ -135,20 +144,27 @@ module Spec
       end
 
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       # Creates an instance of the current example group class and adds it to
       # a collection of examples of the current example group.
       def example(description=nil, options={}, &implementation)
         e = new(description, options, &implementation)
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       # Creates an instance of Spec::Example::Example and adds
       # it to a collection of examples of the current example group.
       def it(description=nil, &implementation)
         e = new(description, &implementation)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
         example_objects << e
         e
       end
 
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       alias_method :it, :example
       alias_method :specify, :example
@@ -161,6 +177,8 @@ module Spec
       alias_method :xit, :xexample
       alias_method :xspecify, :xexample
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
       alias_method :specify, :it
 
       # Use this to temporarily disable an example.
@@ -168,6 +186,9 @@ module Spec
         Kernel.warn("Example disabled: #{description}")
       end
       alias_method :xspecify, :xit
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 
       def run
@@ -462,6 +483,12 @@ module Spec
       end
 
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
+=======
+      def before_eval
+      end
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/example/example_group_methods.rb
 =======
       def before_eval
       end
