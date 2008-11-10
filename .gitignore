@@ -5,4 +5,6 @@ doc/app
 doc/plugins
 vendor/rails
 config/database.yml
+public/user
+public/photos
 .DS_Store
