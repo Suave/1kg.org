@@ -2,7 +2,7 @@
  * green: #669900
  * orange: #ff9900
  */
-
+#edgenotice {background:red; color:yellow; margin-bottom:1em; padding:0; text-align:center}
 
 h1 { font-size: 25px; font-weight: bold; color: #494949; margin:0; padding: 8px 0px 6px 0px; line-height:1.1em; }
 /*.h1sub {float:right; font-size:12px; font-weight:normal; color:gray; }*/
