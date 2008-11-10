@@ -1,4 +1,5 @@
 <<<<<<< HEAD:vendor/plugins/rspec/History.txt
+<<<<<<< HEAD:vendor/plugins/rspec/History.txt
 === Maintenance
 
 * 4 bug fixes
@@ -38,6 +39,9 @@
 =======
 === In Development (git clone git://github.com/dchelimsky/rspec.git)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
+=======
+=== In Development (git clone git://github.com/dchelimsky/rspec.git)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
 
 IMPORTANT: use the new 'autospec' command instead of 'autotest'. We changed
 the way autotest discovers rspec so the autotest executable won't
@@ -49,11 +53,14 @@ ALSO IMPORTANT: $rspec_options is gone. If you were using this for anything
 (like your own runners), use Spec::Runner.options instead.
 
 <<<<<<< HEAD:vendor/plugins/rspec/History.txt
+<<<<<<< HEAD:vendor/plugins/rspec/History.txt
 ADDITIONALLY IMPORTANT: If you have any custom formatters, you'll need to
 modify #example_pending to accept three arguments instead of just two. See the
 rdoc for Spec::Runner::Formatter::BaseFormatter#example_pending for more
 information.
 
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
 * Consider MinGW as valid RUBY_PLATFORM for --colour option. (patch from Luis Lavena). Closes #406.
@@ -75,6 +82,7 @@ information.
 * autotest/rspec uses ruby command instead of spec command (no need for spec command unless loading directories)
 * Avoid 'invalid option -O' in autotest (patch from Jonathan del Strother). Closes #486.
 <<<<<<< HEAD:vendor/plugins/rspec/History.txt
+<<<<<<< HEAD:vendor/plugins/rspec/History.txt
 * Fix: Unimplemented step with new line throws error (patch from Ben Mabey). Closes #494.
 * Only use color codes on tty; override for autospec (patch from Tim Pope). Closes #413.
 * Warn when setting mock expectations on nil (patch from Ben Mabey). Closes #521.
@@ -91,6 +99,8 @@ information.
 * return last stubbed value for mock expectation with no explicit return (Pat Maddox)
 * Fixed bug when should_receive(:foo).any_number_of_times is called after similar stub (Pat Maddox)
 * Warning messages now issued when expectations are set on nil (Ben Mabey)
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/History.txt
 

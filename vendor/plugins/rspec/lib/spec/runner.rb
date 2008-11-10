@@ -200,7 +200,11 @@ module Spec
       def options # :nodoc:
         @options ||= begin
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner.rb
           parser = ::Spec::Runner::OptionParser.new($stderr, $stdout)
+=======
+          parser = ::Spec::Runner::OptionParser.new(STDERR, STDOUT)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner.rb
 =======
           parser = ::Spec::Runner::OptionParser.new(STDERR, STDOUT)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner.rb

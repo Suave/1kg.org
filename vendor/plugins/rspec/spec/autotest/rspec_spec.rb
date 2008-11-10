@@ -1,5 +1,9 @@
 <<<<<<< HEAD:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
 require File.dirname(__FILE__) + "/autotest_helper"
+=======
+require File.dirname(__FILE__) + "/../autotest_helper"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
 =======
 require File.dirname(__FILE__) + "/../autotest_helper"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
@@ -101,11 +105,15 @@ HERE
       end
     
 <<<<<<< HEAD:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
       it "should ignore files in spec dir that aren't specs" do
         @rspec_autotest.should map_specs([]).to("spec/spec_helper.rb")
       end
     
       it "should ignore untracked files (in @file)"  do
+=======
+      it "should only find the file if the file is being tracked (in @file)"  do
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/autotest/rspec_spec.rb
 =======
       it "should only find the file if the file is being tracked (in @file)"  do
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/autotest/rspec_spec.rb

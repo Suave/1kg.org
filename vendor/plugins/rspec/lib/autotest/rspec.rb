@@ -5,7 +5,11 @@ Autotest.add_hook :initialize do |at|
   # watch out: Ruby bug (1.8.6):
   # %r(/) != /\//
 <<<<<<< HEAD:vendor/plugins/rspec/lib/autotest/rspec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/autotest/rspec.rb
   at.add_mapping(%r%^spec/.*_spec.rb$%) { |filename, _| 
+=======
+  at.add_mapping(%r%^spec/.*\.rb$%) { |filename, _| 
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/autotest/rspec.rb
 =======
   at.add_mapping(%r%^spec/.*\.rb$%) { |filename, _| 
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/autotest/rspec.rb

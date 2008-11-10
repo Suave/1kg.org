@@ -52,6 +52,7 @@ describe "stub_model" do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb
   describe "as association" do
     before(:each) do
       @real = AssociatedModel.create!
@@ -80,6 +81,8 @@ end
 
 
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb
 end
 
 describe "stub_model as association" do
@@ -106,4 +109,7 @@ describe "stub_model with a block" do
     model.should be(@block_arg)
   end
 end
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/stub_model_spec.rb

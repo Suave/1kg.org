@@ -18,7 +18,11 @@ module Spec
 
       def failure
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
         Mocks::ArgumentConstraints::DuckTypeConstraint.new(:header, :exception)
+=======
+        Mocks::DuckTypeArgConstraint.new(:header, :exception)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
 =======
         Mocks::DuckTypeArgConstraint.new(:header, :exception)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
@@ -160,6 +164,7 @@ module Spec
 
       describe Reporter, "reporting one pending example (ExamplePendingError)" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
         before :each do
           @pending_error = Spec::Example::ExamplePendingError.new("reason")
           @pending_caller = @pending_error.pending_caller
@@ -172,19 +177,28 @@ module Spec
           reporter.add_example_group(example_group)
           reporter.example_finished(example, @pending_error)
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
         it "should tell formatter example is pending" do
           example = ExampleGroup.new("example")
           formatter.should_receive(:example_pending).with(example, "reason")
           formatter.should_receive(:add_example_group).with(example_group)
           reporter.add_example_group(example_group)
           reporter.example_finished(example, Spec::Example::ExamplePendingError.new("reason"))
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
         end
 
         it "should account for pending example in stats" do
           example = ExampleGroup.new("example")
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
           formatter.should_receive(:example_pending).with(example, "reason", @pending_caller)
+=======
+          formatter.should_receive(:example_pending).with(example, "reason")
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
 =======
           formatter.should_receive(:example_pending).with(example, "reason")
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
@@ -194,6 +208,7 @@ module Spec
           formatter.should_receive(:close).with(no_args)
           formatter.should_receive(:add_example_group).with(example_group)
           reporter.add_example_group(example_group)
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
           reporter.example_finished(example, @pending_error)
           reporter.dump
@@ -239,6 +254,11 @@ module Spec
             reporter.example_finished(example, @pending_error)
           end
         end
+=======
+          reporter.example_finished(example, Spec::Example::ExamplePendingError.new("reason"))
+          reporter.dump
+        end
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/reporter_spec.rb
 =======
           reporter.example_finished(example, Spec::Example::ExamplePendingError.new("reason"))
           reporter.dump

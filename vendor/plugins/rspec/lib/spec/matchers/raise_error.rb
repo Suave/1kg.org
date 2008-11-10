@@ -2,6 +2,7 @@ module Spec
   module Matchers
     class RaiseError #:nodoc:
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
       def initialize(expected_error_or_message=Exception, expected_message=nil, &block)
         @block = block
         case expected_error_or_message
@@ -14,6 +15,8 @@ module Spec
 
       def matches?(given_proc)
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
       def initialize(error_or_message=Exception, message=nil, &block)
         @block = block
         case error_or_message
@@ -25,6 +28,9 @@ module Spec
       end
 
       def matches?(proc)
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         @raised_expected_error = false
         @with_expected_message = false
@@ -32,17 +38,23 @@ module Spec
         @eval_block_passed = false
         begin
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           given_proc.call
         rescue @expected_error => @given_error
           @raised_expected_error = true
           @with_expected_message = verify_message
         rescue Exception => @given_error
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           proc.call
         rescue @expected_error => @actual_error
           @raised_expected_error = true
           @with_expected_message = verify_message
         rescue Exception => @actual_error
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           # This clause should be empty, but rcov will not report it as covered
           # unless something (anything) is executed within the clause
@@ -60,15 +72,21 @@ module Spec
         @eval_block = true
         begin
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           @block[@given_error]
           @eval_block_passed = true
         rescue Exception => err
           @given_error = err
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           @block[@actual_error]
           @eval_block_passed = true
         rescue Exception => err
           @actual_error = err
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         end
       end
@@ -79,9 +97,15 @@ module Spec
           return true
         when Regexp
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           return @expected_message =~ @given_error.message
         else
           return @expected_message == @given_error.message
+=======
+          return @expected_message =~ @actual_error.message
+        else
+          return @expected_message == @actual_error.message
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
 =======
           return @expected_message =~ @actual_error.message
         else
@@ -93,9 +117,15 @@ module Spec
       def failure_message
         if @eval_block
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           return @given_error.message
         else
           return "expected #{expected_error}#{given_error}"
+=======
+          return @actual_error.message
+        else
+          return "expected #{expected_error}#{actual_error}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
 =======
           return @actual_error.message
         else
@@ -106,7 +136,11 @@ module Spec
 
       def negative_failure_message
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         "expected no #{expected_error}#{given_error}"
+=======
+        "expected no #{expected_error}#{actual_error}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
 =======
         "expected no #{expected_error}#{actual_error}"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
@@ -129,8 +163,13 @@ module Spec
         end
 
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         def given_error
           @given_error.nil? ? " but nothing was raised" : ", got #{@given_error.inspect}"
+=======
+        def actual_error
+          @actual_error.nil? ? " but nothing was raised" : ", got #{@actual_error.inspect}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
 =======
         def actual_error
           @actual_error.nil? ? " but nothing was raised" : ", got #{@actual_error.inspect}"

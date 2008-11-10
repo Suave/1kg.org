@@ -7,8 +7,11 @@ require 'controller_spec_controller'
     integrate_views if mode == 'integration'
     
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     specify "this example should be pending, not an error"
     
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     it "should provide controller.session as session" do
@@ -44,6 +47,7 @@ require 'controller_spec_controller'
     end
     
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     it "should allow specifying a partial with should_receive(:render)" do
       controller.should_receive(:render).with(:partial => "controller_spec/partial")
       get 'action_with_partial'
@@ -57,6 +61,8 @@ require 'controller_spec_controller'
     it "should allow specifying a partial with should_receive(:render) with locals" do
       controller.should_receive(:render).with(:partial => "controller_spec/partial", :locals => {:thing => "something"})
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     it "should allow specifying a partial with expect_render" do
       controller.expect_render(:partial => "controller_spec/partial")
       get 'action_with_partial'
@@ -69,6 +75,9 @@ require 'controller_spec_controller'
     
     it "should allow specifying a partial with expect_render with locals" do
       controller.expect_render(:partial => "controller_spec/partial", :locals => {:thing => "something"})
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
       get 'action_with_partial_with_locals', :thing => "something"
     end
@@ -76,7 +85,11 @@ require 'controller_spec_controller'
     it "should yield to render :update" do
       template = stub("template")
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
       controller.should_receive(:render).with(:update).and_yield(template)
+=======
+      controller.expect_render(:update).and_yield(template)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
 =======
       controller.expect_render(:update).and_yield(template)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
@@ -111,6 +124,7 @@ require 'controller_spec_controller'
       end.should_not raise_error
     end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
 
     describe "handling should_receive(:render)" do
       it "should warn" do
@@ -141,6 +155,8 @@ require 'controller_spec_controller'
         get :action_with_template
       end
     end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     
@@ -201,10 +217,13 @@ require 'controller_spec_controller'
     end
     
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     it "should expose instance vars through the assigns hash that are set to false" do
       get 'action_that_assigns_false_to_a_variable'
       assigns[:a_variable].should be_false
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     it "should expose the assigns hash directly" do
       get 'action_setting_the_assigns_hash'
       assigns[:direct_assigns_key].should == :direct_assigns_key_value
@@ -221,6 +240,9 @@ require 'controller_spec_controller'
       lambda {
         controller.stub!(:render)
       }.should raise_error(RuntimeError, /stub!\(:render\) has been disabled/)
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/controller_spec_spec.rb
     end
     

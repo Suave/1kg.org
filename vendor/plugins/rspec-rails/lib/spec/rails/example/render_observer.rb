@@ -4,6 +4,7 @@ module Spec
   module Rails
     module Example
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
       # Extends the #should_receive, #should_not_receive and #stub! methods in rspec's
       # mocking framework to handle #render calls to controller in controller examples
       # and template and view examples
@@ -38,6 +39,8 @@ WARNING
         def verify_rendered # :nodoc:
           render_proxy.rspec_verify
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
       # Provides specialized mock-like behaviour for controller and view examples,
       # allowing you to mock or stub calls to render with specific arguments while
       # ignoring all other calls.
@@ -93,6 +96,9 @@ WARNING
   
         def verify_rendered # :nodoc:
           expect_render_mock_proxy.rspec_verify
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
         end
   
@@ -101,6 +107,7 @@ WARNING
           Spec::Example::ExampleGroup.remove_after(:each, &proc)
         end
 
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
         def should_receive(*args)
           if args[0] == :render
@@ -131,6 +138,9 @@ WARNING
 =======
         protected
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
+=======
+        protected
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
 
         def verify_rendered_proc #:nodoc:
           template = self
@@ -146,8 +156,13 @@ WARNING
         end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
         def render_proxy #:nodoc:
           @render_proxy ||= Spec::Mocks::Mock.new("render_proxy")
+=======
+        def expect_render_mock_proxy #:nodoc:
+          @expect_render_mock_proxy ||= Spec::Mocks::Mock.new("expect_render_mock_proxy")
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/render_observer.rb
 =======
         def expect_render_mock_proxy #:nodoc:
           @expect_render_mock_proxy ||= Spec::Mocks::Mock.new("expect_render_mock_proxy")

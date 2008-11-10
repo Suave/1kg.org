@@ -5,6 +5,10 @@ doc/app
 doc/plugins
 vendor/rails
 config/database.yml
+<<<<<<< HEAD:.gitignore
 public/user
 public/photos
 .DS_Store
+=======
+.DS_Store
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:.gitignore

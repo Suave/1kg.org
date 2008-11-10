@@ -602,6 +602,12 @@ describe "have_rjs behaviour_type", :type => :controller do
       with_tag("#1")
     end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
+=======
+    lambda {
+      response.should have_rjs(:insert, :top, "test2")
+    }.should raise_error(SpecFailed)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
 =======
     lambda {
       response.should have_rjs(:insert, :top, "test2")
@@ -633,6 +639,7 @@ describe "have_rjs behaviour_type", :type => :controller do
     }
   end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
   
   it "should find rjs using :insert (positioned)" do
     pending("await fix for http://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/982")
@@ -644,6 +651,8 @@ describe "have_rjs behaviour_type", :type => :controller do
       response.should have_rjs(:insert, :top, "test2")
     }.should raise_error(SpecFailed)
   end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/matchers/assert_select_spec.rb
 end

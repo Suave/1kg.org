@@ -2,7 +2,11 @@ module Spec
   module Mocks
     module ExampleMethods
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
       include Spec::Mocks::ArgumentConstraints
+=======
+      include Spec::Mocks::ArgumentConstraintMatchers
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
 =======
       include Spec::Mocks::ArgumentConstraintMatchers
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
@@ -37,6 +41,7 @@ module Spec
         mock(name, :null_object => true)
       end
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
       
       # Disables warning messages about expectations being set on nil.
       #
@@ -45,6 +50,8 @@ module Spec
       def allow_message_expectations_on_nil
         Proxy.allow_message_expectations_on_nil
       end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/spec_methods.rb
 

@@ -14,7 +14,10 @@ module Spec
     end
     
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
     describe Methods, "handling argument constraints with DEPRECATED symbols" do
       it_should_behave_like "mock argument constraints"
 
@@ -59,6 +62,9 @@ module Spec
       end
     end
 
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
     describe Methods, "handling argument constraints" do
       it_should_behave_like "mock argument constraints"
@@ -137,11 +143,15 @@ module Spec
     
     describe Methods, "handling non-constraint arguments" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
       
       before(:each) do
         @mock = Mock.new("test mock")
       end
       
+=======
+
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
 =======
 
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
@@ -177,12 +187,18 @@ module Spec
         @mock.random_call(opts)
       end
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
       
       it "should match against a Matcher" do
         @mock.should_receive(:msg).with(equal(37))
         @mock.msg(37)
       end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/passing_mock_argument_constraints_spec.rb
     end
   end

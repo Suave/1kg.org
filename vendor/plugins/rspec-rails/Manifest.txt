@@ -1,6 +1,11 @@
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 History.txt
 License.txt
+=======
+.gitignore
+History.txt
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 .gitignore
 History.txt
@@ -46,8 +51,13 @@ lib/spec/rails/example.rb
 lib/spec/rails/example/assigns_hash_proxy.rb
 lib/spec/rails/example/controller_example_group.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 lib/spec/rails/example/cookies_proxy.rb
 lib/spec/rails/example/functional_example_group.rb
+=======
+lib/spec/rails/example/functional_example_group.rb
+lib/spec/rails/example/cookies_proxy.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 lib/spec/rails/example/functional_example_group.rb
 lib/spec/rails/example/cookies_proxy.rb
@@ -70,7 +80,10 @@ lib/spec/rails/interop/testcase.rb
 lib/spec/rails/matchers.rb
 lib/spec/rails/matchers/assert_select.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 lib/spec/rails/matchers/change.rb
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 lib/spec/rails/matchers/have_text.rb
@@ -96,8 +109,13 @@ spec/rails/extensions/action_controller_rescue_action_spec.rb
 spec/rails/extensions/action_view_base_spec.rb
 spec/rails/extensions/active_record_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 spec/rails/interop/testcase_spec.rb
 spec/rails/matchers/assert_select_spec.rb
+=======
+spec/rails/matchers/assert_select_spec.rb
+spec/rails/interop/testcase_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 spec/rails/matchers/assert_select_spec.rb
 spec/rails/interop/testcase_spec.rb
@@ -108,8 +126,12 @@ spec/rails/matchers/have_text_spec.rb
 spec/rails/matchers/include_text_spec.rb
 spec/rails/matchers/redirect_to_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 spec/rails/matchers/render_template_spec.rb
 spec/rails/matchers/should_change_spec.rb
+=======
+spec/rails/matchers/render_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 spec/rails/matchers/render_spec.rb
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
@@ -138,11 +160,15 @@ spec_resources/views/controller_spec/action_setting_the_assigns_hash.rhtml
 spec_resources/views/controller_spec/action_with_errors_in_template.rhtml
 spec_resources/views/controller_spec/action_with_template.rhtml
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 spec_resources/views/layouts/application.rhtml
 spec_resources/views/layouts/simple.rhtml
 spec_resources/views/objects/_object.html.erb
 spec_resources/views/render_spec/_a_partial.rhtml
 spec_resources/views/render_spec/action_with_alternate_layout.rhtml
+=======
+spec_resources/views/render_spec/_a_partial.rhtml
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 spec_resources/views/render_spec/_a_partial.rhtml
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
@@ -168,7 +194,10 @@ spec_resources/views/view_spec/_partial_with_sub_partial.rhtml
 spec_resources/views/view_spec/_spacer.rhtml
 spec_resources/views/view_spec/accessor.rhtml
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 spec_resources/views/view_spec/block_helper.rhtml
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 spec_resources/views/view_spec/entry_form.rhtml
@@ -177,7 +206,10 @@ spec_resources/views/view_spec/foo/show.rhtml
 spec_resources/views/view_spec/implicit_helper.rhtml
 spec_resources/views/view_spec/multiple_helpers.rhtml
 <<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
+<<<<<<< HEAD:vendor/plugins/rspec-rails/Manifest.txt
 spec_resources/views/view_spec/should_not_receive.rhtml
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/Manifest.txt
 spec_resources/views/view_spec/template_with_partial.rhtml

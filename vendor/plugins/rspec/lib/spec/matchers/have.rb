@@ -1,6 +1,10 @@
 module Spec
   module Matchers
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+=======
+    
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
 =======
     
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
@@ -19,7 +23,10 @@ module Spec
       end
     
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
       def method_missing(sym, *args, &block)
         @collection_name = sym
         if inflector = (defined?(ActiveSupport::Inflector) ? ActiveSupport::Inflector : (defined?(Inflector) ? Inflector : nil))
@@ -30,6 +37,9 @@ module Spec
         self
       end
     
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
       def matches?(collection_owner)
         if collection_owner.respond_to?(@collection_name)
@@ -42,6 +52,7 @@ module Spec
           collection_owner.__send__(@collection_name, *@args, &@block)
         end
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
         @given = collection.size if collection.respond_to?(:size)
         @given = collection.length if collection.respond_to?(:length)
         raise not_a_collection if @given.nil?
@@ -49,12 +60,17 @@ module Spec
         return @given <= @expected if @relativity == :at_most
         return @given == @expected
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
         @actual = collection.size if collection.respond_to?(:size)
         @actual = collection.length if collection.respond_to?(:length)
         raise not_a_collection if @actual.nil?
         return @actual >= @expected if @relativity == :at_least
         return @actual <= @expected if @relativity == :at_most
         return @actual == @expected
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
       end
       
@@ -64,7 +80,11 @@ module Spec
     
       def failure_message
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
         "expected #{relative_expectation} #{@collection_name}, got #{@given}"
+=======
+        "expected #{relative_expectation} #{@collection_name}, got #{@actual}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
 =======
         "expected #{relative_expectation} #{@collection_name}, got #{@actual}"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
@@ -73,7 +93,11 @@ module Spec
       def negative_failure_message
         if @relativity == :exactly
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
           return "expected target not to have #{@expected} #{@collection_name}, got #{@given}"
+=======
+          return "expected target not to have #{@expected} #{@collection_name}, got #{@actual}"
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
 =======
           return "expected target not to have #{@expected} #{@collection_name}, got #{@actual}"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
@@ -101,6 +125,7 @@ EOF
       end
       
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/have.rb
       def respond_to?(sym)
         @expected.respond_to?(sym) || super
       end
@@ -117,6 +142,10 @@ EOF
         self
       end
       
+=======
+      private
+      
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/have.rb
 =======
       private
       

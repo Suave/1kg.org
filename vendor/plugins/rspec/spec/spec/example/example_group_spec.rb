@@ -69,8 +69,12 @@ module Spec
       attr_reader :example_group, :formatter, :reporter
       before :each do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
         method_with_three_args = lambda { |arg1, arg2, arg3| }
         @formatter = mock("formatter", :null_object => true, :example_pending => method_with_three_args)
+=======
+        @formatter = mock("formatter", :null_object => true)
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
 =======
         @formatter = mock("formatter", :null_object => true)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
@@ -239,7 +243,11 @@ module Spec
           end
 
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
           it "should run only the example, when there is only one" do
+=======
+          it "should run only the example, when there in only one" do
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb
 =======
           it "should run only the example, when there in only one" do
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_group_spec.rb

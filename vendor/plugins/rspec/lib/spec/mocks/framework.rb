@@ -4,7 +4,11 @@
 
 require 'spec/mocks/methods'
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/framework.rb
+<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/framework.rb
 require 'spec/mocks/argument_constraints'
+=======
+require 'spec/mocks/argument_constraint_matchers'
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/framework.rb
 =======
 require 'spec/mocks/argument_constraint_matchers'
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/framework.rb

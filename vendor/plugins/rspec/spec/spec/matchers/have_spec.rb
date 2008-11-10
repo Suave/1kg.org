@@ -352,6 +352,7 @@ describe Spec::Matchers::Have, "for a collection owner that implements #send" do
     }.should raise_error(NoMethodError, /problems/)
   end
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/matchers/have_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/matchers/have_spec.rb
 end
 
 module Spec
@@ -392,6 +393,9 @@ module Spec
       end
     end
   end
+=======
+  
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/matchers/have_spec.rb
 =======
   
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/matchers/have_spec.rb

@@ -92,7 +92,10 @@ module Spec
             
     end
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
 =======
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
       
     describe "failing deprecated MockArgumentConstraints" do
       before(:each) do
@@ -128,6 +131,9 @@ module Spec
       
 
     end
+<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
+=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/failing_mock_argument_constraints_spec.rb
   end
 end

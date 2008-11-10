@@ -63,6 +63,10 @@ class ControllerSpecController < ActionController::Base
 
   def action_setting_the_assigns_hash
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
+=======
+    assigns['direct_assigns_key'] = :direct_assigns_key_value
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
 =======
     assigns['direct_assigns_key'] = :direct_assigns_key_value
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
@@ -90,11 +94,14 @@ class ControllerSpecController < ActionController::Base
     render :text => ""
   end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
+<<<<<<< HEAD:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
   
   def action_that_assigns_false_to_a_variable
     @a_variable = false
     render :text => ""
   end
+=======
+>>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec_resources/controllers/controller_spec_controller.rb
 end
