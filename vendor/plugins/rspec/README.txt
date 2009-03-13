@@ -3,12 +3,8 @@
 * http://rspec.info
 * http://rspec.info/rdoc/
 <<<<<<< HEAD:vendor/plugins/rspec/README.txt
-<<<<<<< HEAD:vendor/plugins/rspec/README.txt
 * http://rubyforge.org/projects/rspec
 * http://github.com/dchelimsky/rspec/wikis
-=======
-* http://github.com/dchelimsky/rspec-rails/wikis
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/README.txt
 =======
 * http://github.com/dchelimsky/rspec-rails/wikis
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/README.txt
@@ -46,10 +42,7 @@ behaviour to your existing objects.
   rake gem
   rake install_gem
 <<<<<<< HEAD:vendor/plugins/rspec/README.txt
-<<<<<<< HEAD:vendor/plugins/rspec/README.txt
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/README.txt
 
 == LICENSE:
 
@@ -75,7 +68,4 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-<<<<<<< HEAD:vendor/plugins/rspec/README.txt
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/README.txt
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/README.txt

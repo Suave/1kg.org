@@ -1,9 +1,46 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index]
+  before_filter :login_required, :except => [:index, :show]
   
   def index
+    #deprecated, not use this action
+    @status = params[:status].blank? ? "hiring" : params[:status]
     
+    if params[:status] == "over"
+      # 已结束的活动
+      @activities = Activity.find(:all, :conditions => ["done=? or end_at < ?", true, Time.now],
+                                        :order => "updated_at desc",
+                                        :limit => 15)
+                                        
+    elsif params[:status] == "ongoing"
+      # 进行中的活动
+      @activities = Activity.find(:all, :conditions => ["start_at < ? and end_at > ?", Time.now, Time.now],
+                                        :order => "updated_at desc",
+                                        :limit => 15)
+                                        
+    else
+      # 招募中的
+      @activities = Activity.find(:all, :conditions => ["start_at > ?", Time.now],
+                                       :order => "updated_at desc",
+                                       :limit => 15)
+    
+    end
+    
+    # for latest updated activity topics
+    #@topics = Topic.last_10_updated_topics(ActivityBoard)
   end
+  
+  def hiring
+    find_activities('hiring')
+  end
+  
+  def ongoing
+    find_activities('ongoing')
+  end
+  
+  def over
+    find_activities('over')
+  end
+  
   
   def new
     @activity = Activity.new
@@ -12,31 +49,64 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(params[:activity])
     @activity.user = current_user
-    
     @activity.save!
     flash[:notice] = "发布成功"
-    redirect_to activities_url
+    redirect_to activity_url(@activity)
   end
   
-  def geo_choice
-    if !params[:departure_root_id].blank?
-      @root = Geo.find(params[:departure_root_id])
-      if @root.children.size > 0
-        @geos = @root.children
-      else
-        @geos = [ @root ]
-      end
-      render :partial => "geo_selector", :locals => {:dom_id => "departure_id"}
-      
-    elsif !params[:arrival_root_id].blank?
-      @root = Geo.find(params[:arrival_root_id])
-      if @root.children.size > 0
-        @geos = @root.children
-      else
-        @geos = [ @root ]
-      end
-      render :partial => "geo_selector", :locals => {:dom_id => "arrival_id"}
+  def edit
+    @activity = Activity.find(params[:id])
+  end
+  
+  def update
+    @activity = Activity.find(params[:id])
+    @activity.update_attributes!(params[:activity])
+    flash[:notice] = "修改成功"
+    redirect_to activity_url(@activity.id)
+  end
+  
+  def destroy
+    @activity = Activity.find(params[:id])
+    @activity.update_attributes!(:deleted_at => Time.now)
+    flash[:notice] = "删除成功"
+    redirect_to root_url
+  end
+  
+  def join
+    @activity = Activity.find(params[:id])
+    if @activity.joined?(current_user)
+      flash[:notice] = "你已经参加这个活动了, 不用重复点击"
+    else
+      @activity.participators << current_user
     end
+    redirect_to activity_url(@activity)
+  end
+  
+  def quit
+    @activity = Activity.find(params[:id])
+    if @activity.joined?(current_user)
+      @activity.participators.delete current_user
+    else
+      flash[:notice] = "你没有参加过这个活动"
+    end
+    redirect_to activity_url(@activity)
+  end
+
+  def show
+    @activity = Activity.find(params[:id])
+    #@board = ActivityBoard.find(:first, :conditions => {:activity_id => @activity.id}).board
+    #@topics = @board.topics.find(:all, :order => "updated_at desc", :limit => 10)
+    @shares = @activity.shares
+    @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
+    @comment = ActivityComment.new
+  end
+  
+  private
+  def find_activities(status)
+    @activities = Activity.send(status.to_sym).paginate(:page => params[:page] || 1, 
+                                           :conditions => ["deleted_at is ?", nil],
+                                           :order => "created_at desc",
+                                           :per_page => 20)
   end
   
 end

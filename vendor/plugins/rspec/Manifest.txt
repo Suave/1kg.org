@@ -1,5 +1,4 @@
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 History.txt
 License.txt
 Manifest.txt
@@ -7,8 +6,6 @@ README.txt
 Rakefile
 TODO.txt
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 .autotest
 .gitignore
 History.txt
@@ -16,9 +13,6 @@ Manifest.txt
 README.txt
 Rakefile
 TODO
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 bin/autospec
 bin/spec
@@ -50,10 +44,7 @@ examples/pure/stack_spec.rb
 examples/pure/stack_spec_with_nested_example_groups.rb
 examples/pure/stubbing_example.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 examples/pure/yielding_example.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 examples/stories/adder.rb
@@ -156,11 +147,7 @@ lib/spec/matchers/simple_matcher.rb
 lib/spec/matchers/throw_symbol.rb
 lib/spec/mocks.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 lib/spec/mocks/argument_constraints.rb
-=======
-lib/spec/mocks/argument_constraint_matchers.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 lib/spec/mocks/argument_constraint_matchers.rb
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
@@ -198,10 +185,7 @@ lib/spec/runner/formatter/specdoc_formatter.rb
 lib/spec/runner/formatter/story/html_formatter.rb
 lib/spec/runner/formatter/story/plain_text_formatter.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 lib/spec/runner/formatter/story/progress_bar_formatter.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 lib/spec/runner/formatter/text_mate_formatter.rb
@@ -240,7 +224,6 @@ rake_tasks/examples_with_rcov.rake
 rake_tasks/failing_examples_with_html.rake
 rake_tasks/verify_rcov.rake
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 rspec.gemspec
 spec/README.jruby
 spec/autotest/autotest_helper.rb
@@ -248,16 +231,11 @@ spec/autotest/autotest_matchers.rb
 spec/autotest/discover_spec.rb
 spec/autotest/rspec_spec.rb
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 spec/README.jruby
 spec/autotest/discover_spec.rb
 spec/autotest/rspec_spec.rb
 spec/autotest_helper.rb
 spec/autotest_matchers.rb
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 spec/rspec_suite.rb
 spec/ruby_forker.rb
@@ -274,10 +252,6 @@ spec/spec/example/example_matcher_spec.rb
 spec/spec/example/example_methods_spec.rb
 spec/spec/example/example_runner_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-=======
-spec/spec/example/example_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 spec/spec/example/example_spec.rb
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
@@ -330,10 +304,7 @@ spec/spec/mocks/bug_report_10263_spec.rb
 spec/spec/mocks/bug_report_11545_spec.rb
 spec/spec/mocks/bug_report_15719_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 spec/spec/mocks/bug_report_496.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 spec/spec/mocks/bug_report_7611_spec.rb
@@ -347,10 +318,7 @@ spec/spec/mocks/mock_space_spec.rb
 spec/spec/mocks/mock_spec.rb
 spec/spec/mocks/multiple_return_value_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 spec/spec/mocks/nil_expectation_warning_spec.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 spec/spec/mocks/null_object_mock_spec.rb
@@ -370,13 +338,8 @@ spec/spec/runner/drb_command_line_spec.rb
 spec/spec/runner/empty_file.txt
 spec/spec/runner/examples.txt
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 spec/spec/runner/failed.txt
 spec/spec/runner/formatter/base_formatter_spec.rb
-=======
-spec/spec/runner/execution_context_spec.rb
-spec/spec/runner/failed.txt
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 spec/spec/runner/execution_context_spec.rb
 spec/spec/runner/failed.txt
@@ -398,10 +361,7 @@ spec/spec/runner/formatter/specdoc_formatter_spec.rb
 spec/spec/runner/formatter/story/html_formatter_spec.rb
 spec/spec/runner/formatter/story/plain_text_formatter_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 spec/spec/runner/formatter/story/progress_bar_formatter_spec.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 spec/spec/runner/formatter/text_mate_formatted-1.8.4.html
@@ -447,11 +407,8 @@ spec/spec/story/world_spec.rb
 spec/spec_helper.rb
 stories/all.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 stories/configuration/before_blocks.story
 stories/configuration/stories.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 stories/example_groups/autogenerated_docstrings
@@ -470,10 +427,7 @@ stories/resources/helpers/cmdline.rb
 stories/resources/helpers/story_helper.rb
 stories/resources/matchers/smart_match.rb
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 stories/resources/spec/before_blocks_example.rb
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 stories/resources/spec/example_group_with_should_methods.rb
@@ -485,7 +439,6 @@ stories/resources/test/spec_and_test_together.rb
 stories/resources/test/test_case_with_should_methods.rb
 stories/stories/multiline_steps.story
 stories/stories/steps/multiline_steps.rb
-<<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 <<<<<<< HEAD:vendor/plugins/rspec/Manifest.txt
 stories/stories/stories.rb
 story_server/prototype/javascripts/builder.js
@@ -502,9 +455,6 @@ story_server/prototype/lib/server.rb
 story_server/prototype/stories.html
 story_server/prototype/stylesheets/rspec.css
 story_server/prototype/stylesheets/test.css
-=======
-stories/stories/stories.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt
 =======
 stories/stories/stories.rb
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Manifest.txt

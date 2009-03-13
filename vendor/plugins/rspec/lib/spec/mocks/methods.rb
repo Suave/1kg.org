@@ -31,11 +31,7 @@ module Spec
       
       def as_null_object
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
         __mock_proxy.as_null_object
-=======
-        __mock_proxy.act_as_null_object
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb
 =======
         __mock_proxy.act_as_null_object
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb
@@ -52,11 +48,7 @@ module Spec
           @mock_proxy ||= Proxy.new(self, @name, @options)
         else
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
           @mock_proxy ||= Proxy.new(self)
-=======
-          @mock_proxy ||= Proxy.new(self, self.class.name)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb
 =======
           @mock_proxy ||= Proxy.new(self, self.class.name)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb

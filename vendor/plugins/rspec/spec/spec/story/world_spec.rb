@@ -348,21 +348,15 @@ module Spec
       it 'should suppress listeners while it runs a GivenScenario' do
         # given
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         scenario_ran = false
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           scenario_ran = true
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         $scenario_ran = false
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           $scenario_ran = true
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
           Given 'given' do end
           When 'event' do end
@@ -388,11 +382,7 @@ module Spec
 
         # then
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         scenario_ran.should be_true
-=======
-        $scenario_ran.should be_true
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
 =======
         $scenario_ran.should be_true
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
@@ -402,21 +392,15 @@ module Spec
         # given
         world = World.create
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         steps = []
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           steps << 1
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         $steps = []
 
         scenario = ScenarioBuilder.new.name('a scenario').to_scenario do
           $steps << 1
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         end
         Runner::StoryRunner.should_receive(:scenario_from_current_story).
@@ -427,11 +411,7 @@ module Spec
           GivenScenario 'a scenario'
           And 'step 2' do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
             steps << 2
-=======
-            $steps << 2
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
 =======
             $steps << 2
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
@@ -440,11 +420,7 @@ module Spec
 
         # then
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/world_spec.rb
         steps.should == [1,2]
-=======
-        $steps.should == [1,2]
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb
 =======
         $steps.should == [1,2]
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/world_spec.rb

@@ -83,13 +83,8 @@ describe "A template that includes a partial", :type => :view do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should pass should_receive(:render) with the right partial" do
     template.should_receive(:render).with(:partial => 'partial')
-=======
-  it "should pass expect_render with the right partial" do
-    template.expect_render(:partial => 'partial')
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should pass expect_render with the right partial" do
     template.expect_render(:partial => 'partial')
@@ -99,13 +94,8 @@ describe "A template that includes a partial", :type => :view do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should fail should_receive(:render) with the wrong partial" do
     template.should_receive(:render).with(:partial => 'non_existent')
-=======
-  it "should fail expect_render with the wrong partial" do
-    template.expect_render(:partial => 'non_existent')
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should fail expect_render with the wrong partial" do
     template.expect_render(:partial => 'non_existent')
@@ -120,13 +110,8 @@ describe "A template that includes a partial", :type => :view do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should pass should_receive(:render) when a partial is expected twice and happens twice" do
     template.should_receive(:render).with(:partial => 'partial_used_twice').twice
-=======
-  it "should pass expect_render when a partial is expected twice and happens twice" do
-    template.expect_render(:partial => 'partial_used_twice').twice
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should pass expect_render when a partial is expected twice and happens twice" do
     template.expect_render(:partial => 'partial_used_twice').twice
@@ -136,13 +121,8 @@ describe "A template that includes a partial", :type => :view do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should pass should_receive(:render) when a partial is expected once and happens twice" do
     template.should_receive(:render).with(:partial => 'partial_used_twice')
-=======
-  it "should pass expect_render when a partial is expected once and happens twice" do
-    template.expect_render(:partial => 'partial_used_twice')
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should pass expect_render when a partial is expected once and happens twice" do
     template.expect_render(:partial => 'partial_used_twice')
@@ -157,13 +137,8 @@ describe "A template that includes a partial", :type => :view do
   end
   
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should fail should_receive(:render) with the right partial but wrong options" do
     template.should_receive(:render).with(:partial => 'partial', :locals => {:thing => Object.new})
-=======
-  it "should fail expect_render with the right partial but wrong options" do
-    template.expect_render(:partial => 'partial', :locals => {:thing => Object.new})
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should fail expect_render with the right partial but wrong options" do
     template.expect_render(:partial => 'partial', :locals => {:thing => Object.new})
@@ -175,15 +150,9 @@ end
 
 describe "A partial that includes a partial", :type => :view do
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
   it "should support should_receive(:render) with nested partial" do
     obj = Object.new
     template.should_receive(:render).with(:partial => 'partial', :object => obj)
-=======
-  it "should support expect_render with nested partial" do
-    obj = Object.new
-    template.expect_render(:partial => 'partial', :object => obj)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
   it "should support expect_render with nested partial" do
     obj = Object.new
@@ -204,11 +173,7 @@ describe "A view that includes a partial using :collection and :spacer_template"
 
   it "should render the partial" do
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
     template.should_receive(:render).with(:partial => 'partial',
-=======
-    template.expect_render(:partial => 'partial',
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
     template.expect_render(:partial => 'partial',
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
@@ -219,7 +184,6 @@ describe "A view that includes a partial using :collection and :spacer_template"
 
 end
 
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 if Rails::VERSION::MAJOR >= 2
   describe "A view that includes a partial using an array as partial_path", :type => :view do
@@ -235,8 +199,6 @@ if Rails::VERSION::MAJOR >= 2
     end
   end
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 describe "A view that includes a partial using an array as partial_path", :type => :view do
   before(:each) do
     module ActionView::Partials
@@ -268,9 +230,6 @@ describe "A view that includes a partial using an array as partial_path", :type 
     render "view_spec/template_with_partial_with_array" 
     response.body.should match(/^Array Partial$/)
   end
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 end
 
@@ -377,7 +336,6 @@ module Spec
   end
 end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 
 describe "bug http://rspec.lighthouseapp.com/projects/5645/tickets/510", :type => :view do
   describe "a view example with should_not_receive" do
@@ -390,7 +348,5 @@ describe "bug http://rspec.lighthouseapp.com/projects/5645/tickets/510", :type =
     end
   end
 end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/example/view_spec_spec.rb

@@ -45,11 +45,7 @@ module Spec
       private
       def intro
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/error_generator.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/error_generator.rb
         @name ? "Mock '#{@name}'" : @target.class == Class ? "<#{@target.inspect} (class)>" : (@target.nil? ? "nil" : @target.to_s)
-=======
-        @name ? "Mock '#{@name}'" : @target.inspect
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/error_generator.rb
 =======
         @name ? "Mock '#{@name}'" : @target.inspect
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/error_generator.rb

@@ -2,7 +2,6 @@ module Spec
   module Matchers
     class Exist
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/exist.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/exist.rb
       def matches?(given)
         @given = given
         @given.exist?
@@ -20,8 +19,6 @@ module Spec
     #
     # Passes if given.exist?
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/exist.rb
       def matches? actual
         @actual = actual
         @actual.exist?
@@ -33,9 +30,6 @@ module Spec
         "expected #{@actual.inspect} to not exist, but it does."
       end
     end
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/exist.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/exist.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/exist.rb
     def exist; Exist.new; end
   end

@@ -1,13 +1,22 @@
 <% @page_title = "查收确认邮件" -%>
 
 <% content_for :sidebar do -%>
-  <h2>没有收到确认信怎么办 <%= title_suffix %></h2>
-  <p class="tip">
-    1. 看看你的邮件地址是否正确;<br />
-    2. 看看在不在你邮箱的垃圾箱里;<br />
-    3. 等 10 分钟 ......<br />
-    4. 还没收到？ 发邮件联系 <a href="mailto:feedback@1kg.org">feedback@1kg.org</a>
-  </p>
 <% end -%>
 
-<p class="tip">确认信已经发到你的邮箱 <span class="notice"><%= @user.email %></span>，需要你点击邮件中的链接完成注册。</p>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>请到邮箱中激活您的帐户</h3>
+      <div class="contents">
+        <p class="tip">确认信已经发到你的邮箱 <span class="notice"><%= @user.email %></span>，需要你点击邮件中的链接完成注册。</p>
+        <p class="caution">没有收到确认信怎么办？</p>
+        <p>
+          1. 看看你的邮件地址是否正确;<br />
+          2. 看看在不在你邮箱的垃圾箱里;<br />
+          3. 等 10 分钟 ......<br />
+          4. 还没收到？ 发邮件联系 <a href="mailto:feedback@1kg.org">feedback@1kg.org</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

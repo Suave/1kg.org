@@ -38,7 +38,8 @@ div.dbb { padding:15px 0 5px 0; border-bottom:1px dashed #ccc;}
 /* --- for flash[:notice] --- */
 .fieldWithErrors {padding: 2px; background-color: red; display: table;}
 .errorExplan {color:red; border:0; padding:0; margin:0;}
-.flashNotice { margin:10px 0 5px 0; padding:2px 0; text-align:center; font-size:14.8px; color:#f90; border-top:1px solid #f90; border-bottom:1px solid #f90;}
+/*.flashNotice { margin:10px 0 5px 0; padding:2px 0; text-align:center; font-size:14.8px; color:#f90; border-top:1px solid #f90; border-bottom:1px solid #f90;}*/
+.flashNotice {padding:.8em;margin-bottom:1em;border:2px solid #ddd;background:#FFF6BF;color:#514721;border-color:#FFD324;color:#264409;}
 
 /* --- for layout --- */
 /*#wrapper {margin-top: 1px;}*/
@@ -114,3 +115,16 @@ div.commentsList div.block div.content {margin-left:70px;}
 div.commentsList div.block div.avatar {float:left; margin-right:10px; text-align:right; width:50px;}
 div.commentsList div.block div.border {height:1px; clear:both; border-bottom:1px dashed #999; margin-bottom:20px;}
 div.commentsList .meta {color:#999;}
+
+/* --- for school submit form --- */
+div.school-steps {border-bottom:3px solid #E77302;margin-bottom:10px;background:#F2F2F2;font-size:12px;text-align:left;line-height:29px;}
+div.school-steps ul {list-style-type: none;display:block;float:none;}
+div.school-steps ul li {height:29px;float:left;background-image:url(/images/step_arrow.gif);background-repeat:no-repeat;color:white;font-size:14px;font-weight:bold;line-height:29px}
+div.school-steps ul li.first {background-position:0 0;padding-right:30px;padding-left:8px}
+div.school-steps ul li.first-current {background-position:0 -150px;padding-right:30px;font-size:16px;padding-left:8px}
+div.school-steps ul li.middle {background-position:0 -50px;margin-left:-20px;padding-right:30px;padding-left:22px}
+div.school-steps ul li.middle-current {background-position:0 -200px;margin-left:-20px;padding-right:30px;padding-left:22px;font-size:16px;}
+div.school-steps ul li.last {background-position:0 -100px;margin-left:-20px;padding-left:22px;position:relative;}
+div.school-steps ul li.last span.hook {position:absolute;top:0;right:-20px;width:20px;height:29px;display:block;background:url(/images/step_arrow.gif) no-repeat right -100px;}
+div.school-steps ul li.last-current {background-position:0 -250px;margin-left:-20px;padding-left:22px;position:relative;font-size:16px;}
+div.school-steps ul li.last-current span.hook {position:absolute;top:0;right:-20px;width:20px;height:29px;display:block;background:url(/images/step_arrow.gif) no-repeat right -250px;}

@@ -1,13 +1,25 @@
-<h1>登 录</h1>
+<% @page_title = "登 录" %>
+<% @body_class = "signinup" %>
 
-<% form_tag session_path do -%>
-<p><label for="email">邮件地址</label><br/>
-<%= text_field_tag 'email' %></p>
+<% content_for :fullsize do -%>
+<div class="box" id="signin">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>会员登录</h3>
 
-<p><label for="password">密码</label><br/>
-<%= password_field_tag 'password' %></p>
+      <% form_tag session_path do -%>
+      <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+      
+      <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
+      
+      <p class="rememberMe"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label></p>
+      
+      <p class="submit"><%= submit_tag '登 录' %></p>
+      <% end -%>
+      
+      <p class="login">&raquo; 我还不是会员，<%= link_to "1秒钟注册帐号", signup_url %></p>
 
-<p><%= check_box_tag 'remember_me' %> 记住我</p>
-
-<p><%= submit_tag '登 录' %></p>
+    </div>
+  </div>
+</div>
 <% end -%>

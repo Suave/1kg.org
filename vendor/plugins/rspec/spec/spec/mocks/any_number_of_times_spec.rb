@@ -24,7 +24,6 @@ module Spec
         @mock.should_receive(:random_call).any_number_of_times
       end
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/any_number_of_times_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/any_number_of_times_spec.rb
 
       it "should return the mocked value when called after a similar stub" do
         @mock.stub!(:message).and_return :stub_value
@@ -32,8 +31,6 @@ module Spec
         @mock.message.should == :mock_value
         @mock.message.should == :mock_value
       end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/any_number_of_times_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/any_number_of_times_spec.rb
     end

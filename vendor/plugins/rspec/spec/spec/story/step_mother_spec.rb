@@ -43,7 +43,6 @@ module Spec
       end
       
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/step_mother_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/story/step_mother_spec.rb
       it "should create a default step with it's name stripped" do
         # given
         step_mother = StepMother.new
@@ -56,8 +55,6 @@ module Spec
         step.name.should == "doesn't exist"
       end
       
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/step_mother_spec.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/story/step_mother_spec.rb
       it 'should clear itself' do

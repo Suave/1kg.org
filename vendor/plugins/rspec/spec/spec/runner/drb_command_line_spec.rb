@@ -52,11 +52,7 @@ module Spec
         it "should run against local server" do
           out = run_spec_via_druby(['--version'])
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/drb_command_line_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/runner/drb_command_line_spec.rb
           out.should =~ /rspec \d+\.\d+\.\d+.*/n
-=======
-          out.should =~ /rspec version \d+\.\d+\.\d+.*/n
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/drb_command_line_spec.rb
 =======
           out.should =~ /rspec version \d+\.\d+\.\d+.*/n
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/runner/drb_command_line_spec.rb

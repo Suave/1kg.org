@@ -11,7 +11,6 @@ module Spec
       
         def matches?(response)
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
           
           if response.respond_to?(:rendered_file)
             @actual = response.rendered_file
@@ -23,8 +22,6 @@ module Spec
           expected_controller_path, expected_file = path_and_file(@expected)
           given_controller_path == expected_controller_path && given_file.match(expected_file)
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
           if response.respond_to?(:rendered_file)
             @actual = response.rendered_file
             full_path(@actual) == full_path(@expected)
@@ -38,9 +35,6 @@ module Spec
               current_controller_path == controller_path_from(@actual) && @actual.match(@expected)
             end
           end
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
         end
         
@@ -61,12 +55,8 @@ module Spec
             parts = path.split('/')
             file = parts.pop
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
             controller = parts.empty? ? current_controller_path : parts.join('/')
             return controller, file
-=======
-            return parts.join('/'), file
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
 =======
             return parts.join('/'), file
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
@@ -79,18 +69,12 @@ module Spec
           end
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
           def full_path(path)
             return nil if path.nil?
             path.include?('/') ? path : "#{current_controller_path}/#{path}"
           end
         
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/matchers/render_template.rb
           def current_controller_path
             @controller.class.to_s.underscore.gsub(/_controller$/,'')

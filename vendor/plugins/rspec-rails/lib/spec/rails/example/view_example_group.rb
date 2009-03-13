@@ -33,11 +33,7 @@ module Spec
         end
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
         def initialize(defined_description, options={}, &implementation) #:nodoc:
-=======
-        def initialize(defined_description, &implementation) #:nodoc:
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
 =======
         def initialize(defined_description, &implementation) #:nodoc:
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
@@ -159,13 +155,9 @@ module Spec
         protected
         def _assigns_hash_proxy
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
           @_assigns_hash_proxy ||= AssignsHashProxy.new self do
             @response.template
           end
-=======
-          @_assigns_hash_proxy ||= AssignsHashProxy.new @controller
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
 =======
           @_assigns_hash_proxy ||= AssignsHashProxy.new @controller
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
@@ -191,12 +183,9 @@ module Spec
           end
         end
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
         
         def forget_variables_added_to_assigns
         end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/view_example_group.rb
       end

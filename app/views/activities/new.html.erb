@@ -1,68 +1,34 @@
 <% @page_title = "发布新活动" -%>
 
+
+<% content_for :crumb do -%>
+<li>发布新活动</li>
+<% end -%>
+
 <% content_for :sidebar do -%>
 <% end -%>
 
-<div class="posting">
-  <div class="block">
-  <% form_for :activity, :url => activities_url do |f| -%>
-  <p><label>类型</label>
-    <select id="activity_category" name="activity[category]">
-      <% Activity.categories.each_with_index do |p,i| -%>
-        <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
-      <% end -%>
-    </select>
-  </p>
-  <p><label>名称</label><%= f.text_field :title, :size => 30, :class => "text" %></p>
-  
-  <p><label>出发地</label><%= select_tag :departure_root, "<option></option>" + options_for_select(Geo.roots.collect{|g| [g.name, g.id]}) %>
-    <span id="departure_id_container">
-      <select name="activity[departure_id]" id="activity_departure_id" disabled="disabled">
-        <option></option>
-      </select>
-    </span>
-    <img src="/images/indicator.gif" id="departure_id_indicator" class="indicator" style="display:none" />
-    <%= observe_field("departure_root",
-       :frequency => 0.25,
-       :loading => "Element.show('departure_id_indicator')",
-       :loaded => "Element.hide('departure_id_indicator')",
-       :update => "departure_id_container",
-       :url => { :action => :geo_choice },
-       :with => "'departure_root_id='+value") %>
-  </p>
-  
-  <p><label>目的地</label><%= select_tag :arrival_root, "<option></option>" + options_for_select(Geo.roots.collect{|g| [g.name, g.id]}) %>
-    <span id="arrival_id_container">
-      <select name="activity[arrival_id]" id="activity_arrival_id" disabled="disabled">
-        <option></option>
-      </select>
-    </span>
-    <img src="/images/indicator.gif" id="arrival_id_indicator" class="indicator" style="display:none" />
-    <%= observe_field("arrival_root",
-       :frequency => 0.25,
-       :loading => "Element.show('arrival_id_indicator')",
-       :loaded => "Element.hide('arrival_id_indicator')",
-       :update => "arrival_id_container",
-       :url => { :action => :geo_choice },
-       :with => "'arrival_root_id='+value") %>
-  </p>
-  
-  
-  <p><label>地点</label><%= f.text_field :location, :size => 30, :class => "text" %></p>
-  <p><label>开始时间</label><%#= calendar_date_select_tag "activity[start_at]" %>
-    <input id="activity_start_at" name="activity[start_at]" type="text" class="text calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" /></p>
-    
-  <p><label>结束时间</label>
-    <input id="activity_end_at" name="activity[end_at]" type="text" class="text calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" /></p>
-    
-  <p><label>报名截止</label>
-    <input id="activity_register_over_at" name="activity[register_over_at]" type="text" class="text calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" /></p>
-    
-  <p><label>人均费用</label><%= f.text_field :expense_per_head, :size => 10, :class => "text" %> 元</p>
-  <p><label>预期人数</label><%= f.text_field :expect_strength, :size => 10, :class => "text" %> 人</p>
-  <p><label>活动介绍</label><%= f.text_area :description, :cols => 50, :rows => 15 %></p>
-    
-  <p><label>&nbsp;</label><%= submit_tag "发 布" %></p>
-  <% end -%>
+<% content_for :fullsize do -%>
+  <div class="box" id="activitiesPostNew">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2>发布新活动</h2>
+        <% form_for :activity, :url => activities_url do |f| -%>
+        <p><label for="activity_category" class="label">类型</label>
+          <select id="activity_category" name="activity[category]">
+            <% Activity.categories.each_with_index do |p,i| -%>
+              <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
+            <% end -%>
+          </select>
+        </p>
+        <p><label for="departure_root" class="label">出发地</label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %></p>
+        <p><label for="arrival_root" class="label">目的地</label><%= geo_select "activity", "arrival", ["不限地域", "0"] %> <%= error_message_on @activity, :arrival_id %></p>
+        
+        <%= render :partial => "form", :object => f %>  
+        
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></p>
+        <% end -%>
+      </div>
+    </div>
   </div>
-</div>
+<% end -%>

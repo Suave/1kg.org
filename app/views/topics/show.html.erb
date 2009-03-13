@@ -1,38 +1,117 @@
 <% @page_title = h(@topic.title) -%>
 
-<% content_for :sidebar do -%>
-  <p>> <%= link_to "返回讨论区", board_url(@board) %></p>
+<% content_for :crumb do -%>
+
+  <% if @topic.board.talkable.class == CityBoard -%>
+    <li><%= link_to "#{@topic.board.talkable.geo.name}同城", board_url(@topic.board) %></li>
+  <% elsif @topic.board.talkable.class == PublicBoard -%>
+    <li><%= link_to "站务&专题讨论区", public_issue_boards_url %></li>
+    <ul>
+    <li><%= link_to @topic.board.talkable.title, board_url(@topic.board) %></li>
+    </ul>
+  <% end -%>
+
+  <ul><li><%= @topic.title %></li></ul>
 <% end -%>
 
-<div class="topic">
-  <div class="avatar">
-    <%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %>
-  </div>
-  
-  <p><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></p>
-  
-  <div class="body">
-    <%= @topic.body_html %>
-  </div>
-</div>
-
-<div class="commentsList">
-  <% @posts.each do |p| -%>
-  <div class="block">
-    <div class="avatar"><%= avatar_for p.user, "large" %></div>
-    <div class="content">
-      <p class="meta"><%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %></p>
-      <%= p.body_html %>
+<% content_for :sidebar do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents">
+        <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
+      </div>
     </div>
-    <div class="border"></div>
   </div>
-  <% end -%>
 </div>
+<% end -%>
 
-<div class="commentForm">
-  <h2>回帖：</h2>
-  <% form_for :post, :url => board_topic_posts_url(@board, @topic) do |f| -%>
-  <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
-  <p><%= submit_tag "发 布" %></p>
-  <% end -%>
-</div>
+  <div class="box" id="topicSingle">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><%= @topic.title %></h2>
+
+        <div class="metadata">
+          <div class="avatar"><%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %></div>
+          <p>
+            <%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %>
+            <% if @topic.editable_by current_user -%>
+              (<%= link_to "编辑", edit_board_topic_url(@topic.board_id, @topic) %> |
+              <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>)
+            <% end -%>
+          </p>
+        </div>
+        <div class="entry">
+          <%= @topic.body_html %>
+          <p style="color:gray; text-align:right;">
+            <% if @topic.last_modified_user -%>
+              本帖由 <%= @topic.last_modified_user.login %> 最后修改于 <%= @topic.last_modified_at.to_date %>
+            <% end -%>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% unless @posts.blank? -%>
+  <div class="box" id="topicCommentsList">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>回复</h3>
+        <ol class="clearfix">
+          <% @posts.each do |p| -%>
+          <li>
+            <div class="avatar"><%= avatar_for p.user, "large" %></div>
+            <div class="content">
+              <p class="meta">
+                <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
+                <% if p.editable_by current_user -%>
+                  (<%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
+                  <% if p.deleted_at.blank? -%>
+                    | <%= link_to "删除", board_topic_post_url(@board, @topic, p), :method => :delete, :confirm => "确定要删除么?" %>
+                  <% end -%>
+                  )
+                <% end -%>
+              </p>
+              <% if p.deleted_at.blank? -%>
+                <%= p.body_html %>
+              <% else -%>
+                <p>本帖已被管理员删除</p>
+              <% end -%>
+            </div>
+          </li>
+          <% end -%>
+        </ol>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+  <div class="box" id="topicCommentForm">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>回帖</h3>
+        <% if logged_in? -%>
+          <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
+            
+            <div class="contents">只有小组成员可以回复话题</div>
+            
+          <% else -%>
+            
+            <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>
+            <p style="text-align:right"><%= link_to "在完整模式下回帖", new_board_topic_post_url(@board, @topic) %></p>
+            <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
+            <p class="submit"><%= submit_tag "发 布" %></p>
+            <% end -%>
+          
+          <% end -%>
+        <% else -%>
+
+          <div class="contents"><%= link_to "登录", login_url %>以后可以回复话题</div>
+
+        <% end -%>
+      </div>
+    </div>
+  </div>

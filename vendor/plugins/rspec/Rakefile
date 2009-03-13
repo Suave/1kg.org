@@ -19,7 +19,6 @@ Hoe.new('rspec', Spec::VERSION::STRING) do |p|
   p.description = "Behaviour Driven Development for Ruby."
   p.rubyforge_name = 'rspec'
 <<<<<<< HEAD:vendor/plugins/rspec/Rakefile
-<<<<<<< HEAD:vendor/plugins/rspec/Rakefile
   p.extra_dev_deps = ['diff-lcs',['spicycode-rcov','>= 0.8.1.3'],'syntax']
   p.developer('RSpec Development Team', 'rspec-devel@rubyforge.org')
   p.remote_rdoc_dir = "rspec/#{Spec::VERSION::STRING}"
@@ -32,8 +31,6 @@ end
 task :verify_rcov => [:spec, :stories]
 task :default => :verify_rcov
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Rakefile
   p.developer('RSpec Development Team', 'rspec-devel@rubyforge.org')
 end
 
@@ -43,9 +40,6 @@ end
 
 task :default => :verify_rcov
 task :verify_rcov => [:spec, :stories]
-<<<<<<< HEAD:vendor/plugins/rspec/Rakefile
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Rakefile
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Rakefile
 
 # # Some of the tasks are in separate files since they are also part of the website documentation
@@ -62,11 +56,7 @@ Spec::Rake::SpecTask.new do |t|
     t.rcov = true
     t.rcov_dir = 'coverage'
 <<<<<<< HEAD:vendor/plugins/rspec/Rakefile
-<<<<<<< HEAD:vendor/plugins/rspec/Rakefile
     t.rcov_opts = ['--exclude', "lib/spec.rb,lib/spec/runner.rb,spec\/spec,bin\/spec,examples,\/var\/lib\/gems,\/Library\/Ruby,\.autotest,#{ENV['GEM_HOME']}"]
-=======
-    t.rcov_opts = ['--exclude', 'lib/spec.rb,lib/spec/runner.rb,spec\/spec,bin\/spec,examples,\/var\/lib\/gems,\/Library\/Ruby,\.autotest']
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Rakefile
 =======
     t.rcov_opts = ['--exclude', 'lib/spec.rb,lib/spec/runner.rb,spec\/spec,bin\/spec,examples,\/var\/lib\/gems,\/Library\/Ruby,\.autotest']
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/Rakefile

@@ -149,13 +149,9 @@ module Spec
         protected
         def _assigns_hash_proxy
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/helper_example_group.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/helper_example_group.rb
           @_assigns_hash_proxy ||= AssignsHashProxy.new self do
             helper
           end
-=======
-          @_assigns_hash_proxy ||= AssignsHashProxy.new helper
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/helper_example_group.rb
 =======
           @_assigns_hash_proxy ||= AssignsHashProxy.new helper
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/helper_example_group.rb

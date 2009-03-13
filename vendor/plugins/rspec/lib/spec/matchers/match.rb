@@ -3,7 +3,6 @@ module Spec
     
     class Match #:nodoc:
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
       def initialize(regexp)
         @regexp = regexp
       end
@@ -12,8 +11,6 @@ module Spec
         @given = given
         return true if given =~ @regexp
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
       def initialize(expected)
         @expected = expected
       end
@@ -21,15 +18,11 @@ module Spec
       def matches?(actual)
         @actual = actual
         return true if actual =~ @expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
         return false
       end
       
       def failure_message
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
         return "expected #{@given.inspect} to match #{@regexp.inspect}", @regexp, @given
       end
@@ -41,8 +34,6 @@ module Spec
       def description
         "match #{@regexp.inspect}"
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
         return "expected #{@actual.inspect} to match #{@expected.inspect}", @expected, @actual
       end
       
@@ -52,9 +43,6 @@ module Spec
       
       def description
         "match #{@expected.inspect}"
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
       end
     end
@@ -64,11 +52,7 @@ module Spec
     #   should_not match(regexp)
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/match.rb
     # Given a Regexp, passes if given =~ regexp
-=======
-    # Given a Regexp, passes if actual =~ regexp
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb
 =======
     # Given a Regexp, passes if actual =~ regexp
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/match.rb

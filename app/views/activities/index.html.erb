@@ -3,3 +3,8 @@
 <% content_for :sidebar do -%>
   <h4>> <%= link_to "发布新活动", new_activity_path %></h4>
 <% end -%>
+
+<%= render :partial => "activity_list" %>
+
+<h3 style="margin-top:20px;">最新活动帖子 <%= title_suffix %></h3>
+<%= render :partial => "last_10_updated_topics", :object => @topics %>

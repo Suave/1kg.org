@@ -8,7 +8,6 @@ module Spec
       end
       
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
       def matches?(given)
         @given = given
         (@given - @expected).abs < @delta
@@ -17,8 +16,6 @@ module Spec
       def failure_message
         "expected #{@expected} +/- (< #{@delta}), got #{@given}"
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
       def matches?(actual)
         @actual = actual
         (@actual - @expected).abs < @delta
@@ -26,9 +23,6 @@ module Spec
       
       def failure_message
         "expected #{@expected} +/- (< #{@delta}), got #{@actual}"
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
       end
       
@@ -42,11 +36,7 @@ module Spec
     #   should_not be_close(expected, delta)
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
     # Passes if given == expected +/- delta
-=======
-    # Passes if actual == expected +/- delta
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be_close.rb
 =======
     # Passes if actual == expected +/- delta
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/be_close.rb

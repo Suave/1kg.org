@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/ar_classes'
 
 describe "mock_model" do
 <<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb
   describe "responding to interrogation" do
     before(:each) do
       @model = mock_model(SubMockableModel)
@@ -107,8 +106,6 @@ end
 
 
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb
   before(:each) do
     @model = mock_model(SubMockableModel)
   end
@@ -195,7 +192,4 @@ describe "mock_model #as_new_record" do
   end
 end
 
-<<<<<<< HEAD:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/spec/rails/mocks/mock_model_spec.rb

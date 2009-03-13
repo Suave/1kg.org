@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-  # config.gem "bj"
+  config.gem "rack"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
@@ -64,7 +64,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :user_observer
+  config.active_record.observers = :user_observer, :school_observer
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_charset= "utf-8"
@@ -81,3 +81,5 @@ ActionMailer::Base.smtp_settings = {
 }
 
 CalendarDateSelect.format = :iso_date
+
+TagList.delimiter = " "

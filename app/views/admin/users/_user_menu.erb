@@ -1,5 +1,5 @@
 <ul class="tab">
-  <% [["超级管理员", "admin"], ["城市版主", "city"]].each do |type| -%>
+  <% [["超级管理员", "admin"], ["学校管理员", "school"]].each do |type| -%>
     <li class="<%= @type==type[1] ? "current" : "" %>"><%= link_to type[0], admin_users_url(:type => type[1]) %></li>
   <% end -%>
 </ul>
