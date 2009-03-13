@@ -1,0 +1,32 @@
+<% @page_title = "编辑活动" -%>
+
+<% content_for :crumb do -%>
+<li>编辑活动</li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="box" id="activitiesPostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>编辑活动</h2>
+      <% form_for :activity, :url => activity_url(@activity.id), :html => {:method => :put} do |f| -%>
+      <p><label for="activity_category" class="label">类型</label>
+        <select id="activity_category" name="activity[category]">
+          <% Activity.categories.each_with_index do |p,i| -%>
+            <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
+          <% end -%>
+        </select>
+      </p>
+      <p><label for="departure_root" class="label">出发地</label><%= geo_select "activity", "departure", ["不限地域", "0"], @activity.departure_id %> <%= error_message_on @activity, :departure_id %></p>
+      <p><label for="arrival_root" class="label">目的地</label><%= geo_select "activity", "arrival", ["不限地域", "0"], @activity.arrival_id %> <%= error_message_on @activity, :arrival_id %></p>
+      
+      <%= render :partial => "form", :object => f %>
+      <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "修 改" %></span>/ <%= link_to "取消", activity_url(@activity) %></p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<% end -%>

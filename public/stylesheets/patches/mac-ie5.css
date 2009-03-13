@@ -1,0 +1,328 @@
+/*-  Varnish.
+----------------------------------------------------------------------*/
+.ineffable {
+	display: none;
+}
+
+/*-  Self-clearing floats
+----------------------------------------------------------------------*/
+.row,
+#navigation,
+#global-info,
+#content-layout,
+#content,
+#descriptor,
+#lead h2.ruled,
+#calendar-nav,
+#ad-full ul,
+#article,
+#search-bottom form,
+.module-slideshow ul,
+.module-package .content .feature a,
+#cover-archive,
+#article-bottom,
+#listings-sponsored,
+.block {
+	display: inline-table;
+}
+
+
+/*-  Layout
+----------------------------------------------------------------------*/
+#wrap {
+	width: 980px;
+}
+
+.row {
+	clear: none;
+}
+
+
+/*-  Navigation
+----------------------------------------------------------------------*/
+/*
+	Secondary
+*/
+#navigation li ul {
+	width: 980px;	/* fixes horizontal scrollbar */
+}
+
+#navigation li ul li a { /* Fix for "phantom links" */
+	display: inline-block;
+	padding: 0 8px 2px;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*-  Global info
+----------------------------------------------------------------------*/
+#search form li {
+	float: left;
+}
+
+#global-info .row .col-2 li a {	/* Fix for "phantom links" */
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*-  Content
+----------------------------------------------------------------------*/
+#content-primary { /* Fix for float wrapping bug */
+	position: relative;
+}
+
+body.article-leftnav #article {
+	float: left;
+}
+
+body.article-leftnav #article-content {
+	float: right;
+	margin-left: 0;
+	width: 540px;
+}
+
+body.article-leftnav #article-navigation {
+	float: left;
+	margin-left: 0;
+	width: 179px;
+}
+
+#descriptor h1 img {
+	margin-top: 10px;
+}
+
+#content .alt-descriptor {
+	width: 736px;
+}
+
+#page-type {
+	display: inline-block;
+	margin-left: 10px;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.page-navigation .adjacent {
+	margin-bottom: -4em;
+}
+
+form.adjacent {
+	margin-bottom: -4em;
+}
+
+form.alt {
+	margin: -1em 0 1em;
+}
+
+/* Headline styles */
+h4.banded {
+	display: inline-table;
+	position: static;
+	width: 98%;
+}
+
+h4.banded a.more {
+	float: right;
+	position: static;
+}
+
+#section .col-2 #advertising-skyscraper {
+	margin: 0 -18px 13px -7px;
+}
+
+.ad-featured-property {
+	margin: 0;
+}
+
+body.home #related-modules {
+	margin-left: -7px;
+	margin-right: 0;
+	padding: 0;
+}
+
+#related-modules .related-wrap {
+	padding: 0 5px;
+	width: 315px;
+}
+
+body.section-3col #section .col-1 {
+	margin-right: 27px;
+}
+
+body.section-3col #section .fashion {
+	width: 751px;
+}
+
+body.section-3col #section .fashion .col-2 {
+	width: 334px;
+}
+
+#wrap #content .fashion-modules {
+	position: relative;
+	margin: 0 0 0 -7px;
+	padding: 0;
+}
+
+/*
+	Text sizing
+*/
+#text-size {
+	white-space: nowrap;
+	width: 1px;
+}
+
+#text-size li {
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*
+	Page Navigation
+*/
+.page-navigation li {
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+.page-navigation ul.adjacent {
+	width: 45%;
+}
+
+.page-navigation .top {
+	margin-bottom: -1.4em;
+}
+
+/*
+	Search results
+*/
+.results-container .header form {
+	width: 40%;
+}
+
+.search-controls ul.search-sort {
+	width: auto;
+}
+
+.search-controls ul.search-sort li a i {
+	display: none;
+}
+
+/*
+	Cover Archive
+*/
+#cover-archive li.cover li {
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/*
+	Article Tools
+*/
+#article-tools li a {
+	background-position: 0 50%;
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*-  Leads
+----------------------------------------------------------------------*/
+#lead h2.ruled {
+	position: static;
+	width: 100%;
+}
+
+#lead h2.ruled i {
+	float: right;
+	position: static;
+}
+
+#lead #full-lead {
+	display: inline-table;
+}
+
+#lead-double ul.bordered li {
+	width: 49%;
+}
+
+/*-  Section Modules
+----------------------------------------------------------------------*/
+body.section-4col .col-2 h4.banded {
+	padding-right: 0;
+}
+
+/*
+	Calendar
+*/
+#calendar .head h4 {
+	display: inline-table;
+	width: 100%;
+}
+
+#calendar-nav li a {
+	display: inline-table;
+	padding-top: 0;
+	height: 37px;
+	text-transform: uppercase;
+	width: 36px;
+}
+
+#calendar-nav li a, #calendar-nav li a span {
+	background-image: none;
+	text-align: center;
+}
+
+#calendar-nav li.last a {
+	background-image: url("../../img/arrow-all.gif");
+	background-position: 50% 2em;
+	background-repeat: no-repeat;
+}
+
+/*-  Footer
+----------------------------------------------------------------------*/
+#footer li {
+	padding: 0 .4em;
+}
+
+#footer li a {	/* Fix for "phantom links" */
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*-  Modules
+----------------------------------------------------------------------*/
+/*
+	RSS
+*/
+#content-secondary .module-rss .content ul.footer li {
+	display: inline-block;
+	white-space: nowrap;
+	width: 1px;
+}
+
+
+/*
+	Current Issue
+*/
+#content-secondary .module-current-issue .tabs {
+	float: left;
+}
+
+#content-secondary .module-current-issue .tabs li {
+	width: 45%;
+}
+
+#content-secondary .module-current-issue form.ineffable {
+	display: none;
+}
+

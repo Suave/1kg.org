@@ -1,0 +1,30 @@
+<% @page_title = "浏览全部城市" -%>
+
+<div class="box" id="cityList">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>浏览同城</h2>
+      <div class="tips">
+        <h4>选择你感兴趣的城市看看</h4>
+      </div>
+      <div class="contents tipText">
+        <ul class="clearfix">
+          <% @cities.each do |c| -%>
+            
+              <% if c.children.blank? -%>
+                <% if c.city_board -%>
+                <li><%= link_to c.name, board_url(c.city_board.board_id) %></li>
+                <% end -%>
+              <% else -%>
+                <li><%= link_to c.name, cities_url(:id => c.id) %></li>
+              <% end -%>
+            
+          <% end -%>
+        </ul>
+    <!-->    
+        <ul class="clearfix"><li><%#= @cities.collect {|c| "#{link_to c.geo.name, board_url(c.board_id)}(#{c.geo.users.count}人)" }.join("</li><li>") -%></li></ul>
+    -->
+      </div>
+    </div>
+  </div>
+</div>

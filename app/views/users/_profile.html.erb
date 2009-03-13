@@ -1,0 +1,43 @@
+<% profile = user.profile -%>
+<div class="box" id="uti">
+  <div class="boxOuter">
+    <dl class="boxInner">
+	    <dt><%= avatar_for user, "large" %></dt>
+      <dd><h4>&nbsp;</h4></dd>
+      <dd>
+        
+        <p>
+          <strong>住在：</strong>
+          <% if user.geo -%>
+            <% if user.geo.city_board -%>
+              <%= link_to user.geo.name, board_url(user.geo.city_board.board) %>
+            <% else -%>
+              <%= user.geo.name %>
+            <% end -%>
+          <% else -%>
+            未知
+          <% end -%>
+        </p>
+        
+        <% if profile -%>
+          <p><strong>博客：</strong><%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %></p>
+          <%= profile.bio_html %>
+        <% end -%>
+        
+      </dd>
+	  </dl>
+	  <p class="remark">
+  	  <% unless @user == current_user -%>
+        &raquo; <%= link_to "给#{@user.login}发站内消息", new_user_sent_url(@user) %>
+        
+        <% if @user.neighbor_addable_by?(current_user) -%>
+          <br />&raquo; <%= link_to "加#{@user.login}为友邻", user_neighbors_url(@user, :my => current_user), :method => :post %>
+        <% elsif @user.neighbor_removeable_by?(current_user) -%>
+          <br /><span class="tipText">&raquo; <%= @user.login %>是我的友邻 (<%= link_to "删掉", user_neighbor_url(@user, current_user), :confirm => "确定删掉?", :method => :delete %>)</span>
+        <% end -%>
+      <% else -%>
+        <span class="tipText">&raquo; 我在看自己的空间</span>
+      <% end -%>
+    </p>
+	</div>
+</div>

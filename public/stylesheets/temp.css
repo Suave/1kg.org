@@ -1,0 +1,135 @@
+/* --- for tabbed panel  --- */
+div.tabbedPanel {
+  padding: 0 20px 15px;
+  overflow: hidden;
+  position: relative;
+  zoom: 1;
+}
+
+div.tabbedPanel ul.tab {
+margin-bottom: -1px;
+  zoom: 1;
+}
+
+div.tabbedPanel ul.tab:after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0pt;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+div.tabbedPanel ul.tab li {
+  border: 1px solid #888888;
+  display: inline;
+  float: left;
+  margin-right: -1px;
+}
+
+div.tabbedPanel ul.tab li.current {
+  border: #ccc solid 1px;
+  border-bottom: 1px solid #FFF;
+  font-weight: bold;
+}
+
+div.tabbedPanel ul.tab li a {
+  color: #FFF;
+  background-color: #999;
+  border-top: 1px solid #b5b5b5;
+  padding: .3em 15px;
+  display: block;
+
+}
+
+div.tabbedPanel ul.tab li.current a {
+  color: #333;
+  background-color: #FFF;
+  border-top: 1px solid #f0f0f0;
+}
+
+.tabbedPanel .panel {
+  border: 1px solid #ccc;
+  background-color: #fafafa;
+}
+
+/* --- for setting form --- */
+.setting .block {
+  margin: 1em;
+  clear: both;
+  zoom: 1;
+}
+.setting p.center img {
+  border: #ccc solid 1px;
+  margin: 0 1em;
+}
+
+div.setting div#errorExplanation, div.setting div#okExplanation {
+  margin: 5px 60px;
+}
+
+div.setting div.block h2 {
+  color: #333;
+  font-size: 20px;
+  padding: 0px;
+}
+
+#content-primary .setting div.block h3 {
+  background: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-bottom: 1px solid #CCC;
+  color: #333;
+  padding: 0 0 0.2em;
+  margin: 0 0 0.4em;
+  zoom: 1;
+}
+
+div.setting div.block p.note {
+  color: #666;
+  margin: 0.4em 0pt;
+}
+
+div.setting form p {
+  margin: 10px;
+  clear: both;
+}
+
+div.setting form label {
+  font-size: 12px;
+  line-height: 21px;
+  float: left;
+  margin-right: 10px;
+  text-align: right;
+  width: 10em;
+}
+
+.setting .district {
+  display: block;
+  margin-left: 11em;
+}
+
+div.setting form p.detail {
+  color: green;
+  clear: none;
+  width: 55%;
+  float: left;
+  margin: 0px 10px;
+}
+
+div.setting form p.info {
+  clear: none;
+  width: 55%;
+  float: left;
+  margin: 0px 10px;
+}
+
+div.setting form input, div.setting form select, div.setting form textarea {
+  margin: 0px 10px;
+}
+
+div.setting form input.text, div.setting form textarea {
+  padding: 2px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}

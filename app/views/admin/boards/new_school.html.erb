@@ -1,0 +1,16 @@
+<% @page_title = "创建学校讨论区" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回学校管理", admin_schools_url %></h4>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>为 <%= @school.title %> 创建讨论区</h3>
+    <% form_tag admin_boards_url(:type => "school") do -%>
+      <%= hidden_field_tag "school_id", @school.id %>
+      <p class="center notice">确定要创建学校讨论区么?</p>
+      <p><label>&nbsp;</label><%= submit_tag "创 建" %></p>
+    <% end -%>
+  </div>
+</div>

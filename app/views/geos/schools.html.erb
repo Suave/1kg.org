@@ -1,0 +1,19 @@
+<% @page_title = "#{@city.name}周边的学校" -%>
+
+<% content_for :crumb do -%>
+<li>目的地查询</li>
+<ul>
+  <li><%= link_to @city.name, geo_url(@city) %></li>
+  <ul>
+    <li><%= @page_title %></li>
+  </ul>
+</ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<%= render :partial => "/schools/submit" %>
+<% end -%>
+
+<%= render :partial => "/schools/schools", :object => @schools, :locals => {:title => @page_title} %>
+
+

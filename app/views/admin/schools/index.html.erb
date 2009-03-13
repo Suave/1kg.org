@@ -1,0 +1,85 @@
+<% @page_title = "学校管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="tabbedPanel">
+  <%= render :partial => "tab_index" %>
+  
+  <% if @type == "validated" -%>
+  <div class="setting panel">
+    <div class="block">
+      <table border="0" cellspacing="5" cellpadding="5">
+        <tr>
+          <th>校名</th>
+          <th>讨论区</th>
+          <th>提交人</th>
+          <th>提交时间</th>
+          <th>验证</th>
+        </tr>
+        <% @schools.each do |s| -%>
+        <tr>
+          <td><%= link_to s.title, admin_school_url(s) %></td>
+          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
+          <td><%= link_to s.user.login, user_url(s.user) %></td>
+          <td><%= s.created_at.to_date %></td>
+          <td><%= link_to "取消验证", validate_school_url(s, :t => "remove"), :method => :put %></td>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+  </div>
+  
+  <% elsif @type == "suspend" -%>
+  <div class="setting panel">
+    <div class="block">
+      <table border="0" cellspacing="5" cellpadding="5">
+        <tr>
+          <th>校名</th>
+          <th>讨论区</th>
+          <th>提交人</th>
+          <th>提交时间</th>
+          <th>验证</th>
+        </tr>
+        <% @schools.each do |s| -%>
+        <tr>
+          <td><%= link_to s.title, admin_school_url(s) %></td>
+          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
+          <td><%= link_to s.user.login, user_url(s.user) %></td>
+          <td><%= s.created_at.to_date %></td>
+          <td><%= link_to "通过验证", validate_school_url(s, :t => "add"), :method => :put %></td>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+  </div>
+  
+  <% elsif @type == "trash" -%>
+  <div class="setting panel">
+    <div class="block">
+      <table border="0" cellspacing="5" cellpadding="5">
+        <tr>
+          <th>校名</th>
+          <th>讨论区</th>
+          <th>提交人</th>
+          <th>提交时间</th>
+          <th>删除时间</th>
+        </tr>
+        <% @schools.each do |s| -%>
+        <tr>
+          <td><%= link_to s.title, admin_school_url(s) %></td>
+          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
+          <td><%= link_to s.user.login, user_url(s.user) %></td>
+          <td><%= s.created_at.to_date %></td>
+          <td><%= s.deleted_at.to_date %> (<%= link_to "撤销删除", undelete_admin_school_url(s), :method => :put %>)</td>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+  </div>
+  
+  <% end -%>
+  
+</div>

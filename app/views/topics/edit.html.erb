@@ -1,0 +1,17 @@
+<% @page_title = "编辑帖子" -%>
+
+<% content_for :fullsize do -%>
+<div class="box" id="topicPostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>编辑帖子</h3>
+      <div class="contents">
+        <% form_for :topic, :url => board_topic_url(@topic.board_id, @topic), :html => {:method => :put} do |f| -%>
+        <%= render :partial => "form", :object => f %>
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "修改好了, 保存" %></span> <span class="btnWrap"><%= link_to "返回", board_topic_url(@topic.board_id, @topic) %></span></p>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+<% end -%>

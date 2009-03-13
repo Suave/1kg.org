@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>校名</th>
+      <th>省份</th>
+      <th>发布人</th>
+      <th>最后更新于</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @boards.each do |board| -%>
+    <tr>
+      <td><%= link_to board.talkable.school.title, school_url(board.talkable.school), :title => "点击查看学校信息" %></td>
+      <td><%= link_to board.talkable.school.geo.ancestors[0].name + "&middot;" + board.talkable.school.geo.name, geo_url(board.talkable.school.geo) %></td>
+      <td><%= link_to board.talkable.school.user.login, user_url(board.talkable.school.user) %></td>
+      <td>
+        <% topic = board.topics.find(:first, :order => "last_replied_at desc, created_at desc") %>
+        <%= link_to "#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login.to_s}", board_topic_url(topic.board_id, topic), :title => "点击查看最新更新" %>
+      </td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>

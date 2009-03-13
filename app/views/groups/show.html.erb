@@ -1,0 +1,61 @@
+<% @page_title = "#{h @group.title} - 公益小组" -%>
+
+<% content_for :sidebar do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>
+          &raquo;
+          <% if @group.joined?(current_user) -%>
+            <%= link_to "退出小组", quit_group_url(@group), :method => :put %>
+          <% else -%>
+            <%= link_to "加入小组", join_group_url(@group), :method => :put %>
+          <% end -%>
+        </h3>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="cityLatestMembers">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>小组成员</h3>
+      <ul class="clearfix"><li><%= @group.members.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
+      <div class="clear"><!-- --></div>
+    </div>
+  </div>
+</div>
+<% end -%>
+
+<h2 class="title"><%= h @group.title %></h2>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents">
+        <p><label>小组长</label><%= link_to @group.creator.login, user_url(@group.creator) %></p>
+        <p><label>管理员</label><%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %></p>
+        <p><label>小组城市</label><%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %></p>
+        <%= @group.body_html %>
+      </div>
+      
+      <% if @group.managed_by? current_user %>
+      <p class="remark"><%= link_to "修改小组信息", edit_group_url(@group) %></p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+  <h3>小组话题</h3>
+  <span class="postNew">++ <%= link_to "写新话题", new_topic_group_url(@group) %></span>
+  <div class="contents">
+    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+  </div>
+  <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
+    </div>
+  </div>
+</div>

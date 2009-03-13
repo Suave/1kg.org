@@ -1,0 +1,20 @@
+<% @page_title = "编辑活动分享" %>
+
+<% content_for :fullsize do -%>
+<div class="box" id="sharePostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= @page_title %></h2>
+      <% form_for :share, :url => share_url(@share), :html => {:method => :put} do |f| -%>
+        <%= render :partial => "form", :object => f %>
+        
+        <p class="submit clearfix">
+          <span class="btnWrap"><%= submit_tag "发 布" %></span> 
+          <span><%= link_to "取 消", root_url %></span>
+        </p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<% end -%>

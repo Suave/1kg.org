@@ -1,0 +1,29 @@
+<% @page_title = @user.login + " 的全部分享"-%>
+
+<% content_for :crumb do -%>
+    <li><%= link_to @user.login, user_url(@user) %></li>
+    <ul>
+      <li>全部分享</li>
+    </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "profile", :locals => {:user => @user} %>
+  
+  <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
+  
+  <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
+<% end -%>
+
+<div class="box tipText">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= h @user.login %>的全部活动分享</h2>
+      <ul class="contents">
+        <% @shares.each do |s| -%>
+          <li>&raquo; <%= link_to h(s.title), share_url(s) %> 写于 <%= s.created_at.to_date %> ... <%= s.hits %> 浏览 / <%= s.comments_count %> 留言</li>
+        <% end -%>
+      </ul>
+    </div>
+  </div>
+</div>

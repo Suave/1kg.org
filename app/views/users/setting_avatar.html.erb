@@ -1,0 +1,28 @@
+<% content_for :sidebar do -%>
+  <%= render :partial => "setting_sidebar" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>编辑个人信息</h2>
+      <div class="tabbedPanel">
+        <%= render :partial => "setting_tabmenu" %>
+        
+        <div class="panel setting">
+          <div class="block">
+            <h3>我的头像</h3>
+            <p class="note">当前头像显示的大图、中图、小图效果</p>
+            <p class="center"><%= avatar_for(@user, "large") %> <%= avatar_for(@user, "medium") %> <%= avatar_for(@user, "small") %></p>
+            <p class="note">支持 <strong>GIF</strong>, <strong>JPG</strong>, <strong>PNG</strong> 格式的头像, 尺寸不小于 72X72</p>
+            <% form_for :user, :url => user_path(:id => @user, :for => 'avatar'), :html => {:method => 'put', :multipart => true} do |f| %>
+              <p><label>选择你的新头像</label> <%= file_column_field 'user', 'avatar', :size => 20 %></p>
+              <p><label>&nbsp;</label><%= submit_tag "上传头像" %></p>
+            <% end -%>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

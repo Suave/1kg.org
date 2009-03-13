@@ -1,0 +1,21 @@
+<div class="contents">
+<table>
+  <tr>
+    <th>标题</th>
+    <th>作者</th>
+    <th>回复</th>
+    <th>最后更新</th>
+  </tr>
+  <% last_10_updated_topics.each do |topic| -%>
+  <tr class="<%= cycle('odd', 'even') %>">
+    <td>
+      <span style="display:block"><%= link_to topic.title, board_topic_url(topic.board, topic) %></span>
+      <span style="color:gray">&raquo; <%= link_to topic.board.talkable.school.title, school_url(topic.board.talkable.school) %></span>
+    </td>
+    <td><%= link_to topic.user.login, user_url(topic.user.id) %></td>
+    <td><%= topic.posts_count %></td>
+    <td><%= link_to "#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic.id, :anchor => (topic.last_post.id if topic.last_post)) %></td>
+  </tr>
+  <% end -%>
+</table>
+</div>

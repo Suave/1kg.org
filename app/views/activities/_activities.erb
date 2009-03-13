@@ -1,0 +1,22 @@
+  <table>
+    <thead>
+      <tr>
+        <th>活动</th>
+        <th>发起人</th>
+        <th>出发</th>
+        <th>到达</th>
+        <th>开始</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% activities.each do |a| -%>
+      <tr class="<%= cycle("odd", "even") %> tipText">
+        <td><%= link_to a.title, activity_url(a) %></td>
+        <td><%= link_to a.user.login, user_url(a.user) %></td>
+        <td><%= activity_departure_name(a) %></td>
+        <td><%= activity_arrival_name(a) %></td>
+        <td><%= date_for_short(a.start_at) %></td>
+      </tr>
+      <% end -%>
+    </tbody>
+  </table>

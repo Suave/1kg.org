@@ -1,0 +1,19 @@
+<table>
+  <tr>
+    <th style="width:150px; overflow:hidden">标题</th>
+    <th style="width:150px; overflow:hidden">活动</th>
+    <th>作者</th>
+    <th>回复</th>
+    <th>最后更新</th>
+  </tr>
+  <% last_10_updated_topics.each do |topic| -%>
+  <tr>
+    <td><%= link_to topic.title, board_topic_url(topic.board, topic) %></td>
+    <td><%= link_to topic.board.talkable.activity.title, activity_url(topic.board.talkable.activity) %></td>
+    <td><%= link_to topic.user.login, user_url(topic.user.id) %></td>
+    <td><%= topic.posts_count %></td>
+    <td><%= link_to "#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic, :anchor => (topic.last_post.id if topic.last_post)) %>
+      <%#= topic.last_replied_user.login %></td>
+  </tr>
+  <% end -%>
+</table>

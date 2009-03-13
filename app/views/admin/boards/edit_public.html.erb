@@ -1,0 +1,15 @@
+<% @page_title = "编辑开放讨论区" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <h3>编辑开放讨论区</h3>
+    <% form_for :public_board, :url => admin_board_url(@public_board.board_id, :type => 'public'), :html => {:method => :put} do |f| -%>
+    <%= render :partial => "public_form", :object => f %>
+    <p><label>序号</label><%= f.text_field :position, :size => 5 %></p>
+    <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_boards_url %></p>
+    <% end -%>
+  </div>
+</div>

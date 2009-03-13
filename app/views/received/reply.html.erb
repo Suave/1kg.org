@@ -1,0 +1,30 @@
+<% @page_title = "回复消息" %> 
+
+<% content_for :crumb do -%>
+  <li><%= link_to current_user.login, user_url(current_user) %></li>
+  <ul>
+    <li><%= link_to "我的收件箱", user_received_index_path(current_user) %></li>
+    <ul>
+      <li>回复<%= @recipient.login %>的消息</li>
+    </ul>
+  </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "/sent/toolbox" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>回复<%= @recipient.login %>的消息</h3>
+      <div class="contents">
+        <% form_for :message, :url => {:controller => "received", :action => "create"} do |f| %>
+          <%= render :partial => "/sent/form", :object => f %>
+          <p><%=submit_tag "写好了，发出去" -%> 或 <%= link_to "取消", user_received_index_path(current_user) %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

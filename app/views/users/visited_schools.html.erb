@@ -1,0 +1,30 @@
+<% content_for :fullsize do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= @user.login %>去过和关注的学校</h3>
+      <span class="postNew"><%= link_to "查看全部#{@user.login}提交的学校(#{@user.submitted_schools.size})", submitted_schools_user_url(@user) %></span>
+      <div class="contents">
+      <table>
+        <tr>
+          <th>校名</th>
+          <th>提交人</th>
+          <th>提交时间</th>
+          <th>最后更新</th>
+        </tr>
+        <% @schools.each do |s| -%>
+        <tr class="tipText">
+          <!--><td><%#= s.visited.find_by_user_id(@user.id).status==Visited.status('visited') ? "去过" : "想去" %></td>-->
+          <td><%= link_to s.title, school_url(s) %></td>
+          <td><%= link_to s.user.login, user_url(s.user) %></td>
+          <td><%= s.created_at.to_date %></td>
+          <td><%= school_last_update(s) %></td>
+        </tr>
+        <% end -%>
+      </table>
+      <%= will_paginate @schools %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end -%>

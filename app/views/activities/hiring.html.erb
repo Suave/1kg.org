@@ -1,0 +1,16 @@
+<% content_for :crumb do -%>
+<li><%= link_to "随便转转", public_look_url %></li>
+<ul>
+  <li>所有招募中的活动</li>
+</ul>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>所有招募中的的活动</h3>
+      <%= render :partial => "activities", :object => @activities %>
+      <%= will_paginate @activities %>
+    </div>
+  </div>
+</div>

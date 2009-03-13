@@ -1,0 +1,15 @@
+<p>
+	<strong><%= form.label :to, "发给:" -%> <%= h @recipient.login %></strong>
+	<%= form.hidden_field :to, :value => @recipient.id %>
+</p>
+
+<p>
+	<strong><%= form.label :subject, "主题:" -%></strong>
+	<%= form.text_field :subject, :size => 40 -%>
+</p>
+
+<p>
+	<strong><%= form.label :content, "内容:" -%></strong>
+	<br />
+	<%= form.text_area :content, :cols => 80 %>
+</p>

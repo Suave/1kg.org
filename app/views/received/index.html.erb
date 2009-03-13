@@ -1,0 +1,45 @@
+<% @page_title = '我的收件箱' %>
+
+<% content_for :crumb do -%>
+  <li><%= link_to "我的空间", user_url(current_user) %></li>
+  <ul>
+    <li>我的收件箱</li>
+  </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "/sent/toolbox" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>我的收件箱</h2>
+      <div class="contents">
+        <table border='0' cellspacing='0' summary="我收到的消息">
+        	<tr>
+        		<th>来自</th>
+        		<th>主题</th>
+        		<th>时间</th>
+        	</tr>
+
+        	<% for copy in @copies %>
+        		<tr>
+        			<td>
+        			  <div style="float:left; display:inline"><%= copy.author.nil? ? "系统发送" : link_to( h(copy.author.login), user_url(copy.author) ) %></div>
+        			  <% if copy.unread -%>
+        			    <div style="float:right; font-weight:bold">></div>
+        			  <% end -%>
+        			</td>
+        			<td><%= link_to h(copy.subject), user_received_path(current_user, copy)%></td>
+        			<td class="tipText"><%= copy.created_at.to_date %></td>
+        		</tr>
+        	<% end %>
+        </table>
+
+        <%= customize_paginate @copies %>
+        
+      </div>
+    </div>
+  </div>
+</div>

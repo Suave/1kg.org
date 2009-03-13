@@ -1,0 +1,25 @@
+/*-  Minimum- and maximum-width settings for IE
+----------------------------------------------------------------------*/
+.wrapper {
+	width:expression(document.body.clientWidth > 960 ? "960px": (document.body.clientWidth < 762 ? "760px": "auto" ));
+}
+
+.btnWrap a {
+  display: inline-block;
+}
+
+th {
+  font-size: 1em;
+}
+
+
+/*-  Self-clearing floats
+----------------------------------------------------------------------*/
+.box,
+.clearfix,
+.panel,
+.block,
+#headline,
+.gfg-list .gfg-listentry {
+  height: 1%;
+}

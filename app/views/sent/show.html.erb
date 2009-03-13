@@ -1,0 +1,35 @@
+<% @page_title = "我发送的消息" -%>
+
+<% content_for :crumb do -%>
+  <li><%= link_to "我的空间", user_url(current_user) %></li>
+  <ul>
+    <li><%= link_to "我的发件箱", user_sent_index_url(current_user) %></li>
+    <ul>
+      <li>我发出的消息</li>
+    </ul>
+  </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "toolbox" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= h @message.subject %></h2>
+      <div class="contents">
+        <p class="tipText"><strong>发给: </strong><%= @message.recipients.collect{|u| link_to u.login, user_url(u)}.join(", ") -%></p>
+        <p class="tipText"><strong>时间: </strong><%= @message.created_at.to_s(:db) -%></p>
+        <p class="tipText"><strong>内容:</strong></p>
+        <%= @message.html_content -%>        
+      </div>
+      <p class="remark">
+        &raquo;
+        <%= link_to '删除', user_sent_path(current_user, @message), 
+                          :confirm => '您确定要删除这条站内消息么?',
+                          :method => :delete %>
+      </p>
+    </div>
+  </div>
+</div>

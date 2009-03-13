@@ -1,0 +1,152 @@
+<% @page_title = @activity.title -%>
+
+<% content_for :crumb do -%>
+  <li>活动
+    <ul>
+      <li><%= @activity.title %></li>
+    </ul>
+  </li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>
+
+            &raquo;
+            <% if (@activity.register_over_at && @activity.register_over_at < Time.now) || @activity.done? || @activity.end_at < Time.now %>
+              报名已结束            
+
+            <% else -%>
+
+              <% if @activity.joined?(current_user) -%>
+                <%= link_to "我不去了", quit_activity_url(@activity), :method => :put %>
+              <% else -%>
+                <%= link_to "我要参加", join_activity_url(@activity), :method => :put %>
+              <% end -%>
+            <% end -%>
+          </h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" id="cityLatestMembers">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>参加这个活动的用户</h3>
+        <ul class="clearfix"><li><%= @activity.participators.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
+        <div class="clear"><!-- --></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>活动分享</h3>
+        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <div class="contents">
+          <% @shares.each do |s| -%>
+          <div style="clear:both;margin-bottom:1em;min-height:50px">
+            <div style="float:left">
+              <%= avatar_for(s.user, "large") %>
+            </div>
+            <div style="margin-left:60px;">
+              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+              <div style="color:#999; text-align:right">
+                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
+              </div>
+            </div>
+          </div>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>
+
+  <div class="box" id="activityInfo">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><%= @activity.title %></h2>
+        
+        
+        <div class="contents">
+          <div style="text-align:right">
+            <a href="#topicCommentsList">查看留言</a> | 发布时间：<%= @activity.created_at.to_date %>
+            <% if @activity.edited_by current_user -%>
+              (<%= link_to "修改活动信息", edit_activity_url(@activity.id) %> | 
+              <%= link_to "删除活动", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete %>)
+            <% end -%>
+          </div>
+          
+          <table id="activitiesInfo">
+            <tr>
+              <th>发起人</th><td><%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %></td>
+              <th>类型</th><td><%= @activity.category_name %></td>
+            </tr>
+            <tr>
+              <th>行程</th>
+              <td colspan="3">
+              出发地: <%= @activity.departure_id==0 ? "不限" : @activity.departure.name %> /
+              目的地: <%= @activity.arrival_id==0 ? "不限" : @activity.arrival.name %>
+              </td>
+            </tr>
+            <tr>
+              <th>地点</th><td colspan="3"><%= @activity.location %></td>
+            </tr>
+            <tr>
+              <th>时间</th><td><%= @activity.start_at.to_date %> 至 <%= @activity.end_at.to_date %></td>
+              <th>报名截止</th><td><%= @activity.register_over_at.to_date unless @activity.register_over_at.blank?  %></td>
+            </tr>
+            <tr>
+              <th>人均消费</th><td><%= @activity.expense_per_head %> 元</td>
+              <th>预期人数</th><td><%= @activity.expect_strength %> 人</td>
+            </tr>
+          </table>
+
+          <%= @activity.description_html %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" id="topicCommentsList">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>活动留言</h3>
+        <ol class="clearfix">
+          <% @comments.each do |p| -%>
+          <li>
+            <div class="avatar"><%= avatar_for p.user, "large" %></div>
+            <div class="content">
+              <p class="meta">
+                <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
+                
+                <% if p.editable_by?(current_user) -%>
+                  (<%= link_to "编辑", edit_comment_url(p) %>)
+                <% end -%>
+              </p>
+              <%= p.body_html %>
+            </div>
+          </li>
+          <% end -%>
+        </ol>
+      </div>
+      <div class="clear"><%= customize_paginate @comments %></div>
+    </div>
+  </div>
+  
+  <div class="box" id="topicCommentForm">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>写留言</h3>
+        <% form_for :comment, :url => comments_url(:type => "activity") do |f| -%>
+        <%= f.hidden_field :type_id, :value => @activity.id %>
+        <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
+        <p class="submit"><%= submit_tag "提 交" %></p>
+        <% end -%>
+      </div>
+    </div>
+  </div>

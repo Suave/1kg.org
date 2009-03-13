@@ -1,0 +1,69 @@
+<% @page_title = @user.login -%>
+
+<% content_for :crumb do -%>
+<li>用户</li>
+<ul>
+  <li><%= h @user.login %></li>
+</ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "profile", :locals => {:user => @user} %>
+  
+  <%= render :partial => "neighbors", :locals => {:user => @user, :neighbors => @neighbors} %>
+  
+  <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
+
+  <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
+<% end -%>
+
+
+<h2 class="title"><%= h @user.login %></h2>
+
+<% if @user == current_user -%>
+<div class="moderators tipText">
+  [ <%= link_to "写活动分享", new_share_url %> | <%= link_to "发起新活动", new_activity_url %> | <%= link_to "提交学校信息", new_school_url %> ]
+</div>
+<% end -%>
+
+<% if @shares.blank? -%>
+
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>参加过<%= @user.participated_activities.size %>个活动, 但还没有活动分享</h3>
+        <div class="contents">
+          <% if @user == current_user -%>
+          <p>++ <%= link_to "写分享", new_share_url %></p>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else -%>
+
+  <% @shares.each do |s| -%>
+  <div class="box shareEntry">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><%= link_to h(s.title), share_url(s) %></h2>
+
+        <div class="metadata">
+          <p>
+            <%= link_to s.user.login, user_url(s.user)  %> 写于 <%= s.created_at.to_date %> ... 
+            <%= s.hits %> 浏览 / <%= s.comments_count %> 留言 
+            <% if s.moderated_by? current_user -%>
+            (<%= link_to "编辑", edit_share_url(s) %> | <%= link_to "删除", share_url(s), :confirm => "确认删除么? 本操作无法撤销", :method => :delete %>)
+            <% end -%>
+          </p>
+        </div>
+        <div class="entry">
+          <%= s.body_html %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end -%>
+
+  <p class="tipText right">&raquo; <%= link_to "查看#{@user.login}的全部分享", shares_user_url(@user) %> (<%= @user.shares.size %>)</p>
+<% end -%>

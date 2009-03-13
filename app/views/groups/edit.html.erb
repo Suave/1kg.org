@@ -1,0 +1,16 @@
+<% @page_title = "修改小组介绍" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<div class="box" id="activitiesPostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>修改小组介绍</h2>
+      <% form_for :group, :url => group_url(@group), :html => {:method => :put} do |f| -%>
+       <%= render :partial => "form", :object => f %>
+       <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改" %></span> <span class="btnWrap"><%= link_to "取 消", group_url(@group) %></span></p>
+      <% end -%>
+    </div>
+  </div>
+</div>
