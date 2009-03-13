@@ -12,7 +12,6 @@ module Spec
         lambda do
           @object.rspec_verify
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         end.should raise_error(Spec::Mocks::MockExpectationError, /<Object:.*> expected/)
       end
     
@@ -21,9 +20,6 @@ module Spec
         lambda do
           Object.rspec_verify
         end.should raise_error(Spec::Mocks::MockExpectationError, /<Object \(class\)>/)
-=======
-        end.should raise_error(Spec::Mocks::MockExpectationError, /Object/)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
 =======
         end.should raise_error(Spec::Mocks::MockExpectationError, /Object/)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
@@ -37,22 +33,16 @@ module Spec
             
       it "should_not_receive should mock out the method" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         @object.should_not_receive(:fuhbar)
         lambda do
           @object.fuhbar
         end.should raise_error(MockExpectationError, /<Object:.*> expected :fuhbar with \(no args\) 0 times/)
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         pending("example raises the expected error, yet fails")
         @object.should_not_receive(:fuhbar)
         lambda do
           @object.fuhbar
         end.should raise_error(MockExpectationError, "Mock 'Object' expected :fuhbar with (no args) 0 times, but received it once")
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
       end
     
@@ -95,10 +85,6 @@ module Spec
       
       it "should_not_receive should also take a String argument" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-=======
-        pending("example raises the expected error, yet fails")
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
 =======
         pending("example raises the expected error, yet fails")
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
@@ -110,7 +96,6 @@ module Spec
       
       it "should use report nil in the error message" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         allow_message_expectations_on_nil
         
         @this_will_resolve_to_nil.should_receive(:foobar)
@@ -118,15 +103,10 @@ module Spec
           @this_will_resolve_to_nil.rspec_verify
         end.should raise_error(Spec::Mocks::MockExpectationError, /nil expected :foobar with/)
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         @this_will_resolve_to_nil.should_receive(:foobar)
         lambda do
           @this_will_resolve_to_nil.rspec_verify
         end.should raise_error(Spec::Mocks::MockExpectationError, /NilClass.*expected :foobar with/)
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
       end
     end

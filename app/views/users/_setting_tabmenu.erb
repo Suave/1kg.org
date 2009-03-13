@@ -1,5 +1,5 @@
 <ul class="tab">
-  <% [["个人信息", "personal"], ["帐号设置", "account"]].each do |type| -%>
+  <% [["我的城市", "personal"], ["我的头像", "avatar"], ["个人资料", "profile"], ["帐号设置", "account"]].each do |type| -%>
     <li class="<%= @type==type[1] ? "current" : "" %>"><%= link_to type[0], setting_url(:type => type[1]) %></li>
   <% end -%>
 </ul>

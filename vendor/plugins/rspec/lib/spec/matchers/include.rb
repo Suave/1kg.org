@@ -8,21 +8,15 @@ module Spec
       end
       
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
       def matches?(given)
         @given = given
         @expecteds.each do |expected|
           return false unless given.include?(expected)
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
       def matches?(actual)
         @actual = actual
         @expecteds.each do |expected|
           return false unless actual.include?(expected)
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
         end
         true
@@ -43,11 +37,7 @@ module Spec
       private
         def _message(maybe_not="")
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
           "expected #{@given.inspect} #{maybe_not}to include #{_pretty_print(@expecteds)}"
-=======
-          "expected #{@actual.inspect} #{maybe_not}to include #{_pretty_print(@expecteds)}"
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
 =======
           "expected #{@actual.inspect} #{maybe_not}to include #{_pretty_print(@expecteds)}"
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
@@ -73,11 +63,7 @@ module Spec
     #   should_not include(expected)
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/include.rb
     # Passes if given includes expected. This works for
-=======
-    # Passes if actual includes expected. This works for
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb
 =======
     # Passes if actual includes expected. This works for
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/include.rb

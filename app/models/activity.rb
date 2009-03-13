@@ -4,15 +4,70 @@ class Activity < ActiveRecord::Base
   belongs_to :user
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
+  
+  #has_one    :discussion, :class_name => "ActivityBoard"
+  
+  has_many :participation, :dependent => :destroy
+  has_many :participators,  :through => :participation, :source => :user
+  
+  has_many :comments, :class_name => "ActivityComment", :foreign_key => "type_id"
+  has_many :shares
 #  belongs_to :school
 
-  before_save :format_content
+  #named_scope :hiring,   :conditions => ["start_at > ?", Time.now]
+  named_scope :available, :conditions => "deleted_at is null"
+  named_scope :ongoing,  :conditions => ["end_at > ?", Time.now]
+  named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now]
+  
+  named_scope :at, lambda { |city|
+    geo_id = ((city.class == Geo) ? city.id : city)
+    {:conditions => ["(departure_id=? or arrival_id=? or departure_id=0 or arrival_id=0)", geo_id, geo_id]}
+  }
+
+  validates_presence_of :title, :message => "活动名称是必填项"
+  validates_presence_of :departure_id, :message => "出发地是必选项"
+  validates_presence_of :arrival_id, :message => "目的地是必选项"
+  validates_presence_of :start_at, :message => "开始时间是必填项"
+  validates_presence_of :end_at, :message => "结束时间是必填项"
+  
+  
+  #before_save :format_content
   
   
   def self.categories
-    %w(公益旅游 物资募捐 支教 其他)
+    %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end
   
+  def category_name
+    self.class.categories[category]
+  end
+  
+  def edited_by(user)
+    user.class == User && (self.user_id == user.id || user.has_role?('roles.admin'))
+  end
+  
+  def joined?(user)
+    user.class == User && participators.include?(user)
+  end
+  
+  def self.archives
+    date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
+    
+    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? group by year,month order by year asc,month asc",Time.now])
+    
+    sum = 0
+    result = counts.map do |entry|
+      sum += entry.count.to_i
+      {
+        :name => entry.year + "年" + entry.month + "月",
+        :month => entry.month.to_i,
+        :year => entry.year.to_i,
+        :delta => entry.count,
+        :sum => sum
+      }
+    end
+    return result.reverse
+  end
   
   private
   def format_content

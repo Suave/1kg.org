@@ -4,15 +4,22 @@ class Post < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
   
-  before_save :format_content
+  #before_save :format_content
   after_create :update_posts_count
   
-  private
+  named_scope :available, :conditions => "deleted_at is null"
+  
+  def editable_by(user)
+    user != nil && (self.user_id == user.id || self.topic.board.has_moderator?(user) || user.admin?)
+  end
+  
   def format_content
     body.strip! if body.respond_to?(:strip!)
     self.body_html = body.blank? ? '' : formatting_body_html(body)
   end
   
+  private
+
   def update_posts_count
     self.topic.update_attributes!(:posts_count => Post.count(:all, :conditions => {:topic_id => self.topic.id}),
                                   :last_replied_at => self.created_at,

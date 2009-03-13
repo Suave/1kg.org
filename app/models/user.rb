@@ -4,14 +4,15 @@ class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
-  validates_presence_of     :login, :email
-  validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?
-  validates_length_of       :password, :within => 4..40, :if => :password_required?
-  validates_confirmation_of :password,                   :if => :password_required?
-  validates_length_of       :login,    :within => 2..40
-  validates_length_of       :email,    :within => 3..100
-  validates_uniqueness_of   :email, :case_sensitive => false
+  validates_presence_of     :login, :message => "用户名不能为空"
+  validates_presence_of     :email, :message => "邮件地址不能为空"
+  validates_presence_of     :password,                   :if => :password_required?, :message => "密码不能为空"
+  validates_presence_of     :password_confirmation,      :if => :password_required?, :message => "确认密码不能为空"
+  validates_length_of       :password, :within => 4..40, :if => :password_required?, :message => "密码长度在4-40个字符之间"
+  validates_confirmation_of :password,                   :if => :password_required?, :message => "两次输入的密码不一致"
+  validates_length_of       :login,    :within => 2..40, :message => "用户名长度在2-40个字符之间"
+  validates_length_of       :email,    :within => 3..100, :message => "邮件地址长度在3-100个字符之间"
+  validates_uniqueness_of   :email, :case_sensitive => false, :message => "邮件地址已被占用"
   
   file_column :avatar, :magick => {
                               :geometry => "72x72>",
@@ -19,7 +20,33 @@ class User < ActiveRecord::Base
                             }
   
   belongs_to :geo
+  has_one :profile
+  
+  has_many :submitted_activities, :class_name => "Activity"
+  has_many :participations
+  has_many :participated_activities, :through => :participations, :source => :activity
+  
+  has_many :submitted_schools, :class_name => "School"
+  has_many :visiteds
+  has_many :visited_schools, :through => :visiteds, :source => :school
+  
   has_many :topics
+  
+  has_many :shares
+  
+  #add relationship between messages			
+  has_many :sent_messages, 			:class_name => "Message", 
+																:foreign_key => "author_id"
+
+	has_many :received_messages, 	:class_name => "MessageCopy", 
+															 	:foreign_key => "recipient_id"
+
+	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
+														 		:conditions 		=> {:unread => true},
+														 		:foreign_key 	=> "recipient_id"
+														 		
+	has_many :neighborhoods
+	has_many :neighbors, :through => :neighborhoods
   
   before_save :encrypt_password
   
@@ -110,15 +137,53 @@ class User < ActiveRecord::Base
     has_role?("roles.admin")
   end
   
+  def has_neighbor?(user)
+    user.neighbors.include?(self)
+  end
+  
+  def neighbor_addable_by?(user)
+    logger.info("CURRENT_USER: #{user.inspect}")
+    (user != nil) and (id != user.id) and not has_neighbor?(user)
+  end
+  
+  def neighbor_removeable_by?(user)
+    (user != nil) and (id != user.id) and has_neighbor?(user)
+  end
+  
   def self.admins
     admin_id = Role.find_by_identifier("roles.admin").id
     return search_role_members(admin_id)
   end
   
+  def self.school_moderators
+    school_moderator_id = Role.find_by_identifier("roles.schools.moderator").id
+    return search_role_members(school_moderator_id)
+  end
+  
+  
   def self.moderators_of(board)
     board_id = (board.class == Board ? board.id : board)
     role_id = Role.find_by_identifier("roles.board.moderator.#{board_id}").id
     return search_role_members(role_id)
+  end
+  
+  def self.archives
+    date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
+    
+    counts = User.find_by_sql(["select count(*) as count, #{date_func} from users where created_at < ? group by year,month order by year asc,month asc",Time.now])
+    
+    sum = 0
+    result = counts.map do |entry|
+      sum += entry.count.to_i
+      {
+        :name => entry.year + "年" + entry.month + "月",
+        :month => entry.month.to_i,
+        :year => entry.year.to_i,
+        :delta => entry.count,
+        :sum => sum
+      }
+    end
+    return result.reverse
   end
 
   protected

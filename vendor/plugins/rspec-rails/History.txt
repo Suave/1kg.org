@@ -1,5 +1,4 @@
 <<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
-<<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
 === Maintenance
 
 * 1 bug fix
@@ -29,9 +28,6 @@
 =======
 === In Development (git clone git://github.com/dchelimsky/rspec-rails.git)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
-=======
-=== In Development (git clone git://github.com/dchelimsky/rspec-rails.git)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
 
 IMPORTANT: use 'script/autospec' (or just 'autospec' if you have the rspec gem
 installed) instead of 'autotest'. We changed the way autotest discovers rspec
@@ -40,13 +36,10 @@ rspec to live side by side other spec frameworks without always co-opting
 autotest through autotest's discovery mechanism.
 
 <<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
-<<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
 ALSO IMPORTANT: Rails v2.1.1 changed assert_select_rjs such that it doesn't
 always fail when it should. Please see
 http://rails.lighthouseapp.com/projects/8994/tickets/982.
 
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
 * Generated route specs have shorter names, making it less painful to modify their implementation
@@ -59,7 +52,6 @@ http://rails.lighthouseapp.com/projects/8994/tickets/982.
 * Added script/autospec so you can run autospec without installing the gem
 * Support --skip-fixture in the rspec_model generator (patches from Alex Tomlins and Niels Ganser)
 * Add mock_model#as_new_record (patch from Zach Dennis)
-<<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
 <<<<<<< HEAD:vendor/plugins/rspec-rails/History.txt
 * mock(:null_object=>true) plays nice with HTML (patch from Gerrit Kaiser)
 * Suppress a deprecation notice in Rails 2.1 (James Herdman)
@@ -74,8 +66,6 @@ http://rails.lighthouseapp.com/projects/8994/tickets/982.
 * use require_dependency instead of require (Brandon Keepers)
 * Fixed a problem caused by controller action names getting out of sync between rspec-dev and rspec-rails for speccing (Matt Patterson)
 * don't mutate hash passed to mock_model (Reg Vos)
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/History.txt
 

@@ -187,9 +187,9 @@ DlgGenStyle			: "行内样式",
 
 // Image Dialog
 DlgImgTitle			: "图象属性",
-DlgImgInfoTab		: "图象",
+DlgImgInfoTab		: "贴图",
 DlgImgBtnUpload		: "选好了, 上传照片",
-DlgImgURL			: "源文件",
+DlgImgURL			: "图象地址",
 DlgImgUpload		: "上传",
 DlgImgAlt			: "替换文本",
 DlgImgWidth			: "宽度",
@@ -211,7 +211,7 @@ DlgImgAlignTextTop	: "文本上方",
 DlgImgAlignTop		: "顶端",
 DlgImgPreview		: "预览",
 DlgImgAlertUrl		: "请输入图象地址",
-DlgImgLinkTab		: "贴图",
+DlgImgLinkTab		: "链接",
 
 // Flash Dialog
 DlgFlashTitle		: "Flash 属性",

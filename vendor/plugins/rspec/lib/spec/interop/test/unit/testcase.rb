@@ -44,18 +44,12 @@ module Test
       end
 
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
       def initialize(defined_description, options={}, &implementation)
         @_defined_description = defined_description
         
         # TODO - examples fail in rspec-rails if we remove "|| pending_implementation"
         #      - find a way to fail without it in rspec's code examples
         @_implementation = implementation || pending_implementation
-=======
-      def initialize(defined_description, &implementation)
-        @_defined_description = defined_description
-        @_implementation = implementation
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
 =======
       def initialize(defined_description, &implementation)
         @_defined_description = defined_description
@@ -72,7 +66,6 @@ module Test
         super()
       end
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
 
     private
 
@@ -80,8 +73,6 @@ module Test
         error = Spec::Example::NotYetImplementedError.new(caller)
         lambda { raise(error) }
       end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
 =======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/interop/test/unit/testcase.rb
     end

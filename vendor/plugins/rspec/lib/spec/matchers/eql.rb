@@ -7,7 +7,6 @@ module Spec
       end
   
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/eql.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/eql.rb
       def matches?(given)
         @given = given
         @given.eql?(@expected)
@@ -20,8 +19,6 @@ module Spec
       def negative_failure_message
         return "expected #{@given.inspect} not to equal #{@expected.inspect} (using .eql?)", @expected, @given
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/eql.rb
       def matches?(actual)
         @actual = actual
         @actual.eql?(@expected)
@@ -33,9 +30,6 @@ module Spec
       
       def negative_failure_message
         return "expected #{@actual.inspect} not to equal #{@expected.inspect} (using .eql?)", @expected, @actual
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/eql.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/eql.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/eql.rb
       end
 
@@ -49,11 +43,7 @@ module Spec
     #   should_not eql(expected)
     #
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/eql.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/eql.rb
     # Passes if given and expected are of equal value, but not necessarily the same object.
-=======
-    # Passes if actual and expected are of equal value, but not necessarily the same object.
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/eql.rb
 =======
     # Passes if actual and expected are of equal value, but not necessarily the same object.
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/eql.rb

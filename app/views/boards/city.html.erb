@@ -1,37 +1,102 @@
-<% @page_title = "#{@city.name}同城" -%>
+<% @page_title = "#{@city.name}" -%>
 
 <% content_for :sidebar do -%>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3></h3>
+        <div class="contents">
+          <p>&raquo; <%= link_to "写活动分享", new_share_url %></p>
+          <p>&raquo; <%= link_to "发起新活动", new_activity_url %></p>
+          <p>&raquo; <%= link_to "提交学校信息", new_school_url %></p>
+          
+          <div style="margin-top:15px;">
+          <p><strong>我要去</strong> <span class="tipText">(输入你想去的城市)</span></p>
+          <% form_tag search_geos_url, :method => :get do -%>
+            <%= text_field_tag 'city' %> <%= submit_tag "查找" %>
+          <% end -%>
+          <p class="tipText">或 <%= link_to "按省查找城市", all_geos_url %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>分享</h3>
+        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <div class="contents">
+          <% @shares.each do |s| -%>
+          <div style="clear:both;margin-bottom:1em;min-height:50px">
+            <div style="float:left">
+              <%= avatar_for(s.user, "large") %>
+            </div>
+            <div style="margin-left:60px;">
+              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+              <div style="color:#999; text-align:right">
+                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
+              </div>
+            </div>
+          </div>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <p>&raquo; <%= link_to "周边的学校", schools_board_url(@board) %> (<%= School.at(@city).validated.count %>)</p>
+  <p>&raquo; <%= link_to "我要去#{@city.name}旅行", geo_url(@city) %></p>
+  <p>&raquo; <%= link_to "浏览其它同城", cities_url %></p>
 <% end -%>
 
-<div class="moderators">
-  版主：<%= User.moderators_of(@city_board.board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
-</div>
+<% if logged_in? && current_user.geo.nil? -%>
+<p class="clearfix">
+  <span class="btnWrap btnHighlight">
+  <%= link_to "我住在#{@city.name}!", user_url(current_user, :for => 'live', :geo => @city.id), :method => :put %>
+  </span>
+  或 <%= link_to "返回城市列表", my_city_url(:geo => (@city.parent.id if @city.parent)) %>
+</p>
+<% end -%>
 
-<div class="operations">
-  <%= link_to "写新帖子", new_board_topic_url(@board) %> | 
+<h2 class="title"><%= @page_title.to_s %></h2>
+
+<% if logged_in? && current_user.geo == @city -%>
+<div style="float:left; margin:17px; 0 0 1em;"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
+<% end -%>
+
+
+<div class="moderators">
+  城市版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
 </div>
 
 <div class="posting">
-  <div class="block">
-    <h3>介绍</h3>
-    <p><%= @city_board.description_html %></p>
+
+  <div class="box" id="cityActivities">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>最近的活动</h3>
+        <span class="postNew">++ <%= link_to "发起新活动", new_activity_url %></span>
+        <%= render :partial => "/activities/activity_list" %>
+      </div>
+      <p class="remark">&raquo; 全部 <%= link_to "进行中的活动", ongoing_activities_url %> &middot; <%= link_to "已结束的活动", over_activities_url %></p>
+    </div>
   </div>
   
-  <div class="block">
-    <h3>所有话题</h3>
-    <table border="0" cellspacing="5" cellpadding="5">
-      <% @topics.each do |t| -%>
-      <tr>
-        <td><%= link_to t.title, board_topic_url(@board, t) %></td>
-        <td><%= link_to t.user.login, user_url(t.user) %></td>
-      </tr>
-      <% end -%>
-    </table>
-  </div>
   
-  <div class="block">
-    <h3>谁住 <%= @city.name %></h3>
-    <%= @citizens.collect {|c| link_to c.login, user_url(c.id)}.join(", ") %>
+  <%= render :partial => "/topics/latest_topics", :locals => {:title => "同城话题", :board => @board, :topics => @topics} %>
+  
+  
+  <div class="box" id="cityLatestMembers">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>居民</h3>
+        <ul class="clearfix"><li><%= @citizens.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
+        <div class="clear"><!-- --></div>
+      </div>
+      <p class="remark">&raquo; <%= link_to "查看全部#{@city.users.size}位居民", users_board_url(@board) %></p>
+    </div>
   </div>
 </div>
-

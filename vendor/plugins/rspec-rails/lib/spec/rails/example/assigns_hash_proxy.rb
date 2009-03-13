@@ -3,7 +3,6 @@ module Spec
     module Example
       class AssignsHashProxy #:nodoc:
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
         def initialize(example_group, &block)
           @target = block.call
           @example_group = example_group
@@ -23,8 +22,6 @@ module Spec
           assigns.delete(key.to_s)
           @target.instance_variable_set("@#{key}", nil)
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
         def initialize(object)
           @object = object
         end
@@ -46,9 +43,6 @@ module Spec
 
         def delete(name)
           assigns.delete(name.to_s)
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
         end
 
@@ -63,11 +57,7 @@ module Spec
         protected
         def assigns
 <<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
           @example_group.orig_assigns
-=======
-          @object.assigns
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb
 =======
           @object.assigns
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/assigns_hash_proxy.rb

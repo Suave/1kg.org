@@ -4,7 +4,6 @@ module Spec
   module Mocks
     describe "calling :should_receive with an options hash" do
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
       it "should report the file and line submitted with :expected_from" do
         begin
           mock = Spec::Mocks::Mock.new("a mock")
@@ -32,8 +31,6 @@ module Spec
           m.rspec_verify
         }.should raise_error("from mock")
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
       include SandboxedOptions
       attr_reader :reporter, :example_group
       before do
@@ -70,9 +67,6 @@ module Spec
           error.message.should == "recebi nada"
         end
         example.execute(@options, {})
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/options_hash_spec.rb
       end
     end

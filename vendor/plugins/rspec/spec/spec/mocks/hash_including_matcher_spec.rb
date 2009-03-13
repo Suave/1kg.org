@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../../spec_helper.rb'
 module Spec
   module Mocks
 <<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
     module ArgumentConstraints
       describe HashIncludingConstraint do
         
@@ -54,8 +53,6 @@ module Spec
   end
 end
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
     describe HashIncludingConstraint do
       
       it "should match the same hash" do
@@ -83,9 +80,5 @@ end
       end      
     end
  end
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
-end
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb
-=======
 end
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/hash_including_matcher_spec.rb

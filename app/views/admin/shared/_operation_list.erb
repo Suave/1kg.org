@@ -1,5 +1,18 @@
-<h2>操作列表 <%= title_suffix %></h2>
-<ul>
-  <li><%= link_to "管理员&版主设置", admin_users_path %> | <%= link_to "角色", admin_roles_path %> | <%= link_to "权限", admin_permissions_path %></li>
-  <li><%= link_to "地区管理", admin_geos_path %></li>
-</ul>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>操作列表</h3>
+      <div class="contents">
+        <ul>
+          <li><%= link_to "管理员&版主设置", admin_users_path %> | <%= link_to "角色", admin_roles_path %> | <%= link_to "权限", admin_permissions_path %></li>
+          <li><%= link_to "学校管理", admin_schools_path %></li>
+          <li><%= link_to "地区管理", admin_geos_path %></li>
+          <li><%= link_to "开放讨论区管理", admin_boards_path %></li>
+          <li><%= link_to "公益小组", admin_groups_path %>(未完成,勿用!)</li>
+          <li><%= link_to "静态页面管理", admin_pages_path %></li>
+          <li><%= link_to "数据统计", :controller => "/admin/misc", :action => "statistics" %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -46,3 +46,26 @@ FCKConfig.ToolbarSets["Simple"] = [
 	['Image','Smiley'],
 	['TextColor','BGColor']
 ] ;
+
+FCKConfig.ToolbarSets["Post"] = [
+	['Source'],
+	['Cut','Copy','Paste','PasteWord'],
+	['Undo','Redo'],
+	'/',
+	['Bold','Italic','StrikeThrough'],
+	['TextColor','BGColor'],
+	['OrderedList','UnorderedList'],
+	['Link','Unlink'],
+	['Image','Smiley']
+] ;
+FCKConfig.ToolbarSets["OneLine"] = [
+	['Undo','Redo'],
+	['Cut','Copy','Paste','PasteWord'],
+	['Bold','Italic','StrikeThrough'],
+	['JustifyLeft','JustifyCenter','JustifyRight'],
+	['OrderedList','UnorderedList'],
+	['TextColor','BGColor'],
+	['Link','Unlink'],
+	['Image','Smiley'],
+	['Source']
+] ;

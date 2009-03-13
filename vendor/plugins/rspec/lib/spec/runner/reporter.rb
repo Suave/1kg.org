@@ -27,11 +27,7 @@ module Spec
           example_passed(example)
         elsif Spec::Example::ExamplePendingError === error
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/reporter.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/reporter.rb
           example_pending(example, error.pending_caller, error.message)
-=======
-          example_pending(example, error.message)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/reporter.rb
 =======
           example_pending(example, error.message)
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/reporter.rb
@@ -112,7 +108,6 @@ module Spec
         formatters.each{|f| f.example_passed(example)}
       end
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/reporter.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/reporter.rb
 
       EXAMPLE_PENDING_DEPRECATION_WARNING = <<-WARNING
         DEPRECATION NOTICE: RSpec's formatters have changed example_pending
@@ -142,8 +137,6 @@ module Spec
       end
       
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/reporter.rb
       
       def example_pending(example, message="Not Yet Implemented")
         @pending_count += 1
@@ -152,9 +145,6 @@ module Spec
         end
       end
       
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/reporter.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/reporter.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/reporter.rb
       class Failure
         attr_reader :example, :exception

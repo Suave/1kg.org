@@ -1,0 +1,73 @@
+<% if logged_in? -%>
+<% @page_title = "欢迎 #{current_user.login}" -%>
+<% else -%>
+<% @page_title = "欢迎加入多背一公斤" -%>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<div class="box" id="blog">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>多背一公斤博客 <a href="http://feedsky.blogbus.com/1kg_blogbus_com"><img src="/images/feeds.gif" alt="RSS订阅" /></a></h3>
+      <div class="contents">
+        <!-- Google的某插件 -->
+        <div class="gfg-root">
+          <div class="gfg-entry">
+            <div class="gf-result">
+              <div class="gf-title">
+                <a href="http://1kg.blogbus.com/logs/33206794.html" class="gf-title" target="_blank">创作你的“多背一公斤”之歌</a>
+              </div>
+              <div class="gf-relativePublishedDate">Dec 31, 2008</div>
+              <div class="gf-snippet">2009新年伊始，“多背一公斤”发起倡议：请志愿者们为“多背一公斤”写歌词。
+                征集内容：能体现“多背一公斤”的发展梦想“旅行改变世界”
+                征集方式：直接在本贴...</div>
+            </div>
+          </div>
+          <div class="gfg-list">
+            <div class="gfg-listentry gfg-listentry-highlight gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/33206794.html" target="_blank">创作你的“多背一公斤”之歌</a></div>
+            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/33091269.html" target="_blank">新年之即，让我们一起来读书！</a></div>
+            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32702782.html" target="_blank">板房图书室进展081219</a></div>
+            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/32597656.html" target="_blank">多背一公斤板房图书室项目进展</a></div>
+            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32346689.html" target="_blank">多背一公斤十一月简报</a></div>
+          </div>
+        </div>
+        <!--/END Google的某插件 -->
+      </div>
+    </div>
+  </div>
+</div>
+           
+<div class="block" id="newsletter">
+  <div class="blockOuter">
+    <h3>订阅多背一公斤新闻</h3>
+    <div class="contents">
+      <form action="http://groups.google.com/group/1kgnews/boxsubscribe">
+        <input type="text" class="form-text" name="email" value="电子邮件" />
+        <input type="submit" class="form-submit" value="订阅" name="sub" />
+      </form>
+    </div>
+  </div>
+</div>
+<% end -%>
+
+<% if logged_in? && ! current_user.geo -%>
+<% @page_title = "你还没设置居住的城市" -%>
+<% end -%>
+
+<% if logged_in? && ! current_user.geo -%>
+<div id="setMyLocation">
+ <p>选择你的居住城市后，才能看到同城活动，和城市周边的学校，还可以和同城的朋友一起聊天。</p>
+ <%= button_to "选择我的居住地", setting_url %>
+</div>
+<% end -%>
+
+<!-- unlogin
+<div style="background:orange; width:550px; height:250px; border:2px solid red; text-align:center; margin:10px">
+  <span style="font-size:24px; display:block; margin:auto; line-height:250px;">未登录时的站点介绍, 旅行改变世界!</span>
+</div>
+<h3>热门帖子<%= title_suffix %></h3>
+<%#= render :partial => "latest_topics" %>
+
+<h3>热门学校信息 <%= title_suffix %></h3>
+<%#= render :partial => "latest_schools_update" %>
+-->

@@ -35,23 +35,17 @@ module Spec
                                                           "matching that name"],
         :specification => ["-s", "--specification [NAME]", "DEPRECATED - use -e instead", "(This will be removed when autotest works with -e)"],
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
         :line => ["-l", "--line LINE_NUMBER", Integer, "Execute behaviour or specification at given line.",
                                                        "(does not work for dynamically generated specs)"],
         :format => ["-f", "--format FORMAT[:WHERE]","Specifies what format to use for output. Specify WHERE to tell",
                                                     "the formatter where to write the output. All built-in formats",
                                                     "expect WHERE to be a file name, and will write to $stdout if it's",
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
         :line => ["-l", "--line LINE_NUMBER", Integer, "Execute behaviout or specification at given line.",
                                                        "(does not work for dynamically generated specs)"],
         :format => ["-f", "--format FORMAT[:WHERE]","Specifies what format to use for output. Specify WHERE to tell",
                                                     "the formatter where to write the output. All built-in formats",
                                                     "expect WHERE to be a file name, and will write to STDOUT if it's",
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
                                                     "not specified. The --format option may be specified several times",
                                                     "if you want several outputs",
@@ -109,7 +103,6 @@ module Spec
         self.banner = "Usage: spec (FILE|DIRECTORY|GLOB)+ [options]"
         self.separator ""
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
         on(*OPTIONS[:pattern])          {|pattern| @options.filename_pattern = pattern}
         on(*OPTIONS[:diff])             {|diff| @options.parse_diff(diff)}
         on(*OPTIONS[:colour])           {@options.colour = true}
@@ -135,8 +128,6 @@ module Spec
       def order!(argv, &blk)
         @argv = (argv.empty? && Spec.spec_command?) ? ['--help'] : argv 
 =======
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
         on(*OPTIONS[:pattern]) {|pattern| @options.filename_pattern = pattern}
         on(*OPTIONS[:diff]) {|diff| @options.parse_diff(diff)}
         on(*OPTIONS[:colour]) {@options.colour = true}
@@ -161,9 +152,6 @@ module Spec
 
       def order!(argv, &blk)
         @argv = argv
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
-=======
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
         @options.argv = @argv.dup
         return if parse_generate_options
@@ -177,11 +165,7 @@ module Spec
         @options
       end
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
       
-=======
-
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb
 =======
 
 >>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/option_parser.rb

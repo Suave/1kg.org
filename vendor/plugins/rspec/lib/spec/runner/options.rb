@@ -137,15 +137,10 @@ module Spec
         if @colour && RUBY_PLATFORM =~ /mswin|mingw/ ;\
           begin ;\
 <<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/options.rb
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/options.rb
             replace_output = @output_stream.equal?($stdout) ;\
             require 'rubygems' ;\
             require 'Win32/Console/ANSI' ;\
             @output_stream = $stdout if replace_output ;\
-=======
-            require 'rubygems' ;\
-            require 'Win32/Console/ANSI' ;\
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/options.rb
 =======
             require 'rubygems' ;\
             require 'Win32/Console/ANSI' ;\
