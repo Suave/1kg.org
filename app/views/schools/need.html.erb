@@ -1,0 +1,43 @@
+<% @page_title = "提交学校信息" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :sidebar do -%>
+  <!-- <p>> <%= link_to "返回", schools_url %></p> -->
+<% end -%>
+
+<% content_for :fullsize do -%>
+  <div class="box" id="schoolsPostNeeds">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><!-- --></h2>
+        <div class="contents">
+          <div class="school-steps">
+        		<ol class="clearfix">
+        			<li class="first"><span>1</span> 填写学校基本信息</li>
+        			<li class="middle"><span>2</span> 填写交通信息</li>
+        			<li class="middle current"><span>3</span> 填写学校需求</li>
+        			<li class="last"><span>4</span> 补充其它信息<span class="hook"></span></li>
+        		</ol>
+          </div>    
+          
+          <% form_for :school, :url => schools_url(:step => 'need') do |f| -%>
+          <%= f.hidden_field :id %>
+          
+          <% f.fields_for @school.need do |n| -%>
+          <p class="notice"><label class="label" for="school_school_need_urgency">紧急需求</label><%= n.text_field :urgency, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_book">书籍</label><%= n.text_field :book, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_stationary">文具</label><%= n.text_field :stationary, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_sport">体育用品</label><%= n.text_field :sport, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_cloth">衣服</label><%= n.text_field :cloth, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_accessory">教具</label><%= n.text_field :accessory, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_course">课程活动</label><%= n.text_field :course, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_teacher">支教老师</label><%= n.text_field :teacher, :size => 40, :class => 'formText' %></p>
+          <p><label class="label" for="school_school_need_other">其他</label><%= n.text_field :other, :size => 40, :class => 'formText' %></p>
+          <% end -%>
+          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>

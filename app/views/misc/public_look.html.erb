@@ -1,0 +1,78 @@
+<% @page_title = "随便转转" %>
+
+<% content_for :crumb do -%>
+<li>随便转转</li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+
+<div class="box" id="cityList">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>城市</h3>
+      <div class="contents">
+        <ul class="clearfix tipText"><%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c)}</li>"} %><li>...</li></ul>
+      </div>
+      <p class="remark">&raquo; <%= link_to "所有城市", all_geos_url %></p>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>新居民</h2>
+      <div class="contents tipText">
+        <% @users.each do |u| -%>
+        <div style="clear:both;margin-bottom:1em;min-height:50px">
+          <div style="float:left">
+            <%= avatar_for(u, "large") %>
+          </div>
+          <div style="margin-left:60px;">
+            <p><%= link_to u.login, user_url(u) %> 注册于 <%= date_for_short(u.created_at) %></p>
+            <p>住在 <%= u.geo.city_board ? link_to(u.geo.name, board_url(u.geo.city_board.board_id)) : u.geo.name %></p>
+          </div>
+        </div>
+        <% end -%>
+        <div>...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= link_to "&raquo; 更多了解多背一公斤", page_url(:slug => "about") %></h3>
+    </div>
+  </div>
+</div>
+<% end -%>
+
+<h2 class="title">随便转转</h2>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最新的活动分享</h3>
+      <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+      <div class="contents">
+        <%= render :partial => "/shares/shares", :object => @shares %>
+      </div>
+      <p class="remark"></p>
+    </div>
+  </div>
+</div>
+
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最近的活动</h3>
+      <span class="postNew">++ <%= link_to "我想组织活动", new_activity_url %></span>
+      <%= render :partial => "/activities/activities", :object => @activities %>
+      <p class="remark">&raquo; 所有 <%= link_to "进行中的活动", ongoing_activities_url %> &middot; <%= link_to "已经结束的活动", over_activities_url %></p>
+    </div>
+  </div>
+</div>
+

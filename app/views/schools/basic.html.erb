@@ -1,0 +1,60 @@
+<% @page_title = "提交学校信息" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :sidebar do -%>
+  <!-- <p>> <%= link_to "返回", schools_url %></p> -->
+<% end -%>
+
+<% content_for :fullsize do -%>
+  <div class="box" id="schoolsPostNew">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><!-- --></h2>
+        <div class="contents">
+          
+          <div class="school-steps">
+          	<ol class="clearfix">
+          		<li class="first current"><span>1</span> 填写学校基本信息</li>
+          		<li class="middle"><span>2</span> 填写交通信息</li>
+          		<li class="middle"><span>3</span> 填写学校需求</li>
+          		<li class="last"><span>4</span> 补充其它信息<span class="hook"></span></li>
+          	</ol>
+          </div>    
+          
+          <% form_for :school, :url => schools_url(:step => 'basic'), :html => {:id => "schoolsPostBasic"} do |f| -%>
+          <p><label class="label">类型</label>
+            <select id="school_category" name="school[category]">
+              <% School.categories.each_with_index do |p,i| -%>
+                <option value="<%= i %>" <%= "selected=\"selected\"" if @school.category==i %>><%= p %></option>
+              <% end -%>
+            </select>
+          </p>
+          
+          <p><label class="label">位于</label><%= geo_select "school", "geo" %></p>
+          
+          <p><label class="label" for="school_title">校名</label><%= f.text_field :title, :size => 30, :class => "formText" %></p>
+          
+          <% f.fields_for @school.basic do |b| -%>
+            <p><label class="label" for="school_school_basic_address">学校地址</label><%= b.text_field :address, :size => 40, :class => "formText" %></p>
+            <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
+            <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %></p>
+            <p><label class="label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
+            <p><label class="label" for="school_school_basic_level_amount">年级数</label><%= b.text_field :level_amount, :size => 10, :class => "formText" %></p>
+            <p><label class="label" for="school_school_basic_class_amount">班级</label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个</p>
+            <p><label class="label" for="school_school_basic_teacher_amount">老师</label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人</p>
+            <p><label class="label" for="school_school_basic_student_amount">学生</label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
+            <p class="radioBtn"><label class="label">是否有图书室</label><%= radio_choice b, :has_library %></p>
+            <p><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
+            <p class="radioBtn"><label class="label">是否有电脑</label><%= radio_choice b, :has_pc %></p>
+            <p><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
+            <p class="radioBtn"><label class="label">是否能上网</label><%= radio_choice b, :has_internet %></p>
+          <% end -%>
+          
+          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end -%>

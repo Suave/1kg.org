@@ -1,0 +1,106 @@
+/*
+	NB: If "* html" is used here, it's needed to match specificity from the
+	corresponding rule in win-ie6-below.css file
+*/
+
+/*-  Miscellaneous fixes
+----------------------------------------------------------------------*/
+/*
+	IE5x gets font inheritance wrong in tables, so let's force-reset them properly.
+*/
+table, td {
+	font-size: 1em;
+}
+
+
+/*-  Layout
+----------------------------------------------------------------------*/
+/*
+	IE5x doesn't respect "margin: 0 auto;", so we need to use incorrect CSS to center the design.
+*/
+body {
+	text-align: center;
+}
+
+#wrap {
+	text-align: left;
+}
+
+/*-  Branding
+----------------------------------------------------------------------*/
+#brand {
+	text-align: center;
+}
+
+* html #advertising-top li.first {
+	float: left;
+	position: static;
+	margin-top: -70px;
+}
+
+#advertising-top ul li.last {
+	right: 160px;
+}
+
+/*-  Sections
+----------------------------------------------------------------------*/
+* html body.home #lead {
+	width: 764px;
+}
+
+* html #section .col-2 #advertising-skyscraper, * html body.home .ad-featured-property {
+	width: 341px;
+}
+
+table.calendar {
+	width: 90%;
+}
+
+#article {
+	padding-right: 250px;
+	margin-right: -250px;
+	width: auto;
+}
+
+/*body.article-leftnav #content-secondary {
+	margin-left: -250px;
+}
+*/
+* html table.calendar tbody th {
+	width: auto;
+}
+
+/*-  Modules
+----------------------------------------------------------------------*/
+/*
+	Slideshow (full-sized, or "unadorned" (no border) sidebar)
+*/
+.module-slideshow ul li.by {
+	width: 40%;
+}
+
+.inset .module-slideshow ul li.by {
+	width: 65%;
+}
+
+/*
+	Current Issue
+*/
+#content-secondary .module-current-issue form.ineffable {
+	display: none;
+}
+
+/*
+	Newsletters (multi and single)
+*/
+#content-secondary .module-newsletters ul, #content-secondary .module-newsletters ul li {
+	display: block;
+	list-style: none;
+	height: 1%;
+	margin: 0;
+	padding: 0;
+}
+
+#content-secondary .module-newsletters li input.checkbox {
+	position: static;
+}

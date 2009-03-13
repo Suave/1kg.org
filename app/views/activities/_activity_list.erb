@@ -1,0 +1,55 @@
+<% status = [
+              {:name => "同城", 
+               :id => "local", 
+               :partial => "/activities/local_activity",
+               :conditions => "arrival_id = #{@city.id} and departure_id = #{@city.id}"}, 
+               
+              {:name => "从#{@city.name}出发", 
+               :id => "travel", 
+               :partial => "/activities/travel_activity",
+               :conditions => "departure_id = #{@city.id} and arrival_id <> #{@city.id}"},
+               
+              {:name => "#{@city.name}相关", 
+               :id => "related", 
+               :partial => "/activities/related_activity",
+               :conditions => "departure_id <> #{@city.id}"}
+            ] 
+-%>
+
+<div class="tabbedPanel">
+  <ul class="tab">
+    <% status.each do |s| -%>
+    <li id="li-<%= s[:id] %>"><a href="javascript:void(0);" onclick="status_switch('<%= s[:id] %>')"><%= s[:name] %></a></li>
+    <% end -%>
+  </ul>
+  <div class="panel setting">
+    <% status.each do |s| -%>
+      <%= render :partial => s[:partial], 
+                 :locals => {:activities => @activities.ongoing.find(:all, :conditions => s[:conditions], 
+                                                                           :order => "created_at desc, start_at asc", 
+                                                                           :limit => 10, 
+                                                                           :include => [:participation, :user, :arrival]
+                                                                    )
+                            } %>
+    <% end -%>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('li-local').addClassName('current');
+$('list-local').setStyle('display:block');
+
+function status_switch(status) {
+  /* absolutely forgot how to write js, refactor later ;( */
+  $('li-local').removeClassName('current');
+  $('li-travel').removeClassName('current');
+  $('li-related').removeClassName('current');
+  
+  $('list-local').setStyle('display:none');
+  $('list-travel').setStyle('display:none');
+  $('list-related').setStyle('display:none');
+  
+  $('li-'+status).addClassName('current');
+  $('list-'+status).setStyle('display:block');
+}
+</script>

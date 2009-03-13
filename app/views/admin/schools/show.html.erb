@@ -1,0 +1,16 @@
+<% @page_title = "学校管理" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<h3><%= @school.title %></h3>
+<p>>> <%= link_to "在新窗口查看学校资料", info_school_url(@school), {:target => "_blank"} %></p>
+<p>验证: <span class="notice"><%= validate_for_human(@school) %></span> | 讨论区: <%= @school.discussion ? link_to("查看", board_url(@school.discussion.board.id)) : "<span class='notice'>无</span>" %></p>
+<div class="operations">
+  <% if @school.validated? -%>
+    <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+  <% else -%>
+    <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+  <% end -%> | 
+  <%= link_to "创建讨论区", new_admin_board_url(:type => 'school', :school => @school) %>
+</div>

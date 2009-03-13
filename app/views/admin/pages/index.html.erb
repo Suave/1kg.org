@@ -1,0 +1,30 @@
+<% content_for :sidebar do -%>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>静态页面管理</h3>
+      <span class="postNew">++ <%= link_to "添加新页面", new_admin_page_url %></span>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>标题</th>
+            <th>网址(slug)</th>
+            <th>最后更新</th>
+            <th></th>
+          </tr>
+          <% @pages.each do |p| -%>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td><%= p.title %></td>
+            <td><%= link_to page_path(p.slug), page_url(p.slug), :target => "_blank" %></td>
+            <td><%= p.last_modified_at.to_date %> by <%= link_to p.last_modified_by.login, user_url(p.last_modified_by) %></td>
+            <td><%= link_to "编辑", edit_admin_page_url(p) %> | <%= link_to "删除", admin_page_url(p), :confirm => "此操作不能撤销, 确定要删除么?", :method => :delete %></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

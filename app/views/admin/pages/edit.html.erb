@@ -1,0 +1,14 @@
+<% content_for :fullsize do -%>
+  <div class="box" id="topicPostNew">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2>编辑页面</h2>
+
+  <% form_for @page, :url => admin_page_url(@page), :method => :put do |f| -%>
+  <%= render :partial => "form", :object => f %>
+  <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保 存" %></span> <span class="btnWrap"><%= link_to "取消", admin_pages_url %></span></p>
+  <% end -%>
+      </div>
+    </div>
+  </div>
+<% end -%>

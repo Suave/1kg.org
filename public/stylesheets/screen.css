@@ -1,0 +1,20 @@
+/*	New York Magazine: screen master
+	--------------------------------
+	Author:		Ethan Marcotte (http://vertua.com/)
+	Version:	060209
+	Copyright:	Copyright (c) New York Magazine Holdings LLC.  All rights reserved.
+*/
+
+/*-  Core, hack-free design
+----------------------------------------------------------------------*/
+@import url("core.css");
+
+
+/*-  Browser-specific hacks
+----------------------------------------------------------------------*/
+/*
+	Import Mac IE5 hacks
+*/
+/*\*//*/
+@import url("patches/mac-ie5.css");
+/**/

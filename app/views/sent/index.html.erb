@@ -1,0 +1,37 @@
+<% @page_title = "我的发件箱" -%>
+
+<% content_for :crumb do -%>
+  <li><%= link_to "我的空间", user_url(current_user) %></li>
+  <ul><li>发件箱</li></ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "toolbox" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>我的发件箱</h2>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>主题</th>
+            <th>给</th>
+            <th>发送时间</th>
+            <th></th>
+          </tr>
+          <% @messages.each do |m| -%>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td><%= link_to h(m.subject), user_sent_url(current_user, m) %></td>
+            <td><%= m.recipients.collect{|u| link_to u.login, user_url(u)}.join(", ") %></td>
+            <td class="tipText"><%= m.created_at.to_date %></td>
+            <td><%= link_to "删除", user_sent_path(current_user, m), :confirm => "确定要删除么?", :method => :delete %></td>
+          </tr>
+          <% end -%>
+        </table>
+        <%= customize_paginate @messages %>
+      </div>
+    </div>
+  </div>
+</div>

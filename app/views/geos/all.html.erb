@@ -1,0 +1,22 @@
+<% @page_title = "查找城市" -%>
+
+<% content_for :crumb do -%>
+  <li>目的地查询</li>
+  <ul>
+    <li>全国</li>
+  </ul>
+<% end -%>
+
+<div class="box" id="cityList">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>全国</h2>
+      <div class="contents">
+        <div class="tips">
+          <p class="tip">请选择你要去的地方</p>
+        </div>
+        <ul class="clearfix"><%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c.id)}</li>"} %></ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<% @page_title = "发送新的消息" %> 
+
+<% content_for :crumb do -%>
+  <li><%= link_to @recipient.login, user_url(@recipient) %></li>
+  <ul>
+    <li>给<%= @recipient.login %>发站内消息</li>
+  </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "/sent/toolbox" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>发送站内消息</h3>
+      <div class="contents">
+        <% form_for :message, :url => {:controller => "sent", :action => "create"} do |f| %>
+          <%= render :partial => "form", :object => f %>
+          <p><%=submit_tag "写好了，发出去" -%> 或 <%= link_to "取消", user_url(@recipient.id) %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

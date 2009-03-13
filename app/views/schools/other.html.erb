@@ -1,0 +1,68 @@
+<% @page_title = "提交学校信息" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :sidebar do -%>
+  <!--   <p>> <%= link_to "返回", schools_url %></p> -->
+<% end -%>
+
+<% content_for :fullsize do -%>
+  <div class="box" id="schoolsPostOther">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><!-- --></h2>
+        <div class="contents">
+          <div class="school-steps">
+        		<ol class="clearfix">
+        			<li class="first"><span>1</span> 填写学校基本信息</li>
+        			<li class="middle"><span>2</span> 填写交通信息</li>
+        			<li class="middle"><span>3</span> 填写学校需求</li>
+        			<li class="last current"><span>4</span> 补充其它信息<span class="hook"></span></li>
+        		</ol>
+          </div>
+    
+    <% form_for :school, :url => schools_url(:step => 'other') do |f| -%>
+    <%= f.hidden_field :id %>
+    
+    <fieldset>
+      <legend>学校联系人</legend>
+      <% f.fields_for @school.contact do |c| -%>
+      <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">电子邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
+      <% end -%>
+    </fieldset>
+    
+    <fieldset>
+      <legend>当地情况</legend>
+      <% f.fields_for @school.local do |l| -%>
+      <p><label class="label">收入来源</label><%= l.text_field :incoming_from, :size => 20, :class => 'formText' %></p>
+      <p><label class="label">平均收入</label><%= l.text_field :incoming_average, :size => 20, :class => 'formText' %> 元 / 年</p>
+      <p class="radioBtn"><label class="label">公益组织资助</label><%= radio_choice l, :ngo_support %></p>
+      <p><label class="label">组织名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">开始时间</label><input id="school_school_local_ngo_start_at" name="school[school_local][ngo_start_at]" type="text" class="text calendar" size="15" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" /></p>
+      <p><label class="label">联系人</label><%= l.text_field :ngo_contact, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">联系方式</label><%= l.text_field :ngo_contact_via, :sizze => 15, :class => 'formText' %></p>
+      <p><label class="label">建议</label><%= l.text_area :advice, :cols => 40, :rows => 10 %></p>
+      <% end -%>
+    </fieldset>
+    
+    <fieldset>
+      <legend>信息收集人</legend>
+      <% f.fields_for @school.finder do |r| -%>
+      <p><label class="label">姓名</label><%= r.text_field :name, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">邮件</label><%= r.text_field :email, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">QQ</label><%= r.text_field :qq, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">MSN</label><%= r.text_field :msn, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">收集时间</label><input id="school_school_finder_survey_at" name="school[school_finder][survey_at]" type="text" class="text calendar" size="15" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" /></p>
+      <% end -%>
+    </fieldset>
+    
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "完成，提交学校信息" %></span></p>
+    <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>

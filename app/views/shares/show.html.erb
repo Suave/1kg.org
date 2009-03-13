@@ -1,0 +1,80 @@
+<% @page_title = "#{h @share.title} - 活动分享" -%>
+
+<% content_for :sidebar do -%>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3></h3>
+        <div class="contents">
+          &raquo; <%= link_to "去看看#{@share.user.login}的空间", user_url(@share.user) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>
+
+<div class="box shareEntry">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= h @share.title %></h2>
+      <div class="metadata">
+        <div class="avatar"><%= link_to avatar_for(@share.user, "large"), user_url(@share.user) %></div>
+        <p>
+          <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %> ...
+          <%= @share.hits %> 浏览 / <%= @share.comments_count %> 回复
+        </p>
+      </div>
+      
+      <div class="entry">
+        <p>目的地城市: <%= @share.geo.name if @share.geo %></p>
+        <p>分享的活动: <%= link_to @share.activity.title, activity_url(@share.activity) if @share.activity %></p>
+        <p>探访学校: <%= link_to @share.school.title, school_url(@share.school) if @share.school %></p>
+        <%= @share.body_html %>
+      </div>
+      
+      <% if @share.moderated_by?(current_user) -%>
+      <p class="remark">&raquo; <%= link_to "编辑", edit_share_url(@share) %> | <%= link_to "删除", share_url(@share), :confirm => "确定删除么?", :method => :delete %></p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<% unless @comments.blank? -%>
+  <div class="box" id="topicCommentsList">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>留言</h3>
+        <ol class="clearfix">
+          <% @comments.each do |p| -%>
+          <li>
+            <div class="avatar"><%= avatar_for p.user, "large" %></div>
+            <div class="content">
+              <p class="meta">
+                <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
+                
+                <% if p.editable_by?(current_user) -%>
+                  (<%= link_to "编辑", edit_comment_url(p) %>)
+                <% end -%>
+              </p>
+              <%= p.body_html %>
+            </div>
+          </li>
+          <% end -%>
+        </ol>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<div class="box" id="topicCommentForm">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>写留言</h3>
+      <% form_for :comment, :url => comments_url(:type => "share") do |f| -%>
+      <%= f.hidden_field :type_id, :value => @share.id %>
+      <p><%= f.text_area :body, :cols => 60, :rows => 15 %> <%= error_message_on :comment, :body %></p>
+      <p class="submit"><%= submit_tag "提 交" %></p>
+      <% end -%>
+    </div>
+  </div>
+</div>

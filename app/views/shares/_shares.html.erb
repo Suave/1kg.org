@@ -1,0 +1,13 @@
+<% shares.each do |s| -%>
+<div style="clear:both;margin-bottom:1em;min-height:50px">
+  <div style="float:left">
+    <%= avatar_for(s.user, "large") %>
+  </div>
+  <div style="margin-left:60px;">
+    <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+    <div style="color:#999; text-align:right">
+      <%= s.hits %> 浏览/<%= s.comments_count %> 回复
+    </div>
+  </div>
+</div>
+<% end -%>

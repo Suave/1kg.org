@@ -1,0 +1,11 @@
+/*-  Patches: IE legacy browsers (6 and lower)
+----------------------------------------------------------------------*/
+@import url("win-ie6-below.css");
+
+/*
+	Import Win IE5x hacks
+*/
+
+@media tty {
+	i{content:"\";/*" "*/}} @import 'win-ie5.css'; /*";}
+}/* */

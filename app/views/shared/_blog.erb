@@ -1,0 +1,39 @@
+<div class="box" id="blog">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>多背一公斤博客 <a href="http://feedsky.blogbus.com/1kg_blogbus_com"><img src="/images/feeds.gif" alt="RSS订阅" /></a></h3>
+      <div class="contents" id="feed-control">
+        <span style="padding-right: 4px; padding-left: 4px; font-size: 13px; padding-bottom: 4px; margin: 10px; color: #676767; padding-top: 4px">正在加载...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div id="feed-control" style="margin-top:20px"><span style="padding-right: 4px; padding-left: 4px; font-size: 13px; padding-bottom: 4px; margin: 10px; color: #676767; padding-top: 4px">正在加载...</span>&nbsp;</div>-->
+  <!-- Google Ajax Api
+  -->
+  <script src="http://www.google.com/jsapi?key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hT5b6MgSrooYGarwyJwxeNvsnuCshR8vixIT1kAMkYz1Us4m3dtLnGIrA"
+    type="text/javascript"></script>
+ 
+  <!-- Dynamic Feed Control and Stylesheet -->
+  <script src="http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"
+    type="text/javascript"></script>
+    
+<script type="text/javascript">
+
+function LoadDynamicFeedControl() {
+      var feeds = [{title: '多背一公斤博客', url: 'http://feedsky.blogbus.com/1kg_blogbus_com' }];
+      var options = {
+        numResults : 5,
+        scrollOnFadeOut : false,
+        pauseOnHover : false,
+        stacked : false,
+        horizontal : false
+      }
+
+new GFdynamicFeedControl(feeds, 'feed-control', options);
+    }
+// Load the feeds API and set the onload callback.
+google.load('feeds', '1');
+google.setOnLoadCallback(LoadDynamicFeedControl);
+</script>

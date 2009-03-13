@@ -1,0 +1,16 @@
+<div class="contents">
+<table class="tableList">
+  <tr>
+    <th>月份</th>
+    <th>累计</th>
+    <th>当月新增</th>
+  </tr>
+  <% stat.each do |m| -%>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= m[:name] %></td>
+      <td><%= m[:sum] %></td>
+      <td><%= m[:delta] %></td>
+    </tr>
+  <% end -%>
+</table>
+</div>

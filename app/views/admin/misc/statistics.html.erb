@@ -1,0 +1,98 @@
+<% @page_title = "数据统计" -%>
+
+<% content_for :sidebar do -%>
+<div class="box" id="top">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>数据统计</h3>
+      <div class="contents">
+        <ul>
+          <li><a href="#userCount">用户总量</a></li>
+          <li><a href="#cityUsersCount">城市居民入住统计</a></li>
+          <li><a href="#activityCount">活动总量</a></li>
+          <li><a href="#participationCount">活动参与人数统计</a></li>
+          <li><a href="#activityCommentCount">活动留言统计</a></li>
+          <li><a href="#schoolCount">学校统计</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+
+<h2 class="title">网站数据统计</h2>
+
+<div class="box" id="userCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>用户总量</h3>
+      <%= render :partial => "stat", :object => User.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="cityUsersCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>同城居民数量</h3>
+      <div class="contents">
+        <table class="tableList">
+          <tr>
+            <th>城市</th>
+            <th>入住居民数</th>
+          </tr>
+          <% @city_users.each do |u| -%>
+          <tr class="<%= cycle("odd", "even") %>">
+            <td><%= u.city_name %></td>
+            <td><%= u.users_count %></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="activityCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>活动总量</h3>
+      <%= render :partial => "stat", :object => Activity.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="participationCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>活动参与人数统计</h3>
+      <%= render :partial => "stat", :object => Participation.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="activityCommentCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>活动留言统计</h3>
+      <%= render :partial => "stat", :object => ActivityComment.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="schoolCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>学校统计</h3>
+      <%= render :partial => "stat", :object => School.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>

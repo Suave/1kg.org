@@ -1,0 +1,59 @@
+<% @page_title = "每月新增学校" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to "学校", schools_url %></li>
+<ul>
+  <li>每月新增学校</li>
+</ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>已验证学校</h3>
+        <div class="contents">
+        <ul>
+          <% School.archives.each do |month| %>
+          	<li><a href="/schools/date/<%= "#{month[:year]}/#{"%02i" % month[:month]}" %>">
+          		<%= month[:name] %>
+          	</a>
+          	<em>（<%= month[:delta] %>所学校）</em></li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>待验证学校</h3>
+        <div class="contents">
+        <ul>
+          <% School.archives(false).each do |month| %>
+          	<li><a href="/schools/date/<%= "#{month[:year]}/#{"%02i" % month[:month]}?valid=false" %>">
+          		<%= month[:name] %>
+          	</a>
+          	<em>（<%= month[:delta] %>所学校）</em></li>
+          <% end %>
+        </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <p>&raquo; <%= link_to "浏览全部学校", all_schools_url %></p>
+  <p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>每月新增学校</h2>
+      <%= render :partial => "/admin/misc/stat", :object => School.archives %>
+    </div>
+  </div>
+</div>
+

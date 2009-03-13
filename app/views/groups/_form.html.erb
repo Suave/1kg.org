@@ -1,0 +1,3 @@
+<p><label class="label">小组名</label><%= form.text_field :title, :size => 40, :class => "text" %> <%= error_message_on @group, :title %></p>
+<p><label class="label">所在城市</label><%= geo_select "group", "geo", [], @group.geo_id %> <%= error_message_on @group, :geo_id %></p>
+<p><label class="label">小组介绍</label><%= fckeditor_textarea("group", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>

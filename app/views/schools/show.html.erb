@@ -1,0 +1,139 @@
+<% @page_title = "#{h @school.title}" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to "学校", schools_url %></li>
+<ul>
+  <li><%= h @school.title %></li>  
+</ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <div class="box" id="cityLatestMembers">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>去过的用户</h3>
+        <ul class="clearfix"><li><%= @visitors.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
+        <div class="clear"><!-- --></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box" id="cityLatestMembers">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>关注的用户</h3>
+        <ul class="clearfix"><li><%= @followers.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
+        <div class="clear"><!-- --></div>
+      </div>
+    </div>
+  </div>
+  
+  <% if @school.geo.city_board -%>
+  <p>&raquo; <%= link_to "前往#{@school.geo.name}同城", board_url(@school.geo.city_board.board) %></p>
+  <% end -%>
+  
+  <p>&raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %></p>
+<% end -%>
+
+  <div class="box" id="schoolsShow">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><%= @page_title.to_s %></h2>
+        <span class="postNew tipText">
+          <% if @school.visited?(current_user) == 'visited' -%>
+            我去过
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">修改时间</a>
+            <%= link_to "我没去过", novisited_school_url(@school), :method => :put %>
+
+          <% elsif @school.visited?(current_user) == 'interesting' -%>
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">我去过</a>
+            <%= link_to "不关注了", novisited_school_url(@school), :method => :put %>
+
+          <% elsif @school.visited?(current_user) == false -%>
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">我去过</a>
+            <%= link_to "我关注", interest_school_url(@school), :method => :put %>
+
+          <% end -%>
+        </span>
+        
+
+        <div class="contents">
+          <div style="text-align:right">
+            <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
+            <div id="visit_date" style="display:none">
+              <p>最后一次去的时间？</p>
+              <input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited %>" class="formText calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" />
+              <%= submit_tag "确定" %>
+            </div>
+            <% end -%>
+          </div>
+          <p class="caution">
+            <% if @school.validated? -%>
+              学校信息已经通过志愿者验证
+            <% else -%>
+              信息未经验证
+            <% end -%>
+          </p>
+          <table id="activitiesInfo">
+            <tr>
+              <th>位置：</th><td><%= "#{@school.geo.parent.name} > " if @school.geo.parent %>  <%=  @school.geo.name %></td>
+              <th>校长：</th><td><%= h @school.basic.master if @school.basic %></td>
+            </tr>
+            <tr>
+              <th>周边景点：</th>
+              <td colspan="3"><%= h @school.traffic.sight if @school.traffic %></td>
+            </tr>
+            <tr>
+              <th><span style="color:red">紧急需求：</span></th>
+              <td colspan="3"><%= h @school.need.urgency if @school.need %></td>
+            </tr>
+          </table>
+        </div>
+        <p class="remark">
+          &raquo; <%= link_to "查看详细信息", info_school_url(@school) %>
+          <% if @school.validated_by current_user -%>
+            <% if @school.validated? -%>
+              | <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+            <% else -%>
+              | <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+            <% end -%>
+          <% end -%>
+          
+          <% if @school.edited_by current_user -%>
+            | <%= link_to "编辑", edit_school_url(@school) %>
+          <% end -%>
+
+          <% if @school.destroyed_by current_user -%>
+            | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+          <% end -%>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>用户分享</h3>
+        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <div class="contents">
+          <% @shares.each do |s| -%>
+          <div style="clear:both;margin-bottom:1em;min-height:50px">
+            <div style="float:left">
+              <%= avatar_for(s.user, "large") %>
+            </div>
+            <div style="margin-left:60px;">
+              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+              <div style="color:#999; text-align:right">
+                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
+              </div>
+            </div>
+          </div>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render :partial => "/topics/latest_topics", :locals => {:title => "学校话题", :board => @board, :topics => @topics} %>

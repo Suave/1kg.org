@@ -1,0 +1,16 @@
+<p>
+  <label class="label">标题</label>
+  <%= form.text_field :title, :size => 20, :class => "formText" %> 
+  <%= error_message_on(:page, :title, :tag => 'span') %>
+  <span class="tip">必填</span>
+</p>
+<p>
+  <label class="label">Slug</label>
+  <%= form.text_field :slug, :size => 20, :class => "formText" %> 
+  <%= error_message_on(:page, :slug, :tag => 'span') %>
+  <span class="tip">必填, 不得重名, 只能使用字母, 数字, " - "</span>
+</p>
+<div>
+  <label class="label"><%= avatar_for current_user, "large" %> <span></span></label>
+  <%= fckeditor_textarea("page", "body", :toolbarSet => 'Simple', :width => '80%', :height => '400px') %>
+</div>

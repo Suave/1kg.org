@@ -1,0 +1,35 @@
+<% @page_title = "开放讨论区" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理后台", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="setting">
+  <h4><%= link_to "创建开放讨论区", new_admin_board_url(:type => 'public') %></h4>
+  <table border="0" cellspacing="5" cellpadding="5">
+    <tr>
+      <th>名称</th>
+      <th>帖子数</th>
+      <th>序号</th>
+      <th>Active?</th>
+      <th>操作</th>
+    </tr>
+    <% @public_boards.each do |b| -%>
+    <tr>
+      <td><%= link_to b.title, board_url(b.board_id) %></td>
+      <td><%= link_to b.board.topics_count %></td>
+      <td><%= b.position %></td>
+      <td><%= b.board.deleted_at.blank? ? "是" : "<span class=\"notice\">否</span>" %></td>
+      <td>
+        <%= link_to "编辑", edit_admin_board_url(b.board_id, :type => 'public') %> | 
+        <% if b.board.deleted_at.blank? -%>
+        <%= link_to "隐藏", deactive_admin_board_url(b.board_id), :confirm => "隐藏该讨论区, 确定?", :method => :put %>
+        <% else -%>
+        <%= link_to "重新激活", active_admin_board_url(b.board_id), :confirm => "确定要重新激活?", :method => :put %> | <%= link_to "彻底删除", admin_board_url(b.board_id), :confirm => "彻底删除该讨论区, 所有帖子也会一起被删除, 确定?", :method => :delete %>
+        <% end -%>
+      </td>
+    </tr>
+    <% end -%>
+  </table>
+</div>
