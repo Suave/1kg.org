@@ -5,11 +5,11 @@
 
 <p>
 	<strong><%= form.label :subject, "主题:" -%></strong>
-	<%= form.text_field :subject, :size => 40 -%>
+	<%= form.text_field :subject, :size => 40 -%> <%= error_message_on @message, :subject %>
 </p>
 
 <p>
-	<strong><%= form.label :content, "内容:" -%></strong>
+	<strong><%= form.label :content, "内容:" -%></strong><%= error_message_on @message, :content %>
 	<br />
 	<%= form.text_area :content, :cols => 80 %>
 </p>

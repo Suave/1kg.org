@@ -20,10 +20,13 @@ class SentController < ApplicationController
     # 站内信发出后, 返回第一个收件人的空间
 		@message = current_messages.build(params[:message])
 
-		@message.save!
-		flash[:notice] = "消息已发出"
-	  redirect_to user_url(@message.recipients[0])
-
+		if @message.save
+		  flash[:notice] = "消息已发出"
+	    redirect_to user_url(@message.recipients[0])
+    else
+      @recipient = User.find(params[:message][:to])
+      render :action => "new"
+		end
   end
 
   def destroy
