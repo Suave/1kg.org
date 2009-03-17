@@ -34,7 +34,11 @@
         
       </div>
       <p class="remark">
+        <% unless @copy.author.nil? -%>
           &raquo; <%= link_to '回复', reply_user_received_path(current_user, @copy) -%> 
+        <% else -%>
+          <span class="tip">系统消息不能回复</span>
+        <% end -%>
           &raquo; <%= link_to '删除', user_received_path(current_user, @copy),
                               :confirm => '您确定要删除这条站内信息么?',
                               :method => :delete -%>

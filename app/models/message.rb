@@ -13,6 +13,9 @@ class Message < ActiveRecord::Base
 	attr_accessor :to
 	attr_accessible :subject, :content, :to
 
+  validates_presence_of :subject, :message => "请填写标题"
+  validates_presence_of :content, :message => "请填写正文"
+
   named_scope :undeleted, :conditions => {:deleted => false}
 
   def self.create_system_notification(recipients, title, msg)

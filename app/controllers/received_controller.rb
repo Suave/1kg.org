@@ -24,9 +24,13 @@ class ReceivedController < ApplicationController
   def create
 		@message = current_user.sent_messages.build(params[:message])
 
-		@message.save!
-		flash[:notice] = "消息已发出"
-	  redirect_to index_path
+		if @message.save
+		  flash[:notice] = "消息已发出"
+	    redirect_to index_path
+    else
+      @recipient = User.find(params[:message][:to])
+      render :action => "reply"
+    end
   end
     
   def destroy
