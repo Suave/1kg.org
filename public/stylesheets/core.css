@@ -301,6 +301,9 @@ body.home #header {
   color: #8fc847;
 }
 
+#header #links {float:right; width:170px; position:relative; right:10px; color:gray;}
+#header #links a, #header #links a:link {color:#C84864; padding:2px;}
+#header #links a:hover, #header #links a:active {background:#C84864; color:white;}
 
 /* =navWrap */
 body.home #navWrap {
