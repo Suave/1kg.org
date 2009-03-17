@@ -1,5 +1,6 @@
 .project
 log/*
+tmp/*
 tmp/**/*
 doc/api
 doc/app
@@ -7,5 +8,9 @@ doc/plugins
 vendor/rails
 config/database.yml
 public/user
+public/user/*
+public/user/**/*
 public/photos
+public/photos/*
+public/photos/**/*
 .DS_Store
