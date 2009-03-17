@@ -27,7 +27,7 @@ class BoardsController < ApplicationController
       
       @topics = @board.latest_topics
       
-      @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 16)
+      @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 14)
       @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
       
       @activities = Activity.at(@city).available

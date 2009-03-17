@@ -35,8 +35,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>参加这个活动的用户</h3>
-        <ul class="clearfix"><li><%= @activity.participators.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
-        <div class="clear"><!-- --></div>
+        <%= render :partial => "/shared/user_list", :locals => {:users => @activity.participators} %>
       </div>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <% @page_title = "#{@city.name}的居民" -%>
 
 <% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回#{@city.name}同城", board_url(@city.city_board.board) %></p>
 <% end -%>
 
 <h2 class="title"><%= @page_title %></h2>
@@ -9,8 +10,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3></h3>
-      <ul class="clearfix"><li><%= @users.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
-      <div class="clear"><!-- --></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @users} %>
     </div>
   </div>
 </div>

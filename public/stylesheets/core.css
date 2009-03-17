@@ -1028,3 +1028,7 @@ h3.title {
 
 .tipText {color:#999;}
 .right {text-align:right;}
+
+.obu {float:left; width:80px;}
+.obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.obu dd {height:55px; margin:0; overflow:hidden; text-align:center;}
