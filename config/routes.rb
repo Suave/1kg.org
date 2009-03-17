@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.cities "/cities", :controller => "misc", :action => "cities"
-  map.city   "/city/:id", :controller => "misc", :action => "city"
+  #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
   
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
@@ -50,10 +50,12 @@ ActionController::Routing::Routes.draw do |map|
     school.resources :visits
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
-  :action => "show_date", :requirment => {:year => /(19|20)\d\d/,             
-                                          :month => /[01]?\d/,                
-                                          :day => /[0-3]?\d/ },                      
-                          :month => nil, :day => nil
+                                                 :action => "show_date", 
+                                                 :requirment => { :year => /(19|20)\d\d/,             
+                                                                  :month => /[01]?\d/,                
+                                                                  :day => /[0-3]?\d/ 
+                                                                },                      
+                                                 :month => nil, :day => nil
   
   map.resources :activities, :member => {:join => :put, :quit => :put},
                              :collection => {:ongoing => :get, :over => :get}
