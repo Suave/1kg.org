@@ -20,8 +20,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>小组成员</h3>
-      <ul class="clearfix"><li><%= @group.members.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
-      <div class="clear"><!-- --></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members} %>
     </div>
   </div>
 </div>

@@ -93,10 +93,9 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>居民</h3>
-        <ul class="clearfix"><li><%= @citizens.collect {|c| link_to "<div>#{avatar_for(c, "large")}</div><div style=\"text-align:center\">#{c.login}</div>", user_url(c.id)}.join("</li><li>") %></li></ul>
-        <div class="clear"><!-- --></div>
+        <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
       </div>
-      <p class="remark">&raquo; <%= link_to "查看全部#{@city.users.size}位居民", users_board_url(@board) %></p>
+      <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_board_url(@board) %></p>
     </div>
   </div>
 </div>
