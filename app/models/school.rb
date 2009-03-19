@@ -25,6 +25,10 @@ class School < ActiveRecord::Base
     {:conditions => ["(geo_id=?)", geo_id]}
   }
   
+  named_scope :locate, lambda { |city_ids|
+    {:conditions => ["geo_id in (?)", city_ids]}
+  }
+  
   def after_create
     Mailer.deliver_submitted_school_notification(self)
   end
@@ -35,6 +39,20 @@ class School < ActiveRecord::Base
   def self.categories
     %w(小学 中学 四川灾区板房学校)
   end
+
+  def self.get_near_schools_at(geo)
+ 
+      root = geo.root? ? geo : geo.parent
+      ids =[root.id]
+      if not root.leaf?
+        ids += root.children.map(&:id)
+      end
+      #logger.info ids
+      #logger.info ids.class
+      #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
+      validated.available.locate(ids)
+  end
+  
 
   def validated_by(user)
     user.class == User &&

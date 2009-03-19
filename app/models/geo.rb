@@ -7,4 +7,5 @@ class Geo < ActiveRecord::Base
   has_one  :city_board, :class_name => "CityBoard"
   
   validates_presence_of :name
+  
 end

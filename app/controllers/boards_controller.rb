@@ -63,9 +63,9 @@ class BoardsController < ApplicationController
     board_type_check @board
     
     @city = @board.talkable.geo
-    @schools = School.at(@city).validated.paginate(:page => params[:page] || 1, 
-                                                   :order => "updated_at desc", 
-                                                   :per_page => 20)
+    @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1, 
+                                                        :order => "updated_at desc", 
+                                                        :per_page => 20)
     
     render :action => "city_schools"
   end

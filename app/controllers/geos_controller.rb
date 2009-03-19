@@ -42,9 +42,9 @@ class GeosController < ApplicationController
   
   def schools
     @city = Geo.find(params[:id])
-    @schools = School.at(@city).paginate(:page => params[:page] || 1,
-                                         :order => "updated_at desc",
-                                         :per_page => 20)
+    @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1,
+                                                          :order => "updated_at desc",
+                                                          :per_page => 20)
   end
   
   
@@ -83,9 +83,9 @@ class GeosController < ApplicationController
   
   private 
   def setup_destination_stuff(city)
-    @schools = School.at(city).find(:all, :order => "last_modified_at desc", 
-                                           :limit => 10,
-                                           :include => [:shares, :visited])
+    @schools = School.get_near_schools_at(city).find(:all, :order => "last_modified_at desc", 
+                                                           :limit => 10,
+                                                           :include => [:shares, :visited])
     @shares = city.shares.find(:all, :order => "comments_count desc")
     @activities = Activity.available.ongoing.find(:all, :conditions => ["arrival_id=?", city.id],
                                                         :order => "start_at desc",

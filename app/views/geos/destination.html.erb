@@ -75,7 +75,7 @@
           <% end -%>
         </table>
       </div>
-      <p class="remark tipText">&raquo; <%= link_to "#{@city.name}周边的全部学校", schools_geo_url(@city) %> (<%= School.at(@city).size %>)</p>
+      <p class="remark tipText">&raquo; <%= link_to "#{@city.name}周边的全部学校", schools_geo_url(@city) %> (<%= School.get_near_schools_at(@city).count %>)</p>
     </div>
   </div>
 </div>
