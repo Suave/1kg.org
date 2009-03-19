@@ -6,6 +6,7 @@ class Topic < ActiveRecord::Base
   has_many   :posts, :dependent => :destroy
   
   named_scope :available, :conditions => "deleted_at is null"
+  named_scope :unsticky,  :conditions => ["sticky=?", false]
   
   validates_presence_of :title
   
@@ -28,8 +29,12 @@ class Topic < ActiveRecord::Base
     self.posts.find(:first, :order => "created_at desc")
   end
   
-  def editable_by(user)
-    user != nil && (self.user_id == user.id || self.board.has_moderator?(user) || user.admin?)
+  def moderatable_by?(user)
+    user.class == User && (self.board.has_moderator?(user) || user.admin?)
+  end
+  
+  def editable_by?(user)
+    (user.class == User && self.user_id == user.id) || moderatable_by?(user)
   end
   
   

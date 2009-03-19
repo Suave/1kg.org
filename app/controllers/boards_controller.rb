@@ -39,20 +39,18 @@ class BoardsController < ApplicationController
       render :action => "city"
       
     elsif @board.talkable.class == PublicBoard
-      @topics = @board.topics.available.paginate(:page => params[:page] || 1, 
-                                                 :order => "last_replied_at desc",
-                                                 :include => [:user], 
-                                                 :per_page => 20
-                                                 )
+      @topics = @board.topics.paginate(:page => params[:page] || 1, 
+                                       :include => [:user], 
+                                       :per_page => 20
+                                       )
       @public_board = @board.talkable
       render :action => "public"
   
     elsif @board.talkable.class == SchoolBoard
-      @topics = @board.topics.available.paginate(:page => params[:page] || 1,
-                                                 :order => "last_replied_at desc",
-                                                 :include => [:user], 
-                                                 :per_page => 20
-                                                 )
+      @topics = @board.topicspaginate( :page => params[:page] || 1,
+                                       :include => [:user], 
+                                       :per_page => 20
+                                     )
       @school_board = @board.talkable
       @school = @school_board.school
       render :action => "school"

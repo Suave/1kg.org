@@ -33,23 +33,8 @@
         <h3>所有话题</h3>
         <span class="postNew">++ <%= link_to "写新帖子", new_board_topic_url(@board) %></span>
         <div class="contents">
-        <table class="boardPub">
-          <tr>
-            <th>话题</th>
-            <th>作者</th>
-            <th class="replies">回复</th>
-            <th>最后更新</th>
-          </tr>
-          <% @topics.each do |t| -%>
-          <tr>
-            <td><%= link_to t.title, board_topic_url(@board, t) %></td>
-            <td><%= link_to t.user.login, user_url(t.user) %></td>
-            <td align="center"><%= t.posts_count %></td>
-            <td><%= topic_last_update(t) %></td>
-          </tr>
-          <% end -%>
-        </table>
-        <%= will_paginate @topics %>
+        <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+        <%= customize_paginate @topics %>
         
         </div>
       </div>

@@ -36,9 +36,14 @@
           <div class="avatar"><%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %></div>
           <p>
             <%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %>
-            <% if @topic.editable_by current_user -%>
-              (<%= link_to "编辑", edit_board_topic_url(@topic.board_id, @topic) %> |
-              <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>)
+            <% if @topic.moderatable_by? current_user -%>
+              <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_board_topic_url(@topic.board_id, @topic), :method => :put %> |
+              <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_board_topic_url(@topic.board_id, @topic), :method => :put %> |
+            <% end -%>
+            
+            <% if @topic.editable_by? current_user -%>
+              <%= link_to "编辑", edit_board_topic_url(@topic.board_id, @topic) %> |
+              <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>
             <% end -%>
           </p>
         </div>
@@ -94,18 +99,25 @@
       <div class="boxInner">
         <h3>回帖</h3>
         <% if logged_in? -%>
-          <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
-            
-            <div class="contents">只有小组成员可以回复话题</div>
-            
-          <% else -%>
-            
-            <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>
-            <p style="text-align:right"><%= link_to "在完整模式下回帖", new_board_topic_post_url(@board, @topic) %></p>
-            <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
-            <p class="submit"><%= submit_tag "发 布" %></p>
-            <% end -%>
+        
+          <% if @topic.block? -%>
           
+            <div class="contents">本帖不能回复</div>
+          
+          <% else -%>
+            <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
+            
+              <div class="contents">只有小组成员可以回复话题</div>
+            
+            <% else -%>
+            
+              <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>
+              <p style="text-align:right"><%= link_to "在完整模式下回帖", new_board_topic_post_url(@board, @topic) %></p>
+              <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
+              <p class="submit"><%= submit_tag "发 布" %></p>
+              <% end -%>
+          
+            <% end -%>
           <% end -%>
         <% else -%>
 

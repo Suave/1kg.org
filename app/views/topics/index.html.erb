@@ -17,6 +17,7 @@ end
     <div class="boxInner">
       <h2><%= @page_title %></h2>
       <div class="contents">
+        
         <%= render :partial => "topics", :locals => {:board => @board, :topics => @topics} %>
         <%= customize_paginate @topics %>
       </div>

@@ -7,10 +7,13 @@
       <th class="lastPost">最后更新</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody>  
   <% topics.each do |t| -%>
   <tr class="<%= cycle("odd", "even") %>">
-    <td><%= link_to t.title, board_topic_url(board, t) %></td>
+    <td>
+      <%= image_tag("/images/stick.gif", :alt => "置顶帖", :title => "置顶帖") if t.sticky? %>
+      <%= link_to t.title, board_topic_url(board, t) %>
+    </td>
     <td><%= link_to t.user.login, user_url(t.user), :class => "link" %></td>
     <td><%= t.posts_count %></td>
     <td><%= link_to "#{t.last_replied_datetime.to_date} by #{t.last_replied_user.login}", board_topic_url(board, t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>

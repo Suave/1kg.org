@@ -17,23 +17,8 @@
       <h3>全部话题</h3>
       <span class="postNew">++ <%= link_to "写新帖子", new_board_topic_url(@board) %></span>
       <div class="contents">
-        <table>
-          <tr>
-            <th>帖子</th>
-            <th>作者</th>
-            <th>回复</th>
-            <th>写于</th>
-          </tr>
-          <% @topics.each do |t| -%>
-          <tr class="<%= cycle('odd', 'even') %>">
-            <td><%= link_to t.title, board_topic_url(@board, t) %></td>
-            <td><%= link_to t.user.login, user_url(t.user) %></td>
-            <td><%= t.posts_count %></td>
-            <td><%= t.created_at.to_date %></td>
-          </tr>
-          <% end -%>
-        </table>
-        <%= will_paginate @topics %>
+        <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+        <%= customize_paginate @topics %>
       </div>
       
     </div>

@@ -61,7 +61,7 @@ ActionController::Routing::Routes.draw do |map|
                              :collection => {:ongoing => :get, :over => :get}
 
   map.resources :boards, :member => {:schools => :get, :users => :get}, :collection => {:public_issue => :get} do |board|
-    board.resources :topics do |topic|
+    board.resources :topics, :member => {:stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end
   end

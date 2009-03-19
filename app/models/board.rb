@@ -1,6 +1,6 @@
 class Board < ActiveRecord::Base
   belongs_to :talkable, :polymorphic => true, :dependent => :delete
-  has_many :topics, :dependent => :destroy
+  has_many :topics, :conditions => ["deleted_at is null"], :order => "sticky desc, last_replied_at desc", :dependent => :destroy
   
   after_create :create_moderator_role
   
@@ -23,9 +23,8 @@ class Board < ActiveRecord::Base
   end
   
   def latest_topics
-    self.topics.available.find(:all, :order => "last_replied_at desc",
-                                     :include => [:user], 
-                                     :limit => 10)
+    topics = self.topics.find(:all, :include => [:user], 
+                                    :limit => 10)
   end
   
   
