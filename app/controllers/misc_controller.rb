@@ -67,10 +67,8 @@ class MiscController < ApplicationController
                                             :include => [:board], 
                                             :order => "position asc",
                                             :limit => 5)
-    @shares = Share.find(:all, :conditions => ["hidden=?", false],
-                               :order => "updated_at desc, comments_count desc",
-                               :limit => 10,
-                               :select => "id, user_id, title, hits, comments_count, created_at")
+    @shares = Share.available.recent_shares
+    
     @users = User.find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
                              :order => "users.created_at desc",
                              :include => [:geo],

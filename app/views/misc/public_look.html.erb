@@ -59,7 +59,7 @@
       <div class="contents">
         <%= render :partial => "/shares/shares", :object => @shares %>
       </div>
-      <p class="remark"></p>
+      <p class="remark">已有<%= Share.available.count %>篇分享, <%= link_to "查看全部", shares_url %></p>
     </div>
   </div>
 </div>

@@ -1,6 +1,17 @@
 class SharesController < ApplicationController
-  before_filter :login_required, :except => [:show]
-  before_filter :find_share, :except => [:create]
+  before_filter :login_required, :except => [:show, :index]
+  before_filter :find_share, :except => [:create, :index]
+  
+  def index
+    @shares = Share.available.paginate :page => params[:page] || 1,
+                                       :order => "id desc",
+                                       :select => "id, user_id, title, hits, comments_count, created_at",
+                                       :per_page => 10
+                                       
+    @hot_users = User.find_by_sql("select users.id, users.login, users.avatar, count(user_id) as count from shares left join users on users.id=shares.user_id group by user_id order by count desc limit 5;");
+    logger.info @hot_users
+  end
+  
   
   def new
   end
