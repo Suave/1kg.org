@@ -29,6 +29,15 @@ class School < ActiveRecord::Base
     {:conditions => ["geo_id in (?)", city_ids]}
   }
   
+  @@city_neighbors = {
+                        :beijing => {:id => 1, :neighbors => {:hebei => 3, :neimenggu => 27}},
+                        :tianjin => {:id => 2, :neighbors => {:hebei => 3, :neimenggu => 27}},
+                        :shanghai => {:id =>79, :neighbors => {:zhejiang => 94, :anhui => 106, :jiangxi => 134}},
+                        :chongqing => {:id => 273, :neighbors => {:sichuan => 274}},
+                        :hongkong => {:id => 391, :neighbors => {:guangdong => 216}},
+                        :macao => {:id => 392, :neighbors => {:guangdong => 216, :fujian => 124}}
+  }
+  
   def after_create
     Mailer.deliver_submitted_school_notification(self)
   end
@@ -47,8 +56,16 @@ class School < ActiveRecord::Base
       if not root.leaf?
         ids += root.children.map(&:id)
       end
-      #logger.info ids
-      #logger.info ids.class
+      
+      @@city_neighbors.each do |k,v|
+        if v[:id] == root.id
+          v[:neighbors].each do |province, id|
+            ids += Geo.find(id).children.map(&:id)
+          end
+        end
+      end
+      logger.info ids
+      logger.info ids.class
       #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
       validated.available.locate(ids)
   end
