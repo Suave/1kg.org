@@ -737,6 +737,14 @@ body.schools form legend {
 
 /* =同城
  * -------------------------------------------------------------------------- */
+#page-title h1 {
+	color: #e98523;
+  font-weight: bold;
+  font-size: 2.5em;
+  margin: 0 5px .5em;
+}
+
+
 h2.title {
   float: left;
   color: #e98523;

@@ -1,4 +1,4 @@
-<% @page_title = "全部学校" -%>
+<% @page_title = @title = "全部学校" -%>
 
 <% content_for :crumb do -%>
 <li><%= link_to "学校", schools_url %></li>
@@ -13,7 +13,7 @@
 <p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
 <% end -%>
 
-<h2 class="title">全部学校信息</h2>
+
 <% @all_provinces.each do |province| -%>
 <div class="box">
   <div class="boxOuter">
