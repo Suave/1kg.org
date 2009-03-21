@@ -71,24 +71,23 @@ input, select, textarea {
 
 table {
   width: 100%;
-  border: #ccc solid 1px;
+  /*border: #ccc solid 1px;*/
 }
 
 th {
   font-weight: bold;
-  background-color: #e5e5e5;
+  /*background-color: #e5e5e5;*/
   padding: 3px 6px;
   font-size: 1.1em;
 }
 
 td {
   padding: 5px 6px;
-  border-left: #dedede solid 1px;
+  border-bottom: #dedede solid 1px;
 }
 
 tr.even td {
-  /*background-color: #ecf3e6;*/
-  background-color: #eee;
+  /*background-color: #eee;*/
 }
 
 tfoot {

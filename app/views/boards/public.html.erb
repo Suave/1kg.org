@@ -1,4 +1,4 @@
-<% @page_title = "#{@public_board.title}" -%>
+<% @page_title = @title = "#{@public_board.title}" -%>
 
 <% content_for :crumb do -%>
 <li><%= link_to "站务&专题讨论区", public_issue_boards_url %></li>
@@ -8,25 +8,23 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-<% end -%>
-
-<h2 class="title"><%= @public_board.title %></h2>
-<div class="moderators">
-  版主：<%= User.moderators_of(@public_board.board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
-</div>
-
-<div class="posting">
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>讨论区介绍</h3>
-        <div class="contents">
-          <%= @public_board.description_html %>
-        </div>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>小黑板</h3>
+      <div class="contents">
+        <%= @public_board.description_html %>
       </div>
     </div>
   </div>
-  
+</div>
+
+<div class="moderators">
+  版主：<%= User.moderators_of(@public_board.board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
+</div>
+<% end -%>
+
+<div class="posting">
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
