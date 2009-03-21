@@ -11,9 +11,9 @@ class Share < ActiveRecord::Base
   named_scope :available, :conditions => ["hidden=?", false]
   
   def self.recent_shares
-    find(:all, :order => "updated_at desc, comments_count desc",
-               :limit => 10,
-               :select => "id, user_id, title, hits, comments_count, created_at")
+    available.find(:all, :order => "updated_at desc, comments_count desc",
+                         :limit => 10,
+                         :select => "id, user_id, title, hits, comments_count, created_at")
   end
   
   def moderated_by?(user)

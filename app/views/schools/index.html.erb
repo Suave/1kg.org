@@ -20,24 +20,9 @@
     <div class="boxInner">
       <h3>最新添加的学校</h3>
       <div class="contents">
-        <table id="schoolsLatest">
-          <thead>
-            <tr>
-              <th>校名</th>
-              <th>省份</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @schools.each do |s| -%>
-            <tr class="<%= cycle('odd', 'even') %>">
-              <td><%= link_to s.title, school_url(s.id) %></td>
-              <td><%= s.geo.ancestors[0].name if s.geo.ancestors[0] %> <%= s.geo.name %></td>
-            </tr>
-            <% end -%>
-          </tbody>
-        </table>
+        <%= render :partial => "recent_upload", :object => @schools %>
       </div>
-      <p class="remark">&raquo; <%= link_to "查看全部#{School.count(:all, :conditions => ["meta=? and deleted_at is NULL", false])}所学校", all_schools_url %></p>
+      <p class="remark">&raquo; <%= link_to "查看全部#{School.validated.count}所学校", all_schools_url %></p>
     </div>
   </div>
 </div>
@@ -46,7 +31,9 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>最新学校帖子</h3>
+      <div class="contents">
       <%= render :partial => "last_10_updated_topics", :object => @topics %>
+      </div>
     </div>
   </div>
 </div>

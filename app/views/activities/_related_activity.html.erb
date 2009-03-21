@@ -2,33 +2,6 @@
   <% if activities.size == 0 -%>
     <p style="text-align:center">暂时没有活动, <%= link_to "我要发起活动", new_activity_url %></p>
   <% else -%>
-    <table class="tableList">
-      <thead>
-        <tr>
-          <!--<th width="16%">类型</th>-->
-          <th style="width:250px;">活动</th>
-          <th>出发</th>
-          <th>到达</th>
-          <th>开始</th>
-          <th style="width:80px">发起</th>
-          <th style="width:30px;">报名</th>
-          <th style="width:30px">留言</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% activities.each do |a| -%>
-        <tr class="<%= cycle("odd", "even") %>">
-          <!--<td></td>-->
-          <td><%= link_to a.title, activity_url(a.id) %></td>
-          <td><%= a.departure_id==0 ? "不限" : a.departure.name %></td>
-          <td><%= a.arrival_id==0 ? "不限" : a.arrival.name %></td>
-          <td><%= date_for_short(a.start_at) %></td>
-          <td style="overflow:hidden"><%= link_to a.user.login, user_url(a.user), :class => "link" %></td>
-          <td><%= a.participation.size %></td>
-          <td><%= a.comments_count %></td>
-        </tr>
-        <% end -%>
-      </tbody>
-    </table>
+    <%= render :partial => "/activities/activities", :object => activities  %>
   <% end -%>
 </div>

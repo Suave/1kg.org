@@ -93,12 +93,23 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    @activity = Activity.find(params[:id])
-    #@board = ActivityBoard.find(:first, :conditions => {:activity_id => @activity.id}).board
-    #@topics = @board.topics.find(:all, :order => "updated_at desc", :limit => 10)
-    @shares = @activity.shares
-    @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
-    @comment = ActivityComment.new
+    begin
+      @activity = Activity.find(params[:id])
+      
+      unless @activity.deleted_at.nil?
+        flash[:notice] = "该活动已删除"
+        redirect_to activities_url
+      end
+      
+      @shares = @activity.shares
+      @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
+      @comment = ActivityComment.new
+    
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "没有找到这个活动, 可能已被管理员删除"
+      redirect_to root_url
+    end
+    
   end
   
   private

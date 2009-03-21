@@ -1,0 +1,18 @@
+<table id="schoolsLatest">
+  <thead>
+    <tr>
+      <th>校名</th>
+      <th>省份</th>
+      <th>提交</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% recent_upload.each do |s| -%>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to s.title, school_url(s.id) %></td>
+      <td><%= s.geo.ancestors[0].name if s.geo.ancestors[0] %> <%= s.geo.name %></td>
+      <td><%= link_to s.user.login, user_url(s.user) %></td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>
