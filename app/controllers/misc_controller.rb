@@ -2,7 +2,7 @@ class MiscController < ApplicationController
   before_filter :login_required, :only => :my_city
   
   def index
-    
+    @page_title = "首页"
     
     if logged_in?
       @title = "欢迎 #{current_user.login}"
@@ -14,7 +14,7 @@ class MiscController < ApplicationController
       @recent_citizens = User.recent_citizens
       @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
     else
-      @page_title = "首页"
+      
       render :action => "welcome"
     end
   end
@@ -67,7 +67,7 @@ class MiscController < ApplicationController
   
   
   def public_look
-
+    @page_title = "首页"
     @title = "欢迎来到多背一公斤"
     @recent_schools = School.recent_upload
     @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
