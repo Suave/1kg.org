@@ -17,17 +17,23 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    @user = User.new(params[:user])
-    @user.register! if @user.valid?
-    if @user.errors.empty?
-      @user.activate!
-      self.current_user = @user
-      flash[:notice] = "注册完成, 补充一下你的个人信息吧"
-      redirect_to "/setting"
-      #render :action => "wait_activation"
+    unless params[:terms] == "1"
+      flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"
+      render :action => "new"
     else
-      render :action => 'new'
+      @user = User.new(params[:user])
+      @user.register! if @user.valid?
+      if @user.errors.empty?
+        @user.activate!
+        self.current_user = @user
+        flash[:notice] = "注册完成, 补充一下你的个人信息吧"
+        redirect_to "/setting"
+        #render :action => "wait_activation"
+      else
+        render :action => 'new'
+      end
     end
+    
   end
 
 
