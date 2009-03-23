@@ -3,39 +3,7 @@
 
 <% content_for :sidebar do -%>
 <%= render :partial => "/shared/current_user_profile" %>
-<!--
-<div class="box" id="blog">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>多背一公斤博客 <a href="http://feedsky.blogbus.com/1kg_blogbus_com"><img src="/images/feeds.gif" alt="RSS订阅" /></a></h3>
-      <div class="contents">
-       
-        <div class="gfg-root">
-          <div class="gfg-entry">
-            <div class="gf-result">
-              <div class="gf-title">
-                <a href="http://1kg.blogbus.com/logs/33206794.html" class="gf-title" target="_blank">创作你的“多背一公斤”之歌</a>
-              </div>
-              <div class="gf-relativePublishedDate">Dec 31, 2008</div>
-              <div class="gf-snippet">2009新年伊始，“多背一公斤”发起倡议：请志愿者们为“多背一公斤”写歌词。
-                征集内容：能体现“多背一公斤”的发展梦想“旅行改变世界”
-                征集方式：直接在本贴...</div>
-            </div>
-          </div>
-          <div class="gfg-list">
-            <div class="gfg-listentry gfg-listentry-highlight gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/33206794.html" target="_blank">创作你的“多背一公斤”之歌</a></div>
-            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/33091269.html" target="_blank">新年之即，让我们一起来读书！</a></div>
-            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32702782.html" target="_blank">板房图书室进展081219</a></div>
-            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/32597656.html" target="_blank">多背一公斤板房图书室项目进展</a></div>
-            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32346689.html" target="_blank">多背一公斤十一月简报</a></div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-</div>
--->
+
 <%#= render :partial => "/shared/blog" %>   
 
 <div class="box" id="newsletter">
@@ -86,6 +54,8 @@
   <li><strong>分享</strong> － 归来后在1KG.org网站分享信息，方便更多人参与。</li></ul>
   
   <p><%= link_to "&raquo; 随便转转, 更多了解多背一公斤", public_look_url %></p>
+  <p style="font-size:0.8em; margin-left:20px;">and if you're English speaker, please visit the <%= link_to "English introduction", "/misc/en-intro" %>.</p>
+  
   <!--<p>我们也鼓励旅行者在与乡村师生建立起信任和友谊后，自主建立公益小团队，持续地为学校提供志愿服务。</p>
   
   <p>1KG.org是由多背一公斤参与者自我管理的公益协作社区，社区中的所有学校信息均由用户自行收集、上传和更新，所有活动由用户自行组织和参与，所有公益团队也由用户自发组建和管理。</p>
