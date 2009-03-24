@@ -13,4 +13,7 @@ public/user/**/*
 public/photos
 public/photos/*
 public/photos/**/*
+public/pictures
+public/pictures/*
+public/pictures/**/*
 .DS_Store

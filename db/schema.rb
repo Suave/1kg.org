@@ -218,6 +218,27 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime  :created_at
     t.datetime  :updated_at
     t.datetime  :deleted_at
+    t.integer   :school_id
+    t.integer   :activity_id
+  end
+  
+  # old photos
+  create_table "pictures" do |t|
+    t.integer   :parent_id
+    t.string    :content_type
+    t.string    :filename
+    t.string    :thumbnail
+    t.integer   :size
+    t.integer   :width
+    t.integer   :height
+    t.integer   :user_id
+    t.string    :title,             :null => false
+    t.text      :description
+    t.text      :description_html
+    t.datetime  :created_at
+    t.datetime  :updated_at
+    t.integer   :event_id
+    t.integer   :school_id
   end
   
   create_table "counties" do |t|
