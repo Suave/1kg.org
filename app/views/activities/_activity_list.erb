@@ -26,7 +26,6 @@
     <% status.each do |s| -%>
       <%= render :partial => s[:partial], 
                  :locals => {:activities => @activities.ongoing.find(:all, :conditions => s[:conditions], 
-                                                                           :order => "created_at desc, start_at asc", 
                                                                            :limit => 10, 
                                                                            :include => [:participation, :user, :arrival]
                                                                     )

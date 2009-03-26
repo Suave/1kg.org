@@ -78,6 +78,10 @@
               (<%= link_to "修改活动信息", edit_activity_url(@activity.id) %> | 
               <%= link_to "删除活动", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete %>)
             <% end -%>
+            
+            <% if @activity.sticky_by? current_user -%>
+              <%= link_to (@activity.sticky? ? "取消置顶" : "置顶"), stick_activity_url(@activity), :method => :put %>
+            <% end -%>
           </div>
           
           <table id="activitiesInfo">

@@ -101,12 +101,19 @@ class ActivitiesController < ApplicationController
     @comment = ActivityComment.new
   end
   
+  def stick
+    @activity = Activity.find(params[:id])
+    @activity.toggle!(:sticky)
+    flash[:notice] = "本活动已经置顶" if @activity.sticky?
+    flash[:notice] = "本活动已经取消置顶" unless @activity.sticky?
+    redirect_to activity_url(@activity)
+  end
+  
+  
   private
   def find_activities(status)
-    @activities = Activity.send(status.to_sym).paginate(:page => params[:page] || 1, 
-                                           :conditions => ["deleted_at is ?", nil],
-                                           :order => "created_at desc",
-                                           :per_page => 20)
+    @activities = Activity.send(status.to_sym).available.paginate(:page => params[:page] || 1, 
+                                                                  :per_page => 20)
   end
   
 end

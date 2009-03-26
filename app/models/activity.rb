@@ -15,7 +15,7 @@ class Activity < ActiveRecord::Base
 #  belongs_to :school
 
   #named_scope :hiring,   :conditions => ["start_at > ?", Time.now]
-  named_scope :available, :conditions => "deleted_at is null"
+  named_scope :available, :conditions => "deleted_at is null", :order => "sticky desc, created_at desc, start_at asc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now]
   
@@ -43,7 +43,11 @@ class Activity < ActiveRecord::Base
   end
   
   def edited_by(user)
-    user.class == User && (self.user_id == user.id || user.has_role?('roles.admin'))
+    user.class == User && (self.user_id == user.id || user.admin?)
+  end
+  
+  def sticky_by?(user)
+    user.class == User && user.admin?
   end
   
   def joined?(user)

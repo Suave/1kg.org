@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.text      :description_html
     t.integer   :comments_count,  :default => 0
     t.integer   :old_id
+    t.boolean   :sticky,          :default => false
   end
   
   create_table "participations" do |t|

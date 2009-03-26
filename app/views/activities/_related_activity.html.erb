@@ -19,7 +19,10 @@
         <% activities.each do |a| -%>
         <tr class="<%= cycle("odd", "even") %>">
           <!--<td></td>-->
-          <td><%= link_to a.title, activity_url(a.id) %></td>
+          <td>
+            <%= image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if a.sticky? %>
+            <%= link_to a.title, activity_url(a.id) %>
+          </td>
           <td><%= a.departure_id==0 ? "不限" : a.departure.name %></td>
           <td><%= a.arrival_id==0 ? "不限" : a.arrival.name %></td>
           <td><%= date_for_short(a.start_at) %></td>

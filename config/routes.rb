@@ -57,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
                                                                 },                      
                                                  :month => nil, :day => nil
   
-  map.resources :activities, :member => {:join => :put, :quit => :put},
+  map.resources :activities, :member => {:join => :put, :quit => :put, :stick => :put},
                              :collection => {:ongoing => :get, :over => :get}
 
   map.resources :boards, :member => {:schools => :get, :users => :get}, :collection => {:public_issue => :get} do |board|
