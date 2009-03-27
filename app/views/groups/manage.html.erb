@@ -1,0 +1,39 @@
+<% @page_title = "#{@group.title}组长管理 - 公益小组" -%>
+
+<% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回小组", group_url(@group) %></p>
+<% end -%>
+
+<h2 class="title">组长设置</h2>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>现任组长</h3>
+      <div class="contents clearfix">
+        <% @moderators.each do |c| %>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dd><%= link_to c.login, user_url(c) %><br /> (<%= link_to "X", moderator_group_url(@group, :remove => c.id), :method => :put, :title => "取消组长资格" %>)</dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>全部组员</h3>
+      <div class="contents clearfix">
+        <% @members.each do |c| %>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dd><%= link_to c.login, user_url(c) %><br /> (<%= link_to "加为组长", moderator_group_url(@group, :add => c.id), :method => :put, :title => "加为组长"%>)</dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
