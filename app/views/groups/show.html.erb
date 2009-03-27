@@ -38,13 +38,16 @@
         <p><label>小组城市</label><%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %></p>
         <%= @group.body_html %>
       </div>
+      <p class="remark">
+      <% if @group.joined?(current_user) -%>
+        &raquo; <%= link_to "邀请友邻", invite_group_url(@group) %>
+      <% end -%>
       
       <% if @group.managed_by? current_user %>
-      <p class="remark">
         &raquo; <%= link_to "修改小组介绍", edit_group_url(@group) %>
         &raquo; <%= link_to "设置小组长", manage_group_url(@group) %>
-      </p>
       <% end -%>
+      </p>
     </div>
   </div>
 </div>

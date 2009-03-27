@@ -101,7 +101,27 @@ class GroupsController < ApplicationController
     redirect_to manage_group_url @group
   end
   
-
+  def invite
+    @friends = current_user.neighbors - @group.members
+  end
+  
+  def send_invitation
+    if params[:invite].blank?
+      flash[:notice] = "请选择邀请对象"
+    else
+      invited_user_ids = params[:invite].collect {|k,v| v.to_i}
+      message = Message.new(:subject => "#{current_user.login}邀请您加入#{@group.title}小组",
+                            :content => "#{current_user.login}( #{user_url(current_user)} )邀请您加入#{@group.title}小组( #{group_url(@group)} )\r\n\r\n快去看看吧\r\n\r\n\r\n多背一公斤客服"
+                            )
+      message.author_id = 0
+      message.to = invited_user_ids
+      message.save!
+      flash[:notice] = "给#{invited_user_ids.size}位友邻发送了邀请"
+    end
+    
+    redirect_to group_url(@group)
+  end
+  
   private
   def find_group
     @group = params[:id] ? Group.find(params[:id]) : Group.new

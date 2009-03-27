@@ -70,7 +70,14 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :shares
   
-  map.resources :groups, :member => {:join => :put, :quit => :put, :new_topic => :get, :manage => :get, :moderator => :put}
+  map.resources :groups, :member => { :join => :put, 
+                                      :quit => :put, 
+                                      :new_topic => :get, 
+                                      :manage => :get, 
+                                      :moderator => :put,
+                                      :invite => :get,
+                                      :send_invitation => :put
+                                    }
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
