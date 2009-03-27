@@ -1,8 +1,22 @@
 class GroupsController < ApplicationController
-  before_filter :login_required, :only => [:join, :quit, :new_topic]
-  before_filter :find_group, :except => [:index]
+  before_filter :login_required, :except => [:index, :show]
+  before_filter :find_group, :except => [:index, :create]
+  
+  
   def index
+    @groups = Group.find :all, :order => "created_at desc"
+  end
+  
+  def new
     
+  end
+  
+  def create
+    @group = Group.new(params[:group])
+    @group.creator = current_user
+    @group.save!
+    flash[:notice] = "小组创建成功"
+    redirect_to group_url(@group)
   end
   
   def edit
@@ -51,10 +65,66 @@ class GroupsController < ApplicationController
     end
   end
   
-
+  def manage
+    @board = @group.discussion.board
+    @moderators = User.moderators_of(@board)
+    @members = @group.members - @moderators
+  end
+  
+  def moderator
+    @board = @group.discussion.board
+    @moderators = User.moderators_of(@board)
+    moderator_role = Role.find_by_identifier("roles.board.moderator.#{@board.id}")
+    
+    if params[:add]
+      user = User.find(params[:add])
+      if @moderators.include?(user)
+        flash[:notice] = "#{user.login}已经是组长了"
+      else
+        user.roles << moderator_role
+      end
+      
+    elsif params[:remove]
+      user = User.find(params[:remove])
+      if @moderators.include?(user)
+        if @moderators.size > 1
+          user.roles.delete moderator_role
+        else
+          flash[:notice] = "#{user.login}是唯一的组长, 不能取消"
+        end
+      else
+        flash[:notice] = "#{user.login}不是组长"
+      end
+      
+    end
+    
+    redirect_to manage_group_url @group
+  end
+  
+  def invite
+    @friends = current_user.neighbors - @group.members
+  end
+  
+  def send_invitation
+    if params[:invite].blank?
+      flash[:notice] = "请选择邀请对象"
+    else
+      invited_user_ids = params[:invite].collect {|k,v| v.to_i}
+      message = Message.new(:subject => "#{current_user.login}邀请您加入#{@group.title}小组",
+                            :content => "#{current_user.login}( #{user_url(current_user)} )邀请您加入#{@group.title}小组( #{group_url(@group)} )\r\n\r\n快去看看吧\r\n\r\n\r\n多背一公斤客服"
+                            )
+      message.author_id = 0
+      message.to = invited_user_ids
+      message.save!
+      flash[:notice] = "给#{invited_user_ids.size}位友邻发送了邀请"
+    end
+    
+    redirect_to group_url(@group)
+  end
+  
   private
   def find_group
-    @group = Group.find(params[:id])
+    @group = params[:id] ? Group.find(params[:id]) : Group.new
   end
   
 end

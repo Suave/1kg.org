@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="box" id="cityLatestMembers">
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3>小组成员</h3>
@@ -33,15 +33,21 @@
     <div class="boxInner">
       <h3></h3>
       <div class="contents">
-        <p><label>小组长</label><%= link_to @group.creator.login, user_url(@group.creator) %></p>
-        <p><label>管理员</label><%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %></p>
+        <p><label>创建人</label><%= link_to @group.creator.login, user_url(@group.creator) %></p>
+        <p><label>组长</label><%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %></p>
         <p><label>小组城市</label><%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %></p>
         <%= @group.body_html %>
       </div>
+      <p class="remark">
+      <% if @group.joined?(current_user) -%>
+        &raquo; <%= link_to "邀请友邻", invite_group_url(@group) %>
+      <% end -%>
       
       <% if @group.managed_by? current_user %>
-      <p class="remark"><%= link_to "修改小组信息", edit_group_url(@group) %></p>
+        &raquo; <%= link_to "修改小组介绍", edit_group_url(@group) %>
+        &raquo; <%= link_to "设置小组长", manage_group_url(@group) %>
       <% end -%>
+      </p>
     </div>
   </div>
 </div>

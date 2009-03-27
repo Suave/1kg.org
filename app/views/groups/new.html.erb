@@ -1,0 +1,16 @@
+<% @page_title = "创建新小组" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<div class="box" id="activitiesPostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>创建新小组</h2>
+      <% form_for :group, :url => groups_url do |f| -%>
+      <%= render :partial => "form", :object => f %>
+      <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "创 建" %></span> <span class="btnWrap"><%= link_to "取 消", groups_url %></span></p>
+      <% end -%>
+    </div>
+  </div>
+</div>

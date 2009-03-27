@@ -1,0 +1,20 @@
+<% @page_title = "邀请友邻" -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>还不是组员的友邻</h3>
+      <div class="content clearfix">
+      <% form_tag send_invitation_group_url(@group), :method => :put  do -%>
+        <% @friends.each do |c| -%>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dd><%= link_to c.login, user_url(c) %><br /> <%= check_box_tag "invite[#{c.id}]", c.id %></dd>
+        </dl>
+        <% end -%>
+        <p class="clear center"><%= submit_tag "发送邀请" %></p>
+      <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
