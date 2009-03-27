@@ -3,7 +3,13 @@ class MiscController < ApplicationController
   
   def index
     if logged_in?
-      redirect_to my_city_url
+      #redirect_to my_city_url
+      @recent_schools = School.recent_upload
+      @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+      @recent_shares = Share.recent_shares
+      @hot_cities = Geo.hot_cities
+      @recent_citizens = User.recent_citizens
+      @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
     else
       render :action => "welcome"
     end
@@ -59,7 +65,8 @@ class MiscController < ApplicationController
   def public_look
     #@cities = CityBoard.find_by_sql(" select city_boards.id, city_boards.geo_id, geos.name, boards.id as board_id, count(users.id) as users_count from city_boards, users, geos, boards where boards.talkable_id=city_boards.id and boards.talkable_type='CityBoard' and city_boards.geo_id=users.geo_id and city_boards.geo_id=geos.id group by city_boards.id order by users_count desc limit 10;")
     # select count(geo_id) as count, geo_id, name from schools join geos on geos.id=schools.geo_id group by geo_id order by count desc limit 20;
-    @cities = Geo.find(%w(280 273 275 304 312 356 241 322 305 239 10 299 79 1))
+=begin
+    @cities = Geo.hot_cities
 
     @activities = Activity.ongoing.find(:all, :conditions => ["deleted_at is ?", nil], :order => "created_at desc, start_at asc", :limit => 20)
 
@@ -67,12 +74,18 @@ class MiscController < ApplicationController
                                             :include => [:board], 
                                             :order => "position asc",
                                             :limit => 5)
-    @shares = Share.available.recent_shares
+    @shares = Share.recent_shares
     
-    @users = User.find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
-                             :order => "users.created_at desc",
-                             :include => [:geo],
-                             :limit => 5)                                                                 
+    @users = User.recent_citizens                                                              
+=end
+    @recent_schools = School.recent_upload
+    @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+    @recent_shares = Share.recent_shares
+    @hot_cities = Geo.hot_cities
+    @recent_citizens = User.recent_citizens
+    @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
+    
+    render :action => "index"
   end
   
   def cities

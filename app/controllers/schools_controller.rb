@@ -2,9 +2,7 @@ class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   
   def index
-    @schools = School.find(:all, :conditions => {:deleted_at => nil, :meta => false},
-                                 :order => "created_at desc",
-                                 :limit => 15)
+    @schools = School.recent_upload
                                  
     @topics = Topic.last_10_updated_topics(SchoolBoard)
   end

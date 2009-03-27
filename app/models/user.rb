@@ -150,6 +150,13 @@ class User < ActiveRecord::Base
     (user != nil) and (id != user.id) and has_neighbor?(user)
   end
   
+  def self.recent_citizens
+    find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
+               :order => "users.created_at desc",
+               :include => [:geo],
+               :limit => 9)
+  end
+  
   def self.admins
     admin_id = Role.find_by_identifier("roles.admin").id
     return search_role_members(admin_id)
