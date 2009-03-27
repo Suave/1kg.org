@@ -1,5 +1,3 @@
-<% @page_title = "首页" %>
-
 <% content_for :sidebar do -%>
 <div class="box" id="cityList">
   <div class="boxOuter">
@@ -47,14 +45,6 @@
   </div>
 </div>
 <% end -%>
-
-<h2 class="title">
-  <% if logged_in? -%>
-    欢迎 <%= h current_user.login %>
-  <% else -%>
-    欢迎来到多背一公斤
-  <% end -%>
-</h2>
 
 <div class="box">
   <div class="boxOuter">

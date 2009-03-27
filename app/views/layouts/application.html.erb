@@ -68,36 +68,38 @@
   </div>
 </div>
 			
-	  <div class="wrapper">
-			<div id="content">
-			  <div id="content-layout" class="clearfix">
-			    <% if flash[:notice] -%>
- 						<div class="flashNotice notice"><%= flash[:notice] %></div>
- 					<% end -%>
- 					
-          <%= yield :fullsize %>
-          
-			    <div id="content-primary-wrap">
-			      <div id="content-primary">
-       					<%= yield :layout %>
-			      </div><!-- end #content-primary -->
-			    </div><!-- end #content-primary-wrap -->
+<div class="wrapper">
+	<div id="content">
+	  <div id="content-layout" class="clearfix">
+	    <% if flash[:notice] -%>
+					<div class="flashNotice notice"><%= flash[:notice] %></div>
+				<% end -%>
+				
+      <%= yield :fullsize %>
+      
+      <div id="page-title">
+        <h1><%= @title.to_s %></h1>
+      </div>
+      
+	    <div id="content-primary-wrap">
+	      <div id="content-primary">
+   					<%= yield :layout %>
+	      </div><!-- end #content-primary -->
+	    </div><!-- end #content-primary-wrap -->
 
-	        <div id="content-secondary">
+      <div id="content-secondary">
 
-  			   <%= yield :sidebar %>
+		   <%= yield :sidebar %>
 
-			   </div><!-- end #content-secondary -->
-			</div><!-- end #content-layout -->
+	   </div><!-- end #content-secondary -->
+	</div><!-- end #content-layout -->
 
-		</div><!-- end #content -->
-    <div class="clear"></div>
-			
-    </div><!-- end #wrapper -->
-    
-    <%= render :partial => "/shared/footer" %>
+</div><!-- end #content -->
+<div class="clear"></div>
+	
+</div><!-- end #wrapper -->
+
+<%= render :partial => "/shared/footer" %>
 		
-		<%#= render :partial => "/shared/stat" %>
-		
-  </body>
+</body>
 </html>
