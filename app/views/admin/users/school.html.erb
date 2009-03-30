@@ -13,6 +13,7 @@
         <% User.school_moderators.each do |m| -%>
         <tr>
           <td><%= m.login %></td>
+          <td><%= m.email %></td>
           <td>
               <%= link_to "取消学校管理员", admin_user_path(m, :remove => "school"), :method => :put %>
           </td>
