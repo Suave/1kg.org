@@ -214,6 +214,8 @@ caption {
   padding: 0 20px 15px;
 }
 
+.box .contents ol, .box .entry ol {list-style-type: decimal; list-style-position: inside;}
+.box .contents ul, .box .entry ul {list-style-type: disc; list-style-position: inside;}
 /*
 	Secondary content
 */
