@@ -13,6 +13,7 @@
         <% User.admins.each do |admin| -%>
         <tr>
           <td><%= admin.login %></td>
+          <td><%= admin.email %></td>
           <td>
               <%= link_to "取消管理员", admin_user_path(admin, :remove => "admin"), :method => :put %>
           </td>
