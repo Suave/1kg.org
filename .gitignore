@@ -10,6 +10,9 @@ config/database.yml
 public/user
 public/user/*
 public/user/**/*
+public/group
+public/group/*
+public/group/**/*
 public/photos
 public/photos/*
 public/photos/**/*

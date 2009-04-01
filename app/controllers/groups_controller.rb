@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  include Util
+  
   before_filter :login_required, :except => [:index, :show]
   before_filter :find_group, :except => [:index, :create]
   
@@ -16,6 +18,7 @@ class GroupsController < ApplicationController
   end
   
   def create
+    avatar_convert(:group, :avatar)
     @group = Group.new(params[:group])
     @group.creator = current_user
     @group.save!
@@ -28,6 +31,8 @@ class GroupsController < ApplicationController
   end
   
   def update
+    avatar_convert(:group, :avatar)
+    
     @group.update_attributes!(params[:group])
     flash[:notice] = "小组信息修改成功"
     redirect_to group_url(@group)

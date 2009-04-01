@@ -1,4 +1,9 @@
 class Group < ActiveRecord::Base
+  file_column :avatar, :magick => {
+                              :geometry => "72x72>",
+                              :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
+                            }
+  
   belongs_to :city,    :class_name => "Geo",  :foreign_key => "geo_id"
   belongs_to :creator, :class_name => "User", :foreign_key => "user_id"
   

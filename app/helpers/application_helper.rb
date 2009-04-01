@@ -110,5 +110,27 @@ module ApplicationHelper
     activity.arrival_id==0 ? "不限" : activity.arrival.name
   end
   
+  def avatar_for(object, size)
+    if object.class == User
+      user_avatar_for(object, size)
+    elsif object.class == Group
+      group_avatar_for(object, size)
+    end
+  end
   
+  def user_avatar_for(user, size)
+    if user.avatar.blank?
+      image_tag "avatar_#{size}.png", :class => "avatar", :alt => user.login
+    else
+      image_tag url_for_file_column(user, :avatar, size), :class => "avatar", :alt => user.login
+    end
+  end
+  
+  def group_avatar_for(group, size)
+    if group.avatar.blank?
+      image_tag "group_default_#{size}.png", :class => "avatar", :alt => group.title
+    else
+      image_tag url_for_file_column(group, :avatar, size), :class => "avatar", :alt => group.title
+    end
+  end
 end

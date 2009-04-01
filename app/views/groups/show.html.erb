@@ -28,14 +28,20 @@
 
 <h2 class="title"><%= h @group.title %></h2>
 
-<div class="box">
+<div class="box" id="topicSingle">
   <div class="boxOuter">
     <div class="boxInner">
       <h3></h3>
+      <div class="metadata">
+        <div class="avatar"><%= avatar_for(@group, "large") %></div>
+        <p>
+          <label>创建人:</label> <%= link_to @group.creator.login, user_url(@group.creator) %>,
+          <label>组长:</label> <%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>,
+          <label>小组城市:</label> <%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %>
+        </p>
+        
+      </div>
       <div class="contents">
-        <p><label>创建人</label><%= link_to @group.creator.login, user_url(@group.creator) %></p>
-        <p><label>组长</label><%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %></p>
-        <p><label>小组城市</label><%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %></p>
         <%= @group.body_html %>
       </div>
       <p class="remark">

@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include Util
   # Be sure to include AuthenticationSystem in Application Controller instead
   #include AuthenticatedSystem
   
@@ -142,17 +143,7 @@ class UsersController < ApplicationController
     
       
     elsif params[:for] == 'avatar'
-      # convert user's avatar to gif format, thanks for Robin Lu
-      iconfile = params[:user][:avatar]
-      unless iconfile.blank?
-        # if user upload avatar, convert file format
-        img = ::Magick::Image::from_blob(iconfile.read).first
-        img.crop_resized!(72,72)
-        filename = File.join(RAILS_ROOT + "/public/user/avatar/tmp", 'icon.gif')
-        img.write(filename)
-        iconfile = File.open(filename)
-        params[:user][:avatar] = iconfile
-      end
+      avatar_convert(:user, :avatar)
       @user.update_attributes!(params[:user])
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "avatar")

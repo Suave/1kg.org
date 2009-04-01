@@ -439,6 +439,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.integer   :geo_id,        :null => false
     t.string    :title,         :null => false
     t.text      :body_html
+    t.string    :avatar
     t.datetime  :created_at
     t.datetime  :updated_at
     t.datetime  :deleted_at
