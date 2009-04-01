@@ -1,4 +1,11 @@
-<% @page_title = "#{h @group.title} - 公益小组" -%>
+<% @page_title = @title = "#{h @group.title}小组" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to "小组", groups_url %></li>
+<ul>
+  <li><%= @title %></li>
+</ul>
+<% end -%>
 
 <% content_for :sidebar do -%>
 <div class="box">
@@ -25,8 +32,6 @@
   </div>
 </div>
 <% end -%>
-
-<h2 class="title"><%= h @group.title %></h2>
 
 <div class="box" id="topicSingle">
   <div class="boxOuter">

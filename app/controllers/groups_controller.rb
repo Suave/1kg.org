@@ -1,8 +1,8 @@
 class GroupsController < ApplicationController
   include Util
   
-  before_filter :login_required, :except => [:index, :show]
-  before_filter :find_group, :except => [:index, :create]
+  before_filter :login_required, :except => [:index, :show, :all]
+  before_filter :find_group, :except => [:index, :create, :all]
   
   
   def index
@@ -18,6 +18,11 @@ class GroupsController < ApplicationController
                                         :limit => 20)
     end
   end
+  
+  def all
+    @groups = Group.paginate :page => params[:page] || 1, :conditions => "deleted_at is null", :order => "created_at desc", :per_page => 20
+  end
+  
   
   def new
     

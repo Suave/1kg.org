@@ -77,7 +77,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :moderator => :put,
                                       :invite => :get,
                                       :send_invitation => :put
-                                    }
+                                    },
+                          :collection => {:all => :get}
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|

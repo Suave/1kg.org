@@ -1,5 +1,9 @@
 <% @page_title = "公益小组" -%>
 
+<% content_for :crumb do -%>
+<li>小组</li>
+<% end -%>
+
 <% content_for :sidebar do -%>
 <div class="box">
   <div class="boxOuter">
@@ -67,21 +71,9 @@
     <div class="boxInner">
       <h2>新成立的小组</h2>
       <div class="contents">
-        <table>
-          <tr>
-            <th>小组</th>
-            <th>组长</th>
-            <th>组员</th>
-          </tr>
-          <% @groups.each do |g| -%>
-          <tr>
-            <td><%= link_to g.title, group_url(g) %></td>
-            <td><%= link_to g.creator.login, user_url(g.creator) %></td>
-            <td><%= g.members.count %></td>
-          </tr>
-          <% end -%>
-        </table>
+        <%= render :partial => "groups", :object => @groups %>
       </div>
+      <p class="remark">&raquo; <%= link_to "浏览所有小组", all_groups_url %></p>
     </div>
   </div>
 </div>
