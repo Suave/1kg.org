@@ -9,7 +9,13 @@ class GroupsController < ApplicationController
     @groups = Group.find :all, :order => "created_at desc", :limit => 10
     
     if logged_in?
-      @my_groups = current_user.joined_groups
+      @my_groups = current_user.joined_groups.find(:all)
+      
+      board_ids = @groups.map{|g| g.discussion.board.id}
+      @recent_topics = Topic.find(:all, :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
+                                        :order => "sticky desc, last_replied_at desc",
+                                        :include => [:board, :user],
+                                        :limit => 20)
     end
   end
   
