@@ -48,6 +48,9 @@ class User < ActiveRecord::Base
 	has_many :neighborhoods
 	has_many :neighbors, :through => :neighborhoods
   
+  has_many :memberships, :dependent => :destroy
+  has_many :joined_groups, :through => :memberships, :source => :group 
+  
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation

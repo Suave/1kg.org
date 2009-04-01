@@ -12,12 +12,31 @@
     </div>
   </div>
 </div>
+
+<% if logged_in? -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>我参加的小组</h3>
+      <div class="contents">
+        <table>
+        <% @my_groups.each do |g| -%>
+          <tr><td><%= link_to g.title, group_url(g) %></td></tr>
+        <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 <% end -%>
+<% end -%>
+
+
 
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>公益小组</h2>
+      <h2>最新小组</h2>
       <div class="contents">
         <table>
           <tr>

@@ -4,7 +4,11 @@ class GroupsController < ApplicationController
   
   
   def index
-    @groups = Group.find :all, :order => "created_at desc"
+    @groups = Group.find :all, :order => "created_at desc", :limit => 10
+    
+    if logged_in?
+      @my_groups = current_user.joined_groups
+    end
   end
   
   def new
