@@ -94,6 +94,14 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
   end
 
+  map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "index"
+=begin  
+  map.namespace :minisite do |site|
+    map.namespace :postcard do |postcard|
+      postcard.resource base
+    end
+  end
+=end  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end
