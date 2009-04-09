@@ -10,6 +10,8 @@ class Share < ActiveRecord::Base
   
   named_scope :available, :conditions => ["hidden=?", false]
   
+  after_create :initial_last_replied
+  
   def self.recent_shares
     find(:all, :order => "updated_at desc, comments_count desc",
                :limit => 10,
@@ -19,4 +21,10 @@ class Share < ActiveRecord::Base
   def moderated_by?(user)
     (! user.blank?) and (user_id == user.id or user.has_role?("roles.admin"))
   end
+  
+  private
+  def initial_last_replied
+    self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
+  end
+  
 end

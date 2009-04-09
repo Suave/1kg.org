@@ -33,7 +33,7 @@ class BoardsController < ApplicationController
       @activities = Activity.at(@city).available
       
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
-                                 :order => "updated_at desc",
+                                 :order => "last_replied_at desc",
                                  :limit => 10)
       
 
@@ -83,7 +83,7 @@ class BoardsController < ApplicationController
     
     @shares = Share.paginate(:page => params[:page] || 1,
                              :conditions => ["user_id in (?)", @users.flatten],
-                             :order => "updated_at desc",
+                             :order => "last_replied_at desc",
                              :per_page => 10)
     render :action => "city_shares"
   end
