@@ -7,6 +7,8 @@ class SchoolsController < ApplicationController
                                  :limit => 15)
                                  
     @topics = Topic.last_10_updated_topics(SchoolBoard)
+    
+    @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
   end
   
   def all

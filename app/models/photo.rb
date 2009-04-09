@@ -1,5 +1,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :user
+  belongs_to :school
+  belongs_to :activity
   
   has_attachment :processor => :rmagick,
                  :content_type => :image,
@@ -16,9 +18,17 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title
   
+  def previous(user)
+    Photo.find(:first, :conditions => ["parent_id is NULL and id < ? and user_id = ?", self.id, user.id], :order => "id DESC")
+  end
+  
+  def next(user)
+    Photo.find(:first, :conditions => ["parent_id is NULL and id > ? and user_id = ?", self.id, user.id])
+  end
+  
   private
   def fill_title
-    self.title = "未命名图片"
+    self.title = "未命名图片" if self.title.blank?
   end
   
 end
