@@ -33,7 +33,8 @@ class BoardsController < ApplicationController
       @activities = Activity.at(@city).available
       
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
-                                 :order => "updated_at desc")
+                                 :order => "updated_at desc",
+                                 :limit => 10)
       
 
       render :action => "city"
@@ -71,14 +72,22 @@ class BoardsController < ApplicationController
   end
   
   def users
-    @board = Board.find(params[:id])
-    board_type_check @board
-    
-    @city = @board.talkable.geo
-    @users = @city.users
+    # TODO load partial users, and "more" button like twitter
+    get_all_citizens
     
     render :action => "city_users"
   end
+  
+  def shares
+    get_all_citizens
+    
+    @shares = Share.paginate(:page => params[:page] || 1,
+                             :conditions => ["user_id in (?)", @users.flatten],
+                             :order => "updated_at desc",
+                             :per_page => 10)
+    render :action => "city_shares"
+  end
+  
   
   private
   def board_type_check(board)
@@ -86,6 +95,14 @@ class BoardsController < ApplicationController
       flash[:notice] = "您刚刚访问的URL不正确, 请仔细检查核对一下"
       return redirect_to root_url
     end
+  end
+  
+  def get_all_citizens
+    @board = Board.find(params[:id])
+    board_type_check @board
+    
+    @city = @board.talkable.geo
+    @users = @city.users
   end
   
 end
