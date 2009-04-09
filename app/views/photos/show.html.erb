@@ -1,0 +1,32 @@
+<% @page_title = @title = @photo.title -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<div class="box" id="topicSingle">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= @photo.title %></h3>
+       <div class="metadata">
+          <div class="avatar"><%= link_to avatar_for(@photo.user, "large"), user_url(@photo.user) %></div>
+          <p><%= link_to @photo.user.login, user_url(@photo.user)  %> 上传于 <%= @photo.created_at.to_date %></p>
+          <p>
+            <%= "拍摄于 #{link_to @photo.school.title, school_url(@photo.school)}" unless @photo.school.blank? %>
+          </p>
+          <p>
+            <%= "分享到 #{link_to @photo.activity.title, activity_url(@photo.activity)}" unless @photo.activity.blank? %>
+          </p>
+        </div>
+      <div class="contents">
+        <p style="text-align:right; color:gray">
+          <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
+        </p>
+        <%= image_tag @photo.public_filename(:medium) %>
+        <%= @photo.description_html %>
+        <p style="text-align:right; color:gray">
+          <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -79,6 +79,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put
                                     }
   
+  map.resources :photos
+  
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :roles

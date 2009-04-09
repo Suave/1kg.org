@@ -2,11 +2,17 @@ class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   
   def index
+<<<<<<< HEAD:app/controllers/schools_controller.rb
     @schools = School.find(:all, :conditions => {:deleted_at => nil, :meta => false},
                                  :order => "created_at desc",
                                  :limit => 15)
+=======
+    @schools = School.recent_upload
+>>>>>>> 4377ea1... school json output:app/controllers/schools_controller.rb
                                  
     @topics = Topic.last_10_updated_topics(SchoolBoard)
+    
+    @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
   end
   
   def all

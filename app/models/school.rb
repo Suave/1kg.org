@@ -70,6 +70,13 @@ class School < ActiveRecord::Base
       validated.available.locate(ids)
   end
   
+<<<<<<< HEAD:app/models/school.rb
+=======
+  def self.recent_upload
+    validated.find(:all, :order => "created_at desc", :limit => 10)
+  end
+  
+>>>>>>> 4377ea1... school json output:app/models/school.rb
 
   def validated_by(user)
     user.class == User &&
