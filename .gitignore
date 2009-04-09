@@ -16,6 +16,9 @@ public/group/**/*
 public/photos
 public/photos/*
 public/photos/**/*
+public/group
+public/group/*
+public/group/**/*
 public/pictures
 public/pictures/*
 public/pictures/**/*

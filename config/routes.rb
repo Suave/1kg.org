@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :activities, :member => {:join => :put, :quit => :put, :stick => :put},
                              :collection => {:ongoing => :get, :over => :get}
 
-  map.resources :boards, :member => {:schools => :get, :users => :get}, :collection => {:public_issue => :get} do |board|
+  map.resources :boards, :member => {:schools => :get, :users => :get, :shares => :get }, :collection => {:public_issue => :get} do |board|
     board.resources :topics, :member => {:stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end

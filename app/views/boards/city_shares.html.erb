@@ -1,0 +1,19 @@
+<% @page_title = @title = "#{@city.name}居民的分享" -%>
+
+<% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回#{@city.name}同城", board_url(@city.city_board.board) %></p>
+<% end -%>
+
+<h2 class="title"><%= @title %></h2>
+
+<div class="box" id="cityLatestMembers">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents">
+        <%= render :partial => "/shares/shares", :object => @shares %>
+        <%= customize_paginate @shares %>
+      </div>
+    </div>
+  </div>
+</div>

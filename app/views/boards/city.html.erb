@@ -28,20 +28,9 @@
         <h3>分享</h3>
         <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
         <div class="contents">
-          <% @shares.each do |s| -%>
-          <div style="clear:both;margin-bottom:1em;min-height:50px">
-            <div style="float:left">
-              <%= avatar_for(s.user, "large") %>
-            </div>
-            <div style="margin-left:60px;">
-              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
-              <div style="color:#999; text-align:right">
-                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
-              </div>
-            </div>
-          </div>
-          <% end -%>
+          <%= render :partial => "/shares/shares", :object => @shares %>
         </div>
+        <p class="remark">&raquo; <%= link_to "更多#{@city.name}居民的分享", shares_board_url(@board) %></p>
       </div>
     </div>
   </div>
