@@ -80,6 +80,8 @@ ActionController::Routing::Routes.draw do |map|
                                     },
                           :collection => {:all => :get}
   
+  map.resources :photos
+  
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :roles

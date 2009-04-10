@@ -404,6 +404,8 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime  :updated_at
     t.datetime  :last_modified_at
     t.integer   :last_modified_by_id
+    t.datetime  :last_replied_at
+    t.integer   :last_replied_by_id
   end
   
   create_table "messages" do |t|

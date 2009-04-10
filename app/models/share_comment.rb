@@ -6,7 +6,9 @@ class ShareComment < Comment
   
   private
   def update_share_comments_count
-    self.share.update_attributes!(:comments_count => ShareComment.count(:all, :conditions => ["type_id=?", self.share.id]))
+    self.share.update_attributes!(:comments_count => ShareComment.count(:all, :conditions => ["type_id=?", self.share.id]),
+                                  :last_replied_at => self.created_at,
+                                  :last_replied_by_id => self.user_id)
   end
   
 end

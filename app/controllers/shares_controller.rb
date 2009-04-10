@@ -4,7 +4,7 @@ class SharesController < ApplicationController
   
   def index
     @shares = Share.available.paginate :page => params[:page] || 1,
-                                       :order => "id desc",
+                                       :order => "last_replied_at desc",
                                        :select => "id, user_id, title, hits, comments_count, created_at",
                                        :per_page => 10
                                        
