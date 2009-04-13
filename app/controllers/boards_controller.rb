@@ -58,7 +58,7 @@ class BoardsController < ApplicationController
     end
   end
   
-  
+=begin  
   def schools
     @board = Board.find(params[:id])
     board_type_check @board
@@ -70,6 +70,7 @@ class BoardsController < ApplicationController
     
     render :action => "city_schools"
   end
+=end
   
   def users
     # TODO load partial users, and "more" button like twitter

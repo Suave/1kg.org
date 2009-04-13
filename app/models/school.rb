@@ -76,6 +76,9 @@ class School < ActiveRecord::Base
     validated.find(:all, :order => "created_at desc", :limit => 10)
   end
   
+  def last_topic
+    self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
+  end
 
   def validated_by(user)
     user.class == User &&

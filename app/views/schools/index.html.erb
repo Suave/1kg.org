@@ -38,6 +38,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>最新添加的学校</h3>
+      <span class="postNew"><%= link_to image_tag("/images/json.png"), formatted_schools_url(:json) %></span>
       <div class="contents">
         <%= render :partial => "recent_upload", :object => @schools %>
       </div>
