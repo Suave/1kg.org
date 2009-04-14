@@ -70,7 +70,9 @@
     <div class="boxInner">
       <h3>最近的活动</h3>
       <span class="postNew">++ <%= link_to "我想组织活动", new_activity_url %></span>
+      <div class="contents">
       <%= render :partial => "/activities/activities", :object => @activities %>
+      </div>
       <p class="remark">&raquo; 所有 <%= link_to "进行中的活动", ongoing_activities_url %> &middot; <%= link_to "已经结束的活动", over_activities_url %></p>
     </div>
   </div>

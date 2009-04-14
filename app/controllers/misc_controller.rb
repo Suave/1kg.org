@@ -61,7 +61,7 @@ class MiscController < ApplicationController
     # select count(geo_id) as count, geo_id, name from schools join geos on geos.id=schools.geo_id group by geo_id order by count desc limit 20;
     @cities = Geo.find(%w(280 273 275 304 312 356 241 322 305 239 10 299 79 1))
 
-    @activities = Activity.ongoing.find(:all, :conditions => ["deleted_at is ?", nil], :order => "created_at desc, start_at asc", :limit => 20)
+    @activities = Activity.available.ongoing.find(:all, :conditions => ["deleted_at is ?", nil], :limit => 20)
 
     @public_boards = PublicBoard.find(:all, :conditions => ["boards.deleted_at is NULL"],
                                             :include => [:board], 
