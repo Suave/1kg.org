@@ -184,8 +184,8 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
     @visitors = @school.visitors
     @followers = @school.interestings
-    @shares = @school.shares
-    
+    @shares = @school.shares.find(:all, :order => "id desc" )
+    @photos = @school.photos.find(:all, :order => "id desc" )
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
     end

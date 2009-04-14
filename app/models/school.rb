@@ -16,6 +16,7 @@ class School < ActiveRecord::Base
   has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
   has_many :interestings, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('interesting')}"
   has_many :shares
+  has_many :photos
   
   named_scope :validated, :conditions => ["validated=? and deleted_at is null", true]
   named_scope :available, :conditions => ["deleted_at is null"]
