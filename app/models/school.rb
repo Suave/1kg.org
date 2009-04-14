@@ -16,6 +16,7 @@ class School < ActiveRecord::Base
   has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
   has_many :interestings, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('interesting')}"
   has_many :shares
+  has_many :photos
   
   named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
@@ -79,6 +80,11 @@ class School < ActiveRecord::Base
   def last_topic
     self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
   end
+
+  def self.recent_upload
+    validated.find(:all, :order => "created_at desc", :limit => 10)
+  end
+
 
   def validated_by(user)
     user.class == User &&

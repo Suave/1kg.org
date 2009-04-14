@@ -75,6 +75,7 @@ class MiscController < ApplicationController
     @hot_cities = Geo.hot_cities
     @recent_citizens = User.recent_citizens
     @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
+
     
     render :action => "index"
   end
