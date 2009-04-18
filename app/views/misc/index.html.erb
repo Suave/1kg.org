@@ -49,6 +49,24 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
+      <h3>新照片</h3>
+      <div class="contents clearfix">
+        <% @recent_photos.each do |p| %>
+        <dl class="obp">
+          <dt><%= link_to image_tag(p.public_filename(:thumb)), photo_url(p), :target => "_blank" %></dt>
+          <dd>
+            <%= link_to p.user.login, user_url(p.user) if p.user %>
+          </dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
       <h3>学校更新</h3>
       <span class="postNew">++ <%= link_to "提交新学校", new_school_url %></span>
       <div class="tabbedPanel">

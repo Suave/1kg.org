@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
-  map.public_look "/public", :controller => "misc", :action => "public_look"
+  #map.public_look "/public", :controller => "misc", :action => "public_look"
   map.cities "/cities", :controller => "misc", :action => "cities"
   #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"

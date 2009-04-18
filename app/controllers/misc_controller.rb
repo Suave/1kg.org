@@ -6,7 +6,7 @@ class MiscController < ApplicationController
     
     if logged_in?
       @title = "欢迎 #{current_user.login}"
-      
+      @recent_photos = Photo.recent
       @recent_schools = School.recent_upload
       @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
       @recent_shares = Share.recent_shares
@@ -65,7 +65,7 @@ class MiscController < ApplicationController
     end
   end
   
-  
+=begin  
   def public_look
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
@@ -79,7 +79,7 @@ class MiscController < ApplicationController
     
     render :action => "index"
   end
-  
+=end  
   def cities
     #@cities = CityBoard.find_by_sql(" select city_boards.id, city_boards.geo_id, geos.name, boards.id as board_id, count(users.id) as users_count from city_boards, users, geos, boards where boards.talkable_id=city_boards.id and boards.talkable_type='CityBoard' and city_boards.geo_id=users.geo_id and city_boards.geo_id=geos.id group by city_boards.id having users_count >= 0 order by users_count desc;")
     #@cities = CityBoard.find(:all, :include => [:geo])
@@ -98,14 +98,15 @@ class MiscController < ApplicationController
   end
   
   
-  
+=begin  
   def migration
     geo_migration
     county_migration
   end
-  
+=end  
   private
   # only for data migration from legacy 1kg.org based rails 1.2.3
+=begin
   def geo_migration
     provinces = Area.find(:all, :conditions => "parent_id is null or parent_id=0")
     provinces.each do |province|
@@ -146,5 +147,5 @@ class MiscController < ApplicationController
     end
     flash[:notice] = "县导入成功"
   end
-
+=end
 end
