@@ -1,0 +1,3 @@
+<p><label>受助学校编号</label><%= form.text_field :school_id, :size => 10, :class => "text" %></p>
+<p><label>对应公益产品数量</label><%= form.text_field :quantity, :size => 10, :class => "text" %></p>
+<p><label>备注</label><%= fckeditor_textarea("buck", "notes_html", :toolbarSet => 'Simple', :width => '90%', :height => '400px') %></p>

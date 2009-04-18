@@ -451,4 +451,30 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.datetime  :created_at
   end
   
+  create_table "stuff_types" do |t|
+    t.string    :slug,        :null => false
+    t.string    :title,       :null => false
+    t.text      :description_html
+    t.datetime  :created_at
+  end
+  
+  create_table "stuff_bucks" do |t|
+    t.integer   :type_id,     :null => false
+    t.integer   :school_id,   :null => false
+    t.integer   :quantity,    :null => false
+    t.integer   :matched_count, :default => 0
+    t.datetime  :created_at
+    t.string    :status
+    t.text      :notes_html
+  end
+  
+  create_table "stuffs" do |t|
+    t.string    :code,        :null => false
+    t.integer   :type_id,     :null => false
+    t.integer   :buck_id,     :null => false
+    t.integer   :user_id
+    t.integer   :school_id
+    t.datetime  :matched_at
+    t.datetime  :created_at
+  end
 end

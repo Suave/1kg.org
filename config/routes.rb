@@ -92,6 +92,9 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:undelete => :put}
     admin.resources :pages
     admin.resources :groups
+    admin.resources :stuff_types do |type|
+      type.resources :bucks, :controller => "stuff_bucks"
+    end
   end
 
   map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "index"
