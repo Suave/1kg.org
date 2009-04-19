@@ -48,6 +48,9 @@ class User < ActiveRecord::Base
 	has_many :neighborhoods
 	has_many :neighbors, :through => :neighborhoods
   
+  has_many :memberships, :dependent => :destroy
+  has_many :joined_groups, :through => :memberships, :source => :group 
+  
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation
@@ -148,6 +151,13 @@ class User < ActiveRecord::Base
   
   def neighbor_removeable_by?(user)
     (user != nil) and (id != user.id) and has_neighbor?(user)
+  end
+  
+  def self.recent_citizens
+    find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
+               :order => "users.created_at desc",
+               :include => [:geo],
+               :limit => 9)
   end
   
   def self.admins

@@ -18,8 +18,10 @@ class School < ActiveRecord::Base
   has_many :shares
   has_many :photos
   
-  named_scope :validated, :conditions => ["validated=? and deleted_at is null", true]
+  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
+  
+  
   
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
@@ -69,6 +71,10 @@ class School < ActiveRecord::Base
       #logger.info ids.class
       #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
       validated.available.locate(ids)
+  end
+  
+  def self.recent_upload
+    validated.find(:all, :order => "created_at desc", :limit => 10)
   end
   
 

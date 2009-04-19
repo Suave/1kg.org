@@ -1,13 +1,65 @@
 <% @page_title = "公益小组" -%>
 
+<% content_for :crumb do -%>
+<li>小组</li>
+<% end -%>
+
 <% content_for :sidebar do -%>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>申请方法</h3>
+      <h3>创建小组</h3>
       <div class="contents">
-        <p>在此添加申请方法</p>
         <p>&raquo; <%= link_to "创建新小组", new_group_url %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if logged_in? -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>我参加的小组</h3>
+      <div class="contents clearfix">
+        <% @my_groups.each do |g| -%>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(g, "large"), group_url(g) %></dt>
+          <dd>
+            <%= link_to g.title, group_url(g) %><br />
+            (<%= g.memberships.count %>)
+          </dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+<% end -%>
+<% end -%>
+
+<% if logged_in? -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>我所在小组的话题更新</h2>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>话题</th>
+            <th>小组</th>
+            <th>作者</th>
+            <th>回复</th>
+          </tr>
+          <% @recent_topics.each do |t| -%>
+          <tr>
+            <td><%= link_to t.title, board_topic_url(t.board, t) %></td>
+            <td><%= link_to t.board.talkable.group.title, group_url(t.board.talkable.group) %></td>
+            <td><%= link_to t.user.login, user_url(t.user) %></td>
+            <td><%= t.posts_count %></td>
+          </tr>
+          <% end -%>
+        </table>
       </div>
     </div>
   </div>
@@ -17,23 +69,11 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>公益小组</h2>
+      <h2>新成立的小组</h2>
       <div class="contents">
-        <table>
-          <tr>
-            <th>小组</th>
-            <th>组长</th>
-            <th>组员</th>
-          </tr>
-          <% @groups.each do |g| -%>
-          <tr>
-            <td><%= link_to g.title, group_url(g) %></td>
-            <td><%= link_to g.creator.login, user_url(g.creator) %></td>
-            <td><%= g.members.count %></td>
-          </tr>
-          <% end -%>
-        </table>
+        <%= render :partial => "groups", :object => @groups %>
       </div>
+      <p class="remark">&raquo; <%= link_to "浏览所有小组", all_groups_url %></p>
     </div>
   </div>
 </div>

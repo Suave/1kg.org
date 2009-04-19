@@ -77,7 +77,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :moderator => :put,
                                       :invite => :get,
                                       :send_invitation => :put
-                                    }
+                                    },
+                          :collection => {:all => :get}
   
   map.resources :photos
   
@@ -93,8 +94,20 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:undelete => :put}
     admin.resources :pages
     admin.resources :groups
+    admin.resources :stuff_types do |type|
+      type.resources :bucks, :controller => "stuff_bucks"
+    end
   end
 
+  map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "index"
+  map.connect 'minisite/postcard/code_test', :controller => "/minisite/postcard/dashboard", :action => "code_test"
+=begin  
+  map.namespace :minisite do |site|
+    map.namespace :postcard do |postcard|
+      postcard.resource base
+    end
+  end
+=end  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

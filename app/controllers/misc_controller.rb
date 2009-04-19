@@ -2,9 +2,19 @@ class MiscController < ApplicationController
   before_filter :login_required, :only => :my_city
   
   def index
+    @page_title = "首页"
+    
     if logged_in?
-      redirect_to my_city_url
+      @title = "欢迎 #{current_user.login}"
+      
+      @recent_schools = School.recent_upload
+      @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+      @recent_shares = Share.recent_shares
+      @hot_cities = Geo.hot_cities
+      @recent_citizens = User.recent_citizens
+      @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
     else
+      
       render :action => "welcome"
     end
   end
@@ -57,22 +67,17 @@ class MiscController < ApplicationController
   
   
   def public_look
-    #@cities = CityBoard.find_by_sql(" select city_boards.id, city_boards.geo_id, geos.name, boards.id as board_id, count(users.id) as users_count from city_boards, users, geos, boards where boards.talkable_id=city_boards.id and boards.talkable_type='CityBoard' and city_boards.geo_id=users.geo_id and city_boards.geo_id=geos.id group by city_boards.id order by users_count desc limit 10;")
-    # select count(geo_id) as count, geo_id, name from schools join geos on geos.id=schools.geo_id group by geo_id order by count desc limit 20;
-    @cities = Geo.find(%w(280 273 275 304 312 356 241 322 305 239 10 299 79 1))
 
-    @activities = Activity.available.ongoing.find(:all, :conditions => ["deleted_at is ?", nil], :limit => 20)
-
-    @public_boards = PublicBoard.find(:all, :conditions => ["boards.deleted_at is NULL"],
-                                            :include => [:board], 
-                                            :order => "position asc",
-                                            :limit => 5)
-    @shares = Share.available.recent_shares
+    @page_title = "首页"
+    @title = "欢迎来到多背一公斤"
+    @recent_schools = School.recent_upload
+    @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+    @recent_shares = Share.recent_shares
+    @hot_cities = Geo.hot_cities
+    @recent_citizens = User.recent_citizens
+    @recent_activities = Activity.available.ongoing.find(:all, :order => "id desc", :limit => 10 )
     
-    @users = User.find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
-                             :order => "users.created_at desc",
-                             :include => [:geo],
-                             :limit => 5)                                                                 
+    render :action => "index"
   end
   
   def cities

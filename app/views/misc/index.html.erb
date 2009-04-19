@@ -1,73 +1,100 @@
-<% if logged_in? -%>
-<% @page_title = "欢迎 #{current_user.login}" -%>
-<% else -%>
-<% @page_title = "欢迎加入多背一公斤" -%>
-<% end -%>
-
 <% content_for :sidebar do -%>
-<div class="box" id="blog">
+<div class="box" id="cityList">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>多背一公斤博客 <a href="http://feedsky.blogbus.com/1kg_blogbus_com"><img src="/images/feeds.gif" alt="RSS订阅" /></a></h3>
+      <h3>我要去</h3>
       <div class="contents">
-        <!-- Google的某插件 -->
-        <div class="gfg-root">
-          <div class="gfg-entry">
-            <div class="gf-result">
-              <div class="gf-title">
-                <a href="http://1kg.blogbus.com/logs/33206794.html" class="gf-title" target="_blank">创作你的“多背一公斤”之歌</a>
-              </div>
-              <div class="gf-relativePublishedDate">Dec 31, 2008</div>
-              <div class="gf-snippet">2009新年伊始，“多背一公斤”发起倡议：请志愿者们为“多背一公斤”写歌词。
-                征集内容：能体现“多背一公斤”的发展梦想“旅行改变世界”
-                征集方式：直接在本贴...</div>
-            </div>
-          </div>
-          <div class="gfg-list">
-            <div class="gfg-listentry gfg-listentry-highlight gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/33206794.html" target="_blank">创作你的“多背一公斤”之歌</a></div>
-            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/33091269.html" target="_blank">新年之即，让我们一起来读书！</a></div>
-            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32702782.html" target="_blank">板房图书室进展081219</a></div>
-            <div class="gfg-listentry gfg-listentry-even"><a href="http://1kg.blogbus.com/logs/32597656.html" target="_blank">多背一公斤板房图书室项目进展</a></div>
-            <div class="gfg-listentry gfg-listentry-odd"><a href="http://1kg.blogbus.com/logs/32346689.html" target="_blank">多背一公斤十一月简报</a></div>
-          </div>
-        </div>
-        <!--/END Google的某插件 -->
+        <% form_tag search_geos_url, :method => :get do -%>
+          <%= text_field_tag 'city', "输入你想去的城市" %> <%= submit_tag "GO" %>
+        <% end -%>
+        <h3 style="background:none; padding:20px 0 0;"><strong>热门城市</strong></h3>
+        <ul class="clearfix tipText"><%= @hot_cities.collect {|c| "<li>#{link_to c.name, geo_url(c)}</li>"} %><li>...</li></ul>
+      </div>
+      <p class="remark">&raquo; <%= link_to "所有城市", all_geos_url %></p>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最新活动</h3>
+      <span class="postNew">++ <%= link_to "发起新活动", new_activity_url %></span>
+      <div class="contents">
+        <table>
+          <% @recent_activities.each do |a| %>
+          <tr class="<%= cycle('odd', 'even') %>">
+            <td>
+              <%= link_to h(a.title), activity_url(a) %> <span class="tipText">[<%= date_for_short a.start_at %>]</span>
+            </td>
+          </tr>
+          <% end -%>
+        </table>
+
       </div>
     </div>
   </div>
 </div>
-           
-<div class="block" id="newsletter">
-  <div class="blockOuter">
-    <h3>订阅多背一公斤新闻</h3>
-    <div class="contents">
-      <form action="http://groups.google.com/group/1kgnews/boxsubscribe">
-        <input type="text" class="form-text" name="email" value="电子邮件" />
-        <input type="submit" class="form-submit" value="订阅" name="sub" />
-      </form>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>新居民</h3>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @recent_citizens } %>
     </div>
   </div>
 </div>
 <% end -%>
 
-<% if logged_in? && ! current_user.geo -%>
-<% @page_title = "你还没设置居住的城市" -%>
-<% end -%>
-
-<% if logged_in? && ! current_user.geo -%>
-<div id="setMyLocation">
- <p>选择你的居住城市后，才能看到同城活动，和城市周边的学校，还可以和同城的朋友一起聊天。</p>
- <%= button_to "选择我的居住地", setting_url %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>学校更新</h3>
+      <span class="postNew">++ <%= link_to "提交新学校", new_school_url %></span>
+      <div class="tabbedPanel">
+        <ul class="tab">
+          <li id="li-upload"><a href="javascript:void(0);" onclick="status_switch('upload')">新上传</a></li>
+          <li id="li-comments"><a href="javascript:void(0);" onclick="status_switch('comments')">新留言</a></li>
+        </ul>
+        <div class="panel setting">
+          <div id="list-upload" style="display:none">
+            <%= render :partial => "/schools/recent_upload", :object => @recent_schools %>
+          </div>
+          <div id="list-comments" style="display:none">
+            <%= render :partial => "/schools/last_10_updated_topics", :object => @recent_school_comments %>
+          </div>
+        </div>
+      </div>
+      <p class="remark">&raquo; <%= link_to "浏览全部学校", all_schools_url %></p>
+    </div>
+  </div>
 </div>
-<% end -%>
-
-<!-- unlogin
-<div style="background:orange; width:550px; height:250px; border:2px solid red; text-align:center; margin:10px">
-  <span style="font-size:24px; display:block; margin:auto; line-height:250px;">未登录时的站点介绍, 旅行改变世界!</span>
+           
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最新活动分享</h3>
+      <span class="postNew">++ <%= link_to "写新分享", new_share_url %></span>
+      <div class="contents">
+        <%= render :partial => "/shares/shares", :object => @recent_shares %>
+      </div>
+      <p class="remark">&raquo; <%= link_to "浏览全部分享", shares_url %></p>
+    </div>
+  </div>
 </div>
-<h3>热门帖子<%= title_suffix %></h3>
-<%#= render :partial => "latest_topics" %>
 
-<h3>热门学校信息 <%= title_suffix %></h3>
-<%#= render :partial => "latest_schools_update" %>
--->
+<script type="text/javascript">
+$('li-upload').addClassName('current');
+$('list-upload').setStyle('display:block');
+
+function status_switch(status) {
+  $('li-upload').removeClassName('current');
+  $('li-comments').removeClassName('current');
+  
+  $('list-upload').setStyle('display:none');
+  $('list-comments').setStyle('display:none');
+  
+  $('li-'+status).addClassName('current');
+  $('list-'+status).setStyle('display:block');
+}
+</script>

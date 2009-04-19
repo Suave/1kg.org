@@ -4,7 +4,6 @@ class SchoolsController < ApplicationController
   def index
 
     @schools = School.recent_upload
-
                                  
     @topics = Topic.last_10_updated_topics(SchoolBoard)
     

@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
   #before_filter :app_stop
   
   
-  
   def rescue_action(exception)
     exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
   end

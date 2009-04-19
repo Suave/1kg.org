@@ -41,14 +41,12 @@
 <div id="navWrap">
   <div id="nav">
     <ul>
+      <li class="home"><%= link_to "首页", root_url %></li>
+      <li class="home"><%= link_to "我的城市", my_city_url %></li>
       <% if logged_in? -%>
-        <li class="home"><%= link_to "我的城市",  my_city_url %></li>
         <li><%= link_to "我的空间", user_url(current_user) %></li>
-      <% else -%>
-        <li class="home"><%= link_to "首页", root_url %></li>
       <% end -%>
-      
-      <li><%= link_to "随便转转", public_look_url %></li>
+      <li class="home"><%= link_to "小组", groups_url %></li>
     </ul>
     <p style="float:right">
     <% if logged_in? -%>
@@ -72,36 +70,38 @@
   </div>
 </div>
 			
-	  <div class="wrapper">
-			<div id="content">
-			  <div id="content-layout" class="clearfix">
-			    <% if flash[:notice] -%>
- 						<div class="flashNotice notice"><%= flash[:notice] %></div>
- 					<% end -%>
- 					
-          <%= yield :fullsize %>
-          
-			    <div id="content-primary-wrap">
-			      <div id="content-primary">
-       					<%= yield :layout %>
-			      </div><!-- end #content-primary -->
-			    </div><!-- end #content-primary-wrap -->
+<div class="wrapper">
+	<div id="content">
+	  <div id="content-layout" class="clearfix">
+	    <% if flash[:notice] -%>
+					<div class="flashNotice notice"><%= flash[:notice] %></div>
+				<% end -%>
+				
+      <%= yield :fullsize %>
+      
+      <div id="page-title">
+        <h1><%= @title.to_s %></h1>
+      </div>
+      
+	    <div id="content-primary-wrap">
+	      <div id="content-primary">
+   					<%= yield :layout %>
+	      </div><!-- end #content-primary -->
+	    </div><!-- end #content-primary-wrap -->
 
-	        <div id="content-secondary">
+      <div id="content-secondary">
 
-  			   <%= yield :sidebar %>
+		   <%= yield :sidebar %>
 
-			   </div><!-- end #content-secondary -->
-			</div><!-- end #content-layout -->
+	   </div><!-- end #content-secondary -->
+	</div><!-- end #content-layout -->
 
-		</div><!-- end #content -->
-    <div class="clear"></div>
-			
-    </div><!-- end #wrapper -->
-    
-    <%= render :partial => "/shared/footer" %>
+</div><!-- end #content -->
+<div class="clear"></div>
+	
+</div><!-- end #wrapper -->
+
+<%= render :partial => "/shared/footer" %>
 		
-		<%#= render :partial => "/shared/stat" %>
-		
-  </body>
+</body>
 </html>

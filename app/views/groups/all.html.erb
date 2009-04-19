@@ -1,0 +1,30 @@
+<% @page_title = @title = "全部小组" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to "小组", groups_url %></li>
+<ul>
+  <li>全部小组</li>
+</ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>&raquo; <%= link_to "返回小组首页", groups_url %></h3>
+    </div>
+  </div>
+</div>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents">
+        <%= render :partial => "groups", :object => @groups %>
+      </div>
+      <%= customize_paginate @groups %>
+    </div>
+  </div>
+</div>
