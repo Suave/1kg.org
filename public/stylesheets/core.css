@@ -260,6 +260,12 @@ body.ad-column-180 #content-secondary {
   right: 20px;
   font-weight: bold;
 }
+.box .postNewButton {
+	position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
+}
 .box p.remark {
   margin: 0;
   padding: 0 20px 15px;

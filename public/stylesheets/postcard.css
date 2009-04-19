@@ -2,9 +2,6 @@
 .pc-intro {margin:30px 15px 30px 400px;}
 .pc-intro p {margin:10px 0; font-size:14px;}
 
-.pc-obp {float:left; width:200px; margin:5px 15px;}
-.pc-obp dt {height:150px; margin:0; overflow:hidden; text-align:center;}
-.pc-obp dd {height:10px; margin:0; overflow:hidden; text-align:center;}
-.pc-obp dd span {display:block;}
+.pc-photos a {width:200px; margin:5px 15px;}
 
 .cooperation p {float:left; width:200px;}

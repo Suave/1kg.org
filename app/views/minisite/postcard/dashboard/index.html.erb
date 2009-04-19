@@ -1,5 +1,10 @@
 <% content_for :heads do -%>
 <link type="text/css" rel="stylesheet" href="/stylesheets/postcard.css" media="screen, projection" />
+<script type="text/javascript" src="/javascripts/builder.js"></script>
+<script type="text/javascript" src="/javascripts/lightbox.js"></script>
+<link rel="stylesheet" href="/stylesheets/lightbox.css" type="text/css" media="screen" />
+
+
 <% end -%>
 
 <% @page_title = "公益贺卡" -%>
@@ -19,83 +24,80 @@
   </div>
 </div>
 
-<div class="box">
+<div class="box pc-photos">
   <div class="boxOuter">
     <div class="boxInner">
       <h3></h3>
       <div class="contents clearfix">
-        <dl class="pc-obp">
-          <dt><img src="/images/postcard/kid1.png" width="200" height="150" /></dt>
-          <dd></dd>
-        </dl>
-        <dl class="pc-obp">
-          <dt><img src="/images/postcard/kid2.png" width="200" height="150" /></dt>
-        </dl>
-        <dl class="pc-obp">
-          <dt><img src="/images/postcard/kid3.png" width="200" height="150" /></dt>
-        </dl>
-        <dl class="pc-obp">
-          <dt><img src="/images/postcard/kid4.png" width="200" height="150" /></dt>
-        </dl>
+          <a href="/images/postcard/kid1.png" rel="lightbox" title="泸沽湖 纳西族女孩"><img src="/images/postcard/kid1.png"  width="200" height="150" /></a>
+          <a href="/images/postcard/kid2.png" rel="lightbox" title=""><img src="/images/postcard/kid2.png" width="200" height="150" /></a>
+          <a href="/images/postcard/kid3.png" rel="lightbox" title=""><img src="/images/postcard/kid3.png" width="200" height="150" /></a>
+          <a href="/images/postcard/kid4.png" rel="lightbox" title=""><img src="/images/postcard/kid4.png" width="200" height="150" /></a>
       </div>
     </div>
   </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>可捐赠的学校</h3>
-      <div class="contents">
-        <table>
-          <tr>
-            <th>学校</th>
-            <th>地址</th>
-            <th>学生</th>
-            <th>班级</th>
-            <th>认领情况</th>
-          </tr>
-          <tr>
-            <td><%= link_to "绵阳市跃进北路学校", school_url(3739) %></td>
-            <td>绵阳市涪城区工区街道西山东路53号</td>
-            <td>1357</td>
-            <td>18</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><%= link_to "高新区永顺路小学", school_url(3829) %></td>
-            <td>高新区永兴镇龙家碾社区</td>
-            <td>1100</td>
-            <td>19</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><%= link_to "江油市城东小学", school_url(3830) %></td>
-            <td>江油市城东小学</td>
-            <td>619</td>
-            <td>12</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><%= link_to "响岩镇清水小学", school_url(3851) %></td>
-            <td>平武镇响岩清水小学</td>
-            <td>211</td>
-            <td>6</td>
-            <td></td>
-          </tr>
-        </table>
+<div style="float:left; width:560px; clear:none;">
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>可捐赠的学校</h3>
+        <div class="contents">
+          <table>
+            <tr>
+              <th>学校</th>
+              <th>班级数</th>
+              <th>认领情况</th>
+            </tr>
+            <tr>
+              <td><%= link_to "绵阳市跃进北路学校", school_url(3739), :target => "_blank" %></td>
+              <td>18</td>
+              <td><%= progressbar 0, :generate_css => true %> 0%</td>
+            </tr>
+            <tr>
+              <td><%= link_to "高新区永顺路小学", school_url(3829), :target => "_blank" %></td>
+              <td>19</td>
+              <td><%= progressbar 0 %> 0%</td>
+            </tr>
+            <tr>
+              <td><%= link_to "江油市城东小学", school_url(3830), :target => "_blank" %></td>
+              <td>12</td>
+              <td><%= progressbar 0 %> 0%</td>
+            </tr>
+            <tr>
+              <td><%= link_to "响岩镇清水小学", school_url(3851), :target => "_blank" %></td>
+              <td>6</td>
+              <td><%= progressbar 0 %> 0%</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box" >
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>话题</h3>
+        <p class="postNewButton"><%= link_to image_tag("/images/post_topic.png"), new_board_topic_url(@board), :target => "_blank"  %></p>
+        <div class="contents">
+          <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+        </div>
+        <p class="remark">&raquo; <%= link_to "更多话题", board_topics_url(@board), :target => "_blank"  %></p>
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="box cooperation">
   <div class="boxOuter">
     <div class="boxInner">
       <h3></h3>
       <div class="contents clearfix">
-        <p><strong>主办:</strong> 多背一公斤</p>
-        <p><strong>协办:</strong> 爱聚(北京)咨询有限公司</p>
+        <p><strong>发起:</strong> <a href="http://1kg.org">多背一公斤</a></p>
+        <p><strong>主办:</strong> 爱聚(北京)咨询有限公司</p>
       </div>
     </div>
   </div>

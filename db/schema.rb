@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
   
   create_table "public_boards" do |t|
     t.string   :title, :null => false, :limit => 100
+    t.string   :slug
     t.text     :description
     t.text     :description_html
     t.integer  :position, :null => false, :default => 999
