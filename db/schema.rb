@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20081009072037) do
     t.integer :lft, :null => false
     t.integer :rgt, :null => false
     t.string  :name,:null => false
+    t.string  :slug
     t.integer :zipcode
     t.integer :old_id # save original id in the old database
   end
