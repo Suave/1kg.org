@@ -38,6 +38,21 @@ class Admin::StuffBucksController < Admin::BaseController
   def show
     @buck = StuffBuck.find(params[:id])
     @stuffs = @buck.stuffs.find :all, :include => [:user, :school]
+    
+    respond_to do |format|
+      format.html
+      format.csv do
+        csv_string = FasterCSV.generate do |csv|
+          @stuffs.each do |stuff|
+            csv << stuff.code
+          end
+        end
+        
+        send_data csv_string,
+                  :type => 'text/csv; charset=iso-8859-1; header=present',
+                  :disposition => "attachment; filename=passwords.csv"
+      end
+    end
   end
   
   
