@@ -1,20 +1,42 @@
-<% @page_title = @title = "公益贺卡" -%>
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/postcard.css" media="screen, projection" />
+<% end -%>
+
+<% @page_title = "公益贺卡" -%>
 
 <% content_for :crumb do -%>
 <li>公益贺卡</li>
 <% end -%>
 
+<% content_for :fullsize do -%>
+<div style="display:block; clear:both">
+  <img src="/images/postcard/love.png" class="pc-love" />
+  <div class="pc-intro">
+    <p>“让爱继续”以邮政贺卡为载体，每张贺卡定价人民币10元（含邮资）。</p>
+    <p>每购买一张贺卡，由多背一公斤向四川省灾区学校、贫困地区学校捐赠一本图书。</p>
+    <p>登录1KG.org网站，输入贺卡上的爱心密码，就可在学校列表中指定图书捐赠学校。</p>
+    <p style="margin-top:20px;"><img src="/images/postcard/flow.png" /></p>
+  </div>
+</div>
 
-<% content_for :sidebar do -%>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>最新进展</h3>
-      <div class="contents">
-        <p>已售出xxxxxx张公益贺卡，
-        为xxx所乡村学校
-        捐赠了xxxxx本图书，
-        有xxxx位消费者指定了学校。</p>
+      <h3></h3>
+      <div class="contents clearfix">
+        <dl class="pc-obp">
+          <dt><img src="/images/postcard/kid1.png" width="200" height="150" /></dt>
+          <dd></dd>
+        </dl>
+        <dl class="pc-obp">
+          <dt><img src="/images/postcard/kid2.png" width="200" height="150" /></dt>
+        </dl>
+        <dl class="pc-obp">
+          <dt><img src="/images/postcard/kid3.png" width="200" height="150" /></dt>
+        </dl>
+        <dl class="pc-obp">
+          <dt><img src="/images/postcard/kid4.png" width="200" height="150" /></dt>
+        </dl>
       </div>
     </div>
   </div>
@@ -23,49 +45,59 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>如何参与</h3>
+      <h3>可捐赠的学校</h3>
       <div class="contents">
-        <ul>
-          <li><%= link_to "查询你附近的购买地点" %></li>
-          <li><%= link_to "淘宝网店" %></li>
-          <li>团购联系人：xxx</li>
-        </ul>
+        <table>
+          <tr>
+            <th>学校</th>
+            <th>地址</th>
+            <th>学生</th>
+            <th>班级</th>
+            <th>认领情况</th>
+          </tr>
+          <tr>
+            <td><%= link_to "绵阳市跃进北路学校", school_url(3739) %></td>
+            <td>绵阳市涪城区工区街道西山东路53号</td>
+            <td>1357</td>
+            <td>18</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><%= link_to "高新区永顺路小学", school_url(3829) %></td>
+            <td>高新区永兴镇龙家碾社区</td>
+            <td>1100</td>
+            <td>19</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><%= link_to "江油市城东小学", school_url(3830) %></td>
+            <td>江油市城东小学</td>
+            <td>619</td>
+            <td>12</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><%= link_to "响岩镇清水小学", school_url(3851) %></td>
+            <td>平武镇响岩清水小学</td>
+            <td>211</td>
+            <td>6</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box cooperation">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents clearfix">
+        <p><strong>主办:</strong> 多背一公斤</p>
+        <p><strong>协办:</strong> 爱聚(北京)咨询有限公司</p>
       </div>
     </div>
   </div>
 </div>
 <% end -%>
-
-<div id="headline">
-  <ul>
-    <li><img src="/images/announce/intro.jpg" alt="旅途中的举手之劳，为孩子们的世界打开一扇窗 - “多背一公斤”公益旅游" /></li>
-
-  </ul>
-</div>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-      <div class="contents">
-        <p>公益贺卡是由多背一公斤与四川邮政局、四川蜀友文化发展有限公司联合推
-        出的公益产品，公众每购买一张贺卡，即向四川省灾区学校、贫困地区学校
-        捐赠一本图书。<%= link_to "详细资料" %></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>捐助指南</h3>
-      <div class="contents">
-        <ul>
-          <li>第一步：购买公益贺卡，查询你附近的购买地点，如需团购请联系XXX。</li>
-          <li>第二步：在下列学校列表中选择你希望捐助的学校。</li>
-          <li>第三步：刮开刮刮漆，输入爱心密码，完成指定。</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
