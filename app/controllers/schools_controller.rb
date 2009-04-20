@@ -3,6 +3,7 @@ class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   include ApplicationHelper
 
+
   def index
     @schools = School.recent_upload
     

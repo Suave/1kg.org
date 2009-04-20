@@ -17,6 +17,7 @@
     <%= calendar_date_select_includes "red", :locale => "zh" %>
     <%= javascript_include_tag :fckeditor %>
     
+    <%= yield :heads %>
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
 <!--
@@ -30,7 +31,8 @@
           <a href="/"><span><!-- for logo --></span>多背一公斤</a>
         </h1>
         <div id="links">
-          <a href="/misc/guide" target="_blank">使用指南</a> &middot; 
+          <a href="/misc/guide" target="_blank">使用指南</a> &middot;
+          <a href="/misc/activity-guide" target="_blank">活动指南</a> &middot;  
           <a href="/misc/about" target="_blank">关于</a> &middot; 
           <a href="/boards/3837" target="_blank">站务论坛</a>
         </div>

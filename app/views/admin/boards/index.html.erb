@@ -10,6 +10,7 @@
   <table border="0" cellspacing="5" cellpadding="5">
     <tr>
       <th>名称</th>
+      <th>Slug</th>
       <th>帖子数</th>
       <th>序号</th>
       <th>Active?</th>
@@ -18,6 +19,7 @@
     <% @public_boards.each do |b| -%>
     <tr>
       <td><%= link_to b.title, board_url(b.board_id) %></td>
+      <td><%= b.slug %></td>
       <td><%= link_to b.board.topics_count %></td>
       <td><%= b.position %></td>
       <td><%= b.board.deleted_at.blank? ? "是" : "<span class=\"notice\">否</span>" %></td>

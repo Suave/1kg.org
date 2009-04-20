@@ -13,6 +13,8 @@
           <li><a href="#participationCount">活动参与人数统计</a></li>
           <li><a href="#activityCommentCount">活动留言统计</a></li>
           <li><a href="#schoolCount">学校统计</a></li>
+          <li><a href="#shareCount">分享统计</a></li>
+          <li><a href="#shareCommentCount">分享留言统计</a></li>
         </ul>
       </div>
     </div>
@@ -92,6 +94,26 @@
     <div class="boxInner">
       <h3>学校统计</h3>
       <%= render :partial => "stat", :object => School.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="shareCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>分享统计</h3>
+      <%= render :partial => "stat", :object => Share.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="shareCommentCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>分享留言统计</h3>
+      <%= render :partial => "stat", :object => ShareComment.archives %>
       <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
     </div>
   </div>
