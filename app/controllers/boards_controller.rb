@@ -48,13 +48,23 @@ class BoardsController < ApplicationController
       render :action => "public"
   
     elsif @board.talkable.class == SchoolBoard
-      @topics = @board.topicspaginate( :page => params[:page] || 1,
+      @topics = @board.topics.paginate( :page => params[:page] || 1,
                                        :include => [:user], 
                                        :per_page => 20
                                      )
       @school_board = @board.talkable
       @school = @school_board.school
       render :action => "school"
+      
+    elsif @board.talkable.class == GroupBoard
+      @topics = @board.topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+      @group_board = @board.talkable
+      @group = @group_board.group
+      
+      render :action => "group"
     end
   end
   
