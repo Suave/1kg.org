@@ -25,7 +25,7 @@
           <% @recent_activities.each do |a| %>
           <tr class="<%= cycle('odd', 'even') %>">
             <td>
-              <%= link_to h(a.title), activity_url(a) %> <span class="tipText">[<%= date_for_short a.start_at %>]</span>
+              <%= image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if a.sticky? %> <%= link_to h(a.title), activity_url(a) %> <span class="tipText">[<%= date_for_short a.start_at %>]</span>
             </td>
           </tr>
           <% end -%>
