@@ -42,7 +42,11 @@
         <p>
           <label>创建人:</label> <%= link_to @group.creator.login, user_url(@group.creator) %>,
           <label>组长:</label> <%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>,
-          <label>小组城市:</label> <%= @group.city.parent.name if @group.city.parent %> <%= link_to @group.city.name, board_url(@group.city.city_board.board) %>
+          <% if @group.city -%>
+            <label>小组城市:</label> 
+            <%= @group.city.parent.name if @group.city.parent %> 
+            <%= link_to @group.city.name, board_url(@group.city.city_board.board) %>
+          <% end -%>
         </p>
         
       </div>
