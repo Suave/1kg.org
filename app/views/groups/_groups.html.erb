@@ -1,14 +1,9 @@
-<table>
-  <tr>
-    <th>小组</th>
-    <th>组长</th>
-    <th>组员</th>
-  </tr>
-  <% groups.each do |g| -%>
-  <tr>
-    <td><%= link_to g.title, group_url(g) %></td>
-    <td><%= link_to g.creator.login, user_url(g.creator) %></td>
-    <td><%= g.members.count %></td>
-  </tr>
-  <% end -%>
-</table>
+<% groups.each do |g| %>
+<dl class="obu">
+  <dt><%= link_to avatar_for(g, "large"), group_url(g) %></dt>
+  <dd>
+    <%= link_to g.title, group_url(g) %><br />
+    (<%= g.memberships.count %>)
+  </dd>
+</dl>
+<% end -%>
