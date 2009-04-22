@@ -20,7 +20,18 @@
     <div class="boxInner">
       <h3></h3>
       <div class="contents">
-        <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
+        <% if @topic.board.talkable.class == GroupBoard -%>
+          <p>&raquo; <%= link_to "返回小组", group_url(@topic.board.talkable.group) %></p>
+          <p>&raquo; <%= link_to "返回小组讨论区", board_url(@topic.board_id) %></p>
+        <% elsif @topic.board.talkable.class == SchoolBoard -%>  
+          <p>&raquo; <%= link_to "返回学校", url %></p>
+          
+        <% else -%>
+          <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
+        <% end -%>
+        
+        
+        
       </div>
     </div>
   </div>

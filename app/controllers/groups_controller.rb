@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
     if logged_in?
       @my_groups = current_user.joined_groups.find(:all)
       
-      board_ids = @groups.map{|g| g.discussion.board.id}
+      board_ids = @my_groups.map{|g| g.discussion.board.id}
       @recent_topics = Topic.find(:all, :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
                                         :order => "sticky desc, last_replied_at desc",
                                         :include => [:board, :user],

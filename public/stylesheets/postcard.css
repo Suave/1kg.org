@@ -5,3 +5,7 @@
 .pc-photos a {width:200px; margin:5px 12px;}
 
 .cooperation p {float:left; width:200px;}
+
+.book {float:left; width:100px; margin:0 20px;}
+.book dt {height:150px; margin:0; overflow:hidden; text-align:center;}
+.book dd {height:50px; margin:0; overflow:hidden; text-align:center;}
