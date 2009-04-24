@@ -35,7 +35,7 @@ class BoardsController < ApplicationController
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
                                  :order => "last_replied_at desc",
                                  :limit => 10)
-      
+      @near_schools = School.get_near_schools_at(@city).find :all, :limit => 5
 
       render :action => "city"
       

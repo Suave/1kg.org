@@ -1,4 +1,13 @@
-<% @page_title = "#{@city.name}" -%>
+<% @page_title = @title = "#{@city.name}" -%>
+
+<% content_for :subtitle do -%>
+  <% if logged_in? && current_user.geo == @city -%>
+  <div style="float:left; margin:17px; 0 0 1em;"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
+  <% end -%>
+  <div style="float:left; margin:17px;">
+    城市版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
+  </div>
+<% end -%>
 
 <% content_for :sidebar do -%>
   <div class="box">
@@ -6,10 +15,6 @@
       <div class="boxInner">
         <h3></h3>
         <div class="contents">
-          <p>&raquo; <%= link_to "写活动分享", new_share_url %></p>
-          <p>&raquo; <%= link_to "发起新活动", new_activity_url %></p>
-          <p>&raquo; <%= link_to "提交学校信息", new_school_url %></p>
-          
           <div style="margin-top:15px;">
           <p><strong>我要去</strong> <span class="tipText">(输入你想去的城市)</span></p>
           <% form_tag search_geos_url, :method => :get do -%>
@@ -26,7 +31,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>分享</h3>
-        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
         <div class="contents">
           <%= render :partial => "/shares/shares", :object => @shares %>
         </div>
@@ -35,7 +40,26 @@
     </div>
   </div>
 
-  <p>&raquo; <%= link_to "周边的学校", schools_geo_url(@city) %> (<%= School.get_near_schools_at(@city).count %>)</p>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>附近学校</h3>
+        <span class="postNew"><%= link_to image_tag("submit_school.png"), new_school_url %></span>
+        <div class="contents">
+          <table>
+            <% @near_schools.each do |s| %>
+            <tr class="<%= cycle('odd', 'even') %>">
+              <td>
+                <%= link_to s.title, school_url(s) %>
+              </td>
+            </tr>
+            <% end -%>
+          </table>
+        </div>
+        <p class="remark">&raquo; <%= link_to "附近所有学校", schools_board_url(@board) %> (<%= School.get_near_schools_at(@city).count %>)</p>
+      </div>
+    </div>
+  </div>
   <p>&raquo; <%= link_to "我要去#{@city.name}旅行", geo_url(@city) %></p>
   <p>&raquo; <%= link_to "浏览其它同城", cities_url %></p>
 <% end -%>
@@ -49,16 +73,6 @@
 </p>
 <% end -%>
 
-<h2 class="title"><%= @page_title.to_s %></h2>
-
-<% if logged_in? && current_user.geo == @city -%>
-<div style="float:left; margin:17px; 0 0 1em;"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
-<% end -%>
-
-
-<div class="moderators">
-  城市版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
-</div>
 
 <div class="posting">
 
@@ -66,7 +80,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>最近的活动</h3>
-        <span class="postNew">++ <%= link_to "发起新活动", new_activity_url %></span>
+        <span class="postNew"><%= link_to image_tag("submit_activity.png"), new_activity_url %></span>
         <%= render :partial => "/activities/activity_list" %>
       </div>
       <p class="remark">&raquo; 全部 <%= link_to "进行中的活动", ongoing_activities_url %> &middot; <%= link_to "已结束的活动", over_activities_url %></p>

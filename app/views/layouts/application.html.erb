@@ -81,8 +81,9 @@
 				
       <%= yield :fullsize %>
       
-      <div id="page-title">
+      <div id="page-title" class="clearfix">
         <h1><%= @title.to_s %></h1>
+        <%= yield :subtitle %>
       </div>
       
 	    <div id="content-primary-wrap">

@@ -256,7 +256,7 @@ body.ad-column-180 #content-secondary {
 
 .box .postNew {
   position: absolute;
-  top: 20px;
+  top: 15px;
   right: 20px;
   font-weight: bold;
 }
@@ -745,6 +745,7 @@ body.schools form legend {
 /* =同城
  * -------------------------------------------------------------------------- */
 #page-title h1 {
+	float:left;
 	color: #e98523;
   font-weight: bold;
   font-size: 2.5em;
@@ -1055,3 +1056,5 @@ h3.title {
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {height:55px; margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
+
+.sbtn {border:1px solid black; background:orange; padding:2px;}

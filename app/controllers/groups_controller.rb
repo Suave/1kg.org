@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 10
+    @groups = Group.find :all, :order => "created_at desc", :limit => 14
     
     if logged_in?
       @my_groups = current_user.joined_groups.find(:all)

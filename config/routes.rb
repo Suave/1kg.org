@@ -101,6 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "index"
+  map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "password"
   #map.connect 'minisite/postcard/code_test', :controller => "/minisite/postcard/dashboard", :action => "code_test"
 =begin  
   map.namespace :minisite do |site|
