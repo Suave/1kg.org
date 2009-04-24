@@ -24,8 +24,8 @@
           <p>&raquo; <%= link_to "返回小组", group_url(@topic.board.talkable.group) %></p>
           <p>&raquo; <%= link_to "返回小组讨论区", board_url(@topic.board_id) %></p>
         <% elsif @topic.board.talkable.class == SchoolBoard -%>  
-          <p>&raquo; <%= link_to "返回学校", url %></p>
-          
+          <p>&raquo; <%= link_to "返回学校", school_url(@topic.board.talkable.school) %></p>
+          <p>&raquo; <%= link_to "返回学校讨论区", board_url(@topic.board_id) %></p>
         <% else -%>
           <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
         <% end -%>
