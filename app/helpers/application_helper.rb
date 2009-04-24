@@ -128,7 +128,7 @@ module ApplicationHelper
   
   def group_avatar_for(group, size)
     if group.avatar.blank?
-      image_tag "group_default_#{size}.png", :class => "avatar", :alt => group.title
+      image_tag "gavatar_#{size}.png", :class => "avatar", :alt => group.title
     else
       image_tag url_for_file_column(group, :avatar, size), :class => "avatar", :alt => group.title
     end

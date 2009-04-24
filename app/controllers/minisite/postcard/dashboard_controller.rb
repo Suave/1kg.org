@@ -7,7 +7,9 @@ class Minisite::Postcard::DashboardController < ApplicationController
   end
   
   def password
-    
+    if params[:password].blank?
+      flash[:notice] = "请输入贺卡上的爱心密码, 点击验证按钮"
+    end
   end
   
 =begin  
