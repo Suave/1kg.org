@@ -2,7 +2,7 @@
   <div class="boxOuter">
     <div class="boxInner">
   <h3><%= title %></h3>
-  <span class="postNew">++ <%= link_to "写新话题", new_board_topic_url(board) %></span>
+  <span class="postNew"><%= link_to image_tag("submit_topic.png"), new_board_topic_url(board) %></span>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => board, :topics => topics} %>
   </div>

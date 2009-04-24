@@ -19,7 +19,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>最新活动</h3>
-      <span class="postNew">++ <%= link_to "发起新活动", new_activity_url %></span>
+      <span class="postNew"><%= link_to image_tag("submit_activity.png"), new_activity_url %></span>
       <div class="contents">
         <table>
           <% @recent_activities.each do |a| %>
@@ -51,7 +51,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>学校更新</h3>
-      <span class="postNew">++ <%= link_to "提交新学校", new_school_url %> (<a href="/misc/submit-school-guide" target="_blank">如何提交?</a>)</span>
+      <span class="postNew"><%= link_to image_tag("submit_school.png"), new_school_url %></span>
       <div class="tabbedPanel">
         <ul class="tab">
           <li id="li-upload"><a href="javascript:void(0);" onclick="status_switch('upload')">新上传</a></li>
@@ -75,7 +75,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>最新活动分享</h3>
-      <span class="postNew">++ <%= link_to "写新分享", new_share_url %></span>
+      <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
       <div class="contents">
         <%= render :partial => "/shares/shares", :object => @recent_shares %>
       </div>
