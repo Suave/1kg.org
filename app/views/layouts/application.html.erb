@@ -48,6 +48,7 @@
       <% if logged_in? -%>
         <li><%= link_to "我的空间", user_url(current_user) %></li>
       <% end -%>
+      <li class="home"><%= link_to "公益贺卡", "/minisite/postcard" %></li>
     </ul>
     <p style="float:right">
     <% if logged_in? -%>
