@@ -44,6 +44,7 @@
     <ul>
       <li class="home"><%= link_to "首页", root_url %></li>
       <li class="home"><%= link_to "我的城市", my_city_url %></li>
+      <li class="home"><%= link_to "小组", groups_url %></li>
       <% if logged_in? -%>
         <li><%= link_to "我的空间", user_url(current_user) %></li>
       <% end -%>
