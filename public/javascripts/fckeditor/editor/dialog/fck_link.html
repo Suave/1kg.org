@@ -116,7 +116,7 @@
 				<tr>
 					<td nowrap="nowrap">
 						<span fckLang="DlgLnkTarget">Target</span><br />
-						<select id="cmbTarget" onchange="SetTarget(this.value);">
+						<select id="cmbTarget" onchange="SetTarget(this.value);" selected="selected">
 							<option value="" fckLang="DlgGenNotSet" selected="selected">&lt;not set&gt;</option>
 							<option value="frame" fckLang="DlgLnkTargetFrame">&lt;frame&gt;</option>
 							<option value="popup" fckLang="DlgLnkTargetPopup">&lt;popup window&gt;</option>
@@ -130,7 +130,7 @@
 					<td id="tdTargetFrame" nowrap="nowrap" width="100%">
 						<span fckLang="DlgLnkTargetFrameName">Target Frame Name</span><br />
 						<input id="txtTargetFrame" style="WIDTH: 100%" type="text" onkeyup="OnTargetNameChange();"
-							onchange="OnTargetNameChange();" />
+							onchange="OnTargetNameChange();" value="_blank" />
 					</td>
 					<td id="tdPopupName" style="DISPLAY: none" nowrap="nowrap" width="100%">
 						<span fckLang="DlgLnkPopWinName">Popup Window Name</span><br />
