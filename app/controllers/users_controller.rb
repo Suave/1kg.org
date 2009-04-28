@@ -28,7 +28,8 @@ class UsersController < ApplicationController
         @user.activate!
         self.current_user = @user
         flash[:notice] = "注册完成, 补充一下你的个人信息吧"
-        redirect_to "/setting"
+        #redirect_to "/setting"
+        redirect_back_or_default("/setting")
         #render :action => "wait_activation"
       else
         render :action => 'new'

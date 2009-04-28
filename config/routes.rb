@@ -100,16 +100,18 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "index"
-  map.connect 'minisite/postcard', :controller => "/minisite/postcard/dashboard", :action => "password"
-  #map.connect 'minisite/postcard/code_test', :controller => "/minisite/postcard/dashboard", :action => "code_test"
-=begin  
+  # 公益产品
   map.namespace :minisite do |site|
-    map.namespace :postcard do |postcard|
-      postcard.resource base
+    site.namespace :postcard do |postcard|
+      postcard.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+        dash.password 'password', :action => "password"
+        dash.give     'give/:id', :action => "give"
+      end
     end
+    
   end
-=end  
+  
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

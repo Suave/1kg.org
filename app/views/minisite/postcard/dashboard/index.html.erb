@@ -38,6 +38,24 @@
   </div>
 </div>
 
+<div style="float:left; width:600px; clear:both;">
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>爱心密码</h3>
+        <div class="contents">
+          <% if flash[:postcard_notice] -%>
+    					<div class="flashNotice notice"><%= flash[:postcard_notice] %></div>
+    			<% end -%>
+          <% form_tag minisite_postcard_password_url do -%>
+            <%= text_field_tag "password" %> <%= submit_tag "提 交" %>
+          <% end -%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div style="float:left; width:600px; clear:none;">
 
   <div class="box">
@@ -51,26 +69,13 @@
               <th>捐赠图书</th>
               <th>已捐</th>
             </tr>
+            <% @school_bucks.each do |b| -%>
             <tr>
-              <td><%= link_to "绵阳市跃进北路学校", school_url(3739), :target => "_blank" %></td>
-              <td>900</td>
-              <td><%= progressbar 0, :generate_css => true %> 0%</td>
+              <td><%= link_to b.school.title, school_url(b.school), :target => "_blank" %></td>
+              <td><%= b.quantity %></td>
+              <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_percent_str %></td>
             </tr>
-            <tr>
-              <td><%= link_to "高新区永顺路小学", school_url(3829), :target => "_blank" %></td>
-              <td>950</td>
-              <td><%= progressbar 0 %> 0%</td>
-            </tr>
-            <tr>
-              <td><%= link_to "江油市城东小学", school_url(3830), :target => "_blank" %></td>
-              <td>600</td>
-              <td><%= progressbar 0 %> 0%</td>
-            </tr>
-            <tr>
-              <td><%= link_to "响岩镇清水小学", school_url(3851), :target => "_blank" %></td>
-              <td>300</td>
-              <td><%= progressbar 0 %> 0%</td>
-            </tr>
+            <% end -%>
           </table>
         </div>
       </div>
@@ -91,31 +96,8 @@
   </div>
 </div>
 
-<div class="box" style="float:left; width:330px; clear:none; margin-left:15px;">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>捐赠书目</h3>
-      <div class="contents clearfix">
-        <dl class="book">
-          <dt><a href="http://www.douban.com/subject/1442789/" target="_blank"><img src="http://otho.douban.com/mpic/s2118676.jpg" /></a></dt>
-          <dd><a href="http://www.douban.com/subject/1442789/" target="_blank">小女巫</a></dd>
-        </dl>
-        <dl class="book">
-          <dt><a href="http://www.douban.com/subject/1442790/" target="_blank"><img src="http://otho.douban.com/mpic/s2110097.jpg" /></a></dt>
-          <dd><a href="http://www.douban.com/subject/1442790/" target="_blank">小水精</a></dd>
-        </dl>
-        <dl class="book">
-          <dt><a href="http://www.douban.com/subject/1442788/" target="_blank"><img src="http://otho.douban.com/mpic/s2084718.jpg" /></a></dt>
-          <dd><a href="http://www.douban.com/subject/1442788/" target="_blank">小鬼儿</a></dd>
-        </dl>
-        <dl class="book">
-          <dt><a href="http://www.douban.com/subject/1486596/" target="_blank"><img src="http://otho.douban.com/mpic/s2110096.jpg" /></a></dt>
-          <dd><a href="http://www.douban.com/subject/1486596/" target="_blank">香草女巫</a></dd>
-        </dl>
-      </div>
-      <p class="remark">&raquo; <a href="http://spreadsheets.google.com/pub?key=pAQhfnGSEP8MP7NMkXxY8Ow" target="_blank">全部书目</a></p>
-    </div>
-  </div>
+<div style="float:left; width:330px; clear:none; margin-left:15px;">
+  <%= render :partial => "book_list" %>
 </div>
 
 
