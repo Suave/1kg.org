@@ -7,6 +7,14 @@ class StuffBuck < ActiveRecord::Base
   
   after_create :generate_stuffs
   
+  def matched_percent
+    (matched_count.to_f*100/quantity).to_i
+  end
+  
+  def matched_percent_str
+    matched_percent.to_s + "%"
+  end
+  
   private
   def generate_stuffs
     count = 0

@@ -5,4 +5,9 @@ class Stuff < ActiveRecord::Base
   belongs_to :school
   
   #validates_uniqueness_of :code, :message => "密码不能重复"
+  def matched?
+    matched_at.blank? ? false : true
+  end
+  
+
 end
