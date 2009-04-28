@@ -48,27 +48,27 @@
           <table>
             <tr>
               <th>学校</th>
-              <th>班级数</th>
-              <th>认领情况</th>
+              <th>捐赠图书</th>
+              <th>已捐</th>
             </tr>
             <tr>
               <td><%= link_to "绵阳市跃进北路学校", school_url(3739), :target => "_blank" %></td>
-              <td>18</td>
+              <td>900</td>
               <td><%= progressbar 0, :generate_css => true %> 0%</td>
             </tr>
             <tr>
               <td><%= link_to "高新区永顺路小学", school_url(3829), :target => "_blank" %></td>
-              <td>19</td>
+              <td>950</td>
               <td><%= progressbar 0 %> 0%</td>
             </tr>
             <tr>
               <td><%= link_to "江油市城东小学", school_url(3830), :target => "_blank" %></td>
-              <td>12</td>
+              <td>600</td>
               <td><%= progressbar 0 %> 0%</td>
             </tr>
             <tr>
               <td><%= link_to "响岩镇清水小学", school_url(3851), :target => "_blank" %></td>
-              <td>6</td>
+              <td>300</td>
               <td><%= progressbar 0 %> 0%</td>
             </tr>
           </table>
@@ -80,7 +80,7 @@
   <div class="box" >
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>讨论区</h3>
+        <h3>留言板</h3>
         <p class="postNew"><%= link_to image_tag("submit_topic.png"), new_board_topic_url(@board), :target => "_blank"  %></p>
         <div class="contents">
           <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
