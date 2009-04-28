@@ -4,6 +4,9 @@ class Minisite::Postcard::DashboardController < ApplicationController
   def index
     @board = PublicBoard.find_by_slug("postcard").board
     @topics = @board.topics.find(:all, :order => "sticky desc, last_replied_at desc", :limit => 10)
+    
+    postcard = StuffType.find_by_slug("postcard")
+    @school_bucks = postcard.bucks.find :all, :include => [:school] 
   end
   
   def password
