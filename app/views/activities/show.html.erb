@@ -23,7 +23,7 @@
               <% if @activity.joined?(current_user) -%>
                 <%= link_to "我不去了", quit_activity_url(@activity), :method => :put %>
               <% else -%>
-                <%= link_to "我要参加", join_activity_url(@activity), :method => :put %>
+                <%= link_to "我要参加", join_activity_url(@activity) %>
               <% end -%>
             <% end -%>
           </h3>
@@ -153,3 +153,8 @@
       </div>
     </div>
   </div>
+  
+  <% if session[:from_activity_join] == true -%>
+  <!-- Google Code for Participated Conversion Page --> <script language="JavaScript" type="text/javascript"> <!-- var google_conversion_id = 1048548952; var google_conversion_language = "zh_CN"; var google_conversion_format = "3"; var google_conversion_color = "ffffff"; var google_conversion_label = "M4laCLz6jwEQ2Kz-8wM"; //--> </script> <script language="JavaScript" src="http://www.googleadservices.com/pagead/conversion.js"> </script> <noscript> <img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1048548952/?label=M4laCLz6jwEQ2Kz-8wM&amp;guid=ON&amp;script=0"/> </noscript>
+  <% session[:from_activity_join] = nil %>
+  <% end -%>
