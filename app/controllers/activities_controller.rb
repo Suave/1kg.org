@@ -79,6 +79,7 @@ class ActivitiesController < ApplicationController
     else
       @activity.participators << current_user
     end
+    #logger.info "REQUEST URI: #{request.request_uri}"
     redirect_to activity_url(@activity)
   end
   

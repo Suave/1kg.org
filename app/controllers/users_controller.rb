@@ -29,6 +29,8 @@ class UsersController < ApplicationController
         self.current_user = @user
         flash[:notice] = "注册完成, 补充一下你的个人信息吧"
         #redirect_to "/setting"
+        session[:from_activity_join] = true if session[:from_activity_join] == false # for adwords tracker
+        session[:signup_recent] = true
         redirect_back_or_default("/setting")
         #render :action => "wait_activation"
       else

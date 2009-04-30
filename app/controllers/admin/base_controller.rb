@@ -3,7 +3,10 @@ class Admin::BaseController < ApplicationController
   
   private
   def admin_required
-    unless current_user.admin?
+    if not logged_in?
+      flash[:notice] = "您还没有登录"
+      redirect_to root_url    
+    elsif not current_user.admin?
       flash[:notice] = "没有管理员权限"
       redirect_to root_url
     end

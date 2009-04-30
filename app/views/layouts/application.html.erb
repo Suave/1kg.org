@@ -31,8 +31,7 @@
           <a href="/"><span><!-- for logo --></span>多背一公斤</a>
         </h1>
         <div id="links">
-          <a href="/misc/guide" target="_blank">使用指南</a> &middot;
-          <a href="/misc/activity-guide" target="_blank">活动指南</a> &middot;  
+          <a href="/community-guide" target="_blank">社区指南</a> &middot;  
           <a href="/misc/about" target="_blank">关于</a> &middot; 
           <a href="/boards/3837" target="_blank">站务论坛</a>
         </div>
@@ -48,7 +47,7 @@
       <% if logged_in? -%>
         <li><%= link_to "我的空间", user_url(current_user) %></li>
       <% end -%>
-      <li class="home"><%= link_to "公益贺卡", "/minisite/postcard" %></li>
+      <li class="home"><%= link_to "公益信卡", "/minisite/postcard" %></li>
     </ul>
     <p style="float:right">
     <% if logged_in? -%>
@@ -105,6 +104,9 @@
 </div><!-- end #wrapper -->
 
 <%= render :partial => "/shared/footer" %>
-		
+<% if session[:signup_recent] == true -%>		
+<!-- Google Code for Registered Conversion Page --> <script language="JavaScript" type="text/javascript"> <!-- var google_conversion_id = 1048548952; var google_conversion_language = "zh_CN"; var google_conversion_format = "3"; var google_conversion_color = "ffffff"; var google_conversion_label = "Up9ZCJb7jwEQ2Kz-8wM"; //--> </script> <script language="JavaScript" src="http://www.googleadservices.com/pagead/conversion.js"> </script> <noscript> <img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1048548952/?label=Up9ZCJb7jwEQ2Kz-8wM&amp;guid=ON&amp;script=0"/> </noscript>
+<% session[:signup_recent] = nil %>
+<% end -%>
 </body>
 </html>
