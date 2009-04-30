@@ -38,11 +38,12 @@
   </div>
 </div>
 
-<div style="float:left; width:600px; clear:both;">
+
+<div style="float:left; width:600px; clear:none;">
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>爱心密码</h3>
+        <h3>输入爱心密码</h3>
         <div class="contents">
           <% if flash[:postcard_notice] -%>
     					<div class="flashNotice notice"><%= flash[:postcard_notice] %></div>
@@ -54,19 +55,16 @@
       </div>
     </div>
   </div>
-</div>
-
-<div style="float:left; width:600px; clear:none;">
-
+  
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>可捐赠的学校</h3>
+        <h3>可捐赠图书的学校</h3>
         <div class="contents">
           <table>
             <tr>
               <th>学校</th>
-              <th>捐赠图书</th>
+              <th>计划捐赠(册)</th>
               <th>已捐</th>
             </tr>
             <% @school_bucks.each do |b| -%>
@@ -97,7 +95,21 @@
 </div>
 
 <div style="float:left; width:330px; clear:none; margin-left:15px;">
+
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>购买信息</h3>
+        <div class="contents">
+          <p>公益贺卡自5.10日起在四川省内45个邮政网点销售，其它地区的朋友可以通过淘宝网店在线购买（网店地址5.8日前公布）</p>
+          <p>&raquo; <a href="http://1kg.org/misc/postcard-retail" target="_blank">四川销售网点清单</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <%= render :partial => "book_list" %>
+  
 </div>
 
 
@@ -108,7 +120,7 @@
       <div class="contents clearfix">
         <p><strong>发起:</strong> <a href="http://1kg.org" target="_blank">多背一公斤公益网站</a></p>
         <p><strong>主办:</strong> <a href="/misc/about" target="_blank">爱聚(北京)咨询有限公司</a></p>
-        <p><strong>协办:</strong> 四川省成都市邮政局</p>
+        <p><strong>特别支持单位:</strong> 四川省成都市邮政局</p>
       </div>
     </div>
   </div>
