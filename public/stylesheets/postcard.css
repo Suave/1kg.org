@@ -1,4 +1,4 @@
-.pc-love {float:left; margin-right:10px; padding:3px; border:1px solid #CCC;}
+.pc-love {float:left; margin:10px 10px 10px 0; padding:3px; border:1px solid #CCC;}
 .pc-intro {margin:30px 15px 30px 420px;}
 .pc-intro p {margin:6px 0; font-size:14px;}
 
@@ -6,6 +6,6 @@
 
 .cooperation div.block {float:left; width:300px;}
 
-.book {float:left; width:100px; margin:0 20px;}
+.book {float:left; width:100px; margin:0 10px;}
 .book dt {height:150px; margin:0; overflow:hidden; text-align:center;}
 .book dd {height:50px; margin:0; overflow:hidden; text-align:center;}
