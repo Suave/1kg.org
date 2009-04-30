@@ -1,6 +1,6 @@
-.pc-love {float:left;}
-.pc-intro {margin:30px 15px 30px 400px;}
-.pc-intro p {margin:10px 0; font-size:14px;}
+.pc-love {float:left; margin-right:10px; padding:3px; border:1px solid #CCC;}
+.pc-intro {margin:30px 15px 30px 420px;}
+.pc-intro p {margin:6px 0; font-size:14px;}
 
 .pc-photos a {width:200px; margin:5px 12px;}
 
