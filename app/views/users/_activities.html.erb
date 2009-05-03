@@ -1,7 +1,7 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= h user.login %>组织的活动</h3>
+      <h3><%= h user.login %>发起的活动</h3>
       <div class="contents">
       <table>
         <% activities.each do |a| -%>
@@ -12,8 +12,8 @@
       </table>
       </div>
       <p class="remark">
-        &raquo; <%= link_to "#{h user.login}发起的活动(#{user.submitted_activities.size})", submitted_activities_user_url(user) %><br />
-        &raquo; <%= link_to "#{user.login}参与过的活动(#{user.participated_activities.size})", participated_activities_user_url(user) %>
+        &raquo; <%= link_to "#{h user.login}发起的活动(#{user.submitted_activities.count})", submitted_activities_user_url(user) %><br />
+        &raquo; <%= link_to "#{user.login}参加的活动(#{user.participated_activities.count})", participated_activities_user_url(user) %>
       </p>
       
     </div>

@@ -1,4 +1,4 @@
-<% @page_title = @user.login -%>
+<% @page_title = "#{@user.login}的个人空间" -%>
 
 <% content_for :crumb do -%>
 <li>用户</li>
@@ -13,8 +13,25 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
+        <h3><%= h @user.login %>的公益贺卡</h3>
+        <div class="contents">
+          <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
+          <table>
+            <% @stuffs.each do |s| -%>
+            <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
+            <% end -%>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
         <h3><%= h @user.login %>的友邻</h3>
         <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
+        <p class="remark">&raquo; <%= link_to "#{@user.login}的全部友邻(#{@user.neighbors.count})", neighbors_user_url(@user) %></p>
       </div>
     </div>
   </div>
@@ -28,9 +45,9 @@
 <h2 class="title"><%= h @user.login %></h2>
 
 <% if @user == current_user -%>
-<div class="moderators tipText">
-  [ <%= link_to "写活动分享", new_share_url %> | <%= link_to "发起新活动", new_activity_url %> | <%= link_to "提交学校信息", new_school_url %> ]
-</div>
+<div class="moderators tipText"><strong>
+  [ <%= link_to "写分享", new_share_url %> | <%= link_to "发起活动", new_activity_url %> | <%= link_to "提交新学校", new_school_url %> ]
+</strong></div>
 <% end -%>
 
 <% if @shares.blank? -%>

@@ -1,9 +1,9 @@
-<% @page_title = @user.login + " 的全部分享"-%>
+<% @page_title = @user.login + " 的全部友邻"-%>
 
 <% content_for :crumb do -%>
     <li><%= link_to @user.login, user_url(@user) %></li>
     <ul>
-      <li>全部分享</li>
+      <li>全部友邻</li>
     </ul>
 <% end -%>
 
@@ -18,12 +18,10 @@
 <div class="box tipText">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2><%= h @user.login %>的全部分享</h2>
-      <ul class="contents">
-        <% @shares.each do |s| -%>
-          <li>&raquo; <%= link_to h(s.title), share_url(s) %> 写于 <%= s.created_at.to_date %> ... <%= s.hits %> 浏览 / <%= s.comments_count %> 留言</li>
-        <% end -%>
-      </ul>
+      <h2><%= h @user.login %>的全部友邻</h2>
+      <span class="postNew">&raquo; <%= link_to "返回#{@user.login}的空间", user_url(@user) %></span>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
+      <%= customize_paginate @neighbors %>
     </div>
   </div>
 </div>

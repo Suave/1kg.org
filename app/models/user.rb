@@ -49,7 +49,9 @@ class User < ActiveRecord::Base
 	has_many :neighbors, :through => :neighborhoods
   
   has_many :memberships, :dependent => :destroy
-  has_many :joined_groups, :through => :memberships, :source => :group 
+  has_many :joined_groups, :through => :memberships, :source => :group
+  
+  has_many :stuffs
   
   before_save :encrypt_password
   

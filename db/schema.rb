@@ -408,6 +408,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "buck_id",                    :null => false
     t.integer  "user_id"
     t.integer  "school_id"
+    t.text     "comment"
+    t.text     "comment_html"
     t.datetime "matched_at"
     t.datetime "created_at"
   end

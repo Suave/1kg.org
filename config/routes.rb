@@ -28,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :submitted_schools => :get,
                                     :visited_schools => :get,
                                     :interesting_schools => :get,
+                                    :neighbors => :get,
                                     :shares => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}
@@ -46,7 +47,11 @@ ActionController::Routing::Routes.draw do |map|
                                       :visited => :put,
                                       :interest => :put,
                                       :novisited => :put},
-                          :collection => {:all => :get, :unconfirm => :get, :archives => :get, :cits => :get} do |school|
+                          :collection => { :all => :get, 
+                                           :unconfirm => :get, 
+                                           :archives => :get, 
+                                           :cits => :get
+                                          } do |school|
     school.resources :visits
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
@@ -60,8 +65,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :activities, :member => {:join => :get, :quit => :put, :stick => :put},
                              :collection => {:ongoing => :get, :over => :get}
 
-  map.resources :boards, :member => {:schools => :get, :users => :get, :shares => :get }, :collection => {:public_issue => :get} do |board|
-    board.resources :topics, :member => {:stick => :put, :close => :put} do |topic|
+  map.resources :boards, :member =>     { :schools => :get, 
+                                          :users => :get, 
+                                          :shares => :get }, 
+                         :collection => { :public_issue => :get} do |board|
+                           
+    board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end
   end
@@ -106,6 +115,7 @@ ActionController::Routing::Routes.draw do |map|
         dash.index    '',         :action => "index"
         dash.password 'password', :action => "password"
         dash.give     'give/:id', :action => "give"
+        dash.comment  'comment/:id', :action => "comment"
       end
     end
     
