@@ -66,7 +66,7 @@ module AuthenticatedSystem
           store_location
           redirect_to new_session_path
         end
-        format.any do
+        format.any(:js, :xml) do
           request_http_basic_authentication 'Web Password'
         end
       end
