@@ -14,14 +14,16 @@
         <table>
           <tr>
             <th>password</th>
-            <th>user</th>
-            <th>school</th>
+            <th>用户</th>
+            <th>学校</th>
+            <th>配对时间</th>
           </tr>
           <% @stuffs.each do |b| -%>
           <tr>
             <td><%= b.code %></td>
-            <td><%= b.user.login if b.user %></td>
-            <td><%= b.school.title if b.school %></td>
+            <td><%= link_to b.user.login, user_url(b.user) if b.user %></td>
+            <td><%= link_to b.school.title, school_url(b.school) if b.school %></td>
+            <td><%= b.matched_at.to_date if b.matched_at %></td>
           </tr>
           <% end -%>
         </table>

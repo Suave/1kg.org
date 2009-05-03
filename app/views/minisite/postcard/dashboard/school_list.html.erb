@@ -1,10 +1,5 @@
 <% content_for :heads do -%>
 <link type="text/css" rel="stylesheet" href="/stylesheets/postcard.css" media="screen, projection" />
-<script type="text/javascript" src="/javascripts/builder.js"></script>
-<script type="text/javascript" src="/javascripts/lightbox.js"></script>
-<link rel="stylesheet" href="/stylesheets/lightbox.css" type="text/css" media="screen" />
-
-
 <% end -%>
 
 <% @page_title = "公益贺卡" -%>
@@ -26,7 +21,7 @@
           </tr>
           <% @bucks.each do |b| -%>
           <tr>
-            <td><%= b.school.title %></td>
+            <td><%= link_to b.school.title, school_url(b.school) %></td>
             <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_percent_str %></td>
             <td><%= link_to "送给这所学校", minisite_postcard_give_url(b, :token => @stuff.code), :method => :put, :confirm => "确定送给这所学校么？送出后不能修改" %></td>
           </tr>

@@ -39,8 +39,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
     set_message_and_redirect_to_index("密码错误，请重新输入") if @stuff.blank?
     
     if @stuff.matched?
-      flash[:notice] = "这张贺卡已经选过学校"
-      
+      flash[:notice] = "您已选择#{@stuff.school.title}学校，写两句话给学校和孩子们吧 ;)"
     else
       @buck = StuffBuck.find(params[:id])
       @stuff.user = current_user
@@ -50,17 +49,37 @@ class Minisite::Postcard::DashboardController < ApplicationController
         @stuff.save!
         @buck.update_attributes!(:matched_count => Stuff.count(:all, :conditions => ["school_id=?", @stuff.school]))
       end
-      flash[:notice] = "密码配对完成，您捐给#{@stuff.school.title}一本书。"
-      
+      flash[:notice] = "密码配对成功，您捐给#{@stuff.school.title}一本书。写两句话给学校和孩子们吧 ;)"
     end
-    redirect_to minisite_postcard_index_url
+    
+    render :action => "write_comment"
+    
   end
   
+  def comment
+    @stuff = Stuff.find_by_code(params[:token])
+    set_message_and_redirect_to_index("密码错误，请重新输入") if @stuff.blank?
+    
+    unless @stuff.user == current_user
+      flash[:notice] = "您不是这张卡的主人，不能写留言"
+      redirect_to minisite_postcard_index_url
+      return
+    end
+    
+
+    @stuff.comment = params[:comment]
+    @stuff.save!
+    flash[:notice] = "谢谢您的支持！"
+    redirect_to minisite_postcard_index_url
+    
+
+  end
   
   private
   def set_message_and_redirect_to_index(msg = "")
     flash[:postcard_notice] = msg
     redirect_to minisite_postcard_index_url
+    return
   end
   
   
