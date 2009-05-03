@@ -5,6 +5,7 @@ tmp/**/*
 doc/api
 doc/app
 doc/plugins
+db/*.sqlite3
 vendor/rails
 config/database.yml
 public/user
