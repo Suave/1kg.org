@@ -54,8 +54,10 @@
       <span class="postNew"><%= link_to image_tag("submit_school.png"), new_school_url %></span>
       <div class="tabbedPanel">
         <ul class="tab">
-          <li id="li-upload"><a href="javascript:void(0);" onclick="status_switch('upload')">新上传</a></li>
+          
           <li id="li-comments"><a href="javascript:void(0);" onclick="status_switch('comments')">新留言</a></li>
+          <li id="li-upload"><a href="javascript:void(0);" onclick="status_switch('upload')">新上传</a></li>
+          
         </ul>
         <div class="panel setting">
           <div id="list-upload" style="display:none">
@@ -85,8 +87,8 @@
 </div>
 
 <script type="text/javascript">
-$('li-upload').addClassName('current');
-$('list-upload').setStyle('display:block');
+$('li-comments').addClassName('current');
+$('list-comments').setStyle('display:block');
 
 function status_switch(status) {
   $('li-upload').removeClassName('current');

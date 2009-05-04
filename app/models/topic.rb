@@ -40,6 +40,7 @@ class Topic < ActiveRecord::Base
   
   def self.last_10_updated_topics(board_class)
     Topic.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
+                     :include => [:user, :board],
                      :joins => [:board],
                      :order => "last_replied_at desc",
                      :limit => 10)
