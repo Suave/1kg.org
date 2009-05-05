@@ -42,25 +42,11 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>我所在小组的话题更新</h2>
+      <h2>我所在小组的新话题</h2>
       <div class="contents">
-        <table>
-          <tr>
-            <th>话题</th>
-            <th>小组</th>
-            <th>作者</th>
-            <th>回复</th>
-          </tr>
-          <% @recent_topics.each do |t| -%>
-          <tr>
-            <td><%= link_to t.title, board_topic_url(t.board, t) %></td>
-            <td><%= link_to t.board.talkable.group.title, group_url(t.board.talkable.group) %></td>
-            <td><%= link_to t.user.login, user_url(t.user) %></td>
-            <td><%= t.posts_count %></td>
-          </tr>
-          <% end -%>
-        </table>
+        <%= render :partial => "/users/group_topics", :object => @recent_topics %>
       </div>
+      <p class="remark">&raquo; <%= link_to "更多话题", group_topics_user_url(current_user) %></p>
     </div>
   </div>
 </div>

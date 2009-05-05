@@ -29,7 +29,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :visited_schools => :get,
                                     :interesting_schools => :get,
                                     :neighbors => :get,
-                                    :shares => :get},
+                                    :shares => :get,
+                                    :group_topics => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}
     user.resources :neighbors
