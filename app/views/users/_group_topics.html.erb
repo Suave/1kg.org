@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>话题</th>
+    <th>小组</th>
+    <th>作者</th>
+    <th>回复</th>
+    <th>最后回复</th>
+  </tr>
+  <% group_topics.each do |t| -%>
+  <tr>
+    <td><%= link_to t.title, board_topic_url(t.board, t) %></td>
+    <td><%= link_to t.board.talkable.group.title, group_url(t.board.talkable.group) %></td>
+    <td><%= link_to t.user.login, user_url(t.user) %></td>
+    <td><%= t.posts_count %></td>
+    <td><%= link_to "#{t.last_replied_datetime.to_date} by #{t.last_replied_user.login}", board_topic_url(t.board, t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>
+  </tr>
+  <% end -%>
+</table>

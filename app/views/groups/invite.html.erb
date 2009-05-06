@@ -3,8 +3,9 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>还不是组员的友邻</h3>
-      <div class="content clearfix">
+      <h3>邀请友邻</h3>
+      <div class="contents clearfix">
+        <p class="caution">勾上想邀请的友邻, 点击"发送邀请"</p>
       <% form_tag send_invitation_group_url(@group), :method => :put  do -%>
         <% @friends.each do |c| -%>
         <dl class="obu">
@@ -12,7 +13,7 @@
           <dd><%= link_to c.login, user_url(c) %><br /> <%= check_box_tag "invite[#{c.id}]", c.id %></dd>
         </dl>
         <% end -%>
-        <p class="clear center"><%= submit_tag "发送邀请" %></p>
+        <p class="clear center"><a href="javascript:void(0);" onclick="CheckAll(true)">选择全部友邻</a> / <a href="javascript:void(0);" onclick="CheckAll(false)">取消选择</a> <%= submit_tag "发送邀请" %></p>
       <% end -%>
       </div>
     </div>

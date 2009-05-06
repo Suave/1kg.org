@@ -179,6 +179,17 @@ class User < ActiveRecord::Base
     return search_role_members(role_id)
   end
   
+  def joined_groups_topics
+    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
+    return Topic.in_boards_of(board_ids)
+  end
+  
+  def recent_joined_groups_topics
+    joined_groups_topics.find :all, :limit => 25
+  end
+  
+  
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     

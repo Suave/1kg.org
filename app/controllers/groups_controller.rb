@@ -9,18 +9,16 @@ class GroupsController < ApplicationController
     @groups = Group.find :all, :order => "created_at desc", :limit => 14
     
     if logged_in?
-      @my_groups = current_user.joined_groups.find(:all)
-      
-      board_ids = @my_groups.map{|g| g.discussion.board.id}
-      @recent_topics = Topic.find(:all, :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
-                                        :order => "sticky desc, last_replied_at desc",
-                                        :include => [:board, :user],
-                                        :limit => 20)
+      @my_groups = current_user.joined_groups
+      @recent_topics = current_user.recent_joined_groups_topics
     end
   end
   
   def all
-    @groups = Group.paginate :page => params[:page] || 1, :conditions => "deleted_at is null", :order => "created_at desc", :per_page => 20
+    @groups = Group.paginate :page => params[:page] || 1, 
+                             :conditions => "deleted_at is null", 
+                             :order => "created_at desc", 
+                             :per_page => 49
   end
   
   
