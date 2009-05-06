@@ -4,16 +4,17 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3></h3>
+        <h3>Tags</h3>
         <div class="contents">
-          <p>目的地城市: <%= @share.geo.name if @share.geo %></p>
-          <p>分享的活动: <%= link_to @share.activity.title, activity_url(@share.activity) if @share.activity %></p>
-          <p>探访学校: <%= link_to @share.school.title, school_url(@share.school) if @share.school %></p>
-          &raquo; <%= link_to "去看看#{@share.user.login}的空间", user_url(@share.user) %>
+          <p>目的地城市 &raquo; <%= link_to @share.geo.name, board_url(@share.geo.city_board.board) if @share.geo %></p>
+          <p>分享的活动 &raquo; <%= link_to @share.activity.title, activity_url(@share.activity) if @share.activity %></p>
+          <p>探访学校 &raquo; <%= link_to @share.school.title, school_url(@share.school) if @share.school %></p>
         </div>
       </div>
     </div>
   </div>
+  
+  <p>&raquo; <%= link_to "去#{@share.user.login}的空间", user_url(@share.user) %></p>
 <% end -%>
 
 <div class="box shareEntry">
