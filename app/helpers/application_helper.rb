@@ -8,6 +8,10 @@ module ApplicationHelper
     end
   end
   
+  def month_and_day(datetime)
+    "#{datetime.month}-#{datetime.day}"
+  end
+  
   def title_suffix
     "&middot;&nbsp; &middot;&nbsp; &middot;&nbsp; &middot;&nbsp; &middot;&nbsp; &middot;&nbsp;"
   end

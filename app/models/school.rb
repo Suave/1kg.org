@@ -95,56 +95,33 @@ class School < ActiveRecord::Base
       validated.available.locate(ids)
   end
   
+  
   def self.recent_upload
     validated.find(:all, :order => "created_at desc", :limit => 10)
   end
   
-
-  def self.recent_upload
-    validated.find(:all, :order => "created_at desc", :limit => 10)
-  end
-
-
-  def validated_by(user)
-    user.class == User &&
-    ( 
-      user.has_role?('roles.admin') || 
-      user.has_role?('roles.schools.moderator') || 
-      user.has_role?("roles.school.moderator.#{self.id}")
-    ) 
-  end
   
-  def edited_by(user)
+  def has_moderator?(user)
     return false unless user.class == User 
-    auth = (
+    
+    return (
       user.has_role?('roles.admin') ||
       user.has_role?('roles.schools.moderator') ||
       user.has_role?("roles.school.moderator.#{self.id}")
     )
-    if self.validated?
-      return auth
-    else
-      return user.id == self.user_id || auth
-    end
+  end
+
+  def validated_by(user)
+    return has_moderator?(user) 
   end
   
+  def edited_by(user)
+    return has_moderator?(user) || user.id == self.user_id
+  end
+  
+  
   def destroyed_by(user)
-    # destroy(only set deleted_at flag, could reset by admin)
-    return false unless user.class == User
-    
-    if self.validated? 
-      if (user.has_role?("roles.admin") || user.has_role?("roles.schools.moderator"))
-        return true
-      else
-        return false
-      end
-    else
-      return (
-        user.id == self.user_id ||
-        user.has_role?('roles.admin') ||
-        user.has_role?('roles.schools.moderator')
-      )
-    end
+    return edited_by(user)
   end
   
   def visited?(user)

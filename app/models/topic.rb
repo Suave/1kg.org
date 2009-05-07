@@ -30,7 +30,11 @@ class Topic < ActiveRecord::Base
   
   named_scope :available, :conditions => "deleted_at is null"
   named_scope :unsticky,  :conditions => ["sticky=?", false]
-  
+  named_scope :in_boards_of, lambda {|board_ids| 
+    { :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
+      :order => "sticky desc, last_replied_at desc",
+      :include => [:board, :user] }
+  }
   validates_presence_of :title
   
   #before_save :format_content
@@ -63,6 +67,7 @@ class Topic < ActiveRecord::Base
   
   def self.last_10_updated_topics(board_class)
     Topic.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
+                     :include => [:user, :board],
                      :joins => [:board],
                      :order => "last_replied_at desc",
                      :limit => 10)

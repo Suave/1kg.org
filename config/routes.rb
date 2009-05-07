@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
+  map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
   map.cities "/cities", :controller => "misc", :action => "cities"
   #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
@@ -29,7 +30,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :visited_schools => :get,
                                     :interesting_schools => :get,
                                     :neighbors => :get,
-                                    :shares => :get},
+                                    :shares => :get,
+                                    :group_topics => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}
     user.resources :neighbors
@@ -116,6 +118,7 @@ ActionController::Routing::Routes.draw do |map|
         dash.password 'password', :action => "password"
         dash.give     'give/:id', :action => "give"
         dash.comment  'comment/:id', :action => "comment"
+        dash.love_message 'love_message', :action => "love_message"
       end
     end
     

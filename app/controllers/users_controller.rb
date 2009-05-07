@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -210,6 +210,11 @@ class UsersController < ApplicationController
   def visited_schools
     @schools = @user.visited_schools.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 20)
   end
+  
+  def group_topics
+    @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25 
+  end
+  
 
   protected
   def find_user
