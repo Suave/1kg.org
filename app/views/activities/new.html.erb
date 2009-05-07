@@ -13,6 +13,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h2>发布新活动</h2>
+        <p class="caution">有问题，去<%= link_to "大家帮助大家小组", group_url(1) %>!</p>
         <% form_for :activity, :url => activities_url do |f| -%>
         <p><label for="activity_category" class="label">类型</label>
           <select id="activity_category" name="activity[category]">
