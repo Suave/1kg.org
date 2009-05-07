@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: stuffs
+#
+#  id         :integer         not null, primary key
+#  code       :string(255)     default(""), not null
+#  type_id    :integer         not null
+#  buck_id    :integer         not null
+#  user_id    :integer
+#  school_id  :integer
+#  matched_at :datetime
+#  created_at :datetime
+#
+
 class Stuff < ActiveRecord::Base
   include BodyFormat
   

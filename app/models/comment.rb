@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: comments
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer         not null
+#  body       :text
+#  body_html  :text
+#  created_at :datetime
+#  updated_at :datetime
+#  type       :string(255)
+#  type_id    :string(255)
+#  old_id     :integer
+#
+
 class Comment < ActiveRecord::Base
   include BodyFormat
   

@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: groups
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer         not null
+#  geo_id     :integer         not null
+#  title      :string(255)     default(""), not null
+#  body_html  :text
+#  created_at :datetime
+#  updated_at :datetime
+#  deleted_at :datetime
+#  avatar     :string(255)
+#
+
 class Group < ActiveRecord::Base
   file_column :avatar, :magick => {
                               :geometry => "72x72>",

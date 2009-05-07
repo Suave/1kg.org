@@ -1,3 +1,15 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: neighborhoods
+#
+#  id          :integer         not null, primary key
+#  user_id     :integer         not null
+#  neighbor_id :integer         not null
+#  created_at  :datetime
+#  old_id      :integer
+#
+
 class Neighborhood < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :neighbor, :class_name => "User", :foreign_key => "neighbor_id"

@@ -1,3 +1,19 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: messages
+#
+#  id           :integer         not null, primary key
+#  author_id    :integer         not null
+#  subject      :string(255)
+#  content      :text
+#  html_content :text
+#  deleted      :boolean
+#  created_at   :datetime
+#  updated_at   :datetime
+#  old_id       :integer
+#
+
 class Message < ActiveRecord::Base
   include BodyFormat
   

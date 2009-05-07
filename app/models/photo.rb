@@ -1,3 +1,27 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: photos
+#
+#  id               :integer         not null, primary key
+#  parent_id        :integer
+#  content_type     :string(255)
+#  filename         :string(255)
+#  thumbnail        :string(255)
+#  size             :integer
+#  width            :integer
+#  height           :integer
+#  user_id          :integer
+#  title            :string(255)     default(""), not null
+#  description      :text
+#  description_html :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  deleted_at       :datetime
+#  activity_id      :integer
+#  school_id        :integer
+#
+
 class Photo < ActiveRecord::Base
   belongs_to :user
   belongs_to :school

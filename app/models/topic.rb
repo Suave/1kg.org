@@ -1,3 +1,26 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: topics
+#
+#  id                  :integer         not null, primary key
+#  board_id            :integer         not null
+#  user_id             :integer         not null
+#  title               :string(200)     default(""), not null
+#  body                :text
+#  body_html           :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  last_replied_at     :datetime
+#  last_replied_by_id  :integer
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer
+#  deleted_at          :datetime
+#  block               :boolean
+#  posts_count         :integer         default(0)
+#  sticky              :boolean
+#
+
 class Topic < ActiveRecord::Base
   include BodyFormat
   

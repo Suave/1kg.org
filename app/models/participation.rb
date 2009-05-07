@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: participations
+#
+#  id          :integer         not null, primary key
+#  user_id     :integer
+#  activity_id :integer
+#  created_at  :datetime
+#
+
 class Participation < ActiveRecord::Base
   belongs_to :activity
   belongs_to :user
