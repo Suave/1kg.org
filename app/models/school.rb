@@ -96,6 +96,11 @@ class School < ActiveRecord::Base
   end
   
   
+
+  def last_topic
+    self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
+  end
+
   def self.recent_upload
     validated.find(:all, :order => "created_at desc", :limit => 10)
   end

@@ -4,7 +4,7 @@
       <h3>选择省份</h3>
       <div class="contents">
         <% provinces.each do |province| -%>
-          <a href="#province-<%= province.id %>" style="font-size:14px"><%= province.name %></a>
+          <%= link_to province.name, all_schools_url(:anchor => province.id), :style => "font-size:14px" %>
         <% end -%>
       </div>
       <p class="remark">&raquo; <%= link_to "查看全部学校", all_schools_url %></p>

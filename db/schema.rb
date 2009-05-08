@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "lft",                       :null => false
     t.integer "rgt",                       :null => false
     t.string  "name",      :default => "", :null => false
+    t.string  "slug"
     t.integer "zipcode"
     t.integer "old_id"
   end

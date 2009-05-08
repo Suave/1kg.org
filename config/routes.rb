@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
+  map.city   "city/:slug", :controller => "geos", :action => "city"
   map.cities "/cities", :controller => "misc", :action => "cities"
   #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
@@ -66,6 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :activities, :member => {:join => :get, :quit => :put, :stick => :put},
                              :collection => {:ongoing => :get, :over => :get}
+
 
   map.resources :boards, :member =>     { :schools => :get, 
                                           :users => :get, 

@@ -1,10 +1,33 @@
+require 'json'
 class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
-  
+
+  include ApplicationHelper
+
   def index
     @schools = School.recent_upload
-    @topics = Topic.last_10_updated_topics(SchoolBoard)
-    @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
+    
+    respond_to do |format|
+      format.html {
+        @topics = Topic.last_10_updated_topics(SchoolBoard)
+        @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
+        
+      }
+      format.json {
+        @schools_json = []
+        @schools.each do |school|
+          @schools_json << {:id => school.id, 
+                            :name => school.title,
+                            :addr => school.basic.address,
+                            :intro => "#{school.basic.level_amount}年级, #{school.basic.class_amount}班级, #{school.basic.student_amount}学生, #{school.basic.teacher_amount}老师", 
+                            :times => school.visitors.count,
+                            :shares => school.shares.count
+                            }
+        end
+        render :json => @schools_json
+      }
+      
+    end
   end
   
   def all

@@ -42,6 +42,10 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title
   
+  def self.recent
+    find(:all, :conditions => "parent_id is NULL", :order => "updated_at desc", :limit => 8)
+  end
+  
   def previous(user)
     Photo.find(:first, :conditions => ["parent_id is NULL and id < ? and user_id = ?", self.id, user.id], :order => "id DESC")
   end

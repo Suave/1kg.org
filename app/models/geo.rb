@@ -27,3 +27,4 @@ class Geo < ActiveRecord::Base
   end
   
 end
+

@@ -61,9 +61,9 @@ class MiscController < ApplicationController
   
   
   def public_look
-
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
+    @recent_photos = Photo.recent
     @recent_schools = School.recent_upload
     @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
     @recent_shares = Share.recent_shares
@@ -92,14 +92,15 @@ class MiscController < ApplicationController
   end
   
   
-  
+=begin  
   def migration
     geo_migration
     county_migration
   end
-  
+=end  
   private
   # only for data migration from legacy 1kg.org based rails 1.2.3
+=begin
   def geo_migration
     provinces = Area.find(:all, :conditions => "parent_id is null or parent_id=0")
     provinces.each do |province|
@@ -140,5 +141,5 @@ class MiscController < ApplicationController
     end
     flash[:notice] = "县导入成功"
   end
-
+=end
 end
