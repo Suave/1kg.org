@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "parent_id"
     t.integer "lft",                       :null => false
     t.integer "rgt",                       :null => false
+    t.string  "longitude"
+    t.string  "latitude"
     t.string  "name",      :default => "", :null => false
     t.string  "slug"
     t.integer "zipcode"
@@ -254,6 +256,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "school_id"
     t.string   "address"
     t.integer  "zipcode"
+    t.string   "longitude"
+    t.string   "latitude"
     t.string   "master"
     t.string   "telephone"
     t.string   "level_amount"
