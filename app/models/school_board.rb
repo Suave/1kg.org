@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: school_boards
+#
+#  id               :integer         not null, primary key
+#  school_id        :integer         not null
+#  description      :text
+#  description_html :text
+#
+
 class SchoolBoard < ActiveRecord::Base
   include BodyFormat
   

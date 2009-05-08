@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: pages
+#
+#  id                  :integer         not null, primary key
+#  title               :string(255)     default(""), not null
+#  slug                :string(255)     default(""), not null
+#  body                :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer
+#
+
 class Page < ActiveRecord::Base
   validates_presence_of :title, :message => "请填上标题"
   validates_presence_of :slug,  :message => "请填上 slug"

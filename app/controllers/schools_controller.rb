@@ -2,11 +2,8 @@ class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   
   def index
-
     @schools = School.recent_upload
-                                 
     @topics = Topic.last_10_updated_topics(SchoolBoard)
-    
     @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
   end
   

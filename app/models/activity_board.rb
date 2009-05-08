@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: activity_boards
+#
+#  id               :integer         not null, primary key
+#  activity_id      :integer         not null
+#  description      :text
+#  description_html :text
+#
+
 class ActivityBoard < ActiveRecord::Base
   include BodyFormat
   

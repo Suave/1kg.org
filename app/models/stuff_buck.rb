@@ -1,3 +1,18 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: stuff_bucks
+#
+#  id            :integer         not null, primary key
+#  type_id       :integer         not null
+#  school_id     :integer         not null
+#  quantity      :integer         not null
+#  matched_count :integer         default(0)
+#  created_at    :datetime
+#  status        :string(255)
+#  notes_html    :text
+#
+
 class StuffBuck < ActiveRecord::Base
   belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id"
   belongs_to :school

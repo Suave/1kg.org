@@ -1,3 +1,25 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: schools
+#
+#  id                  :integer         not null, primary key
+#  user_id             :integer
+#  ref                 :string(255)
+#  validated           :boolean
+#  meta                :boolean
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
+#  category            :integer
+#  geo_id              :integer
+#  county_id           :integer
+#  title               :string(255)     default(""), not null
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer
+#  old_id              :integer
+#
+
 class School < ActiveRecord::Base
   
   belongs_to :user
@@ -21,7 +43,7 @@ class School < ActiveRecord::Base
   named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
   
-  
+  delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
@@ -189,5 +211,4 @@ class School < ActiveRecord::Base
               :order      => "schools.updated_at desc",
               :conditions => ["created_at LIKE ? and validated = ? and deleted_at is null ", "#{year}-#{month}-#{day}%", valid])
   end
-  
 end

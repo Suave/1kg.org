@@ -1,3 +1,29 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: shares
+#
+#  id                       :integer         not null, primary key
+#  title                    :string(255)     default(""), not null
+#  geo_id                   :integer         not null
+#  share_cover_file_name    :string(255)
+#  share_cover_content_type :string(255)
+#  share_cover_file_size    :string(255)
+#  body_html                :text
+#  activity_id              :integer
+#  school_id                :integer
+#  user_id                  :integer         not null
+#  hits                     :integer         default(0), not null
+#  comments_count           :integer         default(0), not null
+#  hidden                   :boolean
+#  created_at               :datetime
+#  updated_at               :datetime
+#  last_modified_at         :datetime
+#  last_modified_by_id      :integer
+#  last_replied_at          :datetime
+#  last_replied_by_id       :integer
+#
+
 class Share < ActiveRecord::Base
   belongs_to :user
   belongs_to :geo

@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: geos
+#
+#  id        :integer         not null, primary key
+#  parent_id :integer
+#  lft       :integer         not null
+#  rgt       :integer         not null
+#  name      :string(255)     default(""), not null
+#  zipcode   :integer
+#  old_id    :integer
+#
+
 class Geo < ActiveRecord::Base
   acts_as_nested_set
   

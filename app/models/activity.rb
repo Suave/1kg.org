@@ -1,3 +1,33 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: activities
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer         not null
+#  school_id        :integer
+#  done             :boolean
+#  created_at       :datetime
+#  updated_at       :datetime
+#  deleted_at       :datetime
+#  ref              :string(255)
+#  category         :integer         not null
+#  title            :string(255)     default(""), not null
+#  location         :string(255)     default(""), not null
+#  departure_id     :integer         not null
+#  arrival_id       :integer         not null
+#  start_at         :datetime
+#  end_at           :datetime
+#  register_over_at :datetime
+#  expense_per_head :string(255)
+#  expect_strength  :string(255)
+#  description      :text
+#  description_html :text
+#  comments_count   :integer         default(0)
+#  old_id           :integer
+#  sticky           :boolean
+#
+
 class Activity < ActiveRecord::Base
   include BodyFormat
   

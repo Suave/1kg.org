@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: boards
+#
+#  id                  :integer         not null, primary key
+#  talkable_id         :integer         not null
+#  talkable_type       :string(255)     default(""), not null
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
+#  topics_count        :integer         default(0)
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer
+#  old_id              :integer
+#
+
 class Board < ActiveRecord::Base
   belongs_to :talkable, :polymorphic => true, :dependent => :delete
   has_many :topics, :conditions => ["deleted_at is null"], :order => "sticky desc, last_replied_at desc", :dependent => :destroy
