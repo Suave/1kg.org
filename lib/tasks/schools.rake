@@ -36,7 +36,8 @@ namespace :schools do
         address = school.basic.address
         
         if address.include?('乡') || address.include?('镇')
-          address.gsub!(/[乡|镇](.*?)$/) {''}
+          address.gsub!(/乡(.*?)$/) {''}
+          address.gsub!(/镇(.*?)$/) {''}
         elsif address.include?('县')
           address.gsub!(/县(.*?)$/) {''} 
         else

@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     
   map.resources :geos, :collection => {:search => :get, 
                                        :all => :get},
-                           :member => {:schools => :get}
+                           :member => {:schools => :get, :schools_map => :get}
                            
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
   

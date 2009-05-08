@@ -71,7 +71,10 @@ class GeosController < ApplicationController
     end
   end
   
-  
+  def schools_map
+    @city = Geo.find(params[:id])
+    @schools = School.get_near_schools_at(@city)
+  end
   
   # for multiple drop down select
   def geo_choice
