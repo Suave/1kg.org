@@ -1,4 +1,5 @@
 class MiscController < ApplicationController
+  include RubyAes
   before_filter :login_required, :only => :my_city
   
   def index
@@ -91,8 +92,23 @@ class MiscController < ApplicationController
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
   
+  def warmfund_container
+    if logged_in?
+      aes_setup
+      logger.info(@kl)
+      logger.info(@mode)
+      logger.info(@keys[@kl])
+      logger.info(@iv)
+      encyrpt_email = Aes.encrypt_block(@kl, @mode, @keys[@kl], @iv, '0123467890ABCDEF')
+      #encyrpt_login = Aes.encyrpt_block(@kl, @mode, @keys[@kl], @iv, current_user.login)
+      
+      #logger_info "EMAIL: #{encyrpt_email}"
+      #logger_info "LOGIN: #{encyrpt_login}"
+    end
+    render :layout => false
+  end
   
-  
+=begin  
   def migration
     geo_migration
     county_migration
@@ -140,5 +156,5 @@ class MiscController < ApplicationController
     end
     flash[:notice] = "县导入成功"
   end
-
+=end
 end

@@ -1,0 +1,12 @@
+= 1.1
+
+=== 2008-01-05
+* Fixed padding problem (bug #15885)
+* Fixed encrypt/decrypt stream
+
+= 1.0
+
+=== 2007-07-30
+* Initial release: RAA project import
+* Added a C extension for speed along the 6 other versions (see README)
+* Minor changes in the API

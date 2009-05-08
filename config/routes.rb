@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
+  map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
   map.cities "/cities", :controller => "misc", :action => "cities"
   #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
