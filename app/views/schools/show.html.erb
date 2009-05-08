@@ -114,6 +114,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>学校照片</h3>
+        <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
         <div class="contents clearfix">
           <%= render :partial => "photos", :object => @photos %>
         </div>
@@ -125,7 +126,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>用户分享</h3>
-        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
         <div class="contents">
           <% @shares.each do |s| -%>
           <div style="clear:both;margin-bottom:1em;min-height:50px">

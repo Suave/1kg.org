@@ -6,7 +6,7 @@
 <div class="box" id="topicSingle">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= @photo.title %></h3>
+      <h3></h3>
        <div class="metadata">
           <div class="avatar"><%= link_to avatar_for(@photo.user, "large"), user_url(@photo.user) %></div>
           <p><%= link_to @photo.user.login, user_url(@photo.user)  %> 上传于 <%= @photo.created_at.to_date %></p>
