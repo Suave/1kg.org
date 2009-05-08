@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :members,     :through => :memberships, :source => :user
   
-  has_one  :discussion,  :class_name => "GroupBoard"
+  has_one  :discussion,  :class_name => "GroupBoard", :dependent => :destroy
   
   after_create :create_discussion
   
