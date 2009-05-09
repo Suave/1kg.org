@@ -1,7 +1,7 @@
 require 'uuid'
 
 class Minisite::Postcard::DashboardController < ApplicationController
-  before_filter :login_required, :except => :index
+  before_filter :login_required, :except => [:index, :love_message]
   
   def index
     @board = PublicBoard.find_by_slug("postcard").board
