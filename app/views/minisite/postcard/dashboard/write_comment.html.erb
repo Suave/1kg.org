@@ -15,6 +15,7 @@
       <div class="contents">
         <% form_tag minisite_postcard_comment_url(:token => @stuff.code) do -%>
           <p><label></label><%= text_area_tag "comment", nil, :cols => 40, :rows => 5 %></p>
+          <p class="rememberMe"><%= check_box_tag 'join', 1, true %> <label for="join_group">加入“<%= link_to "公益贺卡小组", group_url(38), :target => "_blank" %>”，支持公益贺卡</label></p>
           <p><label>&nbsp;</label><%= submit_tag "写好了，保存" %></p>
         <% end -%>
       </div>

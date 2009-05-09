@@ -84,6 +84,12 @@ class Minisite::Postcard::DashboardController < ApplicationController
 
     @stuff.comment = params[:comment]
     @stuff.save!
+    
+    if params[:join] == "1"
+      @group = Group.find(38)
+      @group.members << current_user unless @group.joined?(current_user)
+    end
+    
     flash[:notice] = "谢谢您的支持！"
     redirect_to minisite_postcard_index_url
     

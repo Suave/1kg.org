@@ -16,13 +16,13 @@
         <table>
           <tr>
             <th>学校</th>
-            <th>已捐赠</th>
+            <th>已捐赠(册)</th>
             <th>&nbsp;</th>
           </tr>
           <% @bucks.each do |b| -%>
           <tr>
             <td><%= link_to b.school.title, school_url(b.school), :target => "_blank" %></td>
-            <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_percent_str %></td>
+            <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %></td>
             <td><%= link_to "送给这所学校", minisite_postcard_give_url(b, :token => @stuff.code), :method => :put, :confirm => "确定送给这所学校么？送出后不能修改" %></td>
           </tr>
           <% end -%>
