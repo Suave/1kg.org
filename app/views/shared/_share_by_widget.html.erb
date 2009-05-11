@@ -1,0 +1,11 @@
+<ul class="share_by_widget clearfix">
+	<li class="to_qqsq"><a href="javascript:window.open('http://shuqian.qq.com/post?from=3&title='+encodeURIComponent('<%= @page_title %>')+'&uri='+encodeURIComponent('<%= get_current_page_link %>')+'&jumpback=2&noui=1','favit','width=930,height=470,left=50,top=50,toolbar=no,menubar=no,location=no,scrollbars=yes,status=yes,resizable=yes');void(0)" title="收藏到qq书签">收藏到qq书签</a></li>
+	<li class="to_baidu"><a href="javascript:u=location.href;t='<%= @page_title %>';c = '' + (window.getSelection ? window.getSelection() : document.getSelection ? document.getSelection() : document.selection.createRange().text);var url='http://cang.baidu.com/do/add?it='+encodeURIComponent(t)+'&iu='+encodeURIComponent(u)+'&dc='+encodeURIComponent(c)+'&fr=ien#nw=1';window.open(url,'_blank','scrollbars=no,width=600,height=450,left=75,top=20,status=no,resizable=yes'); void 0" title="收藏到百度收藏">百度收藏</a></li>
+	<li class="to_xiaonei"><a href="javascript:u='http://share.xiaonei.com/share/buttonshare.do?link='+location.href+'&title='+encodeURIComponent('<%= @page_title %>');window.open(u,'xiaonei','toolbar=0,resizable=1,scrollbars=yes,status=1,width=626,height=436');void(0)" title="收藏到校内">校内</a></li>
+
+	<li class="to_kaixin"><a href="javascript:var u='http://www.kaixin001.com/~repaste/repaste.php';window.open(u,'kaixin');void(0)" title="收藏到开心网">开心网</a></li>
+	<li class="to_douban"><a href="javascript:var u='http://www.douban.com/recommend/?url='+location.href+'&title='+encodeURIComponent('<%= @page_title %>');window.open(u,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width=450,height=330');void(0)" title="收藏到豆瓣">豆瓣</a></li>
+	<li class="to_twitter"><a href="javascript:var u='http://twitter.com/home?status='+encodeURIComponent('<%= @page_title %>'+'（ '+location.href+' ）');window.open(u,'twitter');void(0)" title="分享到twitter">分享到twitter</a></li>
+	<li class="to_fb"><a target="_blank" href="http://www.facebook.com/share.php?u=<%= get_current_page_link %>&t=<%= @page_title %>" title="分享给Facebook好友">分享给Facebook好友</a></li>
+	<li class="to_delicious"><a target="_blank" href="http://del.icio.us/post?url=<%= get_current_page_link %>&title=<%= @page_title %>" title="收藏到Del.icio.us(美味书签)">收藏到Del.icio.us(美味书签)</a></li>
+</ul>

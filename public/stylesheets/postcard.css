@@ -15,3 +15,16 @@
 
 .img {margin:10px;}
 .comment-body {height:70px; overflow:block;}
+
+.shareit {margin:8px 0; padding:8px 0; border-top:1px solid #CCC;}
+
+.share_by_widget li {color:#999; float:left; margin:10px 15px 5px 0; list-style-type:none;}
+.share_by_widget li a{ width:16px; height:16px; display:block; overflow:hidden; text-indent:-9999em;}
+.share_by_widget li.to_twitter a{background:url(/images/share_icon.gif) 0 0 no-repeat;}
+.share_by_widget li.to_fb a{background:url(/images/share_icon.gif) -32px 0 no-repeat;}
+.share_by_widget li.to_delicious a{background:url(/images/share_icon.gif) -64px 0 no-repeat;}
+.share_by_widget li.to_qqsq a{background:url(/images/share_icon.gif) -96px 0 no-repeat;}
+.share_by_widget li.to_baidu a{background:url(/images/share_icon.gif) -130px 0 no-repeat;}
+.share_by_widget li.to_xiaonei a{background:url(/images/share_icon.gif) -200px 0 no-repeat;}
+.share_by_widget li.to_kaixin a{background:url(/images/share_icon.gif) -164px 0 no-repeat;}
+.share_by_widget li.to_douban a{background:url(/images/share_icon.gif) -232px 0 no-repeat;}
