@@ -9,17 +9,18 @@ class Minisite::Postcard::DashboardController < ApplicationController
     
     postcard = StuffType.find_by_slug("postcard")
     @school_bucks = postcard.bucks.find :all, :include => [:school]
-    @stuff = postcard.stuffs.find(:last, :conditions => ["matched_at is not null"] )
+    @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    session[:random_stuff] = @stuff.id
   end
   
   def love_message
     postcard = StuffType.find_by_slug("postcard")
         
     unless session[:random_stuff].nil?
-      @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null and id < ?", session[:random_stuff].to_i] )
+      @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null and id < ?", session[:random_stuff].to_i], :order => "id desc")
     end
     
-    @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"] ) if @stuff.nil?
+    @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @stuff.nil?
     
     session[:random_stuff] = @stuff.id
     
