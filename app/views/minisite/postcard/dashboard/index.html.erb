@@ -64,7 +64,7 @@
             </tr>
             <% end -%>
           </table>
-          <div style="font-size:2em;color:orange;text-align:center">
+          <div style="text-align:right">
             累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
           </div>
         </div>
@@ -100,7 +100,7 @@
           </li>
         </ol>
         <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
-                                     :frequency => 20, 
+                                     :frequency => 10, 
                                      :update => "message",
                                      :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
       </div>
