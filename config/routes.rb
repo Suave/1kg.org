@@ -88,7 +88,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :manage => :get, 
                                       :moderator => :put,
                                       :invite => :get,
-                                      :send_invitation => :put
+                                      :send_invitation => :put,
+                                      :members => :get
                                     },
                           :collection => {:all => :get}
   

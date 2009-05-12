@@ -27,7 +27,8 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>小组成员</h3>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members} %>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 20)} %>
+      <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
     </div>
   </div>
 </div>
