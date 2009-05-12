@@ -70,15 +70,27 @@ namespace :geo do
 end
 
 def find_coordinates_by_address(address)
+  connect_count = 1
+  
   url  = "http://maps.google.com/maps/geo?q=#{CGI.escape(address)}&output=xml"
-  data = open(url)
-  doc  = Hpricot(data)
-  code = doc / 'code'
+  
+  while connect_count < 3
+    begin
+      data = open(url)
+      doc  = Hpricot(data)
+      code = doc / 'code'
 
-  if code.inner_text == '200'
-    coordinates = doc / 'coordinates'
-    coordinates.inner_text.split(',')
-  else
-    ['0', '0']
+      if code.inner_text == '200'
+        coordinates = doc / 'coordinates'
+        return coordinates.inner_text.split(',')
+      else
+        return ['0', '0']
+      end
+    rescue
+      connect_count += 1
+      puts "Timeout, Retrying..."
+    end
   end
+
+  ['0', '0']
 end
