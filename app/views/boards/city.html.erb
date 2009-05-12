@@ -5,7 +5,7 @@
   <div style="float:left; margin:17px; 0 0 1em;"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
   <% end -%>
   <div style="float:left; margin:17px;">
-    城市版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
+    城市管理员：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
   </div>
 <% end -%>
 
