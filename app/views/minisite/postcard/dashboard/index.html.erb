@@ -64,6 +64,9 @@
             </tr>
             <% end -%>
           </table>
+          <div style="font-size:2em;color:orange;text-align:center">
+            累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
+          </div>
         </div>
       </div>
     </div>
@@ -104,31 +107,7 @@
     </div>
   </div>
   
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>大家告诉大家</h3>
-        <div class="contents clearfix">
-          <p style="background:#FFEF99;">如果你喜欢公益贺卡，请介绍给身边的朋友、同学、家人，你的公司、你的学校或者你的社区</p>
-          <div class="shareit clearfix">
-            <%= image_tag "/images/postcard/avatar.jpg", :style => "float:left; margin-right:10px; width:80px" %>
-            <p>如果你爱聊QQ、MSN，如果你爱上<a href="www.kaixin001.com" target="_blank">开心网</a>，<a href="http://www.douban.com" target="_blank">豆瓣</a>，<a href="http://www.xiaonei.com" target="_blank">校内</a>，可以用左边这个作为你的头像(<a href="/images/postcard/avatar.jpg" target="_blank">下载头像</a>)</p>
-          </div>
-          <div class="shareit clearfix">
-            <p>
-      				<label for="shareurl">点击复制本页地址给<span>QQ/Msn/Gtalk</span>好友</label>
-      				<input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
-            </p>
-          </div>
-          <div class="shareit clearfix">
-            <p>分享到：</p>
-            <%= render :partial => "/shared/share_by_widget" %>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "share" %>
   
   <%= render :partial => "howtobuy" %>
   
