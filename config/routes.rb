@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :shares
   
-  map.resources :groups, :member => { :join => :put, 
+  map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
                                       :manage => :get, 

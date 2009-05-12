@@ -16,7 +16,7 @@
           <% if @group.joined?(current_user) -%>
             <%= link_to "退出小组", quit_group_url(@group), :method => :put %>
           <% else -%>
-            <%= link_to "加入小组", join_group_url(@group), :method => :put %>
+            <%= link_to "加入小组", join_group_url(@group) %>
           <% end -%>
         </h3>
     </div>
