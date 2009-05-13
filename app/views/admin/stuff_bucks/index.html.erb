@@ -16,6 +16,7 @@
             <th>学校</th>
             <th>需求数量</th>
             <th>已配对</th>
+            <th>隐藏</th>
             <th>状态</th>
             <th>Actions</th>
           </tr>
@@ -24,6 +25,7 @@
             <td><%= h b.school.title %></td>
             <td><%= h b.quantity %></td>
             <td><%= h b.matched_count %></td>
+            <td><%= b.hidden? ? "是" : "" %></td>
             <td><%= h b.status %></td>
             <td>
               <%= link_to "detail", admin_stuff_type_buck_url(@type, b) %> |
