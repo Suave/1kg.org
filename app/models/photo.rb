@@ -54,6 +54,11 @@ class Photo < ActiveRecord::Base
     Photo.find(:first, :conditions => ["parent_id is NULL and id > ? and user_id = ?", self.id, user.id])
   end
   
+  def edited_by(user)
+    user.class == User && (self.user_id == user.id || user.admin?)
+  end
+  
+  
   private
   def fill_title
     self.title = "未命名图片" if self.title.blank?

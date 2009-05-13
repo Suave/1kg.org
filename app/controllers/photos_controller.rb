@@ -24,6 +24,17 @@ class PhotosController < ApplicationController
     end
   end
   
+  def destroy
+    @photo = Photo.find(params[:id])
+    @photo.destroy
+    flash[:notice] = "照片已经删除"
+    if @photo.school.blank?
+      redirect_to user_url(@photo.user_id)
+    else
+      redirect_to school_url(@photo.school_id)
+    end
+  end
+  
   
   def show
     @photo = Photo.find(params[:id])
