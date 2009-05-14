@@ -1,5 +1,5 @@
 class MiscController < ApplicationController
-  include RubyAes
+  #include RubyAes
   before_filter :login_required, :only => :my_city
   
   def index
@@ -91,7 +91,7 @@ class MiscController < ApplicationController
     #for static page
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
-  
+=begin  
   def warmfund_container
     if logged_in?
       aes_setup
@@ -107,7 +107,7 @@ class MiscController < ApplicationController
     end
     render :layout => false
   end
-  
+=end  
 =begin  
   def migration
     geo_migration
