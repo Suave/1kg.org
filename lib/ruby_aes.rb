@@ -1,3 +1,4 @@
+=begin
 module RubyAes
     KEY_LENGTH = [128,192,256].freeze
     MODES = ['ECB','CBC','OFB','CFB'].freeze
@@ -22,3 +23,4 @@ module RubyAes
     end
 
 end
+=end
