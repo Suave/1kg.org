@@ -31,11 +31,14 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>输入爱心密码</h3>
-        <div class="contents">
+        <div class="passwordField">
           <% if flash[:postcard_notice] -%>
     					<div class="flashNotice notice"><%= flash[:postcard_notice] %></div>
     			<% end -%>
           <%= render :partial => "password" %>
+        </div>
+        <div class="contents">
+          
         </div>
       </div>
     </div>

@@ -12,6 +12,7 @@
 
 .passwordInput input {border:1px solid #CCC; padding:2px; font-size:1.2em;}
 .passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0;}
+.passwordField {position:absolute; left:150px; top:18px}
 
 .img {margin:10px;}
 .comment-body {height:70px; overflow:block;}
