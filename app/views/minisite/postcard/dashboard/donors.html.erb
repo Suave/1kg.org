@@ -1,8 +1,9 @@
-<% @page_title = @title = "爱心寄语" -%>
+<% @page_title = @title = "捐赠#{@school.title}的用户" -%>
 
 <% content_for :heads do -%>
 <link type="text/css" rel="stylesheet" href="/stylesheets/postcard.css" media="screen, projection" />
 <% end -%>
+
 
 <% content_for :sidebar do -%>
   <%= render :partial => "share" %>

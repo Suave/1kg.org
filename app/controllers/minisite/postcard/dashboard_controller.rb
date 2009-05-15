@@ -116,6 +116,14 @@ class Minisite::Postcard::DashboardController < ApplicationController
                              :per_page => 30
   end
   
+  def donors
+    @school = School.find(params[:id])
+    @stuffs = Stuff.paginate :page => params[:page] || 1,
+                             :conditions => ["school_id = ?", params[:id]],
+                             :order => "matched_at desc",
+                             :per_page => 30
+  end
+  
   
   private
   def set_message_and_redirect_to_index(msg = "")
