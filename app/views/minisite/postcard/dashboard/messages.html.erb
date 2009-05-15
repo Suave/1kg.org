@@ -1,0 +1,27 @@
+<% @page_title = @title = "爱心寄语" -%>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "share" %>
+<% end -%>
+
+<div class="box" id="topicCommentsList">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <ol class="clearfix">
+        <% @stuffs.each do |s| -%>
+        <li>
+          <div class="avatar"><%= avatar_for s.user, "large" %></div>
+          <div class="content">
+            <p class="meta">
+              <%= link_to s.user.login, user_url(s.user) %> 写于 <%= s.matched_at.to_date %>
+            </p>
+            <%= s.comment_html %>
+          </div>
+        </li>
+        <% end -%>
+      </ol>
+      <%= customize_paginate @stuffs %>
+    </div>
+  </div>
+</div>

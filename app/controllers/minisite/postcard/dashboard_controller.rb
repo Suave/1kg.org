@@ -109,6 +109,14 @@ class Minisite::Postcard::DashboardController < ApplicationController
 
   end
   
+  def messages
+    @stuffs = Stuff.paginate :page => params[:page] || 1, 
+                             :conditions => ["comment is not null"], 
+                             :order => "matched_at desc",
+                             :per_page => 30
+  end
+  
+  
   private
   def set_message_and_redirect_to_index(msg = "")
     flash[:postcard_notice] = msg

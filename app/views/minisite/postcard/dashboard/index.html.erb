@@ -89,6 +89,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>爱心寄语</h3>
+        <span class="postNew"><%= link_to "全部", minisite_postcard_messages_url %></span>
         <ol class="contents clearfix">
           <li id="message">
             <%= render :partial => "message", :locals => {:stuff => @stuff} %>
