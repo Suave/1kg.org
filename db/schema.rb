@@ -392,6 +392,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "matched_count", :default => 0
     t.datetime "created_at"
     t.boolean  "hidden",                       :default => false
+    t.boolean  "for_team",                     :default => false
+    t.string   "for_team_tip"
     t.string   "status"
     t.text     "notes_html"
   end

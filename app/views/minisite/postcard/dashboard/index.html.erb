@@ -47,23 +47,18 @@
         <h3>可捐赠图书的学校</h3>
         <span class="postNew"><%= link_to "申请捐赠学校", activity_url(367), :target => "_blank" %></span>
         <div class="contents">
-          <table>
-            <tr>
-              <th>学校</th>
-              <th>计划捐赠(册)</th>
-              <th>已捐赠(册)</th>
-            </tr>
-            <% @school_bucks.each do |b| -%>
-            <tr>
-              <td><%= link_to b.school.title, school_url(b.school), :target => "_blank" %></td>
-              <td><%= b.quantity %></td>
-              <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %></td>
-            </tr>
-            <% end -%>
-          </table>
-          <div style="text-align:right">
-            累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
-          </div>
+          <%= render :partial => "bucks", :object => @for_public_bucks %>
+        </div>
+        
+        <% unless @for_team_bucks.blank? -%>
+        <h3 style="background:none">团队捐赠区</h3>
+        <div class="contents">
+          <%= render :partial => "bucks", :object => @for_team_bucks %>
+        </div>
+        <% end -%>
+        
+        <div style="text-align:right;" class="contents">
+          累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
         </div>
       </div>
     </div>

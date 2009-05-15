@@ -20,6 +20,10 @@ class StuffBuck < ActiveRecord::Base
   
   validates_presence_of :type_id, :school_id, :quantity
   
+  named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
+  named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
+  
+  
   after_create :generate_stuffs
   
   def matched_percent

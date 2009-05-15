@@ -8,7 +8,10 @@ class Minisite::Postcard::DashboardController < ApplicationController
     @topics = @board.topics.find(:all, :order => "sticky desc, last_replied_at desc", :limit => 10)
     
     postcard = StuffType.find_by_slug("postcard")
-    @school_bucks = postcard.bucks.find :all, :conditions => ["hidden = ?", false], :include => [:school]
+    
+    @for_public_bucks = postcard.bucks.for_public_donations.find :all, :include => [:school]
+    @for_team_bucks   = postcard.bucks.for_team_donations.find :all, :include => [:school]
+    
     @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = @stuff.id
   end
@@ -39,7 +42,10 @@ class Minisite::Postcard::DashboardController < ApplicationController
       elsif @stuff = Stuff.find_by_code(params[:password], :conditions => ["matched_at is null"])
         # 尚未配对
         postcard = StuffType.find_by_slug("postcard")
-        @bucks = postcard.bucks.find :all, :include => [:school], :conditions => ["matched_count < quantity and hidden = ?", false] 
+        
+        @for_public_bucks = postcard.bucks.for_public_donations.find :all, :include => [:school], :conditions => ["matched_count < quantity"] 
+        @for_team_bucks   = postcard.bucks.for_team_donations.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
+         
         render :action => "school_list"
         
       else
