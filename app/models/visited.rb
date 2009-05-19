@@ -3,9 +3,9 @@
 #
 # Table name: visiteds
 #
-#  id         :integer         not null, primary key
-#  school_id  :integer
-#  user_id    :integer
+#  id         :integer(4)      not null, primary key
+#  school_id  :integer(4)
+#  user_id    :integer(4)
 #  visited_at :datetime
 #  status     :integer(1)
 #  created_at :datetime

@@ -3,7 +3,7 @@
 #
 # Table name: users
 #
-#  id                        :integer         not null, primary key
+#  id                        :integer(4)      not null, primary key
 #  login                     :string(255)
 #  email                     :string(255)
 #  crypted_password          :string(40)
@@ -16,6 +16,9 @@
 #  activated_at              :datetime
 #  state                     :string(255)     default("passive")
 #  deleted_at                :datetime
+#  avatar                    :string(255)
+#  geo_id                    :integer(4)
+#  old_id                    :integer(4)
 #
 
 require 'digest/sha1'

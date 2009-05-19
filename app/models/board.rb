@@ -3,16 +3,16 @@
 #
 # Table name: boards
 #
-#  id                  :integer         not null, primary key
-#  talkable_id         :integer         not null
-#  talkable_type       :string(255)     default(""), not null
+#  id                  :integer(4)      not null, primary key
+#  talkable_id         :integer(4)      not null
+#  talkable_type       :string(255)     not null
 #  created_at          :datetime
 #  updated_at          :datetime
 #  deleted_at          :datetime
-#  topics_count        :integer         default(0)
+#  topics_count        :integer(4)      default(0)
 #  last_modified_at    :datetime
-#  last_modified_by_id :integer
-#  old_id              :integer
+#  last_modified_by_id :integer(4)
+#  old_id              :integer(4)
 #
 
 class Board < ActiveRecord::Base

@@ -3,10 +3,10 @@
 #
 # Table name: static_permissions
 #
-#  id          :integer         not null, primary key
+#  id          :integer(4)      not null, primary key
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
-#  identifier  :string(100)     default(""), not null
+#  identifier  :string(100)     not null
 #  description :string(255)
 #
 

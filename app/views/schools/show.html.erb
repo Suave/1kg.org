@@ -98,11 +98,11 @@
             <% end -%>
           <% end -%>
           
-          <% if @school.edited_by current_user -%>
+          <% if logged_in? && @school.edited_by(current_user) -%>
             | <%= link_to "编辑", edit_school_url(@school) %>
           <% end -%>
 
-          <% if @school.destroyed_by current_user -%>
+          <% if logged_in? && @school.destroyed_by(current_user) -%>
             | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
           <% end -%>
         </p>
@@ -110,6 +110,18 @@
     </div>
   </div>
 
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>学校位置</h3>
+        <div class="contents clearfix">
+          <p id="map_message" class="caution">如您发现学校位置不正确，可<a href="/login">登录</a>后拖动标记以修正学校位置。</p>
+          <%= render :partial => "school_map", :locals => {:school => @school} %>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">

@@ -3,11 +3,11 @@
 #
 # Table name: public_boards
 #
-#  id               :integer         not null, primary key
-#  title            :string(100)     default(""), not null
+#  id               :integer(4)      not null, primary key
+#  title            :string(100)     not null
 #  description      :text
 #  description_html :text
-#  position         :integer         default(999), not null
+#  position         :integer(4)      default(999), not null
 #  slug             :string(255)
 #
 

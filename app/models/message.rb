@@ -3,15 +3,15 @@
 #
 # Table name: messages
 #
-#  id           :integer         not null, primary key
-#  author_id    :integer         not null
+#  id           :integer(4)      not null, primary key
+#  author_id    :integer(4)      not null
 #  subject      :string(255)
 #  content      :text
 #  html_content :text
-#  deleted      :boolean
+#  deleted      :boolean(1)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  old_id       :integer
+#  old_id       :integer(4)
 #
 
 class Message < ActiveRecord::Base

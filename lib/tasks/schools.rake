@@ -84,7 +84,7 @@ def find_coordinates_by_address(address)
         coordinates = doc / 'coordinates'
         return coordinates.inner_text.split(',')
       else
-        return ['0', '0']
+        return ['121.475916', '31.224353']
       end
     rescue
       connect_count += 1
@@ -92,5 +92,5 @@ def find_coordinates_by_address(address)
     end
   end
 
-  ['0', '0']
+  ['121.475916', '31.224353']
 end

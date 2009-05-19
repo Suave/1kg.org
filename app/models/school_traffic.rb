@@ -3,8 +3,8 @@
 #
 # Table name: school_traffics
 #
-#  id                  :integer         not null, primary key
-#  school_id           :integer
+#  id                  :integer(4)      not null, primary key
+#  school_id           :integer(4)
 #  sight               :string(255)
 #  transport           :string(255)
 #  duration            :string(255)
@@ -12,7 +12,7 @@
 #  description         :text
 #  description_html    :text
 #  last_modified_at    :datetime
-#  last_modified_by_id :integer
+#  last_modified_by_id :integer(4)
 #
 
 class SchoolTraffic < ActiveRecord::Base

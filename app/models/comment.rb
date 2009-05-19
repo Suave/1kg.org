@@ -3,15 +3,15 @@
 #
 # Table name: comments
 #
-#  id         :integer         not null, primary key
-#  user_id    :integer         not null
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)      not null
 #  body       :text
 #  body_html  :text
 #  created_at :datetime
 #  updated_at :datetime
 #  type       :string(255)
 #  type_id    :string(255)
-#  old_id     :integer
+#  old_id     :integer(4)
 #
 
 class Comment < ActiveRecord::Base

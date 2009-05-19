@@ -3,8 +3,8 @@
 #
 # Table name: school_boards
 #
-#  id               :integer         not null, primary key
-#  school_id        :integer         not null
+#  id               :integer(4)      not null, primary key
+#  school_id        :integer(4)      not null
 #  description      :text
 #  description_html :text
 #

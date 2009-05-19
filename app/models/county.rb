@@ -3,11 +3,11 @@
 #
 # Table name: counties
 #
-#  id      :integer         not null, primary key
-#  geo_id  :integer
-#  name    :string(255)     default(""), not null
-#  zipcode :integer
-#  old_id  :integer
+#  id      :integer(4)      not null, primary key
+#  geo_id  :integer(4)
+#  name    :string(255)     not null
+#  zipcode :integer(4)
+#  old_id  :integer(4)
 #
 
 class County < ActiveRecord::Base

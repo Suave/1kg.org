@@ -3,14 +3,14 @@
 #
 # Table name: pages
 #
-#  id                  :integer         not null, primary key
-#  title               :string(255)     default(""), not null
-#  slug                :string(255)     default(""), not null
+#  id                  :integer(4)      not null, primary key
+#  title               :string(255)     not null
+#  slug                :string(255)     not null
 #  body                :text
 #  created_at          :datetime
 #  updated_at          :datetime
 #  last_modified_at    :datetime
-#  last_modified_by_id :integer
+#  last_modified_by_id :integer(4)
 #
 
 class Page < ActiveRecord::Base

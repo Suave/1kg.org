@@ -3,19 +3,19 @@
 #
 # Table name: activities
 #
-#  id               :integer         not null, primary key
-#  user_id          :integer         not null
-#  school_id        :integer
-#  done             :boolean
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)      not null
+#  school_id        :integer(4)
+#  done             :boolean(1)
 #  created_at       :datetime
 #  updated_at       :datetime
 #  deleted_at       :datetime
 #  ref              :string(255)
-#  category         :integer         not null
-#  title            :string(255)     default(""), not null
-#  location         :string(255)     default(""), not null
-#  departure_id     :integer         not null
-#  arrival_id       :integer         not null
+#  category         :integer(4)      not null
+#  title            :string(255)     not null
+#  location         :string(255)     not null
+#  departure_id     :integer(4)      not null
+#  arrival_id       :integer(4)      not null
 #  start_at         :datetime
 #  end_at           :datetime
 #  register_over_at :datetime
@@ -23,9 +23,9 @@
 #  expect_strength  :string(255)
 #  description      :text
 #  description_html :text
-#  comments_count   :integer         default(0)
-#  old_id           :integer
-#  sticky           :boolean
+#  comments_count   :integer(4)      default(0)
+#  old_id           :integer(4)
+#  sticky           :boolean(1)
 #
 
 class Activity < ActiveRecord::Base

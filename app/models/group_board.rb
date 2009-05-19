@@ -3,8 +3,8 @@
 #
 # Table name: group_boards
 #
-#  id       :integer         not null, primary key
-#  group_id :integer         not null
+#  id       :integer(4)      not null, primary key
+#  group_id :integer(4)      not null
 #
 
 class GroupBoard < ActiveRecord::Base

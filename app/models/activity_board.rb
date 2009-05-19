@@ -3,8 +3,8 @@
 #
 # Table name: activity_boards
 #
-#  id               :integer         not null, primary key
-#  activity_id      :integer         not null
+#  id               :integer(4)      not null, primary key
+#  activity_id      :integer(4)      not null
 #  description      :text
 #  description_html :text
 #

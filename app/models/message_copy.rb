@@ -3,10 +3,10 @@
 #
 # Table name: message_copies
 #
-#  id           :integer         not null, primary key
-#  recipient_id :integer         not null
-#  message_id   :integer         not null
-#  unread       :boolean         default(TRUE)
+#  id           :integer(4)      not null, primary key
+#  recipient_id :integer(4)      not null
+#  message_id   :integer(4)      not null
+#  unread       :boolean(1)      default(TRUE)
 #
 
 class MessageCopy < ActiveRecord::Base

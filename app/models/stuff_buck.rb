@@ -3,11 +3,11 @@
 #
 # Table name: stuff_bucks
 #
-#  id            :integer         not null, primary key
-#  type_id       :integer         not null
-#  school_id     :integer         not null
-#  quantity      :integer         not null
-#  matched_count :integer         default(0)
+#  id            :integer(4)      not null, primary key
+#  type_id       :integer(4)      not null
+#  school_id     :integer(4)      not null
+#  quantity      :integer(4)      not null
+#  matched_count :integer(4)      default(0)
 #  created_at    :datetime
 #  status        :string(255)
 #  notes_html    :text
