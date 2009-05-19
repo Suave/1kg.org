@@ -9,7 +9,7 @@
   function initialize() {
     if (GBrowserIsCompatible()) {
       var map = new GMap2(document.getElementById("map_canvas"));
-      map.setCenter(new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>), 11);
+      map.setCenter(new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>), 7);
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
 
