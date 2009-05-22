@@ -3,14 +3,16 @@
 #
 # Table name: stuffs
 #
-#  id         :integer         not null, primary key
-#  code       :string(255)     default(""), not null
-#  type_id    :integer         not null
-#  buck_id    :integer         not null
-#  user_id    :integer
-#  school_id  :integer
-#  matched_at :datetime
-#  created_at :datetime
+#  id           :integer(4)      not null, primary key
+#  code         :string(255)     not null
+#  type_id      :integer(4)      not null
+#  buck_id      :integer(4)      not null
+#  user_id      :integer(4)
+#  school_id    :integer(4)
+#  matched_at   :datetime
+#  created_at   :datetime
+#  comment      :text
+#  comment_html :text
 #
 
 class Stuff < ActiveRecord::Base

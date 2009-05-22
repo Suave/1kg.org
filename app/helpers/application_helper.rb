@@ -95,7 +95,7 @@ module ApplicationHelper
   end
   
   def school_last_update(school)
-    last_topic = school.discussion.board.topics.find(:first, :order => "last_replied_at desc")
+    last_topic = school.last_topic
     return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.last_post.id if last_topic.last_post))) : school.updated_at.to_date)
   end
   

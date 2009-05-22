@@ -56,11 +56,10 @@
             <% end -%>
           </table>
         </div>
-        <p class="remark">&raquo; <%= link_to "附近所有学校", schools_board_url(@board) %> (<%= School.get_near_schools_at(@city).count %>)</p>
+        <p class="remark">&raquo; <%= link_to "附近所有学校", schools_geo_url(@city) %> (<%= School.get_near_schools_at(@city).count %>)</p>
       </div>
     </div>
   </div>
-  <p></p>
   <p>&raquo; <%= link_to "我要去#{@city.name}旅行", geo_url(@city) %></p>
   <p>&raquo; <%= link_to "浏览其它同城", cities_url %></p>
 <% end -%>

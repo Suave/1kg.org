@@ -3,9 +3,9 @@
 #
 # Table name: stuff_types
 #
-#  id               :integer         not null, primary key
-#  slug             :string(255)     default(""), not null
-#  title            :string(255)     default(""), not null
+#  id               :integer(4)      not null, primary key
+#  slug             :string(255)     not null
+#  title            :string(255)     not null
 #  description_html :text
 #  created_at       :datetime
 #

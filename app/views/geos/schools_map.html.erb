@@ -14,4 +14,14 @@
 <%= render :partial => "/schools/submit" %>
 <% end -%>
 
-<%= render :partial => "/schools/schools", :object => @schools, :locals => {:title => @page_title} %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= @city.name %>周边的学校</h3>
+      <div class="contents">
+        <%= render :partial => "map_view" %>
+      </div>
+    </div>
+  </div>
+</div>
+

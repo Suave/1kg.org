@@ -3,8 +3,8 @@
 #
 # Table name: profiles
 #
-#  id         :integer         not null, primary key
-#  user_id    :integer
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)
 #  blog_url   :string(255)
 #  bio        :text
 #  bio_html   :text

@@ -90,7 +90,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "parent_id"
     t.integer "lft",                       :null => false
     t.integer "rgt",                       :null => false
+    t.string  "longitude"
+    t.string  "latitude"
     t.string  "name",      :default => "", :null => false
+    t.string  "slug"
     t.integer "zipcode"
     t.integer "old_id"
   end
@@ -253,6 +256,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "school_id"
     t.string   "address"
     t.integer  "zipcode"
+    t.string   "longitude"
+    t.string   "latitude"
     t.string   "master"
     t.string   "telephone"
     t.string   "level_amount"
@@ -391,9 +396,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "quantity",                     :null => false
     t.integer  "matched_count", :default => 0
     t.datetime "created_at"
-    t.boolean  "hidden",                       :default => false
-    t.boolean  "for_team",                     :default => false
-    t.string   "for_team_tip"
     t.string   "status"
     t.text     "notes_html"
   end

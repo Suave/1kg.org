@@ -1,10 +1,35 @@
+require 'json'
 class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
   
+  skip_filter :verify_authenticity_token, :only => [:update]
+  
+  include ApplicationHelper
+
   def index
     @schools = School.recent_upload
-    @topics = Topic.last_10_updated_topics(SchoolBoard)
-    @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
+    
+    respond_to do |format|
+      format.html {
+        @topics = Topic.last_10_updated_topics(SchoolBoard)
+        @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
+        
+      }
+      format.json {
+        @schools_json = []
+        @schools.each do |school|
+          @schools_json << {:id => school.id, 
+                            :name => school.title,
+                            :addr => school.basic.address,
+                            :intro => "#{school.basic.level_amount}年级, #{school.basic.class_amount}班级, #{school.basic.student_amount}学生, #{school.basic.teacher_amount}老师", 
+                            :times => school.visitors.count,
+                            :shares => school.shares.count
+                            }
+        end
+        render :json => @schools_json
+      }
+      
+    end
   end
   
   def all
@@ -145,32 +170,44 @@ class SchoolsController < ApplicationController
   def update
     @school = School.find(params[:id])
 
-    if params[:step] == 'basic'
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校基本信息修改成功！"
-      render :action => "edit_traffic"
+    respond_to do |format|
+      format.html do
+        if params[:step] == 'basic'
+          @school.update_attributes!(params[:school])
+          flash[:notice] = "学校基本信息修改成功！"
+          render :action => "edit_traffic"
 
-    elsif params[:step] == 'traffic'
-      @school.traffic.tag_list = params[:school][:school_traffic][:sight]
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校交通信息修改成功！"
-      render :action => "edit_need"
+        elsif params[:step] == 'traffic'
+          @school.traffic.tag_list = params[:school][:school_traffic][:sight]
+          @school.update_attributes!(params[:school])
+          flash[:notice] = "学校交通信息修改成功！"
+          render :action => "edit_need"
       
-    elsif params[:step] == 'need'
-      new_tag_list = ""
-      %w(urgency book stationary sport cloth accessory course teacher other).each do |need|
-        new_tag_list += params[:school][:school_need][need.to_sym] unless params[:school][:school_need][need.to_sym].nil?
+        elsif params[:step] == 'need'
+          new_tag_list = ""
+          %w(urgency book stationary sport cloth accessory course teacher other).each do |need|
+            new_tag_list += params[:school][:school_need][need.to_sym] unless params[:school][:school_need][need.to_sym].nil?
+          end
+
+          @school.need.tag_list = new_tag_list
+          @school.update_attributes!(params[:school])
+          flash[:notice] = "学校需求信息修改成功！"
+          render :action => "edit_other"
+      
+        elsif params[:step] == 'other'
+          @school.update_attributes!(params[:school])
+          flash[:notice] = "学校信息修改完成！"
+          redirect_to school_url(@school)
+        end
       end
-
-      @school.need.tag_list = new_tag_list
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校需求信息修改成功！"
-      render :action => "edit_other"
       
-    elsif params[:step] == 'other'
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校信息修改完成！"
-      redirect_to school_url(@school)
+      format.js do
+        @school.basic.update_attributes(:latitude => params[:latitude], :longitude => params[:longitude])
+        render :update do |page|
+          page['map_message'].replace_html('新位置已经成功保存，非常感谢您对多背一公斤的支持！')
+          page['map_message'].visual_effect('highlight')
+        end
+      end
     end
   end
   

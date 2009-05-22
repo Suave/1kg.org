@@ -3,15 +3,15 @@
 #
 # Table name: posts
 #
-#  id                  :integer         not null, primary key
-#  topic_id            :integer         not null
-#  user_id             :integer         not null
+#  id                  :integer(4)      not null, primary key
+#  topic_id            :integer(4)      not null
+#  user_id             :integer(4)      not null
 #  body                :text
 #  body_html           :text
 #  created_at          :datetime
 #  updated_at          :datetime
 #  last_modified_at    :datetime
-#  last_modified_by_id :integer
+#  last_modified_by_id :integer(4)
 #  deleted_at          :datetime
 #
 

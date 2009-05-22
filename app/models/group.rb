@@ -3,10 +3,10 @@
 #
 # Table name: groups
 #
-#  id         :integer         not null, primary key
-#  user_id    :integer         not null
-#  geo_id     :integer         not null
-#  title      :string(255)     default(""), not null
+#  id         :integer(4)      not null, primary key
+#  user_id    :integer(4)      not null
+#  geo_id     :integer(4)      not null
+#  title      :string(255)     not null
 #  body_html  :text
 #  created_at :datetime
 #  updated_at :datetime

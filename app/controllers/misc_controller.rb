@@ -62,9 +62,9 @@ class MiscController < ApplicationController
   
   
   def public_look
-
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
+    @recent_photos = Photo.recent
     @recent_schools = School.recent_upload
     @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
     @recent_shares = Share.recent_shares
@@ -91,31 +91,16 @@ class MiscController < ApplicationController
     #for static page
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
-=begin  
-  def warmfund_container
-    if logged_in?
-      aes_setup
-      logger.info(@kl)
-      logger.info(@mode)
-      logger.info(@keys[@kl])
-      logger.info(@iv)
-      encyrpt_email = Aes.encrypt_block(@kl, @mode, @keys[@kl], @iv, '0123467890ABCDEF')
-      #encyrpt_login = Aes.encyrpt_block(@kl, @mode, @keys[@kl], @iv, current_user.login)
-      
-      #logger_info "EMAIL: #{encyrpt_email}"
-      #logger_info "LOGIN: #{encyrpt_login}"
-    end
-    render :layout => false
-  end
-=end  
+
 =begin  
   def migration
     geo_migration
     county_migration
   end
-  
+=end  
   private
   # only for data migration from legacy 1kg.org based rails 1.2.3
+=begin
   def geo_migration
     provinces = Area.find(:all, :conditions => "parent_id is null or parent_id=0")
     provinces.each do |province|

@@ -3,13 +3,16 @@
 #
 # Table name: geos
 #
-#  id        :integer         not null, primary key
-#  parent_id :integer
-#  lft       :integer         not null
-#  rgt       :integer         not null
-#  name      :string(255)     default(""), not null
-#  zipcode   :integer
-#  old_id    :integer
+#  id        :integer(4)      not null, primary key
+#  parent_id :integer(4)
+#  lft       :integer(4)      not null
+#  rgt       :integer(4)      not null
+#  name      :string(255)     not null
+#  zipcode   :integer(4)
+#  old_id    :integer(4)
+#  slug      :string(255)
+#  latitude  :string(255)
+#  longitude :string(255)
 #
 
 class Geo < ActiveRecord::Base
@@ -27,3 +30,4 @@ class Geo < ActiveRecord::Base
   end
   
 end
+

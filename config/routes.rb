@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
   map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
+  map.city   "city/:slug", :controller => "geos", :action => "city"
   map.cities "/cities", :controller => "misc", :action => "cities"
   #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
@@ -40,7 +41,7 @@ ActionController::Routing::Routes.draw do |map|
     
   map.resources :geos, :collection => {:search => :get, 
                                        :all => :get},
-                           :member => {:schools => :get}
+                           :member => {:schools => :get, :schools_map => :get}
                            
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
   
@@ -67,6 +68,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :activities, :member => {:join => :get, :quit => :put, :stick => :put},
                              :collection => {:ongoing => :get, :over => :get}
+
 
   map.resources :boards, :member =>     { :schools => :get, 
                                           :users => :get, 

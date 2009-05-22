@@ -3,6 +3,28 @@
 #
 # Table name: schools
 #
+#  id                  :integer(4)      not null, primary key
+#  user_id             :integer(4)
+#  ref                 :string(255)
+#  validated           :boolean(1)
+#  meta                :boolean(1)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
+#  category            :integer(4)
+#  geo_id              :integer(4)
+#  county_id           :integer(4)
+#  title               :string(255)     not null
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer(4)
+#  old_id              :integer(4)
+#
+
+# == Schema Information
+# Schema version: 20090430155946
+#
+# Table name: schools
+#
 #  id                  :integer         not null, primary key
 #  user_id             :integer
 #  ref                 :string(255)
@@ -96,6 +118,11 @@ class School < ActiveRecord::Base
   end
   
   
+
+  def last_topic
+    self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
+  end
+
   def self.recent_upload
     validated.find(:all, :order => "created_at desc", :limit => 10)
   end

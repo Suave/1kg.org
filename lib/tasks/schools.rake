@@ -1,4 +1,7 @@
 require 'fastercsv'
+require 'hpricot'
+require 'open-uri'
+require 'cgi'
 
 namespace :schools do
   desc "import all schools to db/schools.csv"
@@ -25,4 +28,69 @@ namespace :schools do
     puts ''
     puts "#{School.count} schools updated."
   end
+  
+  namespace :coordinates do
+    desc "generate coordinates for all schools"
+    task :generate => :environment do
+      School.all.each do |school|
+        address = school.basic.address
+        
+        if address.include?('乡') || address.include?('镇')
+          address.gsub!(/乡(.*?)$/) {''}
+          address.gsub!(/镇(.*?)$/) {''}
+        elsif address.include?('县')
+          address.gsub!(/县(.*?)$/) {''} 
+        else
+          address.gsub!(/市(.*?)$/) {''}
+        end
+        puts address
+        coordinates = find_coordinates_by_address(address)
+        school.basic.longitude = coordinates[0]
+        school.basic.latitude  = coordinates[1]
+        school.basic.save(false)
+        puts school.title + ':' + school.basic.longitude + ',' + school.basic.latitude
+      end
+    end
+  end
+end
+
+namespace :geo do
+  namespace :coordinates do
+    desc "generate coordinates for all schools"
+    task :generate => :environment do
+      Geo.all.each do |geo|
+        coordinates = find_coordinates_by_address(geo.name)
+        geo.longitude = coordinates[0]
+        geo.latitude = coordinates[1]
+        geo.save(false)
+        puts geo.name + ':' + geo.longitude + ',' + geo.latitude
+      end
+    end
+  end
+end
+
+def find_coordinates_by_address(address)
+  connect_count = 1
+  
+  url  = "http://maps.google.com/maps/geo?q=#{CGI.escape(address)}&output=xml"
+  
+  while connect_count < 3
+    begin
+      data = open(url)
+      doc  = Hpricot(data)
+      code = doc / 'code'
+
+      if code.inner_text == '200'
+        coordinates = doc / 'coordinates'
+        return coordinates.inner_text.split(',')
+      else
+        return ['121.475916', '31.224353']
+      end
+    rescue
+      connect_count += 1
+      puts "Timeout, Retrying..."
+    end
+  end
+
+  ['121.475916', '31.224353']
 end

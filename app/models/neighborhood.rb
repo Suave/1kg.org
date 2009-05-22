@@ -3,11 +3,11 @@
 #
 # Table name: neighborhoods
 #
-#  id          :integer         not null, primary key
-#  user_id     :integer         not null
-#  neighbor_id :integer         not null
+#  id          :integer(4)      not null, primary key
+#  user_id     :integer(4)      not null
+#  neighbor_id :integer(4)      not null
 #  created_at  :datetime
-#  old_id      :integer
+#  old_id      :integer(4)
 #
 
 class Neighborhood < ActiveRecord::Base

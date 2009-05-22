@@ -3,8 +3,8 @@
 #
 # Table name: school_locals
 #
-#  id                  :integer         not null, primary key
-#  school_id           :integer
+#  id                  :integer(4)      not null, primary key
+#  school_id           :integer(4)
 #  incoming_from       :string(255)
 #  incoming_average    :string(255)
 #  ngo_support         :integer(1)
@@ -15,7 +15,7 @@
 #  advice              :text
 #  advice_html         :text
 #  last_modified_at    :datetime
-#  last_modified_by_id :integer
+#  last_modified_by_id :integer(4)
 #
 
 class SchoolLocal < ActiveRecord::Base
