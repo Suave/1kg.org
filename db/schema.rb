@@ -398,6 +398,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.string   "status"
     t.text     "notes_html"
+    t.boolean  "for_team",                     :default => false
+    t.text     "for_team_tip"
+    t.boolean  "hidden",                       :default => false
   end
 
   create_table "stuff_types", :force => true do |t|
