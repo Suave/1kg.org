@@ -2,6 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
+  map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
   map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
   map.city   "city/:slug", :controller => "geos", :action => "city"

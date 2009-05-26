@@ -92,6 +92,10 @@ class MiscController < ApplicationController
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
 
+  def custom_search
+    
+  end
+  
 =begin  
   def migration
     geo_migration
