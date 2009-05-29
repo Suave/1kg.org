@@ -20,39 +20,25 @@
 #  old_id              :integer(4)
 #
 
-# == Schema Information
-# Schema version: 20090430155946
-#
-# Table name: schools
-#
-#  id                  :integer         not null, primary key
-#  user_id             :integer
-#  ref                 :string(255)
-#  validated           :boolean
-#  meta                :boolean
-#  created_at          :datetime
-#  updated_at          :datetime
-#  deleted_at          :datetime
-#  category            :integer
-#  geo_id              :integer
-#  county_id           :integer
-#  title               :string(255)     default(""), not null
-#  last_modified_at    :datetime
-#  last_modified_by_id :integer
-#  old_id              :integer
-#
-
 class School < ActiveRecord::Base
   
   belongs_to :user
   belongs_to :geo
   belongs_to :county
+  
   has_one    :basic,   :class_name => "SchoolBasic"
   has_one    :traffic, :class_name => "SchoolTraffic"
   has_one    :need,    :class_name => "SchoolNeed"
   has_one    :contact, :class_name => "SchoolContact"
   has_one    :local,   :class_name => "SchoolLocal"
   has_one    :finder,  :class_name => "SchoolFinder"
+
+  accepts_nested_attributes_for :basic
+  accepts_nested_attributes_for :traffic
+  accepts_nested_attributes_for :need
+  accepts_nested_attributes_for :contact
+  accepts_nested_attributes_for :local
+  accepts_nested_attributes_for :finder
   
   has_one    :discussion, :class_name => "SchoolBoard"
   
