@@ -47,14 +47,14 @@ class School < ActiveRecord::Base
   belongs_to :user
   belongs_to :geo
   belongs_to :county
-  has_one    :basic,   :class_name => "SchoolBasic"
-  has_one    :traffic, :class_name => "SchoolTraffic"
-  has_one    :need,    :class_name => "SchoolNeed"
-  has_one    :contact, :class_name => "SchoolContact"
-  has_one    :local,   :class_name => "SchoolLocal"
-  has_one    :finder,  :class_name => "SchoolFinder"
+  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy 
+  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy 
+  has_one    :need,    :class_name => "SchoolNeed", :dependent => :destroy 
+  has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
+  has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
+  has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
   
-  has_one    :discussion, :class_name => "SchoolBoard"
+  has_one    :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
