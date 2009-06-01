@@ -28,7 +28,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user,  :class_name => "User",  :foreign_key => "user_id"
   has_many   :posts, :dependent => :destroy
   
-  named_scope :available, :conditions => "deleted_at is null"
+  named_scope :available, :conditions => "topics.deleted_at is null"
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
@@ -64,6 +64,9 @@ class Topic < ActiveRecord::Base
     (user.class == User && self.user_id == user.id) || moderatable_by?(user)
   end
   
+  def deleted?
+    deleted_at.nil? ? false : true
+  end
   
   def self.last_10_updated_topics(board_class)
     Topic.available.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
