@@ -1,52 +1,23 @@
-<% if logged_in? -%>
-<div class="box" id="uti">
-  <div class="boxOuter">
-    <dl class="boxInner">
-	    <dt><%= avatar_for current_user, "large" %></dt>
-      <dd><h3><%= h current_user.login %></h3></dd>
-      <dd>
-        <p>我住在: 
-        <% if current_user.geo -%>
-          <% if current_user.geo.city_board -%>
-            <%= link_to current_user.geo.name, board_url(current_user.geo.city_board.board) %>
-          <% else -%>
-            <%= current_user.geo.name %>
-          <% end -%>
-          [<%= link_to "我搬家了", user_url(current_user.id, :for => "move"), :method => :put %>]
-        <% end -%>
-        </p>
-      </dd>
-	  </dl>
+<div class="box" id="intro">
+ <div class="boxOuter">
+   <div class="boxInner">
+     <h3>用户登录</h3>
+     <div class="contents">
+       <% form_tag session_path do -%>
+       <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
 
-    <ul>           
-	    <li>&raquo; <%= link_to "我参与的活动", participated_activities_user_url(current_user) %></li>
-	    <li>&raquo; <%= link_to "我发布的活动", submitted_activities_user_url(current_user) %></li>
-	    <li>&raquo; <%= link_to "我去过的学校", visited_schools_user_url(current_user) %></li>
-	    <li>&raquo; <%= link_to "我提交的学校", submitted_schools_user_url(current_user) %></li>
-	  </ul>
-	</div>
-</div>
-<% else -%>
- <div class="box" id="intro">
-   <div class="boxOuter">
-     <div class="boxInner">
-       <h3>用户登录</h3>
-       <div class="contents">
-         <% form_tag session_path do -%>
-         <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+       <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
 
-         <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
+       <p class="rememberMe" style="margin: 1em 5em; color:gray"><%= check_box_tag 'remember_me' %> <label for="remember_me">在这台电脑上记住我</label></p>
 
-         <p class="rememberMe" style="margin: 1em 5em; color:gray"><%= check_box_tag 'remember_me' %> <label for="remember_me">在这台电脑上记住我</label></p>
-
-         <p class="submit" style="margin: 1em 5em;"><%= submit_tag '登 录', :style=> "width:80px" %></p>
-         <% end -%>
-         
-         <p class="center">还不是会员?</p>
-         <p><a class="joinNow" href="/signup">现在就加入！</a></p>
-         
-       </div>
+       <p class="submit" style="margin: 1em 5em;"><%= submit_tag '登 录', :style=> "width:80px" %></p>
+       <% end -%>
+       
+       <p class="center">还不是会员?</p>
+       <p><a class="joinNow" href="/signup">现在就加入！</a></p>
+       <p class="center">或</p>
+       <p class="center"><%= link_to "随便转转, 更多了解多背一公斤", public_look_url %></p>
      </div>
    </div>
  </div>
-<% end -%>
+</div>
