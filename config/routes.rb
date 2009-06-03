@@ -7,12 +7,11 @@ ActionController::Routing::Routes.draw do |map|
   map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
   map.city   "city/:slug", :controller => "geos", :action => "city"
   map.cities "/cities", :controller => "misc", :action => "cities"
-  #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
   
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
   
-  map.resources :users
+  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"

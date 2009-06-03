@@ -235,8 +235,8 @@ class School < ActiveRecord::Base
   end
   
   def self.show_date(year, month, day, valid)
-    self.find(:all, 
+    self.available.find(:all, 
               :order      => "schools.updated_at desc",
-              :conditions => ["created_at LIKE ? and validated = ? and deleted_at is null ", "#{year}-#{month}-#{day}%", valid])
+              :conditions => ["created_at LIKE ? and validated = ?", "#{year}-#{month}-#{day}%", valid])
   end
 end
