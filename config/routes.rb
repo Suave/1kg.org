@@ -33,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :interesting_schools => :get,
                                     :neighbors => :get,
                                     :shares => :get,
+                                    :groups => :get,
                                     :group_topics => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}
