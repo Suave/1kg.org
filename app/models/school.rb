@@ -20,28 +20,6 @@
 #  old_id              :integer(4)
 #
 
-# == Schema Information
-# Schema version: 20090430155946
-#
-# Table name: schools
-#
-#  id                  :integer         not null, primary key
-#  user_id             :integer
-#  ref                 :string(255)
-#  validated           :boolean
-#  meta                :boolean
-#  created_at          :datetime
-#  updated_at          :datetime
-#  deleted_at          :datetime
-#  category            :integer
-#  geo_id              :integer
-#  county_id           :integer
-#  title               :string(255)     default(""), not null
-#  last_modified_at    :datetime
-#  last_modified_by_id :integer
-#  old_id              :integer
-#
-
 class School < ActiveRecord::Base
   
   belongs_to :user

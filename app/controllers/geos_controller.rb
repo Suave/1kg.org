@@ -1,5 +1,4 @@
 class GeosController < ApplicationController
-  
   def all
     @cities = Geo.roots
   end

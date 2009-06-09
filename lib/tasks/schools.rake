@@ -29,6 +29,24 @@ namespace :schools do
     puts "#{School.count} schools updated."
   end
   
+  desc "generate a json file used for google map"
+  task :to_json => :environment do
+    require 'json'
+    schools = School.all
+    schools_json = []
+    schools.each do |school|
+      schools_json << {:i => school.id,
+                      :la => school.basic.latitude,
+                      :lo => school.basic.longitude
+                      }
+    end
+    
+    file = File.open("#{RAILS_ROOT}/public/schools.json", 'w')
+    file.write('var schools =')
+    file.write schools_json.to_json
+    file.close
+  end
+  
   namespace :coordinates do
     desc "generate coordinates for all schools"
     task :generate => :environment do

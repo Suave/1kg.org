@@ -1058,3 +1058,6 @@ h3.title {
 .obp dd span {display:block;}
 
 .sbtn {border:1px solid black; background:orange; padding:2px;}
+
+/* map view, by yuanyi */
+#map_div { margin: 1em 0; }

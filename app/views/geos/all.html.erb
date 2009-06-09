@@ -15,7 +15,47 @@
         <div class="tips">
           <p class="tip">请选择你要去的地方</p>
         </div>
-        <ul class="clearfix"><%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c.id)}</li>"} %></ul>
+        
+        <script src="http://ditu.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+        <%= javascript_include_tag("markerclusterer_packed") %>
+        <script type="text/javascript" src="/schools.json"></script>
+        
+        <script type="text/javascript">
+          function initialize() {
+            if (GBrowserIsCompatible()) {
+              var map = new GMap2(document.getElementById("map_div"));
+              map.setCenter(new GLatLng(<%= Geo::DEFAULT_CENTER[0].to_f %>, <%= Geo::DEFAULT_CENTER[1].to_f %>), 4);
+              map.addControl(new GLargeMapControl());
+              map.addControl(new GMapTypeControl());
+
+              var icon = new GIcon(G_DEFAULT_ICON);
+              icon.image = "/images/marker.png";
+              var markers = [];
+
+              function markerClickFn(point, id) {
+                return function() {
+                  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+                    map.openInfoWindowHtml(point, data);
+                  });
+                }
+              }
+              
+              for (var i = 0; i < schools.length; ++i) {
+                var point = new GLatLng(schools[i].la, schools[i].lo)
+                var marker = new GMarker(point, {icon: icon});
+
+                GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
+
+                markers.push(marker);
+              }
+
+              var markerCluster = new MarkerClusterer(map, markers);
+            }
+          }
+          window.onload = initialize;
+        </script>
+
+        <div id="map_div" style="width: 600px; height: 500px"></div>
       </div>
     </div>
   </div>
