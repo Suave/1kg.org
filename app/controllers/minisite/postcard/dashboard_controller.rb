@@ -12,6 +12,12 @@ class Minisite::Postcard::DashboardController < ApplicationController
     @for_public_bucks = postcard.bucks.for_public_donations.find :all, :include => [:school]
     @for_team_bucks   = postcard.bucks.for_team_donations.find :all, :include => [:school]
     
+    school_ids = (@for_public_bucks.collect {|b| b.school.id} + @for_team_bucks.collect {|b| b.school.id}).uniq
+    
+    @school_topics = SchoolBoard.find(:all, :conditions => ["school_id in (?)", school_ids]).collect {|sb| sb.board.topics}.flatten
+
+    @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids])
+    
     @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = @stuff.id
   end
@@ -132,13 +138,4 @@ class Minisite::Postcard::DashboardController < ApplicationController
     return
   end
   
-  
-=begin  
-  def code_test
-    1000.times do
-      logger.info UUID.create_random.to_s.gsub("-", "").unpack('axaxaxaxaxaxaxax').join('')
-    end
-    render :action => "index"
-  end
-=end  
 end
