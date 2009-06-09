@@ -16,7 +16,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
     
     @school_topics = SchoolBoard.find(:all, :conditions => ["school_id in (?)", school_ids]).collect {|sb| sb.board.topics}.flatten
 
-    @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids])
+    @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids], :limit => 20, :order => "created_at desc")
     
     @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = @stuff.id

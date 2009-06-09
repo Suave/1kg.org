@@ -141,14 +141,14 @@
   <%= render :partial => "share" %>
 
   <%= render :partial => "other_intro" %>
-</div>
-
-<div class="box pc-photos">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>爱心相册</h3>
-      <div class="contents clearfix">
-          <%= render :partial => "/schools/photos", :object => @photos %>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>学校照片</h3>
+        <div class="contents clearfix">
+            <%= render :partial => "/schools/photos", :object => @photos %>
+        </div>
       </div>
     </div>
   </div>
