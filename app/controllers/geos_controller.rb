@@ -62,11 +62,11 @@ class GeosController < ApplicationController
     @city = Geo.find(params[:id])
     @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1,
                                                           :order => "updated_at desc",
-                                                          :per_page => 20)
+                                                          :per_page => 10)
     
     respond_to do |format|
-      format.html
-      format.text {render :text => @schools.to_json}
+      format.html {render :layout => false}
+      format.json {render :text => @schools.to_json}
     end
   end
   

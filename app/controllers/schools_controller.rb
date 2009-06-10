@@ -36,7 +36,8 @@ class SchoolsController < ApplicationController
   end
   
   def all
-    list(true)
+    @cities = Geo.roots
+    @schools = School.paginate(:page => params[:page], :per_page => 10)
   end
   
   def unconfirm

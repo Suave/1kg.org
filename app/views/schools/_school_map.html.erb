@@ -13,12 +13,18 @@
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
 
-      var point<%= school.id %> = new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>);
-      marker = new GMarker(point<%= school.id %>, {draggable: <%= logged_in? ? 'true' : 'false' %>});
+      var point = new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>);
+      marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
 
-      GEvent.addListener(marker, "click", function() {
-          map.openInfoWindowHtml(point<%= school.id %>, '<%= render :partial => '/geos/info_window', :locals => {:school => school} %>');
-        });
+      function markerClickFn(point, id) {
+        return function() {
+          GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+            map.openInfoWindowHtml(point, data);
+          });
+        }
+      }
+      
+      GEvent.addListener(marker, "click", markerClickFn(point, <%= school.id %>));
           
       <% if logged_in? %>
       GEvent.addListener(marker, "dragend", function() {
