@@ -24,7 +24,22 @@ module ApplicationHelper
 		will_paginate value, :previous_label => '<<',
 												 :next_label => '>>'
 	end
-	
+
+  def will_paginate_remote(paginator, options={})
+    update = options.delete(:update)
+    url = options.delete(:url)
+    str = will_paginate(paginator, options)
+    if str != nil
+      str.gsub(/href="(.*?)"/) do
+        %(href='#' onclick="jQuery.get('#{(url ? url + $1.sub(/[^\?]*/, '') : $1)}', null, function(data) {jQuery('##{update}').html(data)}); return false;")
+      end
+    end
+  end
+  
+  def schools_paginate(schools)
+    will_paginate_remote(schools, :previous_label => '<<', :next_label => '>>', :update => 'schools')
+  end
+
   def inbox_link(title="收件箱", user=current_user)
     if user.unread_messages.size > 0
       "<strong>" + link_to("#{title}(#{user.unread_messages.size})", user_received_index_path(user)) + "</strong> "
