@@ -25,7 +25,7 @@ class Geo < ActiveRecord::Base
   
   validates_presence_of :name
   
-  DEFAULT_CENTER = [36.960223,106.445313]
+  DEFAULT_CENTER = [36.960223,106.445313,4]
   
   def self.hot_cities
     find(%w(280 273 275 304 312 356 241 322 305 239 10 299 79 1))

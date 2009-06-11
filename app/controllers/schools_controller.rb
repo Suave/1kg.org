@@ -25,7 +25,6 @@ class SchoolsController < ApplicationController
         end
         render :json => @schools_json
       }
-      
     end
   end
   
@@ -36,8 +35,18 @@ class SchoolsController < ApplicationController
   end
   
   def all
-    @cities = Geo.roots
-    @schools = School.paginate(:page => params[:page], :per_page => 10)
+    redirect_to geos_path
+    # @cities  = Geo.roots
+    # @map_center = Geo::DEFAULT_CENTER
+    # @schools = School.paginate(:page => params[:page], :per_page => 10)
+    # 
+    # respond_to do |format|
+    #   if !params[:page].blank?
+    #     format.html {render :action => 'schools', :layout => false}
+    #   else
+    #     format.html
+    #   end
+    # end
   end
   
   def unconfirm

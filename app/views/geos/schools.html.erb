@@ -1,16 +1,2 @@
-<ul>
-<% @schools.each do |school| -%>
-  <li><%= link_to_function h(school.title), "schoolClickFn(new GLatLng(#{school.basic.latitude.to_f}, #{school.basic.longitude.to_f}), #{school.id})", :style => "font-size:14px" %></li>
-<% end -%>
-</uL>
-<%= schools_paginate @schools %>
-
-<script type="text/javascript" charset="utf-8">
-  function schoolClickFn(latlng, id)
-  {
-    map.setCenter(latlng, 9);
-    GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-      map.openInfoWindowHtml(latlng, data);
-    });
-  }
-</script>
+<h3><%= @city.nil? ? '所有学校' : "#{@city.name}附近的学校" %></h3>
+<%= render :partial => 'schools', :object => @schools %>

@@ -13,7 +13,7 @@
       <div class="contents">
         <ul class="clearfix tipText"><%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c)}</li>"} %><li>...</li></ul>
       </div>
-      <p class="remark">&raquo; <%= link_to "所有城市", all_geos_url %></p>
+      <p class="remark">&raquo; <%= link_to "所有城市", geos_url %></p>
     </div>
   </div>
 </div>

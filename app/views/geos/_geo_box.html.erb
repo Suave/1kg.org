@@ -1,13 +1,12 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>选择省份</h3>
+      <h3>选择你要去的省市</h3>
       <div class="contents">
-        <% provinces.each do |province| -%>
-          <%= link_to_function province.name, "provinceClickFn(new GLatLng(#{province.latitude.to_f}, #{province.longitude.to_f}), #{province.id})", :style => "font-size:14px" %>
+        <% geos.each do |geo| -%>
+          <%= link_to_function geo.name, "provinceClickFn(new GLatLng(#{geo.latitude.to_f}, #{geo.longitude.to_f}), #{geo.id})", :style => "font-size:14px" %>
         <% end -%>
       </div>
-      <p class="remark">&raquo; <%= link_to "查看全部学校", all_schools_url %></p>
     </div>
   </div>
 </div>
@@ -19,6 +18,9 @@
     map.setCenter(latlng, 7);
     jQuery.get('/geos/' + id + '/schools', {}, function(data){
       jQuery('#schools').html(data);
+    });
+    jQuery.get('/geos/box/' + id, {}, function(data){
+      jQuery('#geobox').html(data);
     });
   }
 </script>

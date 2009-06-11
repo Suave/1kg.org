@@ -8,9 +8,9 @@
           <%= text_field_tag 'city', "输入你想去的城市" %> <%= submit_tag "GO" %>
         <% end -%>
         <h3 style="background:none; padding:20px 0 0;"><strong>热门城市</strong></h3>
-        <ul class="clearfix tipText"><%= @hot_cities.collect {|c| "<li>#{link_to c.name, city_url(c.slug)}</li>"} %><li>...</li></ul>
+        <ul class="clearfix tipText"><%= @hot_cities.collect {|c| "<li>#{link_to c.name, geo_url(c)}</li>"} %><li>...</li></ul>
       </div>
-      <p class="remark">&raquo; <%= link_to "所有城市", all_geos_url %></p>
+      <p class="remark">&raquo; <%= link_to "所有城市", geos_url %></p>
     </div>
   </div>
 </div>

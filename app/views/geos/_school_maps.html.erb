@@ -8,7 +8,7 @@
   function initialize() {
     if (GBrowserIsCompatible()) {
       map = new GMap2(document.getElementById("map_div"));
-      map.setCenter(new GLatLng(<%= Geo::DEFAULT_CENTER[0].to_f %>, <%= Geo::DEFAULT_CENTER[1].to_f %>), 4);
+      map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
 

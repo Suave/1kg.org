@@ -1,4 +1,4 @@
-<% @page_title = "全部学校" -%>
+<% @page_title = "按城市查找" -%>
 
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
@@ -7,28 +7,26 @@
   </script>
 <% end %>
 
-<% content_for :crumb do -%>
-<li><%= link_to "学校", schools_url %></li>
-<ul>
-  <li>全部学校信息</li>
-</ul>
-<% end -%>
-
 <% content_for :sidebar do -%>
-  <%= render :partial => "submit" %>
-  <%= render :partial => "map_provinces", :locals => {:provinces => @cities} %>
-  <%= render :partial => "schools", :object => @schools %>
-  
+  <%= render :partial => "/schools/submit" %>
+  <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
   <p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
+  <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
 <% end -%>
 
+<% content_for :crumb do -%>
+  <li>目的地查询</li>
+  <ul>
+    <li>全国</li>
+  </ul>
+<% end -%>
 
 <div class="box" id="cityList">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>全部学校</h2>
+      <h2>全国</h2>
       <div class="contents">
-        <%= render :partial => '/geos/all_schools' %>
+        <%= render :partial => 'school_maps' %>
       </div>
     </div>
   </div>
