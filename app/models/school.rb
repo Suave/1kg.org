@@ -76,7 +76,8 @@ class School < ActiveRecord::Base
     Mailer.deliver_submitted_school_notification(self)
   end
   
-  validates_presence_of :title
+  validates_presence_of :geo_id, :message => "必选项"
+  validates_presence_of :title, :message => "必填项"
   
   
   def self.categories
@@ -152,7 +153,7 @@ class School < ActiveRecord::Base
       raise "学校访问数据错误"
     end
   end
-  
+=begin  
   def school_basic=(basic_attributes)
     if basic_attributes[:id].blank?
       build_basic(basic_attributes)
@@ -200,7 +201,7 @@ class School < ActiveRecord::Base
       finder.attributes = finder_attributes
     end
   end
-  
+=end  
   def self.archives(valid = true)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     

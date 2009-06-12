@@ -26,5 +26,6 @@
 
 class SchoolBasic < ActiveRecord::Base
   belongs_to :school
-    
+  
+  validates_presence_of :address, :message => "必填项"
 end

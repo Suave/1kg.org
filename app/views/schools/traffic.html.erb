@@ -1,10 +1,6 @@
 <% @page_title = "提交学校信息" -%>
 <% @body_class = "schools" -%>
 
-<% content_for :sidebar do -%>
-  <!-- <p>> <%= link_to "返回", schools_url %></p> -->
-<% end -%>
-
 <% content_for :fullsize do -%>
   <div class="box" id="schoolsPostTraffic">
     <div class="boxOuter">
@@ -20,20 +16,39 @@
         		</ol>
           </div>    
           
-          <% form_for :school, :url => schools_url(:step => 'traffic'), :html => {:id => "schoolsPostTraffic"} do |f| -%>
-          <%= f.hidden_field :id %>
-          <p><label class="label">学校所在省市</label><%= @school.geo.ancestors[0].name if @school.geo.child? %> <%= @school.geo.name %></p>
+          <% form_for :school, :url => schools_url(:step => 'traffic', :id => @school.id), :html => {:id => "schoolsPostTraffic"} do |f| -%>
+          
+          <p><label class="label">学校所在省市</label>
+          <%= @school.geo.ancestors[0].name if @school.geo.child? %> <%= @school.geo.name %>
+          </p>
           
           <% unless @school.geo.counties.size == 0 -%>
-          <p><label class="label">学校所属县</label><%= f.select :county_id, @school.geo.counties.collect {|c| [c.name, c.id]} %></p>
+          <p><label class="label">学校所属县</label>
+          <%= f.select :county_id, @school.geo.counties.collect {|c| [c.name, c.id]} %>
+          </p>
           <% end -%>
           
-          <% f.fields_for @school.traffic do |t| -%>
-          <p><label class="label" for="school_school_traffic_sight">附近景点</label><%= t.text_field :sight, :size => 30, :class => 'formText' %></p>
-          <p><label class="label" for="school_school_traffic_transport">交通方式</label><%= t.text_field :transport, :size => 30, :class => 'formText' %></p>
-          <p><label class="label" for="school_school_traffic_duration">路程时间</label><%= t.text_field :duration, :size => 10, :class => 'formText' %> 小时</p>
-          <p><label class="label" for="school_school_traffic_charge">交通费用</label><%= t.text_field :charge, :size => 10, :class => 'formText' %> 元</p>
-          <p><label class="label" for="school_school_traffic_description">路程攻略</label><%= t.text_area  :description, :cols => 75, :rows => 12 %></p>
+          <% f.fields_for :traffic_attributes do |t| -%>
+          <p><label class="label" for="school_school_traffic_sight">附近景点</label>
+          <%= t.text_field :sight, :size => 30, :class => 'formText' %>
+          </p>
+          
+          <p><label class="label" for="school_school_traffic_transport">交通方式</label>
+          <%= t.text_field :transport, :size => 30, :class => 'formText' %>
+          </p>
+          
+          <p><label class="label" for="school_school_traffic_duration">路程时间</label>
+          <%= t.text_field :duration, :size => 10, :class => 'formText' %> 小时
+          </p>
+          
+          <p><label class="label" for="school_school_traffic_charge">交通费用</label>
+          <%= t.text_field :charge, :size => 10, :class => 'formText' %> 元
+          </p>
+          
+          <p><label class="label" for="school_school_traffic_description">路程攻略</label>
+          <%= t.text_area  :description, :cols => 75, :rows => 12 %>
+          </p>
+          
           <% end -%>
           
           <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
