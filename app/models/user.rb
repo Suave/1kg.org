@@ -45,11 +45,11 @@ class User < ActiveRecord::Base
   belongs_to :geo
   has_one :profile
   
-  has_many :submitted_activities, :class_name => "Activity"
+  has_many :submitted_activities, :class_name => "Activity", :conditions => "deleted_at is null"
   has_many :participations
   has_many :participated_activities, :through => :participations, :source => :activity
   
-  has_many :submitted_schools, :class_name => "School"
+  has_many :submitted_schools, :class_name => "School", :conditions => "deleted_at is null"
   has_many :visiteds
   has_many :visited_schools, :through => :visiteds, :source => :school
   

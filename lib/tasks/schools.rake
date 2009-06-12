@@ -29,6 +29,15 @@ namespace :schools do
     puts "#{School.count} schools updated."
   end
   
+  desc "check if school's discussion exist"
+  task :discussion_check => :environment do
+    schools = School.find(:all)
+    schools.each do |s|
+      puts "#{s.title}(#{s.id}) has not discussion" unless s.discussion
+      puts "#{s.discussion.id} has not board" unless s.discussion.board
+    end
+  end
+  
   namespace :coordinates do
     desc "generate coordinates for all schools"
     task :generate => :environment do

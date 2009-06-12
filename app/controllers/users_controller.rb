@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :groups]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -190,6 +190,8 @@ class UsersController < ApplicationController
                                       :select => "title, hits, comments_count, created_at, id")
   end
   
+  
+  
   def neighbors
     get_user_record(@user)
     @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :order => "neighborhoods.created_at desc", :per_page => "50"
@@ -215,6 +217,10 @@ class UsersController < ApplicationController
     @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25 
   end
   
+  def groups
+    @groups = @user.joined_groups.find :all, :include => :memberships, :order => "memberships.created_at desc"
+  end
+  
 
   protected
   def find_user
@@ -227,6 +233,9 @@ class UsersController < ApplicationController
     
     #user's submitted schools
     @schools = user.submitted_schools.find(:all, :limit => 5, :order => "created_at desc")
+    
+    #user's joined groups
+    @groups = user.joined_groups.find(:all, :limit => 9, :include => :memberships, :order => "memberships.created_at asc")
     
     @neighbors = user.neighbors.find(:all, :order => "neighborhoods.created_at desc", 
                                            :limit => 9

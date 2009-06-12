@@ -12,7 +12,7 @@
 class SchoolBoard < ActiveRecord::Base
   include BodyFormat
   
-  has_one :board, :as => :talkable
+  has_one :board, :as => :talkable, :dependent => :destroy 
   belongs_to :school
   
   before_save :format_content
