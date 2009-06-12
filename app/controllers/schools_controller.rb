@@ -129,6 +129,8 @@ class SchoolsController < ApplicationController
     render :action => "edit_#{step}"
   end
   
+  
+  # TODO refactor
   def update
     @school = School.find(params[:id])
 
@@ -146,14 +148,7 @@ class SchoolsController < ApplicationController
           render :action => "edit_need"
       
         elsif params[:step] == 'need'
-=begin
-          new_tag_list = ""
-          %w(urgency book stationary sport cloth accessory course teacher other).each do |need|
-            new_tag_list += params[:school][:school_need][need.to_sym] unless params[:school][:school_need][need.to_sym].nil?
-          end
 
-          @school.need.tag_list = new_tag_list
-=end
           @school.update_attributes!(params[:school])
           flash[:notice] = "学校需求信息修改成功！"
           render :action => "edit_other"
