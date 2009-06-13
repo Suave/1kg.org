@@ -4,7 +4,7 @@ module Spec
   module Runner
     module Formatter
       class SpecdocFormatter < BaseTextFormatter
-        def add_example_group(example_group)
+        def example_group_started(example_group)
           super
           output.puts
           output.puts example_group.description
@@ -12,13 +12,7 @@ module Spec
         end
       
         def example_failed(example, counter, failure)
-          message = if failure.expectation_not_met?
-            "- #{example.description} (FAILED - #{counter})"
-          else
-            "- #{example.description} (ERROR - #{counter})"
-          end
-          
-          output.puts(failure.expectation_not_met? ? red(message) : magenta(message))
+          output.puts(red("- #{example.description} (FAILED - #{counter})"))
           output.flush
         end
         
@@ -28,11 +22,7 @@ module Spec
           output.flush
         end
         
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb
-        def example_pending(example, message, pending_caller)
-=======
-        def example_pending(example, message)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/runner/formatter/specdoc_formatter.rb
+        def example_pending(example, message, deprecated_pending_location=nil)
           super
           output.puts yellow("- #{example.description} (PENDING: #{message})")
           output.flush

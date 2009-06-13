@@ -24,7 +24,17 @@
 #  longitude           :string(255)
 #
 
+require 'gmap'
+
 class SchoolBasic < ActiveRecord::Base
+  include GMap
+
   belongs_to :school
-    
+
+  before_create :parse_address_to_coordinates
+  
+  private
+  def parse_address_to_coordinates
+    self.latitude, self.longitude = find_coordinates_by_address(self.address)
+  end
 end

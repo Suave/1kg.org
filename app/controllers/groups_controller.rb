@@ -116,7 +116,7 @@ class GroupsController < ApplicationController
       
     end
     
-    redirect_to manage_group_url @group
+    redirect_to(manage_group_url(@group))
   end
   
   def invite

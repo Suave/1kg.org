@@ -48,7 +48,6 @@ module Spec
     # This task can also be used to run existing Test::Unit tests and get RSpec
     # output, for example like this:
     #
-    #   require 'rubygems'
     #   require 'spec/rake/spectask'
     #   Spec::Rake::SpecTask.new do |t|
     #     t.ruby_opts = ['-rtest/unit']
@@ -56,12 +55,10 @@ module Spec
     #   end
     #
     class SpecTask < ::Rake::TaskLib
-      class << self
-        def attr_accessor(*names)
-          super(*names)
-          names.each do |name|
-            module_eval "def #{name}() evaluate(@#{name}) end" # Allows use of procs
-          end
+      def self.attr_accessor(*names)
+        super(*names)
+        names.each do |name|
+          module_eval "def #{name}() evaluate(@#{name}) end" # Allows use of procs
         end
       end
 
@@ -107,11 +104,7 @@ module Spec
       # A message to print to stderr when there are failures.
       attr_accessor :failure_message
 
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/rake/spectask.rb
       # Where RSpec's output is written. Defaults to $stdout.
-=======
-      # Where RSpec's output is written. Defaults to STDOUT.
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/rake/spectask.rb
       # DEPRECATED. Use --format FORMAT:WHERE in spec_opts.
       attr_accessor :out
 

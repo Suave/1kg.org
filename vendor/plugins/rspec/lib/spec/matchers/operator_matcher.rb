@@ -1,130 +1,75 @@
 module Spec
   module Matchers
-    class BaseOperatorMatcher
-      attr_reader :generated_description
-      
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      def initialize(given)
-        @given = given
-=======
-      def initialize(target)
-        @target = target
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
+
+    class OperatorMatcher
+      class << self
+        def registry
+          @registry ||= {}
+        end
+
+        def register(klass, operator, matcher)
+          registry[klass] ||= {}
+          registry[klass][operator] = matcher
+        end
+
+        def get(klass, operator)
+          registry[klass] && registry[klass][operator]
+        end
       end
 
-      def ==(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given("==", expected)
-=======
-        __delegate_method_missing_to_target("==", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
+      def initialize(actual)
+        @actual = actual
       end
 
-      def ===(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given("===", expected)
-=======
-        __delegate_method_missing_to_target("===", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
+      def self.use_custom_matcher_or_delegate(operator)
+        define_method(operator) do |expected|
+          if matcher = OperatorMatcher.get(@actual.class, operator)
+            @actual.send(::Spec::Matchers.last_should, matcher.new(expected))
+          else
+            eval_match(@actual, operator, expected)
+          end
+        end
       end
 
-      def =~(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given("=~", expected)
-=======
-        __delegate_method_missing_to_target("=~", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      end
-
-      def >(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given(">", expected)
-=======
-        __delegate_method_missing_to_target(">", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      end
-
-      def >=(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given(">=", expected)
-=======
-        __delegate_method_missing_to_target(">=", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      end
-
-      def <(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given("<", expected)
-=======
-        __delegate_method_missing_to_target("<", expected)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      end
-
-      def <=(expected)
-        @expected = expected
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-        __delegate_method_missing_to_given("<=", expected)
+      ['==', '===', '=~', '>', '>=', '<', '<='].each do |operator|
+        use_custom_matcher_or_delegate operator
       end
 
       def fail_with_message(message)
-        Spec::Expectations.fail_with(message, @expected, @given)
-=======
-        __delegate_method_missing_to_target("<=", expected)
+        Spec::Expectations.fail_with(message, @expected, @actual)
       end
 
-      def fail_with_message(message)
-        Spec::Expectations.fail_with(message, @expected, @target)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      end
-      
       def description
         "#{@operator} #{@expected.inspect}"
       end
-
-    end
-
-    class PositiveOperatorMatcher < BaseOperatorMatcher #:nodoc:
-
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      def __delegate_method_missing_to_given(operator, expected)
-        @operator = operator
+      
+    private
+      
+      def eval_match(actual, operator, expected)
         ::Spec::Matchers.last_matcher = self
-        return true if @given.__send__(operator, expected)
-        return fail_with_message("expected: #{expected.inspect},\n     got: #{@given.inspect} (using #{operator})") if ['==','===', '=~'].include?(operator)
-        return fail_with_message("expected: #{operator} #{expected.inspect},\n     got: #{operator.gsub(/./, ' ')} #{@given.inspect}")
-=======
-      def __delegate_method_missing_to_target(operator, expected)
-        @operator = operator
-        ::Spec::Matchers.last_matcher = self
-        return true if @target.__send__(operator, expected)
-        return fail_with_message("expected: #{expected.inspect},\n     got: #{@target.inspect} (using #{operator})") if ['==','===', '=~'].include?(operator)
-        return fail_with_message("expected: #{operator} #{expected.inspect},\n     got: #{operator.gsub(/./, ' ')} #{@target.inspect}")
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
+        @operator, @expected = operator, expected
+        __delegate_operator(actual, operator, expected)
       end
 
     end
 
-    class NegativeOperatorMatcher < BaseOperatorMatcher #:nodoc:
+    class PositiveOperatorMatcher < OperatorMatcher #:nodoc:
+      def __delegate_operator(actual, operator, expected)
+        if actual.__send__(operator, expected)
+          true
+        elsif ['==','===', '=~'].include?(operator)
+          fail_with_message("expected: #{expected.inspect},\n     got: #{actual.inspect} (using #{operator})") 
+        else
+          fail_with_message("expected: #{operator} #{expected.inspect},\n     got: #{operator.gsub(/./, ' ')} #{actual.inspect}")
+        end
+      end
 
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
-      def __delegate_method_missing_to_given(operator, expected)
-        @operator = operator
-        ::Spec::Matchers.last_matcher = self
-        return true unless @given.__send__(operator, expected)
-        return fail_with_message("expected not: #{operator} #{expected.inspect},\n         got: #{operator.gsub(/./, ' ')} #{@given.inspect}")
-=======
-      def __delegate_method_missing_to_target(operator, expected)
-        @operator = operator
-        ::Spec::Matchers.last_matcher = self
-        return true unless @target.__send__(operator, expected)
-        return fail_with_message("expected not: #{operator} #{expected.inspect},\n         got: #{operator.gsub(/./, ' ')} #{@target.inspect}")
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/operator_matcher.rb
+    end
+
+    class NegativeOperatorMatcher < OperatorMatcher #:nodoc:
+      def __delegate_operator(actual, operator, expected)
+        return true unless actual.__send__(operator, expected)
+        return fail_with_message("expected not: #{operator} #{expected.inspect},\n         got: #{operator.gsub(/./, ' ')} #{actual.inspect}")
       end
 
     end

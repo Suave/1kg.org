@@ -5,7 +5,7 @@ module Spec
         if block_given?
           begin
             yield
-          rescue Exception => e
+          rescue Exception
             raise Spec::Example::ExamplePendingError.new(message)
           end
           raise Spec::Example::PendingExampleFixedError.new("Expected pending '#{message}' to fail. No Error was raised.")

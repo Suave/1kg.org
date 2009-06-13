@@ -1,190 +1,134 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
+class Thing
+  attr_reader :arg
+  def initialize(arg=nil)
+    @arg = arg || :default
+  end
+  def ==(other)
+    @arg == other.arg
+  end
+  def eql?(other)
+    @arg == other.arg
+  end
+end
+
 module Spec
   module Example
-    module ModuleThatIsReopened
-    end
-
-    module ExampleMethods
-      include ModuleThatIsReopened
-    end
-
-    module ModuleThatIsReopened
-      def module_that_is_reopened_method
-      end
-    end
-
     describe ExampleMethods do
+      module ModuleThatIsReopened; end
+
+      module Spec::Example::ExampleMethods
+        include ModuleThatIsReopened
+      end
+
+      module ModuleThatIsReopened
+        def module_that_is_reopened_method; end
+      end
+      
       describe "with an included module that is reopened" do
         it "should have repoened methods" do
           method(:module_that_is_reopened_method).should_not be_nil
         end
       end
 
-      describe "lifecycle" do
-        before do
-          @original_rspec_options = Spec::Runner.options
+      describe "#should" do
+        before(:each) do
+          @example_group = Class.new(ExampleGroupDouble)
           @options = ::Spec::Runner::Options.new(StringIO.new, StringIO.new)
-          Spec::Runner.use @options
-          @options.formatters << mock("formatter", :null_object => true)
-          @options.backtrace_tweaker = mock("backtrace_tweaker", :null_object => true)
-          @reporter = FakeReporter.new(@options)
-          @options.reporter = @reporter
-
-          ExampleMethods.before_all_parts.should == []
-          ExampleMethods.before_each_parts.should == []
-          ExampleMethods.after_each_parts.should == []
-          ExampleMethods.after_all_parts.should == []
-          def ExampleMethods.count
-            @count ||= 0
-            @count = @count + 1
-            @count
+        end
+        
+        context "in an ExampleGroup with an implicit subject" do
+          it "delegates matcher to the implied subject" do
+            @example_group.describe(::Thing)
+            @example_group.example { should == ::Thing.new(:default) }
+            @example_group.example { should eql(::Thing.new(:default)) }
+            @example_group.run(@options).should be_true
           end
         end
-
-        after do
-          Spec::Runner.use @original_rspec_options
-          ExampleMethods.instance_variable_set("@before_all_parts", [])
-          ExampleMethods.instance_variable_set("@before_each_parts", [])
-          ExampleMethods.instance_variable_set("@after_each_parts", [])
-          ExampleMethods.instance_variable_set("@after_all_parts", [])
-        end
-
-        it "should pass before and after callbacks to all ExampleGroup subclasses" do
-          ExampleMethods.before(:suite) do
-            ExampleMethods.count.should == 1
+        
+        context "in an ExampleGroup using an explicit subject" do
+          it "delegates matcher to the declared subject" do
+            @example_group.describe(::Thing)
+            @example_group.subject { ::Thing.new(:other) }
+            @example_group.example { should == ::Thing.new(:other) }
+            @example_group.example { should eql(::Thing.new(:other)) }
+            @example_group.run(@options).should be_true
           end
-
-          ExampleMethods.before(:all) do
-            ExampleMethods.count.should == 2
-          end
-
-          ExampleMethods.before(:each) do
-            ExampleMethods.count.should == 3
-          end
-
-          ExampleMethods.after(:each) do
-            ExampleMethods.count.should == 4
-          end
-
-          ExampleMethods.after(:all) do
-            ExampleMethods.count.should == 5
-          end
-
-          ExampleMethods.after(:suite) do
-            ExampleMethods.count.should == 6
-          end
-
-          @example_group = Class.new(ExampleGroup) do
-            it "should use ExampleMethods callbacks" do
-            end
-          end
-          @options.run_examples
-          ExampleMethods.count.should == 7
-        end
-
-        describe "eval_block" do
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
-          before(:each) do
-            @example_group = Class.new(ExampleGroup)
-          end
-          
-          describe "with a given description" do
-            it "should provide the given description" do
-=======
-          describe "with a given description" do
-            it "should provide the given description" do
-              @example_group = Class.new(ExampleGroup) do end
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
-              @example = @example_group.it("given description") { 2.should == 2 }
-              @example.eval_block
-              @example.description.should == "given description"
-            end
-          end
-
-          describe "with no given description" do
-            it "should provide the generated description" do
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
-=======
-              @example_group = Class.new(ExampleGroup) do end
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
-              @example = @example_group.it { 2.should == 2 }
-              @example.eval_block
-              @example.description.should == "should == 2"
-            end
-          end
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
-          
-          describe "with no implementation" do
-            it "should raise an NotYetImplementedError" do
-              lambda {
-                @example = @example_group.it
-                @example.eval_block
-              }.should raise_error(Spec::Example::NotYetImplementedError, "Not Yet Implemented")
-            end
-            
-            def extract_error(&blk)
-              begin
-                blk.call
-              rescue Exception => e
-                return e
-              end
-              
-              nil
-            end
-            
-            it "should use the proper file and line number for the NotYetImplementedError" do
-              file = __FILE__
-              line_number = __LINE__ + 3
-              
-              error = extract_error do
-                @example = @example_group.it
-                @example.eval_block
-              end
-              
-              error.pending_caller.should == "#{file}:#{line_number}"
-            end
-          end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
         end
       end
 
-      describe "#implementation_backtrace" do
-        it "returns the backtrace of where the implementation was defined" do
-          example_group = Class.new(ExampleGroup) do
-            it "should use ExampleMethods callbacks" do
-            end
-          end
-          example = example_group.examples.first
-          example.implementation_backtrace.join("\n").should include("#{__FILE__}:#{__LINE__-4}")
+      describe "#should_not" do
+        before(:each) do
+          @example_group = Class.new(ExampleGroupDouble)
         end
-      end
 
-      describe "#__full_description" do
-        it "should return the full description of the ExampleGroup and Example" do
-          example_group = Class.new(ExampleGroup).describe("An ExampleGroup") do
-            it "should do something" do
-            end
+        context "in an ExampleGroup with an implicit subject" do
+          it "delegates matcher to the implied subject" do
+            @example_group.describe(::Thing)
+            @example_group.example { should_not == ::Thing.new(:other) }
+            @example_group.example { should_not eql(::Thing.new(:other)) }
+            @example_group.run(::Spec::Runner::Options.new(StringIO.new, StringIO.new)).should be_true
           end
-          example = example_group.examples.first
-          example.__full_description.should == "An ExampleGroup should do something"
+        end
+        
+        context "in an ExampleGroup using an explicit subject" do
+          it "delegates matcher to the declared subject" do
+            @example_group.describe(::Thing)
+            @example_group.subject { ::Thing.new(:other) }
+            @example_group.example { should_not == ::Thing.new(:default) }
+            @example_group.example { should_not eql(::Thing.new(:default)) }
+            @example_group.run(::Spec::Runner::Options.new(StringIO.new, StringIO.new)).should be_true
+          end
         end
       end
     end
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb
 
     describe "#options" do
       it "should expose the options hash" do
-        example_group = Class.new(ExampleGroup)
-        example = example_group.example "name", :this => 'that' do; end
+        example = ExampleGroupDouble.new ExampleProxy.new("name", :this => 'that') do; end
         example.options[:this].should == 'that'
+      end
+    end
+    
+    describe "#set_instance_variables_from_hash" do
+      it "preserves the options" do
+        example = ExampleGroupDouble.new ExampleProxy.new("name", :this => 'that') do; end
+        example.set_instance_variables_from_hash({:@_options => {}})
+        example.options[:this].should == 'that'
+      end
+    end
+    
+    describe "#description" do
+      it "returns the supplied description" do
+        example = ExampleGroupDouble.new ExampleProxy.new("name") do; end
+        example.description.should == "name"
+      end
+      it "returns the generated description if there is no description supplied" do
+        example = ExampleGroupDouble.new ExampleProxy.new do; end
+        Spec::Matchers.stub!(:generated_description).and_return('this message')
+        example.description.should == "this message"
+      end
+      it "raises if there is no supplied or generated description" do
+        example = ExampleGroupDouble.new ExampleProxy.new(nil, {}, "this backtrace") do; end
+        Spec::Matchers.stub!(:generated_description).and_return(nil)
+        lambda do
+          example.description
+        end.should raise_error(/No description supplied for example declared on this backtrace/)
+      end
+    end
+    
+    describe "#expect" do
+      it "aliases #should with #to on the proc" do
+        a = 3
+        expect { a += 1 }.to change{a}.from(3).to(4)
+      end
+
+      it "aliases #should_not with #to_not on the proc" do
+        a = 3
+        expect { nil }.to_not change{a}
       end
     end
 
   end
 end
-=======
-  end
-end
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/example/example_methods_spec.rb

@@ -104,7 +104,7 @@ class BoardsController < ApplicationController
   def board_type_check(board)
     if not board.talkable.class == CityBoard
       flash[:notice] = "您刚刚访问的URL不正确, 请仔细检查核对一下"
-      return redirect_to root_url
+      return(redirect_to(root_url))
     end
   end
   

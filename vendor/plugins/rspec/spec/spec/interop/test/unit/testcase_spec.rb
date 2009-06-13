@@ -42,11 +42,4 @@ describe "Test::Unit::TestCase" do
       $?.should == 256
     end
   end
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/interop/test/unit/testcase_spec.rb
-  
-  describe "not yet implemented examples:" do
-    it "this example should be reported as pending (not an error)"
-  end
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/interop/test/unit/testcase_spec.rb
 end

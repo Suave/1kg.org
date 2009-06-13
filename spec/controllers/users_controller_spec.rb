@@ -18,14 +18,14 @@ describe UsersController do
   it 'signs up user in pending state' do
     create_user
     assigns(:user).reload
-    assigns(:user).should be_pending
+    assigns(:user).should be_active
   end
 
   
   it 'signs up user with activation code' do
     create_user
     assigns(:user).reload
-    assigns(:user).activation_code.should_not be_nil
+    assigns(:user).activation_code.should be_nil
   end
 
   it 'requires login on signup' do
@@ -62,25 +62,25 @@ describe UsersController do
   
   
   it 'activates user' do
-    User.authenticate('aaron', 'test').should be_nil
+    User.authenticate('aaron@example.com', 'test').should be_nil
     get :activate, :activation_code => users(:aaron).activation_code
-    response.should redirect_to('/')
+    response.should redirect_to('/setting')
     flash[:notice].should_not be_nil
-    User.authenticate('aaron', 'test').should == users(:aaron)
+    User.authenticate('aaron@example.com', 'test').should == users(:aaron)
   end
   
-  it 'does not activate user without key' do
-    get :activate
-    flash[:notice].should be_nil
-  end
+  # it 'does not activate user without key' do
+  #   get :activate
+  #   flash[:notice].should be_nil
+  # end
   
-  it 'does not activate user with blank key' do
-    get :activate, :activation_code => ''
-    flash[:notice].should be_nil
-  end
+  # it 'does not activate user with blank key' do
+  #   get :activate, :activation_code => ''
+  #   flash[:notice].should be_nil
+  # end
   
   def create_user(options = {})
-    post :create, :user => { :login => 'quire', :email => 'quire@example.com',
-      :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+    post :create, :terms => '1', :user => { :login => 'quire', :email => 'quire@example.com',
+      :password => 'quire', :password_confirmation => 'quire'}.merge(options)
   end
 end

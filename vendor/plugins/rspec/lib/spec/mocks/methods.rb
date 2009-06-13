@@ -17,6 +17,15 @@ module Spec
         end
       end
       
+      alias_method :stub, :stub!
+
+      def stub_chain(*methods)
+        while methods.length > 1
+          stub!(methods.shift).and_return(self)
+        end
+        stub!(methods.shift)
+      end
+      
       def received_message?(sym, *args, &block) #:nodoc:
         __mock_proxy.received_message?(sym.to_sym, *args, &block)
       end
@@ -30,11 +39,7 @@ module Spec
       end
       
       def as_null_object
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
         __mock_proxy.as_null_object
-=======
-        __mock_proxy.act_as_null_object
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb
       end
       
       def null_object?
@@ -47,11 +52,7 @@ module Spec
         if Mock === self
           @mock_proxy ||= Proxy.new(self, @name, @options)
         else
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks/methods.rb
           @mock_proxy ||= Proxy.new(self)
-=======
-          @mock_proxy ||= Proxy.new(self, self.class.name)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks/methods.rb
         end
       end
     end

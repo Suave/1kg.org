@@ -6,9 +6,9 @@ module Spec
       def initialize(description, &match_block)
         @description = description
         @match_block = match_block
+        @failure_message = @negative_failure_message = nil
       end
 
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
       def matches?(given)
         @given = given
         case @match_block.arity
@@ -16,15 +16,6 @@ module Spec
           @match_block.call(@given, self)
         else
           @match_block.call(@given)
-=======
-      def matches?(actual)
-        @actual = actual
-        case @match_block.arity
-        when 2
-          @match_block.call(@actual, self)
-        else
-          @match_block.call(@actual)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
         end
       end
       
@@ -32,20 +23,12 @@ module Spec
         @description || explanation
       end
 
-      def failure_message
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
+      def failure_message_for_should
         @failure_message || (@description.nil? ? explanation : %[expected #{@description.inspect} but got #{@given.inspect}])
       end
 
-      def negative_failure_message
+      def failure_message_for_should_not
         @negative_failure_message || (@description.nil? ? explanation : %[expected not to get #{@description.inspect}, but got #{@given.inspect}])
-=======
-        @failure_message || (@description.nil? ? explanation : %[expected #{@description.inspect} but got #{@actual.inspect}])
-      end
-
-      def negative_failure_message
-        @negative_failure_message || (@description.nil? ? explanation : %[expected not to get #{@description.inspect}, but got #{@actual.inspect}])
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
       end
 
       def explanation
@@ -99,11 +82,7 @@ module Spec
     #     simple_matcher("rhyme with #{expected.inspect}") do |given, matcher|
     #       matcher.failure_message = "expected #{given.inspect} to rhyme with #{expected.inspect}"
     #       matcher.negative_failure_message = "expected #{given.inspect} not to rhyme with #{expected.inspect}"
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
     #       given.rhymes_with? expected
-=======
-    #       actual.rhymes_with? expected
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
     #     end
     #   end
     #
@@ -114,11 +93,7 @@ module Spec
     #       matcher.description = "rhyme with #{expected.inspect}"
     #       matcher.failure_message = "expected #{given.inspect} to rhyme with #{expected.inspect}"
     #       matcher.negative_failure_message = "expected #{given.inspect} not to rhyme with #{expected.inspect}"
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
     #       given.rhymes_with? expected
-=======
-    #       actual.rhymes_with? expected
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/simple_matcher.rb
     #     end
     #   end
     #

@@ -1,20 +1,5 @@
 require 'spec/mocks/framework'
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/mocks.rb
 require 'spec/mocks/extensions/object'
-=======
-require 'spec/mocks/methods'
-require 'spec/mocks/argument_constraint_matchers'
-require 'spec/mocks/spec_methods'
-require 'spec/mocks/proxy'
-require 'spec/mocks/mock'
-require 'spec/mocks/argument_expectation'
-require 'spec/mocks/message_expectation'
-require 'spec/mocks/order_group'
-require 'spec/mocks/errors'
-require 'spec/mocks/error_generator'
-require 'spec/mocks/extensions/object'
-require 'spec/mocks/space'
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/mocks.rb
 
 module Spec
   # == Mocks and Stubs
@@ -120,11 +105,11 @@ module Spec
   #   my_mock.should_receive(:sym).with(*args)
   #   my_mock.should_not_receive(:sym).with(*args)
   #
-  # == Argument Constraints using Expression Matchers
+  # == Argument Matchers
   #
   # Arguments that are passed to #with are compared with actual arguments received
   # using == by default. In cases in which you want to specify things about the arguments
-  # rather than the arguments themselves, you can use any of the Expression Matchers.
+  # rather than the arguments themselves, you can use any of RSpec's Expression Matchers.
   # They don't all make syntactic sense (they were primarily designed for use with
   # Spec::Expectations), but you are free to create your own custom Spec::Matchers.
   #
@@ -135,7 +120,7 @@ module Spec
   #
   #   my_mock.should_receive(:sym).with(no_args())
   #   my_mock.should_receive(:sym).with(any_args())
-  #   my_mock.should_receive(:sym).with(1, an_instance_of(Numeric), "b") #2nd argument can any type of Numeric
+  #   my_mock.should_receive(:sym).with(1, kind_of(Numeric), "b") #2nd argument can any kind of Numeric
   #   my_mock.should_receive(:sym).with(1, boolean(), "b") #2nd argument can true or false
   #   my_mock.should_receive(:sym).with(1, /abc/, "b") #2nd argument can be any String matching the submitted Regexp
   #   my_mock.should_receive(:sym).with(1, anything(), "b") #2nd argument can be anything at all

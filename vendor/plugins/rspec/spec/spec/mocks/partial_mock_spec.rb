@@ -11,7 +11,6 @@ module Spec
         @object.should_receive(:foo)
         lambda do
           @object.rspec_verify
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         end.should raise_error(Spec::Mocks::MockExpectationError, /<Object:.*> expected/)
       end
     
@@ -20,9 +19,6 @@ module Spec
         lambda do
           Object.rspec_verify
         end.should raise_error(Spec::Mocks::MockExpectationError, /<Object \(class\)>/)
-=======
-        end.should raise_error(Spec::Mocks::MockExpectationError, /Object/)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
       end
     
       it "should not conflict with @options in the object" do
@@ -32,18 +28,10 @@ module Spec
       end
             
       it "should_not_receive should mock out the method" do
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         @object.should_not_receive(:fuhbar)
         lambda do
           @object.fuhbar
         end.should raise_error(MockExpectationError, /<Object:.*> expected :fuhbar with \(no args\) 0 times/)
-=======
-        pending("example raises the expected error, yet fails")
-        @object.should_not_receive(:fuhbar)
-        lambda do
-          @object.fuhbar
-        end.should raise_error(MockExpectationError, "Mock 'Object' expected :fuhbar with (no args) 0 times, but received it once")
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
       end
     
       it "should_not_receive should return a negative message expectation" do
@@ -84,10 +72,6 @@ module Spec
       end
       
       it "should_not_receive should also take a String argument" do
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
-=======
-        pending("example raises the expected error, yet fails")
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         @object.should_not_receive('foobar')
         lambda do
           @object.foobar   
@@ -95,19 +79,12 @@ module Spec
       end
       
       it "should use report nil in the error message" do
-<<<<<<< HEAD:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
         allow_message_expectations_on_nil
         
         @this_will_resolve_to_nil.should_receive(:foobar)
         lambda do
           @this_will_resolve_to_nil.rspec_verify
         end.should raise_error(Spec::Mocks::MockExpectationError, /nil expected :foobar with/)
-=======
-        @this_will_resolve_to_nil.should_receive(:foobar)
-        lambda do
-          @this_will_resolve_to_nil.rspec_verify
-        end.should raise_error(Spec::Mocks::MockExpectationError, /NilClass.*expected :foobar with/)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/spec/spec/mocks/partial_mock_spec.rb
       end
     end
     
@@ -151,19 +128,34 @@ module Spec
 
       it 'should keep public methods public' do
         @object.should_receive(:public_method)
-        @object.public_methods.should include('public_method')
+        with_ruby('1.9') do
+          @object.public_methods.should include(:public_method)
+        end
+        with_ruby('1.8') do
+          @object.public_methods.should include('public_method')
+        end
         @object.public_method
       end
 
       it 'should keep private methods private' do
         @object.should_receive(:private_method)
-        @object.private_methods.should include('private_method')
+        with_ruby('1.9') do
+          @object.private_methods.should include(:private_method)
+        end
+        with_ruby('1.8') do
+          @object.private_methods.should include('private_method')
+        end
         @object.public_method
       end
 
       it 'should keep protected methods protected' do
         @object.should_receive(:protected_method)
-        @object.protected_methods.should include('protected_method')
+        with_ruby('1.9') do
+          @object.protected_methods.should include(:protected_method)
+        end
+        with_ruby('1.8') do
+          @object.protected_methods.should include('protected_method')
+        end
         @object.public_method
       end
 

@@ -1,9 +1,9 @@
 module Spec
   module Matchers
     class RaiseError #:nodoc:
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
       def initialize(expected_error_or_message=Exception, expected_message=nil, &block)
         @block = block
+        @actual_error = nil
         case expected_error_or_message
         when String, Regexp
           @expected_error, @expected_message = Exception, expected_error_or_message
@@ -13,37 +13,16 @@ module Spec
       end
 
       def matches?(given_proc)
-=======
-      def initialize(error_or_message=Exception, message=nil, &block)
-        @block = block
-        case error_or_message
-        when String, Regexp
-          @expected_error, @expected_message = Exception, error_or_message
-        else
-          @expected_error, @expected_message = error_or_message, message
-        end
-      end
-
-      def matches?(proc)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         @raised_expected_error = false
         @with_expected_message = false
         @eval_block = false
         @eval_block_passed = false
         begin
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           given_proc.call
-        rescue @expected_error => @given_error
-          @raised_expected_error = true
-          @with_expected_message = verify_message
-        rescue Exception => @given_error
-=======
-          proc.call
         rescue @expected_error => @actual_error
           @raised_expected_error = true
           @with_expected_message = verify_message
         rescue Exception => @actual_error
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
           # This clause should be empty, but rcov will not report it as covered
           # unless something (anything) is executed within the clause
           rcov_error_report = "http://eigenclass.org/hiki.rb?rcov-0.8.0"
@@ -53,63 +32,36 @@ module Spec
           eval_block if @raised_expected_error && @with_expected_message && @block
         end
       ensure
-        return (@raised_expected_error && @with_expected_message) ? (@eval_block ? @eval_block_passed : true) : false
+        return (@raised_expected_error & @with_expected_message) ? (@eval_block ? @eval_block_passed : true) : false
       end
       
       def eval_block
         @eval_block = true
         begin
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
-          @block[@given_error]
-          @eval_block_passed = true
-        rescue Exception => err
-          @given_error = err
-=======
           @block[@actual_error]
           @eval_block_passed = true
         rescue Exception => err
           @actual_error = err
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         end
       end
 
       def verify_message
         case @expected_message
         when nil
-          return true
+          true
         when Regexp
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
-          return @expected_message =~ @given_error.message
+          @expected_message =~ @actual_error.message
         else
-          return @expected_message == @given_error.message
-=======
-          return @expected_message =~ @actual_error.message
-        else
-          return @expected_message == @actual_error.message
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+          @expected_message == @actual_error.message
         end
       end
       
-      def failure_message
-        if @eval_block
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
-          return @given_error.message
-        else
-          return "expected #{expected_error}#{given_error}"
-=======
-          return @actual_error.message
-        else
-          return "expected #{expected_error}#{actual_error}"
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
-        end
+      def failure_message_for_should
+        @eval_block ? @actual_error.message : "expected #{expected_error}#{given_error}"
       end
 
-      def negative_failure_message
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
+      def failure_message_for_should_not
         "expected no #{expected_error}#{given_error}"
-=======
-        "expected no #{expected_error}#{actual_error}"
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
       end
       
       def description
@@ -128,13 +80,8 @@ module Spec
           end
         end
 
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         def given_error
-          @given_error.nil? ? " but nothing was raised" : ", got #{@given_error.inspect}"
-=======
-        def actual_error
           @actual_error.nil? ? " but nothing was raised" : ", got #{@actual_error.inspect}"
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/raise_error.rb
         end
         
         def negative_expectation?

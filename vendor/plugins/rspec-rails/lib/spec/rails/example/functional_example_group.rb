@@ -1,31 +1,25 @@
+require 'action_controller/test_case'
+
 module Spec
   module Rails
     module Example
-      class FunctionalExampleGroup < RailsExampleGroup
-        include ActionController::TestProcess
-        include ActionController::Assertions
+      class FunctionalExampleGroup < ActionController::TestCase
+        def setup
+          # no-op to override AC::TC's setup w/ conflicts with the before(:each) below
+        end
 
         attr_reader :request, :response
-        before(:each) do
-          @controller_class = Object.path2class @controller_class_name
-          raise "Can't determine controller class for #{@controller_class_name}" if @controller_class.nil?
-
-          @controller = @controller_class.new
-          @request = ActionController::TestRequest.new
-          @response = ActionController::TestResponse.new
-          @response.session = @request.session
-        end
 
         def params
           request.parameters
         end
 
         def flash
-          response.flash
+          @controller.__send__ :flash
         end
 
         def session
-          response.session
+          request.session
         end
         
         # Overrides the <tt>cookies()</tt> method in
@@ -35,28 +29,28 @@ module Spec
         # cookies in examples using the same API with which you set and read
         # them in controllers.
         #
-        # == Examples (Rails >= 1.2.6)
-        #
-        #   cookies[:user_id] = '1234'
-        #   get :index
-        #   assigns[:user].id.should == '1234'
-        #
-        #   post :login
-        #   cookies[:login].expires.should == 1.week.from_now
-        #
-        # == Examples (Rails >= 2.0.0 only)
+        # == Examples (Rails 2.0 > 2.2)
         #
         #   cookies[:user_id] = {:value => '1234', :expires => 1.minute.ago}
         #   get :index
         #   response.should be_redirect
+        #
+        # == Examples (Rails 2.3)
+        #
+        # Rails 2.3 changes the way cookies are made available to functional
+        # tests (and therefore rspec controller specs), only making single
+        # values available with no access to other aspects of the cookie. This
+        # is backwards-incompatible, so you have to change your examples to
+        # look like this:
+        #
+        #   cookies[:foo] = 'bar'
+        #   get :index
+        #   cookies[:foo].should == 'bar'
         def cookies
           @cookies ||= Spec::Rails::Example::CookiesProxy.new(self)
         end
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
         
         alias_method :orig_assigns, :assigns
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
 
         # :call-seq:
         #   assigns()
@@ -74,7 +68,7 @@ module Spec
         #   assigns[:registration].should == Thing.new
         #--
         # NOTE - Even though docs only use assigns[:key] format, this supports
-        # assigns(:key) in order to avoid breaking old specs.
+        # assigns(:key) for backwards compatibility.
         #++
         def assigns(key = nil)
           if key.nil?
@@ -83,10 +77,7 @@ module Spec
             _assigns_hash_proxy[key]
           end
         end
-<<<<<<< HEAD:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
 
-=======
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec-rails/lib/spec/rails/example/functional_example_group.rb
       end
     end
   end

@@ -2,6 +2,9 @@ require 'fastercsv'
 require 'hpricot'
 require 'open-uri'
 require 'cgi'
+require 'gmap'
+
+include GMap
 
 namespace :schools do
   desc "import all schools to db/schools.csv"
@@ -85,30 +88,4 @@ namespace :geo do
       end
     end
   end
-end
-
-def find_coordinates_by_address(address)
-  connect_count = 1
-  
-  url  = "http://maps.google.com/maps/geo?q=#{CGI.escape(address)}&output=xml"
-  
-  while connect_count < 3
-    begin
-      data = open(url)
-      doc  = Hpricot(data)
-      code = doc / 'code'
-
-      if code.inner_text == '200'
-        coordinates = doc / 'coordinates'
-        return coordinates.inner_text.split(',')
-      else
-        return ['121.475916', '31.224353']
-      end
-    rescue
-      connect_count += 1
-      puts "Timeout, Retrying..."
-    end
-  end
-
-  ['121.475916', '31.224353']
 end

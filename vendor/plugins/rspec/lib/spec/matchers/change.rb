@@ -4,11 +4,9 @@ module Spec
     #Based on patch from Wilson Bilkovich
     class Change #:nodoc:
       def initialize(receiver=nil, message=nil, &block)
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
         @message = message || "result"
-        @value_proc = block || lambda {
-          receiver.__send__(message)
-        }
+        @value_proc = block || lambda {receiver.__send__(message)}
+        @to = @from = @minimum = @maximum = @amount = nil
       end
       
       def matches?(event_proc)
@@ -18,33 +16,14 @@ module Spec
         event_proc.call
         @after = evaluate_value_proc
         
-        return false if @from unless @from == @before
+        return (@to = false) if @from unless @from == @before
         return false if @to unless @to == @after
-=======
-        @receiver = receiver
-        @message = message
-        @block = block
-      end
-      
-      def matches?(target, &block)
-        if block
-          raise MatcherError.new(<<-EOF
-block passed to should or should_not change must use {} instead of do/end
-EOF
-)
-        end
-        @target = target
-        execute_change
-        return false if @from && (@from != @before)
-        return false if @to && (@to != @after)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
         return (@before + @amount == @after) if @amount
         return ((@after - @before) >= @minimum) if @minimum
         return ((@after - @before) <= @maximum) if @maximum        
         return @before != @after
       end
       
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
       def raise_block_syntax_error
         raise MatcherError.new(<<-MESSAGE
 block passed to should or should_not change must use {} instead of do/end
@@ -54,17 +33,10 @@ MESSAGE
       
       def evaluate_value_proc
         @value_proc.call
-=======
-      def execute_change
-        @before = @block.nil? ? @receiver.__send__(@message) : @block.call
-        @target.call
-        @after = @block.nil? ? @receiver.__send__(@message) : @block.call
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       end
       
-      def failure_message
+      def failure_message_for_should
         if @to
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
           "#{@message} should have been changed to #{@to.inspect}, but is now #{@after.inspect}"
         elsif @from
           "#{@message} should have initially been #{@from.inspect}, but was #{@before.inspect}"
@@ -79,36 +51,12 @@ MESSAGE
         end
       end
       
-=======
-          "#{result} should have been changed to #{@to.inspect}, but is now #{@after.inspect}"
-        elsif @from
-          "#{result} should have initially been #{@from.inspect}, but was #{@before.inspect}"
-        elsif @amount
-          "#{result} should have been changed by #{@amount.inspect}, but was changed by #{actual_delta.inspect}"
-        elsif @minimum
-          "#{result} should have been changed by at least #{@minimum.inspect}, but was changed by #{actual_delta.inspect}"
-        elsif @maximum
-          "#{result} should have been changed by at most #{@maximum.inspect}, but was changed by #{actual_delta.inspect}"
-        else
-          "#{result} should have changed, but is still #{@before.inspect}"
-        end
-      end
-      
-      def result
-        @message || "result"
-      end
-      
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       def actual_delta
         @after - @before
       end
       
-      def negative_failure_message
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
+      def failure_message_for_should_not
         "#{@message} should not have changed, but did change from #{@before.inspect} to #{@after.inspect}"
-=======
-        "#{result} should not have changed, but did change from #{@before.inspect} to #{@after.inspect}"
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
       end
       
       def by(amount)
@@ -134,6 +82,10 @@ MESSAGE
       def from (from)
         @from = from
         self
+      end
+      
+      def description
+        "change ##{@message}"
       end
     end
     
@@ -192,13 +144,8 @@ MESSAGE
     # <tt>change</tt> must use the <tt>{}</tt> form (<tt>do/end</tt> is not
     # supported).
     #
-<<<<<<< HEAD:vendor/plugins/rspec/lib/spec/matchers/change.rb
     def change(receiver=nil, message=nil, &block)
       Matchers::Change.new(receiver, message, &block)
-=======
-    def change(target=nil, message=nil, &block)
-      Matchers::Change.new(target, message, &block)
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/spec/matchers/change.rb
     end
   end
 end

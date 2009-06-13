@@ -4,11 +4,7 @@ Autotest.add_hook :initialize do |at|
   at.clear_mappings
   # watch out: Ruby bug (1.8.6):
   # %r(/) != /\//
-<<<<<<< HEAD:vendor/plugins/rspec/lib/autotest/rspec.rb
   at.add_mapping(%r%^spec/.*_spec.rb$%) { |filename, _| 
-=======
-  at.add_mapping(%r%^spec/.*\.rb$%) { |filename, _| 
->>>>>>> c0ecd1809fb41614ff2905f5c6250ede5f190a92:vendor/plugins/rspec/lib/autotest/rspec.rb
     filename 
   }
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m| 
@@ -25,14 +21,14 @@ class Autotest::Rspec < Autotest
 
   def initialize
     super
-    self.failed_results_re = /^\d+\)\n(?:\e\[\d*m)?(?:.*?Error in )?'([^\n]*)'(?: FAILED)?(?:\e\[\d*m)?\n(.*?)\n\n/m
+    self.failed_results_re = /^\d+\)\n(?:\e\[\d*m)?(?:.*?in )?'([^\n]*)'(?: FAILED)?(?:\e\[\d*m)?\n(.*?)\n\n/m
     self.completed_re = /\n(?:\e\[\d*m)?\d* examples?/m
   end
   
   def consolidate_failures(failed)
     filters = new_hash_of_arrays
     failed.each do |spec, trace|
-      if trace =~ /\n(\.\/)?(.*spec\.rb):[\d]+:\Z?/
+      if trace =~ /\n(\.\/)?(.*spec\.rb):[\d]+:/
         filters[$2] << spec
       end
     end
@@ -41,7 +37,8 @@ class Autotest::Rspec < Autotest
 
   def make_test_cmd(files_to_test)
     return '' if files_to_test.empty?
-    return "#{ruby} -S #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
+    spec_program = File.expand_path(File.join(File.dirname(__FILE__), '..', '..', 'bin', 'spec'))
+    return "#{ruby} #{spec_program} --autospec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
   end
   
   def add_options_if_present # :nodoc:
