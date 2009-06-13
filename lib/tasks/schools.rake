@@ -54,18 +54,7 @@ namespace :schools do
     desc "generate coordinates for all schools"
     task :generate => :environment do
       School.all.each do |school|
-        address = school.basic.address
-        
-        if address.include?('乡') || address.include?('镇')
-          address.gsub!(/乡(.*?)$/) {''}
-          address.gsub!(/镇(.*?)$/) {''}
-        elsif address.include?('县')
-          address.gsub!(/县(.*?)$/) {''} 
-        else
-          address.gsub!(/市(.*?)$/) {''}
-        end
-        puts address
-        coordinates = find_coordinates_by_address(address)
+        coordinates = find_coordinates_by_address(school.basic.address)
         school.basic.longitude = coordinates[0]
         school.basic.latitude  = coordinates[1]
         school.basic.save(false)

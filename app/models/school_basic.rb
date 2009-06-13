@@ -25,6 +25,7 @@
 #
 
 require 'gmap'
+require 'open-uri'
 
 class SchoolBasic < ActiveRecord::Base
   include GMap
@@ -35,6 +36,6 @@ class SchoolBasic < ActiveRecord::Base
   
   private
   def parse_address_to_coordinates
-    self.latitude, self.longitude = find_coordinates_by_address(self.address)
+    self.longitude, self.latitude = find_coordinates_by_address(self.address)
   end
 end

@@ -28,7 +28,7 @@ describe SchoolBasic do
     @school_basic = SchoolBasic.new
     @school_basic.should_receive(:find_coordinates_by_address).and_return([1.1, 2.2])
     @school_basic.save
-    @school_basic.latitude.should == 1.1
-    @school_basic.longitude.should == 2.2
+    @school_basic.latitude.should == 2.2
+    @school_basic.longitude.should == 1.1
   end
 end

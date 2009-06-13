@@ -1,5 +1,14 @@
 module GMap
   def find_coordinates_by_address(address)
+    if address.include?('乡') || address.include?('镇')
+      address.gsub!(/乡(.*?)$/) {''}
+      address.gsub!(/镇(.*?)$/) {''}
+    elsif address.include?('县')
+      address.gsub!(/县(.*?)$/) {''} 
+    else
+      address.gsub!(/市(.*?)$/) {''}
+    end
+    
     connect_count = 1
 
     url  = "http://maps.google.com/maps/geo?q=#{CGI.escape(address)}&output=xml"
