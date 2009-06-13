@@ -1061,3 +1061,4 @@ h3.title {
 
 /* map view, by yuanyi */
 #map_div { margin: 1em 0; }
+.ui-tabs-hide { display: none; }

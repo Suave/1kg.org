@@ -1,3 +1,12 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
+  <script type="text/javascript" charset="utf-8">
+    jQuery.noConflict();
+  </script>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end -%>
+
 <% @page_title = "#{@school.title}" -%>
 
 <% content_for :crumb do -%>
@@ -13,15 +22,20 @@
 
 <h2 class="title"><%= @page_title.to_s %></h2>
 
+<script type="text/javascript">
+  jQuery(function() {
+    jQuery("#tabs").tabs();
+  });
+</script>
+
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3><!-- --></h3>
-      <div class="tabbedPanel">
+      <div class="tabbedPanel" id="tabs">
         <%= render :partial => "show_tabmenu" %>
         <div class="panel setting">
-          <% if @type == 'basic' -%>
-          <div class="block">
+          <div id='basic' class="block">
             <form>
             <p><label>位置</label>
               <% if @school.geo.parent %>
@@ -44,10 +58,8 @@
             <% end -%>
             </form>
           </div>
-          <% end -%>
 
-          <% if @type == 'traffic' -%>
-          <div class="block">
+          <div id="traffic" class="block">
             <form>
             <% if @school.county -%>
             <p><label>学校在</label><%= @school.county.name %></p>
@@ -64,10 +76,8 @@
             <% end -%>
             </form>
           </div>
-          <% end -%>
 
-          <% if @type == 'need' -%>
-          <div class="block">
+          <div id="need" class="block">
             <form>
             <% if @need -%>
             <p><label>紧急需求</label><%= h @need.urgency %></p>
@@ -84,10 +94,8 @@
             <% end -%>
             </form>
           </div>
-          <% end -%>
 
-          <% if @type == 'local' -%>
-          <div class="block">
+          <div id="local" class="block">
             <form>
             <% if @local -%>
             
@@ -111,10 +119,8 @@
             <% end -%>
             </form>
           </div>
-          <% end -%>
-
-          <% if @type == "contact" -%>
-          <div class="block">
+          
+          <div id="contact"><div class="block">
             <h3>学校联系人</h3>
             <form>
             <% if @contact -%>
@@ -132,7 +138,7 @@
             <% end -%>
             </form>
           </div>
-          <div class="block">
+          <div class="block" id="finder">
             <h3>信息收集人</h3>
             <form>
             <% if @finder -%>
@@ -149,8 +155,7 @@
               
             <% end -%>
             </form>
-          </div>
-          <% end -%>
+          </div></div>
         </div>
       </div>
     </div>

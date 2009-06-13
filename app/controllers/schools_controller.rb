@@ -30,7 +30,13 @@ class SchoolsController < ApplicationController
   
   def info_window
     @school = School.find(params[:id])
-    
+    @traffic = @school.traffic
+    @need = @school.need
+    @local   = @school.local
+    @contact = @school.contact
+    @finder  = @school.finder
+    @basic = @school.basic
+
     render :layout => false
   end
   
@@ -254,25 +260,12 @@ class SchoolsController < ApplicationController
   
   def info
     @school = School.find(params[:id])
-    
-    if params[:type] == "traffic"
-      @type = "traffic"
-      @traffic = @school.traffic
-    elsif params[:type] == "need"
-      @type = "need"
-      @need = @school.need
-    elsif params[:type] == "local"
-      @type = "local"
-      @local   = @school.local
-    elsif params[:type] == "contact"
-      @type = "contact"
-      @contact = @school.contact
-      @finder  = @school.finder
-    else
-      # params[:type] == 'basic' or whatever
-      @type = "basic"
-      @basic = @school.basic
-    end
+    @traffic = @school.traffic
+    @need = @school.need
+    @local   = @school.local
+    @contact = @school.contact
+    @finder  = @school.finder
+    @type = "basic"
   end
   
   def validate

@@ -1,1 +1,139 @@
-<h1><%=link_to h(@school.title), @school %></h1><p><b>地址</b>：<%=h @school.basic.address %><br /><b>校长</b>：<%= h @school.basic.master %><br /><b>简介</b>：<%= h @school.basic.level_amount %>年级，<%= h @school.basic.class_amount %>班级，<%= h @school.basic.student_amount %>学生，<%= h @school.basic.teacher_amount %>老师<br /><br /></p>
+<script type="text/javascript">
+  jQuery(function() {
+    jQuery("#tabs").tabs();
+  });
+</script>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= link_to h(@school.title), @school %></h3>
+      <div class="tabbedPanel" id="tabs" style="width: 400px; height: 450px;">
+        <%= render :partial => "show_tabmenu" %>
+        <div class="panel setting">
+          <div id='basic' class="block">
+            <form>
+            <p><label>位置</label>
+              <% if @school.geo.parent %>
+                <%= h @school.geo.parent.name %> > 
+              <% end %>
+              <%= h @school.geo.name %>
+            </p>
+            <% if @basic -%>
+            
+            <p><label>地址</label><%= h @basic.address %>，<%= h @basic.zipcode %> (电话：<%= h @basic.telephone %>)</p>
+            <p><label>校长</label><%= h @basic.master %></p>
+            <p><label>图书室</label><%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书" if ! @basic.book_amount.blank? %></p>
+            <p><label>电脑</label><%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>
+            <p><label>其他情况</label><%= h @basic.level_amount %>年级，<%= h @basic.class_amount %>班级，<%= h @basic.student_amount %>学生，<%= h @basic.teacher_amount %>老师</p>
+            
+            <% else -%>
+            
+            <p>没有学校基本信息</p>
+            
+            <% end -%>
+            </form>
+          </div>
+
+          <div id="traffic" class="block">
+            <form>
+            <% if @school.county -%>
+            <p><label>学校在</label><%= @school.county.name %></p>
+            <% end -%>
+            
+            <% if @traffic -%>
+            <p><label>周边景点</label><%= h @traffic.sight %></p>
+            <p><label>交通方式</label><%= h @traffic.transport %></p>
+            <p><label>行程时间</label><%= h @traffic.duration %> 小时</p>
+            <p><label>费用</label><%= h @traffic.charge %> 元</p>
+            <p><label>路程攻略</label><%= @traffic.description_html %></p>
+            <% else -%>
+            <p>没有交通信息</p>
+            <% end -%>
+            </form>
+          </div>
+
+          <div id="need" class="block">
+            <form>
+            <% if @need -%>
+            <p><label>紧急需求</label><%= h @need.urgency %></p>
+            <p><label>图书</label><%= h @need.book %></p>
+            <p><label>文具</label><%= h @need.stationary %></p>
+            <p><label>体育用品</label><%= h @need.sport %></p>
+            <p><label>衣物</label><%= h @need.cloth %></p>
+            <p><label>教具</label><%= h @need.accessory %></p>
+            <p><label>课程</label><%= h @need.course %></p>
+            <p><label>支教老师</label><%= h @need.teacher %></p>
+            <p><label>其它需求</label><%= h @need.other %></p>
+            <% else -%>
+            <p>没有学校需求信息</p>
+            <% end -%>
+            </form>
+          </div>
+
+          <div id="local" class="block">
+            <form>
+            <% if @local -%>
+            
+              <p><label>当地收入来源</label><%= h @local.incoming_from %></p>
+              <p><label>当地平均收入</label><%= h @local.incoming_average %> 元/年</p>
+
+              <% if @local.ngo_support == 0 -%>
+              <p><label>公益组织支持</label>没有</p>
+              <% elsif @local.ngo_support == 2 -%>
+              <p><label>公益组织支持</label>未知</p>
+              <% elsif @local.ngo_support == 1 -%>
+              <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
+              <p><label>开始时间</label><%= h @local.ngo_start_at.to_date if @local.ngo_start_at %></p>
+              <p><label>联系人</label><%= h @local.ngo_contact %> <%= h @local.ngo_contact_via %></p>
+              <% end -%>
+
+              <div style="clear:both"><label>建议</label><%= @local.advice_html %></div>
+              
+            <% else -%>
+              <p>没有当地信息</p>
+            <% end -%>
+            </form>
+          </div>
+          
+          <div id="contact"><div class="block">
+            <h3>学校联系人</h3>
+            <form>
+            <% if @contact -%>
+            
+              <p><label>姓名</label><%= h @contact.name %></p>
+              <p><label>职务</label><%= h @contact.role %></p>
+              <p><label>电话</label><%= h @contact.telephone %></p>
+              <p><label>邮件</label><%= h @contact.email %></p>
+              <p><label>QQ</label><%= h @contact.qq %></p>
+
+            <% else -%>
+            
+              <p>没有联系人信息</p>
+              
+            <% end -%>
+            </form>
+          </div>
+          <div class="block" id="finder">
+            <h3>信息收集人</h3>
+            <form>
+            <% if @finder -%>
+
+              <p><label>姓名</label><%= h @finder.name %></p>
+              <p><label>邮件</label><%= h @finder.email %></p>
+              <p><label>QQ</label><%= h @finder.qq %></p>
+              <p><label>MSN</label><%= h @finder.msn %></p>
+              <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %></p>
+              
+            <% else -%>
+            
+              <p>没有收集人信息</p>
+              
+            <% end -%>
+            </form>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
