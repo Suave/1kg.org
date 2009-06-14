@@ -30,12 +30,14 @@ class GeosController < ApplicationController
   def box
     @city = Geo.find(params[:id])
     
-    if !@city.children.blank?
-      @cities = @city.children
-      render :partial => 'geo_box', :locals => {:geos => @cities}, :layout => false
-    else
-      setup_destination_stuff(@city)
-      render :partial => 'city_box', :locals => {:city => @city}, :layout => false
+    respond_to do |format|
+      if !@city.children.blank?
+        @cities = @city.children
+        format.html {render :partial => 'geo_box', :locals => {:geos => @cities}, :layout => false}
+      else
+        setup_destination_stuff(@city)
+        format.html {render :partial => 'city_box', :locals => {:city => @city}, :layout => false}
+      end
     end
   end
   
