@@ -1,6 +1,14 @@
-<script src="http://ditu.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
-<%= javascript_include_tag("markerclusterer_packed") %>
-<script type="text/javascript" src="/schools.json"></script>
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
+  <script type="text/javascript" charset="utf-8">
+    jQuery.noConflict();
+  </script>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <script src="http://ditu.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+  <%= javascript_include_tag("markerclusterer_packed") %>
+  <script type="text/javascript" src="/schools.json"></script>
+<% end %>
 
 <script type="text/javascript">
   var map;

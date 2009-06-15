@@ -1,12 +1,5 @@
 <% @page_title = "按城市查找" -%>
 
-<% content_for :heads do -%>
-  <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
-  <script type="text/javascript" charset="utf-8">
-    jQuery.noConflict();
-  </script>
-<% end %>
-
 <% content_for :sidebar do -%>
   <%= render :partial => "/schools/submit" %>
   <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
@@ -21,7 +14,7 @@
   </ul>
 <% end -%>
 
-<div class="box" id="cityList">
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h2>全国</h2>

@@ -1,14 +1,8 @@
-<script type="text/javascript">
-  jQuery(function() {
-    jQuery("#tabs").tabs();
-  });
-</script>
-
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3><%= link_to h(@school.title), @school %></h3>
-      <div class="tabbedPanel" id="tabs" style="width: 400px; height: 450px;">
+      <div class="tabbedPanel" id="tabs" style="width: 440px; height: 300px; overflow: auto;">
         <%= render :partial => "show_tabmenu" %>
         <div class="panel setting">
           <div id='basic' class="block">
@@ -137,3 +131,7 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  jQuery("#tabs").tabs();
+</script>

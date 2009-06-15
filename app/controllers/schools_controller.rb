@@ -37,7 +37,9 @@ class SchoolsController < ApplicationController
     @finder  = @school.finder
     @basic = @school.basic
 
-    render :layout => false
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
   end
   
   def all
