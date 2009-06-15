@@ -23,14 +23,6 @@
       var icon = new GIcon(G_DEFAULT_ICON);
       icon.image = "/images/marker.png";
       var markers = [];
-
-      function markerClickFn(point, id) {
-        return function() {
-          GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-            map.openInfoWindowHtml(point, data);
-          });
-        }
-      }
       
       for (var i = 0; i < schools.length; ++i) {
         var point = new GLatLng(schools[i].la, schools[i].lo)

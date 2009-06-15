@@ -9,3 +9,21 @@ function CheckAll(value)
         }
     }
 }
+
+function markerClickFn(point, id) {
+  return function() {
+    map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");
+    GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+      jQuery('#map_popup').html(data);
+    });
+  }
+}
+
+function schoolClickFn(latlng, id, level)
+{
+  map.setCenter(latlng, level);
+  map.openInfoWindowHtml(latlng, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");  
+  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+    jQuery('#map_popup').html(data);
+  });
+}

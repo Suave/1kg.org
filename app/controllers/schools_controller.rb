@@ -44,17 +44,6 @@ class SchoolsController < ApplicationController
   
   def all
     redirect_to geos_path
-    # @cities  = Geo.roots
-    # @map_center = Geo::DEFAULT_CENTER
-    # @schools = School.paginate(:page => params[:page], :per_page => 10)
-    # 
-    # respond_to do |format|
-    #   if !params[:page].blank?
-    #     format.html {render :action => 'schools', :layout => false}
-    #   else
-    #     format.html
-    #   end
-    # end
   end
   
   def unconfirm
@@ -257,17 +246,6 @@ class SchoolsController < ApplicationController
     @school.update_attributes!(:deleted_at => Time.now)
     flash[:notice] = "成功删除学校"
     redirect_to schools_url
-  end
-  
-  
-  def info
-    @school = School.find(params[:id])
-    @traffic = @school.traffic
-    @need = @school.need
-    @local   = @school.local
-    @contact = @school.contact
-    @finder  = @school.finder
-    @type = "basic"
   end
   
   def validate
