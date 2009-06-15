@@ -89,9 +89,7 @@
           </table>
         </div>
         <p class="remark">
-          &raquo; <%= link_to_function "查看详细信息", "GDownloadUrl('/schools/info_window/#{@school.id}', function(data, responseCode) {
-            map.openInfoWindowHtml(new GLatLng(#{@school.basic.latitude.to_f}, #{@school.basic.longitude.to_f}), data);
-          });" %>
+          &raquo; <%= link_to_function "查看详细信息", "schoolClickFn(new GLatLng(#{@school.basic.latitude.to_f}, #{@school.basic.longitude.to_f}), #{@school.id}, 7);" %>
           <% if @school.validated_by current_user -%>
             <% if @school.validated? -%>
               | <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>

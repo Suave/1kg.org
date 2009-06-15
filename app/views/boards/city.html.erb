@@ -15,6 +15,10 @@
       <div class="boxInner">
         <h3></h3>
         <div class="contents">
+          <p>&raquo; <%= link_to "写活动分享", new_share_url %></p>
+          <p>&raquo; <%= link_to "发起新活动", new_activity_url %></p>
+          <p>&raquo; <%= link_to "提交学校信息", new_school_url %></p>
+          
           <div style="margin-top:15px;">
           <p><strong>我要去</strong> <span class="tipText">(输入你想去的城市)</span></p>
           <% form_tag search_geos_url, :method => :get do -%>

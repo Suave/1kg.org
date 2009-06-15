@@ -3,7 +3,6 @@
 <% content_for :sidebar do -%>
   <%= render :partial => "/schools/submit" %>
   <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
-  <p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
   <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
 <% end -%>
 

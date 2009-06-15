@@ -10,6 +10,7 @@ function CheckAll(value)
     }
 }
 
+
 function copy_clip(meintext){
 	if (window.clipboardData){   
 		// the IE-manier
@@ -56,4 +57,22 @@ function copy_clip(meintext){
 	}
 	alert("地址复制成功！ 按Ctrl+V 粘贴到聊天窗口发送给好友");
 	return false;
+
+function markerClickFn(point, id) {
+  return function() {
+    map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");
+    GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+      jQuery('#map_popup').html(data);
+    });
+  }
+}
+
+function schoolClickFn(latlng, id, level)
+{
+  map.setCenter(latlng, level);
+  map.openInfoWindowHtml(latlng, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");  
+  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+    jQuery('#map_popup').html(data);
+  });
+
 }

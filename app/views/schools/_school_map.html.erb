@@ -5,10 +5,9 @@
   </script>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <script src="http://ditu.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 <% end -%>
 
-<script src="http://ditu.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA"
-            type="text/javascript"></script>
 <script type="text/javascript">
   var map;
   function initialize() {
@@ -20,14 +19,6 @@
 
       var point = new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>);
       marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
-
-      function markerClickFn(point, id) {
-        return function() {
-          GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-            map.openInfoWindowHtml(point, data);
-          });
-        }
-      }
       
       GEvent.addListener(marker, "click", markerClickFn(point, <%= school.id %>));
       

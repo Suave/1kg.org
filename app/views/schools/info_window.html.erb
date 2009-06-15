@@ -2,6 +2,15 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3><%= link_to h(@school.title), @school %></h3>
+      
+      <p class="caution">
+        <% if @school.validated? -%>
+          学校信息已经通过志愿者验证
+        <% else -%>
+          信息未经验证
+        <% end -%>
+      </p>
+      
       <div class="tabbedPanel" id="tabs" style="width: 440px; height: 300px; overflow: auto;">
         <%= render :partial => "show_tabmenu" %>
         <div class="panel setting">
