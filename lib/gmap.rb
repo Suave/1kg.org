@@ -1,5 +1,6 @@
 module GMap
-  def find_coordinates_by_address(address)
+  def find_coordinates_by_address(addr)
+    address = addr.dup
     if address.include?('乡') || address.include?('镇')
       address.gsub!(/乡(.*?)$/) {''}
       address.gsub!(/镇(.*?)$/) {''}
