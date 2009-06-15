@@ -48,6 +48,11 @@ module ApplicationHelper
     end
   end
   
+  def get_current_page_link
+    url_for( :controller => request.path_parameters['controller'], :action => request.path_parameters['action'], :only_path => false)
+  end
+  
+  
   
   def geo_select(object, method, extra_field=[], value=nil)
     geo_root = extra_field.blank? ? Geo.roots.collect{|g| [g.name, g.id]} : ([extra_field] + Geo.roots.collect{|g| [g.name, g.id]})

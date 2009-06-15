@@ -7,7 +7,7 @@
 
 <% end -%>
 
-<% @page_title = "公益贺卡" -%>
+<% @page_title = "“让爱继续”公益贺卡，一张贺卡一本书，举手之劳的公益活动，共建乡村学校班图书角！" -%>
 
 <% content_for :crumb do -%>
 <li>公益贺卡</li>
@@ -25,21 +25,20 @@
   </div>
 </div>
 
-<%= render :partial => "gallery" %>
-
-
 <div style="float:left; width:600px; clear:none;">
   
   <div class="box passwordInput">
     <div class="boxOuter">
       <div class="boxInner">
         <h3>输入爱心密码</h3>
-        <div class="contents">
+        <div class="passwordField">
           <% if flash[:postcard_notice] -%>
     					<div class="flashNotice notice"><%= flash[:postcard_notice] %></div>
     			<% end -%>
-    			<p style="font-size:14px; text-align:center; color:orange">亲爱的朋友们，从5.10贺卡发售之日起可以进行在线密码配对 ;)</p>
-          <%#= render :partial => "password" %>
+          <%= render :partial => "password" %>
+        </div>
+        <div class="contents">
+          
         </div>
       </div>
     </div>
@@ -51,20 +50,18 @@
         <h3>可捐赠图书的学校</h3>
         <span class="postNew"><%= link_to "申请捐赠学校", activity_url(367), :target => "_blank" %></span>
         <div class="contents">
-          <table>
-            <tr>
-              <th>学校</th>
-              <th>计划捐赠(册)</th>
-              <th>已捐赠(册)</th>
-            </tr>
-            <% @school_bucks.each do |b| -%>
-            <tr>
-              <td><%= link_to b.school.title, school_url(b.school), :target => "_blank" %></td>
-              <td><%= b.quantity %></td>
-              <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %></td>
-            </tr>
-            <% end -%>
-          </table>
+          <%= render :partial => "bucks", :object => @for_public_bucks %>
+        </div>
+        
+        <% unless @for_team_bucks.blank? -%>
+        <h3 style="background:none">团队捐赠区</h3>
+        <div class="contents">
+          <%= render :partial => "bucks", :object => @for_team_bucks %>
+        </div>
+        <% end -%>
+        
+        <div style="text-align:right;" class="contents">
+          累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
         </div>
       </div>
     </div>
@@ -82,34 +79,82 @@
       </div>
     </div>
   </div>
+  
+  <div class="box" >
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>学校反馈</h3>
+        <p class="postNew"></p>
+        <div class="contents">
+          <table class="tableList">
+            <thead>
+              <tr>
+                <th>话题</th>
+                <th class="author">作者</th>
+                <th class="replies">回复</th>
+                <th class="lastPost">最后回复</th>
+              </tr>
+            </thead>
+            <tbody>  
+            <% @school_topics.each do |t| -%>
+            <tr class="<%= cycle("odd", "even") %>">
+              <td>
+                <%= image_tag("/images/stick.gif", :alt => "置顶帖", :title => "置顶帖") if t.sticky? %>
+                <%= link_to t.title, board_topic_url(t.board, t) %>
+              </td>
+              <td><%= link_to t.user.login, user_url(t.user), :class => "link" %></td>
+              <td><%= t.posts_count %></td>
+              <td><%= link_to "#{t.last_replied_datetime.to_date} by #{t.last_replied_user.login}", board_topic_url(t.board, t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>
+            </tr>
+            <% end -%>
+            </tbody>
+          </table>
+        </div>
+        <p class="remark"></p>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
 <div style="float:left; width:330px; clear:none; margin-left:15px;">
-
+  <%= render :partial => "howtobuy" %>
+  
   <div class="box" id="topicCommentsList">
     <div class="boxOuter">
       <div class="boxInner">
         <h3>爱心寄语</h3>
-        <ol class="clearfix">
+        <span class="postNew"><%= link_to "全部", minisite_postcard_messages_url, :target => "_blank" %></span>
+        <ol class="contents clearfix">
           <li id="message">
             <%= render :partial => "message", :locals => {:stuff => @stuff} %>
           </li>
         </ol>
         <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
-                                     :frequency => 20, 
+                                     :frequency => 10, 
                                      :update => "message",
                                      :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
       </div>
     </div>
   </div>
   
-  <%= render :partial => "howtobuy" %>
-  
-  <%= render :partial => "book_list" %>
-  
+  <%= render :partial => "share" %>
+
   <%= render :partial => "other_intro" %>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>学校照片</h3>
+        <div class="contents clearfix">
+            <%= render :partial => "/schools/photos", :object => @photos %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<%= render :partial => "book_list" %>
 
 <div class="box cooperation">
   <div class="boxOuter">
@@ -130,10 +175,6 @@
         
       </div>
     </div>
-  </div>
-  
-  <div>
-    
   </div>
 </div>
 <% end -%>

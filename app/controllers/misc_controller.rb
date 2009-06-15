@@ -1,4 +1,5 @@
 class MiscController < ApplicationController
+  #include RubyAes
   before_filter :login_required, :only => :my_city
   
   def index
@@ -90,7 +91,10 @@ class MiscController < ApplicationController
     #for static page
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
-  
+
+  def custom_search
+    
+  end
   
 =begin  
   def migration

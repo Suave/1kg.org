@@ -76,14 +76,14 @@
 	  <div id="content-layout" class="clearfix">
 	    <% if flash[:notice] -%>
 					<div class="flashNotice notice"><%= flash[:notice] %></div>
-				<% end -%>
-				
-      <%= yield :fullsize %>
-      
+			<% end -%>
+			
       <div id="page-title" class="clearfix">
         <h1><%= @title.to_s %></h1>
         <%= yield :subtitle %>
       </div>
+      
+      <%= yield :fullsize %>
       
 	    <div id="content-primary-wrap">
 	      <div id="content-primary">

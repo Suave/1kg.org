@@ -24,6 +24,7 @@
 #  longitude           :string(255)
 #
 
+
 require 'gmap'
 require 'open-uri'
 
@@ -32,10 +33,13 @@ class SchoolBasic < ActiveRecord::Base
 
   belongs_to :school
 
+  validates_presence_of :address, :message => "必填项"
+  
   before_create :parse_address_to_coordinates
   
   private
   def parse_address_to_coordinates
     self.longitude, self.latitude = find_coordinates_by_address(self.address)
   end
+
 end

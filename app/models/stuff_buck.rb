@@ -16,9 +16,13 @@
 class StuffBuck < ActiveRecord::Base
   belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id"
   belongs_to :school
-  has_many :stuffs, :foreign_key => "buck_id"
+  has_many :stuffs, :foreign_key => "buck_id", :dependent => :destroy
   
   validates_presence_of :type_id, :school_id, :quantity
+  
+  named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
+  named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
+  
   
   after_create :generate_stuffs
   

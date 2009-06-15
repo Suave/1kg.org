@@ -73,11 +73,18 @@ class Activity < ActiveRecord::Base
   end
   
   def edited_by(user)
-    user.class == User && (self.user_id == user.id || user.admin?)
+    #user.class == User && (self.user_id == user.id || user.admin?)
+    return false unless user.class == User
+    return true if self.user_id == user.id
+    return true if user.admin?  
+    return true if self.departure && self.departure.city_board.board.has_moderator?(user)
+    
   end
   
   def sticky_by?(user)
-    user.class == User && user.admin?
+    return false unless user.class == User
+    return true if user.admin?
+    return true if self.departure &&  self.departure.city_board.board.has_moderator?(user)
   end
   
   def joined?(user)

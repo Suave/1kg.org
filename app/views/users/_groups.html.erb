@@ -1,0 +1,14 @@
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= h user.login %>参加的小组</h3>
+      <div class="contents clearfix">
+        <%= render :partial => "/groups/groups", :object => groups %>
+      </div>
+      <p class="remark">
+        &raquo; <%= link_to "#{h user.login}参加的全部小组(#{user.joined_groups.size})", groups_user_url(user) %>
+      </p>
+      
+    </div>
+  </div>
+</div>

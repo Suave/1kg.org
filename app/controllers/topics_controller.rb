@@ -56,8 +56,13 @@ class TopicsController < ApplicationController
   def show
     #@board = Board.find(params[:board_id])
     #@topic = Topic.find(params[:id])
-    @posts = @topic.posts
-    @post  = Post.new
+    if @topic.deleted?
+      flash[:notice] = "您查看的帖子已删除"
+      redirect_to root_url
+    else
+      @posts = @topic.posts
+      @post  = Post.new
+    end
   end
   
   def stick

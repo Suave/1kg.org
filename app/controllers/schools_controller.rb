@@ -104,70 +104,41 @@ class SchoolsController < ApplicationController
   end
   
   def new
-    if params[:step] == 'basic'
-      @school = School.new
-      @school.build_basic
-      render :action => "basic"
-      
-    elsif params[:step] == 'traffic'
-      @school = School.find(params[:sid])
-      @school.build_traffic
-      render :action => "traffic"
-      
-    elsif params[:step] == 'need'
-      @school = School.find(params[:sid])
-      @school.build_need
-      render :action => "need"
-      
-    elsif params[:step] == 'other'
-      @school = School.find(params[:sid])
-      @school.build_contact
-      @school.build_local
-      @school.build_finder
-      render :action => "other"
-      
-    else
-      @school = School.new
-      @school.build_basic
-      render :action => "basic"
-    end
+    %w(basic traffic need other).include?(params[:step]) ? step = params[:step] : step = "basic"
+    
+    @school = step=="basic" ? School.new : School.find(params[:sid])  
+    render :action => step
   end
   
   def create
     if params[:step] == 'basic'
       @school = School.new(params[:school])
       @school.user = current_user
-      @school.save!
-      flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-      redirect_to new_school_url(:step => 'traffic', :sid => @school.id)
+      
+      begin
+        
+        @school.save!
+        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+        redirect_to new_school_url(:step => 'traffic', :sid => @school.id)
+        
+      rescue ActiveRecord::RecordInvalid
+                
+        render :action => "basic"
+        
+      end
       
     elsif params[:step] == 'traffic'
-      @school = School.find(params[:school][:id])
-      @school.traffic = SchoolTraffic.new
-      @school.traffic.tag_list = params[:school][:school_traffic][:sight]
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校交通信息已经保存，请继续填写学校的需求信息"      
-      redirect_to new_school_url(:step => 'need', :sid => @school.id)
+
+      submit_info "traffic", "need", "学校交通信息已经保存，请继续填写学校的需求信息"
       
     elsif params[:step] == 'need'
-      @school = School.find(params[:school][:id])
-      @school.need = SchoolNeed.new
 
-      new_tag_list = ""
-      %w(urgency book stationary sport cloth accessory course teacher other).each do |need|
-        new_tag_list += params[:school][:school_need][need.to_sym] unless params[:school][:school_need][need.to_sym].nil?
-      end
-
-      @school.need.tag_list = new_tag_list
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "学校需求信息已经保存，请填写最后一项"
-      redirect_to new_school_url(:step => 'other', :sid => @school.id)
+      submit_info "need", "other", "学校需求信息已经保存，请填写最后一项"
       
     elsif params[:step] == 'other'
-      @school = School.find(params[:school][:id])
-      @school.update_attributes!(params[:school])
-      flash[:notice] = "提交学校成功，谢谢你！"
-      redirect_to school_url(@school)
+
+      submit_info "other", "done", "提交学校成功，谢谢你！"
+      
     else
       # TODO add some catch exception
     end
@@ -175,19 +146,12 @@ class SchoolsController < ApplicationController
   
   def edit
     @school = School.find(params[:id])
-    if params[:step] == 'basic'
-      render :action => "edit_basic"
-    elsif params[:step] == 'traffic'
-      render :action => "edit_traffic"
-    elsif params[:step] == 'need'
-      render :action => "edit_need"
-    elsif params[:step] == 'other'
-      render :action => "edit_other"
-    else
-      render :action => "edit_basic"
-    end
+    %w(basic traffic need other).include?(params[:step]) ? step = params[:step] : step = "basic"
+    render :action => "edit_#{step}"
   end
   
+  
+  # TODO refactor
   def update
     @school = School.find(params[:id])
 
@@ -199,18 +163,13 @@ class SchoolsController < ApplicationController
           render :action => "edit_traffic"
 
         elsif params[:step] == 'traffic'
-          @school.traffic.tag_list = params[:school][:school_traffic][:sight]
+          #@school.traffic.tag_list = params[:school][:school_traffic][:sight]
           @school.update_attributes!(params[:school])
           flash[:notice] = "学校交通信息修改成功！"
           render :action => "edit_need"
       
         elsif params[:step] == 'need'
-          new_tag_list = ""
-          %w(urgency book stationary sport cloth accessory course teacher other).each do |need|
-            new_tag_list += params[:school][:school_need][need.to_sym] unless params[:school][:school_need][need.to_sym].nil?
-          end
 
-          @school.need.tag_list = new_tag_list
           @school.update_attributes!(params[:school])
           flash[:notice] = "学校需求信息修改成功！"
           render :action => "edit_other"
@@ -338,5 +297,22 @@ class SchoolsController < ApplicationController
                                            :include => [:traffic, :basic, :geo, :county])
   end
   
+  
+  private
+  def submit_info(current_step, next_step, msg)
+    @school = School.find params[:id]
+    
+    begin
+      
+      @school.update_attributes!(params[:school])
+      flash[:notice] = msg      
+      redirect_to next_step == "done" ? school_url(@school) : new_school_url(:step => next_step, :sid => @school.id)
+      
+    rescue ActiveRecord::RecordInvalid
+      
+      render :action => current_step
+      
+    end
+  end
   
 end

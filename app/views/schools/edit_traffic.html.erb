@@ -27,7 +27,7 @@
           <p><label class="label">学校所属县</label><%= f.select :county_id, @school.geo.counties.collect {|c| [c.name, c.id]} %></p>
           <% end -%>
           
-          <% f.fields_for @school.traffic do |t| -%>
+          <% f.fields_for :traffic_attributes, @school.traffic do |t| -%>
           <p><label class="label" for="school_school_traffic_sight">附近景点</label><%= t.text_field :sight, :size => 30, :class => 'formText' %></p>
           <p><label class="label" for="school_school_traffic_transport">交通方式</label><%= t.text_field :transport, :size => 30, :class => 'formText' %></p>
           <p><label class="label" for="school_school_traffic_duration">路程时间</label><%= t.text_field :duration, :size => 10, :class => 'formText' %> 小时</p>

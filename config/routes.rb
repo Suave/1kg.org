@@ -2,15 +2,16 @@ ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
   map.public_look "/public", :controller => "misc", :action => "public_look"
+  map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
+  map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
   map.city   "city/:slug", :controller => "geos", :action => "city"
   map.cities "/cities", :controller => "misc", :action => "cities"
-  #map.city   "/city/:id", :controller => "misc", :action => "city"
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
   
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
   
-  map.resources :users
+  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"
@@ -32,6 +33,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :interesting_schools => :get,
                                     :neighbors => :get,
                                     :shares => :get,
+                                    :groups => :get,
                                     :group_topics => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}
@@ -83,13 +85,14 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :shares
   
-  map.resources :groups, :member => { :join => :put, 
+  map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
                                       :manage => :get, 
                                       :moderator => :put,
                                       :invite => :get,
-                                      :send_invitation => :put
+                                      :send_invitation => :put,
+                                      :members => :get
                                     },
                           :collection => {:all => :get}
   
@@ -120,6 +123,8 @@ ActionController::Routing::Routes.draw do |map|
         dash.password 'password', :action => "password"
         dash.give     'give/:id', :action => "give"
         dash.comment  'comment/:id', :action => "comment"
+        dash.messages 'messages', :action => "messages"
+        dash.donors   'donors/:id', :action => "donors"
         dash.love_message 'love_message', :action => "love_message"
       end
     end

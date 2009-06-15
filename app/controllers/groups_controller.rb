@@ -52,6 +52,10 @@ class GroupsController < ApplicationController
     @topics = @board.latest_topics
   end
   
+  def members
+    
+  end
+  
   def join
     if @group.joined?(current_user)
       flash[:notice] = "你已经加入这个小组了"

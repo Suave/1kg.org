@@ -2,32 +2,25 @@
 <link type="text/css" rel="stylesheet" href="/stylesheets/postcard.css" media="screen, projection" />
 <% end -%>
 
-<% @page_title = "公益贺卡" -%>
+<% @page_title = @title = "您想把书送给哪所学校？" -%>
 
 <% content_for :sidebar do -%>
-  <%= render :partial => "book_list" %>
+  <%= render :partial => "share" %>
 <% end -%>
 
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>您想把书送给哪所学校？</h3>
+      <h3>一般捐赠区</h3>
       <div class="contents">
-        <table>
-          <tr>
-            <th>学校</th>
-            <th>已捐赠</th>
-            <th>&nbsp;</th>
-          </tr>
-          <% @bucks.each do |b| -%>
-          <tr>
-            <td><%= link_to b.school.title, school_url(b.school), :target => "_blank" %></td>
-            <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_percent_str %></td>
-            <td><%= link_to "送给这所学校", minisite_postcard_give_url(b, :token => @stuff.code), :method => :put, :confirm => "确定送给这所学校么？送出后不能修改" %></td>
-          </tr>
-          <% end -%>
-        </table>
+        <%= render :partial => "schools", :locals => {:bucks => @for_public_bucks} %>
       </div>
+      <% unless @for_team_bucks.blank? %>
+      <h3 style="background:none">团队捐赠区</h3>
+      <div class="contents">
+        <%= render :partial => "schools", :locals => {:bucks => @for_team_bucks }  %>
+      </div>
+      <% end -%>
     </div>
   </div>
 </div>

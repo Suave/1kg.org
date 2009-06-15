@@ -25,14 +25,22 @@ class School < ActiveRecord::Base
   belongs_to :user
   belongs_to :geo
   belongs_to :county
-  has_one    :basic,   :class_name => "SchoolBasic"
-  has_one    :traffic, :class_name => "SchoolTraffic"
-  has_one    :need,    :class_name => "SchoolNeed"
-  has_one    :contact, :class_name => "SchoolContact"
-  has_one    :local,   :class_name => "SchoolLocal"
-  has_one    :finder,  :class_name => "SchoolFinder"
+
+  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy 
+  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy 
+  has_one    :need,    :class_name => "SchoolNeed", :dependent => :destroy 
+  has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
+  has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
+  has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
+
+  accepts_nested_attributes_for :basic
+  accepts_nested_attributes_for :traffic
+  accepts_nested_attributes_for :need
+  accepts_nested_attributes_for :contact
+  accepts_nested_attributes_for :local
+  accepts_nested_attributes_for :finder
   
-  has_one    :discussion, :class_name => "SchoolBoard"
+  has_one    :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
@@ -42,6 +50,7 @@ class School < ActiveRecord::Base
   
   named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
+  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"
   
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
@@ -67,7 +76,8 @@ class School < ActiveRecord::Base
     Mailer.deliver_submitted_school_notification(self)
   end
   
-  validates_presence_of :title
+  validates_presence_of :geo_id, :message => "必选项"
+  validates_presence_of :title, :message => "必填项"
   
   
   def self.categories
@@ -143,7 +153,7 @@ class School < ActiveRecord::Base
       raise "学校访问数据错误"
     end
   end
-  
+=begin  
   def school_basic=(basic_attributes)
     if basic_attributes[:id].blank?
       build_basic(basic_attributes)
@@ -191,7 +201,7 @@ class School < ActiveRecord::Base
       finder.attributes = finder_attributes
     end
   end
-  
+=end  
   def self.archives(valid = true)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
@@ -212,8 +222,8 @@ class School < ActiveRecord::Base
   end
   
   def self.show_date(year, month, day, valid)
-    self.find(:all, 
+    self.available.find(:all, 
               :order      => "schools.updated_at desc",
-              :conditions => ["created_at LIKE ? and validated = ? and deleted_at is null ", "#{year}-#{month}-#{day}%", valid])
+              :conditions => ["created_at LIKE ? and validated = ?", "#{year}-#{month}-#{day}%", valid])
   end
 end

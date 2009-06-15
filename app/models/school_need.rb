@@ -22,4 +22,16 @@ class SchoolNeed < ActiveRecord::Base
   acts_as_taggable
   
   belongs_to :school
+  
+  before_save :setup_tag
+  
+  private
+  def setup_tag
+    new_tag_list = ""
+    %w(urgency book stationary sport cloth accessory course teacher other).each do |need_item|
+      new_tag_list += self.send(need_item) unless self.send(need_item).nil?
+    end
+    self.tag_list = new_tag_list
+  end
+  
 end
