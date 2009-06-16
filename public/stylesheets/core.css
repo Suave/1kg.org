@@ -1060,7 +1060,9 @@ h3.title {
 .sbtn {border:1px solid black; background:orange; padding:2px;}
 
 /* map view, by yuanyi */
-#map_div { margin: 1em 0; }
-.ui-tabs-hide { display: none; }
+#map_div { margin: 1em 0; width: 600px; height: 600px; }
+#basic, #traffic, #need, #local, #contact {width: 400px; height: 260px; overflow-y: auto;}
+#contact h3 {background: none;}
 
+.ui-tabs-hide { display: none; }
 .subtitle {float:left; margin:17px; 0 0 1em;}

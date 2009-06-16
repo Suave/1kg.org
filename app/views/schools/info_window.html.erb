@@ -11,10 +11,10 @@
         <% end -%>
       </p>
       
-      <div class="tabbedPanel" id="tabs" style="width: 440px; height: 300px; overflow: auto;">
+      <div class="tabbedPanel" id="tabs">
         <%= render :partial => "show_tabmenu" %>
-        <div class="panel setting">
-          <div id='basic' class="block">
+        <div class="panel setting" style="height: 280px;">
+          <div id='basic'>
             <form>
             <p><label>位置</label>
               <% if @school.geo.parent %>
@@ -38,7 +38,7 @@
             </form>
           </div>
 
-          <div id="traffic" class="block">
+          <div id="traffic">
             <form>
             <% if @school.county -%>
             <p><label>学校在</label><%= @school.county.name %></p>
@@ -56,7 +56,7 @@
             </form>
           </div>
 
-          <div id="need" class="block">
+          <div id="need">
             <form>
             <% if @need -%>
             <p><label>紧急需求</label><%= h @need.urgency %></p>
@@ -74,7 +74,7 @@
             </form>
           </div>
 
-          <div id="local" class="block">
+          <div id="local">
             <form>
             <% if @local -%>
             
@@ -99,7 +99,7 @@
             </form>
           </div>
           
-          <div id="contact"><div class="block">
+          <div id="contact">
             <h3>学校联系人</h3>
             <form>
             <% if @contact -%>
@@ -116,8 +116,7 @@
               
             <% end -%>
             </form>
-          </div>
-          <div class="block" id="finder">
+            <div style="clear:both"></div>
             <h3>信息收集人</h3>
             <form>
             <% if @finder -%>
@@ -134,7 +133,7 @@
               
             <% end -%>
             </form>
-          </div></div>
+          </div>
         </div>
       </div>
     </div>
