@@ -1,4 +1,4 @@
-<% @page_title = "我要去#{@city.name}"%>
+<% @page_title = @title = @city.name %>
 
 <% content_for :crumb do -%>
   <li>目的地查询</li>
@@ -10,26 +10,31 @@
   </ul>
 <% end -%>
 
+<% content_for :subtitle do -%>
+  <div class="subtitle">
+  <%= link_to "去#{@city.name}同城", board_url(@city.city_board.board_id) %>
+  </div>
+<% end -%>
+
 <% content_for :sidebar do -%>
+  <%= render :partial => 'school_box' %>
+  
   <% if @city.children.blank? -%>
     <%= render :partial => 'city_box' %>
   <% else %>
     <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
   <% end %>
   
-  <%= render :partial => 'school_box' %>
+  
 <% end -%>
 
-<h2 class="title"><%= @page_title %></h2>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= @city.name %>周边的学校</h3>
-      <span class="postNew">++ <%= link_to "提交学校信息", new_school_url %></span>
+      <h3></h3>
       <div class="contents">
         <%= render :partial => 'school_maps' %>
       </div>
-      <p class="remark tipText">&raquo; <%= link_to "#{@city.name}周边的全部学校", schools_geo_url(@city) %> (<%= School.get_near_schools_at(@city).count %>)</p>
     </div>
   </div>
 </div>
@@ -37,8 +42,8 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= @city.name %>的活动分享</h3>
-      <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+      <h3><%= @city.name %>的用户分享</h3>
+      <span class="postNew"><%= link_for_new_share %></span>
       <div class="contents">
         <%= render :partial => "/shares/shares", :object => @shares %>
         <%= customize_paginate @shares %>

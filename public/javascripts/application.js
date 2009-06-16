@@ -57,6 +57,7 @@ function copy_clip(meintext){
 	}
 	alert("地址复制成功！ 按Ctrl+V 粘贴到聊天窗口发送给好友");
 	return false;
+}
 
 function markerClickFn(point, id) {
   return function() {

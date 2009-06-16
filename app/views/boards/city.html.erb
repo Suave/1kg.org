@@ -2,9 +2,9 @@
 
 <% content_for :subtitle do -%>
   <% if logged_in? && current_user.geo == @city -%>
-  <div style="float:left; margin:17px; 0 0 1em;"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
+  <div class="subtitle"><%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %></div>
   <% end -%>
-  <div style="float:left; margin:17px;">
+  <div class="subtitle">
     城市管理员：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
   </div>
 <% end -%>
@@ -35,7 +35,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>分享</h3>
-        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
+        <span class="postNew"><%= link_for_new_share %></span>
         <div class="contents">
           <%= render :partial => "/shares/shares", :object => @shares %>
         </div>
@@ -48,7 +48,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>附近学校</h3>
-        <span class="postNew"><%= link_to image_tag("submit_school.png"), new_school_url %></span>
+        <span class="postNew"><%= link_for_new_school %></span>
         <div class="contents">
           <table>
             <% @near_schools.each do |s| %>
@@ -84,7 +84,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>最近的活动</h3>
-        <span class="postNew"><%= link_to image_tag("submit_activity.png"), new_activity_url %></span>
+        <span class="postNew"><%= link_for_new_activity %></span>
         <%= render :partial => "/activities/activity_list" %>
       </div>
       <p class="remark">&raquo; 全部 <%= link_to "进行中的活动", ongoing_activities_url %> &middot; <%= link_to "已结束的活动", over_activities_url %></p>

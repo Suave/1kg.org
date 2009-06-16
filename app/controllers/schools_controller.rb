@@ -142,34 +142,29 @@ class SchoolsController < ApplicationController
   
   # TODO refactor
   def update
-    @school = School.find(params[:id])
-
+    #@school = School.find params[:id]
     respond_to do |format|
       format.html do
         if params[:step] == 'basic'
-          @school.update_attributes!(params[:school])
-          flash[:notice] = "学校基本信息修改成功！"
-          render :action => "edit_traffic"
+
+          update_info "basic", "traffic", "学校基本信息修改成功！"
 
         elsif params[:step] == 'traffic'
-          #@school.traffic.tag_list = params[:school][:school_traffic][:sight]
-          @school.update_attributes!(params[:school])
-          flash[:notice] = "学校交通信息修改成功！"
-          render :action => "edit_need"
-      
+
+          update_info "traffic", "need", "学校交通信息修改成功！"
+          
         elsif params[:step] == 'need'
 
-          @school.update_attributes!(params[:school])
-          flash[:notice] = "学校需求信息修改成功！"
-          render :action => "edit_other"
-      
+          update_info "need", "other", "学校需求信息修改成功！"
+          
         elsif params[:step] == 'other'
-          @school.update_attributes!(params[:school])
-          flash[:notice] = "学校信息修改完成！"
-          redirect_to school_url(@school)
+
+          update_info "other", "done", "学校信息修改完成！"
+          
         end
       end
       
+      # for drag & drop school marker
       format.js do
         @school.basic.update_attributes(:latitude => params[:latitude], :longitude => params[:longitude])
         render :update do |page|
@@ -186,8 +181,8 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
     @visitors = @school.visitors
     @followers = @school.interestings
-    @shares = @school.shares.find(:all, :order => "id desc" )
-    @photos = @school.photos.find(:all, :order => "id desc" )
+    @shares = @school.shares
+    @photos = @school.photos
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
     end
@@ -290,6 +285,23 @@ class SchoolsController < ApplicationController
       
       render :action => current_step
       
+    end
+  end
+  
+  def update_info(current_step, next_step, msg)
+    @school = School.find(params[:id])
+    
+    begin
+      logger.info "BEFORE UPDATE"
+      @school.update_attributes!(params[:school])
+      logger.info "AFTER UPDATE"
+      flash[:notice] = msg
+      next_step == "done" ? redirect_to(school_url(@school)) : render(:action => "edit_#{next_step}")
+      
+    rescue ActiveRecord::RecordInvalid
+      
+      render :action => "edit_#{current_step}"
+    
     end
   end
   

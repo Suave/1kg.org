@@ -40,13 +40,13 @@ class School < ActiveRecord::Base
   accepts_nested_attributes_for :local
   accepts_nested_attributes_for :finder
   
-  has_one    :discussion, :class_name => "SchoolBoard", :dependent => :destroy
+  has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
   has_many :interestings, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('interesting')}"
-  has_many :shares
-  has_many :photos
+  has_many :shares, :order => "id desc"
+  has_many :photos, :order => "id desc"
   
   named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]

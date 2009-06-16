@@ -157,4 +157,21 @@ module ApplicationHelper
       image_tag url_for_file_column(group, :avatar, size), :class => "avatar", :alt => group.title
     end
   end
+  
+  def link_for_new_school
+    link_to image_tag("submit_school.png"), new_school_url
+  end
+  
+  def link_for_new_activity
+    link_to image_tag("submit_activity.png"), new_activity_url
+  end
+  
+  def link_for_new_share
+    link_to image_tag("submit_share.png"), new_share_url
+  end
+  
+  def link_for_new_topic(board)
+    link_to image_tag("submit_topic.png"), new_board_topic_url(board)
+  end
+  
 end

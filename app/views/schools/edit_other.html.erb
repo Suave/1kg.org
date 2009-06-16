@@ -25,6 +25,7 @@
     <fieldset>
       <legend>学校联系人</legend>
       <% f.fields_for :contact_attributes, @school.contact do |c| -%>
+      <%= c.hidden_field :id %>
       <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %></p>
       <p><label class="label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %></p>
       <p><label class="label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
@@ -36,6 +37,7 @@
     <fieldset>
       <legend>当地情况</legend>
       <% f.fields_for :local_attributes, @school.local do |l| -%>
+      <%= l.hidden_field :id %>
       <p><label class="label">收入来源</label><%= l.text_field :incoming_from, :size => 20, :class => 'formText' %></p>
       <p><label class="label">平均收入</label><%= l.text_field :incoming_average, :size => 20, :class => 'formText' %> 元 / 年</p>
       <p class="radioBtn"><label class="label">公益组织资助</label><%= radio_choice l, :ngo_support %></p>
@@ -52,6 +54,7 @@
     <fieldset>
       <legend>信息收集人</legend>
       <% f.fields_for :finder_attributes, @school.finder do |r| -%>
+      <%= r.hidden_field :id %>
       <p><label class="label">姓名</label><%= r.text_field :name, :size => 10, :class => 'formText' %></p>
       <p><label class="label">邮件</label><%= r.text_field :email, :size => 15, :class => 'formText' %></p>
       <p><label class="label">QQ</label><%= r.text_field :qq, :size => 15, :class => 'formText' %></p>
