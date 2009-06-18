@@ -19,7 +19,15 @@ class ApplicationController < ActionController::Base
   
   
   def rescue_action(exception)
-    exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
+    case e 
+    when ActiveRecord::RecordInvalid
+      render_invalid_record(exception.record)
+    when ActiveRecord::RecordNotFound
+      render_404
+    else
+      super
+    end
+    #exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
   end
   
   def render_invalid_record(record)
@@ -35,6 +43,15 @@ class ApplicationController < ActionController::Base
       end 
     end 
   end
+  
+  def render_404 
+    respond_to do |format| 
+      format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => '404 Not Found' } 
+      format.xml  { render :nothing => true, :status => '404 Not Found' } 
+    end 
+    true 
+  end 
+
   
   private
   def app_stop
