@@ -14,16 +14,18 @@
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>校名</th>
-          <th>提交人</th>
-          <th>提交时间</th>
           <th>验证</th>
         </tr>
         <% @schools.each do |s| -%>
         <tr>
-          <td><%= link_to s.title, admin_school_url(s) %> (<%= link_to "学校资料", school_url(s), :target => "_blank" %>)</td>
-          <td><%= link_to s.user.login, user_url(s.user) %></td>
-          <td><%= s.created_at.to_date %></td>
-          <td><%= link_to "取消验证", validate_school_url(s, :t => "remove"), :method => :put %></td>
+          <td>
+            <%= link_to s.title, school_url(s), :target => "_blank" %><br />
+            <%= s.created_at.to_date %> by <%= link_to s.user.login, user_url(s.user) %>
+          </td>
+          <td>
+            <%= link_to "取消验证", validate_school_url(s, :t => "remove"), :method => :put %> |
+            <%= link_to "更多", admin_school_url(s) %>
+          </td>
         </tr>
         <% end -%>
       </table>
@@ -36,17 +38,18 @@
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>校名</th>
-          <th>提交人</th>
-          <th>提交时间</th>
           <th>验证</th>
         </tr>
         <% @schools.each do |s| -%>
         <tr>
-          <td><%= link_to s.title, admin_school_url(s) %> (<%= link_to "学校资料", school_url(s), :target => "_blank" %>)</td>
-          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
-          <td><%= link_to s.user.login, user_url(s.user) %></td>
-          <td><%= s.created_at.to_date %></td>
-          <td><%= link_to "通过验证", validate_school_url(s, :t => "add"), :method => :put %></td>
+          <td>
+            <%= link_to s.title, school_url(s), :target => "_blank" %><br />
+            <%= s.created_at.to_date %> by <%= link_to s.user.login, user_url(s.user) %>
+          </td>
+          <td>
+            <%= link_to "通过验证", validate_school_url(s, :t => "add"), :method => :put %> |
+            <%= link_to "更多", admin_school_url(s) %>
+          </td>
         </tr>
         <% end -%>
       </table>
