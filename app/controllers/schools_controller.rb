@@ -179,6 +179,9 @@ class SchoolsController < ApplicationController
   
   def show
     @school = School.find(params[:id])
+    
+    raise ActiveRecord::RecordNotFound if @school.deleted?
+    
     @visitors = @school.visitors
     @followers = @school.interestings
     @shares = @school.shares

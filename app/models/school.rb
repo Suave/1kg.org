@@ -33,27 +33,26 @@ class School < ActiveRecord::Base
   has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
   has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
 
-  accepts_nested_attributes_for :basic
-  accepts_nested_attributes_for :traffic
-  accepts_nested_attributes_for :need
-  accepts_nested_attributes_for :contact
-  accepts_nested_attributes_for :local
-  accepts_nested_attributes_for :finder
+  accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
-  
-  has_many :visited, :dependent => :destroy
-  has_many :visitors, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('visited')}"
-  has_many :interestings, :through => :visited, :source => :user, :conditions => "status = #{Visited.status('interesting')}"
   has_many :shares, :order => "id desc"
   has_many :photos, :order => "id desc"
   
-  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
-  named_scope :available, :conditions => ["deleted_at is null"]
-  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"
-  
+  has_many :visited, :dependent => :destroy
+  has_many :visitors, :through => :visited, 
+                      :source => :user, 
+                      :conditions => "status = #{Visited.status('visited')}"
+                      
+  has_many :interestings, :through => :visited, 
+                          :source => :user, 
+                          :conditions => "status = #{Visited.status('interesting')}"
+
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
+  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
+  named_scope :available, :conditions => ["deleted_at is null"]
+  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
@@ -115,6 +114,9 @@ class School < ActiveRecord::Base
     validated.find(:all, :order => "created_at desc", :limit => 10)
   end
   
+  def deleted?
+    deleted_at.blank? ? false : true
+  end
   
   def has_moderator?(user)
     return false unless user.class == User 
@@ -153,55 +155,7 @@ class School < ActiveRecord::Base
       raise "学校访问数据错误"
     end
   end
-=begin  
-  def school_basic=(basic_attributes)
-    if basic_attributes[:id].blank?
-      build_basic(basic_attributes)
-    else
-      basic.attributes = basic_attributes
-    end
-  end
-  
-  def school_traffic=(traffic_attributes)
-    if traffic_attributes[:id].blank?
-      build_traffic(traffic_attributes)
-    else
-      traffic.attributes = traffic_attributes
-    end
-  end
- 
-  def school_need=(need_attributes)
-    if need_attributes[:id].blank?
-      build_need(need_attributes)
-    else
-      need.attributes = need_attributes
-    end
-  end
-  
-  def school_contact=(contact_attributes)
-    if contact_attributes[:id].blank?
-      build_contact(contact_attributes)
-    else
-      contact.attributes = contact_attributes
-    end
-  end
-  
-  def school_local=(local_attributes)
-    if local_attributes[:id].blank?
-      build_local(local_attributes)
-    else
-      local.attributes = local_attributes
-    end
-  end
-  
-  def school_finder=(finder_attributes)
-    if finder_attributes[:id].blank?
-      build_finder(finder_attributes)
-    else
-      finder.attributes = finder_attributes
-    end
-  end
-=end  
+
   def self.archives(valid = true)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     

@@ -1,8 +1,5 @@
 <div id="footer">
   <div class="wrapper">
-    <!--
-    &copy; 2004-2008 - <a href="http://1000g.blogbus.com/logs/33398869.html" target="_blank">关于</a> - <a href="http://1kg.blogbus.com" target="_blank">博客</a> - <%#= link_to  "站务客服", group_url(1) %><a href="http://1000g.blogbus.com/logs/33398904.html" target="_blank">团队</a> - <%#= link_to "免责声明", terms_url %> <%#= link_to "常见问题", faq_url %><a href="http://1000g.blogbus.com/logs/33398956.html" target="_blank">企业公益服务</a> - <a href="http://1kg.blogbus.com/c1802747/" target="_blank">媒体报道</a> - <a href="http://1000g.blogbus.com/logs/33399201.html" target="_blank">联系我们</a>
-  -->
   <% @page = Page.find_by_slug('footer') -%>
   <%= render :text => @page.body if @page %>
   </div>
