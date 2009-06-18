@@ -155,6 +155,11 @@ class School < ActiveRecord::Base
       raise "学校访问数据错误"
     end
   end
+  
+  # 0 => invalidated, 1 => valid, 2 => meta
+  def icon_type
+    meta ? 2 : (validated ? 1 : 0)
+  end
 
   def self.archives(valid = true)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
