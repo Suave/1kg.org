@@ -45,17 +45,25 @@ class User < ActiveRecord::Base
   belongs_to :geo
   has_one :profile
   
-  has_many :submitted_activities, :class_name => "Activity", :conditions => "deleted_at is null"
-  has_many :participations
-  has_many :participated_activities, :through => :participations, :source => :activity
+  has_many :submitted_activities, :class_name => "Activity", 
+                                  :conditions => "deleted_at is null", 
+                                  :order => "created_at desc"
+  has_many :participations, :dependent => :destroy
+  has_many :participated_activities, :through => :participations, 
+                                     :source => :activity,
+                                     :order => "participations.created_at desc"
   
-  has_many :submitted_schools, :class_name => "School", :conditions => "deleted_at is null"
-  has_many :visiteds
-  has_many :visited_schools, :through => :visiteds, :source => :school
+  has_many :submitted_schools, :class_name => "School", 
+                               :conditions => "deleted_at is null",
+                               :order => "created_at desc"
+  has_many :visiteds, :dependent => :destroy 
+  has_many :visited_schools, :through => :visiteds, 
+                             :source => :school,
+                             :order => "visiteds.created_at desc"
   
-  has_many :topics
+  has_many :topics, :order => "created_at desc"
   
-  has_many :shares
+  has_many :shares, :order => "created_at desc"
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
@@ -68,11 +76,14 @@ class User < ActiveRecord::Base
 														 		:conditions 		=> {:unread => true},
 														 		:foreign_key 	=> "recipient_id"
 														 		
-	has_many :neighborhoods
-	has_many :neighbors, :through => :neighborhoods
+	has_many :neighborhoods, :dependent => :destroy
+	has_many :neighbors, :through => :neighborhoods,
+	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
-  has_many :joined_groups, :through => :memberships, :source => :group
+  has_many :joined_groups, :through => :memberships, 
+                           :source => :group, 
+                           :order => "memberships.created_at desc"
   
   has_many :stuffs
   

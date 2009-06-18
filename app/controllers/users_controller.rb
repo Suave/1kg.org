@@ -178,7 +178,7 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
 
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], :order => "created_at desc", :limit => 3)
+    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], :limit => 3)
   end
   
   def shares
@@ -186,29 +186,28 @@ class UsersController < ApplicationController
     get_user_record(@user)
     
     @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], 
-                                      :order => "created_at desc", 
                                       :select => "title, hits, comments_count, created_at, id")
   end
   
   def neighbors
     get_user_record(@user)
-    @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :order => "neighborhoods.created_at desc", :per_page => "50"
+    @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :per_page => "50"
   end
   
   def participated_activities
-    @activities = @user.participated_activities.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 20)
+    @activities = @user.participated_activities.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
   def submitted_activities
-    @activities = @user.submitted_activities.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 20)
+    @activities = @user.submitted_activities.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
   def submitted_schools
-    @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 20)
+    @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
   def visited_schools
-    @schools = @user.visited_schools.paginate(:page => params[:page] || 1, :order => "created_at desc", :per_page => 20)
+    @schools = @user.visited_schools.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
   def group_topics
@@ -223,14 +222,14 @@ class UsersController < ApplicationController
   
   def get_user_record(user)
     # user's published activities
-    @activities = user.submitted_activities.find(:all, :limit => 5, :order => "created_at desc")
+    @activities = user.submitted_activities.find(:all, :limit => 5)
     
     #user's submitted schools
-    @schools = user.submitted_schools.find(:all, :limit => 5, :order => "created_at desc")
+    @schools = user.submitted_schools.find :all, :limit => 5
     
-    @neighbors = user.neighbors.find(:all, :order => "neighborhoods.created_at desc", 
-                                           :limit => 9
-                                           )
+    @neighbors = user.neighbors.find :all, :limit => 9
+                                           
+    @groups = user.joined_groups.find :all, :limit => 9
   end
   
 
