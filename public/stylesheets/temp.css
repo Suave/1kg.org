@@ -27,7 +27,7 @@ div.tabbedPanel ul.tab li {
   margin-right: -1px;
 }
 
-div.tabbedPanel ul.tab li.ui-tabs-selected {
+div.tabbedPanel ul.tab li.ui-tabs-selected, div.tabbedPanel ul.tab li.current {
   border: #ccc solid 1px;
   border-bottom: 1px solid #FFF;
   font-weight: bold;
@@ -42,7 +42,7 @@ div.tabbedPanel ul.tab li a {
 
 }
 
-div.tabbedPanel ul.tab li.ui-tabs-selected a {
+div.tabbedPanel ul.tab li.ui-tabs-selected a, div.tabbedPanel ul.tab li.current a {
   color: #333;
   background-color: #FFF;
   border-top: 1px solid #f0f0f0;

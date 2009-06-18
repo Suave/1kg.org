@@ -1,4 +1,5 @@
 class Admin::SchoolsController < Admin::BaseController
+  before_filter :find_school, :except => :index
   
   def index
     if params[:type].blank? || params[:type] == "validated"
@@ -17,17 +18,25 @@ class Admin::SchoolsController < Admin::BaseController
   end
   
   def show
-    @school = School.find(params[:id])
   end
   
-  def undelete
-    # TODO change method to 'active'
-    @school = School.find(params[:id])
+  def destroy
+    @school.destroy
+    flash[:notice] = "#{@school.title} 的信息已经彻底删除！"
+    redirect_to admin_schools_url(:type => "trash")
+  end
+  
+  
+  def active
     @school.update_attributes!(:deleted_at => nil)
     flash[:notice] = "已经恢复 #{@school.title}"
     redirect_to admin_schools_url(:type => "trash")
   end
   
-  # TODO add method 'delete'
+  private
+  def find_school
+    @school = School.find params[:id]
+  end
+  
   
 end

@@ -14,15 +14,13 @@
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>校名</th>
-          <th>讨论区</th>
           <th>提交人</th>
           <th>提交时间</th>
           <th>验证</th>
         </tr>
         <% @schools.each do |s| -%>
         <tr>
-          <td><%= link_to s.title, admin_school_url(s) %></td>
-          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
+          <td><%= link_to s.title, admin_school_url(s) %> (<%= link_to "学校资料", school_url(s), :target => "_blank" %>)</td>
           <td><%= link_to s.user.login, user_url(s.user) %></td>
           <td><%= s.created_at.to_date %></td>
           <td><%= link_to "取消验证", validate_school_url(s, :t => "remove"), :method => :put %></td>
@@ -38,14 +36,13 @@
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>校名</th>
-          <th>讨论区</th>
           <th>提交人</th>
           <th>提交时间</th>
           <th>验证</th>
         </tr>
         <% @schools.each do |s| -%>
         <tr>
-          <td><%= link_to s.title, admin_school_url(s) %></td>
+          <td><%= link_to s.title, admin_school_url(s) %> (<%= link_to "学校资料", school_url(s), :target => "_blank" %>)</td>
           <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
           <td><%= link_to s.user.login, user_url(s.user) %></td>
           <td><%= s.created_at.to_date %></td>
@@ -62,18 +59,20 @@
       <table border="0" cellspacing="5" cellpadding="5">
         <tr>
           <th>校名</th>
-          <th>讨论区</th>
-          <th>提交人</th>
-          <th>提交时间</th>
           <th>删除时间</th>
         </tr>
         <% @schools.each do |s| -%>
         <tr>
-          <td><%= link_to s.title, admin_school_url(s) %></td>
-          <td><%= s.discussion ? link_to("查看", board_url(s.discussion.board.id)) : "无" %></td>
-          <td><%= link_to s.user.login, user_url(s.user) %></td>
-          <td><%= s.created_at.to_date %></td>
-          <td><%= s.deleted_at.to_date %> (<%= link_to "撤销删除", undelete_admin_school_url(s), :method => :put %>)</td>
+          <td>
+            <%= link_to s.title, school_url(s), :target => "_blank" %><br />
+            <%= s.created_at.to_date %> by <%= link_to s.user.login, user_url(s.user) %>
+          </td>
+          <td>
+            <%= s.deleted_at.to_date %><br /> 
+            <%= link_to "恢复", active_admin_school_url(s), :method => :put %> |
+            <%= link_to "彻底删除", admin_school_url(s), :method => :delete, :confirm => "不能撤销，相关讨论区也同时被删除，确定？" %> |
+            <%= link_to "更多", admin_school_url(s) %>
+          </td>
         </tr>
         <% end -%>
       </table>
