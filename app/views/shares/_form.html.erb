@@ -1,7 +1,24 @@
-<p><label class="label">我去的城市</label><%= geo_select "share", "geo", [], @share.geo_id %> <%= error_message_on @share, :geo_id %></p>
-<p><label class="label">我参加的活动</label><%= form.select :activity_id, @share.user.participated_activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]}, {:include_blank => true}  %></p>
-<p><label class="label">我去的学校</label><%= form.select :school_id, @share.user.visited_schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %></p>
-  <p><label class="label">标题</label><%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %></p>
+<% 
+activities = @share.new_record? ? current_user.participated_activities : @share.user.participated_activities
+schools = @share.new_record? ? current_user.visited_schools : @share.user.visited_schools
+%>
 
-  <p><label class="label"><%= avatar_for current_user, "large" %></label>
-    <%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
+<p><label class="label">我去的城市</label>
+<%= geo_select "share", "geo", [], @share.geo_id %> <%= error_message_on @share, :geo_id %>
+</p>
+
+<p><label class="label">我参加的活动</label>
+<%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]}, {:include_blank => true}  %>
+</p>
+
+<p><label class="label">我去的学校</label>
+<%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %>
+</p>
+
+<p><label class="label">标题</label>
+<%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
+</p>
+
+<p><label class="label"><%= avatar_for current_user, "large" %></label>
+<%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+</p>
