@@ -180,6 +180,10 @@ class SchoolsController < ApplicationController
   def show
     @school = School.find(params[:id])
     
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+    
     @visitors = @school.visitors
     @followers = @school.interestings
     @shares = @school.shares

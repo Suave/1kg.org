@@ -19,15 +19,7 @@ class ApplicationController < ActionController::Base
   
   
   def rescue_action(exception)
-    case e 
-    when ActiveRecord::RecordInvalid
-      render_invalid_record(exception.record)
-    when ActiveRecord::RecordNotFound
-      render_404
-    else
-      super
-    end
-    #exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
+    exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
   end
   
   def render_invalid_record(record)
