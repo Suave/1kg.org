@@ -115,7 +115,11 @@
       <div class="boxInner">
         <h3>学校位置</h3>
         <div class="contents clearfix">
-          <p id="map_message" class="caution">如您发现学校位置不正确，可<a href="/login">登录</a>后拖动标记以修正学校位置。</p>
+          <% if logged_in? -%>
+            <p id="map_message" class="caution">如您发现学校位置不正确，拖动标记以修正学校位置。</p>
+          <% else -%>
+            <p id="map_message" class="caution"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>后可以修改学校位置</p>
+          <% end -%>
           <%= render :partial => "school_map", :locals => {:school => @school} %>
         </div>
       </div>

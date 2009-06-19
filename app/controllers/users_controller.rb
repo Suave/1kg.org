@@ -31,7 +31,7 @@ class UsersController < ApplicationController
         #redirect_to "/setting"
         session[:from_activity_join] = true if session[:from_activity_join] == false # for adwords tracker
         session[:signup_recent] = true
-        redirect_back_or_default("/setting")
+        redirect_back_or_default CGI.unescape(params[:to] || '/setting')
         #render :action => "wait_activation"
       else
         render :action => 'new'
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     if logged_in? && !self.current_user.active?
       self.current_user.activate!
       flash[:notice] = "注册完成，补充一下你的个人信息吧"
-      redirect_back_or_default("/setting")
+      redirect_back_or_default CGI.unescape(params[:to] || '/setting')
     else
       flash[:notice] = "激活码不正确，请联系 feedback@1kg.org"
       redirect_back_or_default("/")

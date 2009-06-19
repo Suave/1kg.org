@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
       # for adwords tracker
       session[:from_activity_join] = true if session[:from_activity_join] == false
       
-      redirect_back_or_default('/')
+      redirect_back_or_default CGI.unescape(params[:to] || '/')
       
     else
       flash[:notice] = "邮件地址或密码错误"
