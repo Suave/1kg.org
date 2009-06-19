@@ -142,7 +142,7 @@ class SchoolsController < ApplicationController
   
   # TODO refactor
   def update
-    #@school = School.find params[:id]
+    @school = School.find params[:id]
     respond_to do |format|
       format.html do
         if params[:step] == 'basic'
@@ -294,12 +294,8 @@ class SchoolsController < ApplicationController
   end
   
   def update_info(current_step, next_step, msg)
-    @school = School.find(params[:id])
-    
     begin
-      logger.info "BEFORE UPDATE"
       @school.update_attributes!(params[:school])
-      logger.info "AFTER UPDATE"
       flash[:notice] = msg
       next_step == "done" ? redirect_to(school_url(@school)) : render(:action => "edit_#{next_step}")
       
