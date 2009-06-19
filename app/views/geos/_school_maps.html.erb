@@ -20,13 +20,19 @@
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
 
-      var icon = new GIcon(G_DEFAULT_ICON);
-      icon.image = "/images/marker.png";
+      var icons = new Array
+      icons[0] = new GIcon(G_DEFAULT_ICON);
+      icons[0].image = "/images/invalid.png";
+      icons[1] = new GIcon(G_DEFAULT_ICON);
+      icons[1].image = "/images/valid.png";
+      icons[2] = new GIcon(G_DEFAULT_ICON);
+      icons[2].image = "/images/meta.png";
+      
       var markers = [];
       
       for (var i = 0; i < schools.length; ++i) {
-        var point = new GLatLng(schools[i].la, schools[i].lo)
-        var marker = new GMarker(point, {icon: icon});
+        var point = new GLatLng(schools[i].a, schools[i].o)
+        var marker = new GMarker(point, {icon: icons[schools[i].t]});
 
         GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
 
