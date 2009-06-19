@@ -152,7 +152,7 @@
           <p class="submit"><%= submit_tag "提 交" %></p>
           <% end -%>
         <% else -%>
-          <div class="contents"><%= link_to "登录", login_url %>以后可以留言</div>
+          <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以留言</div>
         <% end -%>
       </div>
     </div>
