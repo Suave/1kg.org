@@ -132,7 +132,7 @@
           <% end -%>
         <% else -%>
 
-          <div class="contents"><%= link_to "登录", login_url %>以后可以回复话题</div>
+          <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以回复话题</div>
 
         <% end -%>
       </div>
