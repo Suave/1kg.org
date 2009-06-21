@@ -10,22 +10,15 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <div class="box">
+  <div class="box" id="search-front">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3></h3>
+        <h3>城市搜索</h3>
         <div class="contents">
-          <p>&raquo; <%= link_to "写活动分享", new_share_url %></p>
-          <p>&raquo; <%= link_to "发起新活动", new_activity_url %></p>
-          <p>&raquo; <%= link_to "提交学校信息", new_school_url %></p>
-          
-          <div style="margin-top:15px;">
-          <p><strong>我要去</strong> <span class="tipText">(输入你想去的城市)</span></p>
           <% form_tag search_geos_url, :method => :get do -%>
-            <%= text_field_tag 'city' %> <%= submit_tag "查找" %>
+            <%= text_field_tag 'city', "", {:size => "25", :class => "form-text"} %> <%= submit_tag "查找", :class => "form-submit" %>
           <% end -%>
           <p class="tipText">或 <%= link_to "按省查找城市", geos_url %></p>
-          </div>
         </div>
       </div>
     </div>

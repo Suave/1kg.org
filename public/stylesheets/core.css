@@ -525,12 +525,11 @@ body.home #navWrap {
 /* =search-front */
 #search-front .form-text {
   background-color: #fff;
-  width: 200px;
   height: 14px;
   margin-right: 5px;
   padding: 5px;
   color: #c60;
-  border: 0;
+  border: #ccc solid 1px;
 }
 #search-front .form-submit {
   background: url(../images/button-green.png) no-repeat;

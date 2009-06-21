@@ -63,18 +63,7 @@ class GeosController < ApplicationController
     if !@query.to_s.strip.empty?
       tokens = @query.split.collect {|c| "%#{c.downcase}%"}
       @cities = Geo.find(:all, :conditions => [(["(LOWER(name) LIKE ?)"] * tokens.size).join(" AND "), * tokens])
-      #logger.info("CITY: #{@city.inspect}")
-      
-      # search result
-      #@cities = @city.collect{|c| }
-=begin
-      @schools = School.paginate(:per_page => 20,:page => params[:page],
-                  :conditions => [(["(LOWER(address) LIKE ? OR LOWER(traffic_description) LIKE ? 
-                  OR LOWER(title) LIKE ?)"] * tokens.size).join(" AND ") + 
-                  "AND is_hidden = '0'",
-                  * tokens.collect { |token| [token] * 3 }.flatten],
-                                    :order => "created_at DESC")
-=end
+
     else
       flash[:notice] = "您没输入搜索词"
       @cities = Geo.roots

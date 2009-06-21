@@ -5,7 +5,9 @@
     <div class="boxInner">
       <h2>关于 <%= @query %> 的搜索结果</h2>
       <div class="contents">
-        <ul class="clearfix"><%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c.id)}</li>"} %></ul>
+        <ul class="clearfix">
+        <%= @cities.collect {|c| "<li>#{link_to c.name, (c.city_board ? board_url(c.city_board.board) : cities_url(:id => c.id))}</li>"} %>
+        </ul>
       </div>
       <p class="remark">&raquo; <%= link_to "重新搜索", my_city_url %></p>
     </div>
