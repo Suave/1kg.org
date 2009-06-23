@@ -62,6 +62,16 @@ namespace :schools do
 
   end
   
+  desc "initial school validated_at column"
+  task :initial_validated_at => :environment do
+    puts "-- begin initial schools' validated_at column"
+    schools = School.validated.find :all
+    schools.each do |s|
+      s.update_attributes!(:validated_at => s.created_at)
+    end
+    puts "-- finish fullfill the validated_at column for validated schools"
+  end
+    
   namespace :coordinates do
     desc "generate coordinates for all schools"
     task :generate => :environment do

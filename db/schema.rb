@@ -357,6 +357,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "title",               :default => "",    :null => false
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
+    t.datetime "validated_at"
     t.integer  "old_id"
   end
 
