@@ -13,7 +13,10 @@
   </ul>
 <% end -%>
 
-<p class="caution">绿色气球为已验证学校，黄色气球为未验证学校，红色气球为信息不完整学校</p>
+<p class="caution">
+  <%= image_tag(image_path('valid.png')) %> 已验证学校
+  <%= image_tag(image_path('invalid.png')) %>未验证学校
+  <%= image_tag(image_path('meta.png')) %>信息不完整学校</p>
 
 <div class="box">
   <div class="boxOuter">
