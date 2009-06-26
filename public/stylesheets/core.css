@@ -1061,7 +1061,12 @@ h3.title {
 
 /* map view, by yuanyi */
 #map_div { margin: 1em 0; width: 600px; height: 500px; }
+
+#map_popup {width: 400px; float: left; margin-bottom: 20px;}
 #map_popup h3{background: none; margin:0; padding:0;}
+#map_popup #summary { width: 250px; float: left;}
+#map_popup img { width: 130px; margin-left: 20px;}
+
 #contact h3 {background: none;}
 
 .incomplete{text-align: center; color: red;}

@@ -1,22 +1,33 @@
+<div id='map_popup'>
 <h3><%= link_to h(@school.title), @school, :target => "_blank" %></h3>
 <hr />
-<p>位置：
-  <% if @school.geo.parent %>
-    <%= h @school.geo.parent.name %>
-  <% end %>
-  <%= h @school.geo.name %>
-  <%= h @school.basic.address %>
-  <br />
-  紧急需求：
-  <% if @need -%>
-    <%= h @need.urgency %>
-  <% else -%>
-    无
-  <% end -%>
-</p>
 
-<% if @school.geo.city_board -%>
-<p>&raquo; <%= link_to "前往#{@school.geo.name}同城", board_url(@school.geo.city_board.board) %><br />
-&raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %><br />
-&raquo; <%= link_to "更正学校位置", edit_school_position_path(@school) %></p>
-<% end -%>
+<div id="summary">
+  <p>
+    位置：
+    <% if @school.geo.parent %>
+      <%= h @school.geo.parent.name %>
+    <% end %>
+    <%= h @school.geo.name %>
+    <%= h @school.basic.address %>
+    <br />
+    紧急需求：
+    <% if @need -%>
+      <%= h @need.urgency %>
+    <% else -%>
+      无
+    <% end -%>
+  </p>
+
+  <% if @school.geo.city_board -%>
+    <p>
+      &raquo; <%= link_to "前往#{@school.geo.name}同城", board_url(@school.geo.city_board.board) %><br />
+      &raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %><br />
+      &raquo; <%= link_to "更正学校位置", edit_school_position_path(@school) %>
+    </p>
+  <% end -%>
+</div>
+
+<%= link_to image_tag(@school.photos.first.public_filename(:thumb)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>
+</div>
+<div class="clear"></div>
