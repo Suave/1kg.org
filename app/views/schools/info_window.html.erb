@@ -18,5 +18,5 @@
 <% if @school.geo.city_board -%>
 <p>&raquo; <%= link_to "前往#{@school.geo.name}同城", board_url(@school.geo.city_board.board) %><br />
 &raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %><br />
-&raquo; <%= link_to "更正学校位置", edit_school_position_path(school) %></p>
+&raquo; <%= link_to "更正学校位置", edit_school_position_path(@school) %></p>
 <% end -%>
