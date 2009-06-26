@@ -1,0 +1,64 @@
+<% @page_title = "编辑学校信息" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<% content_for :fullsize do -%>
+  <div class="box" id="schoolsPostNew">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h2><!-- --></h2>
+        <p id="map_message" class="caution">拖动标记即可修正学校位置，或<%= link_to '跳过此步骤，直接进入下一步', edit_school_path(@school, :step => 'other') %></p>
+        <div class="contents">
+          
+          <%= render :partial => 'school_steps' %>
+          
+          <% content_for :heads do -%>
+            <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
+            <script type="text/javascript" charset="utf-8">
+              jQuery.noConflict();
+            </script>
+            <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+            <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+            <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+          <% end -%>
+
+          <script type="text/javascript">
+            var map;
+            function initialize() {
+              if (GBrowserIsCompatible()) {
+                map = new GMap2(document.getElementById("map_div"));
+                map.setCenter(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), 7);
+                map.addControl(new GLargeMapControl());
+                map.addControl(new GMapTypeControl());
+
+                var point = new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>);
+                marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
+
+                <% if logged_in? %>
+                GEvent.addListener(marker, "dragend", function() {
+                  jQuery.ajax({
+                    type: 'PUT',
+                    url: '<%= school_path(@school) %>',
+                    data: 'longitude=' + marker.getPoint().lng() + '&latitude=' + marker.getPoint().lat(),
+                    dataType: "script"
+                  });
+                });
+                <% end %>
+
+                map.addOverlay(marker);
+              }
+            }
+            jQuery(function(){
+              initialize();
+            })
+          </script>
+
+          <div id="map_div" style="width: 860px; height: 500px; margin: 10px 20px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% end -%>

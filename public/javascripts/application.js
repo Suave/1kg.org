@@ -61,7 +61,7 @@ function copy_clip(meintext){
 
 function markerClickFn(point, id) {
   return function() {
-    map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");
+    map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 300px; clear: both; height: 160px;'></div>");
     GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
       jQuery('#map_popup').html(data);
     });
