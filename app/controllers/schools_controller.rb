@@ -139,8 +139,7 @@ class SchoolsController < ApplicationController
     render :action => "edit_#{step}"
   end
   
-  
-  # TODO refactor
+
   def update
     @school = School.find params[:id]
     respond_to do |format|
@@ -210,11 +209,11 @@ class SchoolsController < ApplicationController
   def validate
     @school = School.find(params[:id])
     if params[:t] == 'add'
-      @school.update_attributes!(:validated => true)
+      @school.update_attributes!(:validated => true, :validated_at => Time.now )
       flash[:notice] = "已经通过验证"
       
     elsif params[:t] == 'remove'
-      @school.update_attributes!(:validated => false)
+      @school.update_attributes!(:validated => false, :validated_at => nil)
       flash[:notice] = "已经取消验证"
       
     else
