@@ -3,11 +3,9 @@
   <script type="text/javascript" charset="utf-8">
     jQuery.noConflict();
   </script>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
-  <%= javascript_include_tag("markerclusterer_packed") %>
   <script type="text/javascript" src="/schools.json"></script>
+  <%= javascript_include_tag 'Clusterer2' %>
 <% end %>
 
 <script type="text/javascript">
@@ -29,6 +27,7 @@
       icons[2].image = "/images/meta.png";
       
       var markers = [];
+      var clusterer = new Clusterer( map );
       
       for (var i = 0; i < schools.length; ++i) {
         var point = new GLatLng(schools[i].a, schools[i].o)
@@ -36,10 +35,10 @@
 
         GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
 
-        markers.push(marker);
+        clusterer.AddMarker( marker, schools[i].n)
       }
 
-      var markerCluster = new MarkerClusterer(map, markers);
+      //var markerCluster = new MarkerClusterer(map, markers);
     }
   }
   window.onload = initialize;
