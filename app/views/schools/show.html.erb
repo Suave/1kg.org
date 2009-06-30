@@ -67,7 +67,7 @@
                 <% end %>
                 <%= h @school.geo.name %>
               </p>
-              <% if @basic -%>
+              <% if @school.basic -%>
 
               <p><label>地址</label><%= h @basic.address %>，<%= h @basic.zipcode %> (电话：<%= h @basic.telephone %>)</p>
               <p><label>校长</label><%= h @basic.master %></p>
@@ -89,7 +89,7 @@
               <p><label>学校在</label><%= @school.county.name %></p>
               <% end -%>
 
-              <% if @traffic -%>
+              <% if @school.traffic -%>
               <p><label>周边景点</label><%= h @traffic.sight %></p>
               <p><label>交通方式</label><%= h @traffic.transport %></p>
               <p><label>行程时间</label><%= h @traffic.duration %> 小时</p>
@@ -103,7 +103,7 @@
 
             <div id="need">
               <form>
-              <% if @need -%>
+              <% if @school.need -%>
               <p><label>紧急需求</label><%= h @need.urgency %></p>
               <p><label>图书</label><%= h @need.book %></p>
               <p><label>文具</label><%= h @need.stationary %></p>
@@ -121,7 +121,7 @@
 
             <div id="local">
               <form>
-              <% if @local -%>
+              <% if @school.local -%>
 
                 <p><label>当地收入来源</label><%= h @local.incoming_from %></p>
                 <p><label>当地平均收入</label><%= h @local.incoming_average %> 元/年</p>
@@ -147,7 +147,7 @@
             <div id="contact">
               <h3>学校联系人</h3>
               <form>
-              <% if @contact -%>
+              <% if @school.contact -%>
 
                 <p><label>姓名</label><%= h @contact.name %></p>
                 <p><label>职务</label><%= h @contact.role %></p>
@@ -164,7 +164,7 @@
               <div style="clear:both"></div>
               <h3>信息收集人</h3>
               <form>
-              <% if @finder -%>
+              <% if @school.finder -%>
 
                 <p><label>姓名</label><%= h @finder.name %></p>
                 <p><label>邮件</label><%= h @finder.email %></p>
