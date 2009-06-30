@@ -19,6 +19,7 @@ class GeosController < ApplicationController
   
   def show
     @city = Geo.find(params[:id])
+    @school = School.find_by_id(params[:school_id])
     @map_center = [@city.latitude, @city.longitude, 7]
     setup_destination_stuff(@city)
     

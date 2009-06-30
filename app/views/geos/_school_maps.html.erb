@@ -37,7 +37,10 @@
 
         clusterer.AddMarker( marker, schools[i].n)
       }
-
+      
+      <% if @school %>
+        schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
+      <% end %>
       //var markerCluster = new MarkerClusterer(map, markers);
     }
   }
