@@ -32,6 +32,36 @@ namespace :schools do
     puts "#{School.count} schools updated."
   end
   
+  desc "import meta schools from db/schools.csv"
+  task :import => :environment do
+    file = File.open("#{RAILS_ROOT}/db/schools.csv", 'r')
+    file.each_line do |line|
+      attributes = line.split(',')
+      
+      address = attributes[1]
+      city = ''
+      if address.include?('省') || address.include?('自治区') || address.include?('特别行政区')
+        city = address.gsub!(/省(.*?)$/, '')
+        city = address.gsub!(/自治区(.*?)$/, '')
+        city = address.gsub!(/特别行政区(.*?)$/, '')
+      else
+        city = address.gsub!(/市(.*?)$/, '')
+      end
+      geo = Geo.find_by_name(city) || Geo.first
+      
+      school = School.new(:title => attributes[4], :meta => true, :validated => false, :geo_id => geo)
+      school.basic = SchoolBasic.new(:address => attributes[1], 
+                                      :zipcode => attributes[6], 
+                                      :master => attributes[3], 
+                                      :telephone => attributes[2])
+      
+      if school.save
+        puts school.id 
+      else
+        puts school.errors.full_messages
+      end
+    end
+  end
 
   desc "generate a json file used for google map"
   task :to_json => :environment do
@@ -79,7 +109,7 @@ end
 
 namespace :geo do
   namespace :coordinates do
-    desc "generate coordinates for all schools"
+    desc "generate coordinates for all geos"
     task :generate => :environment do
       Geo.all.each do |geo|
         coordinates = find_coordinates_by_address(geo.name)

@@ -72,7 +72,7 @@ class School < ActiveRecord::Base
   }
   
   def after_create
-    Mailer.deliver_submitted_school_notification(self)
+    Mailer.deliver_submitted_school_notification(self) if self.user
   end
   
   validates_presence_of :geo_id, :message => "必选项"
