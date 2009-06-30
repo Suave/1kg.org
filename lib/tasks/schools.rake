@@ -41,6 +41,7 @@ namespace :schools do
     schools.each do |school|
       schools_json << {:i => school.id,
                        :t => school.icon_type,
+                       :n => school.title,
                        :a => school.basic.latitude,
                        :o => school.basic.longitude
                       }

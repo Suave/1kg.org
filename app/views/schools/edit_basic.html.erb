@@ -11,14 +11,7 @@
         <h2><!-- --></h2>
         <div class="contents">
           
-          <div class="school-steps">
-          	<ol class="clearfix">
-          		<li class="first current"><span>1</span> 编辑学校基本信息</li>
-          		<li class="middle"><span>2</span> 编辑交通信息</li>
-          		<li class="middle"><span>3</span> 编辑学校需求</li>
-          		<li class="last"><span>4</span> 编辑其它信息<span class="hook"></span></li>
-          	</ol>
-          </div>    
+          <%= render :partial => 'school_steps' %>
           
           <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
           <p><label class="label">类型</label>

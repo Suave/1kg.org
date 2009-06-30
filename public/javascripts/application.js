@@ -61,9 +61,10 @@ function copy_clip(meintext){
 
 function markerClickFn(point, id) {
   return function() {
-    map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");
+    //map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 500px; clear: both; height: 160px;'></div>");
     GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-      jQuery('#map_popup').html(data);
+      map.openInfoWindowHtml(point, data);
+      //jQuery('#map_popup').html(data);
     });
   }
 }
@@ -71,9 +72,9 @@ function markerClickFn(point, id) {
 function schoolClickFn(latlng, id, level)
 {
   map.setCenter(latlng, level);
-  map.openInfoWindowHtml(latlng, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");  
+  //map.openInfoWindowHtml(latlng, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");  
   GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-    jQuery('#map_popup').html(data);
+    map.openInfoWindowHtml(latlng, data);
   });
 
 }

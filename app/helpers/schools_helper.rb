@@ -12,5 +12,7 @@ module SchoolsHelper
     school.validated? ? "已通过验证" : "<span class=\"notice\">未通过验证</span>"
   end
   
-
+  def edit_school_position_path(school)
+    edit_school_path(school, :step => 'position')
+  end
 end
