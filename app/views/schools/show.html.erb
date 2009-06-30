@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
 
-<% @page_title = "#{h @school.title}" -%>
+<% @page_title = @title = "#{h @school.title}" -%>
 <% @body_class = "schools" -%>
 
 <% content_for :crumb do -%>
@@ -55,7 +55,7 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3><%= link_to h(@school.title), @school, :target => "_blank" %></h3>
+        <h3>学校信息</h3>
         <div class="tabbedPanel" id="tabs">
           <%= render :partial => "show_tabmenu" %>
           <div class="panel setting">
@@ -181,6 +181,24 @@
             </div>
           </div>
         </div>
+        <p class="remark">
+           &raquo;
+          <% if @school.validated_by current_user -%>
+            <% if @school.validated? -%>
+              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+            <% else -%>
+              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+            <% end -%>
+          <% end -%>
+
+          <% if logged_in? && @school.edited_by(current_user) -%>
+            | <%= link_to "编辑", edit_school_url(@school) %>
+          <% end -%>
+
+          <% if logged_in? && @school.destroyed_by(current_user) -%>
+            | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+          <% end -%>
+        </p>
       </div>
     </div>
   </div>
