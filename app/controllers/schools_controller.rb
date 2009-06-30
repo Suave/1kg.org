@@ -93,10 +93,8 @@ class SchoolsController < ApplicationController
   end
   
   def new
-    %w(basic traffic need other).include?(params[:step]) ? step = params[:step] : step = "basic"
-    
-    @school = step=="basic" ? School.new : School.find(params[:sid])  
-    render :action => step
+    @school = School.new
+    @step = 'basic'
   end
   
   def create
@@ -108,7 +106,7 @@ class SchoolsController < ApplicationController
         
         @school.save!
         flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-        redirect_to new_school_url(:step => 'traffic', :sid => @school.id)
+        redirect_to edit_school_url(@school, :step => 'traffic')
         
       rescue ActiveRecord::RecordInvalid
                 
@@ -116,27 +114,27 @@ class SchoolsController < ApplicationController
         
       end
       
-    elsif params[:step] == 'traffic'
-
-      submit_info "traffic", "need", "学校交通信息已经保存，请继续填写学校的需求信息"
-      
-    elsif params[:step] == 'need'
-
-      submit_info "need", "other", "学校需求信息已经保存，请填写最后一项"
-      
-    elsif params[:step] == 'other'
-
-      submit_info "other", "done", "提交学校成功，谢谢你！"
-      
-    else
+    # elsif params[:step] == 'traffic'
+    # 
+    #       submit_info "traffic", "need", "学校交通信息已经保存，请继续填写学校的需求信息"
+    #       
+    #     elsif params[:step] == 'need'
+    # 
+    #       submit_info "need", "other", "学校需求信息已经保存，请填写最后一项"
+    #       
+    #     elsif params[:step] == 'other'
+    # 
+    #       submit_info "other", "done", "提交学校成功，谢谢你！"
+    #       
+    #     else
       # TODO add some catch exception
     end
   end
   
   def edit
     @school = School.find(params[:id])
-    %w(basic traffic need other).include?(params[:step]) ? step = params[:step] : step = "basic"
-    render :action => "edit_#{step}"
+    %w(basic traffic need other position).include?(params[:step]) ? @step = params[:step] : @step = "basic"
+    render :action => "edit_#{@step}"
   end
   
 
@@ -154,7 +152,7 @@ class SchoolsController < ApplicationController
           
         elsif params[:step] == 'need'
 
-          update_info "need", "other", "学校需求信息修改成功！"
+          update_info "need", "position", "学校需求信息修改成功！"
           
         elsif params[:step] == 'other'
 
@@ -167,7 +165,7 @@ class SchoolsController < ApplicationController
       format.js do
         @school.basic.update_attributes(:latitude => params[:latitude], :longitude => params[:longitude])
         render :update do |page|
-          page['map_message'].replace_html('新位置已经成功保存，非常感谢您对多背一公斤的支持！')
+          page['map_message'].replace_html(:inline => '新位置已经成功保存，<%= link_to "点击此处进入下一步", edit_school_path(@school, :step => "other") %>')
           page['map_message'].visual_effect('highlight')
         end
       end
@@ -178,6 +176,13 @@ class SchoolsController < ApplicationController
   
   def show
     @school = School.find(params[:id])
+    
+    @traffic = @school.traffic
+    @need = @school.need
+    @local   = @school.local
+    @contact = @school.contact
+    @finder  = @school.finder
+    @basic = @school.basic
     
     if @school.nil? or @school.deleted?
       render_404 and return
@@ -276,27 +281,27 @@ class SchoolsController < ApplicationController
   
   
   private
-  def submit_info(current_step, next_step, msg)
-    @school = School.find params[:id]
-    
-    begin
-      
-      @school.update_attributes!(params[:school])
-      flash[:notice] = msg      
-      redirect_to next_step == "done" ? school_url(@school) : new_school_url(:step => next_step, :sid => @school.id)
-      
-    rescue ActiveRecord::RecordInvalid
-      
-      render :action => current_step
-      
-    end
-  end
+  # def submit_info(current_step, next_step, msg)
+  #   @school = School.find params[:id]
+  #   
+  #   begin
+  #     
+  #     @school.update_attributes!(params[:school])
+  #     flash[:notice] = msg      
+  #     redirect_to next_step == "done" ? school_url(@school) : new_school_url(:step => next_step, :sid => @school.id)
+  #     
+  #   rescue ActiveRecord::RecordInvalid
+  #     
+  #     render :action => current_step
+  #     
+  #   end
+  # end
   
   def update_info(current_step, next_step, msg)
     begin
       @school.update_attributes!(params[:school])
       flash[:notice] = msg
-      next_step == "done" ? redirect_to(school_url(@school)) : render(:action => "edit_#{next_step}")
+      next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
       
     rescue ActiveRecord::RecordInvalid
       
