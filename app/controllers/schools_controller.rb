@@ -10,12 +10,6 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       @schools = School.recent_upload
       format.html {
-        @traffic = @school.traffic
-        @need = @school.need
-        @local   = @school.local
-        @contact = @school.contact
-        @finder  = @school.finder
-        @basic = @school.basic
         @topics = Topic.last_10_updated_topics(SchoolBoard)
         @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
         
@@ -183,6 +177,13 @@ class SchoolsController < ApplicationController
   
   def show
     @school = School.find(params[:id])
+    
+    @traffic = @school.traffic
+    @need = @school.need
+    @local   = @school.local
+    @contact = @school.contact
+    @finder  = @school.finder
+    @basic = @school.basic
     
     if @school.nil? or @school.deleted?
       render_404 and return
