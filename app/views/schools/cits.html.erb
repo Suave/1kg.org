@@ -13,7 +13,7 @@
           </tr>
           <% @schools.each do |s| -%>
           <tr class="<%= cycle('odd', 'even') %>">
-            <td><%= link_to s.title, school_url(s) %><% unless s.validated %>（未验证）<% end -%></td>
+            <td><%= link_to s.title, school_url(s) %><% unless s.validated? %>（未验证）<% end -%></td>
             <td><%= s.geo.parent.name if s.geo.parent %> <%= s.geo.name %> <%= s.county.name if s.county %></td>
             <td><%= s.basic.address if s.basic %></td>
             <td><%= s.traffic.sight if s.traffic %></td>

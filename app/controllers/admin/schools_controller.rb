@@ -4,11 +4,11 @@ class Admin::SchoolsController < Admin::BaseController
   def index
     if params[:type].blank? || params[:type] == "validated"
       @type = "validated"
-      @schools = School.find(:all, :conditions => {:validated => true, :deleted_at => nil}, :order => "updated_at desc, created_at desc")
+      @schools = School.find(:all, :conditions => "deleted_at is NULL and validated_at is not NULL", :order => "updated_at desc, created_at desc")
       
     elsif params[:type] == "suspend"
       @type = "suspend"
-      @schools = School.find(:all, :conditions => {:validated => false, :deleted_at => nil}, :order => "updated_at desc , created_at desc")
+      @schools = School.find(:all, :conditions => {:validated => nil, :deleted_at => nil}, :order => "updated_at desc , created_at desc")
       
     elsif params[:type] == "trash"
       @type = "trash"

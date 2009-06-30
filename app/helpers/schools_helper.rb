@@ -9,7 +9,7 @@ module SchoolsHelper
   end
   
   def validate_for_human(school)
-    school.validated? ? "已通过验证" : "<span class=\"notice\">未通过验证</span>"
+    !school.validated_at.blank? ? "#{school.validated_at.to_date} 通过验证" : "<span class=\"notice\">学校信息未验证</span>"
   end
   
   def edit_school_position_path(school)

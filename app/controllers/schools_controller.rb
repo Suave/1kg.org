@@ -65,6 +65,7 @@ class SchoolsController < ApplicationController
         schools = School.find(:all, 
                               :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
                               :order => "schools.geo_id asc, schools.updated_at desc")
+
         unless schools.empty?
           @output[province.id] = schools
         end

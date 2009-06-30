@@ -50,9 +50,9 @@ class School < ActiveRecord::Base
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
-  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
+  named_scope :validated, :conditions => ["validated is not null and deleted_at is null and meta=?", false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
-  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"  
+  named_scope :not_validated, :conditions => ["deleted_at is null and validated_at is null and meta=?", false], :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
@@ -140,7 +140,11 @@ class School < ActiveRecord::Base
   def destroyed_by(user)
     return edited_by(user)
   end
-  
+=begin  
+  def validated?
+    self.validated_at.blank? ? false : true
+  end
+=end  
   def visited?(user)
     return false unless user.class == User
     
@@ -163,8 +167,8 @@ class School < ActiveRecord::Base
 
   def self.archives(valid = true)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
-    
-    counts = School.find_by_sql(["select count(*) as count, #{date_func} from schools where validated = ? and deleted_at is null and created_at < ? group by year,month order by year asc,month asc limit ? ", valid, Time.now,count.to_i])
+    condition_time = valid ? "validated_at" : "created_at"
+    counts = School.find_by_sql(["select count(*) as count, #{date_func} from schools where validated = ? and deleted_at is null and #{condition_time} < ? group by year,month order by year asc,month asc limit ? ", valid, Time.now,count.to_i])
     
     sum = 0
     result = counts.map do |entry|
@@ -181,8 +185,16 @@ class School < ActiveRecord::Base
   end
   
   def self.show_date(year, month, day, valid)
-    self.available.find(:all, 
-              :order      => "schools.updated_at desc",
-              :conditions => ["created_at LIKE ? and validated = ?", "#{year}-#{month}-#{day}%", valid])
+    if valid
+      # 已验证学校，以验证时间为准
+      self.available.find(:all, 
+                          :order      => "schools.updated_at desc",
+                          :conditions => ["validated_at LIKE ? and validated = ?", "#{year}-#{month}-#{day}%", true])
+    else
+      # 待验证学校，以提交时间为准
+      self.available.find(:all,
+                          :order => "schools.validated_at desc",
+                          :conditions => ["created_at like ? and validated = ?", "#{year}-#{month}-#{day}%", false] )
+    end
   end
 end
