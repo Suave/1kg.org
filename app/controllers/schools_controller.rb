@@ -215,11 +215,11 @@ class SchoolsController < ApplicationController
   def validate
     @school = School.find(params[:id])
     if params[:t] == 'add'
-      @school.update_attributes!(:validated => true, :validated_at => Time.now )
+      @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
       flash[:notice] = "已经通过验证"
       
     elsif params[:t] == 'remove'
-      @school.update_attributes!(:validated => false, :validated_at => nil)
+      @school.update_attributes!(:validated => false, :validated_at => Time.now, :validated_by_id => current_user.id )
       flash[:notice] = "已经取消验证"
       
     else

@@ -25,6 +25,7 @@ class School < ActiveRecord::Base
   belongs_to :user
   belongs_to :geo
   belongs_to :county
+  belongs_to :validator, :class_name => "User", :foreign_key => "validated_by_id"
 
   has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy 
   has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy 

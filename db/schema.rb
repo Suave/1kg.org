@@ -358,6 +358,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"
+    t.integer  "validated_by_id"
     t.integer  "old_id"
   end
 
