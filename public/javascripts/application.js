@@ -59,22 +59,20 @@ function copy_clip(meintext){
 	return false;
 }
 
-function markerClickFn(point, id) {
+function openInfoWindow(latlng, id)
+{
+  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+    map.openInfoWindowHtml(latlng, data);
+  });
+}
+function markerClickFn(latlng, id) {
   return function() {
-    //map.openInfoWindowHtml(point, "<div id='map_popup' style='width: 500px; clear: both; height: 160px;'></div>");
-    GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-      map.openInfoWindowHtml(point, data);
-      //jQuery('#map_popup').html(data);
-    });
+    openInfoWindow(latlng, id)
   }
 }
 
 function schoolClickFn(latlng, id, level)
 {
   map.setCenter(latlng, level);
-  //map.openInfoWindowHtml(latlng, "<div id='map_popup' style='width: 480px; height: 420px;'></div>");  
-  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
-    map.openInfoWindowHtml(latlng, data);
-  });
-
+  openInfoWindow(latlng, id)
 }
