@@ -160,6 +160,10 @@ class SchoolsController < ApplicationController
           update_info "other", "done", "学校信息修改完成！"
           
         end
+        
+        if params[:moderator] == 'add'
+          user = User.find params[:uid]
+        end
       end
       
       # for drag & drop school marker
@@ -268,6 +272,13 @@ class SchoolsController < ApplicationController
     visited.destroy if visited
     redirect_to school_url(@school)
   end
+  
+  def moderator
+    @school = School.find params[:id]
+    @moderators = User.moderators_of @school
+    @candidates = @school.visitors + @school.interestings - @moderators
+  end
+  
   
   # 提供给国旅的学校列表
   def cits

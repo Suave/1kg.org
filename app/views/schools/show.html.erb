@@ -50,13 +50,40 @@
   <% end -%>
   
   <p>&raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %></p>
+  
+  <% if logged_in? && current_user.admin? -%>
+  <p>&raquo; <%= link_to "设置学校爱心大使", moderator_school_url(@school) %></p>
+  <% end -%>
 <% end -%>
 
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
         <h3>学校信息</h3>
-        <span class="postNew"><%= validate_for_human @school %></span>
+        <span class="postNew tipText">
+          <% if @school.visited?(current_user) == 'visited' -%>
+            我去过
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">修改时间</a>
+            <%= link_to "我没去过", novisited_school_url(@school), :method => :put %>
+
+          <% elsif @school.visited?(current_user) == 'interesting' -%>
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">我去过</a>
+            <%= link_to "不关注了", novisited_school_url(@school), :method => :put %>
+
+          <% elsif @school.visited?(current_user) == false -%>
+            <a href="javascript:void(0);" onclick="$('visit_date').show()">我去过</a>
+            <%= link_to "我关注", interest_school_url(@school), :method => :put %>
+
+          <% end -%>        
+        </span>
+        <div style="text-align:right">
+          <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
+          <div id="visit_date" style="display:none">
+            什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited %>" class="formText calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" />
+            <%= submit_tag "确定" %>
+          </div>
+          <% end -%>
+        </div>
         <div class="tabbedPanel" id="tabs">
           <%= render :partial => "show_tabmenu" %>
           <div class="panel setting">
@@ -183,6 +210,7 @@
           </div>
         </div>
         <p class="remark">
+          <%= validate_for_human @school %>
            &raquo;
           <% if @school.validated_by current_user -%>
             <% if @school.validated? -%>

@@ -181,7 +181,6 @@ class User < ActiveRecord::Base
   end
   
   def neighbor_addable_by?(user)
-    logger.info("CURRENT_USER: #{user.inspect}")
     (user != nil) and (id != user.id) and not has_neighbor?(user)
   end
   
@@ -205,14 +204,13 @@ class User < ActiveRecord::Base
     school_moderator_id = Role.find_by_identifier("roles.schools.moderator").id
     return search_role_members(school_moderator_id)
   end
-  
-  
-  def self.moderators_of(board)
-    board_id = (board.class == Board ? board.id : board)
-    role_id = Role.find_by_identifier("roles.board.moderator.#{board_id}").id
+
+  def self.moderators_of(klass)
+    klass_id = ((klass.class == Board || klass.class == School) ? klass.id : klass)
+    role_id = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}").id
     return search_role_members(role_id)
   end
-  
+
   def joined_groups_topics
     board_ids = self.joined_groups.map{|g| g.discussion.board.id}
     return Topic.in_boards_of(board_ids)

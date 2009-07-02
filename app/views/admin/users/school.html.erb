@@ -15,7 +15,7 @@
           <td><%= m.login %></td>
           <td><%= m.email %></td>
           <td>
-              <%= link_to "取消学校管理员", admin_user_path(m, :remove => "school"), :method => :put %>
+              <%= link_to "取消学校管理员", admin_user_path(m, :remove => "schools"), :method => :put %>
           </td>
         </tr>
         <% end -%>
@@ -42,9 +42,9 @@
           <td><%= user.login %></td>
           <td>
             <% unless user.has_role?("roles.schools.moderator") -%>
-              <%= link_to "设为学校管理员", admin_user_path(user, :add => "school"), :method => :put %>
+              <%= link_to "设为学校管理员", admin_user_path(user, :add => "schools"), :method => :put %>
             <% else -%>
-              <%= link_to "取消学校管理员", admin_user_path(user, :remove => "school"), :method => :put %>
+              <%= link_to "取消学校管理员", admin_user_path(user, :remove => "schools"), :method => :put %>
             <% end -%>
           </td>
         </tr>

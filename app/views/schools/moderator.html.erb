@@ -1,0 +1,43 @@
+<% @page_title = @title = @school.title + " 的爱心大使"-%>
+
+<% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回学校页面", school_url(@school) %></p>
+<% end -%>
+
+<div class="box tipText">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>爱心大使</h2>
+      <div class="contents clearfix">
+        <% @moderators.each do |c| %>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dd>
+            <%= link_to c.login, user_url(c) %><br />
+            (<%= link_to "X", admin_user_url(c, :remove => "school", :school => @school), :method => :put %>)
+          </dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>所有关注和去过的用户</h2>
+      <div class="contents clearfix">
+        <% @candidates.each do |c| %>
+        <dl class="obu">
+          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dd>
+            <%= link_to c.login, user_url(c) %><br />
+            (<%= link_to "添加", admin_user_url(c, :add => "school", :school => @school), :method => :put %>)
+          </dd>
+        </dl>
+        <% end -%>
+      </div>
+    </div>
+  </div>
+</div>

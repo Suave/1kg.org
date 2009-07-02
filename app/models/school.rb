@@ -141,11 +141,7 @@ class School < ActiveRecord::Base
   def destroyed_by(user)
     return edited_by(user)
   end
-=begin  
-  def validated?
-    self.validated_at.blank? ? false : true
-  end
-=end  
+
   def visited?(user)
     return false unless user.class == User
     
