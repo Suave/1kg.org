@@ -76,7 +76,7 @@
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
   </div>
-  <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
+  <p class="remark">&raquo; <%= link_to "浏览全部话题", board_url(@board) %></p>
     </div>
   </div>
 </div>

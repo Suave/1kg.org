@@ -1,7 +1,7 @@
 <% @page_title = "#{@group.title} 小组讨论区" -%>
 
 <% content_for :sidebar do -%>
-  <h4>> <%= link_to "返回小组", group_url(@group) %></h4>
+  <h4>> <%= link_to "返回#{@group.title}小组", group_url(@group) %></h4>
 <% end -%>
 
 
