@@ -31,7 +31,7 @@ class Topic < ActiveRecord::Base
   named_scope :available, :conditions => "topics.deleted_at is null"
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
-    { :conditions => ["deleted_at is null and board_id in (?)", board_ids], 
+    { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
       :order => "sticky desc, last_replied_at desc",
       :include => [:board, :user] }
   }
