@@ -69,6 +69,10 @@ namespace :schools do
     schools = School.all
     schools_json = []
     schools.each do |school|
+      if school.basic.blank?
+        puts "#{school.id} -- #{school.title}"
+        next
+      end
       schools_json << {:i => school.id,
                        :t => school.icon_type,
                        :n => school.title,
