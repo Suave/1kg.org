@@ -35,7 +35,8 @@
 
         GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
 
-        clusterer.AddMarker( marker, schools[i].n)
+        //clusterer.AddMarker( marker, schools[i].n)
+        clusterer.AddMarker( marker, "<a href='/schools/" + schools[i].i + "' target='_blank'>" + schools[i].n + "</a>")
       }
       
       <% if @school %>
