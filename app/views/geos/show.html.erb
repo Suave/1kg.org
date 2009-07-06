@@ -11,9 +11,11 @@
 <% end -%>
 
 <% content_for :subtitle do -%>
+  <% if @city.children.blank? -%>
   <div class="subtitle">
   <%= link_to "去#{@city.name}同城", board_url(@city.city_board.board_id) %>
   </div>
+  <% end -%>
 <% end -%>
 
 <% content_for :sidebar do -%>

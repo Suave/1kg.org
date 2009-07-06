@@ -26,6 +26,14 @@ class GeosController < ApplicationController
     if !@city.children.blank?
       @cities = @city.children
     end
+    
+    respond_to do |format|
+      if !params[:page].blank?
+        format.html {render :action => 'schools', :layout => false}
+      else
+        format.html
+      end
+    end
   end
   
   def box

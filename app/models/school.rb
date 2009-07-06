@@ -102,7 +102,7 @@ class School < ActiveRecord::Base
       #logger.info ids
       #logger.info ids.class
       #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
-      validated.available.locate(ids)
+      validated.locate(ids)
   end
   
   
