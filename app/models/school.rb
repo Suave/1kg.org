@@ -51,9 +51,9 @@ class School < ActiveRecord::Base
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
-  named_scope :validated, :conditions => ["validated is not null and deleted_at is null and meta=?", false], :order => "created_at desc"
+  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
   named_scope :available, :conditions => ["deleted_at is null"]
-  named_scope :not_validated, :conditions => ["deleted_at is null and validated_at is null and meta=?", false], :order => "created_at desc"  
+  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
