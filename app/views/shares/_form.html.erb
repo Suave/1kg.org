@@ -4,7 +4,7 @@ schools = @share.new_record? ? current_user.visited_schools : @share.user.visite
 %>
 
 <p><label class="label">我去的城市</label>
-<%= geo_select "share", "geo", [], @share.geo_id %> <%= error_message_on @share, :geo_id %>
+<%= geo_select "share", "geo", ["不限地域", "0"], @share.geo_id %> <%= error_message_on @share, :geo_id %>
 </p>
 
 <p><label class="label">我参加的活动</label>
