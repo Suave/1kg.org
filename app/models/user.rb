@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   acts_as_user
   # Virtual attribute for the unencrypted password
   attr_accessor :password
+  cattr_accessor :current_user
 
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"

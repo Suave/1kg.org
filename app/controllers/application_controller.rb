@@ -6,6 +6,7 @@ require_dependency 'static_permission'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   include AuthenticatedSystem
+  before_filter :set_current_user
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => '390e1d6248716377e77ed7518595a99e'
@@ -44,6 +45,11 @@ class ApplicationController < ActionController::Base
     true 
   end 
 
+  protected
+  def set_current_user
+    User.current_user = self.current_user
+  end
+  
   
   private
   def app_stop

@@ -21,7 +21,7 @@
 #
 
 class School < ActiveRecord::Base
-  
+
   belongs_to :user
   belongs_to :geo
   belongs_to :county
@@ -74,6 +74,11 @@ class School < ActiveRecord::Base
   
   def after_create
     Mailer.deliver_submitted_school_notification(self) if self.user
+  end
+  
+  def before_save
+    self.last_modified_at = Time.now
+    self.last_modified_by_id = User.current_user.id
   end
   
   validates_presence_of :geo_id, :message => "必选项"

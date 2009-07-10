@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "topics_count",        :default => 0
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
-    t.integer  "old_id"
   end
 
   create_table "city_boards", :force => true do |t|
@@ -76,14 +75,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "type_id"
-    t.integer  "old_id"
   end
 
   create_table "counties", :force => true do |t|
     t.integer "geo_id"
     t.string  "name",    :default => "", :null => false
     t.integer "zipcode"
-    t.integer "old_id"
   end
 
   create_table "geos", :force => true do |t|
@@ -95,7 +92,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  "name",      :default => "", :null => false
     t.string  "slug"
     t.integer "zipcode"
-    t.integer "old_id"
   end
 
   create_table "group_boards", :force => true do |t|
@@ -133,14 +129,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "deleted",      :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "old_id"
   end
 
   create_table "neighborhoods", :force => true do |t|
     t.integer  "user_id",     :null => false
     t.integer  "neighbor_id", :null => false
     t.datetime "created_at"
-    t.integer  "old_id"
   end
 
   create_table "pages", :force => true do |t|
@@ -177,7 +171,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
   end
-
+=begin
   create_table "pictures", :force => true do |t|
     t.integer  "parent_id"
     t.string   "content_type"
@@ -195,7 +189,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "event_id"
     t.integer  "school_id"
   end
-
+=end
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false
     t.integer  "user_id",             :null => false
@@ -269,8 +263,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "has_internet",        :limit => 1
     t.integer  "book_amount",                      :default => 0
     t.integer  "pc_amount",                        :default => 0
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "school_boards", :force => true do |t|
@@ -286,8 +278,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "telephone"
     t.string   "email"
     t.string   "qq"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "school_finders", :force => true do |t|
@@ -297,8 +287,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "qq"
     t.string   "msn"
     t.datetime "survey_at"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "school_locals", :force => true do |t|
@@ -312,8 +300,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "ngo_contact_via"
     t.text     "advice"
     t.text     "advice_html"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "school_needs", :force => true do |t|
@@ -327,8 +313,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "course"
     t.string   "teacher"
     t.string   "other"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "school_traffics", :force => true do |t|
@@ -339,8 +323,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "charge"
     t.text     "description"
     t.text     "description_html"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
   end
 
   create_table "schools", :force => true do |t|
@@ -359,7 +341,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"
     t.integer  "validated_by_id"
-    t.integer  "old_id"
   end
 
   create_table "shares", :force => true do |t|
@@ -471,7 +452,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
-    t.integer  "old_id"
   end
 
   add_index "users", ["email", "state"], :name => "index_users_on_email_and_state"
