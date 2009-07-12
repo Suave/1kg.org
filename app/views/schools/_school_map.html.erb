@@ -23,7 +23,11 @@
 <div id="map_div" style="width: 250px; height: 150px; margin: 0 20px;"></div>
 <br />
 <p class="remark">
-  &raquo; <%= link_to "更正学校位置", edit_school_position_path(school) %><br />
+  &raquo; <%= link_to "更正学校位置", edit_school_position_path(school) %>
+  <% if school.basic.marked_at.blank? -%>
+  | <%= link_to "是正确位置", marked_school_path, :method => :put %>
+  <% end -%>
+  <br />
   &raquo; <%= link_to "在大地图中查看", geo_path(school.geo, :school_id => school.id) %>
 </p>
 

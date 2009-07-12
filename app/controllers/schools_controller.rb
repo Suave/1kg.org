@@ -168,7 +168,10 @@ class SchoolsController < ApplicationController
       
       # for drag & drop school marker
       format.js do
-        @school.basic.update_attributes(:latitude => params[:latitude], :longitude => params[:longitude])
+        @school.basic.update_attributes( :latitude => params[:latitude], 
+                                         :longitude => params[:longitude],
+                                         :marked_at => Time.now,
+                                         :marked_by_id => current_user.id )
         render :update do |page|
           page['map_message'].replace_html(:inline => '新位置已经成功保存，<%= link_to "点击此处进入下一步", edit_school_path(@school, :step => "other") %>')
           page['map_message'].visual_effect('highlight')
@@ -177,6 +180,13 @@ class SchoolsController < ApplicationController
     end
   end
   
+  def marked
+    @school = School.find(params[:id])
+    @school.basic.update_attributes!( :marked_at => Time.now,
+                                      :marked_by_id => current_user.id )
+    flash[:notice] = "已经记录您的标记"
+    redirect_to school_url(@school)
+  end
   
   
   def show
@@ -273,6 +283,7 @@ class SchoolsController < ApplicationController
     redirect_to school_url(@school)
   end
   
+  # 学校管理员列表
   def moderator
     @school = School.find params[:id]
     @moderators = User.moderators_of @school

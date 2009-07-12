@@ -252,6 +252,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "zipcode"
     t.string   "longitude"
     t.string   "latitude"
+    t.datetime "marked_at"
+    t.integer  "marked_by_id"
     t.string   "master"
     t.string   "telephone"
     t.string   "level_amount"
