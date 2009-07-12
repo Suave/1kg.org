@@ -57,7 +57,8 @@ ActionController::Routing::Routes.draw do |map|
                           :collection => { :all => :get, 
                                            :unconfirm => :get, 
                                            :archives => :get, 
-                                           :cits => :get
+                                           :cits => :get,
+                                           :todo => :get
                                           } do |school|
     school.resources :visits
   end

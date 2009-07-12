@@ -180,6 +180,7 @@ class SchoolsController < ApplicationController
     end
   end
   
+  # 标记学校 marker 是正确位置，记录下标记时间和标记人
   def marked
     @school = School.find(params[:id])
     @school.basic.update_attributes!( :marked_at => Time.now,
@@ -187,6 +188,15 @@ class SchoolsController < ApplicationController
     flash[:notice] = "已经记录您的标记"
     redirect_to school_url(@school)
   end
+  
+  # 未标记学校列表
+  def todo
+    @geos = Geo.roots
+    @schools = School.validated.find :all, :conditions => "marked_at is null", 
+                                           :joins => "left join school_basics on schools.id = school_basics.school_id", 
+                                           :order => "geo_id asc"
+  end
+  
   
   
   def show

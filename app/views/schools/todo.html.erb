@@ -1,0 +1,38 @@
+<% @page_title = @title = "需要确认的学校标记" -%>
+
+<% content_for :sidebar do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>省份</h3>
+      <div class="contents">
+        <%= @geos.collect {|g| link_to g.name, "##{g.name}"}.join(', ') -%>
+      </div>
+    </div>
+  </div>
+</div>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>一共 <%= @schools.size %> 所学校</h3>
+      <div class="contents">
+        <% stack = [] -%>
+        <ul>
+        <% @schools.each do |s| -%>
+          <% gid = s.geo.parent.nil? ? s.geo.id : s.geo.parent.id %>
+          <% unless stack.include?(gid) %>
+            <% stack << gid %>
+            <% name = s.geo.parent.nil? ? s.geo.name : s.geo.parent.name %>
+            </ul>
+            <h4><a name="<%= name %>"></a><%= name %></h4>
+            <ul>
+          <% end %>
+          <li><%= link_to s.title, school_url(s) %></li>
+        <% end -%>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
