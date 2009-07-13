@@ -32,6 +32,7 @@ class SchoolBasic < ActiveRecord::Base
   include GMap
 
   belongs_to :school
+  belongs_to :marked_by, :class_name => "User", :foreign_key => "marked_by_id"
 
   validates_presence_of :address, :message => "必填项"
   
