@@ -24,3 +24,4 @@ public/pictures
 public/pictures/*
 public/pictures/**/*
 .DS_Store
+public/schools.json

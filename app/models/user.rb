@@ -206,8 +206,9 @@ class User < ActiveRecord::Base
     return search_role_members(school_moderator_id)
   end
 
+  # find school, city and board moderators
   def self.moderators_of(klass)
-    klass_id = ((klass.class == Board || klass.class == School) ? klass.id : klass)
+    klass_id = ((klass.class == Board || klass.class == School || klass.class == Geo) ? klass.id : klass)
     role_id = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}").id
     return search_role_members(role_id)
   end

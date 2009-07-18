@@ -40,9 +40,12 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :neighbors
   end
     
-  map.resources :geos, :collection => {:search => :get, 
-                                       :all => :get},
-                           :member => {:schools => :get, :schools_map => :get}
+  map.resources :geos, :collection => { :search => :get, 
+                                        :all => :get },
+                       :member     => { :schools => :get, 
+                                        :schools_map => :get, 
+                                        :shares => :get, 
+                                        :users => :get }
                            
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
   
@@ -74,9 +77,7 @@ ActionController::Routing::Routes.draw do |map|
                              :collection => {:ongoing => :get, :over => :get}
 
 
-  map.resources :boards, :member =>     { :schools => :get, 
-                                          :users => :get, 
-                                          :shares => :get }, 
+  map.resources :boards, :member =>     { :schools => :get }, 
                          :collection => { :public_issue => :get} do |board|
                            
     board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|

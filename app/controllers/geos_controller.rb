@@ -19,12 +19,21 @@ class GeosController < ApplicationController
   
   def show
     @city = Geo.find(params[:id])
-    @school = School.find_by_id(params[:school_id])
+    @school = School.find_by_id(params[:school_id]) # option
     @map_center = [@city.latitude, @city.longitude, 7]
-    setup_destination_stuff(@city)
+    
+    #setup_destination_stuff(@city)
     
     if !@city.children.blank?
       @cities = @city.children
+    else
+      @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 9)
+      @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
+      @activities = Activity.at(@city).available
+      @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
+                                 :order => "last_replied_at desc",
+                                 :limit => 10)
+      
     end
     
     respond_to do |format|

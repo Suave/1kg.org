@@ -33,7 +33,7 @@ namespace :group do
       else
         city_moderators.each do |m|
           m.roles << group_moderator_role unless m.roles.include?(group_moderator_role) # 给老城管添加组长角色
-          m.roles << city_moderator_role unless m.roles.include?(group_moderator_role) # 给老城管添加新的城市管理员角色
+          m.roles << city_moderator_role unless m.roles.include?(city_moderator_role) # 给老城管添加新的城市管理员角色
           puts "将 #{m.login} 设为 #{group.title}小组管理员，和#{geo.name}城管"
         end
       end
