@@ -25,7 +25,7 @@
     <% form_tag search_admin_users_path(:type => "city"), :method => :get do -%>
       <p>
         <label>现任版主</label>
-        <%= User.moderators_of(@geo.city_board.board).collect {|u| link_to(u.login, user_url(u.id))+"("+ link_to("X", admin_user_url(u.id, :board => @geo.city_board.board.id, :geo => @geo.id, :remove => 'city'), :confirm => "确定要取消版主权限？", :method => :put, :title => "取消#{u.login}的版主权限") +")"}.join(", ") %>
+        <%= User.moderators_of(@geo).collect {|u| link_to(u.login, user_url(u.id))+"("+ link_to("X", admin_user_url(u.id,  :geo => @geo.id, :remove => 'city'), :confirm => "确定要取消版主权限？", :method => :put, :title => "取消#{u.login}的版主权限") +")"}.join(", ") %>
       </p>
       
       <%= hidden_field_tag "type", "city" %>
@@ -43,10 +43,10 @@
       <tr>
         <td><%= user.login %></td>
         <td>
-          <% unless user.has_role?("roles.board.moderator.#{@geo.city_board.board.id}") -%>
-            <%= link_to "设为版主", admin_user_path(user, :add => "city", :geo => @geo, :board => @geo.city_board.board), :method => :put %>
+          <% unless user.has_role?("roles.geo.moderator.#{@geo.id}") -%>
+            <%= link_to "设为版主", admin_user_path(user, :add => "city", :geo => @geo), :method => :put %>
           <% else -%>
-            <%= link_to "取消版主", admin_user_path(user, :remove => "city", :geo => @geo, :board => @geo.city_board.board), :method => :put %>
+            <%= link_to "取消版主", admin_user_path(user, :remove => "city", :geo => @geo), :method => :put %>
           <% end -%>
         </td>
       </tr>

@@ -64,10 +64,9 @@ class Admin::UsersController < Admin::BaseController
       
     elsif params[:add] == "city"
       geo = Geo.find(params[:geo]) unless params[:geo].blank?
-      board = Board.find(params[:board]) unless params[:board].blank?
       
-      if @user && board && geo
-        @user.roles << Role.find_by_identifier("roles.board.moderator.#{board.id}")
+      if @user && geo
+        @user.roles << Role.find_by_identifier("roles.geo.moderator.#{geo.id}")
         flash[:notice] = "设置成功"
       else
         flash[:notice] = "系统错误"
@@ -90,9 +89,8 @@ class Admin::UsersController < Admin::BaseController
       
     elsif params[:remove] == "city"
       geo   = Geo.find(params[:geo]) unless params[:geo].blank?
-      board = Board.find(params[:board]) unless params[:board].blank?
       
-      @user.roles.delete(Role.find_by_identifier("roles.board.moderator.#{board.id}"))
+      @user.roles.delete(Role.find_by_identifier("roles.geo.moderator.#{geo.id}"))
       flash[:notice] = "设置成功"
       redirect_to edit_admin_geo_url(geo)
 
