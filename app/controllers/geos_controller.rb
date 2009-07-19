@@ -29,7 +29,13 @@ class GeosController < ApplicationController
     else
       @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 9)
       @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-      @activities = Activity.at(@city).available
+      #@activities = Activity.at(@city).available
+      
+      @activities_in_the_city = Activity.available.ongoing.in_the_city(@city).find :all
+      @activities_from_the_city = Activity.available.ongoing.from_the_city(@city).find :all
+      @activities_on_the_fly = Activity.available.ongoing.on_the_fly(@city).find :all 
+      @all_activities = @activities_in_the_city + @activities_from_the_city + @activities_on_the_fly
+      
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
                                  :order => "last_replied_at desc",
                                  :limit => 10)
