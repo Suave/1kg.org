@@ -190,9 +190,8 @@ class User < ActiveRecord::Base
   end
   
   def self.recent_citizens
-    find(:all, :conditions => ["geo_id IS NOT NULL and state='active'"],
-               :order => "users.created_at desc",
-               :include => [:geo],
+    find(:all, :conditions => ["state='active'"],
+               :order => "id desc",
                :limit => 9)
   end
   
