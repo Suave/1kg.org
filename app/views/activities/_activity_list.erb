@@ -1,4 +1,8 @@
-<% status = [
+<% status = [ {
+               :name => "所有",
+               :id => "all",
+               :partial => "/activities/local_activity",
+               :conditions => "1=1"},
               {:name => "同城", 
                :id => "local", 
                :partial => "/activities/local_activity",
@@ -35,8 +39,8 @@
 </div>
 
 <script type="text/javascript">
-$('li-local').addClassName('current');
-$('list-local').setStyle('display:block');
+$('li-all').addClassName('current');
+$('list-all').setStyle('display:block');
 
 function status_switch(status) {
   /* absolutely forgot how to write js, refactor later ;( */

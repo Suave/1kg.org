@@ -1,4 +1,5 @@
 module Util
+    
   def avatar_convert(model_name, attribute_name)
     # convert user's avatar to gif format, thanks for Robin Lu
     iconfile = params[model_name][attribute_name]

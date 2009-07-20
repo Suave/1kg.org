@@ -49,8 +49,22 @@ class Activity < ActiveRecord::Base
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now]
   
+  named_scope :in_the_city, lambda { |city|
+    geo_id = (city.class == Geo) ? city.id : city
+    {:conditions => ["arrival_id = ? and departure_id = ?", geo_id, geo_id] }
+  }
+  
+  named_scope :from_the_city, lambda { |city| 
+    geo_id = (city.class == Geo) ? city.id : city
+    {:conditions => ["departure_id = ?", geo_id]}
+  }
+  
+  named_scope :on_the_fly, lambda { |city|
+    {:conditions => ["departure_id = 0 and arrival_id = 0"]}
+  }
+  
   named_scope :at, lambda { |city|
-    geo_id = ((city.class == Geo) ? city.id : city)
+    geo_id = (city.class == Geo) ? city.id : city
     {:conditions => ["(departure_id=? or arrival_id=? or departure_id=0 or arrival_id=0)", geo_id, geo_id]}
   }
 
@@ -115,4 +129,5 @@ class Activity < ActiveRecord::Base
     description.strip! if description.respond_to?(:strip!)
     self.description_html = description.blank? ? '' : formatting_body_html(description)
   end
+  
 end

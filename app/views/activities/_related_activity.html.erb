@@ -1,8 +1,5 @@
-<div id="list-related" style="display: none;">
-  <% if activities.size == 0 -%>
-    <p style="text-align:center">暂时没有活动, <%= link_to "我要发起活动", new_activity_url %></p>
-  <% else -%>
-
-    <%= render :partial => "/activities/activities", :object => activities  %>
-  <% end -%>
-</div>
+<% if activities.size == 0 -%>
+  <p style="text-align:center">暂时没有活动, <%= link_to "我要发起活动", new_activity_url %></p>
+<% else -%>
+  <%= render :partial => "/activities/activities", :object => activities  %>
+<% end -%>

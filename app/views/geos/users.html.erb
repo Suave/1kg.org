@@ -1,0 +1,14 @@
+<% @page_title = @title = "#{@city.name}的居民" -%>
+
+<% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回#{@city.name}同城", geo_url(@city) %></p>
+<% end -%>
+
+<div class="box" id="cityLatestMembers">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @users} %>
+    </div>
+  </div>
+</div>
