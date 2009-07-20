@@ -22,7 +22,7 @@ class Geo < ActiveRecord::Base
   has_many :shares, :order => "last_replied_at desc"
   has_many :groups, :order => "id desc"
   has_many :counties
-  #has_one  :city_board, :class_name => "CityBoard"
+  has_one  :city_board, :class_name => "CityBoard" # deprecated, but use in city board convert rake task
   
   validates_presence_of :name
   
