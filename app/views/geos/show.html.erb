@@ -1,10 +1,6 @@
 <% @page_title = @title = @city.name %>
 
 <% content_for :heads do -%>
-  <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
-  <script type="text/javascript" charset="utf-8">
-    jQuery.noConflict();
-  </script>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
@@ -31,6 +27,20 @@
 
 
 <% content_for :sidebar do -%>
+  <div class="box" id="search-front">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>同城搜索</h3>
+        <div class="contents">
+          <% form_tag search_geos_url, :method => :get do -%>
+            <%= text_field_tag 'city', "", {:size => "25", :class => "form-text"} %> <%= submit_tag "查找", :class => "form-submit" %>
+          <% end -%>
+          <p class="tipText">或 <%= link_to "按省查找城市", geos_url %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <%#= render :partial => 'school_box' %>
   
   <% if @city.children.blank? -%>
@@ -51,12 +61,22 @@
     <div class="box" id="cityLatestMembers">
       <div class="boxOuter">
         <div class="boxInner">
+          <h3>在<%= @city.name %>的小组</h3>
+          <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="box" id="cityLatestMembers">
+      <div class="boxOuter">
+        <div class="boxInner">
           <h3>居民</h3>
           <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
         </div>
         <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_geo_url(@city) %></p>
       </div>
     </div>
+    
   <% else %>
     <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
   <% end %>
@@ -107,9 +127,9 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3></h3>
+      <h3>周边的学校</h3>
       <div class="contents">
-        <%#= render :partial => 'school_maps' %>
+        <%= render :partial => 'school_maps' %>
       </div>
     </div>
   </div>

@@ -26,10 +26,10 @@ class GeosController < ApplicationController
     
     if !@city.children.blank?
       @cities = @city.children
+      render :action => "cities"
     else
-      @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 9)
+      @citizens = @city.users.find(:all, :limit => 6)
       @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-      #@activities = Activity.at(@city).available
       
       @activities_in_the_city = Activity.available.ongoing.in_the_city(@city).find :all
       @activities_from_the_city = Activity.available.ongoing.from_the_city(@city).find :all
@@ -38,10 +38,11 @@ class GeosController < ApplicationController
       
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
                                  :order => "last_replied_at desc",
-                                 :limit => 10)
-      
+                                 :limit => 6)
+                                 
+      @groups = @city.groups.find :all, :limit => 9
     end
-    
+=begin    
     respond_to do |format|
       if !params[:page].blank?
         format.html {render :action => 'schools', :layout => false}
@@ -49,6 +50,7 @@ class GeosController < ApplicationController
         format.html
       end
     end
+=end
   end
   
   def box
@@ -86,12 +88,9 @@ class GeosController < ApplicationController
     @query = params[:city]
     if !@query.to_s.strip.empty?
       tokens = @query.split.collect {|c| "%#{c.downcase}%"}
-      @cities = Geo.find(:all, :conditions => [(["(LOWER(name) LIKE ?)"] * tokens.size).join(" AND "), * tokens])
-
+      return @cities = Geo.find(:all, :conditions => [(["(LOWER(name) LIKE ?)"] * tokens.size).join(" AND "), * tokens])
     else
-      flash[:notice] = "您没输入搜索词"
       @cities = Geo.roots
-      render :action => "action"
     end
   end
   
@@ -136,6 +135,12 @@ class GeosController < ApplicationController
       end
       render :partial => "geo_selector", :locals => { :object => "school", :method => "county" }
     end
+  end
+  
+  def users
+    @city = Geo.find(params[:id])
+    @users = @city.users
+    render :action => "users"
   end
   
   private 
