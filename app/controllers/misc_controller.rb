@@ -41,13 +41,17 @@ class MiscController < ApplicationController
   def public_look
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
-    #@recent_photos = Photo.recent
-
+    
     @recent_shares = Share.recent_shares
     @hot_cities = Geo.hot_cities
     @recent_citizens = User.recent_citizens
-    @recent_activities = Activity.available.ongoing.find(:all, :limit => 10 )
-    
+
+    @activities_for_travel = Activity.recent_by_category("公益旅游")
+    @activities_for_donation = Activity.recent_by_category("物资募捐")
+    @activities_for_teach = Activity.recent_by_category("支教")
+    @activities_for_online = Activity.recent_by_category("网上活动")
+    @activities_for_other = Activity.recent_by_category("其他")
+     
     render :action => "index"
   end
   

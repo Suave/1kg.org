@@ -67,6 +67,10 @@ class Activity < ActiveRecord::Base
     geo_id = (city.class == Geo) ? city.id : city
     {:conditions => ["(departure_id=? or arrival_id=? or departure_id=0 or arrival_id=0)", geo_id, geo_id]}
   }
+  
+  named_scope :by_category, lambda { |category| 
+    {:conditions => ["category=?", category]}
+  }
 
   validates_presence_of :title, :message => "活动名称是必填项"
   validates_presence_of :departure_id, :message => "出发地是必选项"
@@ -81,6 +85,11 @@ class Activity < ActiveRecord::Base
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end
+  
+  def self.recent_by_category(category)
+    available.ongoing.by_category(categories.index(category)).find :all, :limit => 10
+  end
+  
   
   def category_name
     self.class.categories[category]
