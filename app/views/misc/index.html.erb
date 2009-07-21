@@ -1,3 +1,8 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
+
 <% content_for :sidebar do -%>
 <div class="box" id="search-front">
   <div class="boxOuter">
@@ -39,28 +44,6 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>最新活动</h3>
-      <span class="postNew"><%= link_to image_tag("submit_activity.png"), new_activity_url %></span>
-      <div class="contents">
-        <table>
-          <% @recent_activities.each do |a| %>
-          <tr class="<%= cycle('odd', 'even') %>">
-            <td>
-              <%= image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if a.sticky? %> <%= link_to h(a.title), activity_url(a) %> <span class="tipText">[<%= date_for_short a.start_at %>]</span>
-            </td>
-          </tr>
-          <% end -%>
-        </table>
-        
-      </div>
-      <p class="remark">&raquo; <%= link_to "进行中的活动", ongoing_activities_url %> &raquo; <%= link_to "结束的活动", over_activities_url %></p>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
       <h3>新居民</h3>
       <%= render :partial => "/shared/user_list", :locals => {:users => @recent_citizens } %>
     </div>
@@ -68,7 +51,43 @@
 </div>
 <% end -%>
 
-
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="tabbedPanel" id="tabs">
+        <ul class="tab">
+          <li><a href="#travel">公益旅行</a></li>
+          <li><a href="#donation">募捐</a></li>
+          <li><a href="#teach">支教</a></li>
+          <li><a href="#online">网络</a></li>
+          <li><a href="#other">其他</a></li>
+        </ul>
+        <div class="panel setting">
+          <div id="travel">
+            <%= render :partial => "/activities/activities", :object => @activities_for_travel %>
+          </div>
+          <div id="donation">
+            <%= render :partial => "/activities/activities", :object => @activities_for_donation %>
+          </div>
+          <div id="teach">
+            <%= render :partial => "/activities/activities", :object => @activities_for_teach %>
+          </div>
+          <div id="online">
+            <%= render :partial => "/activities/activities", :object => @activities_for_online %>
+          </div>
+          <div id="other">
+            <%= render :partial => "/activities/activities", :object => @activities_for_other %>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        jQuery("#tabs").tabs();
+      </script>
+    </div>
+    <%= render :partial => "/activities/all_activities" %>
+  </div>
+</div>
            
 <div class="box">
   <div class="boxOuter">
