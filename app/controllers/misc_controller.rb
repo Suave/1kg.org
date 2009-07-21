@@ -42,8 +42,7 @@ class MiscController < ApplicationController
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
     #@recent_photos = Photo.recent
-    @recent_schools = School.recent_upload
-    @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+
     @recent_shares = Share.recent_shares
     @hot_cities = Geo.hot_cities
     @recent_citizens = User.recent_citizens

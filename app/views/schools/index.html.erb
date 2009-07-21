@@ -1,4 +1,9 @@
-<% @page_title = "学校" -%>
+<% @page_title = @title = "学校" -%>
+
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
 
 <% content_for :crumb do -%>
 <li>学校</li>
@@ -10,10 +15,35 @@
 <%= render :partial => "provinces", :object => Geo.roots %>
 <p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
 <p>&raquo; <%= link_to "每月新增学校统计", archives_schools_url %></p>
-
 <% end -%>
 
-<h2 class="title">学校信息</h2>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <span class="postNew"><%= link_for_new_school %></span>
+      <div class="tabbedPanel" id="tabs">
+        <ul class="tab">
+          <li><a href="#comments">新留言</a></li>
+          <li><a href="#upload">新上传</a></li>
+        </ul>
+        <div class="panel setting">
+          <div id="upload">
+            <%= render :partial => "/schools/recent_upload", :object => @recent_schools %>
+          </div>
+          <div id="comments">
+            <%= render :partial => "/schools/last_10_updated_topics", :object => @recent_school_comments %>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        jQuery("#tabs").tabs();
+      </script>
+      <p class="remark">&raquo; <%= link_to "浏览全部学校", all_schools_url %></p>
+    </div>
+  </div>
+</div>
 
 <div class="box">
   <div class="boxOuter">
@@ -21,30 +51,6 @@
       <h3>最新学校照片</h3>
       <div class="contents clearfix">
         <%= render :partial => "photos", :object => @photos %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最新添加的学校</h3>
-      <span class="postNew"><%= link_to image_tag("/images/json.png"), formatted_schools_url(:json) %></span>
-      <div class="contents">
-        <%= render :partial => "recent_upload", :object => @schools %>
-      </div>
-      <p class="remark">&raquo; <%= link_to "查看全部#{School.validated.count}所学校", all_schools_url %></p>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最新学校帖子</h3>
-      <div class="contents">
-      <%= render :partial => "last_10_updated_topics", :object => @topics %>
       </div>
     </div>
   </div>

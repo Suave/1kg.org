@@ -8,11 +8,12 @@ class SchoolsController < ApplicationController
 
   def index
     respond_to do |format|
-      @schools = School.recent_upload
+      #@schools = School.recent_upload
       format.html {
-        @topics = Topic.last_10_updated_topics(SchoolBoard)
+        #@topics = Topic.last_10_updated_topics(SchoolBoard)
         @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
-        
+        @recent_schools = School.recent_upload
+        @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
       }
       format.json {
         @schools = School.all
