@@ -68,31 +68,7 @@
 </div>
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>学校更新</h3>
-      <span class="postNew"><%= link_to image_tag("submit_school.png"), new_school_url %></span>
-      <div class="tabbedPanel">
-        <ul class="tab">
-          
-          <li id="li-comments"><a href="javascript:void(0);" onclick="status_switch('comments')">新留言</a></li>
-          <li id="li-upload"><a href="javascript:void(0);" onclick="status_switch('upload')">新上传</a></li>
-          
-        </ul>
-        <div class="panel setting">
-          <div id="list-upload" style="display:none">
-            <%= render :partial => "/schools/recent_upload", :object => @recent_schools %>
-          </div>
-          <div id="list-comments" style="display:none">
-            <%= render :partial => "/schools/last_10_updated_topics", :object => @recent_school_comments %>
-          </div>
-        </div>
-      </div>
-      <p class="remark">&raquo; <%= link_to "浏览全部学校", all_schools_url %></p>
-    </div>
-  </div>
-</div>
+
            
 <div class="box">
   <div class="boxOuter">
@@ -107,18 +83,3 @@
   </div>
 </div>
 
-<script type="text/javascript">
-$('li-comments').addClassName('current');
-$('list-comments').setStyle('display:block');
-
-function status_switch(status) {
-  $('li-upload').removeClassName('current');
-  $('li-comments').removeClassName('current');
-  
-  $('list-upload').setStyle('display:none');
-  $('list-comments').setStyle('display:none');
-  
-  $('li-'+status).addClassName('current');
-  $('list-'+status).setStyle('display:block');
-}
-</script>
