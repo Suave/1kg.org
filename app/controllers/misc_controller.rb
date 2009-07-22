@@ -44,6 +44,7 @@ class MiscController < ApplicationController
     
     @recent_shares = Share.recent_shares
     @hot_cities = Geo.hot_cities
+    @hot_groups = Group.most_members
     @recent_citizens = User.recent_citizens
 
     @activities_for_travel = Activity.recent_by_category("公益旅游")
