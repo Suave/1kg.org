@@ -44,6 +44,10 @@ class Group < ActiveRecord::Base
                   )
   end
   
+  def self.most_members
+    find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...9]
+  end
+  
   private
   def create_discussion
     # 创建小组讨论区

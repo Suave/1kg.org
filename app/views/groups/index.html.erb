@@ -22,15 +22,7 @@
     <div class="boxInner">
       <h3>我参加的小组</h3>
       <div class="contents clearfix">
-        <% @my_groups.each do |g| -%>
-        <dl class="obu">
-          <dt><%= link_to avatar_for(g, "large"), group_url(g) %></dt>
-          <dd>
-            <%= link_to g.title, group_url(g) %><br />
-            (<%= g.memberships.count %>)
-          </dd>
-        </dl>
-        <% end -%>
+        <%= render :partial => "groups", :object => @my_groups %>
       </div>
     </div>
   </div>
