@@ -14,6 +14,9 @@ class SchoolsController < ApplicationController
         @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
         @recent_schools = School.recent_upload
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+        
+        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find :all, :limit => 10
+        
       }
       format.json {
         @schools = School.all

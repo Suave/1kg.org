@@ -10,11 +10,31 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+
+<%= render :partial => "/geos/city_search" %>
+<%= render :partial => "provinces", :object => Geo.roots %>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最近的出行活动</h3>
+      <span class="postNew"><%= link_for_new_activity %></span>
+      <div class="contents">
+        <table>
+          <% @activities_for_travel.each do |a| -%>
+          <tr>
+            <td><%= link_to a.title, activity_url(a) %> <span class="tipText">[<%= month_and_day(a.start_at) %>]</span></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+      <%= render :partial => "/activities/all_activities" %>
+    </div>
+  </div>
+</div>
+
 <%= render :partial => "submit" %>
 
-<%= render :partial => "provinces", :object => Geo.roots %>
-<p>&raquo; <%= link_to "浏览待验证学校信息", unconfirm_schools_url %></p>
-<p>&raquo; <%= link_to "每月新增学校统计", archives_schools_url %></p>
 <% end -%>
 
 
