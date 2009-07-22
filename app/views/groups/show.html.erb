@@ -45,8 +45,8 @@
           <label>组长:</label> <%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>,
           <% if @group.city -%>
             <label>小组城市:</label> 
-            <%= @group.city.parent.name if @group.city.parent %> 
-            <%= link_to @group.city.name, board_url(@group.city.city_board.board) %>
+            <%= link_to @group.city.parent.name, geo_url(@group.city.parent) if @group.city.parent %> 
+            <%= link_to @group.city.name, geo_url(@group.city) %>
           <% end -%>
         </p>
         
