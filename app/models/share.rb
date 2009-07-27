@@ -39,7 +39,7 @@ class Share < ActiveRecord::Base
   after_create :initial_last_replied
   
   def self.recent_shares
-    available.find(:all, :order => "updated_at desc, comments_count desc",
+    available.find(:all, :order => "last_replied_at desc, comments_count desc",
                          :limit => 10,
                          :select => "id, user_id, title, hits, comments_count, created_at")
   end
