@@ -45,7 +45,7 @@ class Activity < ActiveRecord::Base
 #  belongs_to :school
 
   #named_scope :hiring,   :conditions => ["start_at > ?", Time.now]
-  named_scope :available, :conditions => "deleted_at is null", :order => "sticky desc, created_at desc, start_at asc"
+  named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now]
   
@@ -87,7 +87,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.by_category(categories.index(category)).find :all, :limit => 10
+    available.ongoing.by_category(categories.index(category)).find :all, :order => "start_at desc", :limit => 10
   end
   
   

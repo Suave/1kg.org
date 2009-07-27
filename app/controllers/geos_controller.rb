@@ -31,10 +31,10 @@ class GeosController < ApplicationController
       @citizens = @city.users.find(:all, :limit => 6)
       @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
       
-      @activities_in_the_city = Activity.available.ongoing.in_the_city(@city).find :all, :limit => 10 
-      @activities_from_the_city = Activity.available.ongoing.from_the_city(@city).find :all, :limit => 10
-      @activities_on_the_fly = Activity.available.ongoing.on_the_fly(@city).find :all, :limit => 10 
-      @all_activities = (@activities_in_the_city + @activities_from_the_city + @activities_on_the_fly).uniq.sort { |x,y| x.id <=> y.id }[0...10]
+      @activities_in_the_city = Activity.available.ongoing.in_the_city(@city).find :all, :order => "start_at desc", :limit => 10 
+      @activities_from_the_city = Activity.available.ongoing.from_the_city(@city).find :all, :order => "start_at desc", :limit => 10
+      @activities_on_the_fly = Activity.available.ongoing.on_the_fly(@city).find :all, :order => "start_at desc", :limit => 10 
+      @all_activities = (@activities_in_the_city + @activities_from_the_city + @activities_on_the_fly).uniq.sort { |x,y| y.start_at <=> x.start_at }[0...10]
       
       @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
                                  :order => "last_replied_at desc",
