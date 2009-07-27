@@ -211,7 +211,7 @@ class UsersController < ApplicationController
   end
   
   def group_topics
-    @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25 
+    @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25, :order => "last_replied_at desc"
   end
   
 
