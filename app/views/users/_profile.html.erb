@@ -9,11 +9,7 @@
         <p>
           <strong>住在：</strong>
           <% if user.geo -%>
-            <% if user.geo.city_board -%>
-              <%= link_to user.geo.name, board_url(user.geo.city_board.board) %>
-            <% else -%>
-              <%= user.geo.name %>
-            <% end -%>
+            <%= link_to user.geo.name, geo_url(user.geo) %>
           <% else -%>
             未知
           <% end -%>
