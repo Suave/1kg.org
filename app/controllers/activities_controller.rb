@@ -103,7 +103,7 @@ class ActivitiesController < ApplicationController
       end
       
       @shares = @activity.shares
-      @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
+      @comments = @activity.comments.available.paginate :page => params[:page] || 1, :per_page => 15
       @comment = ActivityComment.new
     
     rescue ActiveRecord::RecordNotFound

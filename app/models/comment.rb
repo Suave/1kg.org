@@ -21,6 +21,8 @@ class Comment < ActiveRecord::Base
   
   validates_presence_of :body, :message => "留言内容不能为空"
   
+  named_scope :available, :conditions => "deleted_at is null"
+  
   def editable_by?(user)
     user != nil && (self.user_id == user.id || user.admin?)
   end

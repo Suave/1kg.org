@@ -42,7 +42,7 @@ class SharesController < ApplicationController
     @share.hits += 1
     @share.save!
     
-    @comments = @share.comments
+    @comments = @share.comments.available
     @comment = ShareComment.new
   end
   

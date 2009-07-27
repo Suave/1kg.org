@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
     t.string   "type"
     t.string   "type_id"
   end

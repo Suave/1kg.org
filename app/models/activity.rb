@@ -100,7 +100,7 @@ class Activity < ActiveRecord::Base
     return false unless user.class == User
     return true if self.user_id == user.id
     return true if user.admin?  
-    return true if self.departure && self.departure.city_board.board.has_moderator?(user)
+    return true if self.departure && User.moderators_of(self.departure).include?(user)
     
   end
   

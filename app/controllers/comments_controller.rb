@@ -48,12 +48,23 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @comment.update_attributes!(params[:comment])
     flash[:notice] = "留言修改成功"
-    if @comment.type == "ActivityComment"
-      redirect_to activity_url(@comment.type_id)
-    elsif @comment.type == "ShareComment"
-      redirect_to share_url(@comment.type_id)
-    end
+    redirect_to_correct_page @comment
   end
   
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.update_attributes!(:deleted_at => Time.now)
+    flash[:notice] = "留言已删除"
+    redirect_to_correct_page @comment
+  end
+  
+  private
+  def redirect_to_correct_page(comment)
+    if comment.type == "ActivityComment"
+      redirect_to activity_url(comment.type_id)
+    elsif comment.type == "ShareComment"
+      redirect_to share_url(comment.type_id)
+    end
+  end
   
 end

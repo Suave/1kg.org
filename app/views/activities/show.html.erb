@@ -46,19 +46,7 @@
         <h3>活动分享</h3>
         <span class="postNew"><%= link_for_new_share %></span>
         <div class="contents">
-          <% @shares.each do |s| -%>
-          <div style="clear:both;margin-bottom:1em;min-height:50px">
-            <div style="float:left">
-              <%= avatar_for(s.user, "large") %>
-            </div>
-            <div style="margin-left:60px;">
-              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
-              <div style="color:#999; text-align:right">
-                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
-              </div>
-            </div>
-          </div>
-          <% end -%>
+          <%= render :partial => "/shares/shares", :object => @shares %>
         </div>
       </div>
     </div>
@@ -115,48 +103,9 @@
     </div>
   </div>
 
-  <div class="box" id="topicCommentsList">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>活动留言</h3>
-        <ol class="clearfix">
-          <% @comments.each do |p| -%>
-          <li>
-            <div class="avatar"><%= avatar_for p.user, "large" %></div>
-            <div class="content">
-              <p class="meta">
-                <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
-                
-                <% if p.editable_by?(current_user) -%>
-                  (<%= link_to "编辑", edit_comment_url(p) %>)
-                <% end -%>
-              </p>
-              <%= p.body_html %>
-            </div>
-          </li>
-          <% end -%>
-        </ol>
-      </div>
-      <div class="clear"><%= customize_paginate @comments %></div>
-    </div>
-  </div>
+  <%= render :partial => "/comments/comments", :object => @comments %>
   
-  <div class="box" id="topicCommentForm">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>写留言</h3>
-        <% if logged_in? -%>
-          <% form_for :comment, :url => comments_url(:type => "activity") do |f| -%>
-          <%= f.hidden_field :type_id, :value => @activity.id %>
-          <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
-          <p class="submit"><%= submit_tag "提 交" %></p>
-          <% end -%>
-        <% else -%>
-          <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以留言</div>
-        <% end -%>
-      </div>
-    </div>
-  </div>
+  <%= render :partial => "/comments/write", :locals => {:type => "activity", :value => @activity.id} %>
   
   <% if session[:from_activity_join] == true -%>
   <!-- Google Code for Participated Conversion Page --> <script language="JavaScript" type="text/javascript"> <!-- var google_conversion_id = 1048548952; var google_conversion_language = "zh_CN"; var google_conversion_format = "3"; var google_conversion_color = "ffffff"; var google_conversion_label = "M4laCLz6jwEQ2Kz-8wM"; //--> </script> <script language="JavaScript" src="http://www.googleadservices.com/pagead/conversion.js"> </script> <noscript> <img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1048548952/?label=M4laCLz6jwEQ2Kz-8wM&amp;guid=ON&amp;script=0"/> </noscript>
