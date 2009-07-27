@@ -56,7 +56,7 @@ class Activity < ActiveRecord::Base
   
   named_scope :from_the_city, lambda { |city| 
     geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["departure_id = ?", geo_id]}
+    {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
   }
   
   named_scope :on_the_fly, lambda { |city|
