@@ -42,7 +42,7 @@ class SharesController < ApplicationController
     @share.hits += 1
     @share.save!
     
-    @comments = @share.comments.available
+    @comments = @share.comments.available.paginate :page => params[:page] || 1, :per_page => 15
     @comment = ShareComment.new
   end
   
