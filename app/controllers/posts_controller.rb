@@ -4,14 +4,11 @@ class PostsController < ApplicationController
   before_filter :post_block_check, :only => [:new, :create]
   
   def new
-    #@topic = Topic.find(params[:topic_id])
     @post  = Post.new
   end
   
   
   def create
-    #@topic = Topic.find(params[:topic_id])
-    
     @post  = Post.new(params[:post])
     @post.user  = current_user
     @post.topic = @topic
@@ -22,12 +19,10 @@ class PostsController < ApplicationController
   end
   
   def edit
-   # @topic = Topic.find(params[:topic_id])
     @post  = Post.find(params[:id])
   end
   
   def update
-    #@topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
     @post.update_attributes!(params[:post])
     flash[:notice] = "回帖编辑成功"
@@ -35,7 +30,6 @@ class PostsController < ApplicationController
   end
   
   def destroy
-    #@topic = Topic.find(params[:topic_id])
     @post = Post.find(params[:id])
     @post.update_attributes!(:deleted_at => Time.now)
     flash[:notice] = "回帖删除成功"

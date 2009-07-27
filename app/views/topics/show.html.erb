@@ -95,11 +95,7 @@
                   )
                 <% end -%>
               </p>
-              <% if p.deleted_at.blank? -%>
-                <%= p.body_html %>
-              <% else -%>
-                <p>本帖已被管理员删除</p>
-              <% end -%>
+              <%= p.body_html %>
             </div>
           </li>
           <% end -%>

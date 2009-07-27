@@ -4,19 +4,14 @@ class TopicsController < ApplicationController
   before_filter :find_topic,     :except => [:index, :create]
   
   def index
-    # list all topics of a specified board
-    #@board = Board.find(params[:board_id])
     @topics = @board.topics.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
   
   def new
-    #@board = Board.find(params[:board_id])
-    #@topic = Topic.new
   end
   
   def create
-    #@board = Board.find(params[:board_id])
     @topic = Topic.new(params[:topic])
     @topic.user = current_user
     @topic.board = @board
@@ -33,11 +28,9 @@ class TopicsController < ApplicationController
   end
   
   def edit
-    #@topic = Topic.find(params[:id])
   end
   
   def update
-    #@topic = Topic.find(params[:id])
     @topic.update_attributes!(params[:topic].merge({:last_modified_at => Time.now,
                                                     :last_modified_by_id => current_user.id
                                                    }))
@@ -46,7 +39,6 @@ class TopicsController < ApplicationController
   end
   
   def destroy
-    #@topic = Topic.find(params[:id])
     @topic.update_attributes!(:deleted_at => Time.now)
     flash[:notice] = "帖子删除成功"
     redirect_to board_url(@board)
@@ -54,13 +46,11 @@ class TopicsController < ApplicationController
   
   
   def show
-    #@board = Board.find(params[:board_id])
-    #@topic = Topic.find(params[:id])
     if @topic.deleted?
       flash[:notice] = "您查看的帖子已删除"
       redirect_to root_url
     else
-      @posts = @topic.posts
+      @posts = @topic.posts.available
       @post  = Post.new
     end
   end

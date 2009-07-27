@@ -78,13 +78,6 @@ class Topic < ActiveRecord::Base
   
   
   private
-=begin
-  def format_content
-    body.strip! if body.respond_to?(:strip!)
-    self.body_html = body.blank? ? '' : formatting_body_html(body)
-  end
-=end
-  
   
   def update_topics_count
     self.board.update_attributes!(:topics_count => Topic.count(:all, :conditions => {:board_id => self.board.id}))

@@ -44,7 +44,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>活动分享</h3>
-        <span class="postNew">++ <%= link_to "写活动分享", new_share_url %></span>
+        <span class="postNew"><%= link_for_new_share %></span>
         <div class="contents">
           <% @shares.each do |s| -%>
           <div style="clear:both;margin-bottom:1em;min-height:50px">
