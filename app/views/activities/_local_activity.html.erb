@@ -14,7 +14,7 @@
     <tbody>
       <% activities.each do |a| -%>
       <tr class="<%= cycle("odd", "even") %>">
-        <td><%= link_for_activity a %>
+        <td><%= link_for_activity a, true %>
         </td>
         <td><%= date_for_short(a.start_at) %></td>
         <td style="overflow:hidden"><%= link_to a.user.login, user_url(a.user), :class => "link" %></td>
