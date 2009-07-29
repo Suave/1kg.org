@@ -1,7 +1,6 @@
 <table class="tableList">
   <thead>
     <tr>
-      <!--<th width="16%">类型</th>-->
       <th style="width:250px;">活动</th>
       <th>出发</th>
       <th>到达</th>
@@ -14,11 +13,7 @@
   <tbody>
     <% activities.each do |a| -%>
     <tr class="<%= cycle("odd", "even") %>">
-      <!--<td></td>-->
-      <td>
-        <%= image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if a.sticky? %>
-        <%= link_to a.title, activity_url(a.id) %>
-      </td>
+      <td><%= link_for_activity(a, show_sticky) %></td>
       <td><%= a.departure_id==0 ? "不限" : a.departure.name %></td>
       <td><%= a.arrival_id==0 ? "不限" : a.arrival.name %></td>
       <td><%= date_for_short(a.start_at) %></td>

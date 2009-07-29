@@ -77,19 +77,19 @@
         </ul>
         <div class="panel setting">
           <div id="travel">
-            <%= render :partial => "/activities/activities", :object => @activities_for_travel %>
+            <%= render :partial => "/activities/activities", :object => @activities_for_travel, :locals => {:show_sticky => false} %>
           </div>
           <div id="donation">
-            <%= render :partial => "/activities/activities", :object => @activities_for_donation %>
+            <%= render :partial => "/activities/activities", :object => @activities_for_donation, :locals => {:show_sticky => false} %>
           </div>
           <div id="teach">
-            <%= render :partial => "/activities/activities", :object => @activities_for_teach %>
+            <%= render :partial => "/activities/activities", :object => @activities_for_teach, :locals => {:show_sticky => false} %>
           </div>
           <div id="online">
-            <%= render :partial => "/activities/activities", :object => @activities_for_online %>
+            <%= render :partial => "/activities/activities", :object => @activities_for_online, :locals => {:show_sticky => false} %>
           </div>
           <div id="other">
-            <%= render :partial => "/activities/activities", :object => @activities_for_other %>
+            <%= render :partial => "/activities/activities", :object => @activities_for_other, :locals => {:show_sticky => false} %>
           </div>
         </div>
       </div>

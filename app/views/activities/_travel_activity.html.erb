@@ -15,10 +15,7 @@
     <tbody>
       <% activities.each do |a| -%>
       <tr class="<%= cycle("odd", "even") %>">
-        <td>
-          <%= image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if a.sticky? %>
-          <%= link_to a.title, activity_url(a.id) %>
-        </td>
+        <td><%= link_for_activity a %></td>
         <td><%= a.arrival_id==0 ? "不限" : a.arrival.name %></td>
         <td><%= date_for_short(a.start_at) %></td>
         <td style="overflow:hidden"><%= link_to a.user.login, user_url(a.user), :class => "link" %></td>

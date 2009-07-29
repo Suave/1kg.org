@@ -88,7 +88,7 @@
         <div class="panel setting">
           <div id="all">
             <%= render :partial => "/activities/activities",
-                       :locals => {:activities => @all_activities} %>
+                       :locals => {:activities => @all_activities, :show_sticky => false} %>
           </div>
           <div id="same">
             <%= render :partial => "/activities/local_activity", 
