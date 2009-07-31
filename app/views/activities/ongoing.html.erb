@@ -14,7 +14,7 @@
     <div class="boxInner">
       <h3>所有进行中的活动</h3>
       <div class="contents">
-      <%= render :partial => "activities", :object => @activities %>
+      <%= render :partial => "activities", :object => @activities, :locals => {:show_sticky => false} %>
       <%= customize_paginate @activities %>
       </div>
     </div>
