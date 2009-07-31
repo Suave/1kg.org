@@ -14,7 +14,7 @@
           <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
           <dd>
             <%= link_to c.login, user_url(c) %><br />
-            (<%= link_to "X", admin_user_url(c, :remove => "school", :school => @school), :method => :put %>)
+            (<%= link_to "X", manage_school_url(@school, :type => "remove", :user => c), :method => :put %>)
           </dd>
         </dl>
         <% end -%>
@@ -33,7 +33,7 @@
           <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
           <dd>
             <%= link_to c.login, user_url(c) %><br />
-            (<%= link_to "添加", admin_user_url(c, :add => "school", :school => @school), :method => :put %>)
+            (<%= link_to "添加", manage_school_url(@school, :type => "add", :user => c), :method => :put %>)
           </dd>
         </dl>
         <% end -%>
