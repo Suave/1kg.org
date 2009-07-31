@@ -27,16 +27,23 @@
     </div>
   </div>
   
-  <% if @school.validated? -%>
+  
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
       <div class="boxInner">
         <h3>爱心大使</h3>
-        <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+        <span class="postNew"><a href="http://www.1kg.org/misc/school-moderator-guide" target="_blank" title="什么是爱心大使？"><img src="/images/help.gif" alt="help" /></a></span>
+        <% if @school.validated? -%>
+          <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+        <% else -%>
+          <div class="contents">
+            <p>学校通过验证后才有爱心大使</p>
+          </div>
+        <% end -%>
+        
       </div>
     </div>
   </div>
-  <% end -%>
   
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
