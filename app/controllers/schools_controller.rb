@@ -219,6 +219,7 @@ class SchoolsController < ApplicationController
     
     @visitors = @school.visitors
     @followers = @school.interestings
+    @moderators = User.moderators_of(@school)
     @shares = @school.shares
     @photos = @school.photos
     if logged_in?

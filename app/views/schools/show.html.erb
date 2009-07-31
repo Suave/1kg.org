@@ -27,6 +27,17 @@
     </div>
   </div>
   
+  <% if @school.validated? -%>
+  <div class="box" id="cityLatestMembers">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>爱心大使</h3>
+        <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+      </div>
+    </div>
+  </div>
+  <% end -%>
+  
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
       <div class="boxInner">
@@ -218,6 +229,10 @@
             <% else -%>
               <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
             <% end -%>
+          <% end -%>
+          
+          <% if @school.has_moderator?(current_user) -%>
+            | <%= link_to "编辑爱心大使", moderator_school_url(@school) %>
           <% end -%>
 
           <% if logged_in? && @school.edited_by(current_user) -%>

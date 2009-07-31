@@ -106,6 +106,18 @@ namespace :schools do
     end
     puts "-- finish fullfill the validated_at column for validated schools"
   end
+  
+  desc "将提交者作为学校爱心大使"
+  task :set_submitor_as_school_lover => :environment do
+    schools = School.all
+    schools.each do |s|
+      submitor = s.user
+      role = Role.find_by_identifier("roles.school.moderator.#{s.id}")
+      puts "#{s.id} - #{s.title} 没有爱心大使权限" if role.nil?
+      #submitor.roles << role unless submitor.roles.include?(role)
+      #puts "设置 #{submitor.login} 为 #{s.title} 的爱心大使"
+    end
+  end
     
   namespace :coordinates do
     desc "generate coordinates for all schools"
