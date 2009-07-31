@@ -113,9 +113,13 @@ namespace :schools do
     schools.each do |s|
       submitor = s.user
       role = Role.find_by_identifier("roles.school.moderator.#{s.id}")
-      puts "#{s.id} - #{s.title} 没有爱心大使权限" if role.nil?
-      #submitor.roles << role unless submitor.roles.include?(role)
-      #puts "设置 #{submitor.login} 为 #{s.title} 的爱心大使"
+      if role.nil?
+        puts "#{s.id} - #{s.title} 没有爱心大使权限"
+        next
+      else
+        submitor.roles << role unless submitor.roles.include?(role)
+        puts "设置 #{submitor.login} 为 #{s.title} 的爱心大使"
+      end
     end
   end
     
