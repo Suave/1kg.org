@@ -114,6 +114,11 @@ class Activity < ActiveRecord::Base
     user.class == User && participators.include?(user)
   end
   
+  def join_closed?
+    (register_over_at && register_over_at < Time.now - 1.day) || done? || (end_at < Time.now - 1.day)
+  end
+  
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     

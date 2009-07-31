@@ -124,7 +124,8 @@ class ActivitiesController < ApplicationController
   
   private
   def find_activities(status)
-    @activities = Activity.send(status.to_sym).available.paginate(:page => params[:page] || 1, 
+    @activities = Activity.send(status.to_sym).available.paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
                                                                   :per_page => 20)
   end
   

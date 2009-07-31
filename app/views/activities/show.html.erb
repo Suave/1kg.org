@@ -15,7 +15,7 @@
         <h3>
 
             &raquo;
-            <% if (@activity.register_over_at && @activity.register_over_at < Time.now) || @activity.done? || @activity.end_at < Time.now %>
+            <% if @activity.join_closed? %>
               报名已结束            
 
             <% else -%>
