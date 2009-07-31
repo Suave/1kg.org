@@ -325,19 +325,19 @@ class SchoolsController < ApplicationController
       
       user.roles << Role.find_by_identifier("roles.school.moderator.#{school.id}")
 
-      message = Message.new(:subject => "恭喜您成为#{school.title}的爱心大使",
-                            :content => "#{user.login}，\r\n\r\n\r\n祝贺您成为#{school.title}爱心大使！\r\n\r\n\r\n作为#{school.title}爱心大使，您可以：\r\n\r\n - 编辑、更新学校信息；\r\n\r\n - 添加其他去过学校的用户为学校大使；\r\n\r\n - 为学校申请1KG.org项目，解决学校的需求问题等；\r\n\r\n - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。\r\n\r\n\r\n现在就进入#{school.title}（ #{url_for(school)} ）看看吧。\r\n\r\n\r\n多背一公斤客服"
+      message = Message.new(:subject => "恭喜您成为#{school.title}的学校大使",
+                            :content => "#{user.login}，\r\n\r\n\r\n祝贺您成为#{school.title}学校大使！\r\n\r\n\r\n作为#{school.title}的学校大使，您可以：\r\n\r\n - 编辑、更新学校信息；\r\n\r\n - 添加其他去过学校的用户为学校大使；\r\n\r\n - 为学校申请1KG.org项目，解决学校的需求问题等；\r\n\r\n - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。\r\n\r\n\r\n现在就进入#{school.title}（ #{url_for(school)} ）看看吧。\r\n\r\n\r\n多背一公斤客服"
                             )
       message.author_id = 0
       message.to = [user.id]
       message.save!
 
-      flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的爱心大使"
+      flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的学校大使"
       redirect_to moderator_school_url(school)
 
     elsif params[:type] == "remove"
       user.roles.delete(Role.find_by_identifier("roles.school.moderator.#{school.id}"))
-      flash[:notice] = "已经取消 #{user.login} 的爱心大使身份"
+      flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
       redirect_to moderator_school_url school
     end
   end

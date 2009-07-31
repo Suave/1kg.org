@@ -6,7 +6,7 @@ class SchoolObserver < ActiveRecord::Observer
     
     role = Role.create!(:identifier => "roles.school.moderator.#{school.id}")
     
-    #将提交人设为爱心大使
+    #将提交人设为学校大使
     school.user.roles << role
     
     # 检查学校所在城市是否有同城，如果没有则创建

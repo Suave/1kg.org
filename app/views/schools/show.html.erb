@@ -31,13 +31,13 @@
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>爱心大使</h3>
-        <span class="postNew"><a href="http://www.1kg.org/misc/school-moderator-guide" target="_blank" title="什么是爱心大使？"><img src="/images/help.gif" alt="help" /></a></span>
+        <h3>学校大使</h3>
+        <span class="postNew"><a href="http://www.1kg.org/misc/school-moderator-guide" target="_blank" title="什么是学校大使？"><img src="/images/help.gif" alt="help" /></a></span>
         <% if @school.validated? -%>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
         <% else -%>
           <div class="contents">
-            <p>学校通过验证后才有爱心大使</p>
+            <p>学校通过验证后才有学校大使</p>
           </div>
         <% end -%>
         
@@ -70,7 +70,7 @@
   <p>&raquo; <%= link_to "我要去#{@school.geo.name}旅游", geo_url(@school.geo) %></p>
   
   <% if logged_in? && current_user.admin? -%>
-  <p>&raquo; <%= link_to "设置学校爱心大使", moderator_school_url(@school) %></p>
+  <p>&raquo; <%= link_to "设置学校大使", moderator_school_url(@school) %></p>
   <% end -%>
 <% end -%>
 
@@ -239,7 +239,7 @@
           <% end -%>
           
           <% if @school.has_moderator?(current_user) -%>
-            | <%= link_to "编辑爱心大使", moderator_school_url(@school) %>
+            | <%= link_to "编辑学校大使", moderator_school_url(@school) %>
           <% end -%>
 
           <% if logged_in? && @school.edited_by(current_user) -%>

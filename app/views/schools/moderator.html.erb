@@ -1,4 +1,4 @@
-<% @page_title = @title = @school.title + " 的爱心大使"-%>
+<% @page_title = @title = @school.title + " 的学校大使"-%>
 
 <% content_for :sidebar do -%>
 <p>&raquo; <%= link_to "返回学校页面", school_url(@school) %></p>
@@ -7,7 +7,7 @@
 <div class="box tipText">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>爱心大使</h2>
+      <h2>学校大使</h2>
       <div class="contents clearfix">
         <% @moderators.each do |c| %>
         <dl class="obu">
