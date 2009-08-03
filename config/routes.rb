@@ -134,6 +134,11 @@ ActionController::Routing::Routes.draw do |map|
       end
     end
     
+    site.namespace :mooncake do |mooncake|
+      mooncake.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
   end
   
   map.connect ':controller/:action/:id'
