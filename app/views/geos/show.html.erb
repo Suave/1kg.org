@@ -35,6 +35,7 @@
       <div class="boxOuter">
         <div class="boxInner">
           <h3>在<%= @city.name %>的小组</h3>
+          <span class="postNew"><%= link_for_new_group %></span>
           <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
         </div>
       </div>
