@@ -15,7 +15,7 @@ class SchoolsController < ApplicationController
         @recent_schools = School.recent_upload
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
-        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find :all, :limit => 10
+        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find :all, :order => "created_at desc, start_at desc", :limit => 10
         
       }
       format.json {
