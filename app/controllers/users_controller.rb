@@ -178,7 +178,7 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
 
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], :limit => 3)
+    @shares = @user.shares.available.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
   end
   
   def shares

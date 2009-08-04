@@ -15,15 +15,13 @@
   <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
 <% end -%>
 
-<div class="box tipText">
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2><%= h @user.login %>的全部分享</h2>
-      <ul class="contents">
-        <% @shares.each do |s| -%>
-          <li>&raquo; <%= link_to h(s.title), share_url(s) %> 写于 <%= s.created_at.to_date %> ... <%= s.hits %> 浏览 / <%= s.comments_count %> 留言</li>
-        <% end -%>
-      </ul>
+      <h3><%= @user.login %>的分享</h3>
+      <div class="contents">
+        <%= render :partial => "shares", :object => @shares %>
+      </div>
     </div>
   </div>
 </div>

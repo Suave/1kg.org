@@ -36,10 +36,7 @@
     </div>
   </div>
   <%= render :partial => "groups", :locals => {:user => @user, :groups => @groups } %>
-  
-  <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 
-  <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
 <% end -%>
 
 
@@ -67,28 +64,19 @@
   </div>
 <% else -%>
 
-  <% @shares.each do |s| -%>
-  <div class="box shareEntry">
+  <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h2><%= link_to h(s.title), share_url(s) %></h2>
-
-        <div class="metadata">
-          <p>
-            <%= link_to s.user.login, user_url(s.user)  %> 写于 <%= s.created_at.to_date %> ... 
-            <%= s.hits %> 浏览 / <%= s.comments_count %> 留言 
-            <% if s.moderated_by? current_user -%>
-            (<%= link_to "编辑", edit_share_url(s) %> | <%= link_to "删除", share_url(s), :confirm => "确认删除么? 本操作无法撤销", :method => :delete %>)
-            <% end -%>
-          </p>
+        <h3>分享</h3>
+        <div class="contents">
+          <%= render :partial => "shares", :object => @shares %>
         </div>
-        <div class="entry">
-          <%= s.body_html %>
-        </div>
+        <p class="remark">&raquo; <%= link_to "查看#{@user.login}的全部分享", shares_user_url(@user) %> (<%= @user.shares.size %>)</p>
       </div>
     </div>
   </div>
-  <% end -%>
+  
+  <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 
-  <p class="tipText right">&raquo; <%= link_to "查看#{@user.login}的全部分享", shares_user_url(@user) %> (<%= @user.shares.size %>)</p>
+  <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
 <% end -%>

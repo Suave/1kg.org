@@ -1,0 +1,20 @@
+<table class="tableList">
+  <thead>
+    <tr>
+      <th width="50%">标题</th>
+      <th>浏览</th>
+      <th>留言</th>
+      <th>写于</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% shares.each do |s| -%>
+    <tr>
+      <td><%= link_to s.title, share_url(s) %></td>
+      <td><%= s.hits %></td>
+      <td><%= s.comments_count %></td>
+      <td><%= s.created_at.to_date %></td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>
