@@ -107,6 +107,7 @@
           <div class="panel setting">
             <div id='basic'>
               <form>
+              <p><label>贡献</label><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交, <%= validate_for_human @school %></p>
               <p><label>位置</label>
                 <% if @school.geo.parent %>
                   <%= h @school.geo.parent.name %> > 
@@ -120,7 +121,7 @@
               <p><label>图书室</label><%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书" if ! @basic.book_amount.blank? %></p>
               <p><label>电脑</label><%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>
               <p><label>其他情况</label><%= h @basic.level_amount %>年级，<%= h @basic.class_amount %>班级，<%= h @basic.student_amount %>学生，<%= h @basic.teacher_amount %>老师</p>
-
+              
               <% else -%>
 
               <p class="incomplete">没有学校基本信息</p>
@@ -228,7 +229,6 @@
           </div>
         </div>
         <p class="remark">
-          <%= validate_for_human @school %>
            &raquo;
           <% if @school.validated_by current_user -%>
             <% if @school.validated? -%>
