@@ -45,9 +45,14 @@ class SchoolsController < ApplicationController
       format.html {render :layout => false}
     end
   end
-  
+=begin  
   def all
     redirect_to geos_path
+  end
+=end
+
+  def comments
+    @comments = Topic.latest_updated_in SchoolBoard, params[:page]
   end
   
   def unconfirm

@@ -76,6 +76,14 @@ class Topic < ActiveRecord::Base
                                :limit => 10)
   end
   
+  def self.latest_updated_in(board_class, page)
+    Topic.available.paginate( :page => page || 1, 
+                              :conditions => ["boards.talkable_type=?", board_class.class_name],
+                              :include => [:user, :board],
+                              :joins => [:board],
+                              :order => "last_replied_at desc",
+                              :per_page => 20)
+  end
   
   private
   

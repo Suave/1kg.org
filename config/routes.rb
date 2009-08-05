@@ -58,11 +58,11 @@ ActionController::Routing::Routes.draw do |map|
                                       :moderator => :get,
                                       :marked => :put,
                                       :manage => :put},
-                          :collection => { :all => :get, 
-                                           :unconfirm => :get, 
+                          :collection => { :unconfirm => :get, 
                                            :archives => :get, 
                                            :cits => :get,
-                                           :todo => :get
+                                           :todo => :get,
+                                           :comments => :get
                                           } do |school|
     school.resources :visits
   end
