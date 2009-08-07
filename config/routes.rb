@@ -74,7 +74,12 @@ ActionController::Routing::Routes.draw do |map|
                                                                 },                      
                                                  :month => nil, :day => nil
   
-  map.resources :activities, :member => {:join => :get, :quit => :put, :stick => :put},
+  map.resources :activities, :member => { :join => :get, 
+                                          :quit => :put, 
+                                          :stick => :put, 
+                                          :invite => :get,
+                                          :send_invitation => :put
+                                        },
                              :collection => {:ongoing => :get, :over => :get}
 
 

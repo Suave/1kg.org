@@ -6,7 +6,7 @@
       <h3>邀请友邻</h3>
       <div class="contents clearfix">
         <p class="caution">勾上想邀请的友邻, 点击"发送邀请"</p>
-      <% form_tag send_invitation_group_url(@group), :method => :put  do -%>
+      <% form_tag send_invitation_activity_url(@activity), :method => :put  do -%>
         <%= render :partial => "/shared/user_invitation", :locals => {:users => @friends} %>
       <% end -%>
       </div>

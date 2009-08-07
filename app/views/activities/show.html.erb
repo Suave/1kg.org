@@ -1,4 +1,4 @@
-<% @page_title = @activity.title -%>
+<% @page_title = @title = @activity.title -%>
 
 <% content_for :crumb do -%>
   <li>活动
@@ -56,25 +56,25 @@
   <div class="box" id="activityInfo">
     <div class="boxOuter">
       <div class="boxInner">
-        <h2><%= @activity.title %></h2>
-        
+        <h3></h3>
+        <span class="postNew"></span>
         
         <div class="contents">
           <div style="text-align:right">
-            <a href="#topicCommentsList">查看留言</a> | 发布时间：<%= @activity.created_at.to_date %>
+            <%= link_to "邀请友邻", invite_activity_url(@activity) %> | <a href="#topicCommentsList">查看留言</a>
             <% if @activity.edited_by current_user -%>
-              (<%= link_to "修改活动信息", edit_activity_url(@activity.id) %> | 
-              <%= link_to "删除活动", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete %>)
+              | <%= link_to "编辑", edit_activity_url(@activity.id) %>
+              | <%= link_to "删除", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete %>
             <% end -%>
             
             <% if @activity.sticky_by? current_user -%>
-              <%= link_to (@activity.sticky? ? "取消置顶" : "置顶"), stick_activity_url(@activity), :method => :put %>
+              | <%= link_to (@activity.sticky? ? "取消置顶" : "置顶"), stick_activity_url(@activity), :method => :put %>
             <% end -%>
           </div>
           
           <table id="activitiesInfo">
             <tr>
-              <th>发起人</th><td><%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %></td>
+              <th>发起</th><td><%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> @ <%= @activity.created_at.to_date %></td>
               <th>类型</th><td><%= @activity.category_name %></td>
             </tr>
             <tr>

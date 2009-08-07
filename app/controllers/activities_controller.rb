@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
+  before_filter :find_activity,  :except => [:index, :hiring, :ongoing, :over, :new, :create]
   
   def index
     #deprecated, not use this action
@@ -24,9 +25,7 @@ class ActivitiesController < ApplicationController
                                        :limit => 15)
     
     end
-    
-    # for latest updated activity topics
-    #@topics = Topic.last_10_updated_topics(ActivityBoard)
+
   end
   
   def hiring
@@ -55,36 +54,30 @@ class ActivitiesController < ApplicationController
   end
   
   def edit
-    @activity = Activity.find(params[:id])
   end
   
   def update
-    @activity = Activity.find(params[:id])
     @activity.update_attributes!(params[:activity])
     flash[:notice] = "修改成功"
     redirect_to activity_url(@activity.id)
   end
   
   def destroy
-    @activity = Activity.find(params[:id])
     @activity.update_attributes!(:deleted_at => Time.now)
     flash[:notice] = "删除成功"
     redirect_to root_url
   end
   
   def join
-    @activity = Activity.find(params[:id])
     if @activity.joined?(current_user)
       flash[:notice] = "你已经参加这个活动了, 不用重复点击"
     else
       @activity.participators << current_user
     end
-    #logger.info "REQUEST URI: #{request.request_uri}"
     redirect_to activity_url(@activity)
   end
   
   def quit
-    @activity = Activity.find(params[:id])
     if @activity.joined?(current_user)
       @activity.participators.delete current_user
     else
@@ -94,33 +87,45 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-    begin
-      @activity = Activity.find(params[:id])
-      
-      unless @activity.deleted_at.nil?
-        flash[:notice] = "该活动已删除"
-        redirect_to activities_url
-      end
-      
-      @shares = @activity.shares
-      @comments = @activity.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-      @comment = ActivityComment.new
-    
-    rescue ActiveRecord::RecordNotFound
-      flash[:notice] = "没有找到这个活动, 可能已被管理员删除"
-      redirect_to root_url
+        
+    unless @activity.deleted_at.nil?
+      flash[:notice] = "该活动已删除"
+      redirect_to activities_url
     end
+    
+    @shares = @activity.shares
+    @comments = @activity.comments.available.paginate :page => params[:page] || 1, :per_page => 15
+    @comment = ActivityComment.new
     
   end
   
   def stick
-    @activity = Activity.find(params[:id])
     @activity.toggle!(:sticky)
     flash[:notice] = "本活动已经置顶" if @activity.sticky?
     flash[:notice] = "本活动已经取消置顶" unless @activity.sticky?
     redirect_to activity_url(@activity)
   end
   
+  def invite
+    @friends = current_user.neighbors - @activity.participators
+  end
+  
+  def send_invitation
+    if params[:invite].blank?
+      flash[:notice] = "请选择邀请对象"
+    else
+      invited_user_ids = params[:invite].collect {|k,v| v.to_i}
+      message = Message.new(:subject => "#{current_user.login}邀请您参加#{@activity.title}",
+                            :content => "#{current_user.login}( #{user_url(current_user)} )邀请您加入#{@activity.title}( #{activity_url(@activity)} )\r\n\r\n快去看看吧\r\n\r\n\r\n多背一公斤客服"
+                            )
+      message.author_id = 0
+      message.to = invited_user_ids
+      message.save!
+      flash[:notice] = "给#{invited_user_ids.size}位友邻发送了邀请"
+    end
+    
+    redirect_to activity_url(@activity)
+  end
   
   private
   def find_activities(status)
@@ -128,5 +133,15 @@ class ActivitiesController < ApplicationController
                                                                   :order => "created_at desc, start_at desc",
                                                                   :per_page => 20)
   end
+  
+  def find_activity
+    begin  
+      @activity = Activity.find params[:id]
+    rescue ActiveRecord::RecordNotFound
+      flash[:notice] = "没有找到这个活动, 可能已被管理员删除"
+      redirect_to root_url
+    end  
+  end
+  
   
 end
