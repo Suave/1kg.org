@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :groups => :get,
                                     :group_topics => :get},
                         :has_many => [:sent] do |user|
-    user.resources :received, :member => {:reply => :get}
+    user.resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
     user.resources :neighbors
   end
     

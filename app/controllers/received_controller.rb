@@ -1,10 +1,12 @@
 class ReceivedController < ApplicationController
+  include Util
+  
 	before_filter :login_required
 
   def index
 		@copies = current_messages.paginate :per_page => 10,
 																				:page 		=> params[:page],
-																				:include 	=> :message,
+																				:include 	=> [:message],
 																				:order 		=> "unread desc, messages.created_at DESC"
   end
 
@@ -39,6 +41,12 @@ class ReceivedController < ApplicationController
     flash[:notice] = "你刚刚删除了一条站内信"
     redirect_to index_path
   end
+  
+  def destroy_all
+    delete_all MessageCopy, params[:delete]
+    redirect_to index_path
+  end
+  
 
   private 
   

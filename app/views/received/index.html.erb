@@ -11,6 +11,7 @@
   <%= render :partial => "/sent/toolbox" %>
 <% end -%>
 
+<% form_for :copies, :url => destroy_all_user_received_path, :html => {:method => :delete} do |f| -%>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
@@ -18,6 +19,7 @@
       <div class="contents">
         <table border='0' cellspacing='0' summary="我收到的消息">
         	<tr>
+        	  <th>选</th>
         		<th>来自</th>
         		<th>主题</th>
         		<th>时间</th>
@@ -25,6 +27,7 @@
 
         	<% for copy in @copies %>
         		<tr>
+        		  <td><%= check_box_tag "delete[#{copy.id}]", copy.id %></td>
         			<td>
         			  <div style="float:left; display:inline"><%= copy.author.nil? ? "系统发送" : link_to( h(copy.author.login), user_url(copy.author) ) %></div>
         			  <% if copy.unread -%>
@@ -36,10 +39,11 @@
         		</tr>
         	<% end %>
         </table>
-
+        <p><%= link_to "全选", "javascript:CheckAll(true)" %> | <%= link_to "全取消", "javascript:CheckAll(false)" %> <%= submit_tag "删除" %></p>
         <%= customize_paginate @copies %>
         
       </div>
     </div>
   </div>
 </div>
+<% end -%>

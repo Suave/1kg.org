@@ -13,4 +13,14 @@ module Util
       params[model_name][attribute_name] = iconfile
     end
   end
+  
+  def delete_all(klass, id_hash)
+    if id_hash.blank?
+      flash[:notice] = "请选择要删除的条目"
+    else
+      delete_ids = id_hash.collect{|k,v| v.to_i}
+      klass.destroy delete_ids
+      flash[:notice] = "批量删除成功"
+    end
+  end
 end
