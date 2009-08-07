@@ -68,15 +68,19 @@ class Topic < ActiveRecord::Base
     deleted_at.nil? ? false : true
   end
   
-  def self.last_10_updated_topics(board_class)
+  def self.latest_updated_in(board_class, limit = 10)
     Topic.available.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
                                :include => [:user, :board],
                                :joins => [:board],
                                :order => "last_replied_at desc",
-                               :limit => 10)
+                               :limit => limit)
   end
   
-  def self.latest_updated_in(board_class, page)
+  def self.last_10_updated_topics(board_class)
+    latest_updated_in board_class
+  end
+  
+  def self.latest_updated_with_pagination_in(board_class, page)
     Topic.available.paginate( :page => page || 1, 
                               :conditions => ["boards.talkable_type=?", board_class.class_name],
                               :include => [:user, :board],

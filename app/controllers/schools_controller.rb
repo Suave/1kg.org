@@ -52,7 +52,7 @@ class SchoolsController < ApplicationController
 =end
 
   def comments
-    @comments = Topic.latest_updated_in SchoolBoard, params[:page]
+    @comments = Topic.latest_updated_with_pagination_in SchoolBoard, params[:page]
   end
   
   def unconfirm
