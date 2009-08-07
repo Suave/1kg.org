@@ -97,7 +97,7 @@
         <div style="text-align:right">
           <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
           <div id="visit_date" style="display:none">
-            什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited %>" class="formText calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" />
+            什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="formText calendar" /> <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif?1225768469" class="calendar" />
             <%= submit_tag "确定" %>
           </div>
           <% end -%>
