@@ -1,5 +1,5 @@
 .lcolumn {float:left; margin-left:20px; width:520px;}
 .rcolumn {margin-left:560px; width:400px;}
-div.info {line-height:1.6em;}
-div.info label {float:left; margin-right:10px;}
-div.info p {margin-top:5px; float:left; display:inline; width:400px;}
+div.info {line-height:1.6em; margin:20px 10px;}
+div.info div.img {float:left; margin-right:10px;}
+div.info div.text {margin-top:5px; float:left; display:inline; width:400px;}

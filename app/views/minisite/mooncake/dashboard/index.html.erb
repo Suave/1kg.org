@@ -9,18 +9,19 @@ body {background:white;}
 <div class="lcolumn">
   <div><%= image_tag("mooncake/1-1.jpg") %></div>
   <div class="clearfix info">
-    <label><%= image_tag("mooncake/1-chuandi.jpg") %></label>
-    <p>
+    <div class="img"><%= image_tag("mooncake/1-chuandi.jpg") %></div>
+    <div class="text">
     点击复制本页地址给<span>QQ/Msn/Gtalk</span>好友<br />
-    <input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
-    </p>
+    <input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" /><br />
+    <%= render :partial => "/shared/share_by_widget" %>
+    </div>
   </div>
   <div class="clearfix info">
-    <label><%= image_tag("mooncake/1-xuexiao.jpg") %></label>
-    <p>
+    <div class="img"><%= image_tag("mooncake/1-xuexiao.jpg") %></div>
+    <div class="text">
     雀儿寨小学是一座乡村小学，有四十多个三年级以下的孩子，目前他们特别缺乏体育设施，而竹制的旗杆也经常破损。<br />
     详情请参阅：<a href="http://www.1kg.org/schools/3603" target="_blank" title="点击查看">http://www.1kg.org/schools/3603</a>
-    </p>
+    </div>
   </div>
 </div>
 
