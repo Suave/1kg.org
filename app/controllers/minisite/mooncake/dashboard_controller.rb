@@ -7,4 +7,8 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     
   end
   
+  def reserve
+    @reserve = User.new
+  end
+  
 end

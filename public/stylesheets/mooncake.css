@@ -3,3 +3,6 @@
 div.info {line-height:1.6em; margin:20px 10px;}
 div.info div.img {float:left; margin-right:10px;}
 div.info div.text {margin-top:5px; float:left; display:inline; width:400px;}
+#reserve-form label {width:80px; display:block; float:left; padding:3px;}
+#reserve-form input.text {border:solid 2px #CCC; height:1.4em; font-size:1.2em; color:gray; padding:2px;}
+#reserve-form .sbtn {background:url(/images/mooncake/1-5.jpg); width:86px; height:40px; border:none;}

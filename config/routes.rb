@@ -142,6 +142,7 @@ ActionController::Routing::Routes.draw do |map|
     site.namespace :mooncake do |mooncake|
       mooncake.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
+        dash.reserve  '/reserve', :action => "reserve"
       end
     end
   end
