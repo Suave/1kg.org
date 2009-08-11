@@ -10,8 +10,8 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def reserve
     @reserve = Reserve.new params[:reserve]
     @reserve.save!
-    flash[:notice] = "已经收到您的预定，面市后我们会及时通知您"
-    redirect_to minisite_mooncake_index_url
+    #flash[:notice] = "已经收到您的预定，面市后我们会及时通知您"
+    #redirect_to minisite_mooncake_index_url
   end
   
 end

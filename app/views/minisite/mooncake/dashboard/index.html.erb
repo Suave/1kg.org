@@ -2,12 +2,13 @@
 
 <% content_for :heads do -%>
 <link type="text/css" rel="stylesheet" href="/stylesheets/mooncake.css" media="screen, projection" />
-<% end -%>
-
 <style type="text/css">
 body {background:white;}
 </style>
+<% end -%>
 
+
+<% content_for :fullsize do -%>
 <div class="lcolumn">
   <div><%= image_tag("mooncake/1-1.jpg") %></div>
   <div class="clearfix info">
@@ -40,3 +41,4 @@ body {background:white;}
     <% end -%>
   </div>
 </div>
+<% end %>
