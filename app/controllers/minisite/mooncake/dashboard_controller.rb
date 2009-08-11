@@ -1,7 +1,7 @@
 require 'uuid'
 
 class Minisite::Mooncake::DashboardController < ApplicationController
-  before_filter :login_required, :except => [:index]
+  before_filter :login_required, :except => [:index, :reserve]
   
   def index
     @reserve = Reserve.new
