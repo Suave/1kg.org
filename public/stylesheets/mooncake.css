@@ -12,4 +12,5 @@ div.info div.text {margin-top:5px; float:left; display:inline; width:400px;}
 #reserve-success h1 {color:#e98523;}
 #reserve-success p {margin:1em; font-size:1.2em;}
 
-#misc {margin:2em 0;}
+#misc {margin:3em 0;}
+#misc img {margin:0 1em;}
