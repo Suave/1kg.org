@@ -4,6 +4,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   before_filter :login_required, :except => [:index, :reserve]
   
   def index
+    @school = School.find(3603)
     @reserve = Reserve.new
   end
   

@@ -22,8 +22,9 @@ body {background:white;}
   <div class="clearfix info">
     <div class="img"><%= image_tag("mooncake/1-xuexiao.jpg") %></div>
     <div class="text">
-    雀儿寨小学是一座乡村小学，有四十多个三年级以下的孩子，目前他们特别缺乏体育设施，而竹制的旗杆也经常破损。<br />
-    详情请参阅：<a href="http://www.1kg.org/schools/3603" target="_blank" title="点击查看">http://www.1kg.org/schools/3603</a>
+    <% @school.photos.each do |p| -%>
+      <%= link_to image_tag(p.public_filename(:thumb), :style => "padding:2px; border: 2px solid #CCC; margin-right:5px;"), photo_url(p), :target => "_blank" %>
+    <% end -%>
     </div>
   </div>
 </div>
@@ -31,8 +32,16 @@ body {background:white;}
 <div class="rcolumn">
   <div><%= image_tag("mooncake/1-2.jpg") %></div>
   <div><%= image_tag("mooncake/1-3.jpg") %></div>
+  <div>
+    <p>
+      <%= link_to "查看学校情况", "http://www.1kg.org/schools/3603", :target => "_blank" %>, 
+      <%= link_to "公益方案详情", "http://www.1kg.org/boards/3603/topics/1001716", :target => "_blank" %>
+    </p>
+  </div>
   <div id="reserve-form">
+    <div class="require">前100位预定的用户可得到纪念徽章一枚</div>
     <% form_for :reserve, :url => minisite_mooncake_reserve_url do |f| -%>
+    
     <p><label><%= image_tag "mooncake/1-name.jpg" %></label><%= f.text_field :name, :size => 25, :class => "text", :value => (current_user.login if logged_in?) %> <%= error_message_on @reserve, :name %></p>
     <p><label><%= image_tag "mooncake/1-email.jpg" %></label><%= f.text_field :email, :size => 25, :class => "text", :value => (current_user.email if logged_in?) %></p>
     <p><label><%= image_tag "mooncake/1-cellphone.jpg" %></label><%= f.text_field :cellphone, :size => 25, :class => "text" %></p>
@@ -43,6 +52,6 @@ body {background:white;}
 </div>
 
 <div class="clearfix center" id="misc">
-  <%= link_to image_tag("mooncake/sitlogo.gif"), "http://www.sitcoffee.com", :target => "_blank" %> <%= link_to image_tag("logo.gif"), root_url %>
+  <%= link_to image_tag("mooncake/sitlogo.jpg", :height => 65), "http://www.sitcoffee.com", :target => "_blank" %> <%= link_to image_tag("logo.gif"), root_url %>
 </div>
 <% end %>
