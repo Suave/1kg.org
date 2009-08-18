@@ -22,9 +22,13 @@ body {background:white;}
   <div class="clearfix info">
     <div class="img"><%= image_tag("mooncake/1-xuexiao.jpg") %></div>
     <div class="text">
+      雀儿寨小学是一座乡村小学，有四十多个三年级以下的孩子，目前他们特别缺乏体育设施，而竹制的旗杆也经常破损。<br />
+      详情请参阅：<a href="http://www.1kg.org/schools/3603" target="_blank" title="点击查看">http://www.1kg.org/schools/3603</a>
+      <div style="margin-top:10px;">
     <% @school.photos.each do |p| -%>
       <%= link_to image_tag(p.public_filename(:thumb), :style => "padding:2px; border: 2px solid #CCC; margin-right:5px;"), photo_url(p), :target => "_blank" %>
     <% end -%>
+      </div>
     </div>
   </div>
 </div>
