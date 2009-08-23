@@ -7,6 +7,43 @@ require 'gmap'
 include GMap
 
 namespace :schools do
+  desc "count schools' karma(popularity)"
+  task :popularity => :environment do
+    schools = School.find :all
+    puts "学校总数：#{schools.size}"
+    
+    schools.each do |school|
+      karma = 0
+      # 照片 4s/张
+      karma += school.photos.count * 4
+      # 分享 10s/篇
+      karma += school.shares.available.count * 10
+      # 分享回复 2s/个
+      school.shares.available.each do |share|
+        karma += share.comments.available.count * 2
+      end
+      # 学校话题 5s/个
+      karma += school.discussion.board.topics.available.count * 5
+      # 话题回复 2s/个
+      school.discussion.board.topics.available.each do |topic|
+        karma += topic.posts.available.count * 2
+      end
+      # TODO 学校活动
+      # TODO 活动回复
+      # 去过用户 2s/人
+      karma += school.visitors.count * 2
+      # 学校大使 10s/人
+      karma += User.moderators_of(school).size * 10
+      # 学校点击 1s/次
+      karma += school.hits
+      
+      # 更新学校活跃度
+      school.update_attributes!(:karma => karma) unless school.karma == karma
+      
+      puts "#{school.title}: #{karma}" unless karma == 0
+    end
+  end 
+  
   desc "import all schools to db/schools.csv"
   task :export => :environment do
     file = File.open("#{RAILS_ROOT}/db/schools.csv", 'w')

@@ -340,6 +340,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "geo_id"
     t.integer  "county_id"
     t.integer  "hits",                :default => 0
+    t.integer  "karma",               :default => 0
     t.string   "title",               :default => "",    :null => false
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
