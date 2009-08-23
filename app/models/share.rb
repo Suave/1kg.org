@@ -44,6 +44,10 @@ class Share < ActiveRecord::Base
                          :select => "id, user_id, title, hits, comments_count, created_at")
   end
   
+  def hit!
+    self.class.increment_counter :hits, id
+  end
+  
   def moderated_by?(user)
     (! user.blank?) and (user_id == user.id or user.has_role?("roles.admin"))
   end

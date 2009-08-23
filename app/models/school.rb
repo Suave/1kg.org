@@ -110,7 +110,9 @@ class School < ActiveRecord::Base
       validated.locate(ids)
   end
   
-  
+  def hit!
+    self.class.increment_counter :hits, id
+  end
 
   def last_topic
     self.discussion.board.topics.find(:first, :order => "last_replied_at desc")

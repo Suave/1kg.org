@@ -211,6 +211,8 @@ class SchoolsController < ApplicationController
   def show
     @school = School.find(params[:id])
     
+    @school.hit!
+    
     @traffic = @school.traffic
     @need = @school.need
     @local   = @school.local
