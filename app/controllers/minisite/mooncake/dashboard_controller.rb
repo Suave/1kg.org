@@ -1,7 +1,7 @@
 require 'uuid'
 
 class Minisite::Mooncake::DashboardController < ApplicationController
-  before_filter :login_required, :except => [:index, :reserve]
+  before_filter :login_required, :except => [:index, :reserve, :buy]
   
   def index
     @reserve = Reserve.new
@@ -13,6 +13,10 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @reserve.save!
     #flash[:notice] = "已经收到您的预定，面市后我们会及时通知您"
     #redirect_to minisite_mooncake_index_url
+  end
+  
+  def buy
+    
   end
   
 end
