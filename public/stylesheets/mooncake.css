@@ -1,8 +1,10 @@
-.lcolumn {float:left; margin:0 10px; width:520px;}
-.rcolumn {margin-left:520px; width:400px;}
-div.info {line-height:1.6em; margin:20px 10px;}
-div.info div.img {float:left; margin-right:10px;}
-div.info div.text {margin-top:5px; float:left; display:inline; width:400px;}
+.lcolumn {float:left; margin:0 0 0 10px; width:520px;}
+.rcolumn {margin-left:540px; width:400px;}
+
+div.info {line-height:1.6em; margin:20px 10px 20px 20px;}
+div.info div.img {float:left; margin-right:8px;}
+div.info div.text {margin:5px 0 0 80px; }
+/* deprecated
 #reserve-form p {margin:1em 0;}
 #reserve-form label {width:80px; display:block; float:left; padding:3px;}
 #reserve-form input.text {border:solid 2px #CCC; height:1.4em; font-size:1.2em; color:gray; padding:2px;}
@@ -11,6 +13,13 @@ div.info div.text {margin-top:5px; float:left; display:inline; width:400px;}
 #reserve-success {text-align:center; margin-bottom:100px;}
 #reserve-success h1 {color:#e98523;}
 #reserve-success p {margin:1em; font-size:1.2em;}
-
+*/
 #misc {margin:3em 0;}
 #misc img {margin:0 1em;}
+
+#intro {font-size:1.1em; color:#00744d; line-height:1.6em; margin:1em;}
+#intro p {margin:1em;}
+#intro a {text-decoration:underline;}
+.passwordInput {font-size:1.3em; margin:30px 0 30px 30px;}
+.passwordInput input {border:1px solid #CCC; padding:2px; font-size:1.2em; width:200px; background:#fffec8;}
+.passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0; font-size:1em;}
