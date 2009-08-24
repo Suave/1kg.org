@@ -73,7 +73,8 @@ class School < ActiveRecord::Base
   }
   
   def after_create
-    Mailer.deliver_submitted_school_notification(self) if self.user
+    # remove @ 09.8.24, because of SMTPServer Busy raise exception
+    #Mailer.deliver_submitted_school_notification(self) if self.user
   end
   
   def before_save
