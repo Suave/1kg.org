@@ -144,6 +144,18 @@ namespace :schools do
     puts "-- finish fullfill the validated_at column for validated schools"
   end
   
+  desc "check school's moderator, create if not exist"
+  task :check_moderator => :environment do
+    schools = School.find :all
+    schools.each do |school|
+      moderators = User.moderators_of school
+      if moderators.blank?
+        puts school.title
+        #Role.create(:identifier => "roles.school.moderator.#{school.id}")
+      end
+    end
+  end
+  
   desc "将提交者作为学校爱心大使"
   task :set_submitor_as_school_lover => :environment do
     schools = School.all
