@@ -151,7 +151,7 @@ namespace :schools do
       role = Role.find_by_identifier("roles.school.moderator.#{school.id}")
       if role.nil?
         puts school.title
-        #Role.create(:identifier => "roles.school.moderator.#{school.id}")
+        Role.create(:identifier => "roles.school.moderator.#{school.id}")
       end
     end
   end
