@@ -148,8 +148,8 @@ namespace :schools do
   task :check_moderator => :environment do
     schools = School.find :all
     schools.each do |school|
-      moderators = User.moderators_of school
-      if moderators.blank?
+      role = Role.find_by_identifier("roles.school.moderator.#{school.id}")
+      if role.nil?
         puts school.title
         #Role.create(:identifier => "roles.school.moderator.#{school.id}")
       end
