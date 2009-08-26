@@ -468,10 +468,4 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
   end
 
-  create_table "reserves", :force => true do |t|
-    t.string  "name"
-    t.string  "email"
-    t.string  "cellphone"
-    t.integer "quantity"
-  end
 end
