@@ -18,3 +18,5 @@
 .comment-body {height:70px; overflow:block;}
 
 .shareit {margin:8px 0; padding:8px 0; border-top:1px solid #CCC;}
+
+#warning {margin:0 40px; padding:10px 20px; line-height:1.8em; border:1px dashed red; background:#fadede;}
