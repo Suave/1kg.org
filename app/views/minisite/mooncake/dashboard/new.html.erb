@@ -21,19 +21,22 @@ body {background:white;}
       <%= link_to "雀儿寨小学情况", "http://www.1kg.org/schools/3603", :target => "_blank" %>, 
       <%= link_to "公益方案详情", "http://www.1kg.org/boards/3603/topics/1001716", :target => "_blank" %>
     </p>
-    <p>
+    <table style="border-top:1px solid #CCC;">
       <% School.find(3603).photos.each do |p| -%>
-        <%= link_to image_tag(p.public_filename(:thumb), :style => "padding:2px; border: 2px solid #CCC; margin-right:5px;"), school_url(3603), :target => "_blank" %>
+      <tr>
+        <td><%= link_to image_tag(p.public_filename(:thumb), :style => "border:1px solid #CCC; padding:1px" ), school_url(3603), :target => "_blank" %></td>
+        <td><%= p.description %></td>
+      </tr>
       <% end -%>
-    </p>
+    </table>
   </div><!-- detail intro -->
 </div>
 
 <div class="rcolumn">
-  <div><%= image_tag("mooncake/slogan.png") %></div>
-  <div class="center"><%= link_to image_tag("mooncake/buy.png"), minisite_mooncake_buy_url %></div>
+  <div id="slogan"><%= image_tag("mooncake/slogan_mooncake.png") %></div>
+  <div id="buy" class="center"><%= link_to image_tag("mooncake/buy_mooncake.png"), "http://item.taobao.com/auction/item_detail-0db1-20154c9afa360f98f7a09c065d864b92.jhtml?cm_cat=0", :target => "_blank" %></div>
   <div class="passwordInput">
-    <% form_tag minisite_postcard_password_url do -%>
+    <% form_tag minisite_mooncake_password_url do -%>
       输入爱心密码 <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
     <% end -%>
   </div>
