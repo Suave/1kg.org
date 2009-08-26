@@ -1,0 +1,16 @@
+<% @page_title = "预定成功" %>
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/mooncake.css" media="screen, projection" />
+<style type="text/css">
+body {background:white;}
+</style>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div id="reserve-success">
+  <h1>预定成功</h1>
+  <p>您的预订已经成功，我们将在48小时内采用您留下的联系方式与您沟通，并及时更新此次活动的相关情况</p>
+  <p>想了解更多？请成为我们的注册用户.(<%= link_to "现在注册", signup_url %>)</p>
+  <p><%= link_to "返回", minisite_mooncake_index_url %></p>
+</div>
+<% end -%>

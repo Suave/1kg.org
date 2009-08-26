@@ -1,0 +1,14 @@
+<div>
+  <%= image_tag("mooncake/1-reserve.jpg") %>
+</div>
+<div id="reserve-form">
+  <div class="require">前100位预定的用户可得到纪念徽章一枚</div>
+  <% form_for :reserve, :url => minisite_mooncake_reserve_url do |f| -%>
+  
+  <p><label><%= image_tag "mooncake/1-name.jpg" %></label><%= f.text_field :name, :size => 25, :class => "text", :value => (current_user.login if logged_in?) %> <%= error_message_on @reserve, :name %></p>
+  <p><label><%= image_tag "mooncake/1-email.jpg" %></label><%= f.text_field :email, :size => 25, :class => "text", :value => (current_user.email if logged_in?) %></p>
+  <p><label><%= image_tag "mooncake/1-cellphone.jpg" %></label><%= f.text_field :cellphone, :size => 25, :class => "text" %></p>
+  <p><label><%= image_tag "mooncake/1-quantity.jpg" %></label><%= f.text_field :quantity, :size => 15, :class => "text" %> <%= image_tag "mooncake/1-he.jpg", :style => "vertical-align:middle" %> <%= error_message_on @reserve, :quantity %></p>
+  <p><label>&nbsp;</label><%= submit_tag "", :class => "sbtn" %></p>
+  <% end -%>
+</div>

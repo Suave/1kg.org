@@ -1,0 +1,18 @@
+.lcolumn {float:left; margin:0 0 0 10px; width:520px;}
+.rcolumn {margin-left:540px; width:400px;}
+
+#slogan {margin:20px 0 30px 30px;}
+
+div.info {line-height:1.6em; margin:20px 10px 20px 20px;}
+div.info div.img {float:left; margin-right:8px;}
+div.info div.text {margin:5px 0 0 80px; }
+
+#misc {margin:3em 0;}
+#misc img {margin:0 1em;}
+
+#intro {font-size:1em; /*color:#00744d;*/ line-height:1.6em; margin:1em;}
+#intro p {margin:1em;}
+#intro a {text-decoration:underline;}
+.passwordInput {font-size:1.3em; margin:30px 0 30px 30px;}
+.passwordInput input {border:1px solid #CCC; padding:2px; font-size:1.2em; width:200px; background:#fffec8;}
+.passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0; font-size:1em;}
