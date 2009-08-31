@@ -34,7 +34,11 @@ body {background:white;}
 
 <div class="rcolumn">
   <div id="slogan"><%= image_tag("mooncake/slogan_mooncake.png") %></div>
-  <div id="buy" class="center"><%= link_to image_tag("mooncake/buy_mooncake.png"), "http://item.taobao.com/auction/item_detail-0db1-20154c9afa360f98f7a09c065d864b92.jhtml?cm_cat=0", :target => "_blank" %></div>
+  <div id="buy" class="center">
+    <p style="color:#F63">现在购买有机会获赠纪念徽章</p>
+    <%= link_to image_tag("mooncake/buy_mooncake.png"), "http://item.taobao.com/auction/item_detail-0db1-20154c9afa360f98f7a09c065d864b92.jhtml?cm_cat=0", :target => "_blank" %>
+    
+  </div>
   <div class="passwordInput">
     <% form_tag minisite_mooncake_password_url do -%>
       输入爱心密码 <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
