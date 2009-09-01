@@ -25,7 +25,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SchoolBasic do
   it "should parse address to coordinates before create a new school" do
-    @school_basic = SchoolBasic.new
+    @school_basic = SchoolBasic.new(:address => 'address')
+    User.stub!(:current_user).and_return(mock(User, :id => 1))
     @school_basic.should_receive(:find_coordinates_by_address).and_return([1.1, 2.2])
     @school_basic.save
     @school_basic.latitude.should == 2.2

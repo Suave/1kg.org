@@ -10,7 +10,7 @@ class MiscController < ApplicationController
   def my_city
     if @city = current_user.geo
       # 用户已经选择过同城
-      redirect_to geo_url @city
+      redirect_to geo_url(@city)
       
     else
       # 用户还没有选择同城
