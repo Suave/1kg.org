@@ -75,12 +75,12 @@ Rails::Initializer.run do |config|
 end
 
 ActionMailer::Base.smtp_settings = {
-  :address => "smtp.1and1.com",
-  :domain  => "1and1.com",
+  :address => "127.0.0.1",
+  :domain  => "1kg.org",
   :port => 25,
   :authentication => :login,
-  :user_name => "no-reply@1kg.cn",
-  :password => '1000g1000g'
+  :user_name => "no-reply@1kg.org",
+  :password => '1kgmore'
 }
 
 CalendarDateSelect.format = :iso_date
