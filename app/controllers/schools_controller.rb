@@ -120,7 +120,7 @@ class SchoolsController < ApplicationController
         
       rescue ActiveRecord::RecordInvalid
                 
-        render :action => "basic"
+        render :action => "edit_basic"
         
       end
       
