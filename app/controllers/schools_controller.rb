@@ -15,7 +15,7 @@ class SchoolsController < ApplicationController
         @recent_schools = School.recent_upload
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
-        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find :all, :order => "created_at desc, start_at desc", :limit => 10
+        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find(:all, :order => "created_at desc, start_at desc", :limit => 10)
         
       }
       format.json {
@@ -120,7 +120,7 @@ class SchoolsController < ApplicationController
         
       rescue ActiveRecord::RecordInvalid
                 
-        render :action => "basic"
+        render :action => "edit_basic"
         
       end
       
@@ -345,7 +345,7 @@ class SchoolsController < ApplicationController
     elsif params[:type] == "remove"
       user.roles.delete(Role.find_by_identifier("roles.school.moderator.#{school.id}"))
       flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
-      redirect_to moderator_school_url school
+      redirect_to moderator_school_url(school)
     end
   end
   

@@ -2,7 +2,7 @@ class Mailer < ActionMailer::Base
 
   def message_notification(message)
     @recipients  = message.receiver.email
-    @from        = "no-reply@1kg.cn"
+    @from        = "no-reply@1kg.org"
     @subject     = message.title
     @sent_on     = Time.now
     @body        = {:message => message}
@@ -10,7 +10,7 @@ class Mailer < ActionMailer::Base
   
   def submitted_school_notification(school)
     @recipients  = ENV["RAILS_ENV"] == "production" ? "newschools@googlegroups.com" : "suave.su@gmail.com"
-    @from        = "no-reply@1kg.cn"
+    @from        = "no-reply@1kg.org"
     @subject     = "有新提交的学校等待验证"
     @sent_on     = Time.now
     @body        = {:school => school}
