@@ -9,7 +9,7 @@ include GMap
 namespace :schools do
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
-    schools = School.find :all
+    schools = School.available
     puts "学校总数：#{schools.size}"
     
     schools.each do |school|
