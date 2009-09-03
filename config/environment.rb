@@ -87,4 +87,4 @@ CalendarDateSelect.format = :iso_date
 
 TagList.delimiter = " "
 
-ExceptionNotifier.exception_recipients = %w(dev@1kg.org)
+ExceptionNotifier.exception_recipients = %w(suave.su@gmail.com, zhangyuanyi@gmail.com)
