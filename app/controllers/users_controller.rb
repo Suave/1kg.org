@@ -11,6 +11,12 @@ class UsersController < ApplicationController
   # render new.rhtml
   def new
   end
+  
+  def groups
+    find_user
+    get_user_record(@user)
+    
+  end
 
   def create
     cookies.delete :auth_token
