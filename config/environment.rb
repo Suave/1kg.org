@@ -86,3 +86,5 @@ ActionMailer::Base.smtp_settings = {
 CalendarDateSelect.format = :iso_date
 
 TagList.delimiter = " "
+
+ExceptionNotifier.exception_recipients = %w(dev@1kg.org)
