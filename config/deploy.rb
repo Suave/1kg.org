@@ -1,12 +1,14 @@
-extend CapistranoHelper
-
-require 'capistrano/ext/multistage'
+#require 'capistrano/ext/multistage'
 default_run_options[:pty] = true
 
 set :application, "1kg"
 set :user, "1kg"
 set :repository, "git://github.com/Suave/1kg.org.git"
 set :scm, :git
+
+role :app, "1kg.org", :primary => true
+role :web, "1kg.org"
+role :db, "1kg.org", :primary => true
 
 namespace :deploy do
   # namespace :web do
@@ -30,7 +32,8 @@ namespace :deploy do
   desc "Custom after update code to put production database.yml in place."
   task :copy_configs, :roles => :app do
     run "cp #{deploy_to}/shared/database.yml #{deploy_to}/current/config/database.yml"
-    run "ln -s #{deploy_to}/shared/system #{deploy_to}/current/public/system"
+    run "ln -s #{deploy_to}/shared/photos #{deploy_to}/current/public/photos"
+    run "ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
   end
   
   desc "Deploy to dev server"
@@ -39,10 +42,9 @@ namespace :deploy do
     # ENV['REASON'] = 'an application upgrade'
     # ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
     # web.disable
-    
-    set :branch, "origin/dev"
-    set :env, "production"
     set :deploy_to, "/home/1kg/dev"
+    set :branch, "dev"
+    set :env, "production"
     
     transaction do
       update_code
@@ -57,31 +59,31 @@ namespace :deploy do
     #web.enable
   end
   
-  desc "Long deploy will update the code migrate the database and restart the servers"
-  task :long do
+  # desc "Long deploy will update the code migrate the database and restart the servers"
+  # task :master do
     # put up the maintenance screen
     # ENV['REASON'] = 'an application upgrade'
     # ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
     # web.disable
-    
-    set :branch, "origin/master"
-    set :env, "production"
-    set :deploy_to, "/home/1kg/master"
-    
-    transaction do
-      update_code
-      symlink
-      copy_configs
-      migrate
-    end
-    
-    build_reader_helper
-    restart
-    cleanup
-    
-    # remove the maintenance screen
-    #web.enable
-  end
+  #   
+  #   set :branch, "master"
+  #   set :env, "production"
+  #   set :deploy_to, "/home/1kg/master"
+  #   
+  #   transaction do
+  #     update_code
+  #     symlink
+  #     copy_configs
+  #     migrate
+  #   end
+  #   
+  #   build_reader_helper
+  #   restart
+  #   cleanup
+  #   
+  #   # remove the maintenance screen
+  #   #web.enable
+  # end
   
   desc "Rake database"
   task :migrate, :roles => :app, :only => {:primary => true} do
@@ -89,9 +91,8 @@ namespace :deploy do
   end
   
   desc "Restart the app server"
-    task :restart, :roles => :app do
-      run "cd #{deploy_to}/current && touch tmp/restart.txt"
-    end
+  task :restart, :roles => :app do
+    run "cd #{deploy_to}/current && touch tmp/restart.txt"
   end
     
   desc "Tail the Rails log..."
