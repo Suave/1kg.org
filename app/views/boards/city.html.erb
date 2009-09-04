@@ -32,7 +32,9 @@
         <div class="contents">
           <%= render :partial => "/shares/shares", :object => @shares %>
         </div>
-        <p class="remark">&raquo; <%= link_to "更多#{@city.name}居民的分享", shares_board_url(@board) %></p>
+        <% if false %>
+          <p class="remark">&raquo; <%= link_to "更多#{@city.name}居民的分享", shares_board_url(@board) %></p>
+        <% end %>
       </div>
     </div>
   </div>
@@ -94,7 +96,9 @@
         <h3>居民</h3>
         <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
       </div>
+      <% if false %>
       <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_board_url(@board) %></p>
+      <% end %>
     </div>
   </div>
 </div>
