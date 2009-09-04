@@ -152,15 +152,15 @@
             <div id="need">
               <form>
               <% if @need -%>
-              <%if  @need.urgency.length > 0 -%><p><label>紧急需求:</label><%= h @need.urgency %></p><% end -%>
-              <%if  @need.book.length > 0 -%><p><label>图书:</label><%= h @need.book %></p><% end -%>
-              <%if  @need.stationary.length > 0 -%><p><label>文具:</label><%= h @need.stationary %></p><% end -%>
-              <%if  @need.sport.length > 0 -%><p><label>文体用品:</label><%= h @need.sport %></p><% end -%>
-              <%if  @need.cloth.length > 0 -%><p><label>衣物:</label><%= h @need.cloth %></p><% end -%>
-              <%if  @need.accessory.length > 0 -%><p><label>教具:</label><%= h @need.accessory %></p><% end -%>
-              <%if  @need.course.length > 0 -%><p><label>课程:</label><%= h @need.course %></p><% end -%>
-              <%if  @need.teacher.length > 0 -%><p><label>支教老师:</label><%= h @need.teacher %></p><% end -%>
-              <%if  @need.other.length > 0 -%><p><label>其它需求:</label><%= h @need.other %></p><% end -%>
+              <% if  @need.urgency -%><p><label>紧急需求:</label><%= h @need.urgency %></p><% end -%>
+              <% if  @need.book -%><p><label>图书:</label><%= h @need.book %></p><% end -%>
+              <% if  @need.stationary -%><p><label>文具:</label><%= h @need.stationary %></p><% end -%>
+              <% if  @need.sport -%><p><label>文体用品:</label><%= h @need.sport %></p><% end -%>
+              <% if  @need.cloth -%><p><label>衣物:</label><%= h @need.cloth %></p><% end -%>
+              <% if  @need.accessory -%><p><label>教具:</label><%= h @need.accessory %></p><% end -%>
+              <% if  @need.course -%><p><label>课程:</label><%= h @need.course %></p><% end -%>
+              <% if  @need.teacher -%><p><label>支教老师:</label><%= h @need.teacher %></p><% end -%>
+              <% if  @need.other -%><p><label>其它需求:</label><%= h @need.other %></p><% end -%>
               <% else -%>
               <p class="incomplete">没有学校需求信息</p>
               <% end -%>
