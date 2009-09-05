@@ -86,3 +86,6 @@ ActionMailer::Base.smtp_settings = {
 CalendarDateSelect.format = :iso_date
 
 TagList.delimiter = " "
+
+ExceptionNotifier.sender_address = %("Application Error" <exception.notifier@1kg.org>)
+ExceptionNotifier.exception_recipients = %w(suave.su@gmail.com, zhangyuanyi@gmail.com)

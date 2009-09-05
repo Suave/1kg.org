@@ -208,8 +208,8 @@ class User < ActiveRecord::Base
   # find school, city and board moderators
   def self.moderators_of(klass)
     klass_id = ((klass.class == Board || klass.class == School || klass.class == Geo) ? klass.id : klass)
-    role_id = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}").id
-    return search_role_members(role_id)
+    role = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}")
+    return role.nil? ? [] : search_role_members(role.id)
   end
 
   def joined_groups_topics
