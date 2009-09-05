@@ -143,8 +143,7 @@ ActionController::Routing::Routes.draw do |map|
       mooncake.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
         dash.password '/password',:action => "password"
-        dash.reserve  '/reserve', :action => "reserve"
-        dash.buy      '/buy',     :action => "buy"
+        dash.comment  '/comment', :action => "comment"
       end
     end
   end

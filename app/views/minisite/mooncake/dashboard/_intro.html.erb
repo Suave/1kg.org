@@ -1,0 +1,19 @@
+<div id="intro">
+  <p>每个节日对于孩子们，都是重要和快乐的；在这个收获季节，家人团聚的中秋夜，我们也有一份责任，为需要帮助的孩子们带来幸福和希望。</p>
+  <p>经过广泛的征集和筛选，雕刻时光咖啡馆和多背一公斤将首次推出”时光之秋”公益月饼，每盒月饼都将为湖南省湘西土家族苗族自治州凤凰县禾库镇雀儿寨小学的孩子们带来一份快乐。
+  希望通过大家的共同努力，为孩子们修建两座乒乓球台和新的国旗台。</p>
+  <p style="color:#F63">现在购买有机会获赠1KG纪念徽章</p>
+  <p>如果您愿意国庆期间到凤凰旅游，<%= link_to "请注册成为1kger", signup_url %>，您能给孩子们的会更多。</p>
+  <p>查看 &raquo;
+    <%= link_to "雀儿寨小学情况", "http://www.1kg.org/schools/3603", :target => "_blank" %>, 
+    <%= link_to "公益方案详情", "http://www.1kg.org/boards/3603/topics/1001716", :target => "_blank" %>
+  </p>
+  <table style="border-top:1px solid #CCC;">
+    <% School.find(3603).photos.each do |p| -%>
+    <tr>
+      <td><%= link_to image_tag(p.public_filename(:thumb), :style => "border:1px solid #CCC; padding:1px" ), school_url(3603), :target => "_blank" %></td>
+      <td><%= p.description %></td>
+    </tr>
+    <% end -%>
+  </table>
+</div>
