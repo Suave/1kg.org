@@ -9,6 +9,17 @@
 <div class="lcolumn">
   <div><%= image_tag("mooncake/1-1-text.jpg") %></div><!-- picture -->
   <%= render :partial => "intro" %>
+  
+  <h1 style="margin-top:40px;">小组话题</h1>
+  <p style="text-align:right">
+    &raquo; 
+    <% if not @group.joined?(current_user) -%>
+      <%= link_to "加入小组", join_group_url(@group, :to => CGI.escape(request.request_uri)) %> | 
+    <% end %>
+    <%= link_to "写新话题", new_topic_group_url(@group, :to => CGI.escape(request.request_uri)), :target => "_blank" %>
+  </p>
+  <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
+  <p style="text-align:right"><%= link_to "&raquo; 更多话题", group_url(@group), :target => "_blank" %></p>
 </div>
 
 <div class="rcolumn">
@@ -21,6 +32,7 @@
       输入爱心密码 <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
     <% end -%>
   </div>
+  
   <div class="info">
     <div class="img"><%= image_tag("mooncake/1-chuandi.jpg") %></div>
     <div class="text">
@@ -28,6 +40,24 @@
     <input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" /><br />
     <p style="margin-top:1em;">下载 <%= link_to "时光之秋公益月饼项目介绍.pdf", "/images/mooncake/mooncake_project_intro.pdf" %></p>
     <%= render :partial => "/shared/share_by_widget" %>
+    </div>
+  </div>
+  
+  <div class="box" id="topicCommentsList">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>爱心寄语</h3>
+        <span class="postNew"><%= link_to "全部", minisite_mooncake_messages_url, :target => "_blank" %></span>
+        <ol class="contents clearfix">
+          <li id="message">
+            <%= render :partial => "message", :locals => {:stuff => @stuff} %>
+          </li>
+        </ol>
+        <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
+                                     :frequency => 10, 
+                                     :update => "message",
+                                     :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
+      </div>
     </div>
   </div>
 </div>

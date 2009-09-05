@@ -62,7 +62,7 @@ class GroupsController < ApplicationController
     else
       @group.members << current_user
     end
-    redirect_to group_url(@group)
+    redirect_to CGI.unescape(params[:to] || group_url(@group))
   end
   
   def quit
@@ -73,12 +73,12 @@ class GroupsController < ApplicationController
     else
       flash[:notice] = "你没有加入这个小组"
     end
-    redirect_to group_url(@group)
+    redirect_to CGI.unescape(params[:to] || group_url(@group))
   end
 
   def new_topic
     unless @group.members.include?(current_user)
-      flash[:notice] = "只有小组成员才能发起话题"
+      flash[:notice] = "要先加入小组，才能发起话题"
       redirect_to group_url(@group)
     else
       @board = @group.discussion.board
