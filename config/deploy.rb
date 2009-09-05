@@ -11,6 +11,7 @@ role :web, "1kg.org"
 role :db, "1kg.org", :primary => true
 
 namespace :deploy do
+  set :deploy_to, "/home/1kg/master"  
   # namespace :web do
   #   task :disable, :roles => [:app, :web] do
   #     on_rollback { delete "#{shared_path}/system/maintenance.html" }
@@ -34,6 +35,7 @@ namespace :deploy do
     run "cp #{deploy_to}/shared/database.yml #{deploy_to}/current/config/database.yml"
     run "ln -s #{deploy_to}/shared/photos #{deploy_to}/current/public/photos"
     run "ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
+    run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"    
   end
   
   desc "Deploy to dev server"
@@ -59,31 +61,28 @@ namespace :deploy do
     #web.enable
   end
   
-  # desc "Long deploy will update the code migrate the database and restart the servers"
-  # task :master do
+  desc "Long deploy will update the code migrate the database and restart the servers"
+  task :master do
     # put up the maintenance screen
-    # ENV['REASON'] = 'an application upgrade'
-    # ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
-    # web.disable
-  #   
-  #   set :branch, "master"
-  #   set :env, "production"
-  #   set :deploy_to, "/home/1kg/master"
-  #   
-  #   transaction do
-  #     update_code
-  #     symlink
-  #     copy_configs
-  #     migrate
-  #   end
-  #   
-  #   build_reader_helper
-  #   restart
-  #   cleanup
-  #   
-  #   # remove the maintenance screen
-  #   #web.enable
-  # end
+    #     ENV['REASON'] = 'an application upgrade'
+    #     ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
+    #     web.disable
+    set :deploy_to, "/home/1kg/master"
+    set :branch, "master"
+    set :env, "production"
+    
+    transaction do
+      update_code
+      symlink
+      copy_configs
+      migrate
+    end
+    
+    restart
+
+    # remove the maintenance screen
+    #web.enable
+  end
   
   desc "Rake database"
   task :migrate, :roles => :app, :only => {:primary => true} do
