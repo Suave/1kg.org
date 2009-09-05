@@ -17,6 +17,17 @@ class Admin::GroupsController < Admin::BaseController
     redirect_to admin_groups_url
   end
   
+  def edit
+    
+  end
+  
+  def update
+    @group.update_attributes!(params[:group])
+    flash[:notice] = "小组修改已保存"
+    redirect_to admin_groups_url
+  end
+  
+  
   
   private
   def find_group

@@ -1,6 +1,6 @@
 class Admin::StuffTypesController < Admin::BaseController
   def index
-    @types = StuffType.find :all
+    @types = StuffType.find :all, :include => :bucks 
   end
   
   def new

@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.string   "slug"
   end
 
   create_table "memberships", :force => true do |t|
