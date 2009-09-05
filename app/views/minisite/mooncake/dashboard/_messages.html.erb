@@ -5,7 +5,7 @@
       <ol class="clearfix">
         <% stuffs.each do |s| -%>
         <li>
-          <div class="avatar"><%= postcard_avatar_for s.user, "large" %></div>
+          <div class="avatar"><%= mooncake_avatar_for s.user, "large" %></div>
           <div class="content">
             <p class="meta">
               <%= link_to s.user.login, user_url(s.user) %> 写于 <%= s.matched_at.to_date %>
