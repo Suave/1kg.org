@@ -71,8 +71,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
       if @user.errors.empty?
         @user.activate!
         self.current_user = @user
-        session[:signup_recent] = true
-        
+                
         update_stuff
       else
         flash[:notice] = @user.errors[:email]

@@ -35,8 +35,6 @@ class UsersController < ApplicationController
         self.current_user = @user
         flash[:notice] = "注册完成, 补充一下你的个人信息吧"
         #redirect_to "/setting"
-        session[:from_activity_join] = true if session[:from_activity_join] == false # for adwords tracker
-        session[:signup_recent] = true
         redirect_back_or_default CGI.unescape(params[:to] || '/setting')
         #render :action => "wait_activation"
       else
@@ -49,8 +47,6 @@ class UsersController < ApplicationController
 
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
-    #logger.info("CURRENT USER ACTIVE: #{self.current_user.active?}")
-    #logger.info("LOGGED IN: #{logged_in?}")
     if logged_in? && !self.current_user.active?
       self.current_user.activate!
       flash[:notice] = "注册完成，补充一下你的个人信息吧"
