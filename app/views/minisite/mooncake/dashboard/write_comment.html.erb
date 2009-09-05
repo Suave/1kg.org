@@ -7,11 +7,36 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>给<%= @stuff.school.title %>的孩子们写两句话吧</h3>
+      <h3>爱心留言</h3>
       <div class="contents">
         <% form_tag minisite_mooncake_comment_url(:token => @stuff.code) do -%>
+        <%= hidden_field_tag :status, "login" %>
+        <% if not logged_in? %>
+          <div id="login">
+            <p><span style="font-size:1.2em">登录信息</span> <a href="javascript:void(0)" onclick="$('login').hide();$('signup').show();$('status').value='signup'">我没注册</a></p>
+            <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'login_email' %> <span class="require">*</span></p>
+            <p><label for="password" class="label">密码</label> <%= password_field_tag 'login_password' %> <span class="require">*</span></p>
+          </div>
+        <% end %>
+        
+        <div id="signup" style="display:none">
+          <p><span style="font-size:1.2em">请留下您的联系方式</span> <a href="javascript:void(0)" onclick="$('signup').hide();$('login').show();$('status').value='login'">我已注册，输入登录信息</a></p>
+          <p><label for="email" class="label">邮件地址</label> <%= text_field_tag :email %> <span class="require">*</span> <%= error_message_on(:user, :email, :tag => 'span') %></p>
+          <%= hidden_field_tag :login, "匿名用户" %>
+          <%= hidden_field_tag :password, "12345" %>
+          <%= hidden_field_tag :password_confirmation, "12345" %>
+        </div>
+        
+        <p style="font-size:1.2em">给孩子们写两句话吧</p>
           <p><label></label><%= text_area_tag "comment", nil, :cols => 40, :rows => 5 %></p>
-          <p class="rememberMe"><%= check_box_tag 'join', 1, true %> <label for="join_group">加入“<%= link_to "公益贺卡小组", group_url(38), :target => "_blank" %>”，支持公益贺卡</label></p>
+          
+          <% if group = Group.find_by_slug('mooncake') %>
+          <p class="rememberMe">
+            <%= check_box_tag 'join', 1, true %> 
+            <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank" %>”，支持公益贺卡</label>
+          </p>
+          <% end %>
+          
           <p><label>&nbsp;</label><%= submit_tag "写好了，保存" %></p>
         <% end -%>
       </div>

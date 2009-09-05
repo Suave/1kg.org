@@ -2,8 +2,8 @@
 
 class Minisite::Mooncake::DashboardController < ApplicationController
   include StuffUtil
-  before_filter :login_required, :except => [:index, :password]
-  before_filter :find_stuff_type, :only => [:password]
+  before_filter :login_required, :except => [:index, :password, :comment]
+  before_filter :find_stuff_type, :only => [:password, :comment]
   def index
     render :action => "new"
   end
@@ -13,18 +13,18 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     return set_message_and_redirect_to_index("请输入爱心密码, 点击提交按钮") if params[:password].blank?
     
     @stuff = @stuff_type.stuffs.find_by_code(params[:password])
+    
     if @stuff.blank?
       return set_message_and_redirect_to_index("您的密码不正确")
     elsif @stuff.matched?
       return set_message_and_redirect_to_index("您的密码已配过对了")
     else
       #return set_message_and_redirect_to_index("太好了！还没配对")
-      if logged_in?
-        @stuff.school = @stuff.buck.school
+      #if logged_in?
         render :action => "write_comment"
-      else
+      #else
         # 提示登录或注册
-      end
+      #end
     end
 =begin    
     flash[:notice] = "密码配对功能9月10日启用"
@@ -33,7 +33,40 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   end
   
   def comment
+    @stuff = @stuff_type.stuffs.find_by_code params[:token]
     
+    if params[:status] == 'login'
+      # login
+      self.current_user = User.authenticate(params[:login_email], params[:login_password])
+      if logged_in?
+        update_stuff
+      else
+        flash[:notice] = "邮件地址或密码错误"
+        render :action => "write_comment"
+      end
+      
+    elsif params[:status] == 'signup'
+      # auto singup a default user
+      cookies.delete :auth_token
+      @user = User.new(:email => params[:email], :login => params[:login], :password => params[:password], :password_confirmation => params[:password_confirmation])
+      @user.register! if @user.valid?
+      if @user.errors.empty?
+        @user.activate!
+        self.current_user = @user
+        session[:signup_recent] = true
+        
+        update_stuff
+      else
+        flash[:notice] = @user.errors[:email]
+        render :action => 'write_comment'
+      end
+      
+    else
+      flash[:notice] = "请填写您的用户信息"
+      render :action => "write_comment"
+    end
+    
+
   end
   
   
@@ -45,5 +78,23 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def find_stuff_type
     @stuff_type = StuffType.find_by_slug("mooncake")
   end
+  
+  def update_stuff
+    @stuff.user = self.current_user
+    @stuff.school = @stuff.buck.school
+    @stuff.matched_at = Time.now
+    @stuff.comment = params[:comment]
+    Stuff.transaction do 
+      @stuff.save!
+      @stuff.buck.update_attributes!(:matched_count => Stuff.count(:all, :conditions => ["school_id=? and buck_id=?", @stuff.school, @stuff.buck.id]))
+    end
+    
+    if params[:join] == "1"
+      @group = Group.find_by_slug('mooncake')
+      @group.members << self.current_user unless @group.joined?(self.current_user)
+    end
+    flash.discard
+  end
+  
   
 end
