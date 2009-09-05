@@ -146,6 +146,7 @@ ActionController::Routing::Routes.draw do |map|
         dash.comment  '/comment', :action => "comment"
         dash.love_message 'love_message', :action => "love_message"
         dash.messages 'messages', :action => "messages"
+        dash.donors   'donors/:id', :action => "donors"
       end
     end
   end

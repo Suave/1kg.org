@@ -7,7 +7,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def index
     @group = Group.find_by_slug('mooncake')
     @board = @group.discussion.board
-    
+    @bucks = @stuff_type.bucks
     # for love message
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = @stuff.id
@@ -90,6 +90,14 @@ class Minisite::Mooncake::DashboardController < ApplicationController
                                           :conditions => ["comment is not null"], 
                                           :order => "matched_at desc",
                                           :per_page => 30
+  end
+  
+  def donors
+    @school = School.find(params[:id])
+    @stuffs = Stuff.paginate :page => params[:page] || 1,
+                             :conditions => ["school_id = ?", params[:id]],
+                             :order => "matched_at desc",
+                             :per_page => 30
   end
   
   private

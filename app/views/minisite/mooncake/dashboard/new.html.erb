@@ -34,6 +34,27 @@
   </div>
   
   <div class="info">
+    <h1>进度</h1>
+    <table>
+      <tr>
+        <th>学校</th>
+        <th>计划</th>
+        <th>已完成</th>
+      </tr>
+      <% @bucks.each do |b| -%>
+      <tr>
+        <td>
+          <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
+          <% if b.for_team? -%><br /><span style="font-size:11px;"><%= b.for_team_tip %></span><% end -%>
+        </td>
+        <td><%= b.quantity %></td>
+        <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %> <%= link_to "名单", minisite_mooncake_donors_url(b.school) %></td>
+      </tr>
+      <% end -%>
+    </table>
+  </div>
+  
+  <div class="info">
     <div class="img"><%= image_tag("mooncake/1-chuandi.jpg") %></div>
     <div class="text">
     复制本页地址给<span>QQ/Msn/Gtalk</span>好友<br />
