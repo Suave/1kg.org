@@ -3,9 +3,27 @@
 class Minisite::Mooncake::DashboardController < ApplicationController
   include StuffUtil
   before_filter :login_required, :except => [:index, :password, :comment]
-  before_filter :find_stuff_type, :only => [:password, :comment]
+  before_filter :find_stuff_type, :only => [:index, :password, :comment, :love_message, :messages]
   def index
+    @group = Group.find_by_slug('mooncake')
+    @board = @group.discussion.board
+    
+    # for love message
+    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    session[:random_stuff] = @stuff.id
     render :action => "new"
+  end
+  
+  def love_message
+        
+    unless session[:random_stuff].nil?
+      @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and id < ?", session[:random_stuff].to_i], :order => "id desc")
+    end
+    
+    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @stuff.nil?
+    
+    session[:random_stuff] = @stuff.id
+    
   end
   
 
@@ -65,10 +83,14 @@ class Minisite::Mooncake::DashboardController < ApplicationController
       flash[:notice] = "请填写您的用户信息"
       render :action => "write_comment"
     end
-    
-
   end
   
+  def messages
+    @stuffs = @stuff_type.stuffs.paginate :page => params[:page] || 1, 
+                                          :conditions => ["comment is not null"], 
+                                          :order => "matched_at desc",
+                                          :per_page => 30
+  end
   
   private
   def index_path

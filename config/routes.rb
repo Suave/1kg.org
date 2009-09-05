@@ -144,6 +144,8 @@ ActionController::Routing::Routes.draw do |map|
         dash.index    '',         :action => "index"
         dash.password '/password',:action => "password"
         dash.comment  '/comment', :action => "comment"
+        dash.love_message 'love_message', :action => "love_message"
+        dash.messages 'messages', :action => "messages"
       end
     end
   end
