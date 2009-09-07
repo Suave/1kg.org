@@ -7,7 +7,7 @@ div.info {line-height:1.6em; margin:20px 10px 20px 20px;}
 div.info div.img {float:left; margin-right:8px;}
 div.info div.text {margin:5px 0 0 80px; }
 
-#misc {margin:3em 0;}
+#misc {margin:3em 0;width:960px;}
 #misc img {margin:0 1em;}
 
 #intro {font-size:1em; /*color:#00744d;*/ line-height:1.6em; margin:1em;}
