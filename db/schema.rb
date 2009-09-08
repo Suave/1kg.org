@@ -328,6 +328,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "description"
     t.text     "description_html"
   end
+  
+  create_table "school_snapshots", :force => true do |t|
+    t.integer  "school_id"
+    t.integer  "karma"
+    t.date     "created_on"
+  end
 
   create_table "schools", :force => true do |t|
     t.integer  "user_id"
