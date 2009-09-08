@@ -149,6 +149,12 @@ ActionController::Routing::Routes.draw do |map|
         dash.donors   'donors/:id', :action => "donors"
       end
     end
+    
+    site.namespace :lightenschool do |lightenschool|
+      lightenschool.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
   end
   
   map.connect ':controller/:action/:id'

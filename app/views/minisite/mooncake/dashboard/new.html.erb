@@ -31,7 +31,7 @@
   </div>
   <div class="passwordInput">
     <% form_tag minisite_mooncake_password_url do -%>
-      输入爱心密码    <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
+      <img src="/images/mooncake/password.png" alt="password" style= />  <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
     <% end -%>
   </div>
   
@@ -39,28 +39,23 @@
     <div class="h2bar">
     <h2>进度</h2>
     </div>
-    <table>
-      <tr>
-        <th>学校</th>
-        <th>已完成</th>
-      </tr>
       <% @bucks.each do |b| -%>
-      <tr>
-        <td>
-          <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
-          <% if b.for_team? -%><br /><span style="font-size:11px;"><%= b.for_team_tip %></span><% end -%>
-        </td>
-        <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %>/<%= b.quantity %> <%= link_to "名单", minisite_mooncake_donors_url(b.school) %></td>
-      </tr>
+      <h6 style="line-height:30px;color:#555">已经<%= b.matched_count -%>有位1kger完成密码配对</h6>
+      <img src="/images/mooncake/progress<%= b.matched_count*10/b.quantity -%>.jpg" alt="progress" /> 
+      <span style="float:right; margin-top:-20px;">完成度
+      <span style="font-family:'times new roman',serif;font-size:24px;"><%= b.matched_count*100/b.quantity -%></span>
+      %</span>
+      
       <% end -%>
-    </table>
+   
+    
+        
   </div>
   
     <div id="topicCommentsList">
     <div  class="h2bar">
       <h2>爱心寄语</h2>
       <span class="postNew"><%= link_to "全部", minisite_mooncake_messages_url, :target => "_blank" %></span>
-
     </div>
         <ol class="contents clearfix">
           <li id="message">
