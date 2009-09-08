@@ -10,7 +10,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @bucks = @stuff_type.bucks
     # for love message
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
-    session[:random_stuff] = @stuff_id
+    session[:random_stuff] = @stuff.id
     render :action => "new"
   end
   
