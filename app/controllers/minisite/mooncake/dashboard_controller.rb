@@ -52,8 +52,11 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   
   def comment
     @stuff = @stuff_type.stuffs.find_by_code params[:token]
-    
-    if params[:status] == 'login'
+    if logged_in?
+      # logged in
+      update_stuff
+      
+    elsif params[:status] == 'login'
       # login
       self.current_user = User.authenticate(params[:login_email], params[:login_password])
       if logged_in?
