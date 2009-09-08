@@ -5,59 +5,51 @@
 <% end -%>
 
 <div>
-  <h3 style="font-size:18px;padding-left:30px;">爱心留言</h3>
   <div class="contents">
     <% form_tag minisite_mooncake_comment_url(:token => @stuff.code) do -%>
     <%= hidden_field_tag :status, "login" %>
     <% if not logged_in? %>
       <div id="login">
-        <h3>用户登录</h3>
+        <h3>填写用户信息</h3>
         <div class="boxinter">
         <p><label for="email" class="label">邮箱</label> <%= text_field_tag 'login_email' %> <span class="require">*</span></p>
-        <p><label for="password" class="label">密码</label> <%= password_field_tag 'login_password' %> <span class="require">*</span></p>
-        <p style="font-size:1.2em">给孩子们写两句话吧</p>
-      <p><label></label><%= text_area_tag "comment", nil, :cols => 31, :rows => 4 %></p>
-      
-      <% if group = Group.find_by_slug('mooncake') %>
-      <p class="rememberMe">
-        <%= check_box_tag 'join', 1, true %> 
-        <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank" %>”。</label>
-      </p>
-      <% end %>
-      
-      <p><label>&nbsp;</label><%= submit_tag "写好了，保存" %></p>
+        <p><label for="password" class="label">密码</label> <%= password_field_tag 'login_password' %> <span class="require">*</span></p>        
         </div>  
      </div>
-    <% end %>
-    <% if not logged_in? %>
-    <% form_tag minisite_mooncake_comment_url(:token => @stuff.code) do -%>
-    <%= hidden_field_tag :status, "signup" %>
+ 
     <div id="signup">
-      <h3>快速注册一个新用户</h3>
+      <h3>快速注册新用户</h3>
       <div class="boxinter">
-      <div style="color:#666;text-align:center">只需留下您的邮箱</div>
-      <div style="color:#666;text-align:center">我们给您发送一份确认邮件</div>
       <p><label for="email" class="label">邮箱</label> <%= text_field_tag :email %> <span class="require">*</span> <%= error_message_on(:user, :email, :tag => 'span') %></p>
+      <div style="color:#555;text-align:center">只需填入您的邮箱即可完成注册</div>
+      <div style="color:#555;text-align:center">我们会给您发送一份确认邮件</div>
       <%= hidden_field_tag :login, "匿名用户" %>
       <%= hidden_field_tag :password, "12345" %>
       <%= hidden_field_tag :password_confirmation, "12345" %>
-      <p style="font-size:1.2em">给孩子们写两句话吧</p>
-      <p><label></label><%= text_area_tag "comment", nil, :cols => 31, :rows => 4 %></p>
+      </div>
+    </div>
+    <img src="/images/mooncake/flow.png" alt="flow" style="margin-left:268px;"/>
+      <% end %>
+    <div id="commendbox">
+    <h3>爱心留言</h3>
+    <div class="boxinter">
+      <p><label></label><%= text_area_tag "comment", nil, :cols => 40, :rows => 4 ,:style => "width:500px;"%></p>
       
       <% if group = Group.find_by_slug('mooncake') %>
       <p class="rememberMe">
         <%= check_box_tag 'join', 1, true %> 
-        <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank" %>”。</label>
+        <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank",:tabindex  => -1 %>”。</label>
       </p>
       <% end %>
-      
       <p><label>&nbsp;</label><%= submit_tag "写好了，保存" %></p>
       </div>
     </div>
     <% end -%>
-    <% end -%>
-    
-    <% end -%>
+   <script type="text/javascript">
+   jQuery(document).ready(function(){
+    jQuery("form").submit(function ()
+                          {if(jQuery('#email').val()!='' ){jQuery('#status').val('signup')} else{jQuery('#status').val('login')};});})
+    </script>
   </div>
     
 </div>
