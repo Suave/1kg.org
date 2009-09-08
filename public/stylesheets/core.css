@@ -989,7 +989,6 @@ h3.title {
   float: left;
   width: 100%;
   margin-bottom: 1.2em;
-  border-bottom: #dedede solid 1px;
 }
 #topicCommentsList ol div.avatar {
   float: left;
@@ -1060,7 +1059,7 @@ h3.title {
 
 /* map view, by yuanyi */
 #map_div { margin: 1em 0; width: 600px; height: 500px; }
-
+#map_div span { display: none; }
 #map_popup {width: 400px; float: left; margin-bottom: 20px;}
 #map_popup h3{background: none; margin:0; padding:0;}
 #map_popup #summary { width: 250px; float: left;}

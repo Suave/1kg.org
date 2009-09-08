@@ -6,18 +6,20 @@
 
 
 <% content_for :fullsize do -%>
+<div>
 <div class="lcolumn">
   <div><%= image_tag("mooncake/1-1-text.jpg") %></div><!-- picture -->
   <%= render :partial => "intro" %>
-  
-  <h1 style="margin-top:40px;">小组话题</h1>
-  <p style="text-align:right">
+  <div class="h2bar">
+  <h2>小组话题</h2>
+  <span>
     &raquo; 
     <% if not @group.joined?(current_user) -%>
       <%= link_to "加入小组", join_group_url(@group, :to => CGI.escape(request.request_uri)) %> | 
     <% end %>
     <%= link_to "写新话题", new_topic_group_url(@group, :to => CGI.escape(request.request_uri)), :target => "_blank" %>
-  </p>
+  </span>
+  </div>
   <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
   <p style="text-align:right"><%= link_to "&raquo; 更多话题", group_url(@group), :target => "_blank" %></p>
 </div>
@@ -29,16 +31,17 @@
   </div>
   <div class="passwordInput">
     <% form_tag minisite_mooncake_password_url do -%>
-      输入爱心密码 <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
+      输入爱心密码    <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
     <% end -%>
   </div>
   
   <div class="info">
-    <h1>进度</h1>
+    <div class="h2bar">
+    <h2>进度</h2>
+    </div>
     <table>
       <tr>
         <th>学校</th>
-        <th>计划</th>
         <th>已完成</th>
       </tr>
       <% @bucks.each do |b| -%>
@@ -47,11 +50,28 @@
           <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
           <% if b.for_team? -%><br /><span style="font-size:11px;"><%= b.for_team_tip %></span><% end -%>
         </td>
-        <td><%= b.quantity %></td>
-        <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %> <%= link_to "名单", minisite_mooncake_donors_url(b.school) %></td>
+        <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %>/<%= b.quantity %> <%= link_to "名单", minisite_mooncake_donors_url(b.school) %></td>
       </tr>
       <% end -%>
     </table>
+  </div>
+  
+    <div id="topicCommentsList">
+    <div  class="h2bar">
+      <h2>爱心寄语</h2>
+      <span class="postNew"><%= link_to "全部", minisite_mooncake_messages_url, :target => "_blank" %></span>
+
+    </div>
+        <ol class="contents clearfix">
+          <li id="message">
+            <%= render :partial => "message", :locals => {:stuff => @stuff} %>
+          </li>
+        </ol>
+        <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
+                                     :frequency => 10, 
+                                     :update => "message",
+                                     :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
+
   </div>
   
   <div class="info">
@@ -64,24 +84,8 @@
     </div>
   </div>
   
-  <div class="box" id="topicCommentsList">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>爱心寄语</h3>
-        <span class="postNew"><%= link_to "全部", minisite_mooncake_messages_url, :target => "_blank" %></span>
-        <ol class="contents clearfix">
-          <li id="message">
-            <%= render :partial => "message", :locals => {:stuff => @stuff} %>
-          </li>
-        </ol>
-        <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
-                                     :frequency => 10, 
-                                     :update => "message",
-                                     :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
-      </div>
-    </div>
-  </div>
-</div>
 
+</div>
+</div>
 <%= render :partial => "partner" %>
 <% end %>
