@@ -73,6 +73,10 @@ class Minisite::Mooncake::DashboardController < ApplicationController
       @user.register! if @user.valid?
       if @user.errors.empty?
         @user.activate!
+        
+        # 发邮件通知用户
+        Mailer.deliver_create_default_user_for_mooncake(@user)
+        
         self.current_user = @user
                 
         update_stuff
