@@ -33,13 +33,13 @@ class School < ActiveRecord::Base
   has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
   has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
   has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
-
+  has_many   :snapshots, :class_name => "SchoolSnapshot", :dependent => :destroy
+  
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc"
   has_many :photos, :order => "id desc"
-  
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
@@ -83,6 +83,13 @@ class School < ActiveRecord::Base
       self.last_modified_at = Time.now
       self.last_modified_by_id = User.current_user.id
     end
+    
+    # 将学校流行度存入数据库
+    if self.karma_changed?
+      snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
+      snapshot.karma = karma
+      snapshot.save
+    end
   end
   
   validates_presence_of :geo_id, :message => "必选项"
@@ -92,7 +99,7 @@ class School < ActiveRecord::Base
   def self.categories
     %w(小学 中学 四川灾区板房学校)
   end
-
+  
   def self.get_near_schools_at(geo)
  
       root = geo.root? ? geo : geo.parent
@@ -152,7 +159,7 @@ class School < ActiveRecord::Base
   def destroyed_by(user)
     return edited_by(user)
   end
-
+  
   def visited?(user)
     return false unless user.class == User
     
