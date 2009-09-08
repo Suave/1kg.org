@@ -10,7 +10,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @bucks = @stuff_type.bucks
     # for love message
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
-    session[:random_stuff] = @stuff_id
+    session[:random_stuff] = @stuff.id
     render :action => "new"
   end
   
@@ -52,8 +52,11 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   
   def comment
     @stuff = @stuff_type.stuffs.find_by_code params[:token]
-    
-    if params[:status] == 'login'
+    if logged_in?
+      # logged in
+      update_stuff
+      
+    elsif params[:status] == 'login'
       # login
       self.current_user = User.authenticate(params[:login_email], params[:login_password])
       if logged_in?
@@ -70,6 +73,10 @@ class Minisite::Mooncake::DashboardController < ApplicationController
       @user.register! if @user.valid?
       if @user.errors.empty?
         @user.activate!
+        
+        # 发邮件通知用户
+        Mailer.deliver_create_default_user_for_mooncake(@user)
+        
         self.current_user = @user
                 
         update_stuff

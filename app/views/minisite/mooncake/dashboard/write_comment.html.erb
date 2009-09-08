@@ -26,14 +26,14 @@
           <%= hidden_field_tag :password, "12345" %>
           <%= hidden_field_tag :password_confirmation, "12345" %>
         </div>
-        
+           
         <p style="font-size:1.2em">给孩子们写两句话吧</p>
           <p><label></label><%= text_area_tag "comment", nil, :cols => 40, :rows => 5 %></p>
           
           <% if group = Group.find_by_slug('mooncake') %>
           <p class="rememberMe">
             <%= check_box_tag 'join', 1, true %> 
-            <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank" %>”，支持公益贺卡</label>
+            <label for="join_group">加入“<%= link_to "时光之秋 公益月饼小组", group_url(group), :target => "_blank" %>”。</label>
           </p>
           <% end %>
           
