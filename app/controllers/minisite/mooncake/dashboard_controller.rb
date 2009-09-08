@@ -25,4 +25,9 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     
   end
   
+  private
+  def index_path
+    minisite_mooncake_index_url
+  end
+  
 end
