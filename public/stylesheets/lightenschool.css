@@ -1,0 +1,63 @@
+.lcolumn {float:left; margin:0 0 0 10px; width:520px;}
+.rcolumn {float:right; width:380px;}
+
+h2{margin-top:5pxcolor:#505030;line-height:18px;font-size:18px;float:left;font-family:黑体;font-weight:bold;}
+.h2bar{width:100%;padding:5px 5px 5px 10px;background:#fff6d1;height:26px;margin:30px 0 10px;}
+.h2bar span{float:right;margin:4px 10px 0 0}
+
+
+.boxouter h3 {
+color:#b07d23;
+padding:8px 12px;
+background:#fff6d1 none repeat scroll 0 0;
+font-size:1.3em;
+font-weight:bold;
+line-height:1.3em;
+}
+
+.boxouter h4 {
+font-size:1.2em;
+font-weight:bold;
+line-height:1.2em;
+margin-right:20px;
+}
+
+.boxouter{}
+.boxinter{padding:15px;}
+.boxinter p{font-size:13px;line-height:20px;text-indent:2em;margin-bottom:10px;}
+
+
+.prize{float:left;width:240px;height:105px}
+.prize h5 {
+position:relative;
+font-size:1.2em;
+font-weight:bold;
+line-height:1.2em;
+left:105px;
+top:-85px;
+}
+.prize span {
+position:relative;
+color:#606060;
+font-size:1.1em;
+line-height:1.1em;
+left:105px;
+top:-85px;
+}
+.prize p {
+position:relative;
+text-indent: 0em;
+width:110px;
+left:105px;
+top:-85px;
+}
+.boxouter span {color:＃606060;
+font-style: italic;}
+
+.buttonlink{background:#d58c0c;color:#fff;margin:0 3px;}
+
+
+
+
+#misc {padding:3em 0;width:960px;clear:both}
+#misc img {margin:0 1em;}
