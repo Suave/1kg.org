@@ -62,7 +62,7 @@
             <%= render :partial => "message", :locals => {:stuff => @stuff} %>
           </li>
         </ol>
-        <%= periodically_call_remote :url => minisite_postcard_love_message_url, 
+        <%= periodically_call_remote :url => minisite_mooncake_love_message_url, 
                                      :frequency => 10, 
                                      :update => "message",
                                      :complete => visual_effect(:highlight, "message", :duration => 2 )  %>
