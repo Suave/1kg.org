@@ -182,5 +182,4 @@ module ApplicationHelper
   def link_for_activity(activity, show_sticky = true)
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
   end
-  
 end

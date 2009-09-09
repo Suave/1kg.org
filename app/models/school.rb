@@ -85,11 +85,9 @@ class School < ActiveRecord::Base
     end
     
     # 将学校流行度存入数据库
-    if self.karma_changed?
-      snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
-      snapshot.karma = karma
-      snapshot.save
-    end
+    snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
+    snapshot.karma = karma
+    snapshot.save
   end
   
   validates_presence_of :geo_id, :message => "必选项"
@@ -197,6 +195,21 @@ class School < ActiveRecord::Base
       }
     end
     return result.reverse
+  end
+  
+  include FusionChart
+  # 绘制月活跃度变化图
+  def karma_chart
+    #由于数据不足，先显示过去7天的活跃度变化
+    data = []
+    6.downto(0) do |i|
+      day = Date.today - i.day
+      snapshot = self.snapshots.find_by_created_on(day)
+      karma = snapshot.nil? ? rand(10) : snapshot.karma
+      data << [day.to_s, karma]
+    end
+    
+    column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
   end
   
   def self.show_date(year, month, day, valid)

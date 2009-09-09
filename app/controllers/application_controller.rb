@@ -5,7 +5,10 @@ require_dependency 'role'
 require_dependency 'static_permission'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
+  
   include AuthenticatedSystem
+  include ExceptionNotifiable
+  
   before_filter :set_current_user
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -17,9 +20,7 @@ class ApplicationController < ActionController::Base
   # filter_parameter_logging :password
   
   #before_filter :app_stop
-  
-  include ExceptionNotifiable
-  
+
   def rescue_action(exception)
     exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
   end

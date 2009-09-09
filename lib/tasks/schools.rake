@@ -38,7 +38,7 @@ namespace :schools do
       karma += school.hits
       
       # 更新学校活跃度
-      school.update_attributes!(:karma => karma) unless school.karma == karma
+      school.update_attributes!(:karma => karma) #unless school.karma == karma
       
       #puts "#{school.title}: #{karma}" unless karma == 0
     end

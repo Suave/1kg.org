@@ -113,30 +113,12 @@ class SchoolsController < ApplicationController
       @school.user = current_user
       
       begin
-        
         @school.save!
         flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
         redirect_to edit_school_url(@school, :step => 'traffic')
-        
       rescue ActiveRecord::RecordInvalid
-                
         render :action => "edit_basic"
-        
       end
-      
-    # elsif params[:step] == 'traffic'
-    # 
-    #       submit_info "traffic", "need", "学校交通信息已经保存，请继续填写学校的需求信息"
-    #       
-    #     elsif params[:step] == 'need'
-    # 
-    #       submit_info "need", "other", "学校需求信息已经保存，请填写最后一项"
-    #       
-    #     elsif params[:step] == 'other'
-    # 
-    #       submit_info "other", "done", "提交学校成功，谢谢你！"
-    #       
-    #     else
       # TODO add some catch exception
     end
   end
@@ -153,21 +135,13 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:step] == 'basic'
-
           update_info "basic", "traffic", "学校基本信息修改成功！"
-
         elsif params[:step] == 'traffic'
-
           update_info "traffic", "need", "学校交通信息修改成功！"
-          
         elsif params[:step] == 'need'
-
           update_info "need", "position", "学校需求信息修改成功！"
-          
         elsif params[:step] == 'other'
-
           update_info "other", "done", "学校信息修改完成！"
-          
         end
         
         if params[:moderator] == 'add'

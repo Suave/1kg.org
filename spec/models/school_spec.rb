@@ -46,10 +46,4 @@ describe School do
     
     SchoolSnapshot.first.karma.should == 200
   end
-  
-  it "should not create new record if karma didn't get update" do
-    lambda do
-      @school.update_attributes(:title => "new title")
-    end.should_not change(SchoolSnapshot, :count)
-  end
 end
