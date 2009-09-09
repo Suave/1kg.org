@@ -3,18 +3,18 @@
 
 #slogan {margin:20px 0 30px 30px;}
 
-h2{color:#505030;font-size:18px;float:left}
+h2{margin-top:5px;;color:#b07d23;line-height:18px;font-size:18px;float:left;font-family:黑体;font-weight:bold;}
 .h2bar{width:100%;padding:5px 5px 5px 10px;background:#fff6d1;height:26px;margin:30px 0 10px;}
-.h2bar span{float:right;margin:8px 10px 0 0}
+.h2bar span{float:right;margin:4px 10px 0 0}
 
 
 .contents h3 {
 color:#4F5E39;
 padding:8px 12px;
 background:#DEEFBA none repeat scroll 0 0;
-font-family:Arial,Helvetica,sans-serif;
 font-size:1.4em;
 font-weight:bold;
+line-height:1.4em;
 }
 
 #login,#signup{width:280px;background:#F0FDD7;float:left;margin:5px 20px;}
