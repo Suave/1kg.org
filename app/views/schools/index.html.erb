@@ -70,9 +70,7 @@
     <div class="boxInner">
       <h3>最近活跃学校</h3>
       <div class="contents clearfix">
-        <% render_chart_html '/swfs/FCF_Bar2D.swf', '', School.most_popular_chart,
-            'myNextHTML', 600, 300, false do-%>
-        <% end -%>
+        <%= render :partial => '/schools/popular_schools' %>
       </div>
     </div>
   </div>

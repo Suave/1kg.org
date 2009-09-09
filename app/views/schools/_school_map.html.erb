@@ -30,6 +30,6 @@
   | <%= link_to "是正确位置", marked_school_path, :method => :put %>
   <% end -%>
   <br />
-  &raquo; <%= link_to "在大地图中查看", geo_path(school.geo, :school_id => school.id) %>
+  &raquo; <%= link_to "在大地图中查看", large_map_school_path(school) %>
 </p>
 

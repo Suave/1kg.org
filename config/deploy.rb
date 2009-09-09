@@ -36,6 +36,7 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/photos #{deploy_to}/current/public/photos"
     run "ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
     run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"    
+    run "cd #{current_path} && rake schools:to_json"
   end
   
   desc "Deploy to dev server"

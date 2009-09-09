@@ -180,7 +180,10 @@ class SchoolsController < ApplicationController
                                            :order => "geo_id asc"
   end
   
-  
+  def large_map
+    @school = School.find(params[:id])
+    @map_center = [@school.basic.latitude, @school.basic.longitude, 7]
+  end
   
   def show
     @school = School.find(params[:id])

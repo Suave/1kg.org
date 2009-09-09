@@ -62,6 +62,7 @@ class School < ActiveRecord::Base
   named_scope :locate, lambda { |city_ids|
     {:conditions => ["geo_id in (?)", city_ids]}
   }
+  named_scope :top10_popular, :order => 'last_month_average_karma DESC', :limit => 10
   
   @@city_neighbors = {
                         :beijing => {:id => 1, :neighbors => {:hebei => 3, :neimenggu => 27}},
@@ -215,7 +216,7 @@ class School < ActiveRecord::Base
   class << self
     include FusionChart
     def most_popular_chart
-      @schools = find(:all, :order => 'last_month_average_karma DESC', :limit => 10)
+      @schools = School.top10_popular
       data = []
       @schools.each do |school|
         data << ["#{school.title}", school.last_month_average_karma]
