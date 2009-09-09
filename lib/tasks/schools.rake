@@ -38,8 +38,11 @@ namespace :schools do
       karma += school.hits
       
       # 更新学校活跃度
-      school.update_attributes!(:karma => karma) unless school.karma == karma
-      
+      school.update_attributes!(:karma => karma) #unless school.karma == karma
+
+      # 更新学校当月平均活跃度
+      last_month_average_karma = school.snapshots.average(:karma, :conditions => ['created_on > ?', Date.today - 1.month]).to_i rescue 0
+      school.update_attribute(:last_month_average_karma, last_month_average_karma)
       #puts "#{school.title}: #{karma}" unless karma == 0
     end
   end 

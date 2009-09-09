@@ -8,7 +8,8 @@
     if (GBrowserIsCompatible()) {
       map = new GMap2(document.getElementById("map_div"));
       map.setCenter(new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>), 7);
-
+      map.addControl(new GSmallMapControl());
+      
       var point = new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>);
       marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
       
@@ -29,6 +30,6 @@
   | <%= link_to "是正确位置", marked_school_path, :method => :put %>
   <% end -%>
   <br />
-  &raquo; <%= link_to "在大地图中查看", geo_path(school.geo, :school_id => school.id) %>
+  &raquo; <%= link_to "在大地图中查看", large_map_school_path(school) %>
 </p>
 

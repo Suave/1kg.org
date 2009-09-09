@@ -16,6 +16,7 @@
             <th>学校</th>
             <th>需求数量</th>
             <th>已配对</th>
+            <th>密码数</th>
             <th>隐藏</th>
             <th>状态</th>
             <th>Actions</th>
@@ -28,6 +29,7 @@
             </td>
             <td><%= h b.quantity %></td>
             <td><%= h b.matched_count %></td>
+            <td><%= h b.stuffs.count %></td>
             <td><%= b.hidden? ? "是" : "" %></td>
             <td><%= h b.status %></td>
             <td>

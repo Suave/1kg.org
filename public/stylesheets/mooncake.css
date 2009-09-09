@@ -1,18 +1,37 @@
 .lcolumn {float:left; margin:0 0 0 10px; width:520px;}
-.rcolumn {margin-left:540px; width:400px;}
+.rcolumn {float:right; width:380px;}
 
 #slogan {margin:20px 0 30px 30px;}
 
-div.info {line-height:1.6em; margin:20px 10px 20px 20px;}
+h2{margin-top:5px;;color:#b07d23;line-height:18px;font-size:18px;float:left;font-family:黑体;font-weight:bold;}
+.h2bar{width:100%;padding:5px 5px 5px 10px;background:#fff6d1;height:26px;margin:30px 0 10px;}
+.h2bar span{float:right;margin:4px 10px 0 0}
+
+
+.contents h3 {
+color:#4F5E39;
+padding:8px 12px;
+background:#DEEFBA none repeat scroll 0 0;
+font-size:1.4em;
+font-weight:bold;
+line-height:1.4em;
+}
+
+#login,#signup{width:280px;background:#F0FDD7;float:left;margin:5px 20px;}
+#login input,#signup input{width:160px}
+#commendbox{width:540px;background:#F0FDD7;float:left;margin:5px 20px 30px;margin-left:50px;}
+.boxinter{padding:15px;}
+
+div.info {margin-top:40px;}
 div.info div.img {float:left; margin-right:8px;}
 div.info div.text {margin:5px 0 0 80px; }
 
-#misc {margin:3em 0;}
+#misc {padding:3em 0;width:960px;clear:both}
 #misc img {margin:0 1em;}
 
 #intro {font-size:1em; /*color:#00744d;*/ line-height:1.6em; margin:1em;}
 #intro p {margin:1em;}
 #intro a {text-decoration:underline;}
 .passwordInput {font-size:1.3em; margin:30px 0 30px 30px;}
-.passwordInput input {border:1px solid #CCC; padding:2px; font-size:1.2em; width:200px; background:#fffec8;}
+.passwordInput input {border:1px solid #CCC; padding:2px; font-size:1em; width:160px; background:#fffec8;}
 .passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0; font-size:1em;}

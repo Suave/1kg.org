@@ -1,0 +1,20 @@
+<% @page_title = "公益小组管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回公益小组管理", admin_groups_url %></h4>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box" id="activitiesPostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>编辑小组</h2>
+      <% form_for :group, :url => admin_group_url(@group), :html => {:method => :put, :multipart => true} do |f| -%>
+      <p><label>slug</label><%= f.text_field :slug, :size => 20 %></p>
+      <%= render :partial => "/groups/form", :object => f %>
+      <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改" %></span> <span class="btnWrap"><%= link_to "取 消", admin_groups_url %></span></p>
+      <% end -%>
+    </div>
+  </div>
+</div>

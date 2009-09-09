@@ -1,0 +1,7 @@
+<% @page_title = "爱心寄语 - 时光之秋公益月饼" %>
+
+<% content_for :heads do -%>
+<%= render :partial => "head" %>
+<% end -%>
+
+<%= render :partial => "messages", :locals => {:stuffs => @stuffs} %>

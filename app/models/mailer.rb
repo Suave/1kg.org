@@ -15,4 +15,14 @@ class Mailer < ActionMailer::Base
     @sent_on     = Time.now
     @body        = {:school => school}
   end
+  
+  def create_default_user_for_mooncake(user)
+    @recipients = ENV["RAILS_ENV"] == "production" ? user.email : "suave.su@gmail.com"
+    @from       = "no-reply@1kg.org"
+    @subject    = "欢迎加入1KG.org，请查看您的用户信息"
+    @sent_on    = Time.now
+    @body       = {:user => user}
+    
+  end
+  
 end

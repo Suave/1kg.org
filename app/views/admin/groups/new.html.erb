@@ -12,7 +12,7 @@
       <h2>创建小组</h2>
       <% form_for :group, :url => admin_groups_url do |f| -%>
       <%= render :partial => "/groups/form", :object => f %>
-      <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></p>
+      <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "创 建" %></span> <span class="btnWrap"><%= link_to "取 消", admin_groups_url %></span></p>
       <% end -%>
     </div>
   </div>

@@ -50,7 +50,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
   
   
-  map.resources :schools, :member => {:info => :get, 
+  map.resources :schools, :member => {:info => :get,
+                                      :large_map => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
@@ -143,8 +144,16 @@ ActionController::Routing::Routes.draw do |map|
       mooncake.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
         dash.password '/password',:action => "password"
-        dash.reserve  '/reserve', :action => "reserve"
-        dash.buy      '/buy',     :action => "buy"
+        dash.comment  '/comment', :action => "comment"
+        dash.love_message 'love_message', :action => "love_message"
+        dash.messages 'messages', :action => "messages"
+        dash.donors   'donors/:id', :action => "donors"
+      end
+    end
+    
+    site.namespace :lightenschool do |lightenschool|
+      lightenschool.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
       end
     end
   end

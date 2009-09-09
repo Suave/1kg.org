@@ -22,7 +22,7 @@
           <tr>
             <td><%= h t.slug %></td>
             <td><%= h t.title %></td>
-            <td></td>
+            <td><%= h t.bucks.size %></td>
             <td>
               <%= link_to "detail", admin_stuff_type_bucks_url(t) %> |
               <%= link_to "edit", edit_admin_stuff_type_url(t) %> |

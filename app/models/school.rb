@@ -33,13 +33,13 @@ class School < ActiveRecord::Base
   has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
   has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
   has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
-
+  has_many   :snapshots, :class_name => "SchoolSnapshot", :dependent => :destroy
+  
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc"
   has_many :photos, :order => "id desc"
-  
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
@@ -62,6 +62,7 @@ class School < ActiveRecord::Base
   named_scope :locate, lambda { |city_ids|
     {:conditions => ["geo_id in (?)", city_ids]}
   }
+  named_scope :top10_popular, :order => 'last_month_average_karma DESC', :limit => 10
   
   @@city_neighbors = {
                         :beijing => {:id => 1, :neighbors => {:hebei => 3, :neimenggu => 27}},
@@ -83,6 +84,11 @@ class School < ActiveRecord::Base
       self.last_modified_at = Time.now
       self.last_modified_by_id = User.current_user.id
     end
+    
+    # 将学校流行度存入数据库
+    snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
+    snapshot.karma = karma
+    snapshot.save
   end
   
   validates_presence_of :geo_id, :message => "必选项"
@@ -92,7 +98,7 @@ class School < ActiveRecord::Base
   def self.categories
     %w(小学 中学 四川灾区板房学校)
   end
-
+  
   def self.get_near_schools_at(geo)
  
       root = geo.root? ? geo : geo.parent
@@ -152,7 +158,7 @@ class School < ActiveRecord::Base
   def destroyed_by(user)
     return edited_by(user)
   end
-
+  
   def visited?(user)
     return false unless user.class == User
     
@@ -190,6 +196,34 @@ class School < ActiveRecord::Base
       }
     end
     return result.reverse
+  end
+  
+  include FusionChart
+  # 绘制月活跃度变化图
+  def karma_chart
+    #由于数据不足，先显示过去7天的活跃度变化
+    data = []
+    6.downto(0) do |i|
+      day = Date.today - i.day
+      snapshot = self.snapshots.find_by_created_on(day)
+      karma = snapshot.nil? ? rand(10) : snapshot.karma
+      data << [day.to_s, karma]
+    end
+    
+    column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
+  end
+  
+  class << self
+    include FusionChart
+    def most_popular_chart
+      @schools = School.top10_popular
+      data = []
+      @schools.each do |school|
+        data << ["#{school.title}", school.last_month_average_karma]
+      end
+    
+      column_2d_chart("最活跃学校", data, '活跃度', 'School')
+    end
   end
   
   def self.show_date(year, month, day, valid)

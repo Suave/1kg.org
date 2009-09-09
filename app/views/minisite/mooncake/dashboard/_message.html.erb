@@ -1,0 +1,11 @@
+<% if @stuff -%>
+  <div class="avatar"><%= mooncake_avatar_for stuff.user, "large" %></div>
+  <div class="content">
+    <p class="meta">
+      <%= link_to stuff.user.login, user_url(stuff.user) %> 写于 <%= stuff.matched_at.to_date %>
+    </p>
+    <div class="comment-body"><%= stuff.comment_html %></div>
+  </div>
+<% else -%>
+  <p>一张贺卡一本书，让爱继续</p>
+<% end -%>

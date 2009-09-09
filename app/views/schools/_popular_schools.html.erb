@@ -1,0 +1,18 @@
+<table id="schoolsLatest">
+  <thead>
+    <tr>
+      <th>校名</th>
+      <th>活跃度</th>
+      <th>提交</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% School.top10_popular.each do |school| -%>
+    <tr class="<%= cycle('odd', 'even') %>">
+      <td><%= link_to school.title, school_url(school) %></td>
+      <td><%= school.karma %></td>
+      <td><%= link_to school.user.login, user_url(school.user) %></td>
+    </tr>
+    <% end -%>
+  </tbody>
+</table>

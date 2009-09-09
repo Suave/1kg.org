@@ -5,11 +5,6 @@ class SessionsController < ApplicationController
 
   # render new.rhtml
   def new
-    #logger.info "REQUEST URI: #{session[:return_to]}"
-    # for adwords tracker
-    if session[:return_to] =~ /^\/activities\/[0-9]+\/join$/
-      session[:from_activity_join] = false
-    end
   end
 
   def create
@@ -20,10 +15,7 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       flash[:notice] = "欢迎 #{current_user.login}, 你已经登录"
-      
-      # for adwords tracker
-      session[:from_activity_join] = true if session[:from_activity_join] == false
-      
+            
       redirect_back_or_default CGI.unescape(params[:to] || '/')
       
     else
