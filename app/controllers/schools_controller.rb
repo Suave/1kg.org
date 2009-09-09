@@ -180,8 +180,6 @@ class SchoolsController < ApplicationController
                                            :order => "geo_id asc"
   end
   
-  
-  
   def show
     @school = School.find(params[:id])
     
