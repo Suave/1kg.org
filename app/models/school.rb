@@ -212,6 +212,19 @@ class School < ActiveRecord::Base
     column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
   end
   
+  class << self
+    include FusionChart
+    def most_popular_chart
+      @schools = find(:all, :order => 'last_month_average_karma DESC', :limit => 10)
+      data = []
+      @schools.each do |school|
+        data << ["#{school.title}", school.last_month_average_karma]
+      end
+    
+      column_2d_chart("最活跃学校", data, '活跃度', 'School')
+    end
+  end
+  
   def self.show_date(year, month, day, valid)
     if valid
       # 已验证学校，以验证时间为准
