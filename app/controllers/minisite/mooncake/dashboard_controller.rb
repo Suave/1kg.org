@@ -22,7 +22,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @stuff.nil?
     
-    session[:random_stuff] = @stuff.id
+    session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     
   end
   
