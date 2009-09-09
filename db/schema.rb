@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "ref"
     t.integer  "category",                            :null => false
-    t.string   "title",            :default => "",    :null => false
-    t.string   "location",         :default => "",    :null => false
+    t.string   "title",                               :null => false
+    t.string   "location",                            :null => false
     t.integer  "departure_id",                        :null => false
     t.integer  "arrival_id",                          :null => false
     t.datetime "start_at"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "boards", :force => true do |t|
-    t.integer  "talkable_id",                         :null => false
-    t.string   "talkable_type",       :default => "", :null => false
+    t.integer  "talkable_id",                        :null => false
+    t.string   "talkable_type",                      :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -73,26 +73,26 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string   "type"
     t.string   "type_id"
+    t.datetime "deleted_at"
   end
 
   create_table "counties", :force => true do |t|
     t.integer "geo_id"
-    t.string  "name",    :default => "", :null => false
+    t.string  "name",    :null => false
     t.integer "zipcode"
   end
 
   create_table "geos", :force => true do |t|
     t.integer "parent_id"
-    t.integer "lft",                       :null => false
-    t.integer "rgt",                       :null => false
-    t.string  "longitude"
-    t.string  "latitude"
-    t.string  "name",      :default => "", :null => false
-    t.string  "slug"
+    t.integer "lft",       :null => false
+    t.integer "rgt",       :null => false
+    t.string  "name",      :null => false
     t.integer "zipcode"
+    t.string  "slug"
+    t.string  "latitude"
+    t.string  "longitude"
   end
 
   create_table "group_boards", :force => true do |t|
@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "groups", :force => true do |t|
-    t.integer  "user_id",                    :null => false
-    t.integer  "geo_id",                     :null => false
-    t.string   "title",      :default => "", :null => false
+    t.integer  "user_id",    :null => false
+    t.integer  "geo_id",     :null => false
+    t.string   "title",      :null => false
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -140,8 +140,8 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "pages", :force => true do |t|
-    t.string   "title",               :default => "", :null => false
-    t.string   "slug",                :default => "", :null => false
+    t.string   "title",               :null => false
+    t.string   "slug",                :null => false
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "width"
     t.integer  "height"
     t.integer  "user_id"
-    t.string   "title",            :default => "", :null => false
+    t.string   "title",            :null => false
     t.text     "description"
     t.text     "description_html"
     t.datetime "created_at"
@@ -173,25 +173,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
   end
-=begin
-  create_table "pictures", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "content_type"
-    t.string   "filename"
-    t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
-    t.integer  "user_id"
-    t.string   "title",            :default => "", :null => false
-    t.text     "description"
-    t.text     "description_html"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "event_id"
-    t.integer  "school_id"
-  end
-=end
+
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false
     t.integer  "user_id",             :null => false
@@ -218,7 +200,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "public_boards", :force => true do |t|
-    t.string  "title",            :limit => 100, :default => "",  :null => false
+    t.string  "title",            :limit => 100,                  :null => false
     t.text    "description"
     t.text    "description_html"
     t.integer "position",                        :default => 999, :null => false
@@ -226,9 +208,9 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "roles", :force => true do |t|
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "identifier",  :limit => 100, :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "identifier",  :limit => 100, :null => false
     t.string   "description"
   end
 
@@ -252,21 +234,21 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "school_id"
     t.string   "address"
     t.integer  "zipcode"
-    t.string   "longitude"
-    t.string   "latitude"
-    t.datetime "marked_at"
-    t.integer  "marked_by_id"
     t.string   "master"
     t.string   "telephone"
     t.string   "level_amount"
     t.string   "teacher_amount"
     t.string   "student_amount"
     t.string   "class_amount"
-    t.integer  "has_library",         :limit => 1
-    t.integer  "has_pc",              :limit => 1
-    t.integer  "has_internet",        :limit => 1
-    t.integer  "book_amount",                      :default => 0
-    t.integer  "pc_amount",                        :default => 0
+    t.integer  "has_library",    :limit => 1
+    t.integer  "has_pc",         :limit => 1
+    t.integer  "has_internet",   :limit => 1
+    t.integer  "book_amount",                 :default => 0
+    t.integer  "pc_amount",                   :default => 0
+    t.string   "latitude"
+    t.string   "longitude"
+    t.integer  "marked_by_id"
+    t.datetime "marked_at"
   end
 
   create_table "school_boards", :force => true do |t|
@@ -276,12 +258,12 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_contacts", :force => true do |t|
-    t.integer  "school_id"
-    t.string   "name"
-    t.string   "role"
-    t.string   "telephone"
-    t.string   "email"
-    t.string   "qq"
+    t.integer "school_id"
+    t.string  "name"
+    t.string  "role"
+    t.string  "telephone"
+    t.string  "email"
+    t.string  "qq"
   end
 
   create_table "school_finders", :force => true do |t|
@@ -297,7 +279,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "school_id"
     t.string   "incoming_from"
     t.string   "incoming_average"
-    t.integer  "ngo_support",         :limit => 1
+    t.integer  "ngo_support",      :limit => 1
     t.string   "ngo_name"
     t.datetime "ngo_start_at"
     t.string   "ngo_contact"
@@ -307,32 +289,32 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_needs", :force => true do |t|
-    t.integer  "school_id"
-    t.string   "urgency"
-    t.string   "book"
-    t.string   "stationary"
-    t.string   "sport"
-    t.string   "cloth"
-    t.string   "accessory"
-    t.string   "course"
-    t.string   "teacher"
-    t.string   "other"
+    t.integer "school_id"
+    t.string  "urgency"
+    t.string  "book"
+    t.string  "stationary"
+    t.string  "sport"
+    t.string  "cloth"
+    t.string  "accessory"
+    t.string  "course"
+    t.string  "teacher"
+    t.string  "other"
+  end
+
+  create_table "school_snapshots", :force => true do |t|
+    t.integer "school_id"
+    t.integer "karma"
+    t.date    "created_on"
   end
 
   create_table "school_traffics", :force => true do |t|
-    t.integer  "school_id"
-    t.string   "sight"
-    t.string   "transport"
-    t.string   "duration"
-    t.string   "charge"
-    t.text     "description"
-    t.text     "description_html"
-  end
-  
-  create_table "school_snapshots", :force => true do |t|
-    t.integer  "school_id"
-    t.integer  "karma"
-    t.date     "created_on"
+    t.integer "school_id"
+    t.string  "sight"
+    t.string  "transport"
+    t.string  "duration"
+    t.string  "charge"
+    t.text    "description"
+    t.text    "description_html"
   end
 
   create_table "schools", :force => true do |t|
@@ -346,17 +328,17 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "category"
     t.integer  "geo_id"
     t.integer  "county_id"
-    t.integer  "hits",                :default => 0
-    t.integer  "karma",               :default => 0
-    t.string   "title",               :default => "",    :null => false
+    t.string   "title",                                  :null => false
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.integer  "hits",                :default => 0
+    t.integer  "karma",               :default => 0
   end
 
   create_table "shares", :force => true do |t|
-    t.string   "title",                    :default => "",    :null => false
+    t.string   "title",                                       :null => false
     t.integer  "geo_id",                                      :null => false
     t.string   "share_cover_file_name"
     t.string   "share_cover_content_type"
@@ -377,44 +359,44 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "static_permissions", :force => true do |t|
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.string   "identifier",  :limit => 100, :default => "", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "identifier",  :limit => 100, :null => false
     t.string   "description"
   end
 
   add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
 
   create_table "stuff_bucks", :force => true do |t|
-    t.integer  "type_id",                      :null => false
-    t.integer  "school_id",                    :null => false
-    t.integer  "quantity",                     :null => false
+    t.integer  "type_id",                          :null => false
+    t.integer  "school_id",                        :null => false
+    t.integer  "quantity",                         :null => false
     t.integer  "matched_count", :default => 0
     t.datetime "created_at"
     t.string   "status"
     t.text     "notes_html"
-    t.boolean  "for_team",                     :default => false
     t.text     "for_team_tip"
-    t.boolean  "hidden",                       :default => false
+    t.boolean  "for_team",      :default => false
+    t.boolean  "hidden",        :default => false
   end
 
   create_table "stuff_types", :force => true do |t|
-    t.string   "slug",             :default => "", :null => false
-    t.string   "title",            :default => "", :null => false
+    t.string   "slug",             :null => false
+    t.string   "title",            :null => false
     t.text     "description_html"
     t.datetime "created_at"
   end
 
   create_table "stuffs", :force => true do |t|
-    t.string   "code",       :default => "", :null => false
-    t.integer  "type_id",                    :null => false
-    t.integer  "buck_id",                    :null => false
+    t.string   "code",         :null => false
+    t.integer  "type_id",      :null => false
+    t.integer  "buck_id",      :null => false
     t.integer  "user_id"
     t.integer  "school_id"
-    t.text     "comment"
-    t.text     "comment_html"
     t.datetime "matched_at"
     t.datetime "created_at"
+    t.text     "comment_html"
+    t.text     "comment"
   end
 
   create_table "taggings", :force => true do |t|
@@ -434,7 +416,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "topics", :force => true do |t|
     t.integer  "board_id",                                              :null => false
     t.integer  "user_id",                                               :null => false
-    t.string   "title",               :limit => 200, :default => "",    :null => false
+    t.string   "title",               :limit => 200,                    :null => false
     t.text     "body"
     t.text     "body_html"
     t.datetime "created_at"
