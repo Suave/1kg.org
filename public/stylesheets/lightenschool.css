@@ -1,35 +1,37 @@
 .lcolumn {float:left; margin:0 0 0 10px; width:520px;}
 .rcolumn {float:right; width:380px;}
 
-h2{margin-top:5pxcolor:#505030;line-height:18px;font-size:18px;float:left;font-family:黑体;font-weight:bold;}
-.h2bar{width:100%;padding:5px 5px 5px 10px;background:#fff6d1;height:26px;margin:30px 0 10px;}
-.h2bar span{float:right;margin:4px 10px 0 0}
+h2{color:#d67900;line-height:1.3em;font-size:1.3em;float:left;}
+.h2bar{width:100%;padding:8px 5px 8px 10px;background:#fff6d1;height:20px;margin:30px 0 10px;}
+.h2bar span{float:right;margin:3px 5px 0 0;}
+.h2bar h2 a{color:#d67900}
+.h2bar h2 a:hover{color:#ff9000}
 
 
 .boxouter h3 {
-color:#879D4C;
+color:#d67900;
 padding:8px 12px;
-background:#F0FDD7 none repeat scroll 0 0;
+background:#fff6d1;
 font-size:1.3em;
-font-weight:bold;
 line-height:1.3em;
+font-family:黑体;
 }
 
-
+.tableList{margin-bottom:5px;}
 
 .boxouter{margin-top:15px;}
 .boxinter{padding:15px;}
 .boxinter p{font-size:14px;line-height:24px;margin-bottom:10px;}
 .boxinter li{font-size:14px;list-style:none;line-height:24px;}
 
-#timeline {font-size:1em;width:280px;margin-left:40px;color:#819d4c;}
-#timeline th{background:#F0FDD7;border: 1px #819d4c solid;}
+#timeline {font-size:1em;width:280px;margin-left:40px;color:#d67900;}
+#timeline th{background:#fffae3;border: 1px #d67900 solid;font-weight:normal;}
 .lefttable{text-align:right}
 
-.category{background:#F0FDD7;margin-bottom:20px;border:1px #879d4c solid}
+.category{background:#fffae3;margin-bottom:20px;border:1px #d67900 solid}
 .category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
 .category h4{display:block;
-background:#879d4c;
+background:#d67900;
 color:white;
 width:100%;
 font-size:1.2em;
@@ -39,7 +41,9 @@ text-indent:1em;
 padding:5px 0;
 }
 
-.prize{width:112px;height:60px;padding:15px;border: 1px #879d4c solid; margin:15px;float:left;background:#DEEFBA;-margin:7px;}
+.prize{width:290px;height:80px;padding:10px;border: 1px #ffc780 dashed; margin:15px;background:#fff6d1;-margin:7px;}
+
+.info{float:left;margin-left:20px;-margin-left:10px; padding:5px;}
 .prize h5 {
 font-size:1.3em;
 font-weight:bold;
@@ -49,8 +53,8 @@ display:inline;
 .prize span {
 margin-left:1em;
 color:#606060;
-font-size:1.1em;
-line-height:1.1em;
+font-size:1em;
+line-height:1em;
 
 }
 .prize p {
@@ -61,10 +65,10 @@ width:110px;
 
 .buttonlink{background:url(/images/lightenschool/button.png) no-repeat;
 color:#fff;line-height:16px;
-margin:0 4px;padding:0 2px;
+margin:0 4px;padding:0 4px;
 width:60px;font-size:14px;}
 
-.buttonlink:hover{background-position:0 -16px;color:#fff;}
+.buttonlink:hover{background-position:0 -18px;color:#fff;}
 
 
 #misc {padding:2em 0;width:960px;clear:both;text-align:center;}
