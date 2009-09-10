@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
   validates_length_of       :login,    :within => 2..40, :message => "用户名长度在2-40个字符之间"
   validates_length_of       :email,    :within => 3..100, :message => "邮件地址长度在3-100个字符之间"
   validates_uniqueness_of   :email, :case_sensitive => false, :message => "邮件地址已被占用"
+  validates_format_of       :email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
   
   file_column :avatar, :magick => {
                               :geometry => "72x72>",
