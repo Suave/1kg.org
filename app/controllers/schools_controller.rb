@@ -185,6 +185,16 @@ class SchoolsController < ApplicationController
     @map_center = [@school.basic.latitude, @school.basic.longitude, 7]
   end
   
+  def photos
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
+  end
+  
   def show
     @school = School.find(params[:id])
     
@@ -205,7 +215,7 @@ class SchoolsController < ApplicationController
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
-    @photos = @school.photos
+    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
     end
@@ -215,7 +225,6 @@ class SchoolsController < ApplicationController
       @board = @board.board
       @topics = @board.latest_topics
     end 
-    
   end
   
   def destroy

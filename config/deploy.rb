@@ -32,10 +32,10 @@ namespace :deploy do
   
   desc "Custom after update code to put production database.yml in place."
   task :copy_configs, :roles => :app do
-    run "cp #{deploy_to}/shared/database.yml #{deploy_to}/current/config/database.yml"
-    run "ln -s #{deploy_to}/shared/photos #{deploy_to}/current/public/photos"
-    run "rm -rf #{deploy_to}/current/public/user && ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
-    run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"    
+    run "cp #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
+    run "ln -s #{deploy_to}/shared/photos #{current_path}/public/photos"
+    run "rm -rf #{current_path}/public/user && ln -s #{deploy_to}/shared/user #{current_path}/public/user"
+    run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"
     run "cd #{current_path} && rake schools:to_json"
   end
   

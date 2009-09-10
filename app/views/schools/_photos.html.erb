@@ -3,7 +3,7 @@
   <dt><%= link_to image_tag(p.public_filename(:thumb)), photo_url(p), :target => "_blank" %></dt>
   <dd>
     <%= link_to p.school.title, school_url(p.school) %>
-    <span><%= link_to p.user.login, user_url(p.user) %></span>
+    <span><%= link_to p.user.login, user_url(p.user) if p.user %></span>
   </dd>
 </dl>
 <% end -%>
