@@ -2,7 +2,7 @@
 
 class Minisite::Mooncake::DashboardController < ApplicationController
   include StuffUtil
-  before_filter :login_required, :except => [:index, :password, :comment]
+  before_filter :login_required, :except => [:index, :password, :comment, :love_message]
   before_filter :find_stuff_type, :only => [:index, :password, :comment, :love_message, :messages]
   def index
     @group = Group.find_by_slug('mooncake')
@@ -10,7 +10,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @bucks = @stuff_type.bucks
     # for love message
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
-    session[:random_stuff] = @stuff.id
+    session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     render :action => "new"
   end
   
@@ -22,7 +22,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     
     @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @stuff.nil?
     
-    session[:random_stuff] = @stuff.id
+    session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     
   end
   
@@ -131,6 +131,5 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     end
     flash.discard
   end
-  
-  
+
 end
