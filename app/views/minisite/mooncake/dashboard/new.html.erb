@@ -43,7 +43,7 @@
       <p style="line-height:30px;color:#555">已有<%= b.matched_count -%>人完成密码配对  <%= link_to "查看名单", minisite_mooncake_donors_url(b.school) %></p>
       <img src="/images/mooncake/progress<%= b.matched_count*10/b.quantity -%>.jpg" alt="progress" /> 
       <span style="float:right; margin-top:-10px;">完成度
-      <span style="font-family:'times new roman',serif;font-size:24px;"><%= b.matched_count*100/b.quantity -%></span>
+      <span style="font-family:'times new roman',serif;font-size:24px;"><%= Float(b.matched_count*100)/b.quantity -%></span>
       %</span>
       
       <% end -%>
