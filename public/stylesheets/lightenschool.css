@@ -39,7 +39,7 @@ text-indent:1em;
 padding:5px 0;
 }
 
-.prize{width:112px;height:60px;padding:15px;border: 1px #879d4c solid; margin:15px;float:left;background:#DEEFBA}
+.prize{width:112px;height:60px;padding:15px;border: 1px #879d4c solid; margin:15px;float:left;background:#DEEFBA;-margin:7px;}
 .prize h5 {
 font-size:1.3em;
 font-weight:bold;
@@ -64,7 +64,7 @@ color:#fff;line-height:16px;
 margin:0 4px;padding:0 2px;
 width:60px;font-size:14px;}
 
-.buttonlink:hover{background:url(/images/lightenschool/buttonhover.png) no-repeat;color:#fff;}
+.buttonlink:hover{background-position:0 -16px;color:#fff;}
 
 
 #misc {padding:2em 0;width:960px;clear:both;text-align:center;}
