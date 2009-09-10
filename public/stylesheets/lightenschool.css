@@ -7,57 +7,65 @@ h2{margin-top:5pxcolor:#505030;line-height:18px;font-size:18px;float:left;font-f
 
 
 .boxouter h3 {
-color:#b07d23;
+color:#879D4C;
 padding:8px 12px;
-background:#fff6d1 none repeat scroll 0 0;
+background:#F0FDD7 none repeat scroll 0 0;
 font-size:1.3em;
 font-weight:bold;
 line-height:1.3em;
 }
 
-.boxouter h4 {
+
+
+.boxouter{margin-top:15px;}
+.boxinter{padding:15px;}
+.boxinter p{font-size:14px;line-height:24px;margin-bottom:10px;}
+.boxinter li{font-size:14px;list-style:none;line-height:24px;}
+
+#timeline {font-size:1em;width:280px;margin-left:40px;color:#819d4c;}
+#timeline th{background:#F0FDD7;border: 1px #819d4c solid;}
+.lefttable{text-align:right}
+
+.category{background:#F0FDD7;margin-bottom:20px;border:1px #879d4c solid}
+.category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
+.category h4{display:block;
+background:#879d4c;
+color:white;
+width:100%;
 font-size:1.2em;
 font-weight:bold;
 line-height:1.2em;
-margin-right:20px;
+text-indent:1em;
+padding:5px 0;
 }
 
-.boxouter{}
-.boxinter{padding:15px;}
-.boxinter p{font-size:13px;line-height:20px;text-indent:2em;margin-bottom:10px;}
-
-
-.prize{float:left;width:240px;height:105px}
+.prize{width:112px;height:60px;padding:15px;border: 1px #879d4c solid; margin:15px;float:left;background:#DEEFBA}
 .prize h5 {
-position:relative;
-font-size:1.2em;
+font-size:1.3em;
 font-weight:bold;
-line-height:1.2em;
-left:105px;
-top:-85px;
+line-height:1.3em;
+display:inline;
 }
 .prize span {
-position:relative;
+margin-left:1em;
 color:#606060;
 font-size:1.1em;
 line-height:1.1em;
-left:105px;
-top:-85px;
+
 }
 .prize p {
-position:relative;
 text-indent: 0em;
 width:110px;
-left:105px;
-top:-85px;
 }
-.boxouter span {color:＃606060;
-font-style: italic;}
-
-.buttonlink{background:#d58c0c;color:#fff;margin:0 3px;}
 
 
+.buttonlink{background:url(/images/lightenschool/button.png) no-repeat;
+color:#fff;line-height:16px;
+margin:0 4px;padding:0 2px;
+width:60px;font-size:14px;}
+
+.buttonlink:hover{background:url(/images/lightenschool/buttonhover.png) no-repeat;color:#fff;}
 
 
-#misc {padding:3em 0;width:960px;clear:both}
+#misc {padding:2em 0;width:960px;clear:both;text-align:center;}
 #misc img {margin:0 1em;}
