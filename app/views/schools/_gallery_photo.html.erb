@@ -1,0 +1,7 @@
+<dl class="obp">
+  <dt><%= link_to image_tag(gallery_photo.public_filename(:thumb), :alt => gallery_photo.title), gallery_photo.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]", :title => gallery_photo.description %></dt>
+  <dd>
+    <%= gallery_photo.title %>
+  </dd>
+</dl>

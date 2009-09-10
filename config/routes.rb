@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :schools, :member => {:info => :get,
                                       :large_map => :get,
+                                      :photos => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,

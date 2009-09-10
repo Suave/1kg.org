@@ -1,0 +1,30 @@
+<% content_for :heads do %>
+  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+  <script type="text/javascript" charset="utf-8">
+    google.load("jquery", "1.3");
+  </script>
+  
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+<% end %>
+
+<% @page_title = @title = "#{h @school.title}" -%>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+</script>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>全部照片</h3>
+      <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
+      <div class="contents clearfix">
+        <%= render :partial => "gallery_photo", :collection => @photos %>
+      </div>
+      <div class="contents"><p><%= will_paginate @photos %></p></div>
+    </div>
+  </div>
+</div>
