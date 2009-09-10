@@ -4,28 +4,28 @@ class ActivitiesController < ApplicationController
   
   def index
     #deprecated, not use this action
-    @status = params[:status].blank? ? "hiring" : params[:status]
-    
-    if params[:status] == "over"
-      # 已结束的活动
-      @activities = Activity.find(:all, :conditions => ["done=? or end_at < ?", true, Time.now],
-                                        :order => "updated_at desc",
-                                        :limit => 15)
-                                        
-    elsif params[:status] == "ongoing"
-      # 进行中的活动
-      @activities = Activity.find(:all, :conditions => ["start_at < ? and end_at > ?", Time.now, Time.now],
-                                        :order => "updated_at desc",
-                                        :limit => 15)
-                                        
-    else
-      # 招募中的
-      @activities = Activity.find(:all, :conditions => ["start_at > ?", Time.now],
-                                       :order => "updated_at desc",
-                                       :limit => 15)
-    
-    end
-
+    # @status = params[:status].blank? ? "hiring" : params[:status]
+    #     
+    #     if params[:status] == "over"
+    #       # 已结束的活动
+    #       @activities = Activity.find(:all, :conditions => ["done=? or end_at < ?", true, Time.now],
+    #                                         :order => "updated_at desc",
+    #                                         :limit => 15)
+    #                                         
+    #     elsif params[:status] == "ongoing"
+    #       # 进行中的活动
+    #       @activities = Activity.find(:all, :conditions => ["start_at < ? and end_at > ?", Time.now, Time.now],
+    #                                         :order => "updated_at desc",
+    #                                         :limit => 15)
+    #                                         
+    #     else
+    #       # 招募中的
+    #       @activities = Activity.find(:all, :conditions => ["start_at > ?", Time.now],
+    #                                        :order => "updated_at desc",
+    #                                        :limit => 15)
+    #     
+    #     end
+    redirect_to root_path
   end
   
   def hiring
