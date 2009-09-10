@@ -34,7 +34,7 @@ namespace :deploy do
   task :copy_configs, :roles => :app do
     run "cp #{deploy_to}/shared/database.yml #{deploy_to}/current/config/database.yml"
     run "ln -s #{deploy_to}/shared/photos #{deploy_to}/current/public/photos"
-    run "ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
+    run "rm -rf #{deploy_to}/current/public/user && ln -s #{deploy_to}/shared/user #{deploy_to}/current/public/user"
     run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"    
     run "cd #{current_path} && rake schools:to_json"
   end
