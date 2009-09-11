@@ -1,17 +1,17 @@
 .lcolumn {float:left; margin:0 0 0 10px; width:520px;}
 .rcolumn {float:right; width:380px;}
 
-h2{color:#d67900;line-height:1.3em;font-size:1.3em;float:left;}
-.h2bar{width:100%;padding:8px 5px 8px 10px;background:#fff6d1;height:20px;margin:30px 0 10px;}
+h2{color:#c45400;line-height:1.3em;font-size:1.3em;float:left;}
+.h2bar{width:100%;padding:8px 5px 8px 10px;background:#ffeab0;height:20px;margin:30px 0 10px;}
 .h2bar span{float:right;margin:3px 5px 0 0;}
-.h2bar h2 a{color:#d67900}
+.h2bar h2 a{color:#c45400}
 .h2bar h2 a:hover{color:#ff9000}
 
 
 .boxouter h3 {
-color:#d67900;
+color:#c45400;
 padding:8px 12px;
-background:#fff6d1;
+background:#ffeab0;
 font-size:1.3em;
 line-height:1.3em;
 font-family:黑体;
@@ -28,10 +28,10 @@ font-family:黑体;
 #timeline th{background:#fffae3;border: 1px #d67900 solid;font-weight:normal;}
 .lefttable{text-align:right}
 
-.category{background:#fffae3;margin-bottom:20px;border:1px #d67900 solid}
+.category{background:#fffae3;margin-bottom:20px;border:1px #d67900 solid;width:320px;margin-left:10px;}
 .category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
 .category h4{display:block;
-background:#d67900;
+background:#c45400;
 color:white;
 width:100%;
 font-size:1.2em;
@@ -41,17 +41,16 @@ text-indent:1em;
 padding:5px 0;
 }
 
-.prize{width:290px;height:80px;padding:10px;border: 1px #ffc780 dashed; margin:15px;background:#fff6d1;-margin:7px;}
+.prize{width:270px;height:78px;padding:10px;border: 1px #ffc780 dashed; margin:15px;background:#fff6d1;-margin:7px;}
 
+.prize img{border: 1px #888 double;float:left}
 .info{float:left;margin-left:20px;-margin-left:10px; padding:5px;}
 .prize h5 {
 font-size:1.3em;
 font-weight:bold;
-line-height:1.3em;
-display:inline;
+line-height:1.5em;
 }
 .prize span {
-margin-left:1em;
 color:#606060;
 font-size:1em;
 line-height:1em;
@@ -59,7 +58,8 @@ line-height:1em;
 }
 .prize p {
 text-indent: 0em;
-width:110px;
+font-style:normal;
+margin:0;
 }
 
 
@@ -69,5 +69,6 @@ margin:0 4px;padding:0 4px;
 width:60px;font-size:14px;}
 .buttonlink:hover{background-position:0 -18px;color:#fff;}
 
-#misc {padding:2em 0;width:960px;clear:both;text-align:center;}
-#misc img {margin:0 1em;}
+#misc {padding:4em 0;width:960px;clear:both;text-align:center;font-size:13px;line-height:26px;}
+#misc img {margin:0 4px;}
+#misc span {position:relative;top:-12px;}
