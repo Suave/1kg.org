@@ -1,7 +1,7 @@
-.lcolumn {float:left; margin:0 0 0 10px; width:520px;}
-.rcolumn {float:right; width:380px;}
+.lcolumn {float:left; margin-left:10px;-margin-left:0px; width:520px;}
+.rcolumn {float:right; width:360px;}
 
-h2{color:#c45400;line-height:1.3em;font-size:1.3em;float:left;}
+h2{color:#c45400;line-height:1.3em;font-size:1.3em;float:left;font-family:黑体}
 .h2bar{width:100%;padding:8px 5px 8px 10px;background:#ffeab0;height:20px;margin:20px 0 10px;}
 .h2bar span{float:right;margin:3px 5px 0 0;}
 .h2bar h2 a{color:#c45400}
@@ -24,7 +24,7 @@ font-family:黑体;
 .boxinter p{font-size:14px;line-height:24px;margin-bottom:10px;}
 .boxinter li{font-size:14px;list-style:none;line-height:24px;}
 
-#timeline {font-size:1em;width:280px;margin-left:40px;color:#d67900;}
+#timeline {font-size:1em;width:280px;margin-left:20px;color:#d67900;}
 #timeline th{background:#fffae3;border: 1px #d67900 solid;font-weight:normal;}
 .lefttable{text-align:right}
 
@@ -41,7 +41,7 @@ text-indent:1em;
 padding:5px 0;
 }
 
-.prize{width:270px;height:78px;padding:10px;border: 1px #ffc780 dashed; margin:15px;background:#fff6d1;-margin:7px;}
+.prize{width:270px;height:78px;padding:10px;border: 1px #ffc780 dashed; margin:15px;background:#fff6d1;}
 
 .prize img{border: 1px #888 double;float:left}
 .info{float:left;margin-left:20px;-margin-left:10px; padding:5px;}
