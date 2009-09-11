@@ -19,6 +19,18 @@
     <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
     <script type="text/javascript" charset="utf-8">
       jQuery.noConflict();
+      jQuery(document).ready(function(){
+      jQuery('#topicnav').hover(function () {
+       jQuery('#slidebar').slideDown(100);jQuery(this).attr('style',"color:#E98523");
+       },
+      function () {
+       jQuery('#slidebar').slideUp("fast");jQuery(this).attr('style',"color:#569701");
+      })
+	
+	
+	
+      }); 
+      
     </script>
     <%= yield :heads %>
   </head>
@@ -38,8 +50,15 @@
       <li class="home"><%= link_to "小组", groups_url %></li>
       <li class="home"><%= link_to "同城", my_city_url %></li>
       <li class="home"><%= link_to "学校", schools_url %></li>
-      <li class="home"><%= link_to "公益贺卡", "/minisite/postcard" %></li>
-      <li class="home"><%= link_to "公益月饼", minisite_mooncake_index_url %></li>
+      <li class="home" id="topicnav">专题活动<img src="/images/slidebar.png"/>
+        <div id="slidebar">
+	  <%= link_to "公益贺卡", "/minisite/postcard" ,:class => "slidenav"%>
+          <%= link_to "公益月饼", minisite_mooncake_index_url ,:class => "slidenav"%>
+	  <%= link_to "点亮学校", minisite_lightenschool_index_url,:class => "slidenav" %>
+	</div>
+      </li>
+	
+      
       <li class="home"><a href="/misc/community-guide" target="_blank">帮助</a></li>
     </ul>
     <p style="float:right">

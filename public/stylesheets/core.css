@@ -323,7 +323,6 @@ body.home #navWrap {
   margin: -45px auto 0;
   position: relative;
   z-index: 10;
-  overflow: hidden;
 }
 /* =nav */
 #nav {
@@ -340,6 +339,17 @@ body.home #navWrap {
   font-weight: bold;
   font-size: 1.2em;
 }
+
+#topicnav{color:#569701;cursor:pointer}
+
+#slidebar{position:absolute;display:none}
+.slidenav{padding:1px 9px;
+display:block;
+font-size:14px;
+font-weight:normal;
+background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
+.slidenav:hover{color:#fff;background:#569701}
+
 
 /* =breadcrumb */
 #breadcrumb {

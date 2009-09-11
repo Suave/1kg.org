@@ -2,7 +2,7 @@
 .rcolumn {float:right; width:380px;}
 
 h2{color:#c45400;line-height:1.3em;font-size:1.3em;float:left;}
-.h2bar{width:100%;padding:8px 5px 8px 10px;background:#ffeab0;height:20px;margin:30px 0 10px;}
+.h2bar{width:100%;padding:8px 5px 8px 10px;background:#ffeab0;height:20px;margin:20px 0 10px;}
 .h2bar span{float:right;margin:3px 5px 0 0;}
 .h2bar h2 a{color:#c45400}
 .h2bar h2 a:hover{color:#ff9000}
