@@ -343,7 +343,7 @@ body.home #navWrap {
 #topicnav{color:#569701;cursor:pointer;display:block;}
 #topicnav img{display:inline}
 
-#slidebar{position:absolute;display:none;*top:29px;*margin-left:-80px;width:76px;}
+#slidebar{position:absolute;display:none;*top:29px;*margin-left:-85px;width:76px;}
 .slidenav{padding:1px 9px;
 display:block;
 font-size:13px;
