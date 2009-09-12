@@ -340,13 +340,12 @@ body.home #navWrap {
   font-size: 1.2em;
 }
 
-#topicnav{color:#569701;cursor:pointer}
+#topicnav{color:#569701;cursor:pointer;display:block}
 
-#slidebar{position:absolute;display:none}
+#slidebar{position:absolute;display:none;-top:30px;-margin-left:-80px;width:76px;}
 .slidenav{padding:1px 9px;
 display:block;
-font-size:14px;
-font-weight:normal;
+font-size:13px;
 background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 .slidenav:hover{color:#fff;background:#569701}
 
