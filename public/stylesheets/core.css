@@ -341,9 +341,9 @@ body.home #navWrap {
 }
 
 #topicnav{color:#569701;cursor:pointer;display:block;}
-#topicnav img{display:inline}
+#topicnav img{-padding-top:5px}
 
-#slidebar{position:absolute;display:none;*top:29px;*margin-left:-85px;width:76px;}
+#slidebar{position:absolute;display:none;*top:29px;*margin-left:-82px;width:76px;}
 .slidenav{padding:1px 9px;
 display:block;
 font-size:13px;
