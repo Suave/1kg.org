@@ -19,18 +19,6 @@
     <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
     <script type="text/javascript" charset="utf-8">
       jQuery.noConflict();
-      jQuery(document).ready(function(){
-      jQuery('#topicnav').hover(function () {
-       jQuery('#slidebar').slideDown(100);jQuery(this).attr('style',"color:#E98523");jQuery('#slidemark').attr('src',"/images/slidemarkhover.png");
-       },
-      function () {
-       jQuery('#slidebar').slideUp(100);jQuery(this).attr('style',"color:#569701");jQuery('#slidemark').attr('src',"/images/slidemark.png");
-      })
-	
-	
-	
-      }); 
-      
     </script>
     <%= yield :heads %>
   </head>
@@ -114,7 +102,16 @@
 <div class="clear"></div>
 	
 </div><!-- end #wrapper -->
-
 <%= render :partial => "/shared/footer" %>
+<script type="text/javascript" charset="utf-8">
+      jQuery(document).ready(function(){
+      jQuery('#topicnav').hover(function () {
+       jQuery('#slidebar').slideDown(100);jQuery(this).attr('style',"color:#E98523");jQuery('#slidemark').attr('src',"/images/slidemarkhover.png");
+       },
+      function () {
+       jQuery('#slidebar').slideUp(100);jQuery(this).attr('style',"color:#569701");jQuery('#slidemark').attr('src',"/images/slidemark.png");
+      });
+      });       
+</script>
 </body>
 </html>
