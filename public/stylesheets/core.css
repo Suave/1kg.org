@@ -345,8 +345,7 @@ body.home #navWrap {
 #slidebar{position:absolute;display:none;-top:30px;-margin-left:-80px;width:76px;}
 .slidenav{padding:1px 9px;
 display:block;
-font-size:14px;
-font-weight:normal;
+font-size:13px;
 background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 .slidenav:hover{color:#fff;background:#569701}
 
