@@ -24,8 +24,7 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 .boxinter li{font-size:13px;list-style:none;}
 
 #timeline {font-size:13px;width:280px;margin-left:20px;color:#569701;}
-#timeline th{background:#e3fbb4;border: 1px #569701 solid;}
-.lefttable{text-align:right}
+#timeline th{background:#e3fbb4;border: 1px #569701 solid;font-weight:normal;text-align:center}
 
 .category{background:#e3fbb4;margin-bottom:20px;border:1px #569701 solid;width:320px;}
 .category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
@@ -65,7 +64,7 @@ margin:0;
 
 .buttonlink{background:url(/images/lightenschool/button.gif) no-repeat;
 color:#fff;
-margin:0 4px;padding:2px 6px;-padding:1px 6px;
+margin:0 4px;padding:1px 6px 3px;-padding:2px 6px 0;
 width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 
