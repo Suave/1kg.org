@@ -7,6 +7,22 @@ require 'gmap'
 include GMap
 
 namespace :schools do
+  desc "生成学校需求的Tag"
+  task :generate_need_tags => :environment do
+    # generate content
+    School.available.each do |school|
+      need = school.need
+      need.tags.clear
+      need.tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',').gsub(/,/, ' ')
+      need.save(false)
+      
+      $stdout.putc('.')
+      $stdout.flush
+    end
+    puts ''
+    puts "Successful."
+  end
+  
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
     schools = School.available

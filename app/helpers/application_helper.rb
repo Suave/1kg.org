@@ -1,5 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  include TagsHelper
+  
   def nav_menu(text, url, session_name)
     if session[:nav] == session_name
       return link_to(text, url, :class => "now")

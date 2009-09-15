@@ -52,7 +52,10 @@ class MiscController < ApplicationController
     @activities_for_teach = Activity.recent_by_category("支教")
     @activities_for_online = Activity.recent_by_category("网上活动")
     @activities_for_other = Activity.recent_by_category("其他")
-     
+    
+    # 显示需求标签云
+    @tags = SchoolNeed.tag_counts[0..50]
+    
     render :action => "index"
   end
   

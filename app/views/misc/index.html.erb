@@ -23,6 +23,19 @@
   </div>
 </div>
 
+<div class="box" id="search-front">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>学校需求</h3>
+      <div class="contents">
+        <% tag_cloud @tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to tag.name, '#', :class => css_class %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="box" id="cityList">
   <div class="boxOuter">
     <div class="boxInner">
