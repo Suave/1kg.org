@@ -12,9 +12,11 @@ namespace :schools do
     # generate content
     School.available.each do |school|
       need = school.need
-      need.tags.clear
-      need.tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',').gsub(/,/, ' ')
-      need.save(false)
+      if need
+        need.tags.clear
+        need.tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',').gsub(/,/, ' ')
+        need.save(false)
+      end
       
       $stdout.putc('.')
       $stdout.flush
