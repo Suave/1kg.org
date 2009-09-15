@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   has_many :topics, :order => "created_at desc"
   
   has_many :shares, :order => "created_at desc"
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 

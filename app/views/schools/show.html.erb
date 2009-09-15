@@ -142,7 +142,7 @@
               </form>
             </div>
 
-            <div id="traffic">
+            <div id="guides">
               <form>
               <% if @school.county -%>
               <p><label>学校在</label><%= @school.county.name %></p>
@@ -280,6 +280,18 @@
     </div>
   </div>
   <% end %>
+  
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>路线攻略</h3>
+        <div class="contents clearfix">
+          <%= render :partial => 'guides', :object => @school.guides %>
+        </div>
+        <p class="remark">&raquo; <%= link_to '提交攻略', new_school_guide_path(@school) %></p>
+      </div>
+    </div>
+  </div>
   
   <div class="box">
     <div class="boxOuter">

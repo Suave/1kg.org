@@ -41,9 +41,7 @@ class UsersController < ApplicationController
         render :action => 'new'
       end
     end
-    
   end
-
 
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
@@ -181,6 +179,7 @@ class UsersController < ApplicationController
     @stuffs = @user.stuffs
 
     @shares = @user.shares.available.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
+    @guides = @user.guides
   end
   
   def shares

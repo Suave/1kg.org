@@ -316,6 +316,16 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text    "description"
     t.text    "description_html"
   end
+  
+  create_table "school_guides", :force => true do |t|
+    t.string  "title"
+    t.text    "content"
+    t.integer "user_id"
+    t.integer "school_id"
+    t.integer "hits", :default => 0
+    
+    t.timestamps
+  end
 
   create_table "schools", :force => true do |t|
     t.integer  "user_id"

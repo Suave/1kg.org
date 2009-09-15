@@ -24,8 +24,6 @@ ActionController::Routing::Routes.draw do |map|
     session.logout 'logout', :action => "destroy"
   end
   
-  
-  
   map.resources :users, :member => {:submitted_activities => :get,
                                     :participated_activities => :get,
                                     :submitted_schools => :get,
@@ -34,7 +32,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :neighbors => :get,
                                     :shares => :get,
                                     :groups => :get,
-                                    :group_topics => :get},
+                                    :group_topics => :get,
+                                    :guides => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
     user.resources :neighbors
@@ -67,6 +66,7 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
+    school.resources :guides
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
                                                  :action => "show_date", 

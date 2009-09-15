@@ -27,8 +27,9 @@ class School < ActiveRecord::Base
   belongs_to :county
   belongs_to :validator, :class_name => "User", :foreign_key => "validated_by_id"
 
-  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy 
-  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy 
+  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy
+  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy   # Should be removed.
+  has_many   :guides,  :class_name => "SchoolGuide", :dependent => :destroy, :order => 'updated_at DESC'
   has_one    :need,    :class_name => "SchoolNeed", :dependent => :destroy 
   has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
   has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
