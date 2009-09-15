@@ -3,7 +3,7 @@ class GuidesController < ApplicationController
   before_filter :login_required, :except => ['show']
   
   def new
-    @school_guide = SchoolGuide.new(:school => @school)
+    @school_guide = SchoolGuide.new(:school_id => @school.id)
   end
   
   def create

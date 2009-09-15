@@ -6,5 +6,5 @@ class SchoolGuide < ActiveRecord::Base
   
   validates_presence_of :title, :content
   
-  attr_accessible :title, :content, :tag_list
+  attr_accessible :title, :content, :tag_list, :school_id, :user_id
 end
