@@ -323,7 +323,6 @@ body.home #navWrap {
   margin: -45px auto 0;
   position: relative;
   z-index: 10;
-  overflow: hidden;
 }
 /* =nav */
 #nav {
@@ -340,6 +339,17 @@ body.home #navWrap {
   font-weight: bold;
   font-size: 1.2em;
 }
+
+#topicnav{color:#569701;cursor:pointer;display:block;}
+#topicnav img{-padding-top:5px}
+
+#slidebar{position:absolute;display:none;*top:29px;*margin-left:-82px;width:76px;}
+.slidenav{padding:1px 9px;
+display:block;
+font-size:13px;
+background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
+.slidenav:hover{color:#fff;background:#569701}
+
 
 /* =breadcrumb */
 #breadcrumb {
