@@ -35,20 +35,11 @@ body {background:white;}
   </div>
   
   <div class="boxouter">
-  <div class="h2bar">
-    <h2><a href="<%= group_url(@group) -%>"><%= @group.title -%>小组</a></h2>
-    <span>
-    <% if not @group.joined?(current_user) -%>
-    <%= link_to "加入小组", join_group_url(@group, :to => CGI.escape(request.request_uri)),:class => "buttonlink" %>
-    <% end %>
-    <%= link_to "写新话题", new_topic_group_url(@group, :to => CGI.escape(request.request_uri)), :target => "_blank",:class => "buttonlink" %>
-    </span>
-    </div>
-   
+    <h3>讨论组</h3>
     <div class="boxinter">
   
   <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
-  <p style="text-align:right"><%= link_to "所有话题", board_url(@board), :target => "_blank",:class => "buttonlink" %></p>
+  <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
     </div>
   </div>
   
@@ -130,8 +121,8 @@ body {background:white;}
 	      </div>
 	      <p>以上奖品由探路者提供</p>
       </div>
-      
-      <div class="boxouter">
+    </div>
+    <div class="boxouter">
         <h3>Q&A</h3>
         <div class="boxinter">
           <p>Q：关联学校时没有我要写的学校怎么办？
@@ -140,8 +131,6 @@ body {background:white;}
           <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次</p>
         </div>
       </div>
-      
-    </div>
   </div>
  
 </div>
