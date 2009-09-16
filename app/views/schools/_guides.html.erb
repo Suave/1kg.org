@@ -1,16 +1,16 @@
-<table>
+<table id="guide">
   <tbody>
   <tr>
-    <th width="60%">标题</th>
+    <th width="45%" class="leftalign">标题</th>
     <th width="10%">访问</th>
-    <th width="10%">作者</th>
+    <th width="15%">作者</th>
     <th width="20%">最后更新</th>
   </tr>
   <% guides.each do |guide| -%>
   <tr>
-    <td>
+    <td class="leftalign">
       <%= link_to h(guide.title), school_guide_path(guide.school, guide), :class => 'link' %>
-      <small>标签：
+      <br/><small>标签：
       <% guide.tags.each do |tag| %>
        <%= link_to h(tag.name), '#' %>
       <% end %>

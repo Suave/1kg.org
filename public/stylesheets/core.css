@@ -1077,6 +1077,11 @@ h3.title {
 
 #contact h3 {background: none;}
 
+#guide{text-align:center;}
+#guide th{text-align:center;}
+
+#guide .leftalign{text-align:left}
+
 .incomplete{text-align: center; color: red;}
 
 .ui-tabs-hide { display: none; }
