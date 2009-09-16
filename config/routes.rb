@@ -10,7 +10,9 @@ ActionController::Routing::Routes.draw do |map|
   map.my_city "/my_city", :controller => "misc", :action => "my_city"
   
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
-  
+
+  map.tag  "/tags/:tag", :controller => "tags", :action => "show"
+
   #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"

@@ -22,9 +22,9 @@ module ApplicationHelper
     datetime.to_formatted_s(:month_and_day)
   end
   
-  def customize_paginate(value)
-		will_paginate value, :previous_label => '<<',
-												 :next_label => '>>'
+  def customize_paginate(value, params={})
+		will_paginate(value, params.merge({:previous_label => '<<',
+                          :next_label => '>>'}))
 	end
 
   def will_paginate_remote(paginator, options={})

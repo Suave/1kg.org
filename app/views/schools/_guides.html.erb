@@ -12,7 +12,7 @@
       <%= link_to h(guide.title), school_guide_path(guide.school, guide), :class => 'link' %>
       <br/><small>标签：
       <% guide.tags.each do |tag| %>
-       <%= link_to h(tag.name), '#' %>
+       <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
       <% end %>
       </small>
     </td>

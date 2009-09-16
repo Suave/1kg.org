@@ -29,7 +29,7 @@
       <h3>学校需求</h3>
       <div class="contents">
         <% tag_cloud @tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
-          <%= link_to tag.name, '#', :class => css_class %>
+          <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>
         <% end %>
       </div>
     </div>

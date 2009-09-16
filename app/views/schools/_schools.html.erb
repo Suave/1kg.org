@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% School.top10_popular.each do |school| -%>
+    <% schools.each do |school| -%>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to school.title, school_url(school) %></td>
       <td><%= school.karma %></td>
