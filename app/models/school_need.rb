@@ -27,11 +27,8 @@ class SchoolNeed < ActiveRecord::Base
   
   private
   def setup_tag
-    new_tag_list = ""
-    %w(urgency book stationary sport cloth accessory course teacher other).each do |need_item|
-      new_tag_list += self.send(need_item) unless self.send(need_item).nil?
-    end
-    self.tag_list = new_tag_list
+    self.tag_list = [self.urgency, self.book, self.stationary, self.sport, 
+                      self.cloth, self.accessory, self.course, self.teacher].join(',').gsub(/,/, ' ')
   end
   
 end

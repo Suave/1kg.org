@@ -1098,3 +1098,9 @@ h3.title {
 .share_by_widget li.to_xiaonei a{background:url(/images/share_icon.gif) -200px 0 no-repeat;}
 .share_by_widget li.to_kaixin a{background:url(/images/share_icon.gif) -164px 0 no-repeat;}
 .share_by_widget li.to_douban a{background:url(/images/share_icon.gif) -232px 0 no-repeat;}
+
+/* used by tag cloud */
+.tag1 { font-size: 1.0em; }
+.tag2 { font-size: 1.2em; }
+.tag3 { font-size: 1.4em; }
+.tag4 { font-size: 1.6em; }
