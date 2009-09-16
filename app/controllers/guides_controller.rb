@@ -37,8 +37,17 @@ class GuidesController < ApplicationController
   end
   
   def show
-    @school_guide = current_user.guides.find_by_id(params[:id])
-    @school_guide.increment!(:hits)
+    @school_guide = SchoolGuide.find_by_id(params[:id])
+    
+    respond_to do |format|
+      if @school_guide
+        @school_guide.increment!(:hits)
+        format.html
+      else
+        flash[:notice] = '对不起攻略不存在'
+        format.html { redirect_to root_path }
+      end
+    end
   end
   
   def destroy
