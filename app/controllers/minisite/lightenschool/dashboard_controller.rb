@@ -1,16 +1,15 @@
 class Minisite::Lightenschool::DashboardController < ApplicationController
   include Minisite::Lightenschool::DashboardHelper
   
-  before_filter :login_required, :only => [:submit, :process]
+  before_filter :login_required, :only => [:submit, :processing]
   
   def index
     @group = Group.find_by_slug('lightenschool')
     @board = @group.discussion.board
   end
   
-  # 提交攻略和 user profile
   def submit
-    @guide = SchoolGuide.new
+    @school_guide = SchoolGuide.new
     @profile = current_user.profile || Profile.new
   end
 
@@ -45,9 +44,5 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     
   end
 =end 
-  
-  def submit
-    
-  end
   
 end

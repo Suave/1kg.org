@@ -157,8 +157,8 @@ ActionController::Routing::Routes.draw do |map|
     site.namespace :lightenschool do |lightenschool|
       lightenschool.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
-        dash.submit   '/submit',  :action => "submit"
-        dash.processing '/processing',  :action => "processing"
+        dash.submit   'submit',  :action => "submit"
+        dash.processing 'processing',  :action => "processing"
       end
     end
   end
