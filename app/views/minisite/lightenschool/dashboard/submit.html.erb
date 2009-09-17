@@ -1,0 +1,38 @@
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/lightenschool.css" media="screen, projection" />
+<style type="text/css">
+body {background:white;}
+</style>
+
+<% end -%>
+
+<% @page_title = "提交攻略 - “点亮学校” 公益旅行攻略征集大赛" -%>
+
+<% form_for :guide, :url => minisite_lightenschool_processing_url do |f| %>
+  <p><label class="label">标题</label>
+  <%= f.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @guide, :title %>
+  </p>
+
+  <p><label class="label">标签</label>
+  <%= f.text_field :tag_list, :value => "点亮学校公益旅行攻略大赛", :size => 40, :class => "formText" %>
+  </p>
+  
+  <p><label class="label"><%= avatar_for current_user, "large" %></label>
+  <%= fckeditor_textarea("guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+  </p>
+  
+  <h3>个人资料</h3>
+  
+  <p><label class="label">真实姓名</label>
+  <%= text_field_tag "last_name", "", :size => 4 %> <%= text_field_tag "first_name", "", :size => 4  %>
+  </p>
+  
+  <p><label class="label">联系电话</label>
+  <%= text_field_tag "telephone" %>
+  </p>
+  
+  <p class="submit clearfix">
+    <span class="btnWrap"><%= submit_tag "发 布" %></span>
+    <span><%= link_to "取 消", root_url %></span>
+  </p>
+<% end %>
