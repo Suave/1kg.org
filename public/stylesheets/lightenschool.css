@@ -62,6 +62,7 @@ margin:0;
 }
 
 
+
 .buttonlink{background:url(/images/lightenschool/button.gif) no-repeat;
 color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-size:13px;}
 
@@ -70,3 +71,29 @@ color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-s
 #misc {padding:4em 0;width:960px;clear:both;text-align:center;font-size:13px;line-height:26px;}
 #misc img {margin:0 4px;}
 #misc span {position:relative;top:-12px;}
+
+
+.formbox{margin:30px 20px}
+
+.formbox span {font-style:italic;margin-left:15px;}
+
+.formbox h3 {
+color:#666;
+padding:8px 12px;
+font-size:1.4em;
+font-weight:bold;
+line-height:1.4em;
+margin-bottom:5px;
+}
+.formbox .label {
+clear:left;
+float:left;
+font-size:13px;
+padding:0 1em 0 0;
+text-align:right;
+width:auto;
+margin-left:20px;
+}
+.formText{width:250px}
+
+iframe{margin:10px 0 0 30px}

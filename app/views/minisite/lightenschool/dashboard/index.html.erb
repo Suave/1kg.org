@@ -46,8 +46,11 @@
 
 <div class="rcolumn">
   
-  <div class="boxouter">
-    <p><%= link_to "提交攻略", minisite_lightenschool_submit_url %></p>
+  <div class="boxouter" style="height:160px">
+    <div class="boxinter">
+    
+    <%= button_to "提交攻略", minisite_lightenschool_submit_url,:id => "submit_button" %>
+    </div>
   </div>
   
   <div class="boxouter">

@@ -12,36 +12,41 @@
 schools = @school_guide.new_record? ? current_user.visited_schools : @school_guide.user.visited_schools
 %>
 
-
-<% form_for :school_guide, :url => minisite_lightenschool_processing_url do |f| %>
-  <p><label class="label">标题</label>
-  <%= f.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @guide, :title %>
-  </p>
-
-  <p><label class="label">标签</label>
-  <%= f.text_field :tag_list, :value => "点亮学校公益旅行攻略大赛", :size => 40, :class => "formText" %> <span>（以空格分隔不同标签）</span>
-  </p>
+<% form_for :school_guide, :url => minisite_lightenschool_processing_url,:html => {:id => "form_guide"} do |f| %>
+  <div class="formbox" >
+    <h3>攻略信息</h3>
+    <p><label class="label">标题</label>
+    <%= f.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @guide, :title %>
+    </p>
   
-  <p><label class="label">我去的学校</label>
-  <%= f.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %>
-  </p>
-  
-  <p><label class="label"><%= avatar_for current_user, "large" %></label>
-  <%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
-  </p>
-  
-  <h3>个人资料</h3>
-  
-  <p><label class="label">真实姓名</label>
-  <%= text_field_tag "last_name", @profile.last_name, :size => 4 %> <%= text_field_tag "first_name", @profile.first_name, :size => 4  %>
-  </p>
-  
-  <p><label class="label">联系电话</label>
-  <%= text_field_tag "telephone", @profile.phone %>
-  </p>
-  
-  <p class="submit clearfix">
-    <span class="btnWrap"><%= submit_tag "发 布" %></span>
-    <span><%= link_to "取 消", root_url %></span>
-  </p>
+    <p><label class="label">标签</label>
+    <%= f.text_field :tag_list, :value => "点亮学校公益旅行攻略大赛", :size => 40, :class => "formText" %> <span>（用空格分隔不同标签， 例如：自驾游  武当山）</span>
+    </p>
+    
+    <p><label class="label">学校</label>
+    <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %>
+    </p>
+  </div>
+  <div class="formbox" >  
+    <h3>攻略正文</h3>
+    <%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+    </p>
+  </div>
+  <div class="formbox" >
+    <h3>个人资料</h3>
+      <span>请填写真实信息，我们会以此对获奖情况进行核对</span>
+      <p><label class="label">姓名</label>
+      <%= text_field_tag "last_name", @profile.last_name, :size => 4 %> <%= text_field_tag "first_name", @profile.first_name, :size => 4  %>
+      </p>
+      
+      <p><label class="label">联系电话</label>
+      <%= text_field_tag "telephone", @profile.phone,:style => "width:140px"%>
+      </p>
+  </div>
+  <div class="formbox" >
+    <p class="submit clearfix">
+      <span class="btnWrap"><%= submit_tag "发 布" %></span>
+      <span><%= link_to "取 消", root_url %></span>
+    </p>
+  </div>
 <% end %>
