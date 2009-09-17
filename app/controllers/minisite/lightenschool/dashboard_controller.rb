@@ -6,4 +6,8 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     
   end
   
+  def submit
+    
+  end
+  
 end
