@@ -1,0 +1,5 @@
+<p><label>真实姓名</label><%= profile_form.text_field :last_name, :size => 4, :class => 'text' %> <%= profile_form.text_field :first_name, :size => 4, :class => 'text' %></p>
+<p><label>性别</label><%= profile_form.select :gender, {"女" => 1, "男" => 0} %></p>
+<p><label>生日</label><%= profile_form.date_select :birth, :use_month_names => %w(一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月), :start_year => 1930, :end_year => Time.now.year %></p>
+<p><label>电话</label><%= profile_form.text_field :phone, :size => 20 %></p><p><label>博客</label> <%= profile_form.text_field :blog_url, :size => 20, :class => 'text' %></p>
+<p><label>个人介绍</label><%= profile_form.text_area :bio, :style => "width:250px;height:100px;" %></p>

@@ -13,12 +13,7 @@
     <div class="block">
       <h3>个人资料</h3>
       <% form_for :profile, :url => user_path(:id => @user, :for => 'profile'), :html => {:method => 'put'} do |f| %>
-        <p><label>博客</label> <%= f.text_field :blog_url, :size => 20, :class => 'text' %></p>
-        <p><label>个人介绍</label><%= f.text_area :bio, :style => "width:250px;height:100px;" %></p>
-        <p><label>真实姓名</label><%= f.text_field :last_name, :size => 4, :class => 'text' %> <%= f.text_field :first_name, :size => 4, :class => 'text' %></p>
-        <p><label>性别</label><%= f.select :gender, {"女" => 1, "男" => 0} %></p>
-        <p><label>生日</label><%= f.date_select :birth, :use_month_names => %w(一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月), :start_year => 1930, :end_year => Time.now.year %></p>
-        <p><label>电话</label><%= f.text_field :phone, :size => 20 %></p>
+        <%= render :partial => "profile_form", :object => f %>
         <p><label>隐私设置</label><%= f.select :privacy, {"对所有人保密" => 0, "仅对友邻公开" => 1} %></p>
         <p><label>&nbsp;</label><%= submit_tag "保 存" %></p>
       <% end -%>
