@@ -50,7 +50,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   <div class="formbox" >
     <p class="submit clearfix">
       <%= submit_tag "提交" ,:class => "bigbutton"%>
-      <button class="bigbutton" onclick="window.location='/minisite/lightenschool'"> 取 消</button>
+      <button class="bigbutton" onclick="window.location='/minisite/lightenschool';return false"> 取 消</button>
     </p>
   </div>
 <% end %>

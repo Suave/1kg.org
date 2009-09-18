@@ -72,7 +72,7 @@ color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-s
 #misc img {margin:0 4px;}
 #misc span {position:relative;top:-12px;}
 
-#form_guide{float:left;width:580px}
+#form_guide{float:left;width:580px;margin-bottom:100px}
 
 .formbox{margin:30px 10px;}
 
@@ -80,7 +80,7 @@ color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-s
 
 .formbox h3 {
 color:#666;
-background:#f2f2f2;
+background:#f3f3f3;
 padding:8px 12px;
 font-size:1.4em;
 font-weight:bold;
@@ -98,13 +98,14 @@ margin-left:10px;
 }
 
 .formbox p {margin:1em 0;}
-#qa{margin-bottom:100px;float:right;width:330px;background:#f9f9f9}
+#qa{margin-bottom:100px;float:right;width:330px;background:#fff}
 #qa p {font-size:13px;line-height:24px;
 padding:0 16px;
 }
 .formText{width:220px}
 
-.bigbutton{background:black;border:none;width:100px;padding:5px 10px;margin:0 10px;color:white;}
+.bigbutton{font-size:14px;background:#ce5c00;border:none;width:100px;padding:5px 0;margin:0 10px;color:white;cursor:pointer;}
+.bigbutton:hover{background:#f57900}
 
 iframe{margin:10px 0 0 15px}
 h1{line-height:0}
