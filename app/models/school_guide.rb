@@ -4,7 +4,7 @@ class SchoolGuide < ActiveRecord::Base
   
   acts_as_taggable
   
-  validates_presence_of :title, :content
+  validates_presence_of :title, :content, :school_id
   
   attr_accessible :title, :content, :tag_list, :school_id, :user_id
 end
