@@ -27,13 +27,13 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   
     <p><label class="label">标签 </label>
     <%= f.text_field :tag_list, :value => "", :size => 40, :class => "formText" %><span>（用空格分隔不同标签， 例如：自驾游   武当山 )</span></p>
-    <p> <span>注： 系统会给攻略自动加上 <a href="/minisite/lightenschool">点亮学校</a> 的标签 。</span></p>
+    <p> <span>注： 系统会给攻略自动加上 <a href="/minisite/lightenschool" tabindex="-1">点亮学校</a> 的标签 。</span></p>
      <%= error_message_on @school_guide, :school_id %>
     <p><label class="label">学校</label>
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
    *</p>
    
-    <p><span>没有我想要的学校? 参考右侧的 <a href="#qa">常见问题</a> 。</span></p>
+    <p><span>没有我想要的学校? 参考右侧的 <a href="#qa" tabindex="-1">常见问题</a> 。</span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
