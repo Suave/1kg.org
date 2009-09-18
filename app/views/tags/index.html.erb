@@ -1,0 +1,16 @@
+<% @page_title = @title = "所有标签" %>
+
+<% content_for :fullsize do %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3></h3>
+      <div class="contents">
+        <% tag_cloud @tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
+          <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

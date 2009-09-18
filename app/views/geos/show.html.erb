@@ -68,6 +68,7 @@
     <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
   <% end %>
   
+  <%= render :partial => "school_box", :locals => {:provinces => @cities, :schools => @schools} %>
   <%= render :partial => "city_search" %>
 <% end -%>
 
@@ -116,7 +117,7 @@
     <div class="boxInner">
       <h3>周边的学校</h3>
       <div class="contents">
-        <%= render :partial => 'school_maps' %>
+        <%= render :partial => 'school_maps', :locals => {:city => @city} %>
       </div>
     </div>
   </div>
