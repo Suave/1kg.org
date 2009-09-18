@@ -6,6 +6,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
   def index
     @group = Group.find_by_slug('lightenschool')
     @board = @group.discussion.board
+    @guides = SchoolGuide.find_tagged_with('点亮学校').paginate(:per_page => 10, :page => params[:guide_page])
   end
   
   def submit

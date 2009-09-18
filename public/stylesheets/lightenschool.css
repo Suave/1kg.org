@@ -1,13 +1,6 @@
 .lcolumn {float:left; margin-left:10px;-margin-left:0px; width:520px;}
 .rcolumn {float:right; width:360px;margin-right:10px;}
 
-h2{color:#569701;line-height:1.5em;font: bold 1.5em Arial, Helvetica, sans-serif;float:left;}
-.h2bar{width:505px;padding:8px 5px 8px 10px;background:#c6e787;height:22px;margin:20px 0 10px;}
-.h2bar span{float:right;margin:3px 5px 0 0;}
-.h2bar h2 a{color:#569701}
-.h2bar h2 a:hover{color:#ff9000}
-
-
 .boxouter h3 {
 color:#569701;
 padding:8px 12px;
@@ -104,8 +97,8 @@ padding:0 16px;
 }
 .formText{width:200px}
 
-.bigbutton{font-size:14px;display:block;float:left;background:#569701;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
-.bigbutton:hover{background:#7BBF00}
+.bigbutton{font-size:14px;display:block;float:left;background:#f2680c;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
+.bigbutton:hover{background:#ff7519}
 
 iframe{margin:10px 0 0 15px}
 h1{line-height:0}
