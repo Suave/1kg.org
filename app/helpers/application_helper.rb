@@ -38,8 +38,11 @@ module ApplicationHelper
     end
   end
   
-  def schools_paginate(schools)
-    will_paginate_remote(schools, :previous_label => '<<', :next_label => '>>', :update => 'schools')
+  def schools_paginate(schools, geo=nil)
+    will_paginate_remote(schools, :previous_label => '<<', 
+                :next_label => '>>', 
+                :update => 'schools', 
+                :url => (geo.nil? ? geos_path : schools_geo_path(geo)))
   end
 
   def inbox_link(title="收件箱", user=current_user)
