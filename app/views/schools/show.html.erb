@@ -1,9 +1,7 @@
 <% content_for :heads do -%>
   <% #TODO: Should move to application %>
   <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-  <script type="text/javascript" charset="utf-8">
-    google.load("jquery", "1.3");
-  </script>
+
   
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
@@ -93,15 +91,15 @@
         <span class="postNew tipText">
           <% if @school.visited?(current_user) == 'visited' -%>
             我去过
-            <a href="javascript:void(0);" onclick="$('#visit_date').show()">修改时间</a>
+            <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">修改时间</a>
             <%= link_to "我没去过", novisited_school_url(@school), :method => :put %>
 
           <% elsif @school.visited?(current_user) == 'interesting' -%>
-            <a href="javascript:void(0);" onclick="$('#visit_date').show()">我去过</a>
+            <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
             <%= link_to "不关注了", novisited_school_url(@school), :method => :put %>
 
           <% elsif @school.visited?(current_user) == false -%>
-            <a href="javascript:void(0);" onclick="$('#visit_date').show()">我去过</a>
+            <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
             <%= link_to "我关注", interest_school_url(@school), :method => :put %>
 
           <% end -%>        

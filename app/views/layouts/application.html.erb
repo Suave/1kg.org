@@ -16,9 +16,9 @@
     <%= javascript_include_tag :defaults %>
     <%= calendar_date_select_includes "red", :locale => "zh" %>
     <%= javascript_include_tag :fckeditor %>
-    <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
+    <%= javascript_include_tag 'jQuery/jquery.min' %>
     <%= yield :heads %>
-     <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript" charset="utf-8">
       jQuery.noConflict();
     </script>
   </head>
