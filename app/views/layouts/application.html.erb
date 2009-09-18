@@ -17,10 +17,10 @@
     <%= calendar_date_select_includes "red", :locale => "zh" %>
     <%= javascript_include_tag :fckeditor %>
     <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
-    <script type="text/javascript" charset="utf-8">
+    <%= yield :heads %>
+     <script type="text/javascript" charset="utf-8">
       jQuery.noConflict();
     </script>
-    <%= yield :heads %>
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
 		<div id="header">
@@ -106,10 +106,10 @@
 <script type="text/javascript" charset="utf-8">
       jQuery(document).ready(function(){
       jQuery('#topicnav').hover(function () {
-       jQuery('#slidebar').slideDown(100);jQuery(this).attr('style',"color:#E98523");jQuery('#slidemark').attr('src',"/images/slidemarkhover.png");
+       jQuery('#slidebar').slideDown(1);jQuery(this).attr('style',"color:#E98523");jQuery('#slidemark').attr('src',"/images/slidemarkhover.png");
        },
       function () {
-       jQuery('#slidebar').slideUp(100);jQuery(this).attr('style',"color:#569701");jQuery('#slidemark').attr('src',"/images/slidemark.png");
+       jQuery('#slidebar').slideUp(1);jQuery(this).attr('style',"color:#569701");jQuery('#slidemark').attr('src',"/images/slidemark.png");
       });
       });       
 </script>
