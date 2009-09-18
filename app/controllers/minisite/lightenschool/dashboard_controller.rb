@@ -15,6 +15,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
 
   def processing
     @school_guide = SchoolGuide.new params[:school_guide]
+    @school_guide.tag_list.add '点亮学校'
     @school_guide.user = current_user
      
     profile = { :first_name => params[:first_name],

@@ -18,22 +18,26 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
 
 <% form_for :school_guide, :url => minisite_lightenschool_processing_url,:html => {:id => "form_guide"} do |f| %>
   <div class="formbox" >
+
     <h3>攻略信息</h3>
+    <%= error_message_on @school_guide, :title %>
     <p><label class="label">标题</label>
-    <%= f.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @school_guide, :title %>
-    </p>
+    <%= f.text_field :title, :size => 40, :class => "formText" %> 
+    *</p>
   
-    <p><label class="label">标签</label>
-    <%= f.text_field :tag_list, :value => "点亮学校公益旅行攻略大赛", :size => 40, :class => "formText" %> <span>（用空格分隔不同标签， 例如：自驾游  武当山）</span>
-    </p>
-    
+    <p><label class="label">标签 </label>
+    <%= f.text_field :tag_list, :value => "", :size => 40, :class => "formText" %><span>（用空格分隔不同标签， 例如：自驾游   武当山 )</span></p>
+    <p> <span>注： 系统会给攻略自动加上 <a href="/minisite/lightenschool">点亮学校</a> 的标签 。</span></p>
+     <%= error_message_on @school_guide, :school_id %>
     <p><label class="label">学校</label>
-    <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> <%= error_message_on @school_guide, :school_id %>
-    </p>
-    <p><span>没有我想要的学校? 参考<a href="#qa">常见问题</a></span></p>
+    <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
+   *</p>
+   
+    <p><span>没有我想要的学校? 参考右侧的 <a href="#qa">常见问题</a> 。</span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
+      <p><span>在攻略请尽量提供一些具体的实用信息，例如：住宿点、班车时间等等。</span></p>
     <%= error_message_on @school_guide, :content %>
     <%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
     </p>
@@ -42,14 +46,16 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     <h3>个人资料</h3>
       <span>请填写真实信息，我们会以此对获奖情况进行核对</span>
       <p><label class="label">真实姓名</label>
-      <%= text_field_tag "last_name", @profile.last_name, :size => 4 %> <%= text_field_tag "first_name", @profile.first_name, :size => 4  %>
+      <%= text_field_tag "last_name", @profile.last_name, :size => 4 %> *<%= text_field_tag "first_name", @profile.first_name, :size => 4  %>*
       </p>
       
       <p><label class="label">联系电话</label>
-      <%= text_field_tag "telephone", @profile.phone,:style => "width:140px"%>
+      <%= text_field_tag "telephone", @profile.phone,:style => "width:140px"%>*
       </p>
+       <p><span> * 号为必填项<span></p>
   </div>
   <div class="formbox" >
+       
     <p class="submit clearfix">
       <%= submit_tag "提交" ,:class => "bigbutton"%>
       <button class="bigbutton" onclick="window.location='/minisite/lightenschool';return false"> 取 消</button>

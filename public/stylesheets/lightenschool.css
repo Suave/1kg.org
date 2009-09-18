@@ -97,8 +97,10 @@ padding:0 16px;
 }
 .formText{width:200px}
 
+span.formError{font-size:1em;color:#ffffff;background:#cc0000;padding:4px 8px;width:90%;display:block}
+
 .bigbutton{font-size:14px;display:block;float:left;background:#f2680c;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
 .bigbutton:hover{background:#ff7519}
-
+span.fieldWithErrors{margin-left:0}
 iframe{margin:10px 0 0 15px}
 h1{line-height:0}
