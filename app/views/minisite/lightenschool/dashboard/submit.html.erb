@@ -11,6 +11,9 @@
 <% 
 schools = @school_guide.new_record? ? current_user.visited_schools : @school_guide.user.visited_schools
 %>
+<div class="clearfix" id="page-title">
+<h1>攻略提交</h1>
+</div>
 
 <% form_for :school_guide, :url => minisite_lightenschool_processing_url,:html => {:id => "form_guide"} do |f| %>
   <div class="formbox" >
@@ -25,6 +28,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     
     <p><label class="label">学校</label>
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %>
+    <span>没有我想要的学校? 参考<a href="#qa">常见问题</a></soan>
     </p>
   </div>
   <div class="formbox" >  
@@ -45,8 +49,15 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   </div>
   <div class="formbox" >
     <p class="submit clearfix">
-      <span class="btnWrap"><%= submit_tag "发 布" %></span>
+      <span class="btnWrap"><%= submit_tag "提交" %></span>
       <span><%= link_to "取 消", root_url %></span>
     </p>
+  </div>
+  <div id="qa" class="formbox">
+     <h3>Q&A 常见问题 </h3>
+    <p>Q：提供的学校选择里，没有我想要的学校怎么办？
+    <br/>A：先到学校页面，找到您去过学校，在该学校页面里点击“我去过”<br/>
+    <br/>Q：网站上没有我要写的学校怎么办？<br/>A：先提交学校信息，等验证通过以后再提交攻略<br/>
+    <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次</p>
   </div>
 <% end %>
