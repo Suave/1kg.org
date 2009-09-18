@@ -12,15 +12,17 @@ This is the source code of 1kg.org. Here is a brief intro about 1kg.org in Engli
 
   cp config/database.yml.example config/database.yml
   
-3. install missing gems.
-
-  sudo rake gems:install
+3. install missing gems: http://wiki.github.com/Suave/1kg.org/1kgorg
   
 4. run db migration
 
-  rake db:migrate
+  rake db:schema:load
   
-5. start application.
+5. load bootstrap data
+
+  rake db:data:load
+  
+6. start application.
 
   rackup -p 3000 config.ru
 
