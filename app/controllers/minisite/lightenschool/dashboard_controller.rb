@@ -14,35 +14,18 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
   end
 
   def processing
-    
-  end
-=begin    
-  def register
-    
-  end
-  
-  
-  # 保存报名表
-  def apply
-    unless user_profile_fullfill?(current_user.profile)
-      @profile = current_user.profile || Profile.new
-      render :action => "register" 
+    profile = { :first_name => params[:first_name],
+                :last_name  => params[:last_name],
+                :phone      => params[:phone] }
+                
+    if current_user.profile
+      current_user.profile.update_attributes!(profile)
     else
-      if current_user.profile
-        current_user.profile.update_attributes!(params[:profile])
-      else
-        # 用户第一次填个人资料
-        profile = Profile.new(params[:profile])
-        current_user.profile = profile
-        current_user.save!
-      end
-      
-      flash[:notice] = "个人资料修改成功"
-      redirect_to minisite_lightenschool_index_url
+      # 用户第一次填个人资料
+      profile = Profile.new(profile)
+      current_user.profile = profile
+      current_user.save!
     end
-    
-    
   end
-=end 
   
 end
