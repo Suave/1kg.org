@@ -20,7 +20,7 @@ class GeosController < ApplicationController
   def show
     @city = Geo.find(params[:id])
     @school = School.find_by_id(params[:school_id]) # option
-    @map_center = [@city.latitude, @city.longitude, 7]
+    @map_center = [@city.latitude, @city.longitude, 9]
     
     @schools = School.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
                                   :order => "updated_at desc",
