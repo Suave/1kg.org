@@ -16,11 +16,11 @@
     <%= javascript_include_tag :defaults %>
     <%= calendar_date_select_includes "red", :locale => "zh" %>
     <%= javascript_include_tag :fckeditor %>
-    <%= javascript_include_tag 'jQuery/jquery-1.2.6.pack' %>
+    <%= javascript_include_tag 'jQuery/jquery.min' %>
+    <%= yield :heads %>
     <script type="text/javascript" charset="utf-8">
       jQuery.noConflict();
     </script>
-    <%= yield :heads %>
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
 		<div id="header">
@@ -103,6 +103,5 @@
 	
 </div><!-- end #wrapper -->
 <%= render :partial => "/shared/footer" %>
-
 </body>
 </html>

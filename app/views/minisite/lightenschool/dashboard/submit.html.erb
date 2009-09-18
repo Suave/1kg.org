@@ -7,7 +7,7 @@
 <% end -%>
 
 <% @page_title = "提交攻略 - “点亮学校” 公益旅行攻略征集大赛" -%>
-
+<% content_for :fullsize do -%>
 <% 
 schools = @school_guide.new_record? ? current_user.visited_schools : @school_guide.user.visited_schools
 %>
@@ -28,8 +28,8 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     
     <p><label class="label">学校</label>
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %>
-    <span>没有我想要的学校? 参考<a href="#qa">常见问题</a></soan>
     </p>
+    <p><span>没有我想要的学校? 参考<a href="#qa">常见问题</a></span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
@@ -39,7 +39,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   <div class="formbox" >
     <h3>个人资料</h3>
       <span>请填写真实信息，我们会以此对获奖情况进行核对</span>
-      <p><label class="label">姓名</label>
+      <p><label class="label">真实姓名</label>
       <%= text_field_tag "last_name", @profile.last_name, :size => 4 %> <%= text_field_tag "first_name", @profile.first_name, :size => 4  %>
       </p>
       
@@ -49,15 +49,16 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   </div>
   <div class="formbox" >
     <p class="submit clearfix">
-      <span class="btnWrap"><%= submit_tag "提交" %></span>
-      <span><%= link_to "取 消", root_url %></span>
+      <%= submit_tag "提交" ,:class => "bigbutton"%>
+      <button class="bigbutton" onclick="window.location='/minisite/lightenschool'"> 取 消</button>
     </p>
   </div>
-  <div id="qa" class="formbox">
+<% end %>
+<div id="qa" class="formbox">
      <h3>Q&A 常见问题 </h3>
     <p>Q：提供的学校选择里，没有我想要的学校怎么办？
-    <br/>A：先到学校页面，找到您去过学校，在该学校页面里点击“我去过”<br/>
-    <br/>Q：网站上没有我要写的学校怎么办？<br/>A：先提交学校信息，等验证通过以后再提交攻略<br/>
-    <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次</p>
-  </div>
-<% end %>
+    <br/>A：先到<a class="buttonlink" href="/geos">查询页面</a>，找到您去过学校，在该学校页面里点击“我去过”。<br/>
+    <br/>Q：网站上没有我要写的学校怎么办？<br/>A：先到<a class="buttonlink" href="/schools/new">提交学校</a>页面提交学校信息，等验证通过以后再提交攻略。<br/>
+    <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次。</p>
+</div>
+<% end -%>
