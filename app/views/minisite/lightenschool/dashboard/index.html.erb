@@ -1,6 +1,9 @@
 
 <% content_for :heads do -%>
 <%= render :partial => "head" %>
+<style type="text/css"> 
+body {background: #ececec url(/images/lightenschool/background.png)no-repeat center top;}
+</style>
 <% end -%>
 
 <% @page_title = "“点亮学校” 公益旅行攻略征集大赛" -%>
@@ -22,12 +25,11 @@
       <p>通过简单的行动，每个人都可以把自己的旅程变成公益之旅，让自己的旅行更有意义！</p>
     </div>
   </div>
+  
   <div class="boxouter">
-    <h3> 参加活动</h3>
+    <h3>参赛攻略</h3>
     <div class="boxinter">
-      <p>攻略将于9月20日正式开始征集。</p>
-      <p>在出行前,您可以先了解“点亮学校”活动的攻略<a class="buttonlink" href="/docs/lightenschool.pdf" target="_blank">征集要求</a>。</p>
-      <p>如果您没有出行计划，同样可以通过推荐其他用户攻略的方式来参与这次活动。</p>
+ 
     </div>
   </div>
   
@@ -45,9 +47,15 @@
 
 
 <div class="rcolumn">
-  
-  <div class="boxouter">
-    <p><%= link_to "提交攻略", minisite_lightenschool_submit_url %></p>
+<div class="boxouter">
+    <h3> 参加活动</h3>
+    <div class="boxinter">
+      <p style="text-align:center">上传攻略，人人都可以做公益旅行家！</p>
+      <%= button_to "提交攻略", minisite_lightenschool_submit_url,:class => "bigbutton" %>
+      <br/>
+      <p>在出行前，请先了解比赛的攻略<a class="buttonlink" href="/docs/lightenschool.pdf" target="_blank">征集要求</a>。</p>
+      <p>如果您没有出行计划，同样可以通过推荐其他用户攻略的方式来参与这次活动。</p>
+    </div>
   </div>
   
   <div class="boxouter">
@@ -123,19 +131,8 @@
 	<p>以上奖品由探路者提供</p>
       </div>
       </div>
-
     </div>
-    <div class="boxouter">
-
-        <h3>Q&A</h3>
-        <div class="boxinter">
-          <p>Q：关联学校时没有我要写的学校怎么办？
-          <br/>A：先到学校页面，点击“我去过”<br/>
-          <br/>Q：网站上没有我要写的学校怎么办？<br/>A：先提交学校信息，等验证通过以后再提交攻略<br/>
-          <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次</p>
-        </div>
-      </div>
-
+    
   </div>
  
 </div>

@@ -20,8 +20,11 @@ class GeosController < ApplicationController
   def show
     @city = Geo.find(params[:id])
     @school = School.find_by_id(params[:school_id]) # option
-    @map_center = [@city.latitude, @city.longitude, 7]
+    @map_center = [@city.latitude, @city.longitude, 9]
     
+    @schools = School.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
+                                  :order => "updated_at desc",
+                                  :per_page => 10)
     #setup_destination_stuff(@city)
     
     if !@city.children.blank?
@@ -96,12 +99,32 @@ class GeosController < ApplicationController
   
   def schools
     @city = Geo.find(params[:id])
-    @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1,
-                                                          :order => "updated_at desc",
-                                                          :per_page => 10)
+    if @city.parent.nil?
+      @schools = School.get_near_schools_at(geo)..paginate(:page => params[:page] || 1,
+                                  :order => "updated_at desc",
+                                  :per_page => 10)
+    else
+      @schools = School.paginate(:page => params[:page] || 1, 
+                                  :conditions => ['geo_id = ?', @city.id],
+                                  :order => "updated_at desc",
+                                  :per_page => 10)
+    end
     
     respond_to do |format|
       format.html {render :layout => false}
+      format.json do
+        schools_json = []
+        @schools.each do |school|
+          next if school.basic.blank?
+          schools_json << {:i => school.id,
+                           :t => school.icon_type,
+                           :n => school.title,
+                           :a => school.basic.latitude,
+                           :o => school.basic.longitude
+                          }
+        end
+        render :text => "var schools =#{schools_json.to_json}", :layout => false
+      end
     end
   end
   

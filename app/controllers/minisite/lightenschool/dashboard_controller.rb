@@ -1,5 +1,4 @@
 class Minisite::Lightenschool::DashboardController < ApplicationController
-  include Minisite::Lightenschool::DashboardHelper
   
   before_filter :login_required, :only => [:submit, :processing]
   
@@ -14,18 +13,43 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
   end
 
   def processing
+    @school_guide = SchoolGuide.new params[:school_guide]
+     
     profile = { :first_name => params[:first_name],
                 :last_name  => params[:last_name],
-                :phone      => params[:phone] }
-                
-    if current_user.profile
-      current_user.profile.update_attributes!(profile)
+                :phone      => params[:telephone] }
+    
+    unless update_user_profile(profile)
+      flash[:notice] = "请您完成填写个人资料，方便主办方与您联系"
+      render :action => "submit"
+    else
+      if @school_guide.save
+        flash[:notice] = "攻略提交成功！"
+        redirect_to minisite_lightenschool_index_url
+      else
+        logger.info @school_guide.errors.full_messages.join("\n") 
+        render :action => "submit"
+      end
+    end
+
+  end
+  
+  private
+  def update_user_profile(profile)
+    @profile = current_user.profile || Profile.new
+    
+    profile.each_value do |v|
+      return false if v.blank?
+    end
+    
+    unless @profile.new_record?
+      @profile.update_attributes!(profile)
     else
       # 用户第一次填个人资料
-      profile = Profile.new(profile)
-      current_user.profile = profile
+      current_user.profile = @profile
       current_user.save!
     end
+    return true
   end
   
 end

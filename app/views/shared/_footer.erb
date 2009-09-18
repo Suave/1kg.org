@@ -3,8 +3,19 @@
   <% @page = Page.find_by_slug('footer') -%>
   <%= render :text => @page.body if @page %>
   </div>
-
 </div>
+
+<!-- slidedown menu -->
+<script type="text/javascript" charset="utf-8">
+      jQuery(document).ready(function(){
+      jQuery('#topicnav').hover(function () {
+       jQuery('#slidebar').slideDown(1);jQuery(this).attr('style',"color:#E98523");jQuery('#slidemark').attr('src',"/images/slidemarkhover.png");
+       },
+      function () {
+       jQuery('#slidebar').slideUp(1);jQuery(this).attr('style',"color:#569701");jQuery('#slidemark').attr('src',"/images/slidemark.png");
+      });
+      });       
+</script>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
 document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
