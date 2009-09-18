@@ -2,7 +2,7 @@
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 
   <% # 如果提供城市，则只显示此城市的学校 %>
-  <% if @city && @city.parent %>
+  <% if @city %>
     <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
   <% else %>
     <script type="text/javascript" src="/schools.json"></script>
