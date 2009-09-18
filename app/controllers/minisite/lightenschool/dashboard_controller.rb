@@ -15,6 +15,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
 
   def processing
     @school_guide = SchoolGuide.new params[:school_guide]
+    @school_guide.user = current_user
      
     profile = { :first_name => params[:first_name],
                 :last_name  => params[:last_name],
