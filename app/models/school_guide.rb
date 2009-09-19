@@ -11,5 +11,12 @@ class SchoolGuide < ActiveRecord::Base
   validates_presence_of :school_id, :message => "请选择您去的学校"
   validates_presence_of :user_id
   
-  attr_accessible :title, :content, :tag_list, :school_id, :user_id
+  attr_accessible :title, :content, :tag_list, :school_id, :user_id, :last_replied_at, :last_replied_by_id, :comments_count
+  
+  after_create :initial_last_replied
+    
+  private
+  def initial_last_replied
+    self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
+  end
 end
