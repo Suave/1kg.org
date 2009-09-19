@@ -92,10 +92,7 @@ margin-left:10px;
 }
 
 .formbox p {margin:1em 0;}
-#qa{margin-bottom:100px;float:right;width:340px;background:#fff}
-#qa p {font-size:13px;line-height:24px;
-padding:0 16px;
-}
+
 .formText{width:200px}
 
 span.formError{font-size:1em;color:#ffffff;background:#cc0000;padding:4px 8px;width:90%;display:block}

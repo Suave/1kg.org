@@ -32,8 +32,8 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     <p><label class="label">学校</label>
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
    *</p>
-   
-    <p><span>没有您想要的学校?　到<a href="/geos"> 地图页面 </a>，找到您去过学校，在该学校页面里点击“我去过”。</span></p>
+  <p><span>没有您想要的学校?　可以到<a href="/geos"> 地图页面 </a>，找到您去过学校，在该学校页面里点击“我去过”。</span></p>
+  <p><span>如果地图里没有您去过学校，您可以 <a href="/schools/new">提交学校</a>  来帮大家收录这所学校。</span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
@@ -62,11 +62,5 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     </p>
   </div>
 <% end %>
-<div id="qa" class="formbox">
-     <h3>Q&A 常见问题 </h3>
-    <p>Q：提供的学校选择里，没有我想要的学校怎么办？
-    <br/>A：先到<a class="buttonlink" href="/geos">查询页面</a>，找到您去过学校，在该学校页面里点击“我去过”。<br/>
-    <br/>Q：网站上没有我要写的学校怎么办？<br/>A：先到<a class="buttonlink" href="/schools/new">提交学校</a>页面提交学校信息，等验证通过以后再提交攻略。<br/>
-    <br/>Q：我想提交两篇攻略怎么办？<br/>A：提交两次。</p>
-</div>
+
 <% end -%>
