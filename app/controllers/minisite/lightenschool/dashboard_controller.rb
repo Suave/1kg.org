@@ -34,7 +34,9 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
         render :action => "submit"
       end
     end
-
+  end
+  
+  def required
   end
   
   private
