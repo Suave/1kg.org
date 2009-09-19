@@ -103,3 +103,6 @@ span.fieldWithErrors{margin-left:0}
 iframe{width:568px;}
 
 h1{line-height:0}
+
+ol.required {list-style-type: decimal; margin:25px;}
+ol.required li {margin:5px 0;}
