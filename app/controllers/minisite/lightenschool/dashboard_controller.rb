@@ -28,7 +28,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
         flash[:notice] = "攻略提交成功！"
         redirect_to minisite_lightenschool_index_url
       else
-        logger.info @school_guide.errors.full_messages.join("\n") 
+        #logger.info @school_guide.errors.full_messages.join("\n") 
         render :action => "submit"
       end
     end

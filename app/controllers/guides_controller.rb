@@ -42,6 +42,8 @@ class GuidesController < ApplicationController
     respond_to do |format|
       if @school_guide
         @school_guide.increment!(:hits)
+        @comments = @school_guide.comments.available.paginate :page => params[:page] || 1, :per_page => 15
+        @comment = GuideComment.new
         format.html
       else
         flash[:notice] = '对不起攻略不存在'
