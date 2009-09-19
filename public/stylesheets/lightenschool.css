@@ -2,9 +2,10 @@
 .rcolumn {float:right; width:360px;margin-right:10px;}
 
 .boxouter h3 {
-color:#569701;
-padding:8px 12px;
-background:#c6e787;
+color:#fff;
+padding:6px 12px;
+-padding:8px 12px 4px;
+background:#f29455;
 line-height:1.3em;
 font: bold 1.5em Arial, Helvetica, sans-serif;
 }
@@ -16,13 +17,13 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 .boxinter p{font-size:13px;line-height:20px;margin-bottom:10px;}
 .boxinter li{font-size:13px;list-style:none;}
 
-#timeline {font-size:13px;width:280px;margin-left:20px;color:#569701;}
-#timeline th{background:#e3fbb4;border: 1px #569701 solid;font-weight:normal;text-align:center}
+#timeline {font-size:13px;width:280px;margin-left:20px;color:#d93d16;}
+#timeline th{background:#ffe8d9;border: 1px #f2680c solid;font-weight:normal;text-align:center}
 
-.category{background:#e3fbb4;margin-bottom:20px;border:1px #569701 solid;width:320px;}
+.category{background:#ffe8d9;margin-bottom:20px;border:1px #d93d16 solid;width:320px;}
 .category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
 .category h4{display:block;
-background:#569701;
+background:#d93d16;
 color:white;
 width:100%;
 font-size:1.2em;
@@ -33,7 +34,7 @@ padding:5px 0;
 }
   
 
-.prize{width:270px;height:78px;padding:10px;border: 1px #b1d271 dashed; margin:10px 15px;background:#f4ffde;}
+.prize{width:270px;height:78px;padding:10px; margin:10px 15px;}
 
 .prize img{border: 1px #888 double;float:left}
 .info{float:left;margin-left:20px;-margin-left:10px; padding:5px;}
@@ -57,7 +58,7 @@ margin:0;
 .button-to{margin:10px 100px 50px 100px;-margin-bottom:10px;}
 
 .buttonlink{background:url(/images/lightenschool/button.gif) no-repeat;
-color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-size:13px;}
+color:#fff;margin:0 4px;padding:2px 6px 2px;width:60px;font-size:13px;}
 
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 
@@ -67,7 +68,7 @@ color:#fff;margin:0 4px;padding:1px 6px 3px;*padding:2px 6px 0;width:60px;font-s
 
 #form_guide{float:left;width:580px;margin-bottom:100px}
 
-.formbox{margin:30px 10px;}
+.formbox{margin:30px 5px;}
 
 .formbox span {color:#555;margin-left:15px;}
 
@@ -91,7 +92,7 @@ margin-left:10px;
 }
 
 .formbox p {margin:1em 0;}
-#qa{margin-bottom:100px;float:right;width:330px;background:#fff}
+#qa{margin-bottom:100px;float:right;width:340px;background:#fff}
 #qa p {font-size:13px;line-height:24px;
 padding:0 16px;
 }
@@ -99,8 +100,9 @@ padding:0 16px;
 
 span.formError{font-size:1em;color:#ffffff;background:#cc0000;padding:4px 8px;width:90%;display:block}
 
-.bigbutton{font-size:14px;display:block;float:left;background:#f2680c;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
+.bigbutton{font-size:14px;font-weight:bold;display:block;float:left;background:#f2680c;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
 .bigbutton:hover{background:#ff7519}
 span.fieldWithErrors{margin-left:0}
-iframe{margin:10px 0 0 15px}
+iframe{width:560px;}
+
 h1{line-height:0}
