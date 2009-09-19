@@ -5,7 +5,7 @@
 color:#fff;
 padding:6px 12px;
 -padding:8px 12px 4px;
-background:#f29455;
+background:#f2960c;
 line-height:1.3em;
 font: bold 1.5em Arial, Helvetica, sans-serif;
 }
@@ -18,12 +18,12 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 .boxinter li{font-size:13px;list-style:none;}
 
 #timeline {font-size:13px;width:280px;margin-left:20px;color:#d93d16;}
-#timeline th{background:#ffe8d9;border: 1px #f2680c solid;font-weight:normal;text-align:center}
+#timeline th{background:#fff2bf;border: 1px #f2680c solid;font-weight:normal;text-align:center}
 
-.category{background:#ffe8d9;margin-bottom:20px;border:1px #d93d16 solid;width:320px;}
+.category{background:#fff2bf;margin-bottom:20px;border:1px #e57e17 solid;width:320px;}
 .category p {color:＃606060;text-indent:1em;font-style: italic;margin:4px;font-size:1em;}
 .category h4{display:block;
-background:#d93d16;
+background:#e57e17;
 color:white;
 width:100%;
 font-size:1.2em;
@@ -101,8 +101,7 @@ span.formError{font-size:1em;color:#ffffff;background:#cc0000;padding:4px 8px;wi
 .bigbutton:hover{background:#ff7519}
 span.fieldWithErrors{margin-left:0}
 iframe{width:568px;}
-
-h1{line-height:0}
-
-ol.required {list-style-type: decimal; margin:25px;}
-ol.required li {margin:5px 0;}
+#requires{margin-bottom:100px;}
+#download{font-size:13px;margin:25px 0;}
+ol.required {list-style-type: decimal; margin:25px;font-size:13px;}
+ol.required li {margin:10px 0;}

@@ -7,13 +7,12 @@
 <% end -%>
 
 <% @page_title = "提交攻略 - “点亮学校” 公益旅行攻略征集大赛" -%>
+
+<% @title = "提交攻略" %>
 <% content_for :fullsize do -%>
 <% 
 schools = @school_guide.new_record? ? current_user.visited_schools : @school_guide.user.visited_schools
 %>
-<div class="clearfix" id="page-title">
-<h1>攻略提交</h1>
-</div>
 
 
 <% form_for :school_guide, :url => minisite_lightenschool_processing_url,:html => {:id => "form_guide"} do |f| %>

@@ -1,8 +1,6 @@
 <% content_for :heads do -%>
 <%= render :partial => "head" %>
-<style type="text/css"> 
-body {background: #ececec url(/images/lightenschool/background.png)no-repeat center top;}
-</style>
+
 <% end -%>
 
 <% @page_title = "攻略征集需求 - “点亮学校” 公益旅行攻略征集大赛" -%>
@@ -11,9 +9,9 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 <% content_for :crumb do -%>
 <li>点亮学校</li>
 <% end -%>
-
-
-<div class="boxouter">
+<p id="download">下载这份文件的<a class="buttonlink" href="/docs/lightenschool.pdf">打印版本</a> 。</p>
+<div id="requires">
+<div class="formbox">
   <h3>征集要求</h3>
   <ol class="required">
     <li>攻略中应包含对作者背景的简单介绍 </li>
@@ -24,7 +22,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   </ol>
 </div>
 
-<div class="boxouter">
+<div class="formbox">
   <h3>攻略内容要求</h3>
   <ol class="required">
     <li>攻略名称、线路背景情况说明、相关背景图片 </li>
@@ -38,11 +36,12 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   </ol>
 </div>
 
-<div class="boxouter">
+<div class="formbox">
   <h3>版权说明</h3>
   <ol class="required">
     <li>提交的方案必须为原创、完整作品,不得抄袭他人作品，参赛者必须是参赛作品的合法拥有者，具有自主版权，并承担相应的法律责任 </li>
     <li>对于采用现有的文字、图片等素材，要在作品的创作说明中注明出处，并在作品引用处标注其出处,图片素材可用于赞助商对本次活动的非商业宣传； </li>
     <li>本次活动最终解释权归爱聚（北京）咨询有限公司所有</li>
   </ol>
+</div>
 </div>
