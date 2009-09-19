@@ -33,7 +33,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
    *</p>
    
-    <p><span>没有我想要的学校? 参考右侧的 <a href="#qa" tabindex="-1">常见问题</a> 。</span></p>
+    <p><span>没有您想要的学校?　到<a href="/geos"> 地图页面 </a>，找到您去过学校，在该学校页面里点击“我去过”。</span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
