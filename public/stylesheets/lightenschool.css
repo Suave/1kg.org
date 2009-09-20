@@ -34,7 +34,7 @@ padding:5px 0;
 }
   
 
-.prize{width:270px;height:78px;padding:10px; margin:10px 15px;}
+.prize{width:270px;height:78px;padding:10px; margin:5px 15px;}
 
 .prize img{border: 1px #888 double;float:left}
 .info{float:left;margin-left:20px;-margin-left:10px; padding:5px;}
@@ -66,7 +66,7 @@ color:#fff;margin:0 4px;padding:2px 6px 2px;width:60px;font-size:13px;}
 #misc img {margin:0 4px;}
 #misc span {position:relative;top:-12px;}
 
-#form_guide{float:left;width:580px;margin-bottom:100px}
+#form_guide{float:left;width:600px;margin-bottom:100px}
 
 .formbox{margin:30px 5px;}
 
@@ -74,7 +74,7 @@ color:#fff;margin:0 4px;padding:2px 6px 2px;width:60px;font-size:13px;}
 
 .formbox h3 {
 color:#666;
-background:#f3f3f3;
+background:#f5f5f5;
 padding:8px 12px;
 font-size:1.4em;
 font-weight:bold;
@@ -100,8 +100,9 @@ span.formError{font-size:1em;color:#ffffff;background:#cc0000;padding:4px 8px;wi
 .bigbutton{font-size:14px;font-weight:bold;display:block;float:left;background:#f2680c;border:1px solid;width:100px;margin:0 10px;color:white;cursor:pointer;height:32px}
 .bigbutton:hover{background:#ff7519}
 span.fieldWithErrors{margin-left:0}
-iframe{width:568px;}
+iframe{width:588px;margin-top:10px}
 #requires{margin-bottom:100px;}
 #download{font-size:13px;margin:25px 0;}
-ol.required {list-style-type: decimal; margin:25px;font-size:13px;}
+ol.required {list-style-type: decimal; margin:20px;font-size:13px;}
 ol.required li {margin:10px 0;}
+#writeguide{width:320px;float:right}

@@ -32,7 +32,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
     <%= f.select :school_id, [['从你去过的学校里，选择攻略的目标学校','']]+schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
    *</p>
   <p><span>没有您想要的学校?　可以到<a href="/geos"> 地图页面 </a>，找到您去过学校，在该学校页面里点击“我去过”。</span></p>
-  <p><span>如果地图里没有您去过学校，您可以 <a href="/schools/new">提交学校</a>  来帮大家收录这所学校。</span></p>
+  <p><span>如果地图里没有您去过学校，有能是您帮助大家找到了未收录的学校， 请 <a href="/schools/new">提交学校</a>  收录这所学校。</span></p>
   </div>
   <div class="formbox" >  
     <h3>攻略正文</h3>
@@ -59,7 +59,20 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
       <%= submit_tag "提交" ,:class => "bigbutton"%>
       <button class="bigbutton" onclick="window.location='/minisite/lightenschool';return false"> 取 消</button>
     </p>
-  </div>
+  </div>    
 <% end %>
-
+<div id="writeguide" class="formbox" >
+    <h3>攻略编写指南</h3>
+  <p><span>请在攻略中包含以下信息</sapn></p>
+  <ol class="required">
+    <li>线路背景情况说明、相关背景图片 </li>
+    <li>线路形成安排与时间安排 </li>
+    <li>景点到学校的主要交通方式、附线路地图示意图 </li>
+    <li>最佳旅行时间、装备推荐 </li>
+    <li>学校主要情况介绍（师生人数、班级设置情况、教舍用具情况、师资情况、软硬件需求) </li>
+    <li>学校公益活动类型推荐 </li>
+    <li>学校周边主要景点、住宿、餐食推荐 </li>
+    <li>费用预算清单 </li>
+  </ol>
+  </div>
 <% end -%>
