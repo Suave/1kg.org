@@ -8,11 +8,13 @@
   </thead>
   <tbody>
     <% schools.each do |school| -%>
-    <% next if school.nil %>
+
+    <% next if school.nil? %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to school.title, school_url(school) %></td>
       <td><%= school.karma %></td>
-      <td><%= link_to school.user.login, user_url(school.user) if school.user %></td>
+      <td><%= link_to school.user.login, user_url(school.user) unless school.user.nil? %></td>
+
     </tr>
     <% end -%>
   </tbody>
