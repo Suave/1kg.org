@@ -4,8 +4,6 @@
   <h4>> <%= link_to "返回#{@group.title}小组", group_url(@group) %></h4>
 <% end -%>
 
-
-
 <h2 class="title"><%= @page_title %></h2>
 <div class="moderators">
   版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
