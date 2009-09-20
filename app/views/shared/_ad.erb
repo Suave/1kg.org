@@ -1,10 +1,11 @@
-<% a = rand(3) %>
+<!-- adlist is a hash(url&img) list for ads --> 
+<% adlist =
+[{'url'=>'/ministie/mooncake','img'=>'/images/ad/mooncake.jpg'},
+ {'url'=>'/ministie/postcard','img'=>'/images/ad/postcard.jpg'},
+ {'url'=>'/ministie/lightenschool','img'=>'/images/ad/lightenschool.jpg'}] %>
+
+<% random = adlist[rand(adlist.length)] %>
+
 <div class="ad">
-<% if a == 0 %>
-<a href="/minisite/mooncake"><img src="/images/ad/mooncake.jpg" height="176px" width="290px"></img></a>
-<% elsif a == 1 %>
-<a href="/minisite/postcard"><img src="/images/ad/postcard.jpg" height="176px" width="290px"></img></a>
-<% elsif a == 2 %>
-<a href="/minisite/lightenschool"><img src="/images/ad/lightenschool.jpg" height="176px" width="290px"></img></a>
-<% end %>
+<a href="<%= random['url'] -%>"><img src="<%= random['img'] -%>" height="176px" width="290px"></img></a>
 </div>
