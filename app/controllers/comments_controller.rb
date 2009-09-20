@@ -10,34 +10,19 @@ class CommentsController < ApplicationController
   def create
     if params[:type] == "activity"
       @comment = ActivityComment.new(params[:comment])
-      @comment.user = current_user
-      if @comment.save
-        redirect_to activity_url(@comment.activity)
-      else
-        if @comment.errors[:body]
-          flash[:notice] = @comment.errors[:body]
-        else
-          flash[:notice] = "留言发布失败, 请重新登录, 再试试"
-        end
-        redirect_to activity_url(@comment.activity)
-      end
+      save_comment @comment
       
     elsif params[:type] == "share"
       @comment = ShareComment.new(params[:comment])
-      @comment.user = current_user
-      # TODO need refactor, see application_controller
-      if @comment.save
-        redirect_to share_url(@comment.share)
-      else
-        #logger.info @comment.errors.inspect
-        if @comment.errors[:body]
-          flash[:notice] = @comment.errors[:body]
-        else
-          flash[:notice] = "留言发布失败, 请重新登录, 再试试"
-        end
-        redirect_to share_url(@comment.share)
-      end
+      save_comment @comment
+      
+    elsif params[:type] == "guide"
+      @comment = GuideComment.new params[:comment]
+      save_comment @comment
+      
     end
+    
+    redirect_to_correct_page @comment
   end
   
   def edit
@@ -59,11 +44,30 @@ class CommentsController < ApplicationController
   end
   
   private
+  def save_comment(comment)
+    comment.user = current_user
+    unless comment.save
+      if comment.errors[:body]
+        flash[:notice] = comment.errors[:body]
+      else
+        flash[:notice] = "留言发布失败, 请重新登录, 再试试"
+      end
+    end
+  end
+  
   def redirect_to_correct_page(comment)
     if comment.type == "ActivityComment"
-      redirect_to activity_url(comment.type_id)
+      
+      redirect_to activity_url(comment.activity)
+      
     elsif comment.type == "ShareComment"
-      redirect_to share_url(comment.type_id)
+      
+      redirect_to share_url(comment.share)
+      
+    elsif comment.type == "GuideComment"
+      
+      redirect_to school_guide_url(comment.school_guide.school, comment.school_guide)
+    
     end
   end
   

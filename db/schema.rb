@@ -323,6 +323,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "user_id"
     t.integer "school_id"
     t.integer "hits", :default => 0
+    t.integer  "comments_count",           :default => 0,     :null => false
+    t.datetime "last_modified_at"
+    t.integer  "last_modified_by_id"
+    t.datetime "last_replied_at"
+    t.integer  "last_replied_by_id"
     
     t.timestamps
   end
