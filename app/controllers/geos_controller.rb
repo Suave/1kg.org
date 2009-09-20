@@ -100,7 +100,7 @@ class GeosController < ApplicationController
   def schools
     @city = Geo.find(params[:id])
     if @city.parent.nil?
-      @schools = School.get_near_schools_at(geo)..paginate(:page => params[:page] || 1,
+      @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1,
                                   :order => "updated_at desc",
                                   :per_page => 10)
     else
