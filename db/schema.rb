@@ -343,6 +343,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "category"
     t.integer  "geo_id"
     t.integer  "county_id"
+    t.integer  "main_photo_id"
     t.string   "title",                                  :null => false
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
