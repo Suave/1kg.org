@@ -14,7 +14,14 @@ namespace :schools do
       need = school.need
       if need
         need.tags.clear
-        need.tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',').gsub(/,/, ' ')
+        tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
+        tag_list.gsub!(/,/, ' ')
+        tag_list.gsub!(/，/, ' ')
+        tag_list.gsub!(/、/, ' ')
+        tag_list.gsub!(/。/, ' ')
+        tag_list.gsub!(/：/, ' ')
+        tag_list.gsub!(/；/, ' ')
+        need.tag_list = tag_list
         need.save(false)
       end
       

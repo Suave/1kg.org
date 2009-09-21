@@ -27,8 +27,14 @@ class SchoolNeed < ActiveRecord::Base
   
   private
   def setup_tag
-    self.tag_list = [self.urgency, self.book, self.stationary, self.sport, 
+    tag_list = [self.urgency, self.book, self.stationary, self.sport, 
                       self.cloth, self.accessory, self.course, self.teacher].join(',').gsub(/,/, ' ')
+    tag_list.gsub!(/,/, ' ')
+    tag_list.gsub!(/，/, ' ')
+    tag_list.gsub!(/、/, ' ')
+    tag_list.gsub!(/。/, ' ')
+    tag_list.gsub!(/：/, ' ')
+    tag_list.gsub!(/；/, ' ')
+    self.tag_list = tag_list
   end
-  
 end
