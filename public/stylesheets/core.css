@@ -270,7 +270,7 @@ body.ad-column-180 #content-secondary {
 
 .postNew {
   position: absolute;
-  top: 15px;
+  top: 64px;
   right: 340px;
   font-weight: bold;
   font-size:1.1em;
@@ -774,10 +774,9 @@ body.schools form legend {
 /* =同城
  * -------------------------------------------------------------------------- */
 #page-title h1 {
-	float:left;
 	color: #e98523;
   font-weight: bold;
-  font-size: 2.5em;
+  font-size: 2em;
   margin: 0 5px .5em;
 }
 
