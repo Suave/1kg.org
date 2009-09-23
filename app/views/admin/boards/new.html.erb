@@ -5,7 +5,7 @@
 
 <div class="setting">
   <div class="block">
-    <h3>创建 <%= @geo.name %> 的讨论区</h3>
+    <h3>创建 <%= @geo.name if @geo %> 的讨论区</h3>
     <p class="note">点击“创建”发布一个城市讨论区</p>
     <% form_for :city_board, :url => admin_boards_url(:type => "city") do |f| -%>
     <%= f.hidden_field :geo_id, :value => @geo.id %>

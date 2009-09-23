@@ -27,7 +27,7 @@
           <%= @school_guide.hits %> 浏览
           <small>标签：
           <% @school_guide.tags.each do |tag| %>
-            <%= link_to tag, '#' %>
+            <%= link_to tag, tag_path(:tag => tag) %>
           <% end %>
           </small>
         </p>
