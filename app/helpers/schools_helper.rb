@@ -30,4 +30,14 @@ module SchoolsHelper
   def edit_school_position_path(school)
     edit_school_path(school, :step => 'position')
   end
+  
+  def render_school_main_photo(school)
+    html = ''
+    if school.main_photo
+      html += image_tag(school.main_photo.public_filename(:small))
+    else
+      html += image_tag(image_path('/images/default_school.jpg'), :width => "200")
+    end
+    html
+  end
 end

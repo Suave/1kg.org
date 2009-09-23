@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
                            :order => "memberships.created_at desc"
   
   has_many :stuffs
+  has_many :votes
   
   before_save :encrypt_password
   
@@ -223,7 +224,11 @@ class User < ActiveRecord::Base
     joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 25
   end
   
-  
+  def voted?(obj)
+    v = Vote.find(:first, :conditions => ['user_id = ? and voteable_id = ? and voteable_type = ? and vote = ?',
+                                        self.id, obj.id, obj.class.to_s, true])
+    !v.nil?
+  end
   
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"

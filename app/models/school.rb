@@ -41,6 +41,7 @@ class School < ActiveRecord::Base
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc"
   has_many :photos, :order => "id desc"
+  belongs_to :main_photo, :class_name => 'Photo'
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 

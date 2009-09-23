@@ -23,6 +23,25 @@ class GuidesController < ApplicationController
     @school_guide = current_user.guides.find(params[:id])
   end
   
+  def vote
+    @school_guide = SchoolGuide.find(params[:id])
+    
+    respond_to do |format|
+      if @school_guide.nil?
+        flash[:notice] = '对不起，攻略不存在'
+        format.html {redirect_to root_path}
+      elsif current_user.voted?(@school_guide)
+        flash[:notice] = '对不起，您已经投过票了'
+        format.html {redirect_to school_guide_path(@school, @school_guide)}
+      else
+        vote = Vote.new(:vote => true, :user_id => current_user.id)
+        @school_guide.votes << vote
+        flash[:notice] = '投票成功'
+        format.html {redirect_to school_guide_path(@school, @school_guide)}
+      end
+    end
+  end
+  
   def update
     @school_guide = current_user.guides.find(params[:id])
     
@@ -38,9 +57,10 @@ class GuidesController < ApplicationController
   
   def show
     @school_guide = SchoolGuide.find_by_id(params[:id])
-    
+
     respond_to do |format|
       if @school_guide
+        @voters = @school_guide.votes.map(&:user)
         @school_guide.increment!(:hits)
         @comments = @school_guide.comments.available.paginate :page => params[:page] || 1, :per_page => 15
         @comment = GuideComment.new
