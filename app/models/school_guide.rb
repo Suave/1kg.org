@@ -3,7 +3,7 @@ class SchoolGuide < ActiveRecord::Base
   belongs_to :user
   has_many   :comments, :class_name => "GuideComment", :foreign_key => "type_id", :dependent => :destroy
   
-  
+  acts_as_voteable
   acts_as_taggable
   
   validates_presence_of :title, :message => "不能为空"

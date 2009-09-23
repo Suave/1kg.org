@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :guides
+    school.resources :guides, :member => {:vote => :post}
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
                                                  :action => "show_date", 

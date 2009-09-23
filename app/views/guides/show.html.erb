@@ -31,6 +31,18 @@
           <% end %>
           </small>
         </p>
+        <p>
+          共有<%= @school_guide.votes.count %>位用户推荐了此攻略,
+          <% if logged_in? -%>
+            <% if current_user.voted?(@school_guide) -%>
+              <%= image_tag(image_path('/images/right.png')) %> 您已推荐了此攻略
+            <% else -%>
+              <%= button_to '推荐此攻略', vote_school_guide_path(@school_guide.school, @school_guide), :class => 'button' %>
+            <% end -%>
+          <% else -%>
+            <%= link_to "登录进行推荐", new_session_path %>
+          <% end -%>
+        </p>
       </div>
       
       <div class="entry">
@@ -40,6 +52,15 @@
       <% if @school_guide.user == current_user -%>
       <p class="remark">&raquo; <%= link_to "编辑", edit_school_guide_url(@school, @school_guide) %> | <%= link_to "删除", school_guide_url(@school, @school_guide), :confirm => "确定删除么?", :method => :delete %></p>
       <% end -%>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>推荐此攻略的用户</h2>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @voters} %>
     </div>
   </div>
 </div>
