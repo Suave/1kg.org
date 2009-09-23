@@ -26,13 +26,6 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     </div>
   </div>
   
-  <div class="boxouter">
-    <h3>最新攻略</h3>
-    <div class="boxinter">
-      <%= render :partial => '/schools/guides', :object => SchoolGuide.recent %>
-    </div>
-  </div>
-  
 <% unless @guides.empty? %>
   <div class="boxouter">
     <h3>参赛攻略</h3>
