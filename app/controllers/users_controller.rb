@@ -223,7 +223,9 @@ class UsersController < ApplicationController
   
   def get_user_record(user)
     # user's published activities
-    @activities = user.submitted_activities.find(:all, :limit => 5)
+    @activities   = user.submitted_activities.find(:all, :limit => 5)
+    @submitted    = @user.submitted_activities.find(:all, :limit => 5)
+    @participated = @user.participated_activities.find(:all, :limit => 5)
     
     #user's submitted schools
     @schools = user.submitted_schools.find :all, :limit => 5

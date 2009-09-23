@@ -1,3 +1,8 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
+
 <% @page_title = "#{@user.login}的个人空间" -%>
 
 <% content_for :crumb do -%>
@@ -48,46 +53,52 @@
 </strong></div>
 <% end -%>
 
-<% if @shares.blank? -%>
-
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>参加过<%= @user.participated_activities.size %>个活动, 但还没有活动分享</h3>
-        <div class="contents">
-          <% if @user == current_user -%>
-          <p>++ <%= link_to "写分享", new_share_url %></p>
-          <% end -%>
-        </div>
-      </div>
-    </div>
-  </div>
-<% else -%>
-
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>分享</h3>
-        <div class="contents">
-          <%= render :partial => "shares", :object => @shares %>
-        </div>
-        <p class="remark">&raquo; <%= link_to "查看#{@user.login}的全部分享", shares_user_url(@user) %> (<%= @user.shares.size %>)</p>
-      </div>
-    </div>
-  </div>
-<% end -%>
-
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= @user.login %>提交的攻略</h3>
-      <div class="contents">
-        <%= render :partial => "/schools/guides", :object => @guides %>
+      <h3>分享&攻略</h3>
+      
+      <div class="tabbedPanel" id="share_tabs">
+        <ul class="tab">
+          <% [["分享", "shares"], ["攻略", "guides"]].each do |type| %>
+            <li><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
+        </ul>
+
+        <div class="panel setting">
+          <div id='shares'>
+            <% if @shares.blank? -%>
+              <div class="contents">
+                <p>参加过<%= @user.participated_activities.size %>个活动, 但还没有活动分享</p>
+                <% if @user == current_user -%>
+                  <p>++ <%= link_to "写分享", new_share_url %></p>
+                <% end -%>
+              </div>
+            <% else -%>
+              <%= render :partial => "shares", :object => @shares %>
+            <% end -%>
+            <p class="remark">&raquo; <%= link_to "查看#{@user.login}的全部分享", shares_user_url(@user) %> (<%= @user.shares.size %>)</p>
+          </div>
+          
+          <div id="guides">
+            <% if @guides.blank? -%>
+              <div class="contents">
+                <p>还没有活动攻略</p>
+              </div>
+            <% else -%>
+              <%= render :partial => "/schools/guides", :object => @guides %>
+            <% end -%>
+            <p class="remark">&raquo; <%= link_to "查看#{@user.login}的全部攻略", guides_user_url(@user) %> (<%= @user.guides.count %>)</p>
+          </div>
+        </div>
       </div>
-      <p class="remark">&raquo; <%= link_to "查看#{@user.login}的全部攻略", guides_user_url(@user) %> (<%= @user.guides.count %>)</p>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  jQuery("#share_tabs").tabs();
+</script>
 
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 
