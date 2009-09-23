@@ -1056,7 +1056,7 @@ h3.title {
 }
 #content-primary .shareEntry .metadata p,
 #content-primary .shareEntry ol .meta {
-  margin: 0;
+  margin-bottom: 1em;
   color: #999;
 }
 .shareEntry .avatar {
@@ -1125,3 +1125,8 @@ h3.title {
 .tag4 { font-size: 1.6em; }
 
 .ad{margin-bottom:10px;}
+
+.buttonlink{background:url(/images/lightenschool/button.gif) no-repeat;
+color:#fff;margin:0 4px;padding:2px 6px 2px;width:60px;font-size:13px;}
+
+.buttonlink:hover{background-position:0 -21px;color:#fff;}
