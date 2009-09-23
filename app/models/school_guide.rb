@@ -14,7 +14,9 @@ class SchoolGuide < ActiveRecord::Base
   attr_accessible :title, :content, :tag_list, :school_id, :user_id, :last_replied_at, :last_replied_by_id, :comments_count
   
   after_create :initial_last_replied
-    
+  
+  named_scope :recent, :limit => 5, :order => 'created_at DESC'
+  
   private
   def initial_last_replied
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
