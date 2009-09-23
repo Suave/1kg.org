@@ -270,7 +270,6 @@ body.ad-column-180 #content-secondary {
 
 .postNew {
   position: absolute;
-  top: 64px;
   right: 340px;
   font-weight: bold;
   font-size:1.1em;
@@ -282,7 +281,7 @@ body.ad-column-180 #content-secondary {
   font-weight: bold;
 }
 
-#what_time{position:absolute;top:34px;right:340px;}
+#what_time{position:absolute;top:72px;right:340px;}
 #visit_date input{width:100px;}
 
 .box p.remark {

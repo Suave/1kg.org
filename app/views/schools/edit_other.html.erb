@@ -37,8 +37,8 @@
       <p class="radioBtn"><label class="label">公益组织资助</label><%= radio_choice l, :ngo_support %></p>
       <p><label class="label">组织名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
       <p><label class="label">开始时间</label>
-      <%= l.text_field :ngo_start_at, :size => 15, :class => "formText calendar" %>  
-      <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif" class="calendar" /></p>
+      <%= l.text_field :ngo_start_at, :size => 15, :class => "vDateField" %>  
+      </p>
       <p><label class="label">联系人</label><%= l.text_field :ngo_contact, :size => 10, :class => 'formText' %></p>
       <p><label class="label">联系方式</label><%= l.text_field :ngo_contact_via, :sizze => 15, :class => 'formText' %></p>
       <p><label class="label">建议</label><%= l.text_area :advice, :cols => 40, :rows => 10 %></p>
@@ -54,8 +54,8 @@
       <p><label class="label">QQ</label><%= r.text_field :qq, :size => 15, :class => 'formText' %></p>
       <p><label class="label">MSN</label><%= r.text_field :msn, :size => 15, :class => 'formText' %></p>
       <p><label class="label">收集时间</label>
-      <%= r.text_field :survey_at, :size => 15, :class => 'formText calendar' %>
-      <img alt="Calendar" onclick="new CalendarDateSelect( $(this).previous(), {year_range:10} );" src="/images/calendar_date_select/calendar.gif" class="calendar" /></p>
+      <%= r.text_field :survey_at, :size => 15, :class => 'vDateField' %>
+      </p>
       <% end -%>
     </fieldset>
     
