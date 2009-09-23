@@ -2,7 +2,7 @@
 
 class Minisite::Mooncake::DashboardController < ApplicationController
   include StuffUtil
-  before_filter :login_required, :except => [:index, :password, :comment, :love_message]
+  before_filter :login_required, :except => [:index, :password, :comment, :love_message, :donors]
   before_filter :find_stuff_type, :only => [:index, :password, :comment, :love_message, :messages]
   def index
     @group = Group.find_by_slug('mooncake')
