@@ -32,10 +32,10 @@
             <% if current_user.voted?(@school_guide) -%>
                          您已推荐了此攻略
             <% else -%>
-              <%= link_to '推荐攻略', vote_school_guide_path(@school_guide.school, @school_guide), :class => 'buttonlink' %>
+              <%= link_to '推荐攻略', vote_school_guide_path(@school_guide.school, @school_guide), :method => 'post', :class => 'buttonlink' %>
             <% end -%>
           <% else -%>
-            <%= link_to "登录推荐", new_session_path ,:class => "buttonlink" -%>
+            <%= link_to "登录推荐", new_session_path(:to => school_guide_path(@school_guide.school, @school_guide)) ,:class => "buttonlink" -%>
           <% end -%>
         </p>
         
