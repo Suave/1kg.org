@@ -36,18 +36,16 @@
           <% end %>
       </small>
       <div class="metadata">
-        <div class="avatar" style="margin:5px;padding:5px;border:1px #ffba8c dashed;"><p style="margin:0;padding:0;text-align:center"><a href="#vote_list" style="font-size:2.6em;color:#ff6600"><%= @school_guide.votes.count -%></a>次推荐</p> <% if logged_in? -%>
+        <div class="avatar" style="margin:5px;padding:0 7px 7px;border:1px #ffba8c dashed;"><p style="margin:0;padding:0;text-align:center"><a href="#vote_list" style="font-size:2.6em;color:#ff6600"><%= @school_guide.votes.count -%></a>次推荐</p> <% if logged_in? -%>
             <% if current_user.voted?(@school_guide) -%>
             您已推荐了
             <% else -%>
-              <%= link_to '推荐攻略', vote_school_guide_path(@school_guide.school, @school_guide), :class => 'buttonlink' %>
+              <%= link_to '推荐攻略', vote_school_guide_path(@school_guide.school, @school_guide), :method => 'post', :class => 'buttonlink' %>
             <% end -%>
           <% else -%>
-            <%= link_to "登录推荐", new_session_path ,:class => "buttonlink" -%>
+            <%= link_to "登录推荐", new_session_path(:to => school_guide_path(@school_guide.school, @school_guide)) ,:class => "buttonlink" -%>
           <% end -%></div>
-        <p>
-          <%= @school_guide.hits %>  次浏览
-        </p>
+        <span style="margin:5px;"><%= @school_guide.hits %>  次浏览</span>
         
       </div>
       
