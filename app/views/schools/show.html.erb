@@ -110,32 +110,42 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>学校信息</h3>
+        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交, <%= validate_for_human @school %></span></h3>
         <div class="tabbedPanel" id="tabs">
           <%= render :partial => "show_tabmenu" %>
           <div class="panel setting">
             <div id='basic'>
               <form>
-              <p><label>贡献</label><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交, <%= validate_for_human @school %></p>
-              <p><label>位置</label>
-                <% if @school.geo.parent %>
-                  <%= h @school.geo.parent.name %> > 
-                <% end %>
-                <%= h @school.geo.name %>
-              </p>
-              <% if @basic -%>
-
-              <p><label>地址</label><%= h @basic.address %>，<%= h @basic.zipcode %> (电话：<%= h @basic.telephone %>)</p>
-              <p><label>校长</label><%= h @basic.master %></p>
-              <p><label>图书室</label><%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书" if ! @basic.book_amount.blank? %></p>
-              <p><label>电脑</label><%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>
-              <p><label>其他情况</label><%= h @basic.level_amount %>年级，<%= h @basic.class_amount %>班级，<%= h @basic.student_amount %>学生，<%= h @basic.teacher_amount %>老师</p>
               
+                
+              <% if @basic -%>
+              <p><label>地区</label><% if @school.geo.parent %><%= h @school.geo.parent.name %> > <% end %><%= h @school.geo.name %></p>
+              <p><label>地址</label><%= h @basic.address %>　邮编： <%= h @basic.zipcode %> </p>
+              <% unless @basic.master.blank? %><p><label>校长</label><%= h @basic.master %> 　电话：<%= h @basic.telephone %></p><%end-%>
+              <% if @contact -%>
+                <p><label>学校联系人</label><%= h @contact.name %>　职务： <%= h @contact.role %></p>
+                <p><label>联系方式</label>
+                <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
+                <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
+                <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%></p>
               <% else -%>
-
-              <p class="incomplete">没有学校基本信息</p>
-
+                <p class="incomplete">没有联系人信息</p>
               <% end -%>
+              <p><label>学校规模</label>年制：<%= h @basic.level_amount %>　班级：<%= h @basic.class_amount %>　学生：<%= h @basic.student_amount %>　老师：<%= h @basic.teacher_amount %></p>
+              <p><label>图书室</label><%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书" if ! @basic.book_amount.blank? %></p>
+              <p><label>电脑</label><%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
+              <% else -%>
+              <p class="incomplete">没有学校基本信息</p
+              <% end -%>
+              
+              <% if @local.ngo_support == 0 -%>
+              <p><label>公益组织支持</label>没有</p>
+              <% elsif @local.ngo_support == 2 -%>
+              <p><label>公益组织支持</label>未知</p>
+              <% elsif @local.ngo_support == 1 -%>
+              <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
+              <% end -%>
+
               </form>
             </div>
 
@@ -150,7 +160,7 @@
               <p><label>交通方式</label><%= h @traffic.transport %></p>
               <p><label>行程时间</label><%= h @traffic.duration %> 小时</p>
               <p><label>费用</label><%= h @traffic.charge %> 元</p>
-              <p><label>路程攻略</label><%= @traffic.description_html %></p>
+              <p><label>路程攻略：　　</label><div style="padding:20px"><%= @traffic.description_html %></div></p>
               <% else -%>
               <p class="incomplete">没有交通信息</p>
               <% end -%>
@@ -174,11 +184,11 @@
               <% end -%>
               </form>
             </div>
-
+<!--
             <div id="local">
               <form>
               <% if @local -%>
-
+              
                 <p><label>当地收入来源</label><%= h @local.incoming_from %></p>
                 <p><label>当地平均收入</label><%= h @local.incoming_average %> 元/年</p>
 
@@ -199,34 +209,19 @@
               <% end -%>
               </form>
             </div>
-
+-->
             <div id="contact">
-              <h3>学校联系人</h3>
-              <form>
-              <% if @contact -%>
-
-                <p><label>姓名</label><%= h @contact.name %></p>
-                <p><label>职务</label><%= h @contact.role %></p>
-                <p><label>电话</label><%= h @contact.telephone %></p>
-                <p><label>邮件</label><%= h @contact.email %></p>
-                <p><label>QQ</label><%= h @contact.qq %></p>
-
-              <% else -%>
-
-                <p class="incomplete">没有联系人信息</p>
-
-              <% end -%>
-              </form>
+            
+            
               <div style="clear:both"></div>
-              <h3>信息收集人</h3>
               <form>
               <% if @finder -%>
 
-                <p><label>姓名</label><%= h @finder.name %></p>
-                <p><label>邮件</label><%= h @finder.email %></p>
-                <p><label>QQ</label><%= h @finder.qq %></p>
-                <p><label>MSN</label><%= h @finder.msn %></p>
-                <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %></p>
+                <p><label>姓名</label><%= h @finder.name %>　</p>
+                <p><label>邮件</label><%= h @finder.email %>　</p>
+                <p><label>QQ</label><%= h @finder.qq %>　</p>
+                <p><label>MSN</label><%= h @finder.msn %>　</p>
+                <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
 
               <% else -%>
 
@@ -238,8 +233,8 @@
           </div>
         </div>
         <p class="remark">
-           &raquo;
           <% if @school.validated_by current_user -%>
+          &raquo;
             <% if @school.validated? -%>
               <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
             <% else -%>

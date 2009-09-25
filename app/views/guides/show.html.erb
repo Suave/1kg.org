@@ -14,6 +14,16 @@
   </div>
   
   <p>&raquo; <%= link_to "去#{@school_guide.user.login}的空间", user_url(@school_guide.user) %></p>
+  
+  
+<div class="box" id="vote_list">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>推荐此攻略的用户</h3>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @voters} %>
+    </div>
+  </div>
+</div>
 <% end -%>
 
 <div class="box shareEntry">
@@ -26,17 +36,17 @@
           <% end %>
       </small>
       <div class="metadata">
-        <div class="avatar"><%= link_to avatar_for(@school_guide.user, "large"), user_url(@school_guide.user) %></div>
-        <p>
-          <%= @school_guide.hits %>  次浏览，<a href="#vote_list"><%= @school_guide.votes.count -%>位用户</a>推荐  <% if logged_in? -%>
+        <div class="avatar" style="margin:5px;padding:5px;border:1px #ffba8c dashed;"><p style="margin:0;padding:0;text-align:center"><a href="#vote_list" style="font-size:2.6em;color:#ff6600"><%= @school_guide.votes.count -%></a>次推荐</p> <% if logged_in? -%>
             <% if current_user.voted?(@school_guide) -%>
-                         您已推荐了此攻略
+            您已推荐了
             <% else -%>
               <%= link_to '推荐攻略', vote_school_guide_path(@school_guide.school, @school_guide), :class => 'buttonlink' %>
             <% end -%>
           <% else -%>
             <%= link_to "登录推荐", new_session_path ,:class => "buttonlink" -%>
-          <% end -%>
+          <% end -%></div>
+        <p>
+          <%= @school_guide.hits %>  次浏览
         </p>
         
       </div>
@@ -46,7 +56,6 @@
         <p>
           
           <%= link_to @school_guide.user.login, user_url(@school_guide.user) %> 写于 <%= @school_guide.created_at.to_date %>
-         
           
         </p>
       </div>
@@ -58,14 +67,6 @@
   </div>
 </div>
 
-<div class="box" id="vote_list">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h2>推荐此攻略的用户</h2>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @voters} %>
-    </div>
-  </div>
-</div>
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 
