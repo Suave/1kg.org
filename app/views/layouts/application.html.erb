@@ -12,15 +12,14 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie7-up.css" media="screen, projection" />
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="/stylesheets/temp.css" media="screen, projection" />
-
+    <%= javascript_include_tag :fckeditor %>
     <%= javascript_include_tag 'jQuery/jquery.min' %>
+    <%= javascript_include_tag 'jQuery/jquery-ui' %>
     <%= javascript_include_tag 'jQuery/jrails' %>
     <%= javascript_include_tag 'calendar.js' %>
 
     <%= yield :heads %>
-    <script type="text/javascript" charset="utf-8">
-      jQuery.noConflict();
-    </script>
+   
     <link type="text/css" rel="stylesheet" href="/stylesheets/calendar.css" />
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
