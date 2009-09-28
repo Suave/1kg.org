@@ -397,7 +397,6 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
  -----------------------------------------------------------------------------*/
 /* =headline ----------------------------------*/
 #headline {
-  background-color: #d9e8af;
   width: 600px;
   height: 280px;
   overflow: hidden;
@@ -407,6 +406,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 #headlineMenu {
   position: absolute;
   bottom: 8px;
+  -bottom:28px;
   right: 8px;
   z-index: 10;
 }
