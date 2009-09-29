@@ -272,6 +272,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "email"
     t.string   "qq"
     t.string   "msn"
+    t.string   "phone_number"
     t.datetime "survey_at"
   end
 

@@ -99,9 +99,9 @@ div.setting form label {
   font-size: 12px;
   line-height: 21px;
   float: left;
-  margin-right: 10px;
+  margin-right: 12px;
   text-align: right;
-  width: 10em;
+  width: 6em;
 }
 
 .setting .district {
