@@ -125,7 +125,7 @@
               <% if @contact -%>
                 <p><label>联&nbsp;&nbsp;系&nbsp;&nbsp;人</label><% unless @contact.name.blank? %><%= h @contact.name %><%else%><span class="unknow">未知</span><%end-%>
                                 　　职务： <% unless @contact.role.blank? %><%= h @contact.role %><%else%><span class="unknow">未知</span><%end-%></p>
-                <p><label>联系方式</label>　
+                <p><label>联系方式</label>
                 <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
                 <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
                 <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%></p>
@@ -140,7 +140,7 @@
               <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
                                                                              　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
               <% else -%>
-              <p class="incomplete">没有学校基本信息</p
+              <p class="incomplete">没有学校基本信息</p>
               <% end -%>
               
               <% if @local.ngo_support == 0 -%>
@@ -148,7 +148,8 @@
               <% elsif @local.ngo_support == 2 -%>
               <p><label>公益团队</label>未知</p>
               <% elsif @local.ngo_support == 1 -%>
-              <p><label>公益团队</label><%= h @local.ngo_name %></p
+              <p><label>公益团队</label><%= h @local.ngo_name %> 　　公益项目：
+              <%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%else%><span class="unknow">未知</span><%end-%></p>
               <% end -%>
 
               </form>
@@ -162,10 +163,7 @@
               <% if @traffic -%>
                 <p><label>周边景点</label><%= h @traffic.sight %></p>
                 <p><label>交通指南</label>
-                  交通工具：<%= h @traffic.transport %><br />
-                  行程时间：<%= h @traffic.duration %>小时<br />
-                  费用：<%= h @traffic.charge %> 元<br />
-                  路线：<%= @traffic.description_html %>
+                  <%=h @traffic.description_html %>
                 </p>
                 <p>&nbsp;</p>
               <% else -%>
@@ -221,11 +219,14 @@
               <form>
               <% if @finder -%>
                 <p><label>姓　　名</label><%= h @finder.name %>　</p>
-                <% if false %><p><label>邮件</label><%= h @finder.email %>　</p><% end %>
+                <% if logged_in? && current_user.admin? %>
+                <p><label>邮件</label><%= h @finder.email %>　</p>
+                <p><label>联系电话</label><%= h @finder.phone_number %></p>
+                <% end %>
                 <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %>　</p>
                 <p><label>联系电话</label><%= h @finder.phone_number %>　</p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
-                <p style="clear:both"><label> 活动建议</label><div style="padding:20px"><%= @local.advice_html %></div></p>
+                <p style="clear:both"><label> 活动建议</label><%= h @finder.note %>　</p>
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>
