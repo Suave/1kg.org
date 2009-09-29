@@ -120,12 +120,14 @@
                 
               <% if @basic -%>
               <p><label>地　　区</label><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></p>
-              <p><label>地　　址</label><%= h @basic.address %>　　邮编： <%= h @basic.zipcode %> </p>
+              <p><label>地　　址</label><%= h @basic.address %>　　邮编： <% unless @basic.zipcode.blank? %><%= h @basic.zipcode %><%else%><span class="unknow">未知</span><%end-%> </p>
               
-              <% unless @basic.master.blank? %><p><label>校　　长</label><%= h @basic.master %>　　电话：<%= h @basic.telephone %></p><%end-%>
+              <p><label>校　　长</label><% unless @basic.master.blank? %><%= h @basic.master %><%else%><span class="unknow">未知</span><%end-%>　　电话：
+              <% unless @basic.telephone.blank? %><%= h @basic.telephone %></p><%else%><span class="unknow">未知</span><%end-%>
               <% if @contact -%>
-                <p><label>联&nbsp;&nbsp;系&nbsp;&nbsp;人</label><%= h @contact.name %>　　职务： <%= h @contact.role %></p>
-                <p><label>联系方式</label>
+                <p><label>联&nbsp;&nbsp;系&nbsp;&nbsp;人</label><% unless @contact.name.blank? %><%= h @contact.name %><%else%><span class="unknow">未知</span><%end-%>
+                                　　职务： <% unless @contact.role.blank? %><%= h @contact.role %><%else%><span class="unknow">未知</span><%end-%></p>
+                <p><label>联系方式</label>　
                 <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
                 <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
                 <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%></p>
@@ -133,8 +135,12 @@
               <% else -%>
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
-              <p><label>学校规模</label>年制：<%= h @basic.level_amount %>　　班级：<%= h @basic.class_amount %>　　学生：<%= h @basic.student_amount %>　　老师：<%= h @basic.teacher_amount %></p>
-              <p><label>学校资源</label><%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %><%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
+              <p><label>学校规模</label>年制：<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %><%else%><span class="unknow">未知</span><%end-%>
+              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%else%><span class="unknow">未知</span><%end-%>
+              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%else%><span class="unknow">未知</span><%end-%>
+              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%else%><span class="unknow">未知</span><%end-%></p>
+              <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
+                                                                             　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
               <% else -%>
               <p class="incomplete">没有学校基本信息</p
               <% end -%>

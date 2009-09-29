@@ -104,6 +104,8 @@ div.setting form label {
   width: 6em;
 }
 
+.unknow{color:#999}
+
 .setting .district {
   display: block;
   margin-left: 11em;
