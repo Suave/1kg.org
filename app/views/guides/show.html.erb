@@ -40,7 +40,7 @@
           <%= link_to avatar_for(@school_guide.user, "large"), user_url(@school_guide.user) %>
         </div>
         <span style="margin:5px;"><%= @school_guide.hits %>  次浏览</span>
-        <span><a href="#vote_list" style="font-size:1.6em;color:#ff6600"><%= @school_guide.votes.count -%></a> 人推荐</span>
+        <a href="#voting" style="color:#333"><span style="font-size:1.6em;color:#ff6600"><%= @school_guide.votes.count -%></span> 人推荐</span>
       </div>
       
       <div class="entry">
@@ -48,7 +48,7 @@
         <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @school_guide.user.login, user_url(@school_guide.user) %> 写于 <%= @school_guide.created_at.to_date %>
         </p>
-        <p style="text-align:right;margin:7px 0;">
+        <p id ="voting" style="text-align:right;margin:7px 0;">
         <span>已有 <%= @school_guide.votes.count -%> 人推荐这篇攻略 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@school_guide) -%>

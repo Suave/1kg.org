@@ -397,16 +397,17 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
  -----------------------------------------------------------------------------*/
 /* =headline ----------------------------------*/
 #headline {
-  background-color: #d9e8af;
-  width: 100%;
-  height: 300px;
+  width: 600px;
+  height: 280px;
   overflow: hidden;
   position: relative;
+  margin-left:8px;
 }
 #headlineMenu {
   position: absolute;
-  bottom: 5px;
-  right: 10px;
+  bottom: 8px;
+  -bottom:28px;
+  right: 8px;
   z-index: 10;
 }
 #headlineMenu a {
@@ -444,6 +445,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =siteIntro*/
 #siteIntro {
   background-color: #fff;
+  width:590px;
   border: #dedede solid 1px;
   margin: 20px 0;
   padding: 0 1em;
