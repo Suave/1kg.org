@@ -143,8 +143,10 @@
               <% elsif @local.ngo_support == 2 -%>
               <p><label>公益团队支持</label>未知</p>
               <% elsif @local.ngo_support == 1 -%>
-              <p><label>公益团队支持</label><%= h @local.ngo_name %></p>
-              <p><label>已开展项目</label><%= h @local.ngo_projects %></p>
+              <p>
+                <label>公益团队支持</label>
+                <%= h @local.ngo_name %>（<%= h @local.ngo_projects %>）
+              </p>
               <% end -%>
 
               </form>
@@ -158,10 +160,7 @@
               <% if @traffic -%>
                 <p><label>周边景点</label><%= h @traffic.sight %></p>
                 <p><label>交通指南</label>
-                  交通工具：<%= h @traffic.transport %><br />
-                  行程时间：<%= h @traffic.duration %>小时<br />
-                  费用：<%= h @traffic.charge %> 元<br />
-                  路线：<%= @traffic.description_html %>
+                  <%=h @traffic.description_html %>
                 </p>
                 <p>&nbsp;</p>
               <% else -%>
@@ -199,7 +198,7 @@
                 <% end %>
                 <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %></p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
-                <p><label>备注</label><%= h @finder.note %>　</p>
+                <p><label>活动建议</label><%= h @finder.note %>　</p>
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>
