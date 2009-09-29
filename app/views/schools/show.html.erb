@@ -152,17 +152,19 @@
             <div id="guides">
               <form>
               <% if @school.county -%>
-              <p><label>学校在</label><%= @school.county.name %></p>
+                <p><label>学校在</label><%= @school.county.name %></p>
               <% end -%>
-
               <% if @traffic -%>
-              <p><label>周边景点</label><%= h @traffic.sight %></p>
-              <p><label>交通方式</label><%= h @traffic.transport %></p>
-              <p><label>行程时间</label><%= h @traffic.duration %> 小时</p>
-              <p><label>费用</label><%= h @traffic.charge %> 元</p>
-              <p><label>路程攻略：　　</label><div style="padding:20px"><%= @traffic.description_html %></div></p>
+                <p><label>周边景点</label><%= h @traffic.sight %></p>
+                <p><label>交通指南</label>
+                  交通工具：<%= h @traffic.transport %><br />
+                  行程时间：<%= h @traffic.duration %>小时<br />
+                  费用：<%= h @traffic.charge %> 元<br />
+                  路线：<%= @traffic.description_html %>
+                </p>
+                <p>&nbsp;</p>
               <% else -%>
-              <p class="incomplete">没有交通信息</p>
+                <p class="incomplete">没有交通信息</p>
               <% end -%>
               </form>
             </div>
@@ -184,45 +186,16 @@
               <% end -%>
               </form>
             </div>
-<!--
-            <div id="local">
-              <form>
-              <% if @local -%>
-              
-                <p><label>当地收入来源</label><%= h @local.incoming_from %></p>
-                <p><label>当地平均收入</label><%= h @local.incoming_average %> 元/年</p>
-
-                <% if @local.ngo_support == 0 -%>
-                <p><label>公益组织支持</label>没有</p>
-                <% elsif @local.ngo_support == 2 -%>
-                <p><label>公益组织支持</label>未知</p>
-                <% elsif @local.ngo_support == 1 -%>
-                <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
-                <p><label>开始时间</label><%= h @local.ngo_start_at.to_date if @local.ngo_start_at %></p>
-                <p><label>联系人</label><%= h @local.ngo_contact %> <%= h @local.ngo_contact_via %></p>
-                <% end -%>
-
-                <div style="clear:both"><label>建议</label><%= @local.advice_html %></div>
-
-              <% else -%>
-                <p class="incomplete">没有当地信息</p>
-              <% end -%>
-              </form>
-            </div>
--->
+            
             <div id="contact">
-            
-            
               <div style="clear:both"></div>
               <form>
               <% if @finder -%>
-
                 <p><label>姓名</label><%= h @finder.name %>　</p>
-                <p><label>邮件</label><%= h @finder.email %>　</p>
-                <p><label>QQ</label><%= h @finder.qq %>　</p>
-                <p><label>MSN</label><%= h @finder.msn %>　</p>
+                <% if false %><p><label>邮件</label><%= h @finder.email %>　</p><% end %>
+                <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %></p>
+                <p><label>联系电话</label><%= h @finder.phone_number %></p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
-
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>
