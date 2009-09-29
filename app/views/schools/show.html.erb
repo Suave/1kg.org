@@ -116,8 +116,6 @@
           <div class="panel setting">
             <div id='basic'>
               <form>
-              
-                
               <% if @basic -%>
               <p><label>地　　区</label><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></p>
               <p><label>地　　址</label><%= h @basic.address %>　　邮编： <% unless @basic.zipcode.blank? %><%= h @basic.zipcode %><%else%><span class="unknow">未知</span><%end-%> </p>
