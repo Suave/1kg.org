@@ -128,6 +128,7 @@
                 <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
                 <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
                 <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%></p>
+                
               <% else -%>
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
@@ -139,11 +140,11 @@
               <% end -%>
               
               <% if @local.ngo_support == 0 -%>
-              <p><label>公益组织支持</label>没有</p>
+              <p><label>公益团队支持</label>没有</p>
               <% elsif @local.ngo_support == 2 -%>
-              <p><label>公益组织支持</label>未知</p>
+              <p><label>公益团队支持</label>未知</p>
               <% elsif @local.ngo_support == 1 -%>
-              <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
+              <p><label>公益团队支持</label><%= h @local.ngo_name %></p
               <% end -%>
 
               </form>
@@ -201,9 +202,6 @@
                 <p><label>开始时间</label><%= h @local.ngo_start_at.to_date if @local.ngo_start_at %></p>
                 <p><label>联系人</label><%= h @local.ngo_contact %> <%= h @local.ngo_contact_via %></p>
                 <% end -%>
-
-                <div style="clear:both"><label>建议</label><%= @local.advice_html %></div>
-
               <% else -%>
                 <p class="incomplete">没有当地信息</p>
               <% end -%>
@@ -222,7 +220,7 @@
                 <p><label>QQ</label><%= h @finder.qq %>　</p>
                 <p><label>MSN</label><%= h @finder.msn %>　</p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
-
+                <p style="clear:both"><label>收集人建议</label><div style="padding:20px"><%= @local.advice_html %></div></p>
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>
