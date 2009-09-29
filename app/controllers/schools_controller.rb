@@ -117,7 +117,7 @@ class SchoolsController < ApplicationController
         flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
         redirect_to edit_school_url(@school, :step => 'traffic')
       rescue ActiveRecord::RecordInvalid
-        render :action => "edit_basic"
+        render :action => "new"
       end
       # TODO add some catch exception
     end
