@@ -139,11 +139,12 @@
               <% end -%>
               
               <% if @local.ngo_support == 0 -%>
-              <p><label>公益组织支持</label>没有</p>
+              <p><label>公益团队支持</label>没有</p>
               <% elsif @local.ngo_support == 2 -%>
-              <p><label>公益组织支持</label>未知</p>
+              <p><label>公益团队支持</label>未知</p>
               <% elsif @local.ngo_support == 1 -%>
-              <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
+              <p><label>公益团队支持</label><%= h @local.ngo_name %></p>
+              <p><label>已开展项目</label><%= h @local.ngo_projects %></p>
               <% end -%>
 
               </form>
@@ -192,10 +193,13 @@
               <form>
               <% if @finder -%>
                 <p><label>姓名</label><%= h @finder.name %>　</p>
-                <% if false %><p><label>邮件</label><%= h @finder.email %>　</p><% end %>
-                <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %></p>
+                <% if logged_in? && current_user.admin? %>
+                <p><label>邮件</label><%= h @finder.email %>　</p>
                 <p><label>联系电话</label><%= h @finder.phone_number %></p>
+                <% end %>
+                <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %></p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
+                <p><label>备注</label><%= h @finder.note %>　</p>
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>

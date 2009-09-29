@@ -39,6 +39,7 @@
       <p><label class="label">开始时间</label>
       <%= l.text_field :ngo_start_at, :size => 15, :class => "vDateField" %>  
       </p>
+      <p><label class="label">已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
       <p><label class="label">联系人</label><%= l.text_field :ngo_contact, :size => 10, :class => 'formText' %></p>
       <p><label class="label">联系方式</label><%= l.text_field :ngo_contact_via, :sizze => 15, :class => 'formText' %></p>
       <p><label class="label">建议</label><%= l.text_area :advice, :cols => 40, :rows => 10 %></p>
@@ -47,16 +48,18 @@
     
     <fieldset>
       <legend>信息收集人</legend>
+      <p>电话和电子邮件将只对管理员公开</p>
       <% f.fields_for :finder_attributes, @school.finder do |r| -%>
       <%= r.hidden_field :id %>
       <p><label class="label">姓名</label><%= r.text_field :name, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">邮件</label><%= r.text_field :email, :size => 15, :class => 'formText' %></p>
-      <p><label class="label">QQ</label><%= r.text_field :qq, :size => 15, :class => 'formText' %></p>
-      <p><label class="label">MSN</label><%= r.text_field :msn, :size => 15, :class => 'formText' %></p>
-      <p><label class="label">电话</label><%= r.text_field :phone_number, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">邮件</label><%= r.text_field :email, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">QQ</label><%= r.text_field :qq, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">MSN</label><%= r.text_field :msn, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">电话</label><%= r.text_field :phone_number, :size => 30, :class => 'formText' %></p>
       <p><label class="label">收集时间</label>
-      <%= r.text_field :survey_at, :size => 15, :class => 'vDateField' %>
+      <%= r.text_field :survey_at, :size => 30, :class => 'vDateField' %>
       </p>
+      <p><label class="label">备注</label><%= r.text_area :note, :size => '60x10' %></p>
       <% end -%>
     </fieldset>
     
