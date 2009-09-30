@@ -108,18 +108,18 @@ class SchoolsController < ApplicationController
   end
   
   def create
-    if params[:step] == 'basic'
-      @school = School.new(params[:school])
-      @school.user = current_user
+    @school = School.new(params[:school])
+    @school.user = current_user
       
-      begin
-        @school.save!
+    respond_to do |format|
+      if @school.save
         flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-        redirect_to edit_school_url(@school, :step => 'traffic')
-      rescue ActiveRecord::RecordInvalid
-        render :action => "new"
+        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+      else
+        flash[:notice] = "学校基本信息不完整，请重新填写"
+        @step = 'basic'
+        format.html{render :action => "new"}
       end
-      # TODO add some catch exception
     end
   end
   

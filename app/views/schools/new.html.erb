@@ -10,8 +10,7 @@
           
           <%= render :partial => 'school_steps' %>
           
-          <% form_for :school, :url => schools_url(:step => 'basic'), :html => {:id => "schoolsPostBasic"} do |f| -%>
-          <%= f.error_messages %>
+          <% form_for :school, :url => schools_path, :html => {:id => "schoolsPostBasic"} do |f| -%>
           <p><label class="label">类型</label>
             <select id="school_category" name="school[category]">
               <% School.categories.each_with_index do |p,i| -%>
