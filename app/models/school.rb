@@ -87,6 +87,13 @@ class School < ActiveRecord::Base
       self.last_modified_by_id = User.current_user.id
     end
     
+    # 确保用户只提交了学校基本信息也不会出错
+    self.traffic = SchoolTraffic.new
+    self.need = SchoolNeed.new
+    self.contact = SchoolContact.new
+    self.finder = SchoolFinder.new
+    self.local = SchoolLocal.new
+    
     # 将学校流行度存入数据库
     snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
     snapshot.karma = karma
