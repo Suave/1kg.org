@@ -14,13 +14,13 @@
           <%= render :partial => 'school_steps' %>
           
           <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
-          <p><label class="label">类型</label>
+          <!--<p><label class="label">类型</label>
             <select id="school_category" name="school[category]">
               <% School.categories.each_with_index do |p,i| -%>
                 <option value="<%= i %>" <%= "selected=\"selected\"" if @school.category==i %>><%= p %></option>
               <% end -%>
             </select>
-          </p>
+          </p>-->
           
           <p><label class="label">位于</label><%= geo_select "school", "geo",[], @school.geo_id %></p>
           
