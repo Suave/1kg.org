@@ -160,9 +160,9 @@
                 <p><label>学校在</label><%= @school.county.name %></p>
               <% end -%>
               <% if @traffic -%>
-                <p><label>周边景点</label><%= h @traffic.sight %></p>
+                <p><label>周边景点</label><%= h @traffic.sight %>　</p>
                 <p><label>交通指南</label>
-                  <%=h @traffic.description_html %>
+                  <%=@traffic.description_html %>
                 </p>
                 <p>&nbsp;</p>
               <% else -%>

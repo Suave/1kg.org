@@ -29,20 +29,12 @@
     </fieldset>
     
     <fieldset>
-      <legend>当地情况</legend>
+      <legend>公益团队</legend>
       <% f.fields_for :local_attributes, @school.local do |l| -%>
       <%= l.hidden_field :id %>
-      <p><label class="label">收入来源</label><%= l.text_field :incoming_from, :size => 20, :class => 'formText' %></p>
-      <p><label class="label">平均收入</label><%= l.text_field :incoming_average, :size => 20, :class => 'formText' %> 元 / 年</p>
-      <p class="radioBtn"><label class="label">公益组织资助</label><%= radio_choice l, :ngo_support %></p>
-      <p><label class="label">组织名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">开始时间</label>
-      <%= l.text_field :ngo_start_at, :size => 15, :class => "vDateField" %>  
-      </p>
+      <p class="radioBtn"><label class="label">公益团队支持</label><%= radio_choice l, :ngo_support %></p>
+      <p><label class="label">团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
       <p><label class="label">已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
-      <p><label class="label">联系人</label><%= l.text_field :ngo_contact, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">联系方式</label><%= l.text_field :ngo_contact_via, :sizze => 15, :class => 'formText' %></p>
-      <p><label class="label">建议</label><%= l.text_area :advice, :cols => 40, :rows => 10 %></p>
       <% end -%>
     </fieldset>
     
@@ -59,7 +51,7 @@
       <p><label class="label">收集时间</label>
       <%= r.text_field :survey_at, :size => 30, :class => 'vDateField' %>
       </p>
-      <p><label class="label">备注</label><%= r.text_area :note, :size => '60x10' %></p>
+      <p><label class="label">活动建议</label><%= r.text_area :note, :size => '60x10' %></p>
       <% end -%>
     </fieldset>
     

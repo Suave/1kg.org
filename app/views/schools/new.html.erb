@@ -33,11 +33,11 @@
             <p><label class="label" for="school_school_basic_address">学校地址</label>
             <%= b.text_field :address, :size => 40, :class => "formText" %> <span class="require">*</span>
             <%= error_message_on @school.basic, :address %>
-            </p>
+            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
             
-            <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
             <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
-            <p><label class="label" for=“school_basic_attributes_level_amount">　</label><select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
+            <p><label class="label">学校规模</label><select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
+                <option/>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -45,8 +45,7 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select>年制
-          </p>
-            <p><label class="label" for="school_school_basic_class_amount">班级</label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
+            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级</label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
             <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师</label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
             <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生</label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
             <p class="radioBtn"><label class="label">是否有图书室</label><%= radio_choice b, :has_library %></p>
@@ -54,7 +53,6 @@
             <p class="radioBtn"><label class="label">是否有电脑</label><%= radio_choice b, :has_pc %></p>
             <p id="howmanypc" style="display:none"><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
             <p id="online" style="display:none" class="radioBtn"><label class="label">是否能上网</label><%= radio_choice b, :has_internet %></p>
-          <% end -%>
           <script type="text/javascript">
           $('#school_basic_attributes_has_library_0').delayedObserver(0.25, function(){$('#howmanybook').hide()})
           $('#school_basic_attributes_has_library_1').delayedObserver(0.25, function(){$('#howmanybook').show()})
@@ -62,7 +60,9 @@
           $('#school_basic_attributes_has_pc_0').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
           $('#school_basic_attributes_has_pc_1').delayedObserver(0.25, function(){$('#howmanypc').show();$('#online').show();})
           $('#school_basic_attributes_has_pc_2').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
-          </script>          
+          </script>    
+          <% end -%>
+              
           <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
           <% end -%>
         </div>
