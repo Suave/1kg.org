@@ -50,12 +50,19 @@
             <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师</label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
             <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生</label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
             <p class="radioBtn"><label class="label">是否有图书室</label><%= radio_choice b, :has_library %></p>
-            <p><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
+            <p id="howmanybook" style="display:none"><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
             <p class="radioBtn"><label class="label">是否有电脑</label><%= radio_choice b, :has_pc %></p>
-            <p><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
-            <p class="radioBtn"><label class="label">是否能上网</label><%= radio_choice b, :has_internet %></p>
+            <p id="howmanypc" style="display:none"><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
+            <p id="online" style="display:none" class="radioBtn"><label class="label">是否能上网</label><%= radio_choice b, :has_internet %></p>
           <% end -%>
-          
+          <script type="text/javascript">
+          $('#school_basic_attributes_has_library_0').delayedObserver(0.25, function(){$('#howmanybook').hide()})
+          $('#school_basic_attributes_has_library_1').delayedObserver(0.25, function(){$('#howmanybook').show()})
+          $('#school_basic_attributes_has_library_2').delayedObserver(0.25, function(){$('#howmanybook').hide()})
+          $('#school_basic_attributes_has_pc_0').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
+          $('#school_basic_attributes_has_pc_1').delayedObserver(0.25, function(){$('#howmanypc').show();$('#online').show();})
+          $('#school_basic_attributes_has_pc_2').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
+          </script>          
           <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
           <% end -%>
         </div>
