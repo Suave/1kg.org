@@ -272,6 +272,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "email"
     t.string   "qq"
     t.string   "msn"
+    t.string   "phone_number"
+    t.text     "note"
     t.datetime "survey_at"
   end
 
@@ -281,6 +283,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "incoming_average"
     t.integer  "ngo_support",      :limit => 1
     t.string   "ngo_name"
+    t.string   "ngo_projects"
     t.datetime "ngo_start_at"
     t.string   "ngo_contact"
     t.string   "ngo_contact_via"

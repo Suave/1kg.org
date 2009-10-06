@@ -40,5 +40,4 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @photo.user_id = 1 if @photo.user.nil?
   end
-  
 end

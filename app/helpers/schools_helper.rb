@@ -40,4 +40,19 @@ module SchoolsHelper
     end
     html
   end
+  
+  def photo_meta(photo, current_user)
+    photo.user_id = 1 if photo.user.nil?
+    
+    html = content_tag(:p) do
+      meta = link_to(photo.user.login, user_url(photo.user)) + '上传于' + photo.created_at.to_date.to_s
+      meta += link_to("删除", photo_url(photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？") if photo.edited_by(current_user)
+      meta
+    end
+
+    html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
+    html += "<p>分享到 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
+    html += "<p>#{h(photo.description)}</p>"
+    html
+  end
 end

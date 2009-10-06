@@ -45,7 +45,7 @@
             <tr class="<%= cycle('odd', 'even') %>">
               <td><%= link_to school.title, school_path(school.id) %></td>
               <td><%= link_to school.user.login, user_path(school.user.id) %></td>
-              <td><%= school.updated_at.to_date %></td>
+              <td><%= school_last_update(school) %></td>
             </tr>
           <% end %>
         </table>
