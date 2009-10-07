@@ -162,9 +162,8 @@
               <% if @traffic -%>
                 <p><label>周边景点</label><%= h @traffic.sight %>　</p>
                 <p><label>交通指南</label>
-                  <%=@traffic.description_html %>
-                </p>
-                <p>&nbsp;</p>
+                  <div style="width:480px;position:relative;top:-20px;left:84px"><%=@traffic.description_html %></div>
+                &nbsp;</p>
               <% else -%>
                 <p class="incomplete">没有交通信息</p>
               <% end -%>
@@ -219,11 +218,10 @@
               <% if @finder -%>
                 <p><label>姓　　名</label><%= h @finder.name %>　</p>
                 <% if logged_in? && current_user.admin? %>
-                <p><label>邮件</label><%= h @finder.email %>　</p>
-                <p><label>联系电话</label><%= h @finder.phone_number %></p>
-                <% end %>
-                <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %>　</p>
+                <p><label>邮　　件</label><%= h @finder.email %>　</p>
                 <p><label>联系电话</label><%= h @finder.phone_number %>　</p>
+                <% end %>
+                <p><label>QQ/MSN</label><%= h @finder.qq %>(qq)　<%= h @finder.msn %>(msn)</p>
                 <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
                 <p style="clear:both"><label> 活动建议</label><%= h @finder.note %>　</p>
               <% else -%>
