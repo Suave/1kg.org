@@ -104,19 +104,19 @@ module ApplicationHelper
     end
     
     inputs << %Q"<img src='/images/indicator.gif' id='#{method}_indicator' class='indicator' style='display:none' />"
-    return inputs << observe_field("#{method}_root",
+    return inputs << observe_field("##{method}_root",
                                      :frequency => 0.25,
-                                     :loading => "Element.show('#{method}_indicator')",
-                                     :loaded => "Element.hide('#{method}_indicator')",
-                                     :update => "#{method}_container",
+                                     :loading => "jQuery('##{method}_indicator').show()",
+                                     :update => "##{method}_container",
                                      :url => { :controller => "/geos", :action => "geo_choice" },
-                                     :with => "'root='+value+'&object=#{object}&method=#{method}'"
+                                     :with => "'root='+value+'&object=#{object}&method=#{method}'",
+                                     :success => "jQuery('##{method}_indicator').hide()"
                                   )
   end
   
   def school_last_update(school)
     last_topic = school.last_topic
-    return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.last_post.id if last_topic.last_post))) : school.updated_at.to_date)
+    return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.last_post.id if last_topic.last_post))) : school.created_at.to_date)
   end
   
   def activity_last_update(activity)
