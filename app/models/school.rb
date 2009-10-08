@@ -75,6 +75,8 @@ class School < ActiveRecord::Base
                         :macao => {:id => 392, :neighbors => {:guangdong => 216, :fujian => 124}}
   }
   
+  attr_accessor :city, :city_unit, :town, :town_unit, :village
+  
   def after_create
     # remove @ 09.8.24, because of SMTPServer Busy raise exception
     Mailer.deliver_submitted_school_notification(self) if self.user
@@ -82,11 +84,11 @@ class School < ActiveRecord::Base
   
   def before_create
     # 确保用户只提交了学校基本信息也不会出错
-    self.traffic ||= SchoolTraffic.new
-    self.need ||= SchoolNeed.new
-    self.contact ||= SchoolContact.new
-    self.finder ||= SchoolFinder.new
-    self.local ||= SchoolLocal.new
+    self.traffic = SchoolTraffic.new
+    self.need = SchoolNeed.new
+    self.contact = SchoolContact.new
+    self.finder = SchoolFinder.new
+    self.local = SchoolLocal.new
   end
   
   def before_save
@@ -95,6 +97,10 @@ class School < ActiveRecord::Base
       self.last_modified_at = Time.now
       self.last_modified_by_id = User.current_user.id
     end
+
+    # new_address = ''
+    #     new_address += self.city + self.city_unit if self.city.blank?
+    #     self.address = self.city + self.town + self.village + self.address
     
     # 将学校流行度存入数据库
     snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
