@@ -80,19 +80,21 @@ class School < ActiveRecord::Base
     Mailer.deliver_submitted_school_notification(self) if self.user
   end
   
+  def before_create
+    # 确保用户只提交了学校基本信息也不会出错
+    self.traffic ||= SchoolTraffic.new
+    self.need ||= SchoolNeed.new
+    self.contact ||= SchoolContact.new
+    self.finder ||= SchoolFinder.new
+    self.local ||= SchoolLocal.new
+  end
+  
   def before_save
     # TODO: how to skip callbacks?
     if User.current_user
       self.last_modified_at = Time.now
       self.last_modified_by_id = User.current_user.id
     end
-    
-    # 确保用户只提交了学校基本信息也不会出错
-    self.traffic = SchoolTraffic.new
-    self.need = SchoolNeed.new
-    self.contact = SchoolContact.new
-    self.finder = SchoolFinder.new
-    self.local = SchoolLocal.new
     
     # 将学校流行度存入数据库
     snapshot = self.snapshots.find_or_create_by_created_on(Date.today)
