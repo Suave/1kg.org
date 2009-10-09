@@ -142,15 +142,16 @@
               <p class="incomplete">没有学校基本信息</p>
               <% end -%>
               
-              <% if @local.ngo_support == 0 -%>
-              <p><label>公益团队</label>没有</p>
-              <% elsif @local.ngo_support == 2 -%>
-              <p><label>公益团队</label>未知</p>
-              <% elsif @local.ngo_support == 1 -%>
-              <p><label>公益团队</label><%= h @local.ngo_name %> 　　公益项目：
-              <%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%else%><span class="unknow">未知</span><%end-%></p>
-              <% end -%>
-
+              <% if @local %>
+                <% if @local.ngo_support == 0 -%>
+                <p><label>公益团队</label>没有</p>
+                <% elsif @local.ngo_support == 2 -%>
+                <p><label>公益团队</label>未知</p>
+                <% elsif @local.ngo_support == 1 -%>
+                <p><label>公益团队</label><%= h @local.ngo_name %> 　　公益项目：
+                <%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%else%><span class="unknow">未知</span><%end-%></p>
+                <% end -%>
+              <% end %>
               </form>
             </div>
 
