@@ -237,7 +237,7 @@
         </div>
         <p class="remark">
           &raquo;
-          <% if current_user.school_moderator? -%>
+          <% if logged_in? && current_user.school_moderator? -%>
             <% if @school.validated? -%>
               <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
             <% else -%>
