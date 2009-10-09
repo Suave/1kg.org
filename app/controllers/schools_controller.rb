@@ -229,25 +229,34 @@ class SchoolsController < ApplicationController
   
   def destroy
     @school = School.find(params[:id])
-    @school.update_attributes!(:deleted_at => Time.now)
-    flash[:notice] = "成功删除学校"
-    redirect_to schools_url
+    
+    respond_to do |format|
+      if current_user.school_moderator? || @school.destroyed_by(current_user)
+        @school.update_attributes!(:deleted_at => Time.now)
+        flash[:notice] = "成功删除学校"
+      else
+        flash[:notice] = "对不起，只有学校管理员可以删除学校"
+      end
+      
+      format.html{redirect_to schools_url}
+    end
   end
   
   def validate
     @school = School.find(params[:id])
-    if params[:t] == 'add'
-      @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
-      flash[:notice] = "已经通过验证"
-      
-    elsif params[:t] == 'remove'
-      @school.update_attributes!(:validated => false, :validated_at => Time.now, :validated_by_id => current_user.id )
-      flash[:notice] = "已经取消验证"
-      
+    if current_user.school_moderator?
+      if params[:t] == 'add'
+        @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
+        flash[:notice] = "已经通过验证"
+      elsif params[:t] == 'remove'
+        @school.update_attributes!(:validated => false, :validated_at => Time.now, :validated_by_id => current_user.id )
+        flash[:notice] = "已经取消验证"
+      else
+        flash[:notice] = "错误"
+      end
     else
-      flash[:notice] = "错误"
-      
-    end
+      flash[:notice] = "对不起，只有学校管理员可以进行此操作"
+    end          
     redirect_to school_url(@school)
   end
   

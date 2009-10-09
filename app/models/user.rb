@@ -192,6 +192,10 @@ class User < ActiveRecord::Base
     (user != nil) and (id != user.id) and has_neighbor?(user)
   end
   
+  def school_moderator?
+    !self.roles.find_by_identifier("roles.schools.moderator").nil?
+  end
+  
   def self.recent_citizens
     find(:all, :conditions => ["state='active'"],
                :order => "id desc",
