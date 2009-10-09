@@ -236,17 +236,17 @@
           </div>
         </div>
         <p class="remark">
-          <% if @school.validated_by current_user -%>
           &raquo;
+          <% if current_user.school_moderator? -%>
             <% if @school.validated? -%>
               <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
             <% else -%>
               <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-            <% end -%>
+            <% end -%>| 
           <% end -%>
           
           <% if logged_in? && @school.edited_by(current_user) -%>
-            | <%= link_to "编辑", edit_school_url(@school) %>
+            <%= link_to "编辑", edit_school_url(@school) %>
           <% end -%>
 
           <% if logged_in? && @school.destroyed_by(current_user) -%>
