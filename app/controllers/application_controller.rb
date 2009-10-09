@@ -22,7 +22,13 @@ class ApplicationController < ActionController::Base
   #before_filter :app_stop
 
   def rescue_action(exception)
-    exception.is_a?(ActiveRecord::RecordInvalid) ? render_invalid_record(exception.record) : super
+    if exception.is_a?(ActiveRecord::RecordInvalid) 
+      render_invalid_record(exception.record)
+    elsif exception.is_a?(ActionController::InvalidAuthenticityToken)
+      render_404 
+    else
+      super
+    end
   end
   
   def render_invalid_record(record)
