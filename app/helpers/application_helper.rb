@@ -104,13 +104,13 @@ module ApplicationHelper
     end
     
     inputs << %Q"<img src='/images/indicator.gif' id='#{method}_indicator' class='indicator' style='display:none' />"
-    return inputs << observe_field("#{method}_root",
+    return inputs << observe_field("##{method}_root",
                                      :frequency => 0.25,
-                                     :loading => "Element.show('#{method}_indicator')",
-                                     :loaded => "Element.hide('#{method}_indicator')",
-                                     :update => "#{method}_container",
+                                     :loading => "jQuery('##{method}_indicator').show()",
+                                     :update => "##{method}_container",
                                      :url => { :controller => "/geos", :action => "geo_choice" },
-                                     :with => "'root='+value+'&object=#{object}&method=#{method}'"
+                                     :with => "'root='+value+'&object=#{object}&method=#{method}'",
+                                     :success => "jQuery('##{method}_indicator').hide()"
                                   )
   end
   

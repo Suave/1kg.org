@@ -75,6 +75,8 @@ class School < ActiveRecord::Base
                         :macao => {:id => 392, :neighbors => {:guangdong => 216, :fujian => 124}}
   }
   
+  attr_accessor :city, :city_unit, :town, :town_unit, :village
+  
   def after_create
     # remove @ 09.8.24, because of SMTPServer Busy raise exception
     Mailer.deliver_submitted_school_notification(self) if self.user

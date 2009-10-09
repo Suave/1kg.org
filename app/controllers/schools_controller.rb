@@ -237,9 +237,12 @@ class SchoolsController < ApplicationController
   def validate
     @school = School.find(params[:id])
     if params[:t] == 'add'
-      @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
-      flash[:notice] = "已经通过验证"
-      
+      if current_user.id != @school.user.id
+        @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
+        flash[:notice] = "已经通过验证"
+      else
+        flash[:notice] = "对不起，不能验证自己提交的学校"
+      end
     elsif params[:t] == 'remove'
       @school.update_attributes!(:validated => false, :validated_at => Time.now, :validated_by_id => current_user.id )
       flash[:notice] = "已经取消验证"

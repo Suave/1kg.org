@@ -128,7 +128,7 @@
                 <p><label>联系方式</label>
                 <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
                 <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
-                <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%></p>
+                <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%>　</p>
               <% else -%>
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
@@ -160,9 +160,9 @@
                 <p><label>学校在</label><%= @school.county.name %></p>
               <% end -%>
               <% if @traffic -%>
-                <p><label>周边景点</label><%= h @traffic.sight %></p>
+                <p><label>周边景点</label><%= h @traffic.sight %>　</p>
                 <p><label>交通指南</label>
-                  <%=h @traffic.description_html %>
+                  <%=@traffic.description_html %>
                 </p>
                 <p>&nbsp;</p>
               <% else -%>

@@ -728,13 +728,14 @@ body.signinup p.login {
 }
 
 body.schools form p {
-  margin: 1em 0;
+  margin: 1.2em 0;
   font-size: 1.1em;
 }
 body.schools form p.submit {
   margin-left: 10em;
 }
 body.schools form .label {
+  margin:1px 0;
   width: 9em;
   font-weight: bold;
 }
