@@ -1,7 +1,7 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
-  
+  <%= stylesheet_link_tag 'lei' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
@@ -53,7 +53,10 @@
     
 <% end -%>
 
-
+<%=debug @school.main_photo%>
+<%=debug @school.photos%>
+<%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]",:class => "main_photo"%>
 <% content_for :sidebar do -%>
   <%= render :partial => "/shared/ad" %>
   <div class="box">
