@@ -9,7 +9,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h2><!-- --></h2>
-        <p id="map_message" class="caution">拖动标记即可修正学校位置，或<%= link_to '跳过此步骤，直接进入下一步', edit_school_path(@school, :step => 'other') %></p>
+        <p id="map_message" class="caution">拖动标记即可修正学校位置，或<%= link_to '跳过此步骤，直接进入下一步', edit_school_path(@school, :step => 'traffic') %></p>
         <div class="contents">
           
           <%= render :partial => 'school_steps' %>
@@ -17,7 +17,7 @@
           <% content_for :heads do -%>
             <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
           <% end -%>
-
+          <p style="padding:10px 20px;font-size:1.1em"><label>学校位于</label><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %>　<label>地址:</label> <%= h @school.basic.address %>　 </p>
           <script type="text/javascript">
             var map;
             function initialize() {
@@ -51,7 +51,7 @@
 
           <div id="map_div" style="width: 860px; height: 500px; margin: 10px 20px;"></div>
           
-          <p class="submit clearfix"><span class="btnWrap"><%= link_to "下一步", edit_school_path(@school, :step => "other") %></span></p>
+          <p class="submit clearfix"><span class="btnWrap"><%= link_to "下一步", edit_school_path(@school, :step => "traffic") %></span></p>
         </div>
       </div>
     </div>

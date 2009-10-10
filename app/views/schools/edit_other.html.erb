@@ -17,28 +17,6 @@
     <%= f.hidden_field :id %>
     
     <fieldset>
-      <legend>学校联系人</legend>
-      <% f.fields_for :contact_attributes, @school.contact do |c| -%>
-      <%= c.hidden_field :id %>
-      <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
-      <p><label class="label">电子邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %></p>
-      <p><label class="label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
-      <% end -%>
-    </fieldset>
-    
-    <fieldset>
-      <legend>公益团队</legend>
-      <% f.fields_for :local_attributes, @school.local do |l| -%>
-      <%= l.hidden_field :id %>
-      <p class="radioBtn"><label class="label">公益团队支持</label><%= radio_choice l, :ngo_support %></p>
-      <p><label class="label">团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
-      <p><label class="label">已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
-      <% end -%>
-    </fieldset>
-    
-    <fieldset>
       <legend>信息收集人</legend>
       <p>电话和电子邮件将只对管理员公开</p>
       <% f.fields_for :finder_attributes, @school.finder do |r| -%>

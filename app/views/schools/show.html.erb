@@ -158,12 +158,12 @@
             <div id="guides">
               <form>
               <% if @school.county -%>
-                <p><label>学校在</label><%= @school.county.name %></p>
+                <p><label>学校位于</label><%= @school.county.name %></p>
               <% end -%>
               <% if @traffic -%>
                 <p><label>周边景点</label><%= h @traffic.sight %>　</p>
                 <p><label>交通指南</label>
-                  <%=@traffic.description_html %>
+                  <div style="position:relative;top:-20px;left:83px;width:500px"><%=@traffic.description_html %></div>
                 </p>
                 <p>&nbsp;</p>
               <% else -%>
@@ -190,42 +190,18 @@
               </form>
             </div>
 
-<!--
-            <div id="local">
-              <form>
-              <% if @local -%>
-              
-                <p><label>当地收入来源</label><%= h @local.incoming_from %></p>
-                <p><label>当地平均收入</label><%= h @local.incoming_average %> 元/年</p>
-
-                <% if @local.ngo_support == 0 -%>
-                <p><label>公益组织支持</label>没有</p>
-                <% elsif @local.ngo_support == 2 -%>
-                <p><label>公益组织支持</label>未知</p>
-                <% elsif @local.ngo_support == 1 -%>
-                <p><label>公益组织支持</label><%= h @local.ngo_name %></p>
-                <p><label>开始时间</label><%= h @local.ngo_start_at.to_date if @local.ngo_start_at %></p>
-                <p><label>联系人</label><%= h @local.ngo_contact %> <%= h @local.ngo_contact_via %></p>
-                <% end -%>
-              <% else -%>
-                <p class="incomplete">没有当地信息</p>
-              <% end -%>
-              </form>
-            </div>
--->
-
             <div id="contact">
               <div style="clear:both"></div>
               <form>
               <% if @finder -%>
-                <p><label>姓　　名</label><%= h @finder.name %>　</p>
+                <%unless @finder.name.blank? %><p><label>姓　　名</label><%= h @finder.name %>　</p><%end-%>
                 <% if logged_in? && current_user.admin? %>
-                <p><label>邮　　件</label><%= h @finder.email %>　</p>
-                <p><label>联系电话</label><%= h @finder.phone_number %>　</p>
+                <%unless @finder.email.blank? %><p><label>邮　　件</label><%= h @finder.email %>　</p><%end-%>
+                <%unless @finder.phone_number.blank? %><p><label>联系电话</label><%= h @finder.phone_number %>　</p><%end-%>
                 <% end %>
-                <p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %>　</p>
-                <p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p>
-                <p style="clear:both"><label> 活动建议</label><%= h @finder.note %>　</p>
+                <%unless @finder.qq.blank? and @finder.msn.blank?%><p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %>　</p><%end-%>
+                <%unless @finder.survey_at.blank? %><p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p><%end-%>
+                <%unless @finder.note.blank? %><p style="clear:both"><label> 活动建议</label><%= h @finder.note %>　</p><%end-%>
               <% else -%>
 
                 <p class="incomplete">没有收集人信息</p>

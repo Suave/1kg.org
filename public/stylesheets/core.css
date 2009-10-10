@@ -633,6 +633,8 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
   padding: 0 1em 0 0;
   text-align: right;
 }
+.small_label{font-weight:bold;margin:0 15px 0 30px;}
+
 span.tip {
   display: block;
   margin: 0 0 0 5em;
@@ -736,7 +738,7 @@ body.schools form p.submit {
 }
 body.schools form .label {
   margin:1px 0;
-  width: 9em;
+  width: 7em;
   font-weight: bold;
 }
 body.schools form .radioBtn input {
