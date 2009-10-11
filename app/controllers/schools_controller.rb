@@ -135,7 +135,7 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html do
         if params[:step] == 'basic'
-          update_info "basic", "position", "学校基本信息修改成功！"
+          update_info "basic", "traffic", "学校基本信息修改成功！"
         elsif params[:step] == 'traffic'
           update_info "traffic", "need", "学校交通信息修改成功！"
         elsif params[:step] == 'need'
