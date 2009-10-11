@@ -114,7 +114,7 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       if @school.save
         flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-        format.html{redirect_to edit_school_url(@school, :step => 'position')}
+        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
       else
         flash[:notice] = "学校基本信息不完整，请重新填写"
         @step = 'basic'
@@ -155,10 +155,6 @@ class SchoolsController < ApplicationController
                                          :longitude => params[:longitude],
                                          :marked_at => Time.now,
                                          :marked_by_id => current_user.id )
-        render :update do |page|
-          page['map_message'].replace_html(:inline => '新位置已经成功保存，<%= link_to "点击此处进入下一步", edit_school_path(@school, :step => "traffic") %>')
-          page['map_message'].visual_effect('highlight')
-        end
       end
     end
   end
