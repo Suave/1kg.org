@@ -15,15 +15,10 @@
           
           <% form_for :school, :url => school_url(@school.id, :step => 'traffic'), :html => {:method => :put, :id => "schoolsPostTraffic"} do |f| -%>
           <%= f.hidden_field :id %>
-          <p><label class="label">学校所在省市</label><%= @school.geo.ancestors[0].name if @school.geo.child? %> <%= @school.geo.name %></p>
-          
-          <% unless @school.geo.counties.size == 0 -%>
-          <p><label class="label">学校所属县</label><%= f.select :county_id, @school.geo.counties.collect {|c| [c.name, c.id]} %></p>
-          <% end -%>
           
           <% f.fields_for :traffic_attributes, @school.traffic do |t| -%>
           <%= t.hidden_field :id %>
-          <p><label class="label" for="school_school_traffic_sight">附近景点</label>
+          <p><label class="label" for="school_school_traffic_sight">学校附近景点</label>
           <%= t.text_field :sight, :size => 30, :class => 'formText' %>
           </p>
 
@@ -31,6 +26,51 @@
           <%= t.text_area  :description, :cols => 75, :rows => 12 %>
           </p>
           <% end -%>
+          
+          <p>
+            <label class="label" for="school_school_traffic_description">学校地理位置</label>
+            <%= @school.geo.ancestors[0].name if @school.geo.child? %> <%= @school.geo.name %>
+              <% unless @school.geo.counties.size == 0 -%>
+                <%= f.select :county_id, @school.geo.counties.collect {|c| [c.name, c.id]} %>
+              <% end -%>
+            
+            <%= @school.basic.address %>（<strong>拖动红色标记更新学校位置</stron>）
+            <% content_for :heads do -%>
+              <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+            <% end -%>
+            <script type="text/javascript">
+              var map;
+              function initialize() {
+                if (GBrowserIsCompatible()) {
+                  map = new GMap2(document.getElementById("map_div"));
+                  map.setCenter(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), 7);
+                  map.addControl(new GLargeMapControl());
+                  map.addControl(new GMapTypeControl());
+
+                  var point = new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>);
+                  marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
+
+                  <% if logged_in? %>
+                  GEvent.addListener(marker, "dragend", function() {
+                    jQuery.ajax({
+                      type: 'PUT',
+                      url: '<%= school_path(@school) %>',
+                      data: 'longitude=' + marker.getPoint().lng() + '&latitude=' + marker.getPoint().lat(),
+                      dataType: "script"
+                    });
+                  });
+                  <% end %>
+
+                  map.addOverlay(marker);
+                }
+              }
+              jQuery(function(){
+                initialize();
+              })
+            </script>
+
+            <div id="map_div" style="width: 600px; height: 400px; margin: 10px 20px; margin-left: 100px;"></div>
+          </p>
           
           <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span></p>
           <% end -%>
