@@ -1,4 +1,7 @@
 module GMap
+  DEFAULT_LONGITUDE = '121.475916'
+  DEFAULT_LATITUDE  = '31.224353'
+  
   def find_coordinates_by_address(addr)
     address = addr.dup
     if address.include?('乡') || address.include?('镇')
@@ -24,7 +27,7 @@ module GMap
           coordinates = doc / 'coordinates'
           return coordinates.inner_text.split(',')
         else
-          return ['121.475916', '31.224353']
+          return [DEFAULT_LONGITUDE, DEFAULT_LATITUDE]
         end
       rescue
         connect_count += 1
