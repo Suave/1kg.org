@@ -24,7 +24,7 @@
 <br />
 <p class="remark">
   <%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认<br />" unless school.basic.marked_at.blank? %>
-  &raquo; <%= link_to "更正学校位置", edit_school_path(school, :step => 'traffic') %>
+  &raquo; <%= link_to "更正学校位置", edit_school_path(school, :step => 'position') %>
   <% if school.basic.marked_at.blank? -%>
   | <%= link_to "是正确位置", marked_school_path, :method => :put %>
   <% end -%>

@@ -142,8 +142,6 @@ class SchoolsController < ApplicationController
           update_info "need", "other", "学校需求信息修改成功！"
         elsif params[:step] == 'other'
           update_info "other", "done", "学校信息修改完成！"
-        end
-        
         if params[:moderator] == 'add'
           user = User.find params[:uid]
         end
