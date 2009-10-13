@@ -12,6 +12,9 @@ ActionController::Routing::Routes.draw do |map|
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
+  
+  #market
+  #map.market "/market",:controller => "market",:action => "index"
 
   #map.resources :users
   map.with_options :controller => "users" do |user|
