@@ -162,6 +162,12 @@ ActionController::Routing::Routes.draw do |map|
         dash.processing 'processing',  :action => "processing"
       end
     end
+    
+    site.namespace :kuailebox do |kuailebox|
+      kuailebox.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
   end
   
   map.connect ':controller/:action/:id'
