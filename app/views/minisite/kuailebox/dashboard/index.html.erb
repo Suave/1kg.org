@@ -1,8 +1,7 @@
 
 <% content_for :heads do -%>
-<link type="text/css" rel="stylesheet" href="/stylesheets/lightenschool.css" media="screen, projection" />
+<link type="text/css" rel="stylesheet" href="/stylesheets/kuailebox.css" media="screen, projection" />
 <style type="text/css"> 
-body {background: #ececec url(/images/lightenschool/background.png)no-repeat center top;}
 </style>
 <% end -%>
 
@@ -18,21 +17,21 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
    <img src="/images/lightenschool/banner.jpg" alt="点亮学校" style="margin:20px;border:1px #aaa solid" />
    <div class="boxouter">
      <h3>活动简介</h3>
-     <div class="boxinter">       “爱心图书室”是快乐盒子与多背一公斤（1kg.org）合作发起的公益活动。在快乐女声十强选手的家乡，分别选择一所乡村学校（上海除外）。同时，将快乐盒子网站用户的购物行为，转化成支持偶像的爱心积分。通过爱心积分兑换，实现爱心图书的捐购行为。
-     </div>
+     <div class="boxinter"><p>“爱心图书室”是快乐盒子与多背一公斤合作发起的公益活动。在快乐女声十强选手的家乡，分别选择一所乡村学校（上海除外）。同时，将快乐盒子网站用户的购物行为，转化成支持偶像的爱心积分。通过爱心积分兑换，实现爱心图书的捐购行为。
+     </p></div>
    </div>
   
   <div class="boxouter">
     <h3>活动时间</h3>
     <div class="boxinter">
-      2009年10月至2010年2月（包括完成乡村学校赠书环节）
+      <p>2009年10月至2010年2月（包括完成乡村学校赠书环节）</p>
     </div>
   </div>
   
   <div class="boxouter">
     <h3>活动规则</h3>
     <div class="boxinter">
- 捐出“我的积分”给支持的快乐女声，转化成爱心积分。你的女声每获得500个爱心积分，快乐盒子为其家乡的乡村学校捐购一本爱心图书。活动结束时，获得积分最多的选手，快乐盒子将按照“多背一公斤（1kg.org）”的标准，捐购一座藏书1500册以上的乡村图书室。爱心图书室的名字，由你的女声决定。其他九所学校，快乐盒子根据每个选手获得的爱心总积分，捐购对应数量的爱心图书！ （注：本活动解释权归快乐盒子所有）
+ <p>捐出“我的积分”给支持的快乐女声，转化成爱心积分。你的女声每获得500个爱心积分，快乐盒子为其家乡的乡村学校捐购一本爱心图书。活动结束时，获得积分最多的选手，快乐盒子将按照“多背一公斤"的标准，捐购一座藏书1500册以上的乡村图书室。爱心图书室的名字，由你的女声决定。其他九所学校，快乐盒子根据每个选手获得的爱心总积分，捐购对应数量的爱心图书！ （注：本活动解释权归快乐盒子所有）</p>
     </div>
   </div>
 </div>
@@ -42,7 +41,8 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
  
 </div>
 
-<div id="misc">
+<div id="misc" >
+  <%= link_to image_tag("kuailebox/kuaileboxlogo.png"), "http://kuailebox.com", :target => "_blank" %> <%= link_to image_tag("kuailebox/1kglogo.gif"), root_url %>
 </div>
 <h1></h1>
 <% end -%>
