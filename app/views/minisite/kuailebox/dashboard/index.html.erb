@@ -35,11 +35,40 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
  捐出“我的积分”给支持的快乐女声，转化成爱心积分。你的女声每获得500个爱心积分，快乐盒子为其家乡的乡村学校捐购一本爱心图书。活动结束时，获得积分最多的选手，快乐盒子将按照“多背一公斤（1kg.org）”的标准，捐购一座藏书1500册以上的乡村图书室。爱心图书室的名字，由你的女声决定。其他九所学校，快乐盒子根据每个选手获得的爱心总积分，捐购对应数量的爱心图书！ （注：本活动解释权归快乐盒子所有）
     </div>
   </div>
+  
+  <div class="boxouter">
+    <h3>小组讨论</h3>
+    <div class="boxinter">
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+      
+    </div>
+  </div>
 </div>
 
 
 <div class="rcolumn">
- 
+  <div class="boxouter">
+    <h3>学校列表</h3>
+    <div class="boxinter">
+      <ul>
+        <li><a href="http://www.1kg.org/schools/1004224" target="_blank">四川省雅安市名山县车岭镇悔沟村小学</a></li>
+        <li><a href="http://www.1kg.org/schools/1004232" target="_blank">湖南省湘西自治州凤凰县腊尔山镇拉忍村拉仁小学</a></li>
+        <li><a href="http://1kg.org/schools/1004228" target="_blank">甘肃天祝藏族自治县抓喜秀龙乡炭窑沟小学</a></li>
+      </ul>
+      <p>陆续推出 ...</p>
+    </div>
+  </div>
+  
+  <div class="boxouter">
+    <h3>参与活动</h3>
+    <div class="boxinter">
+      <ul>
+        <li><a href="http://www.1kg.org/activities/100662" target="_blank">多背一公斤网站邀您一起参与送书活动</a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <div id="misc">

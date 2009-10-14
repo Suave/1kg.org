@@ -1,8 +1,8 @@
 class Minisite::Kuailebox::DashboardController < ApplicationController
   
- 
-  
   def index
+    @group = Group.find_by_slug('kuailebox')
+    @board = @group.discussion.board
     
   end
   
