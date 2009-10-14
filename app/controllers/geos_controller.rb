@@ -70,22 +70,13 @@ class GeosController < ApplicationController
     end
   end
   
-  # def city
-  #   @city = Geo.find_by_slug(params[:slug])
-  #   
-  #   @board = @city.city_board.board
-  #   @topics = @board.latest_topics
-  #   
-  #   @citizens = @city.users.find(:all, :order => "created_at desc", :limit => 14)
-  #   @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-  #   
-  #   @activities = Activity.at(@city).available
-  #   
-  #   @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
-  #                              :order => "last_replied_at desc",
-  #                              :limit => 10)
-  # end
-  
+  def shares
+    @city = Geo.find(params[:id])
+    @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
+    @shares = Share.paginate(:page => params[:page], :per_page => 20,
+                               :conditions => ["user_id in (?)", @all_citizens.flatten],
+                               :order => "last_replied_at desc")
+  end
   
   def search
     @query = params[:city]
