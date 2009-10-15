@@ -76,3 +76,15 @@ function schoolClickFn(latlng, id, level)
   map.setCenter(latlng, level);
   openInfoWindow(latlng, id)
 }
+
+/* 根据用户选择的需求更新需求文本框 */
+function update_needs(tag)
+{
+  val = []
+  $("." + tag + '_needs').each(function(i){
+    if($(this).attr('checked')) {
+      val.push($(this).val());
+    }
+  });
+  $("#"+tag+"_needs").val(val.join(' '));
+}
