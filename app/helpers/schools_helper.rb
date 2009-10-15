@@ -55,4 +55,11 @@ module SchoolsHelper
     html += "<p>#{h(photo.description)}</p>"
     html
   end
+  
+  def needs_check_box(form, tag, options, value)
+    options.map do |option|
+      check_box_tag(tag, option, value.include?(option), :onchange => "update_needs('#{tag.to_s}')", :class => "#{tag}_needs") + 
+      form.label(tag, option)
+    end.join + form.hidden_field(tag, :id => "#{tag}_needs")
+  end
 end
