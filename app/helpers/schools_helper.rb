@@ -59,7 +59,7 @@ module SchoolsHelper
   def needs_check_box(form, tag, options, value)
     options.map do |option|
       check_box_tag(tag, option, value.include?(option), :onchange => "update_needs('#{tag.to_s}')", :class => "#{tag}_needs") + 
-      form.label(tag, option)
+      form.label(tag, option,{:class => 'checkbox_label'})
     end.join + form.hidden_field(tag, :id => "#{tag}_needs")
   end
 end
