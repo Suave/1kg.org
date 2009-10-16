@@ -26,7 +26,7 @@ class Admin::SchoolsController < Admin::BaseController
     
     respond_to do |format|
       if @school.save
-        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+        flash[:notice] = "学校基本信息已保存"
       else
         flash[:notice] = "学校基本信息不完整，请重新填写"
       end

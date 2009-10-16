@@ -61,6 +61,8 @@ module SchoolsHelper
       included = value.nil? ? false : value.include?(option)
       check_box_tag(tag, option, included, :onchange => "update_needs('#{tag.to_s}')", :class => "#{tag}_needs") + 
       form.label(tag, option, {:class => 'checkbox_label'})
-    end.join + form.hidden_field(tag, :id => "#{tag}_needs")
+    end.join + form.hidden_field(tag, :id => "#{tag}_needs") +
+    label_tag("其它") +
+    text_field_tag("other_#{tag}_need", '', :size => '10', :onchange => "update_needs('#{tag.to_s}')", :value => value.sub(options.join(' '), ''))
   end
 end
