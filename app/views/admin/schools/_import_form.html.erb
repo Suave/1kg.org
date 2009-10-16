@@ -1,0 +1,140 @@
+<% @school = school %>
+<% form_for :school, :url => admin_schools_path do |f| %>
+  <p><label class="label">位于</label>
+  <%= geo_select "school", "geo" %> <span class="require">*</span>
+  <%= error_message_on @school, :geo_id %>
+  </p>
+
+  <p><label class="label" for="school_title">校名</label>
+  <%= f.text_field :title, :size => 30, :class => "formText" %> <span class="require">*</span>
+  <%= error_message_on @school, :title %>
+  </p>
+  
+  <fieldset>
+  <% f.fields_for :basic_attributes do |b| -%>
+    <p><label class="label" for="school_school_basic_address">学校地址</label>
+      <%= b.text_field :address, :size => 40, :class => "formText", :value => @school.basic.address %> <span class="require">*</span>
+      <label class="small_label" for="school_school_basic_zipcode">邮编</label>
+      <%= b.text_field :zipcode, :size => 10, :class => "formText", :value => @school.basic.zipcode %>
+    </p>
+    
+    <p><label class="label" for="school_school_basic_master">校长</label>
+      <%= b.text_field :master, :size => 10, :class => "formText", :value => @school.basic.master %><label class="small_label" for="school_school_basic_telephone">学校电话</label>
+      <%= b.text_field :telephone, :size => 20, :class => "formText", :value => @school.basic.telephone %></p>
+    <% end %>
+  </fieldset>
+   
+  <fieldset>
+    <legend>学校联系人</legend>
+    <% f.fields_for :contact_attributes, @school.contact do |c| -%>
+      <%= c.hidden_field :id %>
+      <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %><label class="small_label">职务</label><%=  c.text_field :role, :size => 10, :class => 'formText' %><label class="small_label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
+  <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
+    <% end -%>
+  </fieldset>
+  <% f.fields_for :basic_attributes do |b| -%>
+    <fieldset>
+    <legend>学校基本情况</legend>
+      <p><label class="label">学校规模</label><select id="school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
+          <option/>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+      </select>年制
+      <label class="small_label" for="school_school_basic_class_amount">班级</label>
+      <%= b.text_field :class_amount, :size => 10, :class => "formText", :value => @school.basic.class_amount %> 个
+      <label class="small_label" for="school_school_basic_teacher_amount">老师</label>
+      <%= b.text_field :teacher_amount, :size => 10, :class => "formText", :value => @school.basic.teacher_amount %> 人
+      <label class="small_label" for="school_school_basic_student_amount">学生</label>
+      <%= b.text_field :student_amount, :size => 10, :class => "formText", :value => @school.basic.student_amount %> 人</p>
+      <p class="radioBtn"><label class="label">图书室</label><%= radio_choice b, :has_library %></p>
+      <p id="howmanybook" ><label class="label" for="school_school_basic_book_amount">学校有图书</label>
+      <%= b.text_field :book_amount, :size => 10, :class => "formText", :value => @school.basic.book_amount %> 册</p>
+      <p class="radioBtn"><label class="label">电脑</label><%= radio_choice b, :has_pc %></p>
+      <p id="howmanypc" ><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
+      <p id="online" class="radioBtn"><label class="label">电脑上网</label><%= radio_choice b, :has_internet %></p>
+      <% f.fields_for :local_attributes, @school.local do |l| -%>
+      <%= l.hidden_field :id %>
+      <p class="radioBtn"><label class="label">公益团队</label><%= radio_choice l, :ngo_support %></p>
+      <p id="ngoname"><label class="label" >团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
+      <p id="ngoproject"><label class="label" >已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
+      <% end -%>
+    </fieldset>
+    
+    <% f.fields_for :need_attributes, @school.need do |n| -%>
+    <%= n.hidden_field :id %>
+    <p class="notice"><label class="label" for="school_school_need_urgency">紧急需求</label><%= n.text_field :urgency, :size => 40, :class => 'formText' %></p>
+    
+    <p>
+      <label class="label" for="school_school_need_book">书籍</label>
+      <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_stationary">文具</label>
+      <%= needs_check_box n, :stationary, SchoolNeed::STATIONARY_NEEDS, @school.need.stationary %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_sport">文体用品</label>
+      <%= needs_check_box n, :sport, SchoolNeed::SPORT_NEEDS, @school.need.sport %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_cloth">衣服</label>
+      <%= needs_check_box n, :cloth, SchoolNeed::CLOTH_NEEDS, @school.need.cloth %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_accessory">教具</label>
+      <%= needs_check_box n, :accessory, SchoolNeed::ACCESSORY_NEEDS, @school.need.accessory %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">课程活动</label>
+      <%= needs_check_box n, :course, SchoolNeed::COURSE_NEEDS, @school.need.course %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_teacher">支教老师</label>
+      <%= needs_check_box n, :teacher, SchoolNeed::TEACHER_NEEDS, @school.need.teacher %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_other">其他</label>
+      <%= n.text_field :other, :size => 40, :class => 'formText' %>
+    </p>
+    
+    <% end -%>
+    
+    <fieldset>
+      <legend>信息收集人</legend>
+      <p>电话和电子邮件将只对管理员公开</p>
+      <% f.fields_for :finder_attributes, @school.finder do |r| -%>
+      <%= r.hidden_field :id %>
+      <p><label class="label">姓名</label><%= r.text_field :name, :size => 10, :class => 'formText' %></p>
+      <p><label class="label">邮件</label><%= r.text_field :email, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">QQ</label><%= r.text_field :qq, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">MSN</label><%= r.text_field :msn, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">电话</label><%= r.text_field :phone_number, :size => 30, :class => 'formText' %></p>
+      <p><label class="label">收集时间</label>
+      <%= r.text_field :survey_at, :size => 30, :class => 'vDateField' %>
+      </p>
+      <p><label class="label">活动建议</label><%= r.text_area :note, :size => '60x10' %></p>
+      <% end -%>
+    </fieldset>
+    <% f.fields_for :traffic_attributes, @school.traffic do |t| -%>
+    <%= t.hidden_field :id %>
+    <p><label class="label" for="school_school_traffic_sight">学校附近景点</label>
+    <%= t.text_field :sight, :size => 30, :class => 'formText' %>
+    </p>
+    <p><label class="label" for="school_school_traffic_description">交通指南</label>
+    <%= t.text_area  :description, :cols => 75, :rows => 12 %>
+    </p>
+    <% end -%>
+    <p><%= f.submit "创建" %></p>
+  <% end -%>
+<% end -%>

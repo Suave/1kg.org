@@ -44,6 +44,7 @@ class SchoolNeed < ActiveRecord::Base
     tag_list.gsub!(/：/, ' ')
     tag_list.gsub!(/；/, ' ')
     tag_list.gsub!(/□/, ' ')
+    tag_list.gsub!(/√/, ' ')
     self.tag_list = tag_list
   end
 end

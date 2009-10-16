@@ -21,7 +21,6 @@
 #
 
 class School < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :geo
   belongs_to :county
@@ -107,6 +106,10 @@ class School < ActiveRecord::Base
   validates_presence_of :geo_id, :message => "必选项"
   validates_presence_of :title, :message => "必填项"
   
+  # 用于导入博客学校
+  class << self
+    include SchoolImport
+  end
   
   def self.categories
     %w(小学 中学 四川灾区板房学校)
