@@ -1,5 +1,5 @@
 class Admin::SchoolsController < Admin::BaseController
-  before_filter :find_school, :except => :index
+  before_filter :find_school, :except => [:index, :import, :create]
   
   def index
     if params[:type].blank? || params[:type] == "validated"
@@ -18,6 +18,24 @@ class Admin::SchoolsController < Admin::BaseController
   end
   
   def show
+  end
+  
+  def create
+    @school = School.new(params[:school])
+    @school.user_id = 1
+    
+    respond_to do |format|
+      if @school.save
+        flash[:notice] = "学校基本信息已保存"
+      else
+        flash[:notice] = "学校基本信息不完整，请重新填写"
+      end
+      format.html{redirect_to :back }
+    end
+  end
+  
+  def import
+    @schools = School.import_from_blog
   end
   
   def destroy

@@ -80,11 +80,12 @@ function schoolClickFn(latlng, id, level)
 /* 根据用户选择的需求更新需求文本框 */
 function update_needs(tag)
 {
-  val = []
+  needs = []
   $("." + tag + '_needs').each(function(i){
     if($(this).attr('checked')) {
-      val.push($(this).val());
+      needs.push($(this).val());
     }
   });
-  $("#"+tag+"_needs").val(val.join(' '));
+  other_needs = $("#other_"+tag+"_need").val();
+  $("#"+tag+"_needs").val(needs.join(' ') + ' ' + other_needs);
 }
