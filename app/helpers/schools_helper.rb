@@ -60,7 +60,7 @@ module SchoolsHelper
     options.map do |option|
       included = value.nil? ? false : value.include?(option)
       check_box_tag(tag, option, included, :onchange => "update_needs('#{tag.to_s}')", :class => "#{tag}_needs") + 
-      form.label(tag, option)
+      form.label(tag, option, {:class => 'checkbox_label'})
     end.join + form.hidden_field(tag, :id => "#{tag}_needs")
   end
 end
