@@ -64,7 +64,7 @@ module SchoolsHelper
       check_box_tag(tag, option, included, :onchange => "update_needs('#{tag.to_s}')", :class => "#{tag}_needs") + 
       form.label(tag, option, {:class => 'checkbox_label'})
     end.join + form.hidden_field(tag, :id => "#{tag}_needs") +
-    label_tag("其它") +
+    label_tag(" 其它 ") +
     text_field_tag("other_#{tag}_need", '', :size => '10', :onchange => "update_needs('#{tag.to_s}')", 
                       :value => other_needs)
   end

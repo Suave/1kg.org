@@ -13,7 +13,7 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 .tableList{margin-bottom:5px;}
 
 .boxouter{margin-top:15px;}
-.boxinter{padding:13px;background:#f4f4f4}
+.boxinter{padding:16px;background:#f4f4f4}
 .boxinter p{font-size:13px;line-height:20px;margin-bottom:10px;}
 .boxinter li{font-size:13px;list-style:none;}
 
@@ -55,7 +55,7 @@ font-style:normal;
 margin:0;
 }
 
-.button-to{margin:10px 100px 50px 100px;-margin-bottom:10px;}
+.button-to{}
 
 #misc {padding:3em 0 2em;width:960px;clear:both;text-align:center;font-size:13px;line-height:26px;}
 #misc img {margin:0 4px;}
