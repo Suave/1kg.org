@@ -1,8 +1,7 @@
-<% @school = school %>
 <% form_for :school, :url => admin_schools_path do |f| %>
   <p><label class="label">位于</label>
   <%= geo_select "school", "geo" %> <span class="require">*</span>
-  <%= error_message_on @school, :geo_id %>
+  <%= error_message_on school, :geo_id %>
   </p>
 
   <p><label class="label" for="school_title">校名</label>

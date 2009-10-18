@@ -36,6 +36,8 @@ class Admin::SchoolsController < Admin::BaseController
   
   def import
     @schools = School.import_from_blog
+    @title = params[:title]
+    @school = @schools.select {|s| s.title == @title}.first
   end
   
   def destroy
