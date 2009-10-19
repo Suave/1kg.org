@@ -54,9 +54,10 @@
 
   <div class="boxouter">
     <h3>学校列表</h3>
-    <div class="boxinter">
+    <div class="boxinter" style="height:530px">
       <% @page = Page.find_by_slug('kuailebox-schools-list') -%>
       <%= render :text => @page.body if @page %>
+
     </div>
   </div>
   
