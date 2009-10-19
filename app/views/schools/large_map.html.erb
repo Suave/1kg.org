@@ -11,6 +11,7 @@
       <h3><%= @school.title %></h3>
       <div class="contents">
         <%= render :partial => '/geos/school_maps' %>
+      <span style="margin-left:500px;">返回 <%= link_to '学校页面', school_url(@school) %></span>
       </div>
     </div>
   </div>
