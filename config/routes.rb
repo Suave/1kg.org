@@ -171,6 +171,12 @@ ActionController::Routing::Routes.draw do |map|
         dash.index    '',         :action => "index"
       end
     end
+    
+    site.namespace :cnbloggercon09 do |cnbloggercon09|
+      cnbloggercon09.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
   end
   
   map.connect ':controller/:action/:id'
