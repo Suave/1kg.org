@@ -16,4 +16,7 @@
 
 class SchoolContact < ActiveRecord::Base
   belongs_to :school
+  
+  validates_presence_of :name, :message => "必填项"
+  validates_presence_of :telephone, :message => "必填项"
 end
