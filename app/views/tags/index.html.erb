@@ -1,4 +1,4 @@
-<% @page_title = @title = "所有标签" %>
+<% @page_title = @title = "所有标签(#{@tags.size})" %>
 
 <% content_for :fullsize do %>
 <div class="box">
@@ -7,7 +7,7 @@
       <h3></h3>
       <div class="contents">
         <% tag_cloud @tags, %w(tag1 tag2 tag3 tag4) do |tag, css_class| %>
-          <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>
+          <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>(<%= tag.taggings.count %>)
         <% end %>
       </div>
     </div>

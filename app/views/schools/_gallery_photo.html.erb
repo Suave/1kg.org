@@ -1,6 +1,6 @@
 <dl class="obp">
   <dt><%= link_to image_tag(gallery_photo.public_filename(:thumb), :alt => gallery_photo.title), gallery_photo.public_filename(:medium), 
-        :rel => "prettyPhoto[gallery]", :title => photo_meta(gallery_photo, current_user) %></dt>
+        :rel => "prettyPhoto[gallery]", :description => photo_meta(gallery_photo, current_user), :title => gallery_photo.title %></dt>
   <dd>
     <%= gallery_photo.title %>
   </dd>

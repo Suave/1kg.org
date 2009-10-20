@@ -47,12 +47,21 @@
           </fieldset>
             
           <fieldset>
-          <legend>学校联系人</legend>
-          <% f.fields_for :contact_attributes, @school.contact do |c| -%>
-          <%= c.hidden_field :id %>
-          <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %><label class="small_label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %><label class="small_label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
-          <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
-          <% end -%>
+            <legend>学校联系人</legend>
+            <% f.fields_for :contact_attributes, @school.contact do |c| -%>
+            <%= c.hidden_field :id %>
+            <p>
+              <label class="label">姓名</label>
+              <%= c.text_field :name, :size => 10, :class => 'formText' %><span class="require">*</span>
+              <%= error_message_on @school.contact, :name %>
+              <label class="small_label">职务</label>
+              <%= c.text_field :role, :size => 10, :class => 'formText' %>
+              <label class="small_label">电话</label>
+              <%= c.text_field :telephone, :size => 15, :class => 'formText' %><span class="require">*</span>
+              <%= error_message_on @school.contact, :telephone %>
+            </p>
+            <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
+            <% end -%>
           </fieldset>
           
           <fieldset>
