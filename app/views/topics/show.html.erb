@@ -121,7 +121,8 @@
           <% else -%>
             <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
             
-              <div class="contents">只有小组成员可以回复话题</div>
+              <div class="contents">只有小组成员可以回复话题，现在就<%= link_to "加入小组", join_group_url(@topic.board.talkable.group, :to => CGI.escape(request.request_uri)), :class => "buttonlink" %>。
+              </div>
             
             <% else -%>
             
