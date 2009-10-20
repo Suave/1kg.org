@@ -20,15 +20,15 @@
     initialize();
   })
 </script>
-<div id="map_div" style="width: 250px; height: 150px; margin: 0 20px;"></div>
+<div id="map_div" style="width: 250px; height: 150px; margin: 0 20px;" onclick="$('#school_large_map').click();"></div>
 <br />
 <p class="remark">
   <%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认<br />" unless school.basic.marked_at.blank? %>
-  &raquo; <%= link_to "更正学校位置", edit_school_path(school, :step => 'position') %>
+  &raquo; <%= link_to_function "更正学校位置", "$('#school_large_map').click();" %>
   <% if school.basic.marked_at.blank? -%>
   | <%= link_to "是正确位置", marked_school_path, :method => :put %>
   <% end -%>
   <br />
-  &raquo; <%= link_to "在大地图中查看", large_map_school_path(school) %>
+  &raquo; <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 450, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => (logged_in? ? '拖动红色标记修改学校位置' : '要修改学校位置，<a href="/sessions/new">请先登录</a>'), :id => 'school_large_map' %>
 </p>
 

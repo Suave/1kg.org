@@ -1,6 +1,6 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map]
   
   skip_filter :verify_authenticity_token, :only => [:update]
   
@@ -178,6 +178,10 @@ class SchoolsController < ApplicationController
   def large_map
     @school = School.find(params[:id])
     @map_center = [@school.basic.latitude, @school.basic.longitude, 7]
+    
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
   end
   
   def photos
