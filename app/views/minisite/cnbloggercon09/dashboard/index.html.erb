@@ -1,0 +1,66 @@
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/cnbloggercon09.css" media="screen, projection" />
+<style type="text/css"> 
+body {background:white;}
+</style>
+<% end -%>
+
+<% @page_title = "2009 中文网志年会"  -%>
+
+<% content_for :crumb do -%>
+<li>2009 中文网志年会</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+
+<div class="lcolumn">
+   <img src="/images/cnbloggercon09/banner.jpg" alt="2009 中文网志年会" style="margin:10px;" />
+   <div class="boxouter">
+     <h3>年会介绍</h3>
+     <div class="boxinter">
+       <p>中文网志年会（Chinese Blogger Conference）是非传统意义上的会议， 是一年一度博客们的大聚会，这将为您提供一个非常特殊的公共展示机会。</p>
+       <p>年会是覆盖中文网络空间的创新、技术、创业 和文化的交流会议，是由最早引领中文网志文化发源的和推动草根创新文化的群智基金会共同发起的线上线下综合性活动。这个会议的宗旨是建立广泛平等的交流方式，促进中文空间的个人出版、草根文化和创新技术的发展。</p>
+       <p>会议采用现场和网络同步 的参与方式，并鼓励人人都成为参与者，共同“撰写”和已经成为了“报道”中文网络空间的发展历史。有关此会议的应用中广泛采纳的通用标签，并成为连接中文网络空间和全球网络空间的紧密纽带。</p>
+    </div>
+  </div>
+  
+  <div class="boxouter">
+    <h3>小组讨论</h3>
+    <div class="boxinter">
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+    </div>
+  </div>
+</div>
+
+<div class="rcolumn">
+  
+  <div class="center">
+    <img src="/images/cnbloggercon09/cobranding.png" alt="多背网络一公斤" />
+    <img src="/images/cnbloggercon09/slogan.png" alt="公益旅行，网络聚会，移居两得" />
+    <a href="#"><img src="/images/cnbloggercon09/register.png" alt="报名" /></a>
+    <p>解释报名收费和参会回报</p>
+  </div>
+  
+  <div class="boxouter">
+    <h3>年会影像</h3>
+    <div class="boxinter">
+      add code
+    </div>
+  </div>
+  
+  <div class="boxouter">
+    <h3>滚动信息</h3>
+    <div class="boxinter">
+      add code
+    </div>
+  </div>
+</div>
+
+<div id="misc" >
+  <%= link_to image_tag("kuailebox/1kglogo.gif"), root_url %>
+</div>
+<h1></h1>
+<% end -%>
