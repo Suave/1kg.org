@@ -1,11 +1,11 @@
-.lcolumn {float:left; margin-left:10px;-margin-left:0px; width:560px;}
-.rcolumn {float:right; width:320px;margin-right:10px;}
+.lcolumn {float:left; margin-left:10px;-margin-left:0px; width:580px;}
+.rcolumn {float:right; width:300px;margin-right:10px;}
 
 .boxouter h3 {
-color:#a79240;
+color:#79aee4;
 padding:6px 12px;
+background:#f4f4f4;
 -padding:8px 12px 4px;
-background:#efdb8b;
 line-height:1.3em;
 font: bold 1.5em Arial, Helvetica, sans-serif;
 }
@@ -13,7 +13,7 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 .tableList{margin-bottom:5px;}
 
 .boxouter{margin-top:15px;}
-.boxinter{padding:16px;background:#f4f4f4}
+.boxinter{padding:16px;}
 .boxinter p{font-size:13px;line-height:20px;margin-bottom:10px;}
 .boxinter li{font-size:13px;list-style:none;}
 
