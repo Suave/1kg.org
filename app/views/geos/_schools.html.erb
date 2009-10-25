@@ -1,7 +1,8 @@
 <div class="contents">
   <ul>
   <% schools.each do |school| -%>
-    <li><%= link_to_function h(school.title), "schoolClickFn(new GLatLng(#{school.basic.latitude.to_f}, #{school.basic.longitude.to_f}), #{school.id}, 9)" %></li>
+    <%if false%><li><%= link_to_function h(school.title), "schoolClickFn(new GLatLng(#{school.basic.latitude.to_f}, #{school.basic.longitude.to_f}), #{school.id}, 9)" %></li><%end%>
+    <li><%= link_to h(school.title), school_url(school), :target => "_blank"%></li>
   <% end -%>
   </uL>
   <%= schools_paginate schools, @city %>
