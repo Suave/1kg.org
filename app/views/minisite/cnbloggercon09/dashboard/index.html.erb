@@ -37,11 +37,14 @@ body {background:white;}
 
 <div class="rcolumn">
   
-  <div class="boxouter center">
+  <div class="boxouter">
     <img src="/images/cnbloggercon09/cobranding.png" alt="多背网络一公斤" />
-    <img src="/images/cnbloggercon09/slogan.png" alt="公益旅行，网络聚会，移居两得" />
-    <a href="#"><img src="/images/cnbloggercon09/register.png" alt="报名" /></a>
-    <p><!--解释报名收费和参会回报 --></p>
+    <img style="margin-left:50px" src="/images/cnbloggercon09/slogan.png" alt="公益旅行，网络聚会，移居两得" />
+    <a href="http://item.taobao.com/auction/item_detail.jhtml?x_id=0db1&item_id=7130449ea3d3b02d12c6d52e03dd0550"><img src="/images/cnbloggercon09/register.png" alt="报名" /></a>
+    <p style="font-size:1.1em"> 报名费用： 100元/人<br/>[含一件Tee，两顿午餐，往返大巴费用，资料等]
+    <br/>
+    <br/>预定住宿请填写：<a href="http://spreadsheets.google.com/formResponse?formkey=dEV1RkRBRFg3c0dzMmhna25aYTRibmc6MA&ifq" class="buttonlink">住宿登记</a><br/>
+    标准间：110元/间/晚　一人费用：55元/晚<br/>统一安排收费。</p>
   </div>
   
   <div class="boxouter">
@@ -51,6 +54,13 @@ body {background:white;}
       <a href="http://www.flickr.com/groups/cnbloggercon/"><img src="/images/cnbloggercon09/more.png" style="padding:0;margin:0;float:right"></a>
     </div>
   </div>
+  <div class="boxouter">
+      <h3>小组成员</h3>
+      <div class="boxinter">
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 12)} %>
+      <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
+      </div>  
+   </div>
 </div>
 
 <div id="misc" >
