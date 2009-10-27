@@ -1,1 +1,4 @@
-.main_photo img{display:block;width:180px;height:120px;}
+.school_photos img{width:150px;}
+.school_photos{display:block;float:left;height:100px;overflow:hidden;width:150px}
+.school_title{float:right;width:470px;}
+.school_title h1{font-size:20px;line-height:20px;margin-bottom:5px;}

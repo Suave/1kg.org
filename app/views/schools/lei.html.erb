@@ -24,7 +24,7 @@
 
 <% content_for :subtitle do -%>
   <div class="subtitle">
-    访问量：<%= @school.hits %><span style="color:#CCC">（自09.8.22）</span>, 活跃度：<%= @school.karma %>
+    访问量：<%= @school.hits %><span style="color:#CCC">（自09.8.22）</span>, 
   </div>
   <span class="postNew tipText">
 <% if @school.visited?(current_user) == 'visited' -%>
@@ -52,11 +52,17 @@
   </div>
     
 <% end -%>
-
-<%=debug @school.main_photo%>
-<%=debug @school.photos%>
-<%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
-        :rel => "prettyPhoto[gallery]",:class => "main_photo"%>
+<div id="info">
+  <div id="meta">
+    <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]",:class => "school_photos" if @school.main_photo%>
+    <div class="school_title">
+      <h1><%= h @school.title -%></h1>
+      <h5 style="font-size:14px;">活跃度：<!--<%= @school.karma %>--></h5>
+      <div><%= karma_star(@school.karma)-%></div>
+    </div>    
+  </div>
+</div>
 <% content_for :sidebar do -%>
   <%= render :partial => "/shared/ad" %>
   <div class="box">
