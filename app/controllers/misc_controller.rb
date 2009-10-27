@@ -57,6 +57,9 @@ class MiscController < ApplicationController
     # 显示需求标签云
     @tags = SchoolNeed.tag_counts[0..50]
     
+    # 显示最新用户动态
+    @visits = Visited.latest
+    
     render :action => "index"
   end
   
