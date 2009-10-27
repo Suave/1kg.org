@@ -84,7 +84,7 @@ body {background:white;}
       <h3>小组成员</h3>
       <div class="boxinter">
       <% if @group.members[-12,12] %>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members[-12,12]} %>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members[-12,12].reverse} %>
       <%else%>
       <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.reverse} %>
       <%end%>
