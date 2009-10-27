@@ -23,6 +23,21 @@ class SessionsController < ApplicationController
       render :action => 'new'
     end
   end
+  
+  def reset_password
+    @user = User.find_by_email(params[:email])
+    
+    respond_to do |format|
+      if @user && @user.login == params[:login]
+        flash[:notice] = "密码重置成功，新密码已发至您的信箱"
+        @user.reset_password!
+        format.html { redirect_to login_path}
+      else
+        flash[:notice] = "对不起，没有找到与您的输入相匹配的用户"
+        format.html { render 'forget_password' }
+      end
+    end
+  end
 
   def destroy
     self.current_user.forget_me if logged_in?

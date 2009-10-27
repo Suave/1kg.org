@@ -15,7 +15,6 @@ class UsersController < ApplicationController
   def groups
     find_user
     get_user_record(@user)
-    
   end
 
   def create

@@ -15,7 +15,10 @@
       
       <p class="rememberMe"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label></p>
       
-      <p class="submit"><%= submit_tag '登 录' %></p>
+      <p class="submit">
+        <%= submit_tag '登 录' %>
+        <%= link_to "忘记密码了？点击这里找回", forget_password_path %>
+      </p>
       <% end -%>
       
       <p class="login">&raquo; 我还不是会员，<%= link_to "1秒钟注册帐号", signup_url %></p>
