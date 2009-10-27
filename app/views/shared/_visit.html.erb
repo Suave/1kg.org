@@ -1,0 +1,8 @@
+<div style="clear:both;margin-bottom:1em;min-height:50px">
+  <div style="float:left">
+    <%= avatar_for(visit.user, "large") %>
+  </div>
+  <div style="margin-left:60px;">
+    <div><%= link_to visit.user.login, user_url(visit.user) %>在<%= l(visit.created_at.to_date, :format => :short) %>去了<%= link_to h(visit.school.title), school_path(visit.school) %></div>
+  </div>
+</div>

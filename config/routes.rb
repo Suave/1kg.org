@@ -27,6 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => "sessions" do |session|
     session.login 'login', :action => "new"
     session.logout 'logout', :action => "destroy"
+    session.forget_password 'forget_password', :action => 'forget_password'
+    session.reset_password 'reset_password', :action => 'reset_password'
   end
   
   map.resources :users, :member => {:submitted_activities => :get,
