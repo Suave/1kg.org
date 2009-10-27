@@ -48,7 +48,7 @@ body {background:white;}
   <div class="boxouter center">
     <img src="/images/cnbloggercon09/cobranding.png" alt="多背网络一公斤" />
     <img src="/images/cnbloggercon09/slogan.png" alt="公益旅行，网络聚会，一举两得" />
-    <a href="http://item.taobao.com/auction/item_detail.jhtml?x_id=0db1&item_id=7130449ea3d3b02d12c6d52e03dd0550" id="register"></a>
+    <a href="http://item.taobao.com/auction/item_detail.jhtml?x_id=0db1&item_id=7130449ea3d3b02d12c6d52e03dd0550" id="register" title="马上报名"><img src="/images/cnbloggercon09/register.png" alt="马上报名"></a>
     <img style="margin-bottom:4px;" src="/images/cnbloggercon09/taobao.png" alt="通过淘宝网" />
   </div>
   
@@ -92,5 +92,14 @@ body {background:white;}
 <div id="misc" >
   <%= link_to image_tag("/images/logo.gif"), root_url %>
 </div>
-<h1></h1>
+<script type="text/javascript" charset="utf-8">
+$('#register img').hover(
+  function () {
+    $(this).attr("src","/images/cnbloggercon09/register_hover.png");
+  },
+  function () {
+    $(this).attr("src","/images/cnbloggercon09/register.png");
+  }
+); 
+</script>
 <% end -%>
