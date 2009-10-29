@@ -4,6 +4,22 @@
 <% end %>
 
 <% content_for :sidebar do -%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>公告</h3>
+      <div class="contents">
+        <ul>
+          <% @bulletins.each do |b| %>
+            <li>[<%= b.created_at.to_formatted_s(:month_and_day) %>] <%= link_to b.title, bulletin_url(b) %></li>
+          <% end %>
+        </ul>
+      </div>
+      <p class="remark">&raquo; <%= link_to "查看全部", bulletins_url %></p>
+    </div>
+  </div>
+</div>
+
 <div class="box" id="search-front">
   <div class="boxOuter">
     <div class="boxInner">

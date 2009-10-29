@@ -56,6 +56,9 @@ class MiscController < ApplicationController
     # 显示需求标签云
     @tags = SchoolNeed.tag_counts[0..50]
     
+    # 网站公告
+    @bulletins = Bulletin.recent
+    
     render :action => "index"
   end
   

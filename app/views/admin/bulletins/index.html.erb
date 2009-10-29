@@ -1,0 +1,35 @@
+<% @page_title = "网站公告管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>网站公告</h2>
+      <span class="postNew">++ <%= link_to "发新公告", new_admin_bulletin_url %></span>
+      <div class="contents">
+        <table class="tableList">
+          <tr>
+            <th>标题</th>
+            <th>发布人</th>
+            <th>Tag</th>
+            <th>发布时间</th>
+            <th>操作</th>
+          </tr>
+          <% @bulletins.each do |b| -%>
+          <tr>
+            <td><%= link_to b.title, bulletin_url(b) %></td>
+            <td><%= link_to b.user.login, user_url(b.user) %></td>
+            <td><%= b.tag_list %></td>
+            <td><%= b.created_at.to_date %></td>
+            <td><%= link_to "编辑", edit_admin_bulletin_url(b) %> | <%= link_to "删除", admin_bulletin_url(b), :method => :delete, :confirm => "确定删除么？此操作不能恢复" %></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -115,6 +115,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :photos
   
+  map.resources :bulletins
+  
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :roles
@@ -130,6 +132,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :stuff_types do |type|
       type.resources :bucks, :controller => "stuff_bucks"
     end
+    admin.resources :bulletins
   end
 
   # 公益产品

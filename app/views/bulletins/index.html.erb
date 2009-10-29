@@ -1,0 +1,21 @@
+<% @page_title = "网站公告" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回首页", admin_url %></h4>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>网站公告</h2>
+      <span class="postNew"></span>
+      <div class="contents">
+        <ul>
+          <% @bulletins.each do |b| %>
+            <li>[<%= month_and_day(b.created_at) %>] <%= link_to b.title, bulletin_url(b) %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<% @page_title = "网站公告管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>发布网站公告</h2>
+      <span class="postNew"></span>
+      <div class="contents">
+      <% form_for :bulletin, :url => admin_bulletins_url do |f| %>
+        <%= render :partial => "form", :object => f %>
+        <%= submit_tag "发 布" %> 或 <%= link_to "返回", admin_bulletins_url %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

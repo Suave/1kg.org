@@ -1,0 +1,19 @@
+<% @page_title = "#{@bulletin.title} - 网站公告" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回首页", admin_url %></h4>
+<% end -%>
+
+<h2 class="title"><%= @bulletin.title %></h2>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2></h2>
+      <span class="postNew">发布于 <%= @bulletin.created_at.to_formatted_s(:db) %></span>
+      <div class="contents">
+       <%= @bulletin.body %>
+      </div>
+    </div>
+  </div>
+</div>

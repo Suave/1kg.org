@@ -495,7 +495,5 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer   "user_id"
     t.datetime  "created_at"
     t.datetime  "udpated_at"
-    
-    
   end
 end
