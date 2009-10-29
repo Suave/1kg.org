@@ -1,6 +1,6 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:lei]
   
   skip_filter :verify_authenticity_token, :only => [:update]
   

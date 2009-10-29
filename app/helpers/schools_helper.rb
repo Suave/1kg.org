@@ -72,7 +72,7 @@ module SchoolsHelper
   def karma_star(karma)
   #要加上活跃度评星算法
   count = 4
-  html = '<img src="/images/star.png"/>'*count + '<img src="/images/star_gary.png"/>'*(5-count)
+  html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
 
   end
 end
