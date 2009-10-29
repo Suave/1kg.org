@@ -478,6 +478,13 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
   end
 
+  create_table "searches", :force => true do |t|
+    t.string :keywords
+    t.string :category, :default => 'school'
+    t.integer :user_id
+    t.timestamps
+  end
+  
   create_table :votes, :force => true do |t|
     t.column :vote, :boolean, :default => false
     t.column :created_at, :datetime, :null => false

@@ -1,4 +1,4 @@
-<% content_for :heads do -%>
+<% content_for :tail do -%>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 
   <% # 如果提供城市，则只显示此城市的学校 %>
@@ -9,46 +9,46 @@
   <% end %>
   
   <%= javascript_include_tag 'Clusterer2' %>
-<% end %>
 
-<script type="text/javascript">
-  var map;
+  <script type="text/javascript">
+    var map;
   
-  function initialize() {
-    if (GBrowserIsCompatible()) {
-      map = new GMap2(document.getElementById("map_div"));
-      map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
-      map.addControl(new GLargeMapControl());
-      map.addControl(new GMapTypeControl());
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("map_div"));
+        map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
+        map.addControl(new GLargeMapControl());
+        map.addControl(new GMapTypeControl());
 
-      var icons = new Array
-      icons[0] = new GIcon(G_DEFAULT_ICON);
-      icons[0].image = "/images/invalid.png";
-      icons[1] = new GIcon(G_DEFAULT_ICON);
-      icons[1].image = "/images/valid.png";
-      icons[2] = new GIcon(G_DEFAULT_ICON);
-      icons[2].image = "/images/meta.png";
+        var icons = new Array
+        icons[0] = new GIcon(G_DEFAULT_ICON);
+        icons[0].image = "/images/invalid.png";
+        icons[1] = new GIcon(G_DEFAULT_ICON);
+        icons[1].image = "/images/valid.png";
+        icons[2] = new GIcon(G_DEFAULT_ICON);
+        icons[2].image = "/images/meta.png";
       
-      var markers = [];
-      var clusterer = new Clusterer( map );
+        var markers = [];
+        var clusterer = new Clusterer( map );
       
-      for (var i = 0; i < schools.length; ++i) {
-        var point = new GLatLng(schools[i].a, schools[i].o)
-        var marker = new GMarker(point, {icon: icons[schools[i].t]});
+        for (var i = 0; i < schools.length; ++i) {
+          var point = new GLatLng(schools[i].a, schools[i].o)
+          var marker = new GMarker(point, {icon: icons[schools[i].t]});
 
-        GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
+          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
 
-        //clusterer.AddMarker( marker, schools[i].n)
-        clusterer.AddMarker( marker, "<a href='/schools/" + schools[i].i + "' target='_blank'>" + schools[i].n + "</a>")
+          //clusterer.AddMarker( marker, schools[i].n)
+          clusterer.AddMarker( marker, "<a href='/schools/" + schools[i].i + "' target='_blank'>" + schools[i].n + "</a>")
+        }
+      
+        <% if @school %>
+          schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
+        <% end %>
+        //var markerCluster = new MarkerClusterer(map, markers);
       }
-      
-      <% if @school %>
-        schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
-      <% end %>
-      //var markerCluster = new MarkerClusterer(map, markers);
     }
-  }
-  window.onload = initialize;
-</script>
+    window.onload = initialize;
+  </script>
+<% end %>
 
 <div id="map_div"></div>

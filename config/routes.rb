@@ -104,6 +104,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :shares
   
+  map.resources :searches
+  
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 

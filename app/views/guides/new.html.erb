@@ -6,7 +6,6 @@
     <div class="boxInner">
       <h2><%= @page_title %></h2>
       <% form_for @school_guide, :url => school_guides_path(@school) do |form| -%>
-        <%= form.error_messages %>
         <%= render :partial => "form", :object => form %>
         
         <p class="submit clearfix">
