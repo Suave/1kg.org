@@ -130,6 +130,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :stuff_types do |type|
       type.resources :bucks, :controller => "stuff_bucks"
     end
+    admin.resources :vendors # 公益商品供应商，包括积分兑换商家
+    admin.resources :products # 公益商品供应商提供的商品
   end
 
   # 公益产品

@@ -1,0 +1,38 @@
+<% @page_title = "厂商管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>所有厂商</h3>
+      <span class="postNew">++ <%= link_to "添加新厂商", new_admin_vendor_url %></span>
+      <div class="contents">
+        <table border="0" cellspacing="5" cellpadding="5">
+          <tr>
+            <th>slug</th>
+            <th>厂商</th>
+            <th>KEY</th>
+            <th>创建时间</th>
+            <th>&nbsp;</th>
+          </tr>
+          <% @vendors.each do |vendor| %>
+          <tr>
+              <td><%= h vendor.slug %></td>
+              <td><%= h vendor.title %></td>
+              <td style="font-family:'Courier'"><%= h vendor.sign_key %></td>
+              <td><%= h vendor.created_at.to_date %></td>
+              <td>
+                <%= link_to "编辑", edit_admin_vendor_url(vendor) %> |
+                <%= link_to "删除", admin_vendor_url(vendor), :method => :delete, :confirm => "确定删除么？此操作不能恢复" %>
+              </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

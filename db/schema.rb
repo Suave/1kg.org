@@ -477,6 +477,25 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "status",     :limit => 1
     t.datetime "created_at"
   end
+  
+  create_table "vendors", :force => true do |t|
+    t.string    "slug" # 厂商唯一标示符
+    t.string    "title" # 厂商名字
+    t.string    "sign_key" # 唯一密钥，双方要保密
+    t.datetime  "created_at"
+    t.datetime  "updated_at"
+    # TODO: 厂商的LOGO，介绍等内容
+  end
+  
+  create_table "products", :force => true do |t|
+    t.integer   "vendor_id"
+    t.string    "title"
+    t.string    "serial" # 商品的编号，可以厂商提供，保持双方一致即可
+    t.string    "return_url" # 验证完成后，返回厂商网站的地址
+    t.datetime  "created_at"
+    t.datetime  "updated_at"
+  end
+    
 
   create_table :votes, :force => true do |t|
     t.column :vote, :boolean, :default => false
