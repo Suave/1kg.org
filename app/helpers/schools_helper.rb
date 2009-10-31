@@ -70,9 +70,14 @@ module SchoolsHelper
   end
   
   def karma_star(karma)
-  #要加上活跃度评星算法
-  count = 4
-  html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
-
+    #要加上活跃度评星算法
+    count = 4
+    html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
+  end
+  
+  def link_to_needs(needs)
+    needs.split(',').map do |need|
+      link_to need, tag_path(:tag => need)
+    end.join(' ')
   end
 end
