@@ -489,6 +489,7 @@ ActiveRecord::Schema.define(:version => 0) do
   
   create_table "products", :force => true do |t|
     t.integer   "vendor_id"
+    t.integer   "stuff_type_id" # 对应公益物资
     t.string    "title"
     t.string    "serial" # 商品的编号，可以厂商提供，保持双方一致即可
     t.string    "return_url" # 验证完成后，返回厂商网站的地址
