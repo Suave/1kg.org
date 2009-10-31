@@ -496,7 +496,21 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime  "created_at"
     t.datetime  "updated_at"
   end
-    
+  
+  create_table "goods", :force => true do |t|
+    t.string    "title"
+    t.integer   "user_id"
+    t.text      "body"
+    t.string    "price"
+    t.string    "standard"
+    t.text      "sale_url"
+    t.string    "serial" # 商品编号，需要给 1KG，双方保持一致
+    t.datetime  "created_at"
+    t.datetime  "updated_at"
+    # 产品图片
+    # 材料、特别说明、尺寸、重量只用 standard 表达不够
+    # 销售网址
+  end 
 
   create_table :votes, :force => true do |t|
     t.column :vote, :boolean, :default => false

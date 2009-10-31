@@ -132,6 +132,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :products # 公益商品供应商提供的商品
+    admin.resources :goods  # for AJXY 的商城管理后台
   end
 
   # 公益产品
