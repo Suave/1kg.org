@@ -17,6 +17,11 @@ class SchoolGuide < ActiveRecord::Base
   
   named_scope :recent, :limit => 5, :order => 'created_at DESC'
   
+  def increase_hit_without_timestamping!
+    self.hits += 1
+    self.save_without_timestamping
+  end
+  
   private
   def initial_last_replied
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)

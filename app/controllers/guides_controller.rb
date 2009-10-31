@@ -34,8 +34,8 @@ class GuidesController < ApplicationController
         flash[:notice] = '对不起，您已经投过票了'
         format.html {redirect_to school_guide_path(@school, @school_guide)}
       else
-        vote = Vote.new(:vote => true, :user_id => current_user.id)
-        @school_guide.votes << vote
+        vote = @school_guide.votes.build(:vote => true, :user_id => current_user.id)
+        vote.save(false)
         flash[:notice] = '投票成功'
         format.html {redirect_to school_guide_path(@school, @school_guide)}
       end
@@ -61,7 +61,7 @@ class GuidesController < ApplicationController
     respond_to do |format|
       if @school_guide
         @voters = @school_guide.votes.map(&:user)
-        @school_guide.increment!(:hits)
+        @school_guide.increase_hit_without_timestamping!
         @comments = @school_guide.comments.available.paginate :page => params[:page] || 1, :per_page => 15
         @comment = GuideComment.new
         format.html
