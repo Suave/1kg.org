@@ -59,6 +59,9 @@ class MiscController < ApplicationController
     
     # 显示最新用户动态
     @visits = Visited.latest
+
+    # 网站公告
+    @bulletins = Bulletin.recent
     
     render :action => "index"
   end
