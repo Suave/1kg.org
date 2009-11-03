@@ -14,19 +14,28 @@
           <%= render :partial => 'school_steps' %>
           
           <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
-          <fieldset>
+           <fieldset>
             <legend>学校基本信息</legend>
-          <p><label class="label">位于</label><%= geo_select "school", "geo",[], @school.geo_id %></p>
-          
-          <p><label class="label" for="school_title">校名</label><%= f.text_field :title, :size => 30, :class => "formText" %></p>
-          
-          <% f.fields_for :basic_attributes, @school.basic do |b| -%>
+          <div id="school_meta">
+            <div class="meta_col" >
+            <label class="meta_label">地区</label>
+              <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
+              </div>
+            </div>
+            <div class="meta_col">
+              <label class="meta_label">地址</label><br/>
+            <% f.fields_for :basic_attributes, @school.basic do |b| -%>
             <%= b.hidden_field :id %>
-            <p><label class="label" for="school_school_basic_address">学校地址</label>
-            <%= b.text_field :address, :size => 40, :class => "formText" %>
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
+            <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
+            <div class="meta_col">
+            <label class="meta_label">学校名称</label><br/>
+            <%= f.text_field :title, :size => 16, :class => "formText" %>
+            </div>
+          </div>
+            <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
             <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
-          </fieldset>  
+          </fieldset>
+
           <fieldset>
           <legend>学校联系人</legend>
           <% f.fields_for :contact_attributes, @school.contact do |c| -%>
@@ -35,7 +44,9 @@
           <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
           <% end -%>
           </fieldset>
-            
+          
+          <fieldset>
+          <legend>学校基本情况</legend>  
             <p><label class="label">学校规模</label><select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
                 <option/>
                 <option value="1">1</option>
@@ -59,6 +70,7 @@
             <p style="display:none" id="ngoname"><label class="label" >团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
             <p style="display:none" id="ngoproject"><label class="label" >已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
             <% end -%>
+          </fieldset>
           <script type="text/javascript">
           $('#school_basic_attributes_has_library_0').delayedObserver(0.25, function(){$('#howmanybook').hide()})
           $('#school_basic_attributes_has_library_1').delayedObserver(0.25, function(){$('#howmanybook').show()})

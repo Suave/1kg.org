@@ -1,3 +1,5 @@
+
+
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
@@ -6,7 +8,7 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
 
-<% @page_title = @title = "#{h @school.title}" -%>
+<% @page_title = "#{h @school.title}" -%>
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
@@ -52,21 +54,20 @@
     <p class="label_lei">学校情况</p>
   <%if @need-%>
     <% unless  @need.urgency.blank? -%>
-    <p  class="content_lei">这个学校非常需要　<span id="important"><%= h @need.urgency %><span></p><% end -%>
-    <p class="content_lei">这个学校<%="还" unless @need.urgency.blank?%>需要　
-    <%= h @need.book %>
-    <%= h @need.stationary %>
-    <%= h @need.sport %>
-    <%= h @need.cloth %>
-    <%= h @need.accessory %>
-    <%= h @need.course %>
-    <%= h @need.teacher %>
-    <%= h @need.other %> ...
+    <p  class="content_lei">这个学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei">这个学校<%="还" unless @need.urgency.blank?%>需要
+    <%= link_to_needs @need.book %>
+    <%= link_to_needs @need.stationary %>
+    <%= link_to_needs @need.sport %>
+    <%= link_to_needs @need.cloth %>
+    <%= link_to_needs @need.accessory %>
+    <%= link_to_needs @need.course %>
+    <%= link_to_needs @need.teacher %>
+    <%= link_to_needs @need.other %> ...
     </p>
     
   <%end%>
-  <p>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
-                                                                             　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>
+  <p  class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
   <!--
     <% unless @basic.master.blank? %><p class="content_lei">校长　<%= h @basic.master %><%end-%>　　<% unless @basic.telephone.blank? %>电话 <%= h @basic.telephone %></p><%end-%>
     <% unless @contact.name.blank? %><p class="content_lei">联系人　<%= h @contact.name %><% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
@@ -78,9 +79,17 @@
     <p class="content_lei"></p>
     <p class="content_lei"></p>
     
--->  
+-->
+<p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%else%><span class="unknow">未知</span><%end-%>
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%else%><span class="unknow">未知</span><%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%else%><span class="unknow">未知</span><%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%else%><span class="unknow">未知</span><%end-%></p>
   </div>
   
+  <div class="school_box">
+    <p class="label_lei">地理位置</p>
+    <%= render :partial => 'school_map', :locals => {:school => @school} %>
+  </div>
 </div>
 
 <% content_for :sidebar do -%>
@@ -89,7 +98,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>地理位置</h3>
-        <%= render :partial => 'school_map', :locals => {:school => @school} %>
+        
       </div>
     </div>
   </div>
