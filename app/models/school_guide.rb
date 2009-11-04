@@ -17,6 +17,14 @@ class SchoolGuide < ActiveRecord::Base
   
   named_scope :recent, :limit => 5, :order => 'created_at DESC'
   
+  def edited_by?(user)
+    #user.class == User && (self.user_id == user.id || user.admin?)
+    return false unless user.class == User
+    return true if self.user_id == user.id
+    return true if user.admin?  
+    
+  end
+  
   private
   def initial_last_replied
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
