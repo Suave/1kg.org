@@ -15,6 +15,7 @@
           <tr>
             <th>标题</th>
             <th>发布人</th>
+            <th>转向</th>
             <th>Tag</th>
             <th>发布时间</th>
             <th>操作</th>
@@ -23,6 +24,7 @@
           <tr>
             <td><%= link_to b.title, bulletin_url(b) %></td>
             <td><%= link_to b.user.login, user_url(b.user) %></td>
+            <td><%= link_to "是", b.redirect_url, :title => b.redirect_url unless b.redirect_url.blank? %></td>
             <td><%= b.tag_list %></td>
             <td><%= b.created_at.to_date %></td>
             <td><%= link_to "编辑", edit_admin_bulletin_url(b) %> | <%= link_to "删除", admin_bulletin_url(b), :method => :delete, :confirm => "确定删除么？此操作不能恢复" %></td>

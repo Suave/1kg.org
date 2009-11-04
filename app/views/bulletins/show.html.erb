@@ -17,3 +17,7 @@
     </div>
   </div>
 </div>
+
+<%= render :partial => "/comments/comments", :object => @comments %>
+
+<%= render :partial => "/comments/write", :locals => {:type => "bulletin", :value => @bulletin.id} %>
