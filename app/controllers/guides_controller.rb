@@ -20,7 +20,8 @@ class GuidesController < ApplicationController
   end
   
   def edit
-    @school_guide = current_user.guides.find(params[:id])
+    #@school_guide = current_user.guides.find(params[:id])
+    @school_guide = SchoolGuide.find params[:id]
   end
   
   def vote
@@ -73,7 +74,8 @@ class GuidesController < ApplicationController
   end
   
   def destroy
-    @school_guide = current_user.guides.find_by_id(params[:id])
+    #@school_guide = current_user.guides.find_by_id(params[:id])
+    @school_guide = SchoolGuide.find params[:id]
     @school_guide.destroy if @school_guide
     
     respond_to do |format|

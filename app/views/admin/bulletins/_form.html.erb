@@ -2,6 +2,10 @@
   <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @bulletin, :title %>
 </p>
 
+<p><label class="label">转向URL</label>
+  <%= form.text_field :redirect_url, :size => 40, :class => "formText" %>
+</p>
+
 <p><label class="label"><%= avatar_for current_user, "large" %></label>
 <%= fckeditor_textarea("bulletin", "body", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
 </p>
