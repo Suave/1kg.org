@@ -11,14 +11,14 @@
         </ul>
 
         <div class="panel setting">
-          <div id='submitted'>
-            <%= render :partial => "/topics/topics", :object => submitted_topics %>
-            <p class="remark">&raquo; <%= link_to "查看#{user.login}发起的所有话题", submitted_topics_user_url(user) %> (<%= user.topics.size %>)</p>
+          <div id="submitted">
+            <%= render :partial => "/users/group_topics", :object => submitted_topics %>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(user) %> (<%= user.topics.size %>)</p>
           </div>
           
           <div id="participated">
-            <%= render :partial => "/topics/topics", :object => participated_topics %>
-            <p class="remark">&raquo; <%= link_to "查看#{user.login}参与的所有话题", participated_topics_user_url(user) %> (<%= user.posts.size %>)</p>
+            <%= render :partial => "/users/group_topics", :object => participated_topics %>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(user) %> (<%= user.posts.size %>)</p>
           </div>
         </div>
       </div>
