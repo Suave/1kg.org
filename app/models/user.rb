@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
                              :order => "visiteds.created_at desc"
   
   has_many :topics, :order => "created_at desc"
-  
+  has_many :posts, :order => "created_at desc"
   has_many :shares, :order => "created_at desc"
   has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
   
