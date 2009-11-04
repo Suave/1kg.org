@@ -29,17 +29,17 @@
             <legend>学校基本信息</legend>
           <div id="school_meta">
             <div class="meta_col" >
-            <label class="meta_label">地区</label>
+            <label class="meta_label">地区</label><span class="require">*</span>
               <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
               </div>
             </div>
             <div class="meta_col">
-              <label class="meta_label">地址</label><br/>
+              <label class="meta_label">地址</label><span class="require">*</span><br/>
             <% f.fields_for :basic_attributes, @school.basic do |b| -%>
             <%= b.hidden_field :id %>
             <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
             <div class="meta_col">
-            <label class="meta_label">学校名称</label><br/>
+            <label class="meta_label">学校名称</label><span class="require">*</span><br/>
             <%= f.text_field :title, :size => 16, :class => "formText" %>
             </div>
           </div>
