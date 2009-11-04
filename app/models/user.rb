@@ -234,6 +234,22 @@ class User < ActiveRecord::Base
     !v.nil?
   end
   
+  def random_password(length)
+    chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+    password = ''
+    length.times do |i|
+      password << chars[rand(62)]
+    end
+    password
+  end
+  
+  def reset_password!
+    new_password = random_password(7)
+    self.password = self.password_confirmation = new_password
+    self.save(false)
+    Mailer.deliver_new_password_notification(self, new_password)
+  end
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     

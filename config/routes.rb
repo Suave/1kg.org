@@ -27,6 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options :controller => "sessions" do |session|
     session.login 'login', :action => "new"
     session.logout 'logout', :action => "destroy"
+    session.forget_password 'forget_password', :action => 'forget_password'
+    session.reset_password 'reset_password', :action => 'reset_password'
   end
   
   map.resources :users, :member => {:submitted_activities => :get,
@@ -102,6 +104,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :shares
   
+  map.resources :searches
+  
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
@@ -114,6 +118,8 @@ ActionController::Routing::Routes.draw do |map|
                           :collection => {:all => :get}
   
   map.resources :photos
+  
+  map.resources :bulletins
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -130,6 +136,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :stuff_types do |type|
       type.resources :bucks, :controller => "stuff_bucks"
     end
+    admin.resources :bulletins
   end
 
   # 公益产品

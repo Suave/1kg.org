@@ -4,15 +4,17 @@
      <h3>用户登录</h3>
      <div class="contents">
        <% form_tag session_path do -%>
-       <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+       <p><label for="email" class="label">邮箱</label> <%= text_field_tag 'email' %></p>
 
        <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
-
+<span>　　　　忘记密码了？<%= link_to "点击这里找回", forget_password_path %></span>
        <p class="rememberMe" style="margin: 1em 5em; color:gray"><%= check_box_tag 'remember_me' %> <label for="remember_me">在这台电脑上记住我</label></p>
 
-       <p class="submit" style="margin: 1em 5em;"><%= submit_tag '登 录', :style=> "width:80px" %></p>
+       <p class="submit" style="margin: 1em 5em;">
+        <%= submit_tag '登 录', :style=> "width:80px" %>
+       </p>
        <% end -%>
-       
+   
        <p class="center">还不是会员?</p>
        <p><a class="joinNow" href="/signup">现在就加入！</a></p>
        <p class="center">或</p>
