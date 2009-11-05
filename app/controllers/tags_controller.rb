@@ -16,5 +16,6 @@ class TagsController < ApplicationController
     # 需要优化
     @schools = @school_needs.map(&:school).paginate(:per_page => 10, :page => params[:school_page])
     @guides = SchoolGuide.find_tagged_with(params[:tag]).paginate(:per_page => 10, :page => params[:guide_page])
+    @shares = Share.find_tagged_with(params[:tag]).paginate(:per_page => 10, :page => params[:share_page])    
   end
 end
