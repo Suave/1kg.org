@@ -28,4 +28,15 @@ class TagsController < ApplicationController
       end
     end
   end
+  
+  def needs
+    respond_to do |format|
+      if params[:tag]
+        format.html {redirect_to tag_path(:tag => params[:tag])}
+      else
+        @tags = SchoolNeed.tag_counts
+        format.html { render 'index' }
+      end
+    end
+  end
 end
