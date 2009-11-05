@@ -34,7 +34,7 @@
     <div class="boxInner">
       <h3><%= @tag %>相关的分享</h3>
       <div class="contents">
-        <%= render :partial => '/shares/shares', :object => @shares %>
+        <%= render :partial => '/schools/shares', :object => @shares %>
         <%= customize_paginate(@shares, :param_name => 'share_page') %>
       </div>
     </div>
