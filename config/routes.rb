@@ -104,7 +104,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :comments
   
-  map.resources :shares
+  map.resources :shares, :member => {:vote => :post}
   
   map.resources :searches
   
