@@ -22,12 +22,12 @@ module ApplicationHelper
     datetime.to_formatted_s(:month_and_day)
   end
   
-  def customize_paginate(value,anchor, params={})
+  def customize_paginate(value, params={})
 		str = will_paginate(value, params.merge({:previous_label => '<<',
                           :next_label => '>>'}))
 		if str != nil
 		str.gsub(/href="(.*?)"/) do
-		  %(href='#{$1}#{anchor}')
+		  %(href='#{$1}#topicCommentsList')
 		end
 	        end
   end
