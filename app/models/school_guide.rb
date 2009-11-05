@@ -17,18 +17,17 @@ class SchoolGuide < ActiveRecord::Base
   
   named_scope :recent, :limit => 5, :order => 'created_at DESC'
   
-<<<<<<< HEAD:app/models/school_guide.rb
+
   def edited_by?(user)
     #user.class == User && (self.user_id == user.id || user.admin?)
     return false unless user.class == User
     return true if self.user_id == user.id
-    return true if user.admin?  
+    return true if user.admin?
+  end
     
-=======
   def increase_hit_without_timestamping!
     self.hits += 1
     self.save_without_timestamping
->>>>>>> 6152b1de0c0f6e4e807c7626c851922622a46190:app/models/school_guide.rb
   end
   
   private

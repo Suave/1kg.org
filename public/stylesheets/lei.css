@@ -22,3 +22,5 @@ body{background:#fff}
 #visit_date{width:136px;text-align:right;padding:8px;background:#eee}
 #visit_date p{margin:0}
 #visit_date input {width:70px;margin:5px 0;}
+
+#map_info{margin-left:10px;float:left;}

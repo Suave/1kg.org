@@ -1,5 +1,3 @@
-
-
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
@@ -80,29 +78,20 @@
     <p class="content_lei"></p>
     
 -->
-<p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%else%><span class="unknow">未知</span><%end-%>
-  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%else%><span class="unknow">未知</span><%end-%>
-  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%else%><span class="unknow">未知</span><%end-%>
-  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%else%><span class="unknow">未知</span><%end-%></p>
+<p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
   </div>
   
   <div class="school_box">
     <p class="label_lei">地理位置</p>
-    <%= render :partial => 'school_map', :locals => {:school => @school} %>
+    <%= render :partial => 'map_lei', :locals => {:school => @school} %>
   </div>
 </div>
 
 <% content_for :sidebar do -%>
   <%= render :partial => "/shared/ad" %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>地理位置</h3>
-        
-      </div>
-    </div>
-  </div>
-  
   
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
@@ -171,9 +160,9 @@
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
               <p><label>学校规模</label>年制：<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%else%><span class="unknow">未知</span><%end-%></p>
+              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%end-%>
+              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%end-%>
+              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%end-%></p>
               <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
                                                                              　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
               <% else -%>
