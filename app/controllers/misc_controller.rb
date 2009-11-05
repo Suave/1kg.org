@@ -1,6 +1,7 @@
 class MiscController < ApplicationController
   #include RubyAes
   before_filter :login_required, :only => :my_city
+  caches_page :show_page
   
   def index
     @page_title = "首页"    
@@ -55,6 +56,12 @@ class MiscController < ApplicationController
     
     # 显示需求标签云
     @tags = SchoolNeed.tag_counts[0..50]
+    
+    # 显示最新用户动态
+    @visits = Visited.latest
+
+    # 网站公告
+    @bulletins = Bulletin.recent
     
     render :action => "index"
   end

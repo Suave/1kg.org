@@ -1,4 +1,26 @@
-.school_photos img{width:150px;}
-.school_photos{display:block;float:left;height:100px;overflow:hidden;width:150px}
-.school_title{float:right;width:470px;}
-.school_title h1{font-size:20px;line-height:20px;margin-bottom:5px;}
+body{background:#fff}
+
+#meta{width:640px;height:110px}
+.school_main img{width:150px;}
+.school_main{display:block;height:100px;overflow:hidden;width:150px;}
+.meta_left{float:left;width:150px}
+.meta_right{float:right;width:470px;}
+.meta_right h1{font-size:20px;line-height:20px;margin-right:5px;display:inline}
+.meta_right h5{display:inline;line-height:25px;}
+.meta_info{margin:5px 0}
+.meta_info p{font-size:13px;margin:3px 0 !important;}
+
+.stars{position:relative;top:2px}
+.photo_small img{width:47px;margin-top:3px}
+
+.school_box{padding:10px}
+.label_lei{color:#888;border-bottom:1px #ccc solid}
+.content_lei{font-size:13px;color:#666;padding:0 5px;margin:４px 0}
+
+.important a{font-size:16px;}
+
+#visit_date{width:136px;text-align:right;padding:8px;background:#eee}
+#visit_date p{margin:0}
+#visit_date input {width:70px;margin:5px 0;}
+
+#map_info{margin-left:10px;float:left;}

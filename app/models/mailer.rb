@@ -1,5 +1,12 @@
 class Mailer < ActionMailer::Base
-
+  def new_password_notification(user, new_password)
+    @recipients = user.email
+    @from       = "no-reply@1kg.org"
+    @subject    = "[多背一公斤]您的新帐户密码"
+    @sent_on    = Time.now
+    @body       = {:new_password => new_password}
+  end
+  
   def message_notification(message)
     @recipients  = message.receiver.email
     @from        = "no-reply@1kg.org"

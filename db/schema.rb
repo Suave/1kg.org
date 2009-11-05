@@ -512,6 +512,13 @@ ActiveRecord::Schema.define(:version => 0) do
     # 销售网址
   end 
 
+  create_table "searches", :force => true do |t|
+    t.string :keywords
+    t.string :category, :default => 'school'
+    t.integer :user_id
+    t.timestamps
+  end
+  
   create_table :votes, :force => true do |t|
     t.column :vote, :boolean, :default => false
     t.column :created_at, :datetime, :null => false
@@ -522,4 +529,14 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index :votes, ["user_id"], :name => "fk_votes_user"
+  
+  create_table :bulletins, :force => true do |t|
+    t.string    "title"
+    t.text      "body"
+    t.string    "redirect_url"
+    t.integer   "comments_count",   :default => 0 
+    t.integer   "user_id"
+    t.datetime  "created_at"
+    t.datetime  "udpated_at"
+  end
 end

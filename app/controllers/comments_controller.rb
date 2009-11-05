@@ -20,6 +20,9 @@ class CommentsController < ApplicationController
       @comment = GuideComment.new params[:comment]
       save_comment @comment
       
+    elsif params[:type] == "bulletin"
+      @comment = BulletinComment.new params[:comment]
+      save_comment @comment
     end
     
     redirect_to_correct_page @comment
@@ -68,6 +71,10 @@ class CommentsController < ApplicationController
       
       redirect_to school_guide_url(comment.school_guide.school, comment.school_guide)
     
+    elsif comment.type == "BulletinComment"
+      
+      redirect_to bulletin_url(comment.bulletin)
+      
     end
   end
   

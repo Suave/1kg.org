@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
 
-<% @page_title = @title = "#{h @school.title}" -%>
+<% @page_title = "#{h @school.title}" -%>
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
@@ -15,65 +15,83 @@
   });
 </script>
 
-<% content_for :crumb do -%>
-<li><%= link_to "学校", schools_url %></li>
-<ul>
-  <li><%= h @school.title %></li>  
-</ul>
+
+
+<% content_for :subtitle do -%>  
 <% end -%>
 
-<% content_for :subtitle do -%>
-  <div class="subtitle">
-    访问量：<%= @school.hits %><span style="color:#CCC">（自09.8.22）</span>, 
-  </div>
-  <span class="postNew tipText">
-<% if @school.visited?(current_user) == 'visited' -%>
-  我去过
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">修改时间</a>
-  <%= link_to "我没去过", novisited_school_url(@school), :method => :put %>
-
-  <% elsif @school.visited?(current_user) == 'interesting' -%>
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
-  <%= link_to "不关注了", novisited_school_url(@school), :method => :put %>
-
-  <% elsif @school.visited?(current_user) == false -%>
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
-  <%= link_to "我关注", interest_school_url(@school), :method => :put %>
-
-  <% end -%>        
-  </span>
-  <div id="what_time">
-  <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
-  <div id="visit_date" style="display:none">
-    什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="vDateField" />
-    <%= submit_tag "确定" %>
-  </div>
-  <% end -%>
-  </div>
-    
-<% end -%>
 <div id="info">
   <div id="meta">
-    <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
-        :rel => "prettyPhoto[gallery]",:class => "school_photos" if @school.main_photo%>
-    <div class="school_title">
+    <div class="meta_left">
+      <% if @school.main_photo -%>
+      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
+          :rel => "prettyPhoto[gallery]",:class => "school_main" %>
+      <%else%>
+      <img class="school_main" src="/images/school_main.png"/>
+      <%end%>
+      <a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a>
+            　<a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
+      <% if false -%>
+      <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), photo.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
+      <%end%>
+    </div>
+    <div class="meta_right">
+      <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
-      <h5 style="font-size:14px;">活跃度：<!--<%= @school.karma %>--></h5>
-      <div><%= karma_star(@school.karma)-%></div>
-    </div>    
-  </div>
-</div>
-<% content_for :sidebar do -%>
-  <%= render :partial => "/shared/ad" %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>地理位置</h3>
-        <%= render :partial => 'school_map', :locals => {:school => @school} %>
+      <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校可以上网"><% end %>
+      <div class="meta_info">
+        <h5 style="font-size:14px;">活跃度 <!--<%= @school.karma %>--></h5><%= karma_star(@school.karma)-%>
+        <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
+        <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>
+        <a>联系学校</a>
       </div>
     </div>
   </div>
+  <div class="school_box">
+    <p class="label_lei">学校情况</p>
+  <%if @need-%>
+    <% unless  @need.urgency.blank? -%>
+    <p  class="content_lei">这个学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei">这个学校<%="还" unless @need.urgency.blank?%>需要
+    <%= link_to_needs @need.book %>
+    <%= link_to_needs @need.stationary %>
+    <%= link_to_needs @need.sport %>
+    <%= link_to_needs @need.cloth %>
+    <%= link_to_needs @need.accessory %>
+    <%= link_to_needs @need.course %>
+    <%= link_to_needs @need.teacher %>
+    <%= link_to_needs @need.other %> ...
+    </p>
+    
+  <%end%>
+  <p  class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
+  <!--
+    <% unless @basic.master.blank? %><p class="content_lei">校长　<%= h @basic.master %><%end-%>　　<% unless @basic.telephone.blank? %>电话 <%= h @basic.telephone %></p><%end-%>
+    <% unless @contact.name.blank? %><p class="content_lei">联系人　<%= h @contact.name %><% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
+                <% unless @contact.telephone.blank? %>　　电话 <%= h @contact.telephone %>　<%end-%>
+                <% unless @contact.email.blank? %>　　邮箱 <%= h @contact.email %>　<%end-%>
+                <% unless @contact.qq.blank? %>　　QQ <%= h @contact.qq %>　<%end-%>
+    </p><%end-%>
+    <p class="content_lei"></p>
+    <p class="content_lei"></p>
+    <p class="content_lei"></p>
+    
+-->
+<p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
+  </div>
   
+  <div class="school_box">
+    <p class="label_lei">地理位置</p>
+    <%= render :partial => 'map_lei', :locals => {:school => @school} %>
+  </div>
+</div>
+
+<% content_for :sidebar do -%>
+  <%= render :partial => "/shared/ad" %>
   
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
@@ -126,7 +144,7 @@
             <div id='basic'>
               <form>
               <% if @basic -%>
-              <p><label>地　　区</label><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></p>
+              
               <p><label>地　　址</label><%= h @basic.address %>　　邮编： <% unless @basic.zipcode.blank? %><%= h @basic.zipcode %><%else%><span class="unknow">未知</span><%end-%> </p>
               
               <p><label>校　　长</label><% unless @basic.master.blank? %><%= h @basic.master %><%else%><span class="unknow">未知</span><%end-%>　　 电话：
@@ -142,9 +160,9 @@
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
               <p><label>学校规模</label>年制：<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%else%><span class="unknow">未知</span><%end-%></p>
+              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%end-%>
+              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%end-%>
+              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%end-%></p>
               <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
                                                                              　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
               <% else -%>
@@ -298,7 +316,7 @@
   
   <div class="box">
     <div class="boxOuter">
-      <div class="boxInner">
+      <div class="boxInner" style="display:none">
         <h3>学校照片</h3>
         <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
         <div class="contents clearfix">

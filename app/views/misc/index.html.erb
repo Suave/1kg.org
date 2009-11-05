@@ -4,26 +4,27 @@
 <% end %>
 
 <% content_for :sidebar do -%>
-<div class="box" id="search-front">
+<% unless @bulletins.blank? -%>
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>站内搜索</h3>
-      <div class="blockOuter">
-        <form action="/cse" id="cse-search-box" class="contents">
-          <div>
-            <input type="hidden" name="cx" value="000273662791847545725:-zxfmpsdcdo" />
-            <input type="hidden" name="cof" value="FORID:9" />
-            <input type="hidden" name="ie" value="UTF-8" />
-            <input type="text" name="q" size="25" class="form-text" />
-            <input type="submit" name="sa" value="搜索" class="form-submit" />
-          </div>
-        </form>
+      <h3>公告</h3>
+      <div class="contents">
+        <ul>
+          <% @bulletins.each do |b| %>
+            <li>[<%= b.created_at.to_formatted_s(:month_and_day) %>] <%= link_to b.title, bulletin_url(b) %></li>
+          <% end %>
+        </ul>
       </div>
+      <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url if @bulletins.length > 5%></p>
     </div>
   </div>
 </div>
-    
+<% end -%>
+  
+<%= render :partial => '/shared/search_box' %>
 <%= render :partial => "/shared/ad" %>
+
 <% @page = Page.find_by_slug('special') -%>
 <%if @page%>
 <div class="box" id="search-front">
@@ -118,6 +119,18 @@
         <%= render :partial => "/shares/shares", :object => @recent_shares %>
       </div>
       <p class="remark">&raquo; <%= link_to "浏览全部分享", shares_url %></p>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最新用户动态</h3>
+      <div class="contents">
+        <%= render :partial => "/shared/visit", :collection => @visits %>
+      </div>
+      <p class="remark">&raquo; <%= link_to "浏览全部用户活动", '#' %></p>
     </div>
   </div>
 </div>

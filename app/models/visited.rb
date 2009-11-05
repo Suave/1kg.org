@@ -15,6 +15,8 @@ class Visited < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   
+  named_scope :latest, :order => 'created_at DESC', :limit => 6
+  
   def Visited.status(status)
     case status
     when 'visited': 1

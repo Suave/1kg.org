@@ -27,22 +27,23 @@
           </p>-->
            <fieldset>
             <legend>学校基本信息</legend>
-          <p><label class="label">位于</label>
-          <%= geo_select "school", "geo" %> <span class="require">*</span>
-          <%= error_message_on @school, :geo_id %>
-          </p>
-          
-          <p><label class="label" for="school_title">校名</label>
-          <%= f.text_field :title, :size => 30, :class => "formText" %> <span class="require">*</span>
-          <%= error_message_on @school, :title %>
-          </p>
-          
-          <% f.fields_for :basic_attributes do |b| -%>
-            <p><label class="label" for="school_school_basic_address">学校地址</label>
-            <%= b.text_field :address, :size => 40, :class => "formText" %> <span class="require">*</span>
-            <%= error_message_on @school.basic, :address %>
-            <label class="small_label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
-            
+          <div id="school_meta">
+            <div class="meta_col" >
+            <label class="meta_label">地区</label><span class="require">*</span>
+              <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
+              </div>
+            </div>
+            <div class="meta_col">
+              <label class="meta_label">地址</label><span class="require">*</span><br/>
+            <% f.fields_for :basic_attributes, @school.basic do |b| -%>
+            <%= b.hidden_field :id %>
+            <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
+            <div class="meta_col">
+            <label class="meta_label">学校名称</label><span class="require">*</span><br/>
+            <%= f.text_field :title, :size => 16, :class => "formText" %>
+            </div>
+          </div>
+            <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
             <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
           </fieldset>
             
