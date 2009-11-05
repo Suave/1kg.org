@@ -27,6 +27,11 @@ class Admin::GroupsController < Admin::BaseController
     redirect_to admin_groups_url
   end
   
+  def destroy
+    @group.destroy
+    flash[:notice] = "#{@group.title}小组已经删除"
+    redirect_to admin_groups_url
+  end
   
   
   private
