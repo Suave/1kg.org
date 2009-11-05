@@ -7,6 +7,7 @@
 </p>
 
 <p><label class="label"><%= avatar_for current_user, "large" %></label>
+<%= error_message_on @school_guide, :content %>
 <%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
 </p>
 

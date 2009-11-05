@@ -82,7 +82,10 @@ class GeosController < ApplicationController
     @query = params[:city]
     if !@query.to_s.strip.empty?
       tokens = @query.split.collect {|c| "%#{c.downcase}%"}
-      return @cities = Geo.find(:all, :conditions => [(["(LOWER(name) LIKE ?)"] * tokens.size).join(" AND "), * tokens])
+      @cities = Geo.find(:all, :conditions => [(["(LOWER(name) LIKE ?)"] * tokens.size).join(" AND "), * tokens])
+      if @cities.length == 1
+        redirect_to :action => "show", :id => @cities[0].id
+      end
     else
       @cities = Geo.roots
     end

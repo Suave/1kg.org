@@ -109,14 +109,16 @@ class School < ActiveRecord::Base
   # 用于导入博客学校
   class << self
     include SchoolImport
-  end
   
-  def self.categories
-    %w(小学 中学 四川灾区板房学校)
-  end
+    def search(keywords, page, per_page = 20)
+      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
+    end
   
-  def self.get_near_schools_at(geo)
- 
+    def categories
+      %w(小学 中学 四川灾区板房学校)
+    end
+  
+    def get_near_schools_at(geo)
       root = geo.root? ? geo : geo.parent
       ids =[root.id]
       if not root.leaf?
@@ -134,6 +136,7 @@ class School < ActiveRecord::Base
       #logger.info ids.class
       #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
       validated.locate(ids)
+    end
   end
   
   def hit!

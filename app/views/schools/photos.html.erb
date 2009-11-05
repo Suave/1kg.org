@@ -15,10 +15,12 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>全部照片</h3>
+      
       <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
       <div class="contents clearfix">
         <%= render :partial => "gallery_photo", :collection => @photos %>
       </div>
+      <span style="margin-left:500px;">返回 <%= link_to '学校页面', school_url(@school) %></span>
       <div class="contents"><p><%= will_paginate @photos %></p></div>
     </div>
   </div>

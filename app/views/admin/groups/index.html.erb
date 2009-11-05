@@ -23,7 +23,10 @@
             <td><%= link_to g.title, group_url(g) %></td>
             <td><%= g.city.parent.name if g.city && g.city.parent %> <%= g.city.name if g.city %></td>
             <td><%= link_to g.creator.login, user_url(g.creator) %></td>
-            <td><%= link_to "编辑", edit_admin_group_url(g) %></td>
+            <td>
+              <%= link_to "编辑", edit_admin_group_url(g) %>
+              <%= link_to "删除", admin_group_url(g), :method => :delete, :confirm => "确认删除么？" %>
+            </td>
           </tr>
           <% end -%>
         </table>

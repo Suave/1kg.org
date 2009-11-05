@@ -1,0 +1,16 @@
+<div class="box" id="search-front">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>搜索</h3>
+      <div class="blockOuter">
+
+        <% form_for :search, :url => searches_path, :html => {:id  => "cse-search-box", :class => 'contents'} do |form| %>
+          <div>
+            <%= form.text_field :keywords, :class => 'form-text' %>
+            <%= form.submit "搜索", :class => 'form-submit' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
