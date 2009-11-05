@@ -44,7 +44,6 @@ class Board < ActiveRecord::Base
                                     :limit => 10)
   end
   
-  
   private
   def create_moderator_role
     Role.create!(:identifier => "roles.board.moderator.#{self.id}")

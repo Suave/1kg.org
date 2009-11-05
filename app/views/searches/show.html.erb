@@ -5,18 +5,30 @@
   <%= render :partial => "/shared/ad" %>
 <% end %>
 
+<% unless @schools.empty? %>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <% if !@schools.empty? %>
-      <h3><%= "所有包含 #{@keywords} 的学校" %></h3>
+      <h3><%= "包含 #{@keywords} 的学校" %></h3>
       <div class="contents">
         <%= render :partial => '/schools/schools', :object => @schools %>
         <%= customize_paginate(@schools) %>
       </div>
-      <% else %>
-      <h3><%= "对不起，没有找到符合您的搜索条件的学校" %></h3>
-      <% end %>
     </div>
   </div>
 </div>
+<% end %>
+
+<% unless @groups.empty? %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= "包含 #{@keywords} 的小组" %></h3>
+      <div class="contents clearfix">
+        <%= render :partial => '/groups/groups', :object => @groups %>
+        <%= customize_paginate(@groups) %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
