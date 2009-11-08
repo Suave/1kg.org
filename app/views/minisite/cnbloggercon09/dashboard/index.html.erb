@@ -26,13 +26,23 @@ body {background:white;}
   </div>
   
   <div class="boxouter">
+    <h3>赞助方式</h3>
+    <div class="boxinter">
+      <p>现金赞助，所有赞助会用来支付年会所需费用，结余会用在下一年，您的logo会放在报名页面和主网站，您也可以把宣传材料通过年会发放。 </p>
+      <p>礼品，物品赞助， 赞助礼品，纪念品免费发送给参会者。也可以提供给CNBloggerMarket销售，销售所得也会用于支付年会费用。 </p>
+      <p>赞助学生blogger免费参与会议，可以通过年会支付也可以自己资助学生blogger来参与年会的的旅费，酒店。 </p>
+      <p>具体事项可以email至 xueying50#gmail.com(请用 @ 替代 # 号) 咨询， 谢谢！ </p>
+    </div>
+  </div>
+  
+  <div class="boxouter">
     <h3>志愿者招募</h3>
     <div class="boxinter">
       <p><a href="http://www.1kg.org/activities/100676" target="_blank">2009寻找中文网志年会的1KGer</a></p>
       <p><a href="http://www.1kg.org/activities/100677" target="_blank">2009寻找多背一公斤的Blogger-乡村教育主题论坛</a></p>
     </div>
   </div>
-  
+
   <div class="boxouter">
     <h3>小组讨论</h3>
     <div class="boxinter">
@@ -48,28 +58,23 @@ body {background:white;}
   <div class="boxouter center">
     <img src="/images/cnbloggercon09/cobranding.png" alt="多背网络一公斤" />
     <img src="/images/cnbloggercon09/slogan.png" alt="公益旅行，网络聚会，一举两得" />
-    <a href="http://item.taobao.com/auction/item_detail.jhtml?x_id=0db1&item_id=7130449ea3d3b02d12c6d52e03dd0550" id="register"></a>
+    <a href="http://item.taobao.com/auction/item_detail.jhtml?x_id=0db1&item_id=7130449ea3d3b02d12c6d52e03dd0550" id="register" title="马上报名" target="_blank"><img src="/images/cnbloggercon09/register.png" alt="马上报名"></a>
     <img style="margin-bottom:4px;" src="/images/cnbloggercon09/taobao.png" alt="通过淘宝网" />
   </div>
   
   <div class="boxouter">
      <h3>参会须知</h3>
      <div class="boxinter">
-      <p style="font-size:1.1em;">
             报名费用：<br/>
       100元/人 (包含一件Tee，两顿午餐，资料等)<br/>
-      <br/>预定住宿请填写：<a href="http://spreadsheets.google.com/formResponse?formkey=dEV1RkRBRFg3c0dzMmhna25aYTRibmc6MA&ifq" class="buttonlink">住宿登记</a><br/>
-      标准间：110元/间/晚　一人费用：55元/晚<br/>住宿统一安排收费。</p>
       <br/>
-      年会巴士：<br/>
-   11月6日  中午 13：30 ＆  晚上19：00 两个时间<br/>
-      均从
-   <a href="http://maps.google.com/maps/ms?ie=UTF8&hl=zh-CN&msa=0&msid=106753365061946344349.000476e7a260a59f903a8&ll=23.389531,113.327751&spn=0.178668,0.308647&z=12">白云机场停车场</a>
-      和
-   <a href="http://maps.google.com/maps/ms?ie=UTF8&hl=zh-CN&msa=0&msid=106753365061946344349.000476e7a260a59f903a8&ll=23.125205,113.307152&spn=0.179022,0.308647&z=12">烈士陵园正门</a>
-     同时发车
-   <p>
-
+            年会巴士：<br/>
+      11月6日  中午 13：30 ＆  晚上19：00 两个时间<br/>
+            均从
+      <a href="http://maps.google.com/maps/ms?ie=UTF8&hl=zh-CN&msa=0&msid=106753365061946344349.000476e7a260a59f903a8&ll=23.389531,113.327751&spn=0.178668,0.308647&z=12">白云机场停车场</a>
+            和
+      <a href="http://maps.google.com/maps/ms?ie=UTF8&hl=zh-CN&msa=0&msid=106753365061946344349.000476e7a260a59f903a8&ll=23.125205,113.307152&spn=0.179022,0.308647&z=12">烈士陵园正门</a>
+            同时发车
      </div>
   </div>
 
@@ -83,14 +88,36 @@ body {background:white;}
   <div class="boxouter">
       <h3>小组成员</h3>
       <div class="boxinter">
-      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 12)} %>
+      <% if @group.members[-12,12] %>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members[-12,12].reverse} %>
+      <%else%>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.reverse} %>
+      <%end%>
       <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
       </div>  
    </div>
 </div>
 
 <div id="misc" >
-  <%= link_to image_tag("/images/logo.gif"), root_url %>
+   <p>活动支持</p>
+  <%= image_tag("/images/cnbloggercon09/sanxia.png") %>
+  <%= image_tag("/images/cnbloggercon09/dixiahe.png") %>
+  <br/>
+  <%= link_to image_tag("/images/cnbloggercon09/telecom.png"), 'http://qy.gd.vnet.cn/dx/index.html',:target => '_blank' %>
+  <%= link_to image_tag("/images/cnbloggercon09/cnreviews.png"), 'http://cnreviews.com/',:target => '_blank' %>
+  <%= link_to image_tag("/images/cnbloggercon09/sbf.png"), 'http://www.socialbrain.org',:target => '_blank' %>
+  <%= link_to image_tag("/images/cnbloggercon09/lanoo.gif"), 'http://www.lanoo.cc',:target => '_blank' %>
+  <%= link_to image_tag("/images/cnbloggercon09/du-pin.png"), 'http://www.douban.com/group/dp/',:target => '_blank' %>
+  <%= link_to image_tag("/images/cnbloggercon09/1kg.png"), root_url %>
 </div>
-<h1></h1>
+<script type="text/javascript" charset="utf-8">
+$('#register img').hover(
+  function () {
+    $(this).attr("src","/images/cnbloggercon09/register_hover.png");
+  },
+  function () {
+    $(this).attr("src","/images/cnbloggercon09/register.png");
+  }
+); 
+</script>
 <% end -%>

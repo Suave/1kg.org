@@ -102,5 +102,4 @@ ol.required {list-style-type: decimal; margin-left:30px;font-size:13px;}
 ol.required li {margin:10px 0;}
 #writeguide{width:320px;float:right}
 
-#register{margin-left:58px;-margin-left:0;background:url(/images/cnbloggercon09/register.png);display:block;width:180px;height:52px}
-#register:hover{background-position:0 52px}
+#register img{margin-left:58px;-margin-left:0;display:block;}

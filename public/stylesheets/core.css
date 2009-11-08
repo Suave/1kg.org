@@ -281,7 +281,7 @@ body.ad-column-180 #content-secondary {
   font-weight: bold;
 }
 
-#what_time{position:absolute;top:74px;right:330px;}
+#what_time{position:absolute;top:24px;right:330px;}
 #visit_date input{width:100px;}
 
 .box p.remark {
@@ -1141,3 +1141,8 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
 
 .checkbox_label{margin:0 10px 0 2px;}
+
+.meta_label{font-weight:bold;margin-left:4px}
+.meta_col{float:left;margin-right:10px}
+#school_meta{margin-top:20px;margin-left:60px;height:50px}
+.meta_col input{margin-top:5px}

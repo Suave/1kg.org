@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
 
-<% @page_title = @title = "#{h @school.title}" -%>
+<% @page_title = "#{h @school.title}" -%>
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
@@ -37,37 +37,7 @@
       <%end%>
     </div>
     <div class="meta_right">
-      <!--关注 要去 去过-->
-      <div style="float:right">
-      <% if @school.visited?(current_user) == 'interesting' -%>
-      <%= link_to "关注", novisited_school_url(@school), :method => :put,:class => "buttonstatus2"%>
-      <%else%>
-      <%= link_to "关注", interest_school_url(@school), :method => :put,:class => "buttonstatus" %>
-      <%end%>
-      
-      <% if @school.visited?(current_user) == 'wanna' -%>
-      <%= link_to "要去", novisited_school_url(@school), :method => :put ,:class => "buttonstatus2"%>
-      <% else %>
-      <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()" class="buttonstatus">要去</a>
-      <% end %>
-      
-      <% if @school.visited?(current_user) == 'visited' -%>
-      <%= link_to "去过", novisited_school_url(@school), :method => :put ,:class => "buttonstatus2"%>
-      <% else %>
-      <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()" class="buttonstatus">去过</a>
-      <% end %>
-      
-      </div>
-      <div id="what_time">
-      <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
-      <div id="visit_date" style="display:none">
-      <p>什么时间去的？</p>
-      <input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="vDateField" />
-      <p><%= submit_tag "确定" %></p>
-      </div>
-      <% end -%>
-      </div>
-      
+      <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
       <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校可以上网"><% end %>
       <div class="meta_info">
@@ -78,22 +48,25 @@
       </div>
     </div>
   </div>
-  <div id="baisc_lei">
+  <div class="school_box">
     <p class="label_lei">学校情况</p>
   <%if @need-%>
     <% unless  @need.urgency.blank? -%>
-    <p  class="content_lei">这个学校非常需要　<span id="important"><%= h @need.urgency %><span></p><% end -%>
-    <p class="content_lei">这个学校<%="还" unless @need.urgency.blank?%>需要　
-    <%= h @need.book %>
-    <%= h @need.stationary %>
-    <%= h @need.sport %>
-    <%= h @need.cloth %>
-    <%= h @need.accessory %>
-    <%= h @need.course %>
-    <%= h @need.teacher %>
-    <%= h @need.other %>...
+    <p  class="content_lei">这个学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei">这个学校<%="还" unless @need.urgency.blank?%>需要
+    <%= link_to_needs @need.book %>
+    <%= link_to_needs @need.stationary %>
+    <%= link_to_needs @need.sport %>
+    <%= link_to_needs @need.cloth %>
+    <%= link_to_needs @need.accessory %>
+    <%= link_to_needs @need.course %>
+    <%= link_to_needs @need.teacher %>
+    <%= link_to_needs @need.other %> ...
     </p>
+    
   <%end%>
+  <p  class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
+  <!--
     <% unless @basic.master.blank? %><p class="content_lei">校长　<%= h @basic.master %><%end-%>　　<% unless @basic.telephone.blank? %>电话 <%= h @basic.telephone %></p><%end-%>
     <% unless @contact.name.blank? %><p class="content_lei">联系人　<%= h @contact.name %><% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
                 <% unless @contact.telephone.blank? %>　　电话 <%= h @contact.telephone %>　<%end-%>
@@ -104,23 +77,21 @@
     <p class="content_lei"></p>
     <p class="content_lei"></p>
     
-  
-  
+-->
+<p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
   </div>
   
+  <div class="school_box">
+    <p class="label_lei">地理位置</p>
+    <%= render :partial => 'map_lei', :locals => {:school => @school} %>
+  </div>
 </div>
 
 <% content_for :sidebar do -%>
   <%= render :partial => "/shared/ad" %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>地理位置</h3>
-        <%= render :partial => 'school_map', :locals => {:school => @school} %>
-      </div>
-    </div>
-  </div>
-  
   
   <div class="box" id="cityLatestMembers">
     <div class="boxOuter">
@@ -189,9 +160,9 @@
                 <p class="incomplete">没有联系人信息</p>
               <% end -%>
               <p><label>学校规模</label>年制：<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%else%><span class="unknow">未知</span><%end-%></p>
+              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%end-%>
+              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%end-%>
+              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%end-%></p>
               <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
                                                                              　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
               <% else -%>
@@ -345,7 +316,7 @@
   
   <div class="box">
     <div class="boxOuter">
-      <div class="boxInner">
+      <div class="boxInner" style="display:none">
         <h3>学校照片</h3>
         <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
         <div class="contents clearfix">

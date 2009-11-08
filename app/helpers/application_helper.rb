@@ -23,9 +23,14 @@ module ApplicationHelper
   end
   
   def customize_paginate(value, params={})
-		will_paginate(value, params.merge({:previous_label => '<<',
+		str = will_paginate(value, params.merge({:previous_label => '<<',
                           :next_label => '>>'}))
-	end
+		if str != nil
+		str.gsub(/href="(.*?)"/) do
+		  %(href='#{$1}#topicCommentsList')
+		end
+	        end
+  end
 
   def will_paginate_remote(paginator, options={})
     update = options.delete(:update)
@@ -44,6 +49,8 @@ module ApplicationHelper
                 :update => 'schools', 
                 :url => (geo.nil? ? geos_path : schools_geo_path(geo)))
   end
+
+
 
   def inbox_link(title="收件箱", user=current_user)
     if user.unread_messages.size > 0

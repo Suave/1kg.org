@@ -1,7 +1,9 @@
 <% @page_title = "#{@bulletin.title} - 网站公告" -%>
 
 <% content_for :sidebar do -%>
-  <h4>> <%= link_to "返回首页", admin_url %></h4>
+  <h4> <%= link_to "返回首页", admin_url %></h4>
+  <br/>
+  <%= render :partial => "/shared/ad" %>
 <% end -%>
 
 <h2 class="title"><%= @bulletin.title %></h2>

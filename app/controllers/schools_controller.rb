@@ -19,7 +19,7 @@ class SchoolsController < ApplicationController
         
       }
       format.json {
-        @schools = School.all
+        @schools = School.validated
         @schools_json = []
         @schools.each do |school|
           @schools_json << {:i => school.id,
@@ -63,29 +63,30 @@ class SchoolsController < ApplicationController
     
   end
   
-  def list(validated = true)
-    provinces     = Geo.roots
-    @all_provinces = []
-    @output        = []
-
-    provinces.each do |province|
-      areas = province.children
-      unless areas.empty?
-        schools = School.find(:all, 
-                              :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
-                              :order => "schools.geo_id asc, schools.updated_at desc")
-
-        unless schools.empty?
-          @output[province.id] = schools
-        end
-      end
-    end
-    provinces.each do |province|
-      unless @output[province.id].blank?
-        @all_provinces << province
-      end
-    end
-  end
+  # def list(validated = true)
+  #     provinces     = Geo.roots
+  #     @all_provinces = []
+  #     @output        = []
+  # 
+  #     provinces.each do |province|
+  #       areas = province.children
+  #       unless areas.empty?
+  #         schools = School.validated.locate(areas.map(&:id))
+  #         #find(:all, 
+  #         #                      :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
+  #         #                      :order => "schools.geo_id asc, schools.updated_at desc")
+  # 
+  #         unless schools.empty?
+  #           @output[province.id] = schools
+  #         end
+  #       end
+  #     end
+  #     provinces.each do |province|
+  #       unless @output[province.id].blank?
+  #         @all_provinces << province
+  #       end
+  #     end
+  #   end
   
   # 给出指定日期的所有学校
   def show_date
@@ -342,15 +343,15 @@ def lei
   
   
   # 提供给国旅的学校列表
-  def cits
-    provinces = %w(3 146 15 40 164 27)
-    geo_ids = [1, 2] #天津
-    provinces.each do |p|
-      Geo.find(p).children.collect {|c| geo_ids << c}
-    end
-    @schools = School.find(:all, :conditions => ["geo_id in (?)", geo_ids], 
-                                           :include => [:traffic, :basic, :geo, :county])
-  end
+  # def cits
+  #   provinces = %w(3 146 15 40 164 27)
+  #   geo_ids = [1, 2] #天津
+  #   provinces.each do |p|
+  #     Geo.find(p).children.collect {|c| geo_ids << c}
+  #   end
+  #   @schools = School.find(:all, :conditions => ["geo_id in (?)", geo_ids], 
+  #                                          :include => [:traffic, :basic, :geo, :county])
+  # end
   
   def manage
     school = School.find params[:id]
