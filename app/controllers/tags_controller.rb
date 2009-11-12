@@ -17,4 +17,26 @@ class TagsController < ApplicationController
     @schools = @school_needs.map(&:school).paginate(:per_page => 10, :page => params[:school_page])
     @guides = SchoolGuide.find_tagged_with(params[:tag]).paginate(:per_page => 10, :page => params[:guide_page])
   end
+  
+  def needs
+    respond_to do |format|
+      if params[:tag]
+        format.html {redirect_to tag_path(:tag => params[:tag])}
+      else
+        @tags = SchoolNeed.tag_counts
+        format.html { render 'index' }
+      end
+    end
+  end
+  
+  def needs
+    respond_to do |format|
+      if params[:tag]
+        format.html {redirect_to tag_path(:tag => params[:tag])}
+      else
+        @tags = SchoolNeed.tag_counts
+        format.html { render 'index' }
+      end
+    end
+  end
 end

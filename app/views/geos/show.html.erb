@@ -1,0 +1,124 @@
+<% @page_title = @title = @city.name %>
+
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
+
+<% content_for :subtitle do -%>
+  <% if logged_in? && current_user.geo == @city -%>
+  <div class="subtitle">
+    <%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %>
+  </div>
+  <% end -%>
+  
+  <div class="subtitle">
+    城市管理员：<%= User.moderators_of(@city).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
+  </div>
+<% end -%>
+
+
+<% content_for :crumb do -%>
+  <li><%= link_to "全国", geos_url %></li>
+  <ul>
+    <li><%= @city.name %></li>
+  </ul>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+  <%#= render :partial => 'school_box' %>
+  
+  <% if @city.children.blank? -%>
+    <%#= render :partial => 'city_box' %>
+    <div class="box" id="cityLatestMembers">
+      <div class="boxOuter">
+        <div class="boxInner">
+          <h3>在<%= @city.name %>的小组</h3>
+          <span class="postNew"><%= link_for_new_group %></span>
+          <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="box">
+      <div class="boxOuter">
+        <div class="boxInner">
+          <h3>分享</h3>
+          <span class="postNew"><%= link_for_new_share %></span>
+          <div class="contents">
+            <%= render :partial => "/shares/shares", :object => @shares %>
+          </div>
+          <p class="remark">&raquo; <%= link_to "更多#{@city.name}居民的分享", shares_geo_url(@city) %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="box" id="cityLatestMembers">
+      <div class="boxOuter">
+        <div class="boxInner">
+          <h3>居民</h3>
+          <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
+        </div>
+        <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_geo_url(@city) %></p>
+      </div>
+    </div>
+    
+  <% else %>
+    <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
+  <% end %>
+  
+  <%= render :partial => "school_box", :locals => {:provinces => @cities, :schools => @schools} %>
+  <%= render :partial => "city_search" %>
+<% end -%>
+
+<div class="box" id="cityActivities">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>最近的活动</h3>
+      <span class="postNew"><%= link_for_new_activity %></span>
+      <%#= render :partial => "/activities/activity_list" %>
+      <div class="tabbedPanel" id="tabs">
+        <ul class="tab">
+          <li><%= link_to "全部", "#all" %></li>
+          <li><%= link_to "同城", "#same" %></li>
+          <li><%= link_to "从#{@city.name}出发", "#from" %></li>
+          <li><%= link_to "#{@city.name}相关", "#misc" %></li>
+        </ul>
+        <div class="panel setting">
+          <div id="all">
+            <%= render :partial => "/activities/activities",
+                       :locals => {:activities => @all_activities, :show_sticky => false} %>
+          </div>
+          <div id="same">
+            <%= render :partial => "/activities/local_activity", 
+                       :locals => {:activities => @activities_in_the_city }  %>
+          </div>
+          <div id="from">
+            <%= render :partial => "/activities/travel_activity",
+                       :locals => {:activities => @activities_from_the_city} %>
+          </div>
+          <div id="misc">
+            <%= render :partial => "/activities/related_activity",
+                       :locals => {:activities => @activities_on_the_fly} %>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        jQuery("#tabs").tabs();
+      </script>
+    </div>
+    <%= render :partial => "/activities/all_activities" %>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>周边的学校</h3>
+      <div class="contents">
+        <%= render :partial => 'school_maps', :locals => {:city => @city} %>
+      </div>
+    </div>
+  </div>
+</div>

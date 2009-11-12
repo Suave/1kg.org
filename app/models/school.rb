@@ -111,7 +111,7 @@ class School < ActiveRecord::Base
     include SchoolImport
   
     def search(keywords, page, per_page = 20)
-      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
+      School.validated.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
     end
   
     def categories

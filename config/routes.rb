@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
+  map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
   
   #market

@@ -2,7 +2,7 @@ class GeosController < ApplicationController
   def index
     @cities  = Geo.roots
     @map_center = Geo::DEFAULT_CENTER
-    @schools = School.paginate(:page => params[:page], :per_page => 10)
+    @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
     
     respond_to do |format|
       if !params[:page].blank?
@@ -22,7 +22,7 @@ class GeosController < ApplicationController
     @school = School.find_by_id(params[:school_id]) # option
     @map_center = [@city.latitude, @city.longitude, 9]
     
-    @schools = School.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
+    @schools = School.validated.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
                                   :order => "updated_at desc",
                                   :per_page => 10)
     #setup_destination_stuff(@city)
@@ -98,7 +98,7 @@ class GeosController < ApplicationController
                                   :order => "updated_at desc",
                                   :per_page => 10)
     else
-      @schools = School.paginate(:page => params[:page] || 1, 
+      @schools = School.validated.paginate(:page => params[:page] || 1, 
                                   :conditions => ['geo_id = ?', @city.id],
                                   :order => "updated_at desc",
                                   :per_page => 10)
