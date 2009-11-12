@@ -466,6 +466,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
+    
+    t.integer  "posts_count"
+    t.integer  "topics_count"
+    t.integer  "shares_count"
+    t.integer  "guides_count"
   end
 
   add_index "users", ["email", "state"], :name => "index_users_on_email_and_state"

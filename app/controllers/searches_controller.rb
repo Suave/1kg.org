@@ -7,6 +7,7 @@ class SearchesController < ApplicationController
     @keywords = params[:id]
     @search = Search.new(:keywords => @keywords)
     @schools = School.search(@keywords, params[:page])
+    @groups  = Group.search(@keywords, params[:page])
     
     respond_to do |format|
       format.html

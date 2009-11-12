@@ -72,6 +72,18 @@ namespace :schools do
     end
   end 
   
+  desc "初始化Counter cache"
+  task :counter_cache => :environment do
+    User.all.each do |user|
+      puts user.login
+      user.posts_count = user.posts.count
+      user.shares_count = user.shares.count
+      user.guides_count = user.guides.count
+      user.topics_count = user.topics.count
+      user.save(false)
+    end
+  end
+  
   desc "import all schools to db/schools.csv"
   task :export => :environment do
     file = File.open("#{RAILS_ROOT}/db/schools.csv", 'w')

@@ -44,8 +44,14 @@ class Group < ActiveRecord::Base
                   )
   end
   
-  def self.most_members
-    find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...9]
+  class << self
+    def search(keywords, page, per_page = 20)
+      Group.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
+    end
+    
+    def most_members
+      find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...9]
+    end
   end
   
   private

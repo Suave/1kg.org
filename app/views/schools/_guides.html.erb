@@ -22,7 +22,7 @@
     <td><%= guide.votes.count %></td>
     <td><%= guide.comments_count %></td>
     <td><%= link_to h(guide.user.login), user_url(guide.user), :class => "link" %></td>
-    <td><%= guide.updated_at.to_date %></td>
+    <td><%= l(guide.updated_at.to_date, :format => :short) %></td>
   </tr>
   <% end -%>
   </tbody>

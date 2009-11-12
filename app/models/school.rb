@@ -118,24 +118,14 @@ class School < ActiveRecord::Base
       %w(小学 中学 四川灾区板房学校)
     end
   
-    def get_near_schools_at(geo)
-      root = geo.root? ? geo : geo.parent
-      ids =[root.id]
-      if not root.leaf?
-        ids += root.children.map(&:id)
+    def near_to(geo)
+      if geo.leaf?
+        find(:all, :conditions => ['geo_id = ?', geo.id], :order => "updated_at desc")
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        find(:all, :conditions => ['geo_id in (?)', ids], :order => "updated_at desc")
       end
-      
-      @@city_neighbors.each do |k,v|
-        if v[:id] == root.id
-          v[:neighbors].each do |province, id|
-            ids += Geo.find(id).children.map(&:id)
-          end
-        end
-      end
-      #logger.info ids
-      #logger.info ids.class
-      #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
-      validated.locate(ids)
     end
   end
   

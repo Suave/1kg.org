@@ -34,6 +34,9 @@ class Share < ActiveRecord::Base
   validates_presence_of :geo_id, :message => "请选择一个和你的分享有关的城市"
   validates_presence_of :title,  :message => "请起个题目"
   
+  acts_as_voteable
+  acts_as_taggable
+  
   named_scope :available, :conditions => ["hidden=?", false]
   
   after_create :initial_last_replied
