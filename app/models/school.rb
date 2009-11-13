@@ -118,14 +118,19 @@ class School < ActiveRecord::Base
       %w(小学 中学 四川灾区板房学校)
     end
   
-    def near_to(geo)
+    def near_to(geo, limit = 0)
+      params = {:order => "updated_at desc"}
+      params[:limit] = limit unless limit.zero?
+      
       if geo.leaf?
-        find(:all, :conditions => ['geo_id = ?', geo.id], :order => "updated_at desc")
+        params[:conditions] = ['geo_id = ?', geo.id]
       else
         ids =[geo.id]
         ids += geo.children.map(&:id)
-        find(:all, :conditions => ['geo_id in (?)', ids], :order => "updated_at desc")
+        params[:conditions] = ['geo_id in (?)', ids]
       end
+      
+      find(:all, params)
     end
   end
   
