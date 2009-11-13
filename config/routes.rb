@@ -76,7 +76,10 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :guides, :member => {:vote => :post}
+    school.resources :school_guides, :as => 'guides', :member => {:vote => :post} do |guide|
+      guide.resources :comments, :controller => 'comments', :requirements => 
+                                            {:commentable => 'SchoolGuide'}
+    end
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
                                                  :action => "show_date", 
@@ -92,7 +95,9 @@ ActionController::Routing::Routes.draw do |map|
                                           :invite => :get,
                                           :send_invitation => :put
                                         },
-                             :collection => {:ongoing => :get, :over => :get}
+                             :collection => {:ongoing => :get, :over => :get} do |activity|
+    activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
+  end
 
 
   map.resources :boards, :member =>     { :schools => :get }, 
@@ -103,9 +108,13 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
   
-  map.resources :comments
+  map.resources :shares, :member => {:vote => :post} do |share|
+    share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
+  end
   
-  map.resources :shares, :member => {:vote => :post}
+  map.resources :bulletins do |bulletin|
+    bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
+  end
   
   map.resources :searches
   
@@ -121,8 +130,6 @@ ActionController::Routing::Routes.draw do |map|
                           :collection => {:all => :get}
   
   map.resources :photos
-  
-  map.resources :bulletins
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|

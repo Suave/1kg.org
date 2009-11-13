@@ -63,4 +63,4 @@
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 
-<%= render :partial => "/comments/write", :locals => {:type => "share", :value => @share.id} %>
+<%= render :partial => "/comments/form", :locals => {:commentable => @share} %>

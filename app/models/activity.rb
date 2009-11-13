@@ -40,7 +40,7 @@ class Activity < ActiveRecord::Base
   has_many :participation, :dependent => :destroy
   has_many :participators,  :through => :participation, :source => :user
   
-  has_many :comments, :class_name => "ActivityComment", :foreign_key => "type_id"
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
 #  belongs_to :school
 
