@@ -126,6 +126,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>最新用户动态</h3>
+      <%=debug @visits%>
       <div class="contents">
         <%= render :partial => "/shared/visit", :collection => @visits %>
       </div>
