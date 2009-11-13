@@ -1,6 +1,14 @@
 namespace :comments do
   desc "refactor comments to use one model"
   task :refactor => :environment do
+    class ShareComment < Comment
+    end
+    class ActivityComment < Comment
+    end
+    class GuideComment < Comment
+    end
+    class BulletinComment < Comment
+    end
     Comment.all.each do |comment|
       if comment.type != 'Comment'
         comment.commentable_id = comment.type_id
