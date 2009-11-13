@@ -194,4 +194,18 @@ module ApplicationHelper
   def link_for_activity(activity, show_sticky = true)
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
   end
+  
+  def link_to_topic_group(topic)
+    talkable = topic.board.talkable
+    
+    if talkable.is_a?(SchoolBoard)
+      link_to talkable.school.title, board_path(topic.board)
+    elsif talkable.class == PublicBoard
+      link_to talkable.title, board_path(topic.board)
+    elsif talkable.class == CityBoard
+      link_to talkable.geo.name, board_path(topic.board)
+    else
+      link_to talkable.group.title, group_path(talkable.group)
+    end
+  end
 end
