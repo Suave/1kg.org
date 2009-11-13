@@ -132,6 +132,18 @@ class School < ActiveRecord::Base
       
       find(:all, params)
     end
+    
+    def count_of_near_to(geo)
+      if geo.leaf?
+        conditions = ['geo_id = ?', geo.id]
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        conditions = ['geo_id in (?)', ids]
+      end
+      
+      count(:conditions => conditions)
+    end
   end
   
   def hit!

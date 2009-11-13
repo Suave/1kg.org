@@ -55,7 +55,7 @@
             <% end -%>
           </table>
         </div>
-        <p class="remark">&raquo; <%= link_to "附近所有学校", geo_url(@city) %> (<%= School.near_to(@city).count %>)</p>
+        <p class="remark">&raquo; <%= link_to "附近所有学校", geo_url(@city) %> (<%= School.count_of_near_to(@city) %>)</p>
       </div>
     </div>
   </div>
