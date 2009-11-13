@@ -30,21 +30,21 @@ namespace :comments do
   
   desc "update comments count in parent"
   task :update_count => :environment do
-    # Share.all.each do |share|
-    #   share.update_attribute(:comments_count, share.comments.count)
-    # end
-    # 
-    # Activity.all.each do |activity|
-    #   activity.update_attribute(:comments_count, activity.comments.count)
-    # end
-    # 
-    # SchoolGuide.all.each do |guide|
-    #   guide.update_attribute(:comments_count, guide.comments.count)
-    # end
-    # 
-    # Bulletin.all.each do |bulletin|
-    #   bulletin.update_attribute(:comments_count, bulletin.comments.count)
-    # end
+    Share.all.each do |share|
+      share.update_attribute(:comments_count, share.comments.count)
+    end
+    
+    Activity.all.each do |activity|
+      activity.update_attribute(:comments_count, activity.comments.count)
+    end
+    
+    SchoolGuide.all.each do |guide|
+      guide.update_attribute(:comments_count, guide.comments.count)
+    end
+    
+    Bulletin.all.each do |bulletin|
+      bulletin.update_attribute(:comments_count, bulletin.comments.count)
+    end
     
     Topic.all.each do |topic|
       topic.update_attribute(:posts_count, topic.posts.count)
