@@ -9,9 +9,8 @@ class PostsController < ApplicationController
   
   
   def create
-    @post  = Post.new(params[:post])
+    @post  = @topic.posts.build(params[:post])
     @post.user  = current_user
-    @post.topic = @topic
     @post.format_content if params[:type] == "fast"
     @post.save!
     flash[:notice] = "回帖成功"
@@ -19,19 +18,19 @@ class PostsController < ApplicationController
   end
   
   def edit
-    @post  = Post.find(params[:id])
+    @post  = @topic.posts.find(params[:id])
   end
   
   def update
-    @post = Post.find(params[:id])
+    @post = @topic.posts.find(params[:id])
     @post.update_attributes!(params[:post])
     flash[:notice] = "回帖编辑成功"
     redirect_to board_topic_url(@topic.board_id, @topic)
   end
   
   def destroy
-    @post = Post.find(params[:id])
-    @post.update_attributes!(:deleted_at => Time.now)
+    @post = @topic.posts.find(params[:id])
+    @topic.posts.delete(@post)
     flash[:notice] = "回帖删除成功"
     redirect_to board_topic_url(@topic.board_id, @topic)
   end

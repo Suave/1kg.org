@@ -208,4 +208,28 @@ module ApplicationHelper
       link_to talkable.group.title, group_path(talkable.group)
     end
   end
+  
+  def comments_path(commentable)
+    if commentable.is_a?(SchoolGuide)
+      [commentable.school, commentable, :comments]
+    else
+      [commentable, :comments]
+    end
+  end
+  
+  def edit_comment_path(comment)
+    if comment.commentable.is_a?(SchoolGuide)
+      [:edit, comment.commentable.school, comment.commentable, comment]
+    else
+      [:edit, comment.commentable, comment]
+    end
+  end
+  
+  def comment_path(comment)
+    if comment.commentable.is_a?(SchoolGuide)
+      [comment.commentable.school, comment.commentable, comment]
+    else
+      [comment.commentable, comment]
+    end
+  end
 end

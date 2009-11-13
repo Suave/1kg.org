@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "type_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.datetime "deleted_at"
   end
 

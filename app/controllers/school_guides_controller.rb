@@ -1,4 +1,4 @@
-class GuidesController < ApplicationController
+class SchoolGuidesController < ApplicationController
   before_filter :set_school
   before_filter :login_required, :except => ['show']
   
@@ -33,12 +33,12 @@ class GuidesController < ApplicationController
         format.html {redirect_to root_path}
       elsif current_user.voted?(@school_guide)
         flash[:notice] = '对不起，您已经投过票了'
-        format.html {redirect_to school_guide_path(@school, @school_guide)}
+        format.html {redirect_to [@school, @school_guide]}
       else
         vote = @school_guide.votes.build(:vote => true, :user_id => current_user.id)
         vote.save(false)
         flash[:notice] = '投票成功'
-        format.html {redirect_to school_guide_path(@school, @school_guide)}
+        format.html {redirect_to [@school, @school_guide]}
       end
     end
   end
@@ -49,7 +49,7 @@ class GuidesController < ApplicationController
     respond_to do |format|
       if @school_guide.update_attributes(params[:school_guide])
         flash[:notice] = '攻略更新成功'
-        format.html { redirect_to school_guide_path(@school, @school_guide)}
+        format.html { redirect_to [@school, @school_guide]}
       else
         format.html { render :action => 'edit' }
       end
@@ -63,8 +63,8 @@ class GuidesController < ApplicationController
       if @school_guide
         @voters = @school_guide.votes.map(&:user)
         @school_guide.increase_hit_without_timestamping!
-        @comments = @school_guide.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-        @comment = GuideComment.new
+        @comments = @school_guide.comments.paginate :page => params[:page] || 1, :per_page => 15
+        @comment = Comment.new
         format.html
       else
         flash[:notice] = '对不起攻略不存在'

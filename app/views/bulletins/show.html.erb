@@ -22,4 +22,4 @@
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 
-<%= render :partial => "/comments/write", :locals => {:type => "bulletin", :value => @bulletin.id} %>
+<%= render :partial => "/comments/form", :locals => {:commentable => @bulletin} %>

@@ -61,14 +61,11 @@ class SharesController < ApplicationController
     @share.hit!
     @voters = @share.votes.map(&:user)
     @comments = @share.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-    @comment = ShareComment.new
+    @comment = Comment.new
   end
   
   private
   def find_share
     @share = params[:id] ? Share.find(params[:id]) : Share.new
   end
-  
-  
-  
 end

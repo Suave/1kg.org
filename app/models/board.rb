@@ -17,7 +17,7 @@
 
 class Board < ActiveRecord::Base
   belongs_to :talkable, :polymorphic => true, :dependent => :delete
-  has_many :topics, :conditions => ["deleted_at is null"], :order => "sticky desc, last_replied_at desc", :dependent => :destroy
+  has_many :topics, :order => "sticky desc, last_replied_at desc", :dependent => :destroy
   
   after_create :create_moderator_role
   
