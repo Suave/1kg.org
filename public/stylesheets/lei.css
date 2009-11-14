@@ -1,7 +1,7 @@
 body{background:#fff}
 #content-primary p,#content-secondary p {margin:7px 0;}
 
-#meta{width:640px;height:120px}
+#meta{width:640px;height:120px;padding:0 10px}
 .school_main img{width:150px;}
 .school_main{display:block;height:100px;overflow:hidden;width:150px;}
 .meta_left{float:left;width:150px}
