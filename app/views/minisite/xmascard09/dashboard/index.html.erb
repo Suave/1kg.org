@@ -1,0 +1,43 @@
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/xmascard09.css" media="screen, projection" />
+
+<% end -%>
+
+<% @page_title = "圣诞公益贺卡，一张贺卡一本书，举手之劳的公益活动，共建乡村学校班图书角！" -%>
+
+<% content_for :crumb do -%>
+<li>圣诞公益贺卡</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+
+<div style="display:block; clear:both">
+  <img src="/images/postcard/postcard1.png" class="pc-love" />
+  <div class="pc-intro">
+    <div style="text-align:center"><img src="/images/postcard/love.png" /></div>
+    <p>“让爱继续”以邮政贺卡为载体，每张贺卡定价人民币10元（含邮资）。</p>
+    <p>每购买一张贺卡，由多背一公斤代购卡者向灾区学校、贫困地区学校捐赠一本图书。</p>
+    <p>登录1KG.org网站，输入贺卡上的爱心密码，就可在学校列表中指定图书捐赠学校。</p>
+    <p style="margin-top:20px;"><%= link_to image_tag("/images/postcard/flow.png"), "http://item.taobao.com/auction/item_detail-0db1-89633ed9df80be35de74afff6fa4a9e0.jhtml?cm_cat=0", :target => "_blank" %></p>
+  </div>
+</div>
+
+<div class="lcolumn">
+
+  <div class="boxouter">
+    <h3>小组讨论</h3>
+    <div class="boxinter">
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+    </div>
+  </div>
+  
+</div>
+
+<div class="rcolumn">
+  
+  <%= render :partial => "share" %>
+  
+</div>
+<% end -%>
