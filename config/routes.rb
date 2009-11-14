@@ -185,6 +185,12 @@ ActionController::Routing::Routes.draw do |map|
         dash.index    '',         :action => "index"
       end
     end
+    
+    site.namespace :xmascard09 do |xmascard09|
+      xmascard09.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
   end
   
   map.connect ':controller/:action/:id'
