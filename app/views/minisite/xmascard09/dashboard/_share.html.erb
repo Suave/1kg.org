@@ -1,14 +1,14 @@
   <div class="boxouter">
+    <h3>大家告诉大家</h3>
     <div class="boxinter">
-      <h3>大家告诉大家</h3>
         <div class="shareit clearfix">
           <a href="/images/postcard/avatar.jpg" target="_blank"><%= image_tag "/images/postcard/avatar.jpg", :style => "float:left; margin-right:10px; width:80px" %></a>
           <p>如果你爱聊QQ、MSN，如果你爱上<a href="www.kaixin001.com" target="_blank">开心网</a>，<a href="http://www.douban.com" target="_blank">豆瓣</a>，<a href="http://www.xiaonei.com" target="_blank">校内</a>，可以用左边这个作为你的头像(<a href="/images/postcard/avatar.jpg" target="_blank">下载头像</a>)</p>
         </div>
         <div class="shareit clearfix">
           <p>
-    				<label for="shareurl">点击复制本页地址给<span>QQ/Msn/Gtalk</span>好友</label>
-    				<input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
+    	    <label for="shareurl">点击复制本页地址给<span>QQ/Msn/Gtalk</span>好友</label>
+	    <input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
           </p>
         </div>
         <div class="shareit clearfix">
