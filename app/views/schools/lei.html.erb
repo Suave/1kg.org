@@ -17,8 +17,6 @@
    
 </script>
 
-
-
 <% content_for :subtitle do -%>  
 <% end -%>
 
@@ -37,6 +35,7 @@
         :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
       <%end%>
     </div>
+    
     <div class="meta_right">
       <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
@@ -62,12 +61,14 @@
     <% if @finder -%>
       <p class="content_lei">信息收集人是 <%= h @finder.name %>
       <% if logged_in? && current_user.admin? %>
-           ，邮件<%= h @finder.email %>
-           ，电话<%= h @finder.phone_number %>
+      <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
+      <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
       <% end %>
-           ，QQ <%= h @finder.qq %>，MSN <%= h @finder.msn %>。</p>
-      <p class="content_lei">收集时间<%= h @finder.survey_at.to_date if @finder.survey_at %></p>
-      <p class="content_lei"style="clear:both">活动建议<%= h @finder.note %></p>
+      <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
+      <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
+           。</p>
+      <% if @finder.survey_at %><p class="content_lei">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
+      <%unless @finder.note.blank? %><p class="content_lei"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
     </div>
   </div>
