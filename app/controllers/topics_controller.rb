@@ -39,7 +39,7 @@ class TopicsController < ApplicationController
   end
   
   def destroy
-    @topic.update_attributes!(:deleted_at => Time.now)
+    @topic.destroy
     flash[:notice] = "帖子删除成功"
     redirect_to board_url(@board)
   end

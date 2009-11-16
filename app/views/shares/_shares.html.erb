@@ -6,11 +6,12 @@
   <div style="margin-left:60px;">
     <div>
       <%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %>
-      <br/><small>标签：
-      <% s.tags.each do |tag| %>
-       <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+      <% unless s.tags.blank?%><br/><small style="color:#aaa">标签：
+        <% s.tags.each do |tag| %>
+          <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+        <% end %>
+        </small>
       <% end %>
-      </small>
     </div>
     <div style="color:#999; text-align:right">
       <%= s.hits %> 浏览/<%= s.comments_count %> 回复

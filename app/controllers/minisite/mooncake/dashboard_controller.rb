@@ -9,7 +9,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @board = @group.discussion.board
     @bucks = @stuff_type.bucks
     # for love message
-    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and auto_fill = ?", false], :order => "matched_at desc")
     session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     render :action => "new"
   end
@@ -17,10 +17,10 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def love_message
         
     unless session[:random_stuff].nil?
-      @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and id < ?", session[:random_stuff].to_i], :order => "id desc")
+      @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and id < ? and auto_fill = ?", session[:random_stuff].to_i, false], :order => "id desc")
     end
     
-    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @stuff.nil?
+    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and auto_fill = ?", false], :order => "matched_at desc" ) if @stuff.nil?
     
     session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     
@@ -35,7 +35,11 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     if @stuff.blank?
       return set_message_and_redirect_to_index("您的密码不正确")
     elsif @stuff.matched?
-      return set_message_and_redirect_to_index("您的密码已配过对了")
+      if @stuff.auto_fill?
+        return set_message_and_redirect_to_index("您的密码已过期，系统自动匹配给#{@stuff.buck.school.title}学校")
+      else
+        return set_message_and_redirect_to_index("您的密码已配过对了")
+      end
     else
       #return set_message_and_redirect_to_index("太好了！还没配对")
       #if logged_in?
