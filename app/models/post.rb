@@ -21,10 +21,11 @@ class Post < ActiveRecord::Base
   belongs_to :topic, :counter_cache => 'posts_count'
   belongs_to :user
   
+  acts_as_paranoid
+  
   #before_save :format_content
   #after_create :update_posts_count
   
-  default_scope :conditions => {:deleted_at => nil}
   named_scope :available, :conditions => {:deleted_at => nil}
   
   def editable_by(user)

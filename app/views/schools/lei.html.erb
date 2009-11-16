@@ -17,8 +17,6 @@
    
 </script>
 
-
-
 <% content_for :subtitle do -%>  
 <% end -%>
 
@@ -37,6 +35,7 @@
         :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
       <%end%>
     </div>
+    
     <div class="meta_right">
       <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
@@ -62,12 +61,14 @@
     <% if @finder -%>
       <p class="content_lei">信息收集人是 <%= h @finder.name %>
       <% if logged_in? && current_user.admin? %>
-           ，邮件<%= h @finder.email %>
-           ，电话<%= h @finder.phone_number %>
+      <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
+      <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
       <% end %>
-           ，QQ <%= h @finder.qq %>，MSN <%= h @finder.msn %>。</p>
-      <p class="content_lei">收集时间<%= h @finder.survey_at.to_date if @finder.survey_at %></p>
-      <p class="content_lei"style="clear:both">活动建议<%= h @finder.note %></p>
+      <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
+      <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
+           。</p>
+      <% if @finder.survey_at %><p class="content_lei">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
+      <%unless @finder.note.blank? %><p class="content_lei"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
     </div>
   </div>
@@ -97,7 +98,7 @@
   
   <% unless @local.ngo_support == 2%>
   <p class="content_lei">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
+  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
   </p>
   <%end%>
 </div>
@@ -137,51 +138,52 @@
   
   <div class="school_box">
     <h3 class="label_lei" >路线攻略</h3>
+    <%unless @school.guides.blank?%>
     <div class="contents clearfix">
       <%= render :partial => 'guides', :object => @school.guides %>
     </div>
     <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
-  </div>
-  
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner" style="display:none">
-        <h3>学校照片</h3>
-        <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
-        <div class="contents clearfix">
-          <%= render :partial => "gallery_photo", :collection => @photos %>
-        </div>
-        <p class="remark">&raquo; <%= link_to "全部图片", photos_school_path(@school) %></p>
-      </div>
-    </div>
+    <%else%>
+    <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
+    <%end%>
   </div>
 
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>用户分享</h3>
-        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
-        <div class="contents">
-          <% @shares.each do |s| -%>
-          <div style="clear:both;margin-bottom:1em;min-height:50px">
-            <div style="float:left">
-              <%= avatar_for(s.user, "large") %>
-            </div>
-            <div style="margin-left:60px;">
-              <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
-              <div style="color:#999; text-align:right">
-                <%= s.hits %> 浏览/<%= s.comments_count %> 回复
-              </div>
-            </div>
+
+  <div class="school_box">
+    <h3 class="label_lei">用户分享</h3>
+    <%unless @shares.blank?%>
+    <div class="contents">
+      <% @shares.each do |s| -%>
+      <div style="clear:both;margin-bottom:1em;min-height:50px">
+        <div style="float:left">
+          <%= avatar_for(s.user, "large") %>
+        </div>
+        <div style="margin-left:60px;">
+          <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+          <div style="color:#999; text-align:right">
+            <%= s.hits %> 浏览/<%= s.comments_count %> 回复
           </div>
-          <% end -%>
         </div>
       </div>
+      <% end -%>
     </div>
+    <p><%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%></p>
+    <%else%>
+    <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <%end%>
   </div>
 
   <%= render :partial => "/topics/latest_topics", :locals => {:title => "学校话题", :board => @board, :topics => @topics} %>
   
+  <div class="school_box" style="display:none">
+    <h3 class="label_lei">学校照片</h3>
+    <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
+    <div class="contents clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos %>
+    </div>
+    <p class="remark">&raquo; <%= link_to "全部图片", photos_school_path(@school) %></p>
+  </div>
+
   
 <% content_for :sidebar do -%>
     
