@@ -2,7 +2,7 @@ class GeosController < ApplicationController
   def index
     @cities  = Geo.roots
     @map_center = Geo::DEFAULT_CENTER
-    @schools = School.paginate(:page => params[:page], :per_page => 10)
+    @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
     
     respond_to do |format|
       if !params[:page].blank?
@@ -22,7 +22,7 @@ class GeosController < ApplicationController
     @school = School.find_by_id(params[:school_id]) # option
     @map_center = [@city.latitude, @city.longitude, 9]
     
-    @schools = School.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
+    @schools = School.validated.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
                                   :order => "updated_at desc",
                                   :per_page => 10)
     #setup_destination_stuff(@city)
@@ -93,22 +93,18 @@ class GeosController < ApplicationController
   
   def schools
     @city = Geo.find(params[:id])
-    if @city.parent.nil?
-      @schools = School.get_near_schools_at(@city).paginate(:page => params[:page] || 1,
-                                  :order => "updated_at desc",
-                                  :per_page => 10)
-    else
-      @schools = School.paginate(:page => params[:page] || 1, 
-                                  :conditions => ['geo_id = ?', @city.id],
-                                  :order => "updated_at desc",
-                                  :per_page => 10)
-    end
+    @all_schools = School.near_to(@city)
     
     respond_to do |format|
-      format.html {render :layout => false}
+      format.html do
+        @schools = @all_schools.paginate(:page => params[:page] || 1,
+                                      :per_page => 10)
+        render :layout => false
+      end
+      
       format.json do
         schools_json = []
-        @schools.each do |school|
+        @all_schools.each do |school|
           next if school.basic.blank?
           schools_json << {:i => school.id,
                            :t => school.icon_type,
@@ -162,7 +158,7 @@ class GeosController < ApplicationController
   
   private 
   def setup_destination_stuff(city)
-    @schools = School.get_near_schools_at(city).paginate(:page => params[:page] || 1,
+    @schools = School.near_to(city).paginate(:page => params[:page] || 1,
                                                           :order => "updated_at desc",
                                                           :per_page => 10)
     @shares = city.shares.paginate(:page => params[:page] || 1, :order => "comments_count desc", :per_page => 10)

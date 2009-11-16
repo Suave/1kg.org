@@ -1,0 +1,20 @@
+<% @page_title = "提交攻略" %>
+
+<% content_for :fullsize do -%>
+<div class="box" id="sharePostNew">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= @page_title %></h2>
+      <% form_for @school_guide, :url => [@school, :school_guides] do |form| -%>
+        <%= render :partial => "form", :object => form %>
+        
+        <p class="submit clearfix">
+          <span class="btnWrap"><%= submit_tag "发 布" %></span>
+          <span><%= link_to "取 消", root_url %></span>
+        </p>
+      <% end -%>
+    </div>
+  </div>
+</div>
+
+<% end -%>

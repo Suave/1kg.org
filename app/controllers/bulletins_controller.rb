@@ -9,10 +9,7 @@ class BulletinsController < ApplicationController
       redirect_to @bulletin.redirect_url
     else
       @comments = @bulletin.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-      @comment = BulletinComment.new
+      @comment = Comment.new
     end
-    
   end
-  
-  
 end

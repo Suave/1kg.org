@@ -27,11 +27,12 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   </div>
   
 <% unless @guides.empty? %>
-  <div class="boxouter">
+  <div class="boxouter" id="topicCommentsList">
     <h3>参赛攻略</h3>
     <div class="boxinter">
       <div class="contents">
         <%= render :partial => '/schools/guides', :object => @guides %>
+        <%= render :partial => '/schools/shares', :object => @shares, :locals => {:with_head => false} %>
         <%= customize_paginate(@guides, :param_name => 'guide_page') %>
       </div>
 
@@ -117,8 +118,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
      	  <h5>优秀奖</h5><span>3名</span>
         <p>价值800元的户外徒步鞋</p>
         </div>
-        </div>
-     
+        </div> 
         <div class="prize">
         <img src="/images/lightenschool/bag.jpg">
 	      <div class="info">
@@ -126,7 +126,6 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 	        <p>价值500元的户外背包</p>
         </div>
 	      </div>
-        
         <div class="prize">
 	      <img src="/images/lightenschool/tee.jpg">
         <div class="info">
@@ -138,9 +137,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
       </div>
       </div>
     </div>
-    
-  </div>
- 
+  </div> 
 </div>
 
 <div id="misc">

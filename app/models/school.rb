@@ -111,31 +111,38 @@ class School < ActiveRecord::Base
     include SchoolImport
   
     def search(keywords, page, per_page = 20)
-      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
+      School.validated.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
     end
   
     def categories
       %w(小学 中学 四川灾区板房学校)
     end
   
-    def get_near_schools_at(geo)
-      root = geo.root? ? geo : geo.parent
-      ids =[root.id]
-      if not root.leaf?
-        ids += root.children.map(&:id)
+    def near_to(geo, limit = 0)
+      params = {:order => "updated_at desc"}
+      params[:limit] = limit unless limit.zero?
+      
+      if geo.leaf?
+        params[:conditions] = ['geo_id = ?', geo.id]
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        params[:conditions] = ['geo_id in (?)', ids]
       end
       
-      @@city_neighbors.each do |k,v|
-        if v[:id] == root.id
-          v[:neighbors].each do |province, id|
-            ids += Geo.find(id).children.map(&:id)
-          end
-        end
+      find(:all, params)
+    end
+    
+    def count_of_near_to(geo)
+      if geo.leaf?
+        conditions = ['geo_id = ?', geo.id]
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        conditions = ['geo_id in (?)', ids]
       end
-      #logger.info ids
-      #logger.info ids.class
-      #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
-      validated.locate(ids)
+      
+      count(:conditions => conditions)
     end
   end
   

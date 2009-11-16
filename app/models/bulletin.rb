@@ -2,7 +2,7 @@ class Bulletin < ActiveRecord::Base
   acts_as_taggable
   
   belongs_to :user
-  has_many :comments, :class_name => "BulletinComment", :foreign_key => "type_id"
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   
   validates_presence_of :title, :message => "不能为空"
   
