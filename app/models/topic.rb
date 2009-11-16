@@ -24,11 +24,12 @@
 class Topic < ActiveRecord::Base
   include BodyFormat
   
+  acts_as_paranoid
+  
   belongs_to :board, :counter_cache => 'topics_count'
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   
-  default_scope :conditions => {:deleted_at => nil}
   named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 

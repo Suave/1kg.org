@@ -55,7 +55,7 @@
           
           <div id="participated">
             <%= render :partial => "/users/group_topics", :object => @participated_topics %>
-            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.posts.size %>)</p>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.participated_topics.size %>)</p>
           </div>
           <% end -%>
           
