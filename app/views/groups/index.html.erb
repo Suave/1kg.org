@@ -31,20 +31,31 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>新话题</h3>
+      <h3>&nbsp;</h3>
       <div class="tabbedPanel" id="tabs">
         <ul class="tab">
           <% if logged_in? -%>
             <li><a href="#my">我参加的小组</a></li>
+            <li><a href="#submitted">我发起的话题</a></li>
+            <li><a href="#participated">我参与的话题</a></li>
           <% end -%>
-          
-          <li><a href="#all">所有小组</a></li>
+          <li><a href="#all">最新话题</a></li>
         </ul>
         <div class="panel setting">
           <% if logged_in? %>
           <div id="my">
             <%= render :partial => "/users/group_topics", :object => @recent_topics %>
             <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多话题", group_topics_user_url(current_user) %></p>
+          </div>
+          
+          <div id="submitted">
+            <%= render :partial => "/users/group_topics", :object => @submitted_topics %>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(current_user) %> (<%= current_user.topics.size %>)</p>
+          </div>
+          
+          <div id="participated">
+            <%= render :partial => "/users/group_topics", :object => @participated_topics %>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.posts.size %>)</p>
           </div>
           <% end -%>
           
@@ -54,7 +65,9 @@
         </div>
       </div>
       <script type="text/javascript">
-        jQuery("#tabs").tabs();
+        $(document).ready(function(){
+          jQuery("#tabs").tabs();
+        });
       </script>
     </div>
   </div>

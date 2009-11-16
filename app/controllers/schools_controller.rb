@@ -63,31 +63,6 @@ class SchoolsController < ApplicationController
     
   end
   
-  # def list(validated = true)
-  #     provinces     = Geo.roots
-  #     @all_provinces = []
-  #     @output        = []
-  # 
-  #     provinces.each do |province|
-  #       areas = province.children
-  #       unless areas.empty?
-  #         schools = School.validated.locate(areas.map(&:id))
-  #         #find(:all, 
-  #         #                      :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
-  #         #                      :order => "schools.geo_id asc, schools.updated_at desc")
-  # 
-  #         unless schools.empty?
-  #           @output[province.id] = schools
-  #         end
-  #       end
-  #     end
-  #     provinces.each do |province|
-  #       unless @output[province.id].blank?
-  #         @all_provinces << province
-  #       end
-  #     end
-  #   end
-  
   # 给出指定日期的所有学校
   def show_date
     @date = "#{params[:year]}年#{params[:month]}月"
@@ -113,13 +88,19 @@ class SchoolsController < ApplicationController
     @school.user = current_user
       
     respond_to do |format|
-      if @school.save
-        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+      existed_school = School.find_by_title(params[:school][:title])
+      if existed_school
+        flash[:notice] = "您要学校已存在，您可以申请成为学校管理员，然后对学校信息进行编辑."
+        format.html{redirect_to school_path(existed_school)}
       else
-        flash[:notice] = "学校基本信息不完整，请重新填写"
-        @step = 'basic'
-        format.html{render :action => "new"}
+        if @school.save
+          flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+          format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+        else
+          flash[:notice] = "学校基本信息不完整，请重新填写"
+          @step = 'basic'
+          format.html{render :action => "new"}
+        end
       end
     end
   end

@@ -15,15 +15,7 @@
   
   <p>&raquo; <%= link_to "去#{@school_guide.user.login}的空间", user_url(@school_guide.user) %></p>
   
-  
-<div class="box" id="vote_list">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>推荐此攻略的用户</h3>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @voters} %>
-    </div>
-  </div>
-</div>
+  <%= render :partial => '/shared/voters', :object => @voters %>
 <% end -%>
 
 <div class="box shareEntry">
@@ -54,17 +46,17 @@
           <% if current_user.voted?(@school_guide) -%>
                         您已推荐了
           <% else -%>
-            <%= link_to '我要推荐', vote_school_guide_path(@school_guide.school, @school_guide), :method => 'post', :class => 'buttonlink' %>
+            <%= link_to '我要推荐', vote_school_school_guide_path(@school_guide.school, @school_guide), :method => 'post', :class => 'buttonlink' %>
           <% end -%>
         <% else -%>
-            <%= link_to "我要推荐", new_session_path(:to => school_guide_path(@school_guide.school, @school_guide)) ,:class => "buttonlink" -%>
+            <%= link_to "我要推荐", new_session_path(:to => school_school_guide_path(@school_guide.school, @school_guide)) ,:class => "buttonlink" -%>
         <% end -%>
         </p>
         
       </div>
       
       <% if @school_guide.edited_by? current_user -%>
-      <p class="remark">&raquo; <%= link_to "编辑", edit_school_guide_url(@school, @school_guide) %> | <%= link_to "删除", school_guide_url(@school, @school_guide), :confirm => "确定删除么?", :method => :delete %></p>
+      <p class="remark">&raquo; <%= link_to "编辑", [:edit, @school, @school_guide] %> | <%= link_to "删除", [@school, @school_guide], :confirm => "确定删除么?", :method => :delete %></p>
       <% end -%>
     </div>
   </div>
@@ -73,4 +65,4 @@
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 
-<%= render :partial => "/comments/write", :locals => {:type => "guide", :value => @school_guide.id} %>
+<%= render :partial => "/comments/form", :locals => {:commentable => @school_guide} %>

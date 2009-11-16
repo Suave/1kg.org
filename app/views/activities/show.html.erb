@@ -104,5 +104,4 @@
   </div>
 
   <%= render :partial => "/comments/comments", :object => @comments %>
-  
-  <%= render :partial => "/comments/write", :locals => {:type => "activity", :value => @activity.id} %>
+  <%= render :partial => "/comments/form", :locals => {:commentable => @activity} %>

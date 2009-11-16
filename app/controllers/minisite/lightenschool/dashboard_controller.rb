@@ -7,6 +7,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     @board = @group.discussion.board
     
     @guides = SchoolGuide.find_tagged_with('点亮学校').reverse.paginate(:per_page => 10, :page => params[:guide_page])
+    @shares = Share.find_tagged_with('点亮学校').reverse.paginate(:per_page => 10, :page => params[:guide_page])
   end
   
   def submit

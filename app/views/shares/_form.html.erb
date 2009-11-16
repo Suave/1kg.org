@@ -22,3 +22,8 @@ schools = @share.new_record? ? current_user.visited_schools : @share.user.visite
 <p><label class="label"><%= avatar_for current_user, "large" %></label>
 <%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
 </p>
+
+<p><label class="label">标签</label>
+<%= form.text_field :tag_list, :size => 40, :class => "formText" %>
+<span>（以空格分隔不同标签）</span>
+</p>

@@ -32,6 +32,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     <div class="boxinter">
       <div class="contents">
         <%= render :partial => '/schools/guides', :object => @guides %>
+        <%= render :partial => '/schools/shares', :object => @shares, :locals => {:with_head => false} %>
         <%= customize_paginate(@guides, :param_name => 'guide_page') %>
       </div>
 
