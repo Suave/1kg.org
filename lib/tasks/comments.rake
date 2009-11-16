@@ -20,7 +20,7 @@ namespace :comments do
         elsif comment.type == 'BulletinComment'
           comment.commentable_type = "Bulletin"
         elsif comment.type == 'GuideComment'
-          comment.commentable_type = "Guide"
+          comment.commentable_type = "SchoolGuide"
         end
         comment.type = 'Comment'
         comment.save(false)
