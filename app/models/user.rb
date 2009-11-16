@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "created_at desc"
-  has_many :posts, :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc"
+  has_many :posts, :order => "posts.created_at desc"
   has_many :shares, :order => "created_at desc"
   has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
   
@@ -248,6 +248,10 @@ class User < ActiveRecord::Base
     self.password = self.password_confirmation = new_password
     self.save(false)
     Mailer.deliver_new_password_notification(self, new_password)
+  end
+  
+  def participated_topics
+    self.posts.find(:all, :conditions => ['topics.deleted_at = ?', nil], :include => [:topic])
   end
   
   def self.archives
