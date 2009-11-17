@@ -1,0 +1,41 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
+
+<% @page_title = @title = "所有需求(#{@tags.size})" %>
+
+<% content_for :fullsize do %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>学校需求</h3>
+      <div class="tabbedPanel" id="tabs">
+      <ul class="tab">
+        <% [["所有需求", "all"], ["书籍信息", "book"], ["文具需求", "stationary"], ["文体需求", "sport"],
+          ["衣物需求", "cloth"], ["教具信息", "accessory"], ["医疗需求", "course"], ["课程需求", "medicine"],
+          ['硬件需求', 'hardware'], ['教师需求', 'teacher']].each do |type| -%>
+          <li><%= link_to type[0], "##{type[1]}" %></li>
+        <% end -%>
+      </ul>
+      </div>
+      <div id="all"><%= render :partial => 'tags', :object => @tags %></div>
+      <div id="book"><%= render :partial => 'tags', :object => @book_tags %></div>
+      <div id="stationary"><%= render :partial => 'tags', :object => @stationary_tags %></div>
+      <div id="sport"><%= render :partial => 'tags', :object => @sport_tags %></div>
+      <div id="cloth"><%= render :partial => 'tags', :object => @cloth_tags %></div>
+      <div id="accessory"><%= render :partial => 'tags', :object => @accessory_tags %></div>
+      <div id="course"><%= render :partial => 'tags', :object => @course_tags %></div>
+      <div id="medicine"><%= render :partial => 'tags', :object => @medicine_tags %></div>
+      <div id="hardware"><%= render :partial => 'tags', :object => @hardware_tags %></div>
+      <div id="teacher"><%= render :partial => 'tags', :object => @teacher_tags %></div>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script type="text/javascript">
+  $(function() {
+    jQuery("#tabs").tabs();
+  });
+</script>
