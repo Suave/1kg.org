@@ -303,6 +303,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  "accessory"
     t.string  "course"
     t.string  "teacher"
+    t.string  "medicine"
+    t.string  "hardware"
     t.string  "other"
   end
 
