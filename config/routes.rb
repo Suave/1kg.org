@@ -195,8 +195,8 @@ ActionController::Routing::Routes.draw do |map|
       end
     end
     
-    site.namespace :xmascard09 do |xmascard09|
-      xmascard09.with_options :controller => "dashboard" do |dash|
+    site.namespace :festcard09 do |festcard09|
+      festcard09.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
       end
     end

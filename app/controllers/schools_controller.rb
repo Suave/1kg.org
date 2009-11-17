@@ -86,7 +86,6 @@ class SchoolsController < ApplicationController
   def create
     @school = School.new(params[:school])
     @school.user = current_user
-      
     respond_to do |format|
       existed_school = School.find_by_title(params[:school][:title])
       if existed_school
