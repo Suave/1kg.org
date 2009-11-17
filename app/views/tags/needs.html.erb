@@ -13,7 +13,7 @@
       <div class="tabbedPanel" id="tabs">
       <ul class="tab">
         <% [["所有需求", "all"], ["书籍信息", "book"], ["文具需求", "stationary"], ["文体需求", "sport"],
-          ["衣物需求", "cloth"], ["教具信息", "accessory"], ["医疗需求", "course"], ["课程需求", "medicine"],
+          ["衣物需求", "cloth"], ["教具信息", "accessory"], ["医疗需求", "medicine"], ["课程需求", "course"],
           ['硬件需求', 'hardware'], ['教师需求', 'teacher']].each do |type| -%>
           <li><%= link_to type[0], "##{type[1]}" %></li>
         <% end -%>
