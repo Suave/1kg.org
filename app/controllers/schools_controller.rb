@@ -135,6 +135,7 @@ class SchoolsController < ApplicationController
                                          :longitude => params[:longitude],
                                          :marked_at => Time.now,
                                          :marked_by_id => current_user.id )
+        render :text => '位置更新成功'
       end
     end
   end
