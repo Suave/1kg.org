@@ -22,15 +22,13 @@ class GeosController < ApplicationController
     @school = School.find_by_id(params[:school_id]) # option
     @map_center = [@city.latitude, @city.longitude, 9]
     
-    @schools = School.validated.paginate(:page => params[:page] || 1, :conditions => ['geo_id = ?', @city.id],
-                                  :order => "updated_at desc",
-                                  :per_page => 10)
     #setup_destination_stuff(@city)
     
     if !@city.children.blank?
       @cities = @city.children
       render :action => "cities"
     else
+      @schools = School.near_to(@city).paginate(:page => params[:page] || 1, :per_page => 10)
       @citizens = @city.users.find(:all, :limit => 6)
       @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
       
@@ -45,15 +43,6 @@ class GeosController < ApplicationController
                                  
       @groups = @city.groups.find :all, :limit => 9
     end
-=begin    
-    respond_to do |format|
-      if !params[:page].blank?
-        format.html {render :action => 'schools', :layout => false}
-      else
-        format.html
-      end
-    end
-=end
   end
   
   def box
