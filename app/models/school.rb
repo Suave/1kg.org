@@ -36,6 +36,7 @@ class School < ActiveRecord::Base
   has_many   :snapshots, :class_name => "SchoolSnapshot", :dependent => :destroy
   
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
+  acts_as_paranoid
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc"
@@ -52,9 +53,10 @@ class School < ActiveRecord::Base
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
-  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
-  named_scope :available, :conditions => ["deleted_at is null"]
-  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"  
+  named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
+  # 需要移除
+  named_scope :available, :conditions => {:deleted_at => nil}
+  named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
@@ -111,13 +113,14 @@ class School < ActiveRecord::Base
     include SchoolImport
   
     def search(keywords, page, per_page = 20)
-      School.validated.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
+      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
     end
   
     def categories
       %w(小学 中学 四川灾区板房学校)
     end
   
+    # ToDo: 需要和at以及locate scope合并
     def near_to(geo, limit = 0)
       params = {:order => "updated_at desc"}
       params[:limit] = limit unless limit.zero?
@@ -130,7 +133,7 @@ class School < ActiveRecord::Base
         params[:conditions] = ['geo_id in (?)', ids]
       end
       
-      find(:all, params)
+      self.validated.find(:all, params)
     end
     
     def count_of_near_to(geo)
