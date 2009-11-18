@@ -34,7 +34,7 @@ namespace :schools do
   
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
-    schools = School.available
+    schools = School.all
     puts "学校总数：#{schools.size}"
     
     schools.each do |school|
@@ -215,7 +215,7 @@ namespace :schools do
   namespace :coordinates do
     desc "generate coordinates for all schools"
     task :generate => :environment do
-      School.available.each do |school|
+      School.all.each do |school|
         coordinates = find_coordinates_by_address(school.basic.address)
         school.basic.longitude = coordinates[0]
         school.basic.latitude  = coordinates[1]

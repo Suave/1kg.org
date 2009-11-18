@@ -23,9 +23,11 @@ class SchoolsController < ApplicationController
         @schools_json = []
         @schools.each do |school|
           @schools_json << {:i => school.id,
-                            :la => school.basic.latitude,
-                            :lo => school.basic.longitude
-                            }
+                           :t => school.icon_type,
+                           :n => school.title,
+                           :a => school.basic.latitude,
+                           :o => school.basic.longitude
+                          }
         end
         render :json => @schools_json
       }
