@@ -110,7 +110,7 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交, <%= validate_for_human @school %></span></h3>
+        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交 <%= validate_for_human @school if false%></span></h3>
         <div class="tabbedPanel" id="tabs">
           <%= render :partial => "show_tabmenu" %>
           <div class="panel setting">
