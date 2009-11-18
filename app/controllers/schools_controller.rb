@@ -93,6 +93,9 @@ class SchoolsController < ApplicationController
         format.html{redirect_to school_path(existed_school)}
       else
         if @school.save
+          @school.validated = true
+          @school.validated_at = Time.now
+          @school.validated_by_id = current_user.id
           flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
           format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
         else
@@ -102,7 +105,6 @@ class SchoolsController < ApplicationController
         end
       end
     end
-    @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
   end
   
   def edit
@@ -384,7 +386,7 @@ def lei
       next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
       
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = "请检查必填项是否填完整"
+      
       render :action => "edit_#{current_step}"
     
     end
