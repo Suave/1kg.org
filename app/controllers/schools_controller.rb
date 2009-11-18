@@ -102,6 +102,7 @@ class SchoolsController < ApplicationController
         end
       end
     end
+    @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
   end
   
   def edit
@@ -383,7 +384,7 @@ def lei
       next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
       
     rescue ActiveRecord::RecordInvalid
-      
+      flash[:notice] = "请检查必填项是否填完整"
       render :action => "edit_#{current_step}"
     
     end

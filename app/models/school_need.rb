@@ -36,6 +36,12 @@ class SchoolNeed < ActiveRecord::Base
   HARDWARE_NEEDS = %W(教学楼 宿舍楼 操场 篮球架 乒乓球桌 旗杆旗台 课桌椅 厕所 水池 垃圾池 窗户维修)
   TEACHER_NEEDS = %W(语文 数学 音乐 体育 美术 英语 计算机)
   
+  def validate
+    if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?
+    errors.add_to_base("error")
+  end
+  end
+  
   private
   def setup_tag
     tag_list = [self.urgency, self.book, self.stationary, self.sport, 
