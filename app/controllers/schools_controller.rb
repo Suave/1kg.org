@@ -86,6 +86,9 @@ class SchoolsController < ApplicationController
   def create
     @school = School.new(params[:school])
     @school.user = current_user
+    @school.validated = true
+    @school.validated_at = Time.now
+    @school.validated_by_id = current_user.id
     respond_to do |format|
       existed_school = School.find_by_title(params[:school][:title])
       if existed_school
@@ -93,9 +96,6 @@ class SchoolsController < ApplicationController
         format.html{redirect_to school_path(existed_school)}
       else
         if @school.save
-          @school.validated = true
-          @school.validated_at = Time.now
-          @school.validated_by_id = current_user.id
           flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
           format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
         else
