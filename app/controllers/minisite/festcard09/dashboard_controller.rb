@@ -3,5 +3,8 @@ class Minisite::Festcard09::DashboardController < ApplicationController
     @group = Group.find_by_slug('postcard')
     @board = @group.discussion.board
   end
+  def cards
+    
+  end
   
 end

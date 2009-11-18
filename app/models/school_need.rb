@@ -25,18 +25,28 @@ class SchoolNeed < ActiveRecord::Base
 
   before_save :setup_tag
 
-  BOOK_NEEDS = ['教辅书', '字典类', '课外读物', '科普', '作文', '卡通', '文学', '传记']
-  STATIONARY_NEEDS = ['铅笔', '圆珠笔', '水彩笔', '橡皮', '文具盒', '书包', '笔记本']
-  SPORT_NEEDS = ['篮球', '足球', '羽毛球', '乒乓球', '跳绳', '象棋', '跳棋', '陆战棋', '五子棋', '益智类']
-  CLOTH_NEEDS = ['棉衣', '运动服', '鞋子']
-  ACCESSORY_NEEDS = ['直尺', '圆规', '三角板', '量角器', '地球仪', '拼音卡片', '英文字母卡片']
-  COURSE_NEEDS = ['电脑课', '音乐课', '美术课', '环保课', '安全自救培训', '英语课', '普通话']
-  TEACHER_NEEDS = ['语文老师', '数学老师', '英语老师', '音体美老师']
+  BOOK_NEEDS = ['课外书', '低幼儿读物', '字典', '教辅', '报刊杂志']
+  STATIONARY_NEEDS = ['笔', '美术用品', '橡皮', '文具盒', '书包', '本子', '卷笔刀']
+  SPORT_NEEDS = ['篮球', '羽毛球', '乒乓球', '排球', '跳绳', '棋类', '益智类']
+  CLOTH_NEEDS = ['棉衣', '校服', '鞋子', '袜子', '被子']
+  ACCESSORY_NEEDS = ['三角板', '圆规', '直尺', '量角器', '粉笔', '录音机', '电脑', '音像制品', 'DVD机', '拼音卡片']
+  COURSE_NEEDS = ['电脑课', '音乐课', '美术课', '环保课', '安全自救培训', '普通话', '卫生课', 
+        '心理健康课', '英语课', '励志课', '体育课', '思想品德课', '科普教育课', '手工课', '眼保健操课', '阅读教育课', '法律常识']
+  MEDICINE_NEEDS = ['感冒药', '发烧药', '腹泻药', '止血药', '止痛药']
+  HARDWARE_NEEDS = %W(教学楼 宿舍楼 操场 篮球架 乒乓球桌 旗杆旗台 课桌椅 厕所 水池 垃圾池 窗户维修)
+  TEACHER_NEEDS = %W(语文 数学 音乐 体育 美术 英语 计算机)
+  
+  def validate
+    if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?
+    errors.add_to_base("error")
+  end
+  end
   
   private
   def setup_tag
     tag_list = [self.urgency, self.book, self.stationary, self.sport, 
-                      self.cloth, self.accessory, self.course, self.teacher].join(',').gsub(/,/, ' ')
+                      self.cloth, self.accessory, self.medicine, self.course, 
+                      self.hardware, self.teacher, self.other].join(',').gsub(/,/, ' ')
     tag_list.gsub!(/,/, ' ')
     tag_list.gsub!(/，/, ' ')
     tag_list.gsub!(/、/, ' ')

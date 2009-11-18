@@ -110,7 +110,7 @@
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
-        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交, <%= validate_for_human @school %></span></h3>
+        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交 <%= validate_for_human @school if false%></span></h3>
         <div class="tabbedPanel" id="tabs">
           <%= render :partial => "show_tabmenu" %>
           <div class="panel setting">
@@ -175,13 +175,14 @@
             <div id="need">
               <form>
               <% if @need -%>
-              <% unless  @need.urgency.blank? -%><p><label>紧急需求</label><%= link_to_needs(@need.urgency) %></p><% end -%>
               <% unless  @need.book.blank? -%><p><label>图　　书</label><%= link_to_needs(@need.book) %></p><% end -%>
               <% unless  @need.stationary.blank? -%><p><label>文　　具</label><%= link_to_needs(@need.stationary) %></p><% end -%>
               <% unless  @need.sport.blank? -%><p><label>文体用品</label><%= link_to_needs(@need.sport) %></p><% end -%>
               <% unless  @need.cloth.blank? -%><p><label>衣　　物</label><%= link_to_needs(@need.cloth) %></p><% end -%>
               <% unless  @need.accessory.blank? -%><p><label>教　　具</label><%= link_to_needs(@need.accessory) %></p><% end -%>
+              <% unless  @need.medicine.blank? -%><p><label>医　　疗</label><%= link_to_needs(@need.medicine) %></p><% end -%>
               <% unless  @need.course.blank? -%><p><label>课　　程</label><%= link_to_needs(@need.course) %></p><% end -%>
+              <% unless  @need.hardware.blank? -%><p><label>硬　　件</label><%= link_to_needs(@need.hardware) %></p><% end -%>                            
               <% unless  @need.teacher.blank? -%><p><label>支教老师</label><%= link_to_needs(@need.teacher) %></p><% end -%>
               <% unless  @need.other.blank? -%><p><label>其它需求</label><%= link_to_needs(@need.other) %></p><% end -%>
               <% else -%>

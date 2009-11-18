@@ -198,6 +198,7 @@ ActionController::Routing::Routes.draw do |map|
     site.namespace :festcard09 do |festcard09|
       festcard09.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
+        dash.submit   'cards',    :action => "cards"
       end
     end
   end

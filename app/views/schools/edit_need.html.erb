@@ -10,16 +10,13 @@
       <div class="boxInner">
         <h2><!-- --></h2>
         <div class="contents">
-          
-          <%= render :partial => 'school_steps' %>
-          
+          <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
+          <span style="color:#666;margin-left:100px">请至少为学校填写一项需求<span>
           <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
           <%= f.hidden_field :id %>
           
           <% f.fields_for :need_attributes, @school.need do |n| -%>
           <%= n.hidden_field :id %>
-          <p class="notice"><label class="label" for="school_school_need_urgency">紧急需求</label><%= n.text_field :urgency, :size => 40, :class => 'formText' %></p>
-          
           <p>
             <label class="label" for="school_school_need_book">书籍</label>
             <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>
@@ -46,8 +43,18 @@
           </p>
           
           <p>
+            <label class="label" for="school_school_need_course">医疗</label>
+            <%= needs_check_box n, :medicine, SchoolNeed::MEDICINE_NEEDS, @school.need.medicine %>
+          </p>
+          
+          <p>
             <label class="label" for="school_school_need_course">课程活动</label>
             <%= needs_check_box n, :course, SchoolNeed::COURSE_NEEDS, @school.need.course %>
+          </p>
+          
+          <p>
+            <label class="label" for="school_school_need_course">硬件</label>
+            <%= needs_check_box n, :hardware, SchoolNeed::HARDWARE_NEEDS, @school.need.hardware %>
           </p>
           
           <p>
