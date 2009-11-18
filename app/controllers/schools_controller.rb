@@ -61,8 +61,31 @@ class SchoolsController < ApplicationController
     list(false)
   end
   
+  def list(validated = true)
+    provinces     = Geo.roots
+    @all_provinces = []
+    @output        = []
+
+    provinces.each do |province|
+      areas = province.children
+      unless areas.empty?
+        schools = School.find(:all, 
+                              :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
+                              :order => "schools.geo_id asc, schools.updated_at desc")
+
+        unless schools.empty?
+          @output[province.id] = schools
+        end
+      end
+    end
+    provinces.each do |province|
+      unless @output[province.id].blank?
+        @all_provinces << province
+      end
+    end
+  end
+  
   def archives
-    
   end
   
   # 给出指定日期的所有学校
