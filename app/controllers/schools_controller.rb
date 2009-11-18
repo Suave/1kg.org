@@ -386,7 +386,7 @@ def lei
       next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
       
     rescue ActiveRecord::RecordInvalid
-      
+      flash[:notice] = '请检查所有必填项是否填好'
       render :action => "edit_#{current_step}"
     
     end
