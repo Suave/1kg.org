@@ -30,8 +30,10 @@ class Board < ActiveRecord::Base
   end
   
   def latest_topics
-    topics = self.topics.find(:all, :include => [:user], 
-                                    :limit => 10)
+    topics = self.topics.find(:all,
+                              :order => "updated_at desc",
+                              :include => [:user],
+                              :limit => 10)
   end
   
   private
