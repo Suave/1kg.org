@@ -124,7 +124,7 @@ class SchoolsController < ApplicationController
           flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
           format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
         else
-          flash[:notice] = "学校基本信息不完整，请重新填写"
+          flash[:notice] = "请检查所有必填项是否填好"
           @step = 'basic'
           format.html{render :action => "new"}
         end

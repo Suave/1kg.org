@@ -35,12 +35,13 @@ class SchoolNeed < ActiveRecord::Base
   MEDICINE_NEEDS = ['感冒药', '发烧药', '腹泻药', '止血药', '止痛药']
   HARDWARE_NEEDS = %W(教学楼 宿舍楼 操场 篮球架 乒乓球桌 旗杆旗台 课桌椅 厕所 水池 垃圾池 窗户维修)
   TEACHER_NEEDS = %W(语文老师 数学老师 音乐老师 体育老师 美术老师 英语老师 计算机老师)
-  
-  def validate
-    if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?
-    errors.add_to_base("error")
-  end
-  end
+
+#  至少有一个学校需求
+#  def validate
+#    if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?
+#    errors.add_to_base("error")
+#  end
+#  end
   
   private
   def setup_tag
