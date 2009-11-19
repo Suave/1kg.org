@@ -34,7 +34,7 @@ class SchoolNeed < ActiveRecord::Base
         '心理健康课', '英语课', '励志课', '体育课', '思想品德课', '科普教育课', '手工课', '眼保健操课', '阅读教育课', '法律常识']
   MEDICINE_NEEDS = ['感冒药', '发烧药', '腹泻药', '止血药', '止痛药']
   HARDWARE_NEEDS = %W(教学楼 宿舍楼 操场 篮球架 乒乓球桌 旗杆旗台 课桌椅 厕所 水池 垃圾池 窗户维修)
-  TEACHER_NEEDS = %W(语文 数学 音乐 体育 美术 英语 计算机)
+  TEACHER_NEEDS = %W(语文老师 数学老师 音乐老师 体育老师 美术老师 英语老师 计算机老师)
   
   def validate
     if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?
