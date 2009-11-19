@@ -236,8 +236,8 @@ class SchoolsController < ApplicationController
     end 
   end
 
-# 学校页面改版
-def lei
+  # 学校页面改版
+  def lei
     @school = School.find(params[:id])
     
     @school.hit!
@@ -275,7 +275,7 @@ def lei
     
     respond_to do |format|
       if current_user.school_moderator? || @school.destroyed_by(current_user)
-        @school.update_attributes!(:deleted_at => Time.now)
+        @school.destroy
         flash[:notice] = "成功删除学校"
       else
         flash[:notice] = "对不起，只有学校管理员可以删除学校"
