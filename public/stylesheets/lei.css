@@ -1,11 +1,11 @@
 body{background:#fff}
 #content-primary p,#content-secondary p {margin:10px 0;}
 
-#meta{width:640px;height:120px;padding:0 10px}
+#meta{width:620px;height:130px;padding:0 10px}
 .school_main img{width:150px;}
 .school_main{display:block;height:100px;overflow:hidden;width:150px;}
 .meta_left{float:left;width:150px}
-.meta_right{float:right;width:470px;}
+.meta_right{float:right;width:455px;}
 .meta_right h1{font-size:20px;line-height:20px;margin-right:5px;display:inline}
 .meta_right h5{display:inline;line-height:25px;}
 .meta_info{margin:5px 0}
@@ -21,10 +21,10 @@ body{background:#fff}
 
 .important a{font-size:16px;}
 
-#visit_date{width:136px;text-align:right;padding:8px;background:#eee}
-#visit_date p{margin:0}
-#visit_date input {width:70px;margin:5px 0;}
+#visited_date,#wanna_date{width:256px;text-align:right;padding:8px;background:#eee}
+#visited_date p,#wanna_date p{margin:0 0 5px}
+#visited_visited_at,#visited_wanna_at{width:70px;}
+.date_submit input{width:70px}
 
 #map_info{}
-#what_time{top:26px}
-
+.what_time{top:26px;left:368px;position:absolute}

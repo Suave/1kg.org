@@ -486,6 +486,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "visited_at"
     t.integer  "status",     :limit => 1
     t.datetime "created_at"
+    t.datetime "wanna_at"
+    t.string   "notes",      :limit => 20
   end
 
   create_table "searches", :force => true do |t|

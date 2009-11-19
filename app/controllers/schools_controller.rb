@@ -302,6 +302,30 @@ def lei
     end
     redirect_to school_url(@school)
   end
+ 
+   def wanna
+    @school = School.find(params[:id])
+    if @school.visited?(current_user) == false
+      Visited.create!(:user_id => current_user.id,
+                      :school_id => @school.id,
+                      :status => Visited.status('wanna'),
+                      :notes => params[:visited][:notes],
+                      :wanna_at => params[:visited][:wanna_at]
+                     )
+    
+    elsif @school.visited?(current_user) == 'interesting'
+      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+      visited.update_attributes!(:status => Visited.status(''),
+                                 :visited_at => params[:visited][:visited_at]
+                                )
+    
+    elsif @school.visited?(current_user) == 'visited'
+      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+      visited.update_attributes!(:visited_at => params[:visited][:visited_at])
+      
+    end
+    redirect_to school_url(@school)
+  end
   
   def interest
     @school = School.find(params[:id])
@@ -390,7 +414,6 @@ def lei
     rescue ActiveRecord::RecordInvalid
       flash[:notice] = '请检查所有必填项是否填好'
       render :action => "edit_#{current_step}"
-    
     end
   end
   

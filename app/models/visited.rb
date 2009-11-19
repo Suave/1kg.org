@@ -9,7 +9,8 @@
 #  visited_at :datetime
 #  status     :integer(1)
 #  created_at :datetime
-#
+#  wanna_at   :datetime
+#  notes      :string(20)
 
 class Visited < ActiveRecord::Base
   belongs_to :school
@@ -21,6 +22,7 @@ class Visited < ActiveRecord::Base
     case status
     when 'visited': 1
     when 'interesting': 2
+    when 'wanna': 3
     end
   end
 end

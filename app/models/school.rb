@@ -51,6 +51,10 @@ class School < ActiveRecord::Base
                           :source => :user, 
                           :conditions => "status = #{Visited.status('interesting')}"
 
+has_many :wannas, :through => :visited, 
+                          :source => :user, 
+                          :conditions => "status = #{Visited.status('wanna')}"
+
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
   named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
@@ -198,6 +202,8 @@ class School < ActiveRecord::Base
       'visited'
     elsif visited.status == Visited.status('interesting')
       'interesting'
+    elsif visited.status == Visited.status('wanna')
+      'wanna'
     else
       raise "学校访问数据错误"
     end
