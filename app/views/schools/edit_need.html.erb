@@ -11,7 +11,6 @@
         <h2><!-- --></h2>
         <div class="contents">
           <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
-          <span style="color:#666;margin-left:100px">请至少为学校填写一项需求<span>
           <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
           <%= f.hidden_field :id %>
           

@@ -40,16 +40,16 @@
           <legend>学校联系人</legend>
           <% f.fields_for :contact_attributes, @school.contact do |c| -%>
           <%= c.hidden_field :id %>
-          <p><label class="label">姓名</label><%= c.text_field :name, :size => 10, :class => 'formText' %><span class="require">*</span>
+          <p><label class="label">姓名<span class="require">*</span></label><%= c.text_field :name, :size => 10, :class => 'formText' %>
           <label class="small_label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %>
-          <label class="small_label">电话</label><%= c.text_field :telephone, :size => 15, :class => 'formText' %><span class="require">*</span></p>
+          <label class="small_label">电话<span class="require">*</span></label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
           <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
           <% end -%>
           </fieldset>
           
           <fieldset>
           <legend>学校基本情况</legend>  
-            <p><label class="label">学校规模</label><select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
+            <p><label class="label">学校规模<span class="require">*</span></label><select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
                 <option/>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -58,9 +58,9 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select>年制
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级</label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师</label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生</label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
+            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
+            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
+            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
             <p class="radioBtn"><label class="label">图书室</label><%= radio_choice b, :has_library %></p>
             <p id="howmanybook" style="display:none"><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
             <p class="radioBtn"><label class="label">电脑</label><%= radio_choice b, :has_pc %></p>
@@ -86,7 +86,7 @@
           </script>    
           <% end -%>
           
-          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span></p>
+          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span>带<span class="require">*</span>号的是必填项</p>
           <% end -%>
         </div>
       </div>
