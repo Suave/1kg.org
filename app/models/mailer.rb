@@ -16,9 +16,25 @@ class Mailer < ActionMailer::Base
   end
   
   def submitted_school_notification(school)
-    @recipients  = ENV["RAILS_ENV"] == "production" ? "newschools@googlegroups.com" : "suave.su@gmail.com"
+    @recipients  = ENV["RAILS_ENV"] == "production" ? "newschools@googlegroups.com" : "suave.su@gmail.com,zhangyuanyi@gmail.com"
     @from        = "no-reply@1kg.org"
-    @subject     = "有新提交的学校等待验证"
+    @subject     = "用户提交了一所新学校，请审核"
+    @sent_on     = Time.now
+    @body        = {:school => school}
+  end
+  
+  def destroyed_school_notification(school)
+    @recipients  = ENV["RAILS_ENV"] == "production" ? school.user.email : "suave.su@gmail.com,zhangyuanyi@gmail.com"
+    @from        = "no-reply@1kg.org"
+    @subject     = "对不起，您提交的#{school.title}已被管理员删除"
+    @sent_on     = Time.now
+    @body        = {:school => school}
+  end
+  
+  def invalid_school_notification(school)
+    @recipients  = ENV["RAILS_ENV"] == "production" ? school.user.email : "suave.su@gmail.com,zhangyuanyi@gmail.com"
+    @from        = "no-reply@1kg.org"
+    @subject     = "对不起，您提交的#{school.title}没有通过审核，请您对学校信息进行补充"
     @sent_on     = Time.now
     @body        = {:school => school}
   end

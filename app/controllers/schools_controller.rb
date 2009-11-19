@@ -61,8 +61,31 @@ class SchoolsController < ApplicationController
     list(false)
   end
   
+  def list(validated = true)
+    provinces     = Geo.roots
+    @all_provinces = []
+    @output        = []
+
+    provinces.each do |province|
+      areas = province.children
+      unless areas.empty?
+        schools = School.find(:all, 
+                              :conditions => ["schools.deleted_at is NULL and schools.meta=? and schools.validated = ? and schools.geo_id in (?)",false, validated, areas], 
+                              :order => "schools.geo_id asc, schools.updated_at desc")
+
+        unless schools.empty?
+          @output[province.id] = schools
+        end
+      end
+    end
+    provinces.each do |province|
+      unless @output[province.id].blank?
+        @all_provinces << province
+      end
+    end
+  end
+  
   def archives
-    
   end
   
   # 给出指定日期的所有学校
@@ -213,8 +236,8 @@ class SchoolsController < ApplicationController
     end 
   end
 
-# 学校页面改版
-def lei
+  # 学校页面改版
+  def lei
     @school = School.find(params[:id])
     
     @school.hit!
@@ -252,7 +275,7 @@ def lei
     
     respond_to do |format|
       if current_user.school_moderator? || @school.destroyed_by(current_user)
-        @school.update_attributes!(:deleted_at => Time.now)
+        @school.destroy
         flash[:notice] = "成功删除学校"
       else
         flash[:notice] = "对不起，只有学校管理员可以删除学校"
