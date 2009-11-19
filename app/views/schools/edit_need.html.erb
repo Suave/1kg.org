@@ -17,6 +17,12 @@
           
           <% f.fields_for :need_attributes, @school.need do |n| -%>
           <%= n.hidden_field :id %>
+          <% if current_user.school_moderator? %>
+          <p>
+            <label class="label" for="school_school_need_urgency">紧急</label>
+            <%= n.text_field :urgency %>
+          </p>
+          <% end %>
           <p>
             <label class="label" for="school_school_need_book">书籍</label>
             <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>
