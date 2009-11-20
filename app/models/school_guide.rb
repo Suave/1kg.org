@@ -5,6 +5,7 @@ class SchoolGuide < ActiveRecord::Base
   
   acts_as_voteable
   acts_as_taggable
+  acts_as_paranoid
   
   validates_presence_of :title, :message => "不能为空"
   validates_presence_of :content, :message => "请填写正文"

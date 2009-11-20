@@ -336,6 +336,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_modified_by_id"
     t.datetime "last_replied_at"
     t.integer  "last_replied_by_id"
+    t.datetime "deleted_at"
     
     t.timestamps
   end
