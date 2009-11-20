@@ -35,7 +35,7 @@ namespace :deploy do
     run "cp #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
     run "ln -s #{deploy_to}/shared/photos #{current_path}/public/photos"
     run "rm -rf #{current_path}/public/user && ln -s #{deploy_to}/shared/user #{current_path}/public/user"
-    run "ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"
+    run "rm -rf #{current_path}/public/group && ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"
     run "cd #{current_path} && rake schools:to_json"
   end
   
