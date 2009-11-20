@@ -43,11 +43,11 @@ class Topic < ActiveRecord::Base
   #after_create :update_topics_count
   
   def last_replied_datetime
-    self.posts_count.zero? ? self.created_at : self.posts.last.created_at
+    (self.posts.last || self).created_at
   end
   
   def last_replied_user
-    self.posts_count.zero? ? self.user : self.posts.last.user
+    (self.posts.last || self).user
   end
 
   def last_modified_user
