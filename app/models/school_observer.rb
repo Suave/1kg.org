@@ -16,8 +16,8 @@ class SchoolObserver < ActiveRecord::Observer
     Mailer.deliver_destroyed_school_notification(school) if school.user
   end
   
-  def after_save(school)
-    Mailer.deliver_invalid_school_notification(school) if school.user && !school.validated
+  def before_save(school)
+    Mailer.deliver_invalid_school_notification(school) if school.user && school.validated_changed? && !school.validated
   end
 end
   
