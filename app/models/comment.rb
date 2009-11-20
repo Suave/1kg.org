@@ -18,6 +18,7 @@ class Comment < ActiveRecord::Base
   include BodyFormat
   
   before_save :format_content
+  after_create :update_commentable
   belongs_to :commentable, :polymorphic => true, :counter_cache => 'comments_count'
   belongs_to :user
   
@@ -54,5 +55,14 @@ class Comment < ActiveRecord::Base
   def format_content
     body.strip! if body.respond_to?(:strip!)
     self.body_html = body.blank? ? '' : formatting_body_html(body)
+  end
+  
+  def update_commentable
+    if self.commentable.respond_to?(:last_replied_at) &&
+      self.commentable.respond_to?(:last_replied_by_id)
+      self.commentable.last_replied_at = self.created_at
+      self.commentable.last_replied_by_id = self.user_id
+      self.commentable.save(false)
+    end
   end
 end
