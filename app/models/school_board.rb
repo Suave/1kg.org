@@ -15,6 +15,8 @@ class SchoolBoard < ActiveRecord::Base
   has_one :board, :as => :talkable, :dependent => :destroy 
   belongs_to :school
   
+  acts_as_paranoid
+  
   before_save :format_content
   
   def board_id

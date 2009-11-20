@@ -38,11 +38,11 @@ class School < ActiveRecord::Base
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   acts_as_paranoid
   
-  has_one  :discussion, :class_name => "SchoolBoard"
-  has_many :shares, :order => "id desc"
-  has_many :photos, :order => "id desc"
+  has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
+  has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
-  has_many :visited
+  has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
                       :conditions => "status = #{Visited.status('visited')}"
