@@ -29,6 +29,8 @@ class Photo < ActiveRecord::Base
   belongs_to :school
   belongs_to :activity
   
+  acts_as_paranoid
+  
   has_attachment :processor => :rmagick,
                  :content_type => :image,
                  :storage => :file_system,
