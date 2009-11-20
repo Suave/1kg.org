@@ -39,7 +39,7 @@ class School < ActiveRecord::Base
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
-  has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy, :order => 'updated_at DESC'
+  has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :visited, :dependent => :destroy
