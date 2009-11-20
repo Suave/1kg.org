@@ -28,7 +28,6 @@ class School < ActiveRecord::Base
 
   has_one    :basic,   :class_name => "SchoolBasic"
   has_one    :traffic, :class_name => "SchoolTraffic"   # Should be removed.
-  has_many   :guides,  :class_name => "SchoolGuide", :order => 'updated_at DESC'
   has_one    :need,    :class_name => "SchoolNeed"
   has_one    :contact, :class_name => "SchoolContact"
   has_one    :local,   :class_name => "SchoolLocal"
@@ -38,11 +37,12 @@ class School < ActiveRecord::Base
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   acts_as_paranoid
   
-  has_one  :discussion, :class_name => "SchoolBoard"
-  has_many :shares, :order => "id desc"
-  has_many :photos, :order => "id desc"
+  has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
+  has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
+  has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
-  has_many :visited
+  has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
                       :conditions => "status = #{Visited.status('visited')}"

@@ -43,11 +43,11 @@ class Topic < ActiveRecord::Base
   #after_create :update_topics_count
   
   def last_replied_datetime
-    last_replied_at.blank? ? created_at : last_replied_at
+    (self.posts.last || self).created_at
   end
   
   def last_replied_user
-    last_replied_by_id.blank? ? self.user : User.find(last_replied_by_id)
+    (self.posts.last || self).user
   end
 
   def last_modified_user
@@ -55,7 +55,7 @@ class Topic < ActiveRecord::Base
   end
   
   def last_post
-    self.posts.find(:first, :order => "created_at desc")
+    self.posts.last
   end
   
   def moderatable_by?(user)

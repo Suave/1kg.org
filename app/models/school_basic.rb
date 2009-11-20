@@ -44,12 +44,12 @@ class SchoolBasic < ActiveRecord::Base
   
   private
   def parse_address_to_coordinates
-    self.longitude, self.latitude = find_coordinates_by_address(self.address)
+    #self.longitude, self.latitude = find_coordinates_by_address(self.address)
     
-    if self.longitude == DEFAULT_LONGITUDE && self.latitude == DEFAULT_LATITUDE
-      self.longitude = self.school.geo.longitude
-      self.latitude  = self.school.geo.latitude
-    end
+    #if self.longitude == DEFAULT_LONGITUDE && self.latitude == DEFAULT_LATITUDE
+    self.longitude = self.school.geo.longitude
+    self.latitude  = self.school.geo.latitude
+    #end
 
     self.marked_at = Time.now
     self.marked_by_id = User.current_user.id #建议改为创建学校时直接赋值

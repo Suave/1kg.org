@@ -19,7 +19,7 @@
           <tr class="<%= cycle('odd', 'even') %>">
             <td><%= link_to b.talkable.title, board_url(b) %></td>
             <td><%= b.topics_count %></td>
-            <td><%= link_to b.last_topic.title, board_topic_url(b.id, b.last_topic.id) %></td>
+            <td><%= link_to b.last_topic.title, board_topic_url(b.id, b.last_topic.id) if b.last_topic %></td>
           </tr>
           <% end -%>
         </table>
