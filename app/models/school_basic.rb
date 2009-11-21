@@ -35,17 +35,21 @@ class SchoolBasic < ActiveRecord::Base
   belongs_to :marked_by, :class_name => "User", :foreign_key => "marked_by_id"
 
   validates_presence_of :address, :message => "必填项"
+  validates_presence_of :level_amount, :message => "必填项"
+  validates_presence_of :teacher_amount, :message => "必填项"
+  validates_presence_of :student_amount, :message => "必填项"
+  validates_presence_of :class_amount, :message => "必填项"
   
   before_create :parse_address_to_coordinates
   
   private
   def parse_address_to_coordinates
-    self.longitude, self.latitude = find_coordinates_by_address(self.address)
+    #self.longitude, self.latitude = find_coordinates_by_address(self.address)
     
-    if self.longitude == DEFAULT_LONGITUDE && self.latitude == DEFAULT_LATITUDE
-      self.longitude = self.school.geo.longitude
-      self.latitude  = self.school.geo.latitude
-    end
+    #if self.longitude == DEFAULT_LONGITUDE && self.latitude == DEFAULT_LATITUDE
+    self.longitude = self.school.geo.longitude
+    self.latitude  = self.school.geo.latitude
+    #end
 
     self.marked_at = Time.now
     self.marked_by_id = User.current_user.id #建议改为创建学校时直接赋值

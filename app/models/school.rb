@@ -26,21 +26,21 @@ class School < ActiveRecord::Base
   belongs_to :county
   belongs_to :validator, :class_name => "User", :foreign_key => "validated_by_id"
 
-  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy
-  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy   # Should be removed.
-  has_many   :guides,  :class_name => "SchoolGuide", :dependent => :destroy, :order => 'updated_at DESC'
-  has_one    :need,    :class_name => "SchoolNeed", :dependent => :destroy 
-  has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
-  has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
-  has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
-  has_many   :snapshots, :class_name => "SchoolSnapshot", :dependent => :destroy
+  has_one    :basic,   :class_name => "SchoolBasic"
+  has_one    :traffic, :class_name => "SchoolTraffic"   # Should be removed.
+  has_one    :need,    :class_name => "SchoolNeed"
+  has_one    :contact, :class_name => "SchoolContact"
+  has_one    :local,   :class_name => "SchoolLocal"
+  has_one    :finder,  :class_name => "SchoolFinder"
+  has_many   :snapshots, :class_name => "SchoolSnapshot"
   
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
   acts_as_paranoid
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
-  has_many :shares, :order => "id desc"
-  has_many :photos, :order => "id desc"
+  has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
+  has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -81,11 +81,6 @@ has_many :wannas, :through => :visited,
   }
   
   attr_accessor :city, :city_unit, :town, :town_unit, :village
-  
-  def after_create
-    # remove @ 09.8.24, because of SMTPServer Busy raise exception
-    Mailer.deliver_submitted_school_notification(self) if self.user
-  end
   
   def before_create
     # 确保用户只提交了学校基本信息也不会出错

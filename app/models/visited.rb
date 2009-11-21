@@ -18,6 +18,8 @@ class Visited < ActiveRecord::Base
   
   named_scope :latest, :order => 'created_at DESC', :limit => 10,:conditions => "(status = 1)"  
   
+  acts_as_paranoid
+  
   def Visited.status(status)
     case status
     when 'visited': 1

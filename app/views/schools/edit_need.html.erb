@@ -11,12 +11,17 @@
         <h2><!-- --></h2>
         <div class="contents">
           <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
-          <span style="color:#666;margin-left:100px">请至少为学校填写一项需求<span>
           <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
           <%= f.hidden_field :id %>
           
           <% f.fields_for :need_attributes, @school.need do |n| -%>
           <%= n.hidden_field :id %>
+          <% if current_user.school_moderator? %>
+          <p>
+            <label class="label" for="school_school_need_urgency">紧急</label>
+            <%= n.text_field :urgency %>
+          </p>
+          <% end %>
           <p>
             <label class="label" for="school_school_need_book">书籍</label>
             <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>

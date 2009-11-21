@@ -731,7 +731,7 @@ body.signinup p.login {
 
 body.schools form p {
   margin: 1.2em 0;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 body.schools form p.submit {
   margin-left: 10em;
@@ -751,7 +751,7 @@ body.schools form .notice input.formText {
   border: #c21515 solid 1px;
 }
 body.schools form fieldset {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
   border: #dedede solid 1px;
 }

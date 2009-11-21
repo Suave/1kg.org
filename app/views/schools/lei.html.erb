@@ -23,8 +23,7 @@
   <div id="meta">
     <div class="meta_left">
       <% if @school.main_photo -%>
-      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium), 
-          :rel => "prettyPhoto[gallery]",:class => "school_main" %>
+      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
       <%else%>
       <img class="school_main" src="/images/school_main.png"/>
       <%end%>
@@ -120,21 +119,6 @@
             | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
           <% end -%>
   </div>
-  
-  <% if false %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>学校活跃度</h3>
-        <div class="contents clearfix">
-          <% render_chart_html '/swfs/FCF_Column3D.swf', '', @school.karma_chart,
-              'myNextHTML', 600, 300, false do-%>
-          <% end -%>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
   
   <div class="school_box">
     <h3 class="label_lei" >路线攻略</h3>

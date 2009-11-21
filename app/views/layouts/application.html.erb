@@ -34,9 +34,13 @@
   <div id="nav">
     <ul>
       <li class="home"><%= link_to "首页", root_url %></li>
+      <% if logged_in? -%>
+      <li class="home"><%= link_to "我的1KG", user_url(current_user) %></li>
+      <% end %>
       <li class="home"><%= link_to "小组", groups_url %></li>
       <li class="home"><%= link_to "同城", my_city_url %></li>
       <li class="home"><%= link_to "学校", schools_url %></li>
+      <li class="home"><%= link_to "公益贺卡", minisite_festcard09_index_url %></li>
       <li class="home"><%= link_to "攻略大赛", minisite_lightenschool_index_url %></li>
       <li class="home"><%= link_to "爱心图书室", minisite_kuailebox_index_url %></li>
       <!--<li class="home" id="topicnav">专题活动<img id="slidemark" src="/images/slidemark.png" />
@@ -52,7 +56,7 @@
     </ul>
     <p style="float:right">
     <% if logged_in? -%>
-    欢迎 <%= link_to current_user.login, user_url(current_user) %>，<%= inbox_link("消息") %> | <%= link_to "设置", setting_url %> | <%= link_to "注销", logout_url %>
+    欢迎, <%= current_user.login %>(<%= link_to "设置", setting_url %>) | <%= inbox_link("消息") %> | <%= link_to "退出", logout_url %>
     <% else -%>
     <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %> | <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
     <% end -%>

@@ -38,7 +38,7 @@ class SharesController < ApplicationController
       else
         vote = @share.votes.build(:vote => true, :user_id => current_user.id)
         vote.save(false)
-        flash[:notice] = '投票成功'
+        flash[:notice] = '推荐成功'
         format.html {redirect_to share_path(@share)}
       end
     end

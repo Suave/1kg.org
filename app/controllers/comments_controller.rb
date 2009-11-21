@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       @comment.user = current_user
       if !@comment.save
-        flash[:notice] = comment.errors[:body] || "留言发布失败, 请重新登录, 再试试"
+        flash[:notice] = @comment.errors[:body] || "留言发布失败, 请重新登录, 再试试"
       end
       format.html {redirect_to commentable_path(@commentable)}
     end

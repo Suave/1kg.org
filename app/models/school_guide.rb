@@ -5,6 +5,9 @@ class SchoolGuide < ActiveRecord::Base
   
   acts_as_voteable
   acts_as_taggable
+  acts_as_paranoid
+  
+  default_scope :order => 'last_replied_at DESC'
   
   validates_presence_of :title, :message => "不能为空"
   validates_presence_of :content, :message => "请填写正文"

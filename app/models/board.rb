@@ -21,6 +21,8 @@ class Board < ActiveRecord::Base
   
   after_create :create_moderator_role
   
+  acts_as_paranoid
+  
   def last_topic
     self.topics.find(:first, :order => "created_at desc")
   end

@@ -3,21 +3,21 @@ class SchoolObserver < ActiveRecord::Observer
     board = Board.new
     board.talkable = SchoolBoard.new(:school_id => school.id)
     board.save!
-    
-    role = Role.create!(:identifier => "roles.school.moderator.#{school.id}")
-    
+
     #将提交人设为学校大使
+    role = Role.create!(:identifier => "roles.school.moderator.#{school.id}")
     school.user.roles << role
     
-    # 检查学校所在城市是否有同城，如果没有则创建
-=begin
-    city_board = CityBoard.find(:first, :conditions => ["geo_id=?", school.geo_id])
-    if city_board.nil?
-      board = Board.new
-      board.talkable = CityBoard.new(:geo_id => school.geo_id)
-      board.save!
-    end
-=end
+    # 邮件通知管理员有新学校提交
+    Mailer.deliver_submitted_school_notification(school) if school.user
+  end
+  
+  def after_destroy(school)
+    Mailer.deliver_destroyed_school_notification(school) if school.user
+  end
+  
+  def before_save(school)
+    Mailer.deliver_invalid_school_notification(school) if school.user && school.validated_changed? && !school.validated
   end
 end
   

@@ -24,6 +24,7 @@ class SchoolTraffic < ActiveRecord::Base
   
   before_save :format_content
   before_save :setup_tag
+  validates_presence_of :description, :message => "必填项"
   
   private
   def format_content

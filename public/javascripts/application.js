@@ -86,6 +86,5 @@ function update_needs(tag)
       needs.push($(this).val());
     }
   });
-  other_needs = $("#other_"+tag+"_need").val();
-  $("#"+tag+"_needs").val(needs.join(' ') + ' ' + other_needs);
+  $("#"+tag+"_needs").val(needs.join(' '));
 }
