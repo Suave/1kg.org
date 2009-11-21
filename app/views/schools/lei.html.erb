@@ -27,8 +27,6 @@
       <%else%>
       <img class="school_main" src="/images/school_main.png"/>
       <%end%>
-      <a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a>
-            　<a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
       <% if false -%>
       <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), photo.public_filename(:medium), 
         :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
@@ -58,7 +56,7 @@
     <% unless @contact.qq.blank? %>，QQ <%= h @contact.qq %><%end-%>。
     </p><%end-%>
     <% if @finder -%>
-      <p class="content_lei">信息收集人是 <%= h @finder.name %>
+      <%unless @finder.name.blank? %><p class="content_lei">信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
       <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
       <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
@@ -78,14 +76,15 @@
     <% unless  @need.urgency.blank? -%>
     <p  class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
     <p class="content_lei">学校<%="还" unless @need.urgency.blank?%>需要
-    <%= link_to_needs @need.book %>
-    <%= link_to_needs @need.stationary %>
-    <%= link_to_needs @need.sport %>
-    <%= link_to_needs @need.cloth %>
-    <%= link_to_needs @need.accessory %>
-    <%= link_to_needs @need.course %>
-    <%= link_to_needs @need.teacher %>
-    <%= link_to_needs @need.other %> ...
+    <%= link_to_needs @need.book unless @need.book.blank?%>
+    <%= link_to_needs @need.medicine unless @need.medicine.blank?%>
+    <%= link_to_needs @need.stationary unless @need.stationary.blank?%>
+    <%= link_to_needs @need.sport unless @need.sport.blank?%>
+    <%= link_to_needs @need.cloth unless @need.cloth.blank?%>
+    <%= link_to_needs @need.accessory unless @need.accessory.blank?%>
+    <%= link_to_needs @need.course unless @need.course.blank?%>
+    <%= link_to_needs @need.teacher unless @needteacher.blank?%>
+    <%= link_to_needs @need.other unless @need.other.blank?%> ...
     </p>
     
   <%end%>
@@ -114,12 +113,17 @@
           <% if logged_in? && @school.edited_by(current_user) -%>
             <%= link_to "编辑", edit_school_url(@school) %>
           <% end -%>
-
           <% if logged_in? && @school.destroyed_by(current_user) -%>
             | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
           <% end -%>
   </div>
   
+  <div class="school_box">
+  <h3 class="label_lei" >学校照片</h3>
+  <a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a>
+  <a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
+  </div>
+   
   <div class="school_box">
     <h3 class="label_lei" >路线攻略</h3>
     <%unless @school.guides.blank?%>
