@@ -234,7 +234,7 @@ module ApplicationHelper
   end
   
   def main_photo_thumb(school)
-    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : @school.main_photo.public_filename(:thumb)
+    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
     "<img src=#{img_url} />"
   end
 end
