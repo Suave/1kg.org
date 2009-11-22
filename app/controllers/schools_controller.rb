@@ -336,16 +336,12 @@ class SchoolsController < ApplicationController
                       :wanna_at => params[:visited][:wanna_at]
                      )
     
-    elsif @school.visited?(current_user) == 'interesting'
+    else
       visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:status => Visited.status(''),
-                                 :visited_at => params[:visited][:visited_at]
+      visited.update_attributes!(:status => Visited.status('wanna'),
+                                 :notes => params[:visited][:notes],
+                                 :wanna_at => params[:visited][:wanna_at]
                                 )
-    
-    elsif @school.visited?(current_user) == 'visited'
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:visited_at => params[:visited][:visited_at])
-      
     end
     redirect_to school_url(@school)
   end
@@ -400,7 +396,6 @@ class SchoolsController < ApplicationController
       message.author_id = 0
       message.to = [user.id]
       message.save!
-
       flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的学校大使"
       redirect_to moderator_school_url(school)
 
@@ -409,6 +404,19 @@ class SchoolsController < ApplicationController
       flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
       redirect_to moderator_school_url(school)
     end
+  end
+  
+  def setphoto
+    @school = School.find(params[:id])
+    if current_user.school_moderator?
+      @school.main_photo = Photo.find_by_id(params[:p].to_i)
+      @school.save
+      redirect_to school_url(@school)
+    else
+      flash[:notice] = "只有学校大使才可以设置学校主照片"
+      redirect_to school_url(@school)
+    end
+    
   end
   
   private
