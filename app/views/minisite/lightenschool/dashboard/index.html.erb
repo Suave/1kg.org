@@ -26,19 +26,21 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     </div>
   </div>
   
-<% unless @guides.empty? %>
+
   <div class="boxouter" id="topicCommentsList">
     <h3>参赛攻略</h3>
     <div class="boxinter">
       <div class="contents">
+      <% unless @guides.empty? %>
         <%= render :partial => '/schools/guides', :object => @guides %>
+      <% end %>
         <%= render :partial => '/schools/shares', :object => @shares, :locals => {:with_head => false} %>
         <%= customize_paginate(@shares, :param_name => 'guide_page') %>
       </div>
 
     </div>
   </div>
-<% end %>
+
 
   <div class="boxouter">
     <h3>讨论组</h3>
