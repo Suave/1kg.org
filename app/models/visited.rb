@@ -20,6 +20,9 @@ class Visited < ActiveRecord::Base
   
   acts_as_paranoid
   
+  def validate
+  end
+  
   def Visited.status(status)
     case status
     when 'visited': 1

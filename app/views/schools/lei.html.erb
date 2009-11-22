@@ -119,9 +119,14 @@
   </div>
   
   <div class="school_box">
-  <h3 class="label_lei" >学校照片</h3>
-  <a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a>
-  <a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
+    <h3 class="label_lei" >学校照片</h3>
+    
+    <div class="contents clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos %>
+    </div>
+    <p class="remark">&raquo; <%= link_to "全部图片", photos_school_path(@school) %></p>
+    <%unless @photos.length > 8%><a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a><%end%>
+    <a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
   </div>
    
   <div class="school_box">
