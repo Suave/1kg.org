@@ -34,7 +34,8 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
       <% unless @guides.empty? %>
         <%= render :partial => '/schools/guides', :object => @guides %>
       <% end %>
-        <%= customize_paginate(@guides, :param_name => 'guide_page') %>
+        <%= render :partial => '/schools/shares', :object => @shares, :locals => {:with_head => false} %>
+        <%= customize_paginate(@shares, :param_name => 'guide_page') %>
       </div>
 
     </div>
