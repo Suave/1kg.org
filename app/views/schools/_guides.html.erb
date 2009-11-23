@@ -11,7 +11,11 @@
   <% guides.each do |guide| -%>
   <tr>
     <td class="leftalign">
+      <% unless guide.class == Share%>
       <%= link_to h(guide.title), [guide.school, guide], :class => 'link' %>
+      <% else %>
+      <%= link_to h(guide.title), [guide], :class => 'link'%>
+      <% end %>
       <br/><small>标签：
       <% guide.tags.each do |tag| %>
        <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
