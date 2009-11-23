@@ -16,7 +16,11 @@
         <% @schools.each do |school| %>
         <p>
           <%= link_to school.title, import_admin_schools_path(:title => school.title) %>
-          <%= '此学校已提交' if School.find_by_title(school.title)  %>
+          <% old_school = School.find_by_title(school.title) %>
+          <% if old_school %>
+            <%= '此学校已提交:' %>
+            <%= link_to '点击访问', old_school %>
+          <% end %>
         </p>
         <% end %>
       <% end %>
