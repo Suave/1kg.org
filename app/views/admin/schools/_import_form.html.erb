@@ -1,4 +1,5 @@
 <% form_for :school, :url => admin_schools_path do |f| %>
+  <p>博客地址：<%= link_to @school.ref, @school.ref %></p>
   <p><label class="label">位于</label>
   <%= geo_select "school", "geo" %> <span class="require">*</span>
   <%= error_message_on school, :geo_id %>
