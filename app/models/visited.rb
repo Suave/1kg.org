@@ -21,6 +21,8 @@ class Visited < ActiveRecord::Base
   acts_as_paranoid
   
   def validate
+#    if Time.now > Date.parse(wanna_at.to_s)
+#    end
   end
   
   def Visited.status(status)
