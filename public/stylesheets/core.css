@@ -1083,9 +1083,9 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {height:55px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
-.obp {float:left; width:125px; margin:5px 10px;}
+.obp {float:left; width:125px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
-.obp dd {height:55px; margin:0; overflow:hidden; text-align:center;}
+.obp dd { margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
 
 .sbtn {border:1px solid black; background:orange; padding:2px;}

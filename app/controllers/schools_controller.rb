@@ -311,17 +311,12 @@ class SchoolsController < ApplicationController
                       :status => Visited.status('visited'),
                       :visited_at => params[:visited][:visited_at]
                      )
-    
-    elsif @school.visited?(current_user) == 'interesting'
+      else
       visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
       visited.update_attributes!(:status => Visited.status('visited'),
-                                 :visited_at => params[:visited][:visited_at]
-                                )
-    
-    elsif @school.visited?(current_user) == 'visited'
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:visited_at => params[:visited][:visited_at])
-      
+                                 :notes => params[:visited][:notes],
+                                 :wanna_at => params[:visited][:visited_at]
+                                )  
     end
     redirect_to school_url(@school)
   end
@@ -351,7 +346,7 @@ class SchoolsController < ApplicationController
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
     else
-      flash[:notice] = "你已经选择过感兴趣或去过这所学校了"
+      flash[:notice] = "你已经选去过或想去这所学校了"
     end
     redirect_to school_url(@school)
   end

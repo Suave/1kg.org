@@ -79,8 +79,8 @@ module SchoolsHelper
   end
   
   def link_to_needs(needs)
-    needs.split(',').map do |need|
-      link_to need, tag_path(:tag => need)
+    needs.split(' ').map do |need|
+      link_to need, tag_path(:tag => need),:class => "need_tag"
     end.join(' ')
   end
 end
