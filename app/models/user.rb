@@ -251,7 +251,7 @@ class User < ActiveRecord::Base
   end
   
   def participated_topics
-    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic)
+    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
   end
   
   def self.archives
