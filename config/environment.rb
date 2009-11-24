@@ -26,6 +26,7 @@ Rails::Initializer.run do |config|
   config.gem "fastercsv"
   config.gem "hpricot"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
+  config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
 
