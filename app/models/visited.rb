@@ -9,7 +9,8 @@
 #  visited_at :datetime
 #  status     :integer(1)
 #  created_at :datetime
-#
+#  wanna_at   :datetime
+#  notes      :string(20)
 
 class Visited < ActiveRecord::Base
   belongs_to :school
@@ -19,10 +20,16 @@ class Visited < ActiveRecord::Base
   
   acts_as_paranoid
   
+  def validate
+#    if Time.now > Date.parse(wanna_at.to_s)
+#    end
+  end
+  
   def Visited.status(status)
     case status
     when 'visited': 1
     when 'interesting': 2
+    when 'wanna': 3
     end
   end
 end

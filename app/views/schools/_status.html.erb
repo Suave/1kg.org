@@ -9,22 +9,25 @@
       <% if @school.visited?(current_user) == 'wanna' -%>
       <%= link_to "要去", novisited_school_url(@school), :method => :put ,:class => "buttonstatus2"%>
       <% else %>
-      <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()" class="buttonstatus">要去</a>
+      <a href="javascript:void(0);" onclick="jQuery('#wanna_date').show()" class="buttonstatus">要去</a>
       <% end %>
       
       <% if @school.visited?(current_user) == 'visited' -%>
       <%= link_to "去过", novisited_school_url(@school), :method => :put ,:class => "buttonstatus2"%>
       <% else %>
-      <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()" class="buttonstatus">去过</a>
+      <a href="javascript:void(0);" onclick="jQuery('#visited_date').show()" class="buttonstatus">去过</a>
       <% end %>
       
       </div>
-      <div id="what_time">
-      <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
-      <div id="visit_date" style="display:none">
-      <p>什么时间去的？</p>
-      <input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="vDateField" />
-      <p><%= submit_tag "确定" %></p>
-      </div>
+      <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put',:id=>"visited_date",:class => "what_time",:style => "display:none"} do |f| -%>
+      <p>什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="vDateField" /></p>
+      <p>去做了什么？<input type="text" name="visited[notes]" id="visited_notes"/></p>
+      <p class="date_submit"><%= submit_tag "确定"%> <input type="submit" value="取消" name="commit" onclick="jQuery('#visited_date').hide();return false"/></p>
       <% end -%>
-      </div>
+      
+      <% form_for :visited, :url => wanna_school_url(@school), :html => {:method => 'put',:id=>"wanna_date",:class => "what_time",:style => "display:none"} do |f| -%>
+      <p>计划什么时间去？ <input id="visited_wanna_at" name="visited[wanna_at]" type="text" value="<%= @visited.wanna_at.to_date if @visited && @visited.wanna_at %>" class="vDateField" /></p>
+      <p>要去做什么？<input type="text" name="visited[notes]" id="visited_notes" /></p>
+      <p class="date_submit"><%= submit_tag "确定" %> <input type="submit" value="取消" name="commit" onclick="jQuery('#wanna_date').hide();return false"/></p>
+      <% end -%>
+      
