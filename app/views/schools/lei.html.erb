@@ -10,8 +10,11 @@
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
-  function more(box){$(box).animate({ height: 'show' },'fast'); };
   jQuery(document).ready(function(){
+    $(".more").toggle(
+  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+  ); 
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
    
@@ -62,7 +65,7 @@
   </div>
   
   <div class="school_box">
-    <a class="more" style="float:right" onclick="more('#morecontact')">查看学校联系方式</a>
+    <a class="more" style="" name='#morecontact'>查看学校联系方式</a>
     <div id="morecontact" style="display:none">
     <h3 class="label_lei">联系学校</h3>
     <% unless @basic.master.blank? %><p class="content_lei">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
@@ -175,8 +178,8 @@
 <div class="school_box">
   <h3 class="label_lei" >学校话题</h3>
   <div class="contents">
-    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
-    <%= link_for_new_topic @board %>
+    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+    <% if @topics.blank? %>学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %><% end %>
     <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
 
   </div>
@@ -191,7 +194,7 @@
   </div>
   
   <div class="school_sidebar">
-    <% unless @traffic.description_html.blank? %><a onclick="more('#moretraffic')" class="more" style="float:right;">查看学校交通指南</a><%end%>
+    <% unless @traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a><%end%>
     <div id="moretraffic" style="display:none">
       <h3 class="label_lei">交通指南</h3>
       <div class="content_lei" style="margin-top:5px">
