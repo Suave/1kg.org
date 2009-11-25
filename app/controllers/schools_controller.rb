@@ -258,7 +258,11 @@ class SchoolsController < ApplicationController
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-    @main_photo=@school.photos.find_by_id @school.main_photo_id
+    @main_photo = @school.photos.find_by_id @school.main_photo_id
+    
+    @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
+    @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
+    
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
     end
@@ -267,7 +271,7 @@ class SchoolsController < ApplicationController
     unless @board.blank?
       @board = @board.board
       @topics = @board.latest_topics
-    end 
+    end
   end
   
   def destroy

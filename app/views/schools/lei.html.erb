@@ -17,7 +17,24 @@
    
 </script>
 
-<% content_for :subtitle do -%>  
+<% content_for :subtitle do -%>
+<div style="margin:10px">
+  <% if logged_in? && current_user.school_moderator? -%>
+  <span>学校管理员功能</span>
+    <% if @school.validated? -%>
+      <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+    <% else -%>
+      <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+    <% end -%>| 
+  <% end -%>
+  <% if logged_in? && @school.edited_by(current_user) -%>
+  <span>学校大使功能</span>
+    <%= link_to "编辑学校", edit_school_url(@school) %>
+  <% end -%>
+  <% if logged_in? && @school.destroyed_by(current_user) -%>
+    <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+  <% end -%>
+</div>  
 <% end -%>
 
   <div id="meta">
@@ -73,7 +90,7 @@
     <h3 class="label_lei">学校情况</h3>
   <%if @need-%>
     <% unless  @need.urgency.blank? -%>
-    <p  class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
     <p class="content_lei">学校<%="还" unless @need.urgency.blank?%>需要
     <%= link_to_needs @need.book unless @need.book.blank?%>
     <%= link_to_needs @need.medicine unless @need.medicine.blank?%>
@@ -83,11 +100,11 @@
     <%= link_to_needs @need.accessory unless @need.accessory.blank?%>
     <%= link_to_needs @need.course unless @need.course.blank?%>
     <%= link_to_needs @need.teacher unless @needteacher.blank?%>
-    <%= link_to_needs @need.other unless @need.other.blank?%> ...
+    <%= link_to_needs @need.other unless @need.other.blank?%>
     </p>
     
   <%end%>
-  <p  class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
+  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
   <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
@@ -100,43 +117,31 @@
   <%end%>
 </div>
 
-  <% if logged_in? && current_user.school_moderator? -%>
-    <% if @school.validated? -%>
-      <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
-    <% else -%>
-      <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-    <% end -%>| 
-  <% end -%>
-  
-  <% if logged_in? && @school.edited_by(current_user) -%>
-    <%= link_to "编辑", edit_school_url(@school) %>
-  <% end -%>
-  <% if logged_in? && @school.destroyed_by(current_user) -%>
-    | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
-  <% end -%>
-  
   <div class="school_box">
-    <h3 class="label_lei" >学校照片</h3>
+    <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix">
+      <div class="clearfix">
       <%= render :partial => "gallery_photo", :collection => @photos %>
-    </div>
-    <%unless @photos.length < 8%><%= link_to "全部照片", photos_school_path(@school) %><%end%>
-    <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
-    <%else%>
-    <p class="content_lei">你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。</p>
-    <% end %>  
+      </div>
+      <%unless @photos.length < 8%><%= link_to "全部照片", photos_school_path(@school) %><%end%>
+      <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
+      <%else%>
+      <p class="content_lei">你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。</p>
+      <% end %>
+    </div>  
   </div>
    
   <div class="school_box">
     <h3 class="label_lei" >路线攻略</h3>
-    <%unless @school.guides.blank?%>
     <div class="contents clearfix">
+      <%unless @school.guides.blank?%>
       <%= render :partial => 'guides', :object => @school.guides %>
+      
+      <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
+      <%else%>
+      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
+      <%end%>
     </div>
-    <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
-    <%else%>
-    <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
-    <%end%>
   </div>
 
 
@@ -155,6 +160,7 @@
           <div style="color:#999; text-align:right">
             <%= s.hits %> 浏览/<%= s.comments_count %> 回复
           </div>
+          <p class="summary"><%= summary(s) %></p>
         </div>
       </div>
       <% end -%>
@@ -166,17 +172,15 @@
     </div>
   </div>
 
-  <%= render :partial => "/topics/latest_topics", :locals => {:title => "学校话题", :board => @board, :topics => @topics} %>
-  
-  <div class="school_box" style="display:none">
-    <h3 class="label_lei">学校照片</h3>
-    
-    <div class="contents clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos %>
-    </div>
-    <p class="remark"><%= link_to "全部图片", photos_school_path(@school) %><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></p>
-  </div>
+<div class="school_box">
+  <h3 class="label_lei" >学校话题</h3>
+  <div class="contents">
+    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+    <%= link_for_new_topic @board %>
+    <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
 
+  </div>
+</div>  
   
 <% content_for :sidebar do -%>
     
@@ -210,11 +214,20 @@
       </div>
   </div>
 
-  <% unless @visitors.blank? %>
+  <% unless @wannas.blank? %>
+  <div class="school_sidebar" id="cityLatestMembers">
+    <h3 class="label_lei">要去的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/wanna", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
+    </div>  
+  </div>
+  <%end%>
+
+  <% unless @visits.blank? %>
   <div class="school_sidebar" id="cityLatestMembers">
     <h3 class="label_lei">去过的用户</h3>
     <div class="sidebar_inter">
-    <%= render :partial => "/shared/user_list", :locals => {:users => @visitors} %>
+    <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
     </div>  
   </div>
   <%end%>
@@ -227,5 +240,4 @@
     </div>
   </div>
   <% end %>
-  
 <% end -%>

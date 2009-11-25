@@ -1085,7 +1085,7 @@ h3.title {
 
 .obp {float:left; width:125px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
-.obp dd { margin:0; overflow:hidden; text-align:center;}
+.obp dd {height:55px; margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
 
 .sbtn {border:1px solid black; background:orange; padding:2px;}

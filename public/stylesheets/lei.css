@@ -1,7 +1,7 @@
 body{background:#fff}
 #content-primary p,#content-secondary p {margin:10px 0;}
 
-#meta{width:620px;height:130px;padding:0 10px}
+#meta{width:620px;height:120px;padding:0 10px}
 .school_main img{width:134px;}
 .school_main{display:block;height:100px;overflow:hidden;width:134px;}
 .meta_left{float:left;width:134px}
@@ -21,6 +21,8 @@ body{background:#fff}
 .label_lei{color:#888;border-bottom:1px #ddd solid}
 .content_lei{font-size:14px;color:#444;padding:0 5px;}
 .contents{padding:10px}
+
+.summary{font-size:15px;color:#333}
 
 .important a{font-size:16px;}
 
