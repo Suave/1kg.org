@@ -35,11 +35,16 @@ module SchoolImport
   def get_telephone(raw)
     parse(raw, /学校电话(.*?)学校联系人/)
   end
+  
+  def get_url(raw)
+    parse(raw, /http(.*?)html/)
+  end
 
   def import_from_blog
     schools = []
     f = File.open("#{RAILS_ROOT}/db/school_meta")
     f.each_line do |line|
+      url = get_url(line)
       title = get_title(line)
       address = get_address(line)
       address = title if address == ''
@@ -71,7 +76,8 @@ module SchoolImport
       accessory_needs = parse(line, /教具类(.*?)其他/)
       other_needs = parse(line, /其他类(.*?)学校活/)
     
-      school = School.new(:user_id => 1, :title => "#{title}学")
+      school = School.new(:user_id => 1, :title => "#{title}学", :ref => "http:#{url}html")
+      
       school.basic = SchoolBasic.new(:address => address, :zipcode => zipcode, :master => master, :telephone => telephone,
                         :level_amount => level_amount, :teacher_amount => teacher_amount, :student_amount => student_amount,
                         :book_amount => book_amount)

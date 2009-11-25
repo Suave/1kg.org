@@ -6,7 +6,5 @@ describe SchoolGuide do
     }
   end
 
-  it "should create a new instance given valid attributes" do
-    SchoolGuide.create!(@valid_attributes)
-  end
+  it "should create a new instance given valid attributes"
 end
