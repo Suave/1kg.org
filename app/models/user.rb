@@ -65,10 +65,10 @@ class User < ActiveRecord::Base
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc"
-  has_many :posts, :order => "posts.created_at desc"
-  has_many :shares, :order => "created_at desc"
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy
+  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy
+  has_many :shares, :order => "created_at desc", :dependent => :destroy
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :avatar
+  attr_accessible :login, :email, :password, :password_confirmation, :avatar, :ip
 
   acts_as_state_machine :initial => :pending, :column => :state
   state :passive
@@ -254,6 +254,11 @@ class User < ActiveRecord::Base
   
   def participated_topics
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
+  end
+  
+  def block!
+    self.blocked = true
+    self.save(false)
   end
   
   def self.archives

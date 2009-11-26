@@ -475,6 +475,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
+    t.string   "ip"
     
     t.integer  "posts_count"
     t.integer  "topics_count"
