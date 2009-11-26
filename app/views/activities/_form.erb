@@ -1,15 +1,28 @@
-<p><label class="label">名称</label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %></p>
+<% 
+schools = current_user.visited_schools
+%>
+<p><label class="label">名称<span class="require">*</span></label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %></p>
+<p><label for="activity_category" class="label">类型</label>
+  <select id="activity_category" name="activity[category]">
+    <% Activity.categories.each_with_index do |p,i| -%>
+      <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
+    <% end -%>
+  </select>
+</p>
+<p><label class="label">学校</label>
+<%= form.select :school_id, [['从你去过或者关注的学校里选择','']] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
+</p>
 
-<p><label class="label">地点</label><%= form.text_field :location, :size => 30, :class => "formText" %></p>
-<p><label class="label">开始时间</label>
+<p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %></p>
+<p><label for="arrival_root" class="label">目的地<span class="require">*</span></label><%= geo_select "activity", "arrival", ["不限地域", "0"] %> <%= error_message_on @activity, :arrival_id %></p>
+
+<p><label class="label">开始时间<span class="require">*</span></label>
   <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" /><%= error_message_on @activity, :start_at %></p>
   
-<p><label class="label">结束时间</label>
+<p><label class="label">结束时间<span class="require">*</span></label>
   <input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %></p>
   
 <p><label class="label">报名截止</label>
   <input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /></p>
   
-<p><label class="label">人均费用</label><%= form.text_field :expense_per_head, :size => 10, :class => "formText" %> 元</p>
-<p><label class="label">预期人数</label><%= form.text_field :expect_strength, :size => 10, :class => "formText" %> 人</p>
 <p><label class="label">活动介绍</label><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
