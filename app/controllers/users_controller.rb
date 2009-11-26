@@ -35,7 +35,7 @@ class UsersController < ApplicationController
         @user.register! if @user.valid?
         if @user.errors.empty?
           @user.activate!
-          current_user.update_attribute(:ip, request.remote_ip)
+          @user.update_attribute(:ip, request.remote_ip)
           self.current_user = @user
           flash[:notice] = "注册完成, 补充一下你的个人信息吧"
           #redirect_to "/setting"
