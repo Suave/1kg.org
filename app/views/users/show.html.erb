@@ -47,6 +47,12 @@
 
 <h2 class="title"><%= h @user.login %></h2>
 
+<% if logged_in? && current_user.school_moderator? %>
+<div class="moderators tipText"><strong>
+  [ <%= link_to '封锁此用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？' %> ]
+</strong></div>
+<% end %>
+
 <% if @user == current_user -%>
 <div class="moderators tipText"><strong>
   [ <%= link_to "写分享", new_share_url %> | <%= link_to "发起活动", new_activity_url %> | <%= link_to "提交新学校", new_school_url %> ]

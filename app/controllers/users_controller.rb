@@ -23,21 +23,27 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    unless params[:terms] == "1"
-      flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"
-      render :action => "new"
+    if in_black_list?
+      flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户"
+      redirect_to root_path
     else
-      @user = User.new(params[:user])
-      @user.register! if @user.valid?
-      if @user.errors.empty?
-        @user.activate!
-        self.current_user = @user
-        flash[:notice] = "注册完成, 补充一下你的个人信息吧"
-        #redirect_to "/setting"
-        redirect_back_or_default CGI.unescape(params[:to] || '/setting')
-        #render :action => "wait_activation"
+      unless params[:terms] == "1"
+        flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"      
+        render :action => "new"
       else
-        render :action => 'new'
+        @user = User.new(params[:user])
+        @user.register! if @user.valid?
+        if @user.errors.empty?
+          @user.activate!
+          current_user.update_attribute(:ip, request.remote_ip)
+          self.current_user = @user
+          flash[:notice] = "注册完成, 补充一下你的个人信息吧"
+          #redirect_to "/setting"
+          redirect_back_or_default CGI.unescape(params[:to] || '/setting')
+          #render :action => "wait_activation"
+        else
+          render :action => 'new'
+        end
       end
     end
   end
@@ -234,5 +240,8 @@ class UsersController < ApplicationController
     @groups = user.joined_groups.find :all, :limit => 9
   end
   
-
+  def in_black_list?
+    blocked_ips = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:ip)
+    blocked_ips.include?(request.remote_ip)
+  end
 end
