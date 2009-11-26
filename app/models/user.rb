@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   attr_accessor :password
   cattr_accessor :current_user
 
+  acts_as_paranoid
+  
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"
   validates_presence_of     :password,                   :if => :password_required?, :message => "密码不能为空"
@@ -63,10 +65,10 @@ class User < ActiveRecord::Base
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc"
-  has_many :posts, :order => "posts.created_at desc"
-  has_many :shares, :order => "created_at desc"
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy
+  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy
+  has_many :shares, :order => "created_at desc", :dependent => :destroy
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
@@ -95,7 +97,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :avatar
+  attr_accessible :login, :email, :password, :password_confirmation, :avatar, :ip
 
   acts_as_state_machine :initial => :pending, :column => :state
   state :passive
@@ -254,10 +256,15 @@ class User < ActiveRecord::Base
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
   end
   
+  def block!
+    self.blocked = true
+    self.save(false)
+  end
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
-    counts = User.find_by_sql(["select count(*) as count, #{date_func} from users where created_at < ? group by year,month order by year asc,month asc",Time.now])
+    counts = User.find_by_sql(["select count(*) as count, #{date_func} from users where created_at < ? and deleted_at IS NULL group by year,month order by year asc,month asc",Time.now])
     
     sum = 0
     result = counts.map do |entry|
