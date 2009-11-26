@@ -10,14 +10,34 @@
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
-  function more(box){$(box).animate({ height: 'show' },'fast'); };
   jQuery(document).ready(function(){
+    $(".more").toggle(
+  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+  ); 
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
    
 </script>
 
-<% content_for :subtitle do -%>  
+<% content_for :subtitle do -%>
+<div style="margin:10px">
+  <% if logged_in? && current_user.school_moderator? -%>
+  <span>学校管理员功能</span>
+    <% if @school.validated? -%>
+      <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+    <% else -%>
+      <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+    <% end -%>| 
+  <% end -%>
+  <% if logged_in? && @school.edited_by(current_user) -%>
+  <span>学校大使功能</span>
+    <%= link_to "编辑学校", edit_school_url(@school) %>
+  <% end -%>
+  <% if logged_in? && @school.destroyed_by(current_user) -%>
+    <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+  <% end -%>
+</div>  
 <% end -%>
 
   <div id="meta">
@@ -27,14 +47,11 @@
       <%else%>
       <img class="school_main" src="/images/school_main.png"/>
       <%end%>
-      <a href="<%= photos_school_path(@school)-%>">全部<%=@school.photos.length-%>张照片</a>
-            　<a style="float:right" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>
       <% if false -%>
       <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), photo.public_filename(:medium), 
         :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
       <%end%>
     </div>
-    
     <div class="meta_right">
       <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
@@ -48,7 +65,7 @@
   </div>
   
   <div class="school_box">
-    <a class="more" style="float:right" onclick="more('#morecontact')">查看学校联系方式</a>
+    <a class="more" style="" name='#morecontact'>查看学校联系方式</a>
     <div id="morecontact" style="display:none">
     <h3 class="label_lei">联系学校</h3>
     <% unless @basic.master.blank? %><p class="content_lei">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
@@ -58,7 +75,7 @@
     <% unless @contact.qq.blank? %>，QQ <%= h @contact.qq %><%end-%>。
     </p><%end-%>
     <% if @finder -%>
-      <p class="content_lei">信息收集人是 <%= h @finder.name %>
+      <%unless @finder.name.blank? %><p class="content_lei">信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
       <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
       <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
@@ -76,20 +93,21 @@
     <h3 class="label_lei">学校情况</h3>
   <%if @need-%>
     <% unless  @need.urgency.blank? -%>
-    <p  class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
     <p class="content_lei">学校<%="还" unless @need.urgency.blank?%>需要
-    <%= link_to_needs @need.book %>
-    <%= link_to_needs @need.stationary %>
-    <%= link_to_needs @need.sport %>
-    <%= link_to_needs @need.cloth %>
-    <%= link_to_needs @need.accessory %>
-    <%= link_to_needs @need.course %>
-    <%= link_to_needs @need.teacher %>
-    <%= link_to_needs @need.other %> ...
+    <%= link_to_needs @need.book unless @need.book.blank?%>
+    <%= link_to_needs @need.medicine unless @need.medicine.blank?%>
+    <%= link_to_needs @need.stationary unless @need.stationary.blank?%>
+    <%= link_to_needs @need.sport unless @need.sport.blank?%>
+    <%= link_to_needs @need.cloth unless @need.cloth.blank?%>
+    <%= link_to_needs @need.accessory unless @need.accessory.blank?%>
+    <%= link_to_needs @need.course unless @need.course.blank?%>
+    <%= link_to_needs @need.teacher unless @needteacher.blank?%>
+    <%= link_to_needs @need.other unless @need.other.blank?%>
     </p>
     
   <%end%>
-  <p  class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
+  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
   <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
@@ -102,41 +120,39 @@
   <%end%>
 </div>
 
-  <div>
-          <% if logged_in? && current_user.school_moderator? -%>
-            <% if @school.validated? -%>
-              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
-            <% else -%>
-              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-            <% end -%>| 
-          <% end -%>
-          
-          <% if logged_in? && @school.edited_by(current_user) -%>
-            <%= link_to "编辑", edit_school_url(@school) %>
-          <% end -%>
-
-          <% if logged_in? && @school.destroyed_by(current_user) -%>
-            | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
-          <% end -%>
+  <div class="school_box">
+    <h3 class="label_lei" >学校相册</h3>
+    <div class="contents clearfix">
+      <div class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos %>
+      </div>
+      <%unless @photos.length < 8%><%= link_to "全部照片", photos_school_path(@school) %><%end%>
+      <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
+      <%else%>
+      <p class="content_lei">你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。</p>
+      <% end %>
+    </div>  
   </div>
-  
+   
   <div class="school_box">
     <h3 class="label_lei" >路线攻略</h3>
-    <%unless @school.guides.blank?%>
     <div class="contents clearfix">
+      <%unless @school.guides.blank?%>
       <%= render :partial => 'guides', :object => @school.guides %>
+      
+      <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
+      <%else%>
+      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
+      <%end%>
     </div>
-    <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
-    <%else%>
-    <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
-    <%end%>
   </div>
 
 
   <div class="school_box">
     <h3 class="label_lei">用户分享</h3>
+    <div class="contents clearfix">
     <%unless @shares.blank?%>
-    <div class="contents">
+    
       <% @shares.each do |s| -%>
       <div style="clear:both;margin-bottom:1em;min-height:50px">
         <div style="float:left">
@@ -147,27 +163,27 @@
           <div style="color:#999; text-align:right">
             <%= s.hits %> 浏览/<%= s.comments_count %> 回复
           </div>
+          <p class="summary"><%= summary(s) %></p>
         </div>
       </div>
       <% end -%>
-    </div>
+    
     <p><%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%></p>
     <%else%>
     <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
-  </div>
-
-  <%= render :partial => "/topics/latest_topics", :locals => {:title => "学校话题", :board => @board, :topics => @topics} %>
-  
-  <div class="school_box" style="display:none">
-    <h3 class="label_lei">学校照片</h3>
-    <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
-    <div class="contents clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos %>
     </div>
-    <p class="remark">&raquo; <%= link_to "全部图片", photos_school_path(@school) %></p>
   </div>
 
+<div class="school_box">
+  <h3 class="label_lei" >学校话题</h3>
+  <div class="contents">
+    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+    <% if @topics.blank? %>学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %><% end %>
+    <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
+
+  </div>
+</div>  
   
 <% content_for :sidebar do -%>
     
@@ -177,8 +193,8 @@
     <div class="clear"></div>
   </div>
   
-  <div class="school_sidebar" style:"padding:0 10px">
-    <% unless @traffic.description_html.blank? %><a onclick="more('#moretraffic')" class="more" style="float:right;">查看学校交通指南</a><%end%>
+  <div class="school_sidebar">
+    <% unless @traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a><%end%>
     <div id="moretraffic" style="display:none">
       <h3 class="label_lei">交通指南</h3>
       <div class="content_lei" style="margin-top:5px">
@@ -190,6 +206,7 @@
   
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
+      <div class="sidebar_inter">
         <% if @school.validated? -%>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
         <% else -%>
@@ -197,20 +214,33 @@
             <p>学校通过验证后才有学校大使</p>
           </div>
         <% end -%>
+      </div>
   </div>
 
-  <% unless @visitors.blank? %>
+  <% unless @wannas.blank? %>
+  <div class="school_sidebar" id="cityLatestMembers">
+    <h3 class="label_lei">要去的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/wanna", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
+    </div>  
+  </div>
+  <%end%>
+
+  <% unless @visits.blank? %>
   <div class="school_sidebar" id="cityLatestMembers">
     <h3 class="label_lei">去过的用户</h3>
-    <%= render :partial => "/shared/user_list", :locals => {:users => @visitors} %>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
+    </div>  
   </div>
   <%end%>
   
   <% unless @followers.blank? %>
   <div class="school_sidebar" id="cityLatestMembers">
     <h3 class="label_lei">关注的用户</h3>
+    <div class="sidebar_inter">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
+    </div>
   </div>
   <% end %>
-  
 <% end -%>

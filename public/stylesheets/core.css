@@ -1083,7 +1083,7 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {height:55px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
-.obp {float:left; width:125px; margin:5px 10px;}
+.obp {float:left; width:125px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {height:55px; margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
@@ -1147,5 +1147,5 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 #school_meta{margin-top:20px;margin-left:60px;height:50px}
 .meta_col input{margin-top:5px}
 
-.more{background:url(/images/more.gif) no-repeat;padding-left:14px;color:#666;cursor:pointer;}
-.more:hover{background-position:0 -13px}
+.more{background:url(/images/more.gif) no-repeat;padding-left:14px;color:#666;cursor:pointer;float:right}
+.more:hover{background-position:0 -13px;}

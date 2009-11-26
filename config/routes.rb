@@ -65,6 +65,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
+                                      :wanna => :put,
+                                      :setphoto => :put,
                                       :novisited => :put,
                                       :moderator => :get,
                                       :marked => :put,

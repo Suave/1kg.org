@@ -234,7 +234,15 @@ module ApplicationHelper
   end
   
   def main_photo_thumb(school)
-    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : @school.main_photo.public_filename(:thumb)
+    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
     "<img src=#{img_url} />"
+  end
+  
+  def plain_text(text,replacement=" ")
+    text.gsub(/<[^>]*>/){|html| replacement}
+  end
+  
+  def summary(article)
+    html = plain_text(article.body_html[0,300])[0,100]
   end
 end

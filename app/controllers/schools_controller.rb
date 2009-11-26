@@ -258,7 +258,11 @@ class SchoolsController < ApplicationController
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-    @main_photo=@school.photos.find_by_id @school.main_photo_id
+    @main_photo = @school.photos.find_by_id @school.main_photo_id
+    
+    @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
+    @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
+    
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
     end
@@ -267,7 +271,7 @@ class SchoolsController < ApplicationController
     unless @board.blank?
       @board = @board.board
       @topics = @board.latest_topics
-    end 
+    end
   end
   
   def destroy
@@ -311,17 +315,32 @@ class SchoolsController < ApplicationController
                       :status => Visited.status('visited'),
                       :visited_at => params[:visited][:visited_at]
                      )
-    
-    elsif @school.visited?(current_user) == 'interesting'
+      else
       visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
       visited.update_attributes!(:status => Visited.status('visited'),
-                                 :visited_at => params[:visited][:visited_at]
-                                )
+                                 :notes => params[:visited][:notes],
+                                 :wanna_at => params[:visited][:visited_at]
+                                )  
+    end
+    redirect_to school_url(@school)
+  end
+ 
+   def wanna
+    @school = School.find(params[:id])
+    if @school.visited?(current_user) == false
+      Visited.create!(:user_id => current_user.id,
+                      :school_id => @school.id,
+                      :status => Visited.status('wanna'),
+                      :notes => params[:visited][:notes],
+                      :wanna_at => params[:visited][:wanna_at]
+                     )
     
-    elsif @school.visited?(current_user) == 'visited'
+    else
       visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:visited_at => params[:visited][:visited_at])
-      
+      visited.update_attributes!(:status => Visited.status('wanna'),
+                                 :notes => params[:visited][:notes],
+                                 :wanna_at => params[:visited][:wanna_at]
+                                )
     end
     redirect_to school_url(@school)
   end
@@ -331,7 +350,7 @@ class SchoolsController < ApplicationController
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
     else
-      flash[:notice] = "你已经选择过感兴趣或去过这所学校了"
+      flash[:notice] = "你已经选去过或想去这所学校了"
     end
     redirect_to school_url(@school)
   end
@@ -376,7 +395,6 @@ class SchoolsController < ApplicationController
       message.author_id = 0
       message.to = [user.id]
       message.save!
-
       flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的学校大使"
       redirect_to moderator_school_url(school)
 
@@ -385,6 +403,19 @@ class SchoolsController < ApplicationController
       flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
       redirect_to moderator_school_url(school)
     end
+  end
+  
+  def setphoto
+    @school = School.find(params[:id])
+    if current_user.school_moderator?
+      @school.main_photo = Photo.find_by_id(params[:p].to_i)
+      @school.save
+      redirect_to school_url(@school)
+    else
+      flash[:notice] = "只有学校大使才可以设置学校主照片"
+      redirect_to school_url(@school)
+    end
+    
   end
   
   private
@@ -413,7 +444,6 @@ class SchoolsController < ApplicationController
     rescue ActiveRecord::RecordInvalid
       flash[:notice] = '请检查所有必填项是否填好'
       render :action => "edit_#{current_step}"
-    
     end
   end
   
