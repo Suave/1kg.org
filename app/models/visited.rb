@@ -10,7 +10,7 @@
 #  status     :integer(1)
 #  created_at :datetime
 #  wanna_at   :datetime
-#  notes      :string(20)
+#  notes      :string(80)
 
 class Visited < ActiveRecord::Base
   belongs_to :school
