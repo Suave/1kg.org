@@ -327,8 +327,8 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请填去过的日期'
-      redirect_to school_url(@school)+'/lei'
+      flash[:notice] = '请填写去过的日期，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
     end
   end
  
@@ -352,8 +352,8 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请填写要去的日期'
-      redirect_to school_url(@school)+'/lei'
+      flash[:notice] = '请填写要去的日期，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
     end
   end
   
