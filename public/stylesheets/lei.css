@@ -30,6 +30,7 @@ body{background:#fff}
 #visited_date p,#wanna_date p{margin:0 0 5px}
 #visited_visited_at,#visited_wanna_at{width:70px;}
 .date_submit input{width:70px}
+#status p{color:#888}
 
 #map_info{}
 .what_time{margin-top:26px;left:368px;position:absolute}

@@ -322,7 +322,7 @@ class SchoolsController < ApplicationController
         visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
         visited.update_attributes!(:status => Visited.status('visited'),
                                    :notes => params[:visited][:notes],
-                                   :wanna_at => params[:visited][:visited_at]
+                                   :visited_at => params[:visited][:visited_at]
                                   )  
       end
       redirect_to school_url(@school)
