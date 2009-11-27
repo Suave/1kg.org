@@ -36,7 +36,7 @@
         <p>你在 <%=@status.visited_at.to_date%> 去过这所学校</p>
         <%end%>
         <% if @school.visited?(current_user) == 'wanna'%>
-        <p>你计划在 <%=@status.visited_at.to_date%> 去这所学校</p>
+        <p>你计划在 <%=@status.wanna_at.to_date%> 去这所学校</p>
         <%end%>
         <% if @school.visited?(current_user) == 'interesting'%>
         <p>你关注这所学校</p>
