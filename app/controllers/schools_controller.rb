@@ -262,7 +262,7 @@ class SchoolsController < ApplicationController
     
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
-    @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+    @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
