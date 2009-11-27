@@ -15,7 +15,7 @@ schools = current_user.visited_schools
 
 <p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %></p>
 <p><label for="arrival_root" class="label">目的地<span class="require">*</span></label><%= geo_select "activity", "arrival", ["不限地域", "0"] %> <%= error_message_on @activity, :arrival_id %></p>
-
+<p><label class="label">地点</label><%= form.text_field :location, :size => 30, :class => "formText" %></p>
 <p><label class="label">开始时间<span class="require">*</span></label>
   <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" /><%= error_message_on @activity, :start_at %></p>
   

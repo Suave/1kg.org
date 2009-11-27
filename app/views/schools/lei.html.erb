@@ -152,7 +152,6 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-    
       <% @shares.each do |s| -%>
       <div style="clear:both;margin-bottom:1em;min-height:50px">
         <div style="float:left">
@@ -217,8 +216,19 @@
       </div>
   </div>
 
+  <div class="school_sidebar">
+    <h3 class="label_lei">学校活动</h3>
+    <div class="sidebar_inter">
+    <% @activity.each do |a| -%>
+    <p class="content_lei"><%= link_for_activity(a,false) %></p>
+    <p>开始时间 <%= a.start_at.to_date%><span style="float:right">发起人<%= link_to a.user.login, user_url(a.user) %></span></p>
+    
+    <% end %>  
+    </div>  
+  </div>
+
   <% unless @wannas.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">要去的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/wanna", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
@@ -227,7 +237,7 @@
   <%end%>
 
   <% unless @visits.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">去过的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
@@ -236,7 +246,7 @@
   <%end%>
   
   <% unless @followers.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">关注的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>

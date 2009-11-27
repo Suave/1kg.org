@@ -253,13 +253,13 @@ class SchoolsController < ApplicationController
       render_404 and return
     end
     
-    @visitors = @school.visitors
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
+    @activity = Activity.find(:all,:conditions => {:school_id => @school.id})
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
     
