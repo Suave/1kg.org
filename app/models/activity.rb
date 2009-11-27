@@ -40,7 +40,7 @@ class Activity < ActiveRecord::Base
   has_many :participation, :dependent => :destroy
   has_many :participators,  :through => :participation, :source => :user
   
-  has_many :comments, :class_name => "ActivityComment", :foreign_key => "type_id"
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
 #  belongs_to :school
 
@@ -78,7 +78,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :start_at, :message => "开始时间是必填项"
   validates_presence_of :end_at, :message => "结束时间是必填项"
   
-  
+  acts_as_paranoid
   #before_save :format_content
   
   
@@ -122,7 +122,7 @@ class Activity < ActiveRecord::Base
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
-    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? group by year,month order by year asc,month asc",Time.now])
+    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year asc,month asc",Time.now])
     
     sum = 0
     result = counts.map do |entry|

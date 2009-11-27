@@ -11,7 +11,11 @@
   <% guides.each do |guide| -%>
   <tr>
     <td class="leftalign">
-      <%= link_to h(guide.title), school_guide_path(guide.school, guide), :class => 'link' %>
+      <% unless guide.class == Share%>
+      <%= link_to h(guide.title), [guide.school, guide], :class => 'link' %>
+      <% else %>
+      <%= link_to h(guide.title), [guide], :class => 'link'%>
+      <% end %>
       <br/><small>标签：
       <% guide.tags.each do |tag| %>
        <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
@@ -22,7 +26,7 @@
     <td><%= guide.votes.count %></td>
     <td><%= guide.comments_count %></td>
     <td><%= link_to h(guide.user.login), user_url(guide.user), :class => "link" %></td>
-    <td><%= guide.updated_at.to_date %></td>
+    <td><%= l(guide.updated_at.to_date, :format => :short) %></td>
   </tr>
   <% end -%>
   </tbody>

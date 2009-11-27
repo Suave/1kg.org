@@ -1,10 +1,13 @@
 class SchoolGuide < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
-  has_many   :comments, :class_name => "GuideComment", :foreign_key => "type_id", :dependent => :destroy
+  has_many   :comments, :as => 'commentable', :dependent => :destroy
   
   acts_as_voteable
   acts_as_taggable
+  acts_as_paranoid
+  
+  default_scope :order => 'last_replied_at DESC'
   
   validates_presence_of :title, :message => "不能为空"
   validates_presence_of :content, :message => "请填写正文"

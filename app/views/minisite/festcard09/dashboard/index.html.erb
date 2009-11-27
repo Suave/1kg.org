@@ -1,0 +1,95 @@
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/festcard09.css" media="screen, projection" />
+
+<% end -%>
+
+<% @page_title = "公益贺卡节日版，一张贺卡一本书，举手之劳的公益活动，共建乡村学校班图书角！" -%>
+
+<% content_for :crumb do -%>
+<li>公益贺卡节日版</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+
+<div style="display:block; clear:both">
+  <a href="/minisite/festcard09/cards" target="_blank"><img src="/images/festcard09/festcard.jpg" class="pc-love" /></a>
+  <div class="pc-intro">
+    <div style="text-align:center"><img src="/images/festcard09/love.png" />
+    <p>“让爱继续”以邮政贺卡为载体，每张贺卡定价人民币10元（含邮资）。</p>
+    <p>每购买一张贺卡，由多背一公斤代购卡者贫困地区学校捐赠一本图书。</p>
+    <p>登录www.1kg.org网站，就可了解图书捐赠的最新动态。</p>
+    </div>
+    
+    <p style="margin-top:20px;"><%= image_tag("/images/festcard09/flow.png") %></p>
+  </div>
+</div>
+
+<div class="lcolumn">
+  <div class="boxouter">
+    <h3>学校列表</h3>
+    <div class="boxinter">
+    <% unless @for_team_bucks.blank? -%>
+      <%= render :partial => "bucks", :object => @for_team_bucks %>
+    <% end -%>
+    </div>
+  </div>
+  
+  <div class="boxouter">
+    <h3>小组讨论</h3>
+    <div class="boxinter">
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+    </div>
+  </div>
+  
+</div>
+
+<div class="rcolumn">
+  <div class="boxouter">
+    <h3>参与方式</h3>
+    <div class="boxinter">
+      <p>将您的团队LOGO交给我们，让我们为您定制公司或组织的专题公益贺卡，在新年到来之时，您就可以将公益的快乐分享给朋友、同事、战友、客户……</p>
+      <p>团购起订数 2000枚(有4种贺卡设计供选择)；每枚贺卡10元，含邮资（1.2元标准资费）、贺卡制作费、图书捐赠款等所有费用。</p>
+      <p>购买贺卡联系 ann#1kg.org(请把#换成@)</p>
+      <p>联系电话 15801386542</p>
+    </div>
+  </div>
+  <%= render :partial => "share" %>
+  
+</div>
+<div class="boxouter" style="float:left;width:100%">
+      <h3>捐赠书目</h3>
+      <div class="boxinter">
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1442789/" target="_blank"><img src="http://otho.douban.com/mpic/s2118676.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1442789/" target="_blank">小女巫</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1931593/" target="_blank"><img src="http://otho.douban.com/mpic/s2532217.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1931593/" target="_blank">寓言三百则-注音绘画本</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1442790/" target="_blank"><img src="http://otho.douban.com/mpic/s2110097.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1442790/" target="_blank">小水精</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1708127/" target="_blank"><img src="http://otho.douban.com/mpic/s3769691.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1708127/" target="_blank">中国名人的童年故事</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1442788/" target="_blank"><img src="http://otho.douban.com/mpic/s2084718.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1442788/" target="_blank">小鬼儿</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/1486596/" target="_blank"><img src="http://otho.douban.com/mpic/s2110096.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/1486596/" target="_blank">香草女巫</a></dd>
+        </dl>
+        <dl class="book">
+          <dt><a href="http://www.douban.com/subject/2006772/" target="_blank"><img src="http://otho.douban.com/mpic/s2205661.jpg" /></a></dt>
+          <dd><a href="http://www.douban.com/subject/2006772/" target="_blank">诺贝尔-世界伟人传记</a></dd>
+        </dl>
+      </div>
+      <p class="remark clear" style="text-align:right;margin:20px">&raquo; <a href="http://www.douban.com/doulist/231683/" target="_blank">全部书目</a></p>
+</div>
+<% end -%>

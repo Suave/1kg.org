@@ -26,20 +26,21 @@ class School < ActiveRecord::Base
   belongs_to :county
   belongs_to :validator, :class_name => "User", :foreign_key => "validated_by_id"
 
-  has_one    :basic,   :class_name => "SchoolBasic", :dependent => :destroy
-  has_one    :traffic, :class_name => "SchoolTraffic", :dependent => :destroy   # Should be removed.
-  has_many   :guides,  :class_name => "SchoolGuide", :dependent => :destroy, :order => 'updated_at DESC'
-  has_one    :need,    :class_name => "SchoolNeed", :dependent => :destroy 
-  has_one    :contact, :class_name => "SchoolContact", :dependent => :destroy
-  has_one    :local,   :class_name => "SchoolLocal", :dependent => :destroy
-  has_one    :finder,  :class_name => "SchoolFinder", :dependent => :destroy
-  has_many   :snapshots, :class_name => "SchoolSnapshot", :dependent => :destroy
+  has_one    :basic,   :class_name => "SchoolBasic"
+  has_one    :traffic, :class_name => "SchoolTraffic"   # Should be removed.
+  has_one    :need,    :class_name => "SchoolNeed"
+  has_one    :contact, :class_name => "SchoolContact"
+  has_one    :local,   :class_name => "SchoolLocal"
+  has_one    :finder,  :class_name => "SchoolFinder"
+  has_many   :snapshots, :class_name => "SchoolSnapshot"
   
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
+  acts_as_paranoid
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
-  has_many :shares, :order => "id desc"
-  has_many :photos, :order => "id desc"
+  has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
+  has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -52,9 +53,10 @@ class School < ActiveRecord::Base
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
-  named_scope :validated, :conditions => ["validated=? and deleted_at is null and meta=?", true, false], :order => "created_at desc"
-  named_scope :available, :conditions => ["deleted_at is null"]
-  named_scope :not_validated, :conditions => ["deleted_at is null and validated=? and meta=?", false, false], :order => "created_at desc"  
+  named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
+  # 需要移除
+  named_scope :available, :conditions => {:deleted_at => nil}
+  named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
@@ -75,11 +77,6 @@ class School < ActiveRecord::Base
   }
   
   attr_accessor :city, :city_unit, :town, :town_unit, :village
-  
-  def after_create
-    # remove @ 09.8.24, because of SMTPServer Busy raise exception
-    Mailer.deliver_submitted_school_notification(self) if self.user
-  end
   
   def before_create
     # 确保用户只提交了学校基本信息也不会出错
@@ -118,24 +115,32 @@ class School < ActiveRecord::Base
       %w(小学 中学 四川灾区板房学校)
     end
   
-    def get_near_schools_at(geo)
-      root = geo.root? ? geo : geo.parent
-      ids =[root.id]
-      if not root.leaf?
-        ids += root.children.map(&:id)
+    # ToDo: 需要和at以及locate scope合并
+    def near_to(geo, limit = 0)
+      params = {:order => "updated_at desc"}
+      params[:limit] = limit unless limit.zero?
+      
+      if geo.leaf?
+        params[:conditions] = ['geo_id = ?', geo.id]
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        params[:conditions] = ['geo_id in (?)', ids]
       end
       
-      @@city_neighbors.each do |k,v|
-        if v[:id] == root.id
-          v[:neighbors].each do |province, id|
-            ids += Geo.find(id).children.map(&:id)
-          end
-        end
+      self.validated.find(:all, params)
+    end
+    
+    def count_of_near_to(geo)
+      if geo.leaf?
+        conditions = ['geo_id = ?', geo.id]
+      else
+        ids =[geo.id]
+        ids += geo.children.map(&:id)
+        conditions = ['geo_id in (?)', ids]
       end
-      #logger.info ids
-      #logger.info ids.class
-      #validated.available.find(:all, :conditions => ["geo_id in (?)", ids])
-      validated.locate(ids)
+      
+      count(:conditions => conditions)
     end
   end
   

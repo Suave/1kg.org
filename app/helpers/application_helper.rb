@@ -22,12 +22,12 @@ module ApplicationHelper
     datetime.to_formatted_s(:month_and_day)
   end
   
-  def customize_paginate(value,anchor, params={})
+  def customize_paginate(value, params={})
 		str = will_paginate(value, params.merge({:previous_label => '<<',
                           :next_label => '>>'}))
 		if str != nil
 		str.gsub(/href="(.*?)"/) do
-		  %(href='#{$1}#{anchor}')
+		  %(href='#{$1}#topicCommentsList')
 		end
 	        end
   end
@@ -193,5 +193,48 @@ module ApplicationHelper
   
   def link_for_activity(activity, show_sticky = true)
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
+  end
+  
+  def link_to_topic_group(topic)
+    talkable = topic.board.talkable
+    
+    if talkable.is_a?(SchoolBoard)
+      link_to talkable.school.title, board_path(topic.board)
+    elsif talkable.class == PublicBoard
+      link_to talkable.title, board_path(topic.board)
+    elsif talkable.class == CityBoard
+      link_to talkable.geo.name, board_path(topic.board)
+    else
+      link_to talkable.group.title, group_path(talkable.group)
+    end
+  end
+  
+  def comments_path(commentable)
+    if commentable.is_a?(SchoolGuide)
+      [commentable.school, commentable, :comments]
+    else
+      [commentable, :comments]
+    end
+  end
+  
+  def edit_comment_path(comment)
+    if comment.commentable.is_a?(SchoolGuide)
+      [:edit, comment.commentable.school, comment.commentable, comment]
+    else
+      [:edit, comment.commentable, comment]
+    end
+  end
+  
+  def comment_path(comment)
+    if comment.commentable.is_a?(SchoolGuide)
+      [comment.commentable.school, comment.commentable, comment]
+    else
+      [comment.commentable, comment]
+    end
+  end
+  
+  def main_photo_thumb(school)
+    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
+    "<img src=#{img_url} />"
   end
 end

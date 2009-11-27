@@ -1,0 +1,33 @@
+  <div class="boxouter">
+    <h3>大家告诉大家</h3>
+    <div class="boxinter">
+        <div class="shareit clearfix">
+	  <div>
+	    <%= image_tag "/images/festcard09/avatar_large.jpg", :style => "margin-right:5px;" %>
+	    <%= image_tag "/images/festcard09/avatar_large2.jpg", :style => "margin-right:5px;" %>
+	    <%= image_tag "/images/festcard09/avatar_large3.jpg", :style => "" %>
+          </div>
+	  <p style="padding:0 5px">如果你爱聊QQ、MSN，如果你爱上<a href="www.kaixin001.com" target="_blank">开心网</a>，<a href="http://www.douban.com" target="_blank">豆瓣</a>，<a href="http://www.xiaonei.com" target="_blank">校内</a>，可以采用上边的头像作为你的头像(<a href="/docs/avatars.zip" target="_blank">下载头像</a>)</p>
+        </div>
+        <div class="shareit clearfix">
+          <p>
+    	    <label for="shareurl">点击复制本页地址给<span>QQ/Msn/Gtalk</span>好友</label>
+	    <input type="text" id="shareurl" value="<%= get_current_page_link %>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
+          </p>
+        </div>
+        <div class="shareit clearfix">
+          <img src="/images/festcard09/banner.gif" style="float:left; margin:0 10px 10px 0;" />
+          <p>用自己的博客和论坛签名档宣传公益贺卡，将下面的代码贴到自己的博客中</p>
+          <p class="clearfix">
+            <input type="text" id="shareblog" value="<a href='http://www.1kg.org/minisite/festcard09' target='_blank'><img src='http://www.1kg.org/images/postcard/banner.gif' /></a>" onclick="$(this).select(); copy_clip($(this).getValue());" style="backgroud:#F8F8F8; border:1px solid #D9D9D9; font-size:11px; padding:3px; width:240px;" />
+          </p>
+        </div>
+        <div class="shareit clearfix">
+          <p>分享到：</p>
+          <%= render :partial => "/shared/share_by_widget" %>
+        </div>
+        <div class="shareit clearfix">
+	 <p>下载<a href="/docs/festcard09.rar">公益贺卡节日版宣传书</a></p>
+	</div>
+    </div>
+  </div>

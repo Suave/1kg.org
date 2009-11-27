@@ -1,6 +1,7 @@
 body{background:#fff}
+#content-primary p,#content-secondary p {margin:10px 0;}
 
-#meta{width:640px;height:110px}
+#meta{width:640px;height:120px;padding:0 10px}
 .school_main img{width:150px;}
 .school_main{display:block;height:100px;overflow:hidden;width:150px;}
 .meta_left{float:left;width:150px}
@@ -13,9 +14,10 @@ body{background:#fff}
 .stars{position:relative;top:2px}
 .photo_small img{width:47px;margin-top:3px}
 
-.school_box{padding:10px}
-.label_lei{color:#888;border-bottom:1px #ccc solid}
-.content_lei{font-size:13px;color:#666;padding:0 5px;margin:４px 0}
+.school_box{padding:5px 10px}
+.school_sidebar{padding:2px 10px}
+.label_lei{color:#888;border-bottom:1px #ddd solid}
+.content_lei{font-size:13px;color:#444;padding:0 5px;}
 
 .important a{font-size:16px;}
 
@@ -23,4 +25,6 @@ body{background:#fff}
 #visit_date p{margin:0}
 #visit_date input {width:70px;margin:5px 0;}
 
-#map_info{margin-left:10px;float:left;}
+#map_info{}
+#what_time{top:26px}
+

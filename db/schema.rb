@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "type_id"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
     t.datetime "deleted_at"
   end
 
@@ -205,6 +207,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text    "description_html"
     t.integer "position",                        :default => 999, :null => false
     t.string  "slug"
+    t.datetime "deleted_at"
   end
 
   create_table "roles", :force => true do |t|
@@ -255,6 +258,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "school_id",        :null => false
     t.text    "description"
     t.text    "description_html"
+    t.datetime "deleted_at"
   end
 
   create_table "school_contacts", :force => true do |t|
@@ -301,6 +305,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  "accessory"
     t.string  "course"
     t.string  "teacher"
+    t.string  "medicine"
+    t.string  "hardware"
     t.string  "other"
   end
 
@@ -331,6 +337,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_modified_by_id"
     t.datetime "last_replied_at"
     t.integer  "last_replied_by_id"
+    t.datetime "deleted_at"
     
     t.timestamps
   end
@@ -375,6 +382,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
     t.datetime "last_replied_at"
+    t.datetime "deleted_at"    
     t.integer  "last_replied_by_id"
   end
 
@@ -417,6 +425,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.text     "comment_html"
     t.text     "comment"
+    t.boolean  "auto_fill"
   end
 
   create_table "taggings", :force => true do |t|
@@ -466,6 +475,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
+    
+    t.integer  "posts_count"
+    t.integer  "topics_count"
+    t.integer  "shares_count"
+    t.integer  "guides_count"
   end
 
   add_index "users", ["email", "state"], :name => "index_users_on_email_and_state"
@@ -476,6 +490,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "visited_at"
     t.integer  "status",     :limit => 1
     t.datetime "created_at"
+    t.datetime "deleted_at"
   end
   
   create_table "vendors", :force => true do |t|

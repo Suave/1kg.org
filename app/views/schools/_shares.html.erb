@@ -1,0 +1,32 @@
+<table id="guide">
+  <tbody>
+  <% if with_head %>
+  <tr>
+    <th width="48%" class="leftalign">标题</th>
+    <th width="8%">浏览</th>
+    <th width="8%">推荐</th>
+    <th width="8%">留言</th>
+    <th width="14%">作者</th>
+    <th width="14%">最后更新</th>
+  </tr>
+  <% end %>
+  
+  <% shares.each do |share| -%>
+  <tr>
+    <td class="leftalign" width="48%">
+      <%= link_to h(share.title), share_path(share), :class => 'link' %>
+      <br/><small>标签：
+      <% share.tags.each do |tag| %>
+       <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+      <% end %>
+      </small>
+    </td>
+    <td width="8%"><%= share.hits %></td>
+    <td width="8%"><%= share.votes.count %></td>
+    <td width="8%"><%= share.comments_count %></td>
+    <td width="14%"><%= link_to h(share.user.login), user_url(share.user), :class => "link" %></td>
+    <td width="14%"><%= l(share.updated_at.to_date, :format => :short) %></td>
+  </tr>
+  <% end -%>
+  </tbody>
+</table>

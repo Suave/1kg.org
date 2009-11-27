@@ -25,6 +25,25 @@ class SharesController < ApplicationController
   def edit
   end
   
+  def vote
+    @share = Share.find(params[:id])
+    
+    respond_to do |format|
+      if @share.nil?
+        flash[:notice] = '对不起，攻略不存在'
+        format.html {redirect_to root_path}
+      elsif current_user.voted?(@share)
+        flash[:notice] = '对不起，您已经投过票了'
+        format.html {redirect_to share_path(@share)}
+      else
+        vote = @share.votes.build(:vote => true, :user_id => current_user.id)
+        vote.save(false)
+        flash[:notice] = '投票成功'
+        format.html {redirect_to share_path(@share)}
+      end
+    end
+  end
+  
   def update
     @share.update_attributes!(params[:share])
     flash[:notice] = "您刚刚的修改已保存"
@@ -40,16 +59,13 @@ class SharesController < ApplicationController
   
   def show
     @share.hit!
-    
+    @voters = @share.votes.map(&:user)
     @comments = @share.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-    @comment = ShareComment.new
+    @comment = Comment.new
   end
   
   private
   def find_share
     @share = params[:id] ? Share.find(params[:id]) : Share.new
   end
-  
-  
-  
 end

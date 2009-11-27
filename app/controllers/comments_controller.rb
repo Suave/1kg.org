@@ -1,81 +1,55 @@
 class CommentsController < ApplicationController
   before_filter :login_required
+  before_filter :set_commentable
   
   def new
-    if params[:type] == "activity"
-      @comment = ActivityComment.new
-    end
+    @comment = Comment.new
   end
   
   def create
-    if params[:type] == "activity"
-      @comment = ActivityComment.new(params[:comment])
-      save_comment @comment
-      
-    elsif params[:type] == "share"
-      @comment = ShareComment.new(params[:comment])
-      save_comment @comment
-      
-    elsif params[:type] == "guide"
-      @comment = GuideComment.new params[:comment]
-      save_comment @comment
-      
-    elsif params[:type] == "bulletin"
-      @comment = BulletinComment.new params[:comment]
-      save_comment @comment
-    end
+    @comment = @commentable.comments.build(params[:comment])
     
-    redirect_to_correct_page @comment
+    respond_to do |format|
+      @comment.user = current_user
+      if !@comment.save
+        flash[:notice] = @comment.errors[:body] || "留言发布失败, 请重新登录, 再试试"
+      end
+      format.html {redirect_to commentable_path(@commentable)}
+    end
   end
   
   def edit
-    @comment = Comment.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
   end
   
   def update
-    @comment = Comment.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
     @comment.update_attributes!(params[:comment])
-    flash[:notice] = "留言修改成功"
-    redirect_to_correct_page @comment
+    respond_to do |format|
+      flash[:notice] = "留言修改成功"
+      format.html {redirect_to commentable_path(@commentable)}
+    end
   end
   
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.update_attributes!(:deleted_at => Time.now)
-    flash[:notice] = "留言已删除"
-    redirect_to_correct_page @comment
+    @comment = @commentable.comments.find(params[:id])
+    @commentable.comments.delete(@comment)
+    
+    respond_to do |format|
+      flash[:notice] = "留言已删除"
+      format.html {redirect_to commentable_path(@commentable)}
+    end
   end
   
   private
-  def save_comment(comment)
-    comment.user = current_user
-    unless comment.save
-      if comment.errors[:body]
-        flash[:notice] = comment.errors[:body]
-      else
-        flash[:notice] = "留言发布失败, 请重新登录, 再试试"
-      end
-    end
+  def commentable_path(commentable)
+    commentable.is_a?(SchoolGuide) ? [commentable.school, commentable] : commentable
   end
   
-  def redirect_to_correct_page(comment)
-    if comment.type == "ActivityComment"
-      
-      redirect_to activity_url(comment.activity)
-      
-    elsif comment.type == "ShareComment"
-      
-      redirect_to share_url(comment.share)
-      
-    elsif comment.type == "GuideComment"
-      
-      redirect_to school_guide_url(comment.school_guide.school, comment.school_guide)
-    
-    elsif comment.type == "BulletinComment"
-      
-      redirect_to bulletin_url(comment.bulletin)
-      
-    end
+  def set_commentable
+    commentable_class = params[:commentable].constantize
+    commentable_id = "#{params[:commentable].underscore}_id"
+    @commentable = commentable_class.find_by_id(params[commentable_id.to_sym])
   end
   
 end

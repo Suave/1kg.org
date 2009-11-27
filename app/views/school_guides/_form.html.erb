@@ -1,0 +1,17 @@
+<p><label class="label">学校</label>
+  <strong><%= @school_guide.school.title %></strong>
+</p>
+
+<p><label class="label">标题</label>
+<%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @school_guide, :title %>
+</p>
+
+<p><label class="label"><%= avatar_for current_user, "large" %></label>
+<%= error_message_on @school_guide, :content %>
+<%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+</p>
+
+<p><label class="label">标签</label>
+<%= form.text_field :tag_list, :size => 40, :class => "formText" %>
+<span>（以空格分隔不同标签）</span>
+</p>

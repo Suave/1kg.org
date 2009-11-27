@@ -94,8 +94,8 @@ class ActivitiesController < ApplicationController
     end
     
     @shares = @activity.shares
-    @comments = @activity.comments.available.paginate :page => params[:page] || 1, :per_page => 15
-    @comment = ActivityComment.new
+    @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
+    @comment = Comment.new
     
   end
   

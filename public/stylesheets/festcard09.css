@@ -1,0 +1,48 @@
+.pc-love {float:left; margin:10px 10px 10px 0; padding:3px;}
+.pc-intro {margin:30px 15px 30px 420px;}
+.pc-intro p {margin:6px 0; font-size:14px;}
+
+.pc-photos a {width:200px; margin:5px 12px;}
+
+.cooperation div.block {float:left; width:300px;}
+
+.book {float:left; width:100px; margin:0 12px;}
+.book dt {height:150px; margin:0; overflow:hidden; text-align:center;}
+.book dd {height:20px; margin:0; overflow:hidden; text-align:center;}
+
+.passwordInput input {border:1px solid #CCC; padding:2px; font-size:1.2em;}
+.passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0;}
+.passwordField {position:absolute; left:150px; top:18px}
+
+.img {margin:10px;}
+.comment-body {height:70px; overflow:block;}
+
+.shareit {margin:8px 0; padding:8px 0; border-top:1px solid #CCC;}
+
+#warning {margin:0 40px; padding:10px 20px; line-height:1.8em; border:1px dashed red; background:#fadede;}
+
+.lcolumn {float:left; margin-left:10px;-margin-left:0px; width:580px;}
+.rcolumn {float:right; width:300px;margin-right:10px;}
+
+.boxouter h3 {
+color:#79aee4;
+padding:6px 12px;
+background:#f4f4f4;
+-padding:8px 12px 4px;
+line-height:1.3em;
+font: bold 1.5em Arial, Helvetica, sans-serif;
+}
+
+.tableList{margin-bottom:5px;}
+
+.boxouter{margin-top:15px;}
+.boxinter{padding:16px;}
+.boxinter p{font-size:13px;line-height:20px;margin-bottom:10px;}
+.boxinter li{font-size:13px;list-style:none;}
+
+#cards{text-align:center}
+#cards p{font-size:13px;margin:0 auto 20px;color:#666}
+#cards h3{font-size:20px;margin:15px;color:#333}
+
+.school_list_photo{float:left;}
+.school_list_meta{float:left;margin-left:10px}

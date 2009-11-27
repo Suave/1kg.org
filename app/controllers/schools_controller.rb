@@ -19,13 +19,15 @@ class SchoolsController < ApplicationController
         
       }
       format.json {
-        @schools = School.all
+        @schools = School.validated
         @schools_json = []
         @schools.each do |school|
           @schools_json << {:i => school.id,
-                            :la => school.basic.latitude,
-                            :lo => school.basic.longitude
-                            }
+                           :t => school.icon_type,
+                           :n => school.title,
+                           :a => school.basic.latitude,
+                           :o => school.basic.longitude
+                          }
         end
         render :json => @schools_json
       }
@@ -59,10 +61,6 @@ class SchoolsController < ApplicationController
     list(false)
   end
   
-  def archives
-    
-  end
-  
   def list(validated = true)
     provinces     = Geo.roots
     @all_provinces = []
@@ -85,6 +83,9 @@ class SchoolsController < ApplicationController
         @all_provinces << province
       end
     end
+  end
+  
+  def archives
   end
   
   # 给出指定日期的所有学校
@@ -110,15 +111,23 @@ class SchoolsController < ApplicationController
   def create
     @school = School.new(params[:school])
     @school.user = current_user
-      
+    @school.validated = true
+    @school.validated_at = Time.now
+    @school.validated_by_id = current_user.id
     respond_to do |format|
-      if @school.save
-        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+      existed_school = School.find_by_title(params[:school][:title])
+      if existed_school
+        flash[:notice] = "您要学校已存在，您可以申请成为学校管理员，然后对学校信息进行编辑."
+        format.html{redirect_to school_path(existed_school)}
       else
-        flash[:notice] = "学校基本信息不完整，请重新填写"
-        @step = 'basic'
-        format.html{render :action => "new"}
+        if @school.save
+          flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+          format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+        else
+          flash[:notice] = "请检查所有必填项是否填好"
+          @step = 'basic'
+          format.html{render :action => "new"}
+        end
       end
     end
   end
@@ -154,6 +163,7 @@ class SchoolsController < ApplicationController
                                          :longitude => params[:longitude],
                                          :marked_at => Time.now,
                                          :marked_by_id => current_user.id )
+        render :text => '位置更新成功'
       end
     end
   end
@@ -226,8 +236,8 @@ class SchoolsController < ApplicationController
     end 
   end
 
-# 学校页面改版
-def lei
+  # 学校页面改版
+  def lei
     @school = School.find(params[:id])
     
     @school.hit!
@@ -265,7 +275,7 @@ def lei
     
     respond_to do |format|
       if current_user.school_moderator? || @school.destroyed_by(current_user)
-        @school.update_attributes!(:deleted_at => Time.now)
+        @school.destroy
         flash[:notice] = "成功删除学校"
       else
         flash[:notice] = "对不起，只有学校管理员可以删除学校"
@@ -342,15 +352,15 @@ def lei
   
   
   # 提供给国旅的学校列表
-  def cits
-    provinces = %w(3 146 15 40 164 27)
-    geo_ids = [1, 2] #天津
-    provinces.each do |p|
-      Geo.find(p).children.collect {|c| geo_ids << c}
-    end
-    @schools = School.find(:all, :conditions => ["geo_id in (?)", geo_ids], 
-                                           :include => [:traffic, :basic, :geo, :county])
-  end
+  # def cits
+  #   provinces = %w(3 146 15 40 164 27)
+  #   geo_ids = [1, 2] #天津
+  #   provinces.each do |p|
+  #     Geo.find(p).children.collect {|c| geo_ids << c}
+  #   end
+  #   @schools = School.find(:all, :conditions => ["geo_id in (?)", geo_ids], 
+  #                                          :include => [:traffic, :basic, :geo, :county])
+  # end
   
   def manage
     school = School.find params[:id]
@@ -401,7 +411,7 @@ def lei
       next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
       
     rescue ActiveRecord::RecordInvalid
-      
+      flash[:notice] = '请检查所有必填项是否填好'
       render :action => "edit_#{current_step}"
     
     end

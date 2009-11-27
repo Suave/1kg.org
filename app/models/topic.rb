@@ -24,11 +24,13 @@
 class Topic < ActiveRecord::Base
   include BodyFormat
   
-  belongs_to :board, :class_name => "Board", :foreign_key => "board_id"
-  belongs_to :user,  :class_name => "User",  :foreign_key => "user_id"
+  acts_as_paranoid
+  
+  belongs_to :board, :counter_cache => 'topics_count'
+  belongs_to :user
   has_many   :posts, :dependent => :destroy
   
-  named_scope :available, :conditions => "topics.deleted_at is null"
+  named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
@@ -38,14 +40,14 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   
   #before_save :format_content
-  after_create  :update_topics_count
+  #after_create :update_topics_count
   
   def last_replied_datetime
-    last_replied_at.blank? ? created_at : last_replied_at
+    (self.posts.last || self).created_at
   end
   
   def last_replied_user
-    last_replied_by_id.blank? ? self.user : User.find(last_replied_by_id)
+    (self.posts.last || self).user
   end
 
   def last_modified_user
@@ -53,7 +55,7 @@ class Topic < ActiveRecord::Base
   end
   
   def last_post
-    self.posts.find(:first, :order => "created_at desc")
+    self.posts.last
   end
   
   def moderatable_by?(user)
@@ -91,9 +93,9 @@ class Topic < ActiveRecord::Base
   
   private
   
-  def update_topics_count
-    self.board.update_attributes!(:topics_count => Topic.count(:all, :conditions => {:board_id => self.board.id}))
-    self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
-  end
+  # def update_topics_count
+  #   self.board.update_attributes!(:topics_count => Topic.count(:all, :conditions => {:board_id => self.board.id}))
+  #   self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
+  # end
   
 end

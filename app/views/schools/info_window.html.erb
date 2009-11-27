@@ -27,6 +27,6 @@
   <% end -%>
 </div>
 
-<%= link_to image_tag(@school.photos.first.public_filename(:thumb)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>
+<%= link_to image_tag(@school.photos.first.public_filename(:medium)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>
 </div>
 <div class="clear"></div>

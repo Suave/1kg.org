@@ -1,7 +1,6 @@
 class MiscController < ApplicationController
   #include RubyAes
   before_filter :login_required, :only => :my_city
-  caches_page :show_page
   
   def index
     @page_title = "首页"    

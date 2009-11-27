@@ -5,7 +5,7 @@
     <div class="boxInner">
       <h3>编辑留言</h3>
       <div class="contents">
-        <% form_for :comment, :url => comment_url(@comment), :html => {:method => :put} do |f| -%>
+        <% form_for :comment, :url => comment_path(@comment), :html => {:method => :put} do |f| -%>
           <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
           <p class="submit"><%= submit_tag "写好了, 保存" %></p>
         <% end -%>

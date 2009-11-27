@@ -281,7 +281,7 @@ body.ad-column-180 #content-secondary {
   font-weight: bold;
 }
 
-#what_time{position:absolute;top:24px;right:330px;}
+#what_time{position:absolute;top:68px;right:330px;}
 #visit_date input{width:100px;}
 
 .box p.remark {
@@ -731,7 +731,7 @@ body.signinup p.login {
 
 body.schools form p {
   margin: 1.2em 0;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 body.schools form p.submit {
   margin-left: 10em;
@@ -751,7 +751,7 @@ body.schools form .notice input.formText {
   border: #c21515 solid 1px;
 }
 body.schools form fieldset {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   padding-left: 1em;
   border: #dedede solid 1px;
 }
@@ -1146,3 +1146,6 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 .meta_col{float:left;margin-right:10px}
 #school_meta{margin-top:20px;margin-left:60px;height:50px}
 .meta_col input{margin-top:5px}
+
+.more{background:url(/images/more.gif) no-repeat;padding-left:14px;color:#666;cursor:pointer;}
+.more:hover{background-position:0 -13px}
