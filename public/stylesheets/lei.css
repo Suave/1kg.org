@@ -32,7 +32,7 @@ body{background:#fff}
 .date_submit input{width:70px}
 
 #map_info{}
-.what_time{top:26px;left:368px;position:absolute}
+.what_time{margin-top:26px;left:368px;position:absolute}
 
 .obp{margin:0}
 .need_tag{margin:0 2px}

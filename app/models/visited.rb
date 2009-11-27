@@ -21,8 +21,12 @@ class Visited < ActiveRecord::Base
   acts_as_paranoid
   
   def validate
-#    if Time.now > Date.parse(wanna_at.to_s)
-#    end
+    if status == 1 && visited_at.blank?
+      errors.add('请填写日期')
+    end
+    if status == 3 && wanna_at.blank?
+      errors.add('请填写日期')
+    end
   end
   
   def Visited.status(status)
