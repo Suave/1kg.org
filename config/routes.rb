@@ -131,6 +131,13 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :photos
   
+  map.connect '/market', :controller => "market", :action => "index"
+  map.with_options :controller => "mall" do |mall|
+    mall.mall_index '/mall', :action => "index"
+    mall.mall_category '/mall/category/:tag', :action => "category"
+    mall.mall_detail '/mall/good/:id', :action => "show"
+  end
+  
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :roles
