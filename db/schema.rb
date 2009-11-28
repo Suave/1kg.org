@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text    "description_html"
     t.integer "position",                        :default => 999, :null => false
     t.string  "slug"
+    t.datetime "deleted_at"
   end
 
   create_table "roles", :force => true do |t|

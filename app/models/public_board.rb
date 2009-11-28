@@ -16,6 +16,8 @@ class PublicBoard < ActiveRecord::Base
   
   has_one :board, :as => :talkable
   
+  acts_as_paranoid
+  
   before_save :format_content
   
   def board_id
