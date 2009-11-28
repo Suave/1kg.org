@@ -1,4 +1,5 @@
 class Admin::GoodsController < Admin::BaseController
+  before_filter :find_good, :except => [:index, :create, :new]
   def index
     @goods = Good.find :all, :order => "id desc"
   end
@@ -16,13 +17,18 @@ class Admin::GoodsController < Admin::BaseController
   end
   
   def edit
-    @good = Good.find params[:id]
   end
   
   def update
-    
+    @good.update_attributes!(params[:good])
+    flash[:notice] = "商品修改成功"
+    redirect_to admin_goods_url
   end
   
+  private
+  def find_good
+    @good = Good.find params[:id]
+  end
   
   
 end

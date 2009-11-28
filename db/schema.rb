@@ -516,8 +516,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string    "title"
     t.integer   "user_id"
     t.text      "body"
-    t.string    "price"
-    t.string    "standard"
+    t.string    "price" # 价格
+    t.string    "standard" # 尺寸
+    t.string    "material" # 材料
+    t.string    "color" # 颜色
     t.text      "sale_url"
     t.string    "serial" # 商品编号，需要给 1KG，双方保持一致
     t.datetime  "created_at"
@@ -525,6 +527,19 @@ ActiveRecord::Schema.define(:version => 0) do
     # 产品图片
     # 材料、特别说明、尺寸、重量只用 standard 表达不够
     # 销售网址
+  end
+  
+  create_table "good_photos", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "content_type"
+    t.string   "filename"
+    t.string   "thumbnail"
+    t.integer  "size"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "good_id"
   end 
 
   create_table "searches", :force => true do |t|

@@ -21,7 +21,10 @@
             <% @goods.each do |g| %>
             <td><%= g.title %></td>
             <td><%= g.price %></td>
-            <td><%= link_to "编辑", edit_admin_good_url(g) %></td>
+            <td>
+              <%= link_to "查看产品照片", admin_good_photos_url(g) %> | 
+              <%= link_to "编辑", edit_admin_good_url(g) %>
+            </td>
             <% end %>
           </tr>
         </table>

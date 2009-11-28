@@ -1,0 +1,78 @@
+<table cellspacing="0" cellpadding="0" width="750" border="0">
+  <tbody>
+    <tr>
+      <td class="goods_top_left" width="550">
+        <table cellspacing="0" cellpadding="0" width="100%" border="0">
+          <tbody>
+            <tr>
+              <td class="goods_top_left_row" height="43" style="padding-left: 5px; padding-right: 5px;">
+                <div class="goods_title" style="float: left;"><%= h @good.title %></div>
+                <div class="goods_sn" style="float: right;"><%= h @good.serial %></div>
+              </td>
+            </tr>
+            <tr>
+              <td class="goods_top_left_row" height="310" valign="top" align="center" style="padding-top: 5px;">
+                <a href="javascript:void(0);">
+                  <%= image_tag @photos[0].public_filename, :alt => h(@good.title) %>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td height="62" valign="top" style="padding: 3px; font-size: 0pt;">
+                <% @photos.each do |p| %>
+                  <%= image_tag p.public_filename, :width => 58  %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td class="goods_top_right" width="200" valign="top" align="center">
+        <form id="ECS_FORMBUY" name="ECS_FORMBUY" method="post" action="javascript:addToCart(1005)">
+          <table cellspacing="0" cellpadding="0" width="90%" align="center" border="0">
+            <tbody>
+              <tr>
+                <td class="goods_top_right_row" align="left" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                <p class="goods_property_title">材料</p>
+                <p class="goods_property_value"><%= h @good.material %></p>
+                </td>
+              </tr>
+                <td class="goods_top_right_row" align="left" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                <p class="goods_property_title">尺寸</p>
+                <p class="goods_property_value"><%= h @good.standard %></p>
+                </td>
+              <tr>
+                <td class="goods_top_right_row" align="left" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                <p class="goods_property_title">颜色</p>
+                <p class="goods_property_value"><%= h @good.color %></p>
+                </td>
+              </tr>
+              <tr>
+                <td align="left" style="padding-left: 10px; padding-top: 5px; padding-bottom: 5px;">
+                <br/>
+                <p class="goods_price" style="padding-left: 0px;">￥<%= h @good.price %></p>
+                <br/>
+                <p class="goods_property_title">
+                  购买数量：
+                  <input id="number" type="text" style="border: 1px dashed rgb(204, 204, 204);" onblur="changePrice()" size="10" value="1" name="number"/>
+                </p>
+                <img height="5" src="themes/emoishop/images/space.gif"/>
+                <p class="goods_property_value">
+                  <a href="#">
+                  <img id="btn_buy" border="0" name="btn_buy" src="http://www.emoistore.com/themes/emoishop/images/btn_buy2.jpg"/>
+                  </a>
+                  <a href="#">
+                  <img id="btn_collect" border="0" name="btn_collect" src="http://www.emoistore.com/themes/emoishop/images/btn_collect2.jpg"/>
+                  </a>
+                </p>
+                <p>关于付款和配送方式</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </form>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div style="height: 10px;"></div>

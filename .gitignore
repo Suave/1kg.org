@@ -24,6 +24,9 @@ public/group/**/*
 public/pictures
 public/pictures/*
 public/pictures/**/*
+public/good_photos
+public/good_photos/*
+public/good_photos/**/*
 public/schools.json
 public/images/calendar_date_select/
 public/javascripts/calendar_date_select/

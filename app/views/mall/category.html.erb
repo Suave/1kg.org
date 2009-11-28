@@ -1,0 +1,37 @@
+<% @page_title = "公益商城" %>
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/mall.css" media="screen, projection" />
+<% end -%>
+
+<% content_for :crumb do -%>
+<li>公益商城</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="AreaL">
+  <div class="AreaL">
+    <%= render :partial => "category" %>
+  </div>
+</div>
+  
+<div class="AreaR">
+  <ul class="goods_list_ul">
+    <% @goods.each do |g| %>
+    <li class="goods_list_ul_li_normal">
+      <p align="center">
+        
+          <%= link_to image_tag(g.photos[0].public_filename, :width => 150, :height => 150, :alt => g.title), mall_detail_path(g) %>
+        
+        <br/>
+        <%= link_to g.title, mall_detail_path(g), :title => g.title %>
+        <br/>
+        ￥<%= g.price %>
+      </p>
+      <div class="icon_new">
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<% end -%>
