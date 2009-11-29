@@ -26,13 +26,11 @@
 
 <div class="rcolumn">
   <div id="slogan"><%= image_tag("mooncake/slogan_mooncake.png") %></div>
-  <div id="buy" class="center">
-    <%= link_to image_tag("mooncake/buy_mooncake.png"), "http://item.taobao.com/auction/item_detail-0db1-20154c9afa360f98f7a09c065d864b92.jhtml?cm_cat=0", :target => "_blank" %>
-  </div>
-  <div class="passwordInput">
-    <% form_tag minisite_mooncake_password_url do -%>
-      <img src="/images/mooncake/password.png" alt="password" style= />  <%= text_field_tag "password" %> <%= submit_tag "提 交", :class => "submit" %>
-    <% end -%>
+  <div id="warning">“时光之秋”公益月饼活动已经结束,<br/>
+    雀儿寨小学有了新的乒乓球台和国旗台,<br/>
+  多背一公斤感谢您对这次活动的支持和关注！<br/>
+  <span style="color:#666666">(去看看项目申请者 <a href="http://www.1kg.org/users/6839">小岛居民</a> 写的 <a href="http://www.1kg.org/shares/1000549" title="项目反馈">项目反馈</a>)</span>
+  
   </div>
   
   <div class="info">
