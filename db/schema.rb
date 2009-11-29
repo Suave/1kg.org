@@ -475,6 +475,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
+    t.string   "ip"
     
     t.integer  "posts_count"
     t.integer  "topics_count"
@@ -490,6 +491,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "visited_at"
     t.integer  "status",     :limit => 1
     t.datetime "created_at"
+    t.datetime "wanna_at"
+    t.string   "notes",      :limit => 20
     t.datetime "deleted_at"
   end
 
