@@ -254,14 +254,11 @@ class User < ActiveRecord::Base
   
   def participated_topics
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
-<<<<<<< HEAD:app/models/user.rb
   end
   
   def block!
     self.blocked = true
     self.save(false)
-=======
->>>>>>> 9bf6ba00581a1b2b1a9133f08af3e556b4b560dc:app/models/user.rb
   end
   
   def self.archives
