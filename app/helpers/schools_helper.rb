@@ -74,7 +74,21 @@ module SchoolsHelper
   
   def karma_star(karma)
     #要加上活跃度评星算法
-    count = 4
+    if karma == nil
+      count = 0
+    elsif karma > 620
+      count = 5
+    elsif karma > 300
+      count = 4
+    elsif karma > 140
+      count = 3
+    elsif karma > 60
+      count = 2
+    elsif karma > 20
+      count = 1
+    else
+      count = 0
+    end
     html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
   end
   

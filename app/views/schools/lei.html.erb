@@ -57,7 +57,7 @@
       <h1><%= h @school.title -%></h1>
       <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校可以上网"><% end %>
       <div class="meta_info">
-        <h5 style="font-size:14px;">活跃度 <!--<%= @school.karma %>--></h5><%= karma_star(@school.karma)-%>
+        <h5 style="font-size:14px;">活跃度 <!--<%= @school.karma %>--></h5><%= karma_star(@school.last_month_average_karma)-%>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>
@@ -123,14 +123,15 @@
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix">
-      <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos %>
-      </div>
-      <%unless @photos.length < 8%><%= link_to "全部照片", photos_school_path(@school) %><%end%>
       <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_lei">你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。</p>
       <% end %>
+      <div class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos %>
+      </div>
+      <%unless @photos.length < 8%><%= link_to "全部照片", photos_school_path(@school) %><%end%>
+      
     </div>  
   </div>
    
@@ -178,7 +179,7 @@
   <h3 class="label_lei" >学校话题</h3>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
-    <% if @topics.blank? %>学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %><% end %>
+    <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %></p><% end %>
     <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
 
   </div>

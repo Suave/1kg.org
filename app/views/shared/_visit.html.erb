@@ -3,6 +3,6 @@
     <%= avatar_for(visit.user, "large") %>
   </div>
   <div style="margin-left:60px;">
-    <div><%= link_to visit.user.login, user_url(visit.user) %><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去了<%= school unless school.blank?%><%= link_to h(visit.school.title), school_path(visit.school) unless school%></div>
+    <div><%= link_to visit.user.login, user_url(visit.user) %> <% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过<%= school unless school.blank?%><%= link_to h(visit.school.title), school_path(visit.school) unless school%></div>
   </div>
 </div>

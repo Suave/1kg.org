@@ -262,6 +262,7 @@ class SchoolsController < ApplicationController
     @activity = Activity.find(:all,:conditions => {:school_id => @school.id})
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
+    @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     if logged_in?
       @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
@@ -308,41 +309,52 @@ class SchoolsController < ApplicationController
   end
   
   def visited
-    @school = School.find(params[:id])
-    if @school.visited?(current_user) == false
-      Visited.create!(:user_id => current_user.id,
-                      :school_id => @school.id,
-                      :status => Visited.status('visited'),
-                      :visited_at => params[:visited][:visited_at]
-                     )
-      else
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:status => Visited.status('visited'),
-                                 :notes => params[:visited][:notes],
-                                 :wanna_at => params[:visited][:visited_at]
-                                )  
+    begin
+      @school = School.find(params[:id])
+      if @school.visited?(current_user) == false
+        Visited.create!(:user_id => current_user.id,
+                        :school_id => @school.id,
+                        :status => Visited.status('visited'),
+                        :notes => params[:visited][:notes],
+                        :visited_at => params[:visited][:visited_at]
+                       )
+        else
+        visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+        visited.update_attributes!(:status => Visited.status('visited'),
+                                   :notes => params[:visited][:notes],
+                                   :visited_at => params[:visited][:visited_at]
+                                  )  
+      end
+      redirect_to school_url(@school)
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = '请填写去过的日期，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
     end
-    redirect_to school_url(@school)
   end
  
    def wanna
-    @school = School.find(params[:id])
-    if @school.visited?(current_user) == false
-      Visited.create!(:user_id => current_user.id,
-                      :school_id => @school.id,
-                      :status => Visited.status('wanna'),
-                      :notes => params[:visited][:notes],
-                      :wanna_at => params[:visited][:wanna_at]
-                     )
-    
-    else
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:status => Visited.status('wanna'),
-                                 :notes => params[:visited][:notes],
-                                 :wanna_at => params[:visited][:wanna_at]
-                                )
+    begin
+      @school = School.find(params[:id])
+      if @school.visited?(current_user) == false
+        Visited.create!(:user_id => current_user.id,
+                        :school_id => @school.id,
+                        :status => Visited.status('wanna'),
+                        :notes => params[:visited][:notes],
+                        :wanna_at => params[:visited][:wanna_at]
+                       )
+      
+      else
+        visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+        visited.update_attributes!(:status => Visited.status('wanna'),
+                                   :notes => params[:visited][:notes],
+                                   :wanna_at => params[:visited][:wanna_at]
+                                  )
+      end
+      redirect_to school_url(@school)
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = '请填写要去的日期，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
     end
-    redirect_to school_url(@school)
   end
   
   def interest
