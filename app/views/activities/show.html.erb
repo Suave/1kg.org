@@ -79,11 +79,21 @@
             </tr>
             <tr>
               <th>行程</th>
-              <td colspan="3">
+              <td>
               出发地: <%= @activity.departure_id==0 ? "不限" : @activity.departure.name %> /
               目的地: <%= @activity.arrival_id==0 ? "不限" : @activity.arrival.name %>
               </td>
+              <th>标签</th>
+              <td>
+                <% @activity.tags.each do |tag| %><%= link_to h(tag.name), tag_path(:tag => tag.name) %><% end %>
+              </td>
+            
             </tr>
+            <% if @activity.school_id%>
+            <tr>
+              <th>相关学校</th><td colspan="3"><%= school_url(School.find @activity.school_id) %></td>
+            </tr>
+            <%end%>        
             <tr>
               <th>地点</th><td colspan="3"><%= @activity.location %></td>
             </tr>

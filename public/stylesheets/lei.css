@@ -26,14 +26,14 @@ body{background:#fff}
 
 .important a{font-size:16px;}
 
-#visited_date,#wanna_date{width:286px;text-align:right;padding:8px;background:#eee}
+#visited_date,#wanna_date{width:306px;text-align:right;padding:8px;background:#eee}
 #visited_date p,#wanna_date p{margin:0 0 5px}
 #visited_visited_at,#visited_wanna_at{width:70px;}
 .date_submit input{width:70px}
 #status p{color:#888}
 
 #map_info{}
-.what_time{margin-top:26px;left:368px;position:absolute}
+.what_time{margin-top:26px;left:326px;position:absolute}
 
 .obp{margin:0}
 .need_tag{margin:0 2px}

@@ -9,7 +9,9 @@ schools = current_user.visited_schools
     <% end -%>
   </select>
 </p>
-<p><label class="label">学校</label>
+<p><label class="label">标签 </label>
+    <%= form.text_field :tag_list, :value => "", :size => 40, :class => "formText" %><span>（用空格分隔不同标签 )</span></p>
+<p><label class="label">相关学校</label>
 <%= form.select :school_id, [['从你去过或者关注的学校里选择','']] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
 </p>
 
