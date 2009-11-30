@@ -1,4 +1,4 @@
-<% 
+<%
 schools = current_user.visited_schools
 %>
 <p><label class="label">名称<span class="require">*</span></label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %></p>
@@ -12,7 +12,16 @@ schools = current_user.visited_schools
 <p><label class="label">标签 </label>
     <%= form.text_field :tag_list, :value => "", :size => 40, :class => "formText" %><span>（用空格分隔不同标签 )</span></p>
 <p><label class="label">相关学校</label>
-<%= form.select :school_id, [['从你去过或者关注的学校里选择','']] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false} %> 
+ <%if @school.nil?%>
+  <%unless @activity.school_id.nil?%>
+  <%= form.select :school_id, [[School.find_by_id(@activity.school_id).title,@activity.school_id]] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]} + [['没有相关学校','']], {:include_blank => false}%> 
+  <%else%>
+  <%= form.select :school_id, [['从你“去过/要去/关注”的学校里选择学校','']] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false}%> 
+  <%end%>
+ <%else%>
+ <%=@school.title%>
+ <input style="display:none" type="text" name="activity[school_id]" value="<%=@school.id.to_s%>"/>
+ <%end%>
 </p>
 
 <p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %></p>

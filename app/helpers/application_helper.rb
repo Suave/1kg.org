@@ -240,11 +240,10 @@ module ApplicationHelper
   
   def plain_text(text,replacement="")
     text = text.gsub(/<[^>]*>/){|html| replacement}
-    text.gsub("\&nbsp;","");
+    text.gsub("\&.*?;","");
   end
   
   def summary(article,number)
-    $KCODE = 'UTF8'
-    html = plain_text(article.body_html)
+    html = plain_text(article.body_html).mb_chars.slice(0..number).to_s
   end
 end

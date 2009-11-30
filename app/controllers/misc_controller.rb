@@ -3,7 +3,7 @@ class MiscController < ApplicationController
   before_filter :login_required, :only => :my_city
   
   def index
-    @page_title = "首页"    
+    @page_title = "首页"
     logged_in? ? public_look : render(:action => "welcome")
   end
   
