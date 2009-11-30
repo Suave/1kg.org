@@ -238,11 +238,13 @@ module ApplicationHelper
     "<img src=#{img_url} />"
   end
   
-  def plain_text(text,replacement=" ")
-    text.gsub(/<[^>]*>/){|html| replacement}
+  def plain_text(text,replacement="")
+    text = text.gsub(/<[^>]*>/){|html| replacement}
+    text.gsub("\&nbsp;","");
   end
   
-  def summary(article)
-    html = plain_text(article.body_html[0,300])[0,100]
+  def summary(article,number)
+    $KCODE = 'UTF8'
+    html = plain_text(article.body_html)
   end
 end

@@ -163,7 +163,7 @@
           <div style="color:#999; text-align:right">
             <%= s.hits %> 浏览/<%= s.comments_count %> 回复
           </div>
-          <p class="summary"><%= summary(s) %></p>
+          <p class="summary"><%= summary(s,20) %></p>
         </div>
       </div>
       <% end -%>
@@ -220,6 +220,7 @@
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
+      <% link_to %>
     <% @activity.each do |a| -%>
     <p class="content_lei"><%= link_for_activity(a,false) %></p>
     <p>开始时间 <%= a.start_at.to_date%><span style="float:right">发起人<%= link_to a.user.login, user_url(a.user) %></span></p>
