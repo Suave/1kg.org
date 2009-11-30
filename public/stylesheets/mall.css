@@ -139,3 +139,30 @@ height:28px;
 margin:0;
 padding:0;
 }
+.helpcenter_normal {
+height:85px;
+margin:0 auto;
+width:950px;
+padding:5px 0;
+border-top:1px solid #CCC;
+border-bottom:1px solid #CCC;
+}
+.helpcenter_normal li {
+float:left;
+padding:6px;
+width:120px;
+}
+.helpcenter_normal ul li a {
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:12px;
+margin-left:12px;
+text-decoration:none;
+}
+.helpcenter_title {
+color:#808080;
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:12px;
+font-weight:bold;
+margin-left:3px;
+text-decoration:none;
+}
