@@ -24,7 +24,7 @@ class Post < ActiveRecord::Base
   acts_as_paranoid
   
   #before_save :format_content
-  #after_create :update_posts_count
+  after_create :update_last_replied
   
   named_scope :available, :conditions => {:deleted_at => nil}
   
@@ -39,6 +39,12 @@ class Post < ActiveRecord::Base
   
   private
 
+  def update_last_replied
+    self.topic.last_replied_at = self.created_at
+    self.topic.last_replied_by_id = self.user_id
+    self.topic.save(false)
+  end
+  
   # def update_posts_count
   #   self.topic.update_attributes!(:posts_count => Post.count(:all, :conditions => {:topic_id => self.topic.id}),
   #                                 :last_replied_at => self.created_at,
