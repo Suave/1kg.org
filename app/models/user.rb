@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   cattr_accessor :current_user
 
   acts_as_paranoid
-  
+
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"
   validates_presence_of     :password,                   :if => :password_required?, :message => "密码不能为空"
@@ -46,6 +46,14 @@ class User < ActiveRecord::Base
                               :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
                             }
   
+  has_and_belongs_to_many :roles, :uniq => true
+
+  # This method returns true if the user is assigned the role with one of the
+  # role titles given as parameters. False otherwise.
+  def has_role?(*roles_identifiers)
+    roles.any? { |role| roles_identifiers.include?(role.identifier) }
+  end
+                            
   belongs_to :geo
   has_one :profile
   
@@ -104,7 +112,7 @@ class User < ActiveRecord::Base
   state :pending, :enter => :make_activation_code
   state :active,  :enter => :do_activate
   state :suspended
-  state :deleted, :enter => :do_delete
+  state :deleted  #, :enter => :do_delete
 
   event :register do
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
@@ -297,10 +305,6 @@ class User < ActiveRecord::Base
       self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     end
     
-    def do_delete
-      self.deleted_at = Time.now.utc
-    end
-
     def do_activate
       @activated = true
       self.activated_at = Time.now.utc
