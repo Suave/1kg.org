@@ -1,6 +1,7 @@
 class MallController < ApplicationController
   def index
-    
+    @recommends = Good.recommends
+    @latest = Good.latest
   end
   
   def category

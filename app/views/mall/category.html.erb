@@ -16,22 +16,9 @@
 </div>
   
 <div class="AreaR">
-  <ul class="goods_list_ul">
-    <% @goods.each do |g| %>
-    <li class="goods_list_ul_li_normal">
-      <p align="center">
-        
-          <%= link_to image_tag(g.photos[0].public_filename, :width => 150, :height => 150, :alt => g.title), mall_detail_path(g) %>
-        
-        <br/>
-        <%= link_to g.title, mall_detail_path(g), :title => g.title %>
-        <br/>
-        ￥<%= g.price %>
-      </p>
-      <div class="icon_new">
-      </div>
-    </li>
-    <% end %>
-  </ul>
+  <div class="recommend_goods_title">
+    <img border="0" alt="居家" src="/images/mall/leftside_title_home.jpg"/>
+  </div>
+  <%= render :partial => "list", :locals => {:goods => @goods} %>
 </div>
 <% end -%>

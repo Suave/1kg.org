@@ -25,6 +25,12 @@ class Admin::GoodsController < Admin::BaseController
     redirect_to admin_goods_url
   end
   
+  def recommend
+    @good.toggle!(:recommend)
+    redirect_to admin_goods_url
+  end
+  
+  
   private
   def find_good
     @good = Good.find params[:id]

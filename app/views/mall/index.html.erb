@@ -1,0 +1,47 @@
+<% @page_title = "公益商城" %>
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/mall.css" media="screen, projection" />
+<% end -%>
+
+<% content_for :crumb do -%>
+<li>公益商城</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="AreaL">
+  <div class="AreaL">
+    <%= render :partial => "category" %>
+  </div>
+</div>
+  
+<div class="AreaR">
+  <div class="recommend_goods_title">
+    <div style="float: left;">
+      <img alt="推荐产品" src="/images/mall/index_title_tuijianchanpin.gif"/>
+    </div>
+    <div style="float: right;">
+      <a title="推荐产品" href="search.php?intro=best">
+        <img border="0" alt="推荐产品" src="/images/mall/graybar_more.gif"/>
+      </a>
+    </div>
+  </div>
+  <div class="blank2"></div>
+  <%= render :partial => "list", :locals => {:goods => @recommends} %>
+  <div class="blank"></div>
+  
+  
+  <div class="recommend_goods_title">
+    <div style="float: left;">
+      <img alt="新品上市" src="/images/mall/index_title_xinpinshangshi.gif"/>
+    </div>
+    <div style="float: right;">
+      <a title="新品上市" href="search.php?intro=new">
+        <img border="0" alt="新品上市" src="/images/mall/graybar_more.gif"/>
+      </a>
+    </div>
+  </div>
+  <div class="blank2"></div>
+  <%= render :partial => "list", :locals => {:goods => @latest} %>
+</div>
+<% end -%>

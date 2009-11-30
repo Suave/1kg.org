@@ -14,19 +14,24 @@
         <table border="0" cellspacing="5" cellpadding="5">
           <tr>
             <th>名字</th>
+            <th>编号</th>
+            <th>推荐</th>
             <th>单价</th>
             <th>操作</th>
           </tr>
+          <% @goods.each do |g| %>
           <tr>
-            <% @goods.each do |g| %>
             <td><%= g.title %></td>
+            <td><%= g.serial %></td>
+            <td><%= image_tag("/images/accept.gif") if g.recommend? %></td>
             <td><%= g.price %></td>
             <td>
               <%= link_to "查看产品照片", admin_good_photos_url(g) %> | 
+              <%= link_to (g.recommend? ? "取消推荐" : "推荐"), recommend_admin_good_url(g), :method => :put %> |
               <%= link_to "编辑", edit_admin_good_url(g) %>
             </td>
-            <% end %>
           </tr>
+          <% end %>
         </table>
       </div>
     </div>
