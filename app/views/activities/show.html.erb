@@ -91,7 +91,7 @@
             </tr>
             <% if @activity.school_id%>
             <tr>
-              <th>相关学校</th><td colspan="3"><%= school_url(School.find @activity.school_id) %></td>
+              <th>相关学校</th><td colspan="3"><%= link_to School.find(@activity.school_id).title,school_url(School.find @activity.school_id) %></td>
             </tr>
             <%end%>        
             <tr>
