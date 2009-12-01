@@ -1,4 +1,5 @@
 body{background:#fff}
+.summary{font-size:14px;color:#666666;margin:0}
 #content-primary p,#content-secondary p {margin:10px 0;}
 
 #meta{width:620px;height:120px;padding:0 10px}
@@ -20,9 +21,9 @@ body{background:#fff}
 
 .label_lei{color:#777;border-bottom:1px #c0c0c0 solid}
 .content_lei{font-size:14px;color:#444;padding:0 5px;}
-.contents{padding:5px 10px}
+.contents{padding:2px 6px}
 
-.summary{font-size:15px;color:#333}
+
 
 .important a{font-size:16px;}
 

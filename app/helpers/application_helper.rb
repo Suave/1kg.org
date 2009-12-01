@@ -240,10 +240,11 @@ module ApplicationHelper
   
   def plain_text(text,replacement="")
     text = text.gsub(/<[^>]*>/){|html| replacement}
-    text.gsub("\&.*?;","");
+    text = text.gsub("&nbsp;","");
+    text = text.gsub("\r\n","");
   end
   
   def summary(article,number)
-    html = plain_text(article.body_html).mb_chars.slice(0..number).to_s
+    html = plain_text(article.body_html).mb_chars.slice(0..number).to_s.lstrip
   end
 end

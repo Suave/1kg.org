@@ -27,9 +27,6 @@
   <p class="remark" style="text-align:right">
     <span style="color:#666;float:left"><%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认" unless school.basic.marked_at.blank? %></span>
     <%= link_to_function "更正位置", "$('#school_large_map').click();" ,:class =>"buttonlink"%>
-    <% if school.basic.marked_at.blank? -%>
-    | <%= link_to "位置正确", marked_school_path, :method => :put %>
-    <% end -%>
     <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 450, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => (logged_in? ? '拖动红色标记修改学校位置' : '要修改学校位置，<a href="/sessions/new">请先登录</a>'), :id => 'school_large_map' ,:style => "display:none;"%>
   </p>
 </div>
