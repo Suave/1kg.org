@@ -9,7 +9,7 @@
     <%= link_to "公益方案详情", "http://www.1kg.org/boards/3603/topics/1001716", :target => "_blank" %>
   </p>
   <table style="border-top:1px solid #CCC;">
-    <% School.find(3603).photos.each do |p| -%>
+    <% School.find(3603).photos.reverse.each do |p| -%>
     <tr>
       <td><%= link_to image_tag(p.public_filename(:thumb), :style => "border:1px solid #CCC; padding:1px" ), school_url(3603), :target => "_blank" %></td>
       <td><%= p.description %></td>

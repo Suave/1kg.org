@@ -39,9 +39,9 @@ class ActivitiesController < ApplicationController
   def over
     find_activities('over')
   end
-  
-  
+    
   def new
+    @school=School.find_by_id(params[:school])
     @activity = Activity.new
   end
   

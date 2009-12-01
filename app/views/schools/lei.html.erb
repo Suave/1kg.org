@@ -94,7 +94,9 @@
   <%if @need-%>
     <% unless  @need.urgency.blank? -%>
     <p class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
-    <p class="content_lei">学校<%="还" unless @need.urgency.blank?%>需要
+    <div>
+      <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
+      <p style="float:left;width:520px;font-size:15px;">
     <%= link_to_needs @need.book unless @need.book.blank?%>
     <%= link_to_needs @need.medicine unless @need.medicine.blank?%>
     <%= link_to_needs @need.stationary unless @need.stationary.blank?%>
@@ -105,7 +107,8 @@
     <%= link_to_needs @need.teacher unless @needteacher.blank?%>
     <%= link_to_needs @need.other unless @need.other.blank?%>
     </p>
-    
+    <div class="clearfix"></div>
+    </div>
   <%end%>
   <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
   <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
@@ -153,7 +156,6 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-    
       <% @shares.each do |s| -%>
       <div style="clear:both;margin-bottom:1em;min-height:50px">
         <div style="float:left">
@@ -164,7 +166,7 @@
           <div style="color:#999; text-align:right">
             <%= s.hits %> 浏览/<%= s.comments_count %> 回复
           </div>
-          <p class="summary"><%= summary(s) %></p>
+          <p class="summary"><%= summary(s,56) %></p>
         </div>
       </div>
       <% end -%>
@@ -218,8 +220,20 @@
       </div>
   </div>
 
+  <div class="school_sidebar">
+    <h3 class="label_lei">学校活动</h3>
+    <div class="sidebar_inter">
+      <p class="content_lei"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%></p>
+    <% @activity.each do |a| -%>
+    <p class="content_lei"><%= link_for_activity(a,false) %></p>
+    <p>开始时间 <%= a.start_at.to_date%><span style="float:right">发起人<%= link_to a.user.login, user_url(a.user) %></span></p>
+    
+    <% end %>  
+    </div>  
+  </div>
+
   <% unless @wannas.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">要去的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/wanna", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
@@ -228,7 +242,7 @@
   <%end%>
 
   <% unless @visits.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">去过的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
@@ -237,7 +251,7 @@
   <%end%>
   
   <% unless @followers.blank? %>
-  <div class="school_sidebar" id="cityLatestMembers">
+  <div class="school_sidebar">
     <h3 class="label_lei">关注的用户</h3>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
