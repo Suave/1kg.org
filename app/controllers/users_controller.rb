@@ -182,7 +182,7 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
 
-    @shares = @user.shares.available.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
+    @shares = @user.shares.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
     @guides = @user.guides
     @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)

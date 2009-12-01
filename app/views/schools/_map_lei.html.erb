@@ -25,7 +25,7 @@
 
 <div id="map_info">
   <p class="remark" style="text-align:right">
-    <span style="color:#666;float:left"><%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认" unless school.basic.marked_at.blank? %></span>
+    <span style="color:#666;float:left"><%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认" if school.basic.marked_by %></span>
     <%= link_to_function "更正位置", "$('#school_large_map').click();" ,:class =>"buttonlink"%>
     <% if school.basic.marked_at.blank? -%>
     | <%= link_to "位置正确", marked_school_path, :method => :put %>
