@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "description"
     t.text     "description_html"
     t.integer  "comments_count",   :default => 0
+    t.integer  "participations_count", :default => 0
     t.integer  "old_id"
     t.boolean  "sticky",           :default => false
   end

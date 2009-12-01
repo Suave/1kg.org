@@ -87,7 +87,7 @@
     <div class="boxInner">
       <h3>最近活跃学校</h3>
       <div class="contents clearfix">
-        <%= render :partial => '/schools/schools', :object => School.top10_popular %>
+        <%= render :partial => '/schools/schools', :object => School.top10_popular.include([:user]) %>
       </div>
     </div>
   </div>

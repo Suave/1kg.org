@@ -10,7 +10,7 @@
 #
 
 class Participation < ActiveRecord::Base
-  belongs_to :activity
+  belongs_to :activity, :counter_cache => true
   belongs_to :user
   
   def self.archives

@@ -37,8 +37,8 @@ class Activity < ActiveRecord::Base
   
 # has_one    :discussion, :class_name => "ActivityBoard"
   
-  has_many :participation, :dependent => :destroy
-  has_many :participators,  :through => :participation, :source => :user
+  has_many :participations, :dependent => :destroy
+  has_many :participators,  :through => :participations, :source => :user
   
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares

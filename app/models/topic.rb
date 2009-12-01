@@ -30,13 +30,19 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   
-  named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
       :order => "sticky desc, last_replied_at desc",
       :include => [:board, :user] }
   }
+  named_scope :latest_updated_in, lambda{|board_class, limit|
+    { :conditions => ["boards.talkable_type=?", board_class.class_name],
+      :include => [:user, :board],
+      :order => "last_replied_at desc",
+      :limit => limit}
+  }
+  
   validates_presence_of :title
   
   #before_save :format_content
@@ -70,16 +76,8 @@ class Topic < ActiveRecord::Base
     deleted_at.nil? ? false : true
   end
   
-  def self.latest_updated_in(board_class, limit = 10)
-    Topic.available.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
-                               :include => [:user, :board],
-                               :joins => [:board],
-                               :order => "last_replied_at desc",
-                               :limit => limit)
-  end
-  
   def self.last_10_updated_topics(board_class)
-    latest_updated_in board_class
+    latest_updated_in(board_class, 10)
   end
   
   def self.latest_updated_with_pagination_in(board_class, page)
