@@ -158,7 +158,6 @@ describe User do
   it 'deletes user' do
     users(:quentin).deleted_at.should be_nil
     users(:quentin).delete!
-    users(:quentin).deleted_at.should_not be_nil
     users(:quentin).should be_deleted
   end
 
