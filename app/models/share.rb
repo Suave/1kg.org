@@ -38,15 +38,15 @@ class Share < ActiveRecord::Base
   acts_as_taggable
   acts_as_paranoid
   
-  named_scope :available, :conditions => ["hidden=?", false]
+  default_scope :conditions => ["hidden=?", false]
   
   after_create :initial_last_replied
   
-  def self.recent_shares
-    available.find(:all, :order => "last_replied_at desc, comments_count desc",
-                         :limit => 10,
-                         :select => "id, user_id, title, hits, comments_count, created_at")
-  end
+  named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
+                              :limit => 10,
+                              :select => "id, user_id, title, hits, comments_count, created_at",
+                              :include => [:user, :tags]
+
   
   def hit!
     self.class.increment_counter :hits, id

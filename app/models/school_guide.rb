@@ -18,8 +18,7 @@ class SchoolGuide < ActiveRecord::Base
   
   after_create :initial_last_replied
   
-  named_scope :recent, :limit => 5, :order => 'created_at DESC'
-  
+  named_scope :recent, :limit => 5, :order => 'created_at DESC', :include => [:school, :tags, :user]
 
   def edited_by?(user)
     #user.class == User && (self.user_id == user.id || user.admin?)

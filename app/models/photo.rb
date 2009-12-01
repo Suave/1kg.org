@@ -48,6 +48,9 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title, :format_content
   
+  named_scope :latest, :conditions => "photos.school_id is not null", :order => "updated_at desc", :limit => 12
+  named_scope :include, lambda {|includes| {:include => includes}}
+  
   def self.recent
     find(:all, :conditions => "parent_id is NULL", :order => "updated_at desc", :limit => 8)
   end

@@ -8,11 +8,9 @@ class SchoolsController < ApplicationController
 
   def index
     respond_to do |format|
-      #@schools = School.recent_upload
       format.html {
-        #@topics = Topic.last_10_updated_topics(SchoolBoard)
-        @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
-        @recent_schools = School.recent_upload
+        @photos = Photo.latest.include([:school, :user])
+        @recent_schools = School.recent_upload.validated.include([:user, :geo])
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
         @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find(:all, :order => "created_at desc, start_at desc", :limit => 10)
