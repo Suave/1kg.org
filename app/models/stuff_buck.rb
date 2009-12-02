@@ -24,7 +24,7 @@ class StuffBuck < ActiveRecord::Base
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
   
-  after_create :generate_stuffs
+  #after_create :generate_stuffs
   
   def matched_percent
     (matched_count.to_f*100/quantity).to_i
@@ -33,7 +33,7 @@ class StuffBuck < ActiveRecord::Base
   def matched_percent_str
     matched_percent.to_s + "%"
   end
-  
+=begin  
   private
   def generate_stuffs
     count = 0
@@ -50,5 +50,5 @@ class StuffBuck < ActiveRecord::Base
       end
     end
   end
-  
+=end  
 end
