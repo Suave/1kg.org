@@ -20,24 +20,7 @@
    
 </script>
 
-<% content_for :subtitle do -%>
-<div style="margin:10px">
-  <% if logged_in? && current_user.school_moderator? -%>
-  <span>学校管理员功能</span>
-    <% if @school.validated? -%>
-      <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
-    <% else -%>
-      <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-    <% end -%>| 
-  <% end -%>
-  <% if logged_in? && @school.edited_by(current_user) -%>
-  <span>学校大使功能</span>
-    <%= link_to "编辑学校", edit_school_url(@school) %>
-  <% end -%>
-  <% if logged_in? && @school.destroyed_by(current_user) -%>
-    <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
-  <% end -%>
-</div>  
+<% content_for :subtitle do -%>  
 <% end -%>
 
   <div id="meta">
@@ -183,7 +166,7 @@
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
     <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %></p><% end %>
-    <p class="remark">&raquo; <%= link_to "浏览全部话题", board_topics_url(@board) %></p>
+    <%= link_to "浏览全部话题", board_topics_url(@board) if @topics.size > 5%>
 
   </div>
 </div>  
@@ -217,6 +200,24 @@
             <p>学校通过验证后才有学校大使</p>
           </div>
         <% end -%>
+        
+        <div style="margin:10px">
+          <% if logged_in? && current_user.school_moderator? -%>
+          <span>学校管理员功能</span>
+            <% if @school.validated? -%>
+              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+            <% else -%>
+              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
+            <% end -%>| 
+          <% end -%>
+          <% if logged_in? && @school.edited_by(current_user) -%>
+          <span>学校大使功能</span>
+            <%= link_to "编辑学校", edit_school_url(@school) %>
+          <% end -%>
+          <% if logged_in? && @school.destroyed_by(current_user) -%>
+            <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+          <% end -%>
+        </div>
       </div>
   </div>
 

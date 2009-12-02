@@ -1,5 +1,5 @@
 body{background:#fff}
-.summary{font-size:14px;color:#666666;margin:0}
+.summary{font-size:14px;color:#666666;margin:4px 0}
 #content-primary p,#content-secondary p {margin:10px 0;}
 
 #meta{width:620px;height:120px;padding:0 10px}
@@ -17,11 +17,11 @@ body{background:#fff}
 
 .school_box{padding:10px 10px}
 .school_sidebar{padding:2px 10px}
-.sidebar_inter{padding:10px 2px}
+.sidebar_inter{padding:4px 8px}
 
 .label_lei{color:#777;border-bottom:1px #c0c0c0 solid}
 .content_lei{font-size:14px;color:#444;padding:0 5px;}
-.contents{padding:2px 6px}
+.contents{padding:4px 8px}
 
 
 

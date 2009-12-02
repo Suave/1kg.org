@@ -1079,9 +1079,9 @@ h3.title {
 .tipText {color:#999;}
 .right {text-align:right;}
 
-.obu {float:left; width:80px;}
+.obu {float:left; width:60px;}
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {height:40px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
+.obu dd {height:32px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
 .obp {float:left; width:120px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
