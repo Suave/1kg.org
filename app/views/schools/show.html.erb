@@ -203,19 +203,17 @@
         
         <div style="margin:10px">
           <% if logged_in? && current_user.school_moderator? -%>
-          <span>学校管理员功能</span>
             <% if @school.validated? -%>
-              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
+              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
             <% else -%>
-              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-            <% end -%>| 
+              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put ,:class => "adminbutton"%>
+            <% end -%>
           <% end -%>
           <% if logged_in? && @school.edited_by(current_user) -%>
-          <span>学校大使功能</span>
-            <%= link_to "编辑学校", edit_school_url(@school) %>
+            <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
           <% end -%>
           <% if logged_in? && @school.destroyed_by(current_user) -%>
-            <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
+            <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
           <% end -%>
         </div>
       </div>

@@ -1133,6 +1133,10 @@ h3.title {
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
 color:#fff;margin:0 4px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
+.adminbutton{background:url(/images/adminbutton.gif) no-repeat;
+color:#fff;margin:0 4px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+.adminbutton:hover{background-position:0 -21px;color:#fff;}
+
 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-size:15px;}
