@@ -40,7 +40,7 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   
   #before_save :format_content
-  before_save :set_last_reply
+  before_create :set_last_reply
   
   def last_replied_datetime
     (self.posts.last || self).created_at
