@@ -1,5 +1,5 @@
 class Admin::GoodsController < Admin::BaseController
-  before_filter :find_good, :except => [:index, :create, :new]
+  before_filter :find_good, :except => [:index, :create, :new, :sale]
   def index
     @goods = Good.find :all, :order => "id desc"
   end
@@ -28,6 +28,9 @@ class Admin::GoodsController < Admin::BaseController
   def recommend
     @good.toggle!(:recommend)
     redirect_to admin_goods_url
+  end
+  
+  def sale
   end
   
   
