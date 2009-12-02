@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     # uncomment at your own risk
     # reset_session
     if in_black_list?
-      flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户"
+      flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户，如果你确认这是一个错误，请联系我们的管理员"
       redirect_to root_path
     else
       unless params[:terms] == "1"
@@ -36,6 +36,7 @@ class UsersController < ApplicationController
         if @user.errors.empty?
           @user.activate!
           @user.update_attribute(:ip, request.remote_ip)
+          cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
           self.current_user = @user
           flash[:notice] = "注册完成, 补充一下你的个人信息吧"
           #redirect_to "/setting"
@@ -181,7 +182,7 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
 
-    @shares = @user.shares.available.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
+    @shares = @user.shares.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
     @guides = @user.guides
     @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
@@ -241,7 +242,7 @@ class UsersController < ApplicationController
   end
   
   def in_black_list?
-    blocked_ips = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:ip)
-    blocked_ips.include?(request.remote_ip)
+    blocked_ids = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:id)
+    cookies[:onekg_id] && blocked_ids.include?(cookies[:onekg_id].to_i)
   end
 end

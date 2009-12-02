@@ -15,6 +15,8 @@ class SessionsController < ApplicationController
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
       end
       current_user.update_attribute(:ip, request.remote_ip)
+      # 保存用户ID
+      cookies[:onekg_id] = { :value => self.current_user.id , :expires => 1.year.from_now }
       flash[:notice] = "欢迎 #{current_user.login}, 你已经登录"
             
       redirect_back_or_default CGI.unescape(params[:to] || '/')

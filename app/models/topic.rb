@@ -30,17 +30,23 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   
-  named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
       :order => "sticky desc, last_replied_at desc",
       :include => [:board, :user] }
   }
+  named_scope :latest_updated_in, lambda{|board_class, limit|
+    { :conditions => ["boards.talkable_type=?", board_class.class_name],
+      :include => [:user, :board],
+      :order => "last_replied_at desc",
+      :limit => limit}
+  }
+  
   validates_presence_of :title
   
   #before_save :format_content
-  #after_create :update_topics_count
+  before_save :set_last_reply
   
   def last_replied_datetime
     (self.posts.last || self).created_at
@@ -70,16 +76,8 @@ class Topic < ActiveRecord::Base
     deleted_at.nil? ? false : true
   end
   
-  def self.latest_updated_in(board_class, limit = 10)
-    Topic.available.find(:all, :conditions => ["boards.talkable_type=?", board_class.class_name],
-                               :include => [:user, :board],
-                               :joins => [:board],
-                               :order => "last_replied_at desc",
-                               :limit => limit)
-  end
-  
   def self.last_10_updated_topics(board_class)
-    latest_updated_in board_class
+    latest_updated_in(board_class, 10)
   end
   
   def self.latest_updated_with_pagination_in(board_class, page)
@@ -93,9 +91,9 @@ class Topic < ActiveRecord::Base
   
   private
   
-  # def update_topics_count
-  #   self.board.update_attributes!(:topics_count => Topic.count(:all, :conditions => {:board_id => self.board.id}))
-  #   self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
-  # end
+  def set_last_reply
+    self.last_replied_at = Time.now
+    self.last_replied_by_id = self.user_id
+  end
   
 end

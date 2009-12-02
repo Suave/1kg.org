@@ -106,6 +106,7 @@ class Admin::UsersController < Admin::BaseController
   def block
     @user = User.find(params[:id])
     @user.delete!
+    @user.destroy
     
     respond_to do |format|
       format.html {redirect_to root_path}
