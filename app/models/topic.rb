@@ -40,7 +40,7 @@ class Topic < ActiveRecord::Base
   validates_presence_of :title
   
   #before_save :format_content
-  #after_create :update_topics_count
+  before_save :set_last_reply
   
   def last_replied_datetime
     (self.posts.last || self).created_at
@@ -93,9 +93,9 @@ class Topic < ActiveRecord::Base
   
   private
   
-  # def update_topics_count
-  #   self.board.update_attributes!(:topics_count => Topic.count(:all, :conditions => {:board_id => self.board.id}))
-  #   self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
-  # end
+  def set_last_reply
+    self.last_replied_at = Time.now
+    self.last_replied_by_id = self.user_id
+  end
   
 end
