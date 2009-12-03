@@ -46,6 +46,7 @@ class School < ActiveRecord::Base
   has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
+  has_many :stuffs, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
@@ -55,7 +56,7 @@ class School < ActiveRecord::Base
                           :source => :user, 
                           :conditions => "status = #{Visited.status('interesting')}"
 
-has_many :wannas, :through => :visited, 
+  has_many :wannas, :through => :visited, 
                           :source => :user, 
                           :conditions => "status = #{Visited.status('wanna')}"
 
