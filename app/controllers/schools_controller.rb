@@ -202,6 +202,7 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
   
+  #旧版的学校页面
   #def show
   #  @school = School.find(params[:id])
   #  
@@ -325,7 +326,7 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请正确填写您去学校的日期，格式为 xxxx-xx-xx(年-月-日)'
+      flash[:notice] = '请正确填写日期，去过的日期不能在今天之后，格式为 xxxx-xx-xx(年-月-日)'
       redirect_to school_url(@school)
     end
   end
@@ -350,7 +351,7 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请正确填写您计划去学校的日期，格式为 xxxx-xx-xx(年-月-日)'
+      flash[:notice] = '请正确填写日期，要去的日期必需在今天之后，格式为 xxxx-xx-xx(年-月-日)'
       redirect_to school_url(@school)
     end
   end
