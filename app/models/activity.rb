@@ -90,7 +90,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10
+    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10, :include => [:user, :departure, :arrival]
   end
   
   
