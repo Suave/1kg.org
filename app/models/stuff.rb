@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: stuffs
 #
@@ -11,8 +10,9 @@
 #  school_id    :integer(4)
 #  matched_at   :datetime
 #  created_at   :datetime
-#  comment      :text
 #  comment_html :text
+#  comment      :text
+#  auto_fill    :boolean(1)
 #
 
 class Stuff < ActiveRecord::Base
@@ -32,7 +32,6 @@ class Stuff < ActiveRecord::Base
   
   private
   def format_content
-    comment.strip! if comment.respond_to?(:strip!)
-    self.comment_html = comment.blank? ? '' : formatting_body_html(comment)
+    self.comment_html = sanitize(comment||'')
   end
 end

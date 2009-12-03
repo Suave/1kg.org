@@ -1,7 +1,7 @@
 module BodyFormat
-  def formatting_body_html(body)
-    body_html = auto_link(body, :link => :urls) { |text| truncate(text, 50) }
-    body_html = simple_format(body_html)
-    white_list(body_html)
+  def sanitize(html)
+    Sanitize.clean(html, :elements => ['a', 'div', 'img', 'p', 'embed'],
+          :attributes => {'a' => ['href', 'title'], 'img' => ['src', 'alt', 'title']},
+          :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}})
   end
 end

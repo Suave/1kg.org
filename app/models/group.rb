@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: groups
 #
@@ -12,9 +11,12 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #  avatar     :string(255)
+#  slug       :string(255)
 #
 
 class Group < ActiveRecord::Base
+  include BodyFormat
+  
   file_column :avatar, :magick => {
                               :geometry => "72x72>",
                               :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
@@ -28,6 +30,7 @@ class Group < ActiveRecord::Base
   
   has_one  :discussion,  :class_name => "GroupBoard", :dependent => :destroy
   
+  before_save  :format_content
   after_create :create_discussion
   
   validates_presence_of :title, :message => "请填写小组名"
@@ -67,6 +70,10 @@ class Group < ActiveRecord::Base
     
     # 将小组创始人设为组员
     self.members << self.creator
+  end
+  
+  def format_content
+    self.body_html = sanitize(self.body_html)
   end
   
 end

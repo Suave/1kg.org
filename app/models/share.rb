@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: shares
 #
@@ -22,9 +21,13 @@
 #  last_modified_by_id      :integer(4)
 #  last_replied_at          :datetime
 #  last_replied_by_id       :integer(4)
+#  deleted_at               :datetime
+#  clean_html               :text
 #
 
 class Share < ActiveRecord::Base
+  include BodyFormat
+  
   belongs_to :user
   belongs_to :geo
   belongs_to :activity
@@ -40,6 +43,7 @@ class Share < ActiveRecord::Base
   
   named_scope :available, :conditions => ["hidden=?", false]
   
+  before_save  :format_content
   after_create :initial_last_replied
   
   def self.recent_shares
@@ -80,4 +84,7 @@ class Share < ActiveRecord::Base
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
   end
   
+  def format_content
+    self.clean_html = sanitize(self.description_html)
+  end
 end

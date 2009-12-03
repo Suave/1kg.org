@@ -3,28 +3,6 @@ class ActivitiesController < ApplicationController
   before_filter :find_activity,  :except => [:index, :hiring, :ongoing, :over, :new, :create]
   
   def index
-    #deprecated, not use this action
-    # @status = params[:status].blank? ? "hiring" : params[:status]
-    #     
-    #     if params[:status] == "over"
-    #       # 已结束的活动
-    #       @activities = Activity.find(:all, :conditions => ["done=? or end_at < ?", true, Time.now],
-    #                                         :order => "updated_at desc",
-    #                                         :limit => 15)
-    #                                         
-    #     elsif params[:status] == "ongoing"
-    #       # 进行中的活动
-    #       @activities = Activity.find(:all, :conditions => ["start_at < ? and end_at > ?", Time.now, Time.now],
-    #                                         :order => "updated_at desc",
-    #                                         :limit => 15)
-    #                                         
-    #     else
-    #       # 招募中的
-    #       @activities = Activity.find(:all, :conditions => ["start_at > ?", Time.now],
-    #                                        :order => "updated_at desc",
-    #                                        :limit => 15)
-    #     
-    #     end
     redirect_to root_path
   end
   
@@ -39,7 +17,6 @@ class ActivitiesController < ApplicationController
   def over
     find_activities('over')
   end
-  
   
   def new
     @activity = Activity.new
@@ -87,7 +64,6 @@ class ActivitiesController < ApplicationController
   end
 
   def show
-        
     unless @activity.deleted_at.nil?
       flash[:notice] = "该活动已删除"
       redirect_to activities_url
@@ -96,7 +72,6 @@ class ActivitiesController < ApplicationController
     @shares = @activity.shares
     @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
-    
   end
   
   def stick

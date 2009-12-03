@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: geos
 #
@@ -9,7 +8,6 @@
 #  rgt       :integer(4)      not null
 #  name      :string(255)     not null
 #  zipcode   :integer(4)
-#  old_id    :integer(4)
 #  slug      :string(255)
 #  latitude  :string(255)
 #  longitude :string(255)

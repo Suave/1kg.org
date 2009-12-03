@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: comments
 #
-#  id         :integer(4)      not null, primary key
-#  user_id    :integer(4)      not null
-#  body       :text
-#  body_html  :text
-#  created_at :datetime
-#  updated_at :datetime
-#  type       :string(255)
-#  type_id    :string(255)
-#  old_id     :integer(4)
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)      not null
+#  body             :text
+#  body_html        :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  type             :string(255)
+#  type_id          :string(255)
+#  deleted_at       :datetime
+#  commentable_type :string(255)
+#  commentable_id   :integer(4)
 #
 
 class Comment < ActiveRecord::Base
@@ -53,8 +54,7 @@ class Comment < ActiveRecord::Base
   
   private
   def format_content
-    body.strip! if body.respond_to?(:strip!)
-    self.body_html = body.blank? ? '' : formatting_body_html(body)
+    self.body_html = sanitize(self.body)
   end
   
   def update_commentable
