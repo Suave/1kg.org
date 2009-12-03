@@ -23,6 +23,7 @@
           <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
           <table>
             <% @stuffs.each do |s| -%>
+            <% next if s.school.nil? %>
             <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
             <% end -%>
           </table>
