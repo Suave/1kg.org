@@ -18,11 +18,7 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  topics_count              :integer(4)
-#  posts_count               :integer(4)
-#  guides_count              :integer(4)
-#  shares_count              :integer(4)
-#  ip                        :string(255)
+#  old_id                    :integer(4)
 #
 
 require 'digest/sha1'
@@ -51,6 +47,15 @@ class User < ActiveRecord::Base
                             }
   
   belongs_to :geo
+  
+  has_and_belongs_to_many :roles, :uniq => true
+
+# This method returns true if the user is assigned the role with one of the
+# role titles given as parameters. False otherwise.
+def has_role?(*roles_identifiers)
+    roles.any? { |role| roles_identifiers.include?(role.identifier) }
+end
+
   has_one :profile
   
   has_many :submitted_activities, :class_name => "Activity", 
@@ -309,7 +314,6 @@ class User < ActiveRecord::Base
     def self.search_role_members(role_id)
       u_t = User.table_name.to_s # user table name
       ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
-
       find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end
