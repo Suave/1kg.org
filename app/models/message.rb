@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: messages
 #
@@ -11,7 +10,6 @@
 #  deleted      :boolean(1)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  old_id       :integer(4)
 #
 
 class Message < ActiveRecord::Base
@@ -50,9 +48,6 @@ class Message < ActiveRecord::Base
 	end
 
 	def format_content
-	  content.strip! if content.respond_to?(:strip!)
-    self.html_content = content.blank? ? '' : formatting_body_html(content)
-#		self.content = auto_link(self.content) { |text| truncate(text, 50) }
-#		self.html_content = white_list(self.content)
+    self.html_content = sanitize(content)
 	end
 end

@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "register_over_at"
     t.string   "expense_per_head"
     t.string   "expect_strength"
-    t.text     "description"
+    t.text     "clean_html"
     t.text     "description_html"
     t.integer  "comments_count",   :default => 0
     t.integer  "participations_count", :default => 0
@@ -180,8 +180,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false
     t.integer  "user_id",             :null => false
-    t.text     "body"
     t.text     "body_html"
+    t.text     "clean_html"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "last_modified_at"
@@ -329,6 +329,7 @@ ActiveRecord::Schema.define(:version => 0) do
   
   create_table "school_guides", :force => true do |t|
     t.string  "title"
+    t.text    "clean_html"
     t.text    "content"
     t.integer "user_id"
     t.integer "school_id"
@@ -448,7 +449,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "board_id",                                              :null => false
     t.integer  "user_id",                                               :null => false
     t.string   "title",               :limit => 200,                    :null => false
-    t.text     "body"
+    t.text     "clean_html"
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"

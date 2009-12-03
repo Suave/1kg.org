@@ -1,4 +1,26 @@
 # == Schema Information
+#
+# Table name: topics
+#
+#  id                  :integer(4)      not null, primary key
+#  board_id            :integer(4)      not null
+#  user_id             :integer(4)      not null
+#  title               :string(200)     not null
+#  body_html           :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  last_replied_at     :datetime
+#  last_replied_by_id  :integer(4)
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer(4)
+#  deleted_at          :datetime
+#  block               :boolean(1)
+#  posts_count         :integer(4)      default(0)
+#  sticky              :boolean(1)
+#  clean_html          :text
+#
+
+# == Schema Information
 # Schema version: 20090430155946
 #
 # Table name: topics
@@ -45,7 +67,7 @@ class Topic < ActiveRecord::Base
   
   validates_presence_of :title
   
-  #before_save :format_content
+  before_save :format_content
   before_create :set_last_reply
   
   def last_replied_datetime
@@ -89,11 +111,19 @@ class Topic < ActiveRecord::Base
                               :per_page => 20)
   end
   
+  def html
+    self.clean_html ||= sanitize(body_html)
+  end
+  
   private
   
   def set_last_reply
     self.last_replied_at = Time.now
     self.last_replied_by_id = self.user_id
+  end
+  
+  def format_content
+    self.clean_html = sanitize(body_html)
   end
   
 end

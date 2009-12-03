@@ -1,4 +1,14 @@
 # == Schema Information
+#
+# Table name: activity_boards
+#
+#  id               :integer(4)      not null, primary key
+#  activity_id      :integer(4)      not null
+#  description      :text
+#  description_html :text
+#
+
+# == Schema Information
 # Schema version: 20090430155946
 #
 # Table name: activity_boards
@@ -23,7 +33,6 @@ class ActivityBoard < ActiveRecord::Base
   
   private
   def format_content
-    description.strip! if description.respond_to?(:strip!)
-    self.description_html = description.blank? ? '' : formatting_body_html(description)
+    self.description_html = sanitize(self.description)
   end
 end

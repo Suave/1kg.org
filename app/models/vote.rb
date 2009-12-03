@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: votes
+#
+#  id            :integer(4)      not null, primary key
+#  vote          :boolean(1)
+#  created_at    :datetime        not null
+#  voteable_type :string(15)      default(""), not null
+#  voteable_id   :integer(4)      default(0), not null
+#  user_id       :integer(4)      default(0), not null
+#
+
 class Vote < ActiveRecord::Base
 
   # NOTE: Votes belong to a user

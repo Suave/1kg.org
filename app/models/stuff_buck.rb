@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: stuff_bucks
 #
@@ -11,6 +10,9 @@
 #  created_at    :datetime
 #  status        :string(255)
 #  notes_html    :text
+#  for_team_tip  :text
+#  for_team      :boolean(1)
+#  hidden        :boolean(1)
 #
 
 class StuffBuck < ActiveRecord::Base

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: neighborhoods
 #
@@ -7,7 +6,6 @@
 #  user_id     :integer(4)      not null
 #  neighbor_id :integer(4)      not null
 #  created_at  :datetime
-#  old_id      :integer(4)
 #
 
 class Neighborhood < ActiveRecord::Base
