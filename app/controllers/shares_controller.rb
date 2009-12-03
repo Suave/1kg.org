@@ -3,7 +3,7 @@ class SharesController < ApplicationController
   before_filter :find_share, :except => [:create, :index]
   
   def index
-    @shares = Share.available.paginate :page => params[:page] || 1,
+    @shares = Share.paginate :page => params[:page] || 1,
                                        :order => "last_replied_at desc",
                                        :select => "id, user_id, title, hits, comments_count, created_at",
                                        :per_page => 10
