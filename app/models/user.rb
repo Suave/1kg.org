@@ -305,7 +305,6 @@ class User < ActiveRecord::Base
     def self.search_role_members(role_id)
       u_t = User.table_name.to_s # user table name
       ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
-
       find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end
