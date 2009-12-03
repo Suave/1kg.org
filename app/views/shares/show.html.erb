@@ -36,7 +36,7 @@
       </div>
       
       <div class="entry">
-        <%= @share.clean_html %>
+        <%= @share.html %>
         <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>

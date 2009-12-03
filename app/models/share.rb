@@ -79,6 +79,10 @@ class Share < ActiveRecord::Base
     return result.reverse
   end
   
+  def html
+    self.clean_html ||= sanitize(self.description_html)
+  end
+  
   private
   def initial_last_replied
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
