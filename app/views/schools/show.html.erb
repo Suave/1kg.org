@@ -188,8 +188,7 @@
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
     </div>
-    <% end -%>
-  </div>  
+    <% end -%>  
   <div class="school_sidebar">
     <h3 class="label_lei">地理位置</h3>
     <%= render :partial => 'map_lei', :locals => {:school => @school} %>
