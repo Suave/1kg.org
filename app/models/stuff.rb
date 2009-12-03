@@ -19,7 +19,7 @@ class Stuff < ActiveRecord::Base
   include BodyFormat
   
   belongs_to :type, :class_name => "StuffType", :foreign_key => :type_id
-  belongs_to :buck, :class_name => "StuffBuck", :foreign_key => :buck_id
+  #belongs_to :buck, :class_name => "StuffBuck", :foreign_key => :buck_id
   belongs_to :user
   belongs_to :school
   

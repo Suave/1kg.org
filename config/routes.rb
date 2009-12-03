@@ -1,6 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
+  map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
@@ -157,7 +158,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :products # 公益商品供应商提供的商品
     # for AJXY 的商城管理后台
     admin.resources :goods, :member => {:recommend => :put}, 
-                            :collection => {:sale => :get} do |good|  
+                            :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
       good.resources :photos, :controller => "good_photos"
     end 
     admin.resources :bulletins

@@ -413,20 +413,37 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "title",            :null => false
     t.text     "description_html"
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "stuffs", :force => true do |t|
-    t.string   "code",         :null => false
-    t.integer  "type_id",      :null => false
-    t.integer  "buck_id",      :null => false
+    t.string   "code",         :null => false # 密码
+    t.integer  "type_id",      :null => false # 公益项目（物资）类型
+    #t.integer  "buck_id",      :null => false
+    t.datetime "created_at" # 交易处理时间
+    t.string   "order_id"   # 商家订单号
+    t.string   "order_time" # 商家订单时间
+    t.string   "product_serial" # 商家产品编号
+    t.string   "product_number" # 商家产品数量
+    t.string   "deal_id"        # 交易号
+    #t.string   "pay_result"     # 交易结果
+    #t.integer  "err_code"       # 错误代码
+    
+    # 验证时填写的字段
     t.integer  "user_id"
     t.integer  "school_id"
     t.datetime "matched_at"
-    t.datetime "created_at"
     t.text     "comment_html"
     t.text     "comment"
     t.boolean  "auto_fill"
   end
+  
+  create_table "sale_records", :force => true do |t|
+    t.string   "buyer_name"
+    t.string   "buyer_email"
+    t.string   "order_id"
+    t.datetime "created_at"
+  end 
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

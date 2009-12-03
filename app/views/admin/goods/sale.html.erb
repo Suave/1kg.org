@@ -10,9 +10,9 @@
     <div class="boxInner">
       <h3>给买家发配对邮件</h3>
       <div class="contents">
-        <% form_tag :url => "#" do %>
+        <% form_tag sending_admin_goods_url do %>
         <p><label class="label">商家</label> 爱聚新意
-          <%= hidden_field_tag "vendor_id", :value => "AJXY" %>
+          <%= hidden_field_tag "vendor_id", "AJXY" %>
         </p>
         <p><label class="label">买家姓名</label>
           <%= text_field_tag "buyer" %>
@@ -24,10 +24,10 @@
           <%= text_field_tag "order_id" %>
         </p>
         <p><label class="label">商品编号</label>
-          <%= select_tag "product_id" %>
+          <%= select_tag "product_id", options_for_select(Vendor.find_by_slug("AJXY").products.collect{|g| ["#{g.title} - #{g.serial}", g.serial]}) %>
         </p>
         <p><label class="label">数量</label>
-          <%= text_field_tag "quantity" %>
+          <%= text_field_tag "product_number" %>
         </p>
 
         
