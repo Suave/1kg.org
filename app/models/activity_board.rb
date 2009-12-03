@@ -8,17 +8,6 @@
 #  description_html :text
 #
 
-# == Schema Information
-# Schema version: 20090430155946
-#
-# Table name: activity_boards
-#
-#  id               :integer(4)      not null, primary key
-#  activity_id      :integer(4)      not null
-#  description      :text
-#  description_html :text
-#
-
 class ActivityBoard < ActiveRecord::Base
   include BodyFormat
   

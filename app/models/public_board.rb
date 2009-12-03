@@ -11,19 +11,6 @@
 #  deleted_at       :datetime
 #
 
-# == Schema Information
-# Schema version: 20090430155946
-#
-# Table name: public_boards
-#
-#  id               :integer(4)      not null, primary key
-#  title            :string(100)     not null
-#  description      :text
-#  description_html :text
-#  position         :integer(4)      default(999), not null
-#  slug             :string(255)
-#
-
 class PublicBoard < ActiveRecord::Base
   include BodyFormat
   

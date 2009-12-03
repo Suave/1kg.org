@@ -80,7 +80,7 @@ class Share < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.description_html)
+    self.clean_html ||= sanitize(self.body_html)
   end
   
   private
@@ -89,6 +89,6 @@ class Share < ActiveRecord::Base
   end
   
   def format_content
-    self.clean_html = sanitize(self.description_html)
+    self.clean_html = sanitize(self.body_html)
   end
 end

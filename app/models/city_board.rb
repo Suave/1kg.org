@@ -8,16 +8,6 @@
 #  description_html :text
 #
 
-# == Schema Information
-# Schema version: 20090430155946
-#
-# Table name: city_boards
-#
-#  id               :integer(4)      not null, primary key
-#  geo_id           :integer(4)      not null
-#  description      :text
-#  description_html :text
-#
 
 class CityBoard < ActiveRecord::Base
   include BodyFormat
