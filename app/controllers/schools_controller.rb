@@ -202,6 +202,39 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
   
+  #def show
+  #  @school = School.find(params[:id])
+  #  
+  #  @school.hit!
+  #  
+  #  @traffic = @school.traffic
+  #  @need = @school.need
+  #  @local   = @school.local
+  #  @contact = @school.contact
+  #  @finder  = @school.finder
+  #  @basic = @school.basic
+  #  
+  #  if @school.nil? or @school.deleted?
+  #    render_404 and return
+  #  end
+  #  
+  #  @visitors = @school.visitors
+  #  @followers = @school.interestings
+  #  @moderators = User.moderators_of(@school)
+  #  @shares = @school.shares
+  #  @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
+  #  if logged_in?
+  #    @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
+  #  end
+  #  
+  #  @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
+  #  unless @board.blank?
+  #    @board = @board.board
+  #    @topics = @board.latest_topics
+  #  end 
+  #end
+
+  # 学校页面改版
   def show
     @school = School.find(params[:id])
     
@@ -218,46 +251,13 @@ class SchoolsController < ApplicationController
       render_404 and return
     end
     
-    @visitors = @school.visitors
-    @followers = @school.interestings
-    @moderators = User.moderators_of(@school)
-    @shares = @school.shares
-    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-    if logged_in?
-      @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
-    end
-    
-    @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
-    unless @board.blank?
-      @board = @board.board
-      @topics = @board.latest_topics
-    end 
-  end
-
-  # 学校页面改版
-  def lei
-    @school = School.find(params[:id])
-    
-    @school.hit!
-    
-    @traffic = @school.traffic
-    @need = @school.need
-    @local   = @school.local
-    @contact = @school.contact
-    @finder  = @school.finder
-    @basic = @school.basic
-    
-    if @school.nil? or @school.deleted?
-      render_404 and return
-    end
-    
-    @visitors = @school.visitors
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
+    @activity = Activity.find(:all,:conditions => {:school_id => @school.id})
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1})
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3})
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
@@ -325,7 +325,7 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请填写去过的日期，格式为 xxxx-xx-xx(年-月-日)'
+      flash[:notice] = '请正确填写您去学校的日期，格式为 xxxx-xx-xx(年-月-日)'
       redirect_to school_url(@school)
     end
   end
@@ -350,7 +350,7 @@ class SchoolsController < ApplicationController
       end
       redirect_to school_url(@school)
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请填写要去的日期，格式为 xxxx-xx-xx(年-月-日)'
+      flash[:notice] = '请正确填写您计划去学校的日期，格式为 xxxx-xx-xx(年-月-日)'
       redirect_to school_url(@school)
     end
   end

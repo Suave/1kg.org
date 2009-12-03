@@ -38,7 +38,7 @@ class Share < ActiveRecord::Base
   acts_as_taggable
   acts_as_paranoid
   
-  default_scope :conditions => ["hidden=?", false]
+  default_scope :conditions => {:hidden => false}
   
   after_create :initial_last_replied
   

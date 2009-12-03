@@ -629,7 +629,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 .label {
   float: left;
   clear: left;
-  width: 4em;
+  width: 5em;
   padding: 0 1em 0 0;
   text-align: right;
 }
@@ -1079,11 +1079,11 @@ h3.title {
 .tipText {color:#999;}
 .right {text-align:right;}
 
-.obu {float:left; width:80px;}
+.obu {float:left; width:60px;}
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {height:40px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
+.obu dd {height:32px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
-.obp {float:left; width:125px; margin:12px}
+.obp {float:left; width:120px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {height:40px; margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
@@ -1133,6 +1133,10 @@ h3.title {
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
 color:#fff;margin:0 4px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
+.adminbutton{background:url(/images/adminbutton.gif) no-repeat;
+color:#fff;margin:0 4px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+.adminbutton:hover{background-position:0 -21px;color:#fff;}
+
 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-size:15px;}

@@ -21,11 +21,11 @@ class Visited < ActiveRecord::Base
   acts_as_paranoid
   
   def validate
-    if status == 1 && visited_at.blank?
-      errors.add('请填写日期')
+    if status == 1 && (visited_at.blank? or visited_at > Time.now.to_date)
+      errors.add('日期错误')
     end
-    if status == 3 && wanna_at.blank?
-      errors.add('请填写日期')
+    if status == 3 && (wanna_at.blank? or wanna_at < Time.now.to_date)
+      errors.add('日期错误')
     end
   end
   
