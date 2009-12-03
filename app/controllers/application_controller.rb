@@ -58,6 +58,11 @@ class ApplicationController < ActionController::Base
     User.current_user = self.current_user
   end
   
+  def sanitize(html)
+    Sanitize.clean(html, :elements => ['a', 'div', 'img', 'p', 'embed'],
+          :attributes => {'a' => ['href', 'title'], 'img' => ['src', 'alt', 'title']},
+          :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}})
+  end
   
   private
   def app_stop

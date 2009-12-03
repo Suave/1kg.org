@@ -25,6 +25,8 @@ Rails::Initializer.run do |config|
   #config.gem "rack"
   config.gem "fastercsv"
   config.gem "hpricot"
+  config.gem "nokogiri"
+  config.gem "sanitize"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
   config.gem 'jscruggs-metric_fu', :version => '1.1.5', :lib => 'metric_fu', :source => 'http://gems.github.com'
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
@@ -75,6 +77,8 @@ Rails::Initializer.run do |config|
   config.action_mailer.default_charset= "utf-8"
   
 end
+
+require 'sanitize'
 
 ActionMailer::Base.smtp_settings = {
   :address => "127.0.0.1",
