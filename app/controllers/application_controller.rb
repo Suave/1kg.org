@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   
   include AuthenticatedSystem
   include ExceptionNotifiable
-  
+
   before_filter :set_current_user
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -56,12 +56,6 @@ class ApplicationController < ActionController::Base
   protected
   def set_current_user
     User.current_user = self.current_user
-  end
-  
-  def sanitize(html)
-    Sanitize.clean(html, :elements => ['a', 'div', 'img', 'p', 'embed'],
-          :attributes => {'a' => ['href', 'title'], 'img' => ['src', 'alt', 'title']},
-          :protocols => {'a' => {'href' => ['http', 'https', 'mailto']}})
   end
   
   private
