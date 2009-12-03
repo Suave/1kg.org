@@ -20,7 +20,7 @@
    
 </script>
 
-<% content_for :subtitle do -%>  
+<% content_for :subtitle do -%>
 <% end -%>
 
   <div id="meta">
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="school_box">
     <a class="more" name='#morecontact'>查看学校联系方式</a>
     <div id="morecontact" style="display:none">
@@ -172,7 +172,23 @@
 </div>  
   
 <% content_for :sidebar do -%>
-    
+  <div id="admins">
+    <% if logged_in? && current_user.school_moderator? -%>
+         你是学校管理员，可以使用以下功能：<br/>
+      <% if @school.validated? -%>
+        <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
+      <% else -%>
+        <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put ,:class => "adminbutton"%>
+      <% end -%>  
+        <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+        <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    <% end -%>
+    <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
+     你是学校大使，可以使用以下功能：<br/>
+      <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+      <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    <% end -%>
+  </div>  
   <div class="school_sidebar">
     <h3 class="label_lei">地理位置</h3>
     <%= render :partial => 'map_lei', :locals => {:school => @school} %>
@@ -200,23 +216,8 @@
             <p>学校通过验证后才有学校大使</p>
           </div>
         <% end -%>
-        
-        <div style="margin:10px">
-          <% if logged_in? && current_user.school_moderator? -%>
-            <% if @school.validated? -%>
-              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
-            <% else -%>
-              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put ,:class => "adminbutton"%>
-            <% end -%>
-          <% end -%>
-          <% if logged_in? && @school.edited_by(current_user) -%>
-            <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
-          <% end -%>
-          <% if logged_in? && @school.destroyed_by(current_user) -%>
-            <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
-          <% end -%>
-        </div>
       </div>
+      <div class="clearfix"></div>
   </div>
 
   <div class="school_sidebar">
