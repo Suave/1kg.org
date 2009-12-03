@@ -172,9 +172,8 @@
 </div>  
   
 <% content_for :sidebar do -%>
-  <div id="admins">
     <% if logged_in? && current_user.school_moderator? -%>
-         你是学校管理员，可以使用以下功能：<br/>
+    <div id="admins">你是学校管理员，可以使用以下功能：<br/>
       <% if @school.validated? -%>
         <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
       <% else -%>
@@ -182,11 +181,13 @@
       <% end -%>  
         <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
         <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    </div>
     <% end -%>
     <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
-     你是学校大使，可以使用以下功能：<br/>
+    <div id="admins">你是学校大使，可以使用以下功能：<br/>
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    </div>
     <% end -%>
   </div>  
   <div class="school_sidebar">
