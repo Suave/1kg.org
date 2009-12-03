@@ -371,6 +371,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "share_cover_content_type"
     t.string   "share_cover_file_size"
     t.text     "body_html"
+    t.text     "clean_html"
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "user_id",                                     :null => false

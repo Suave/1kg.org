@@ -59,6 +59,7 @@ class SharesController < ApplicationController
   
   def show
     @share.hit!
+    @share.clean_html ||= sanitize(@share.body_html)
     @voters = @share.votes.map(&:user)
     @comments = @share.comments.available.paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
