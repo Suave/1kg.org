@@ -20,6 +20,8 @@
 #
 
 class SchoolGuide < ActiveRecord::Base
+  include Editable
+  
   belongs_to :school
   belongs_to :user
   has_many   :comments, :as => 'commentable', :dependent => :destroy
@@ -40,14 +42,6 @@ class SchoolGuide < ActiveRecord::Base
   after_create :initial_last_replied
   
   named_scope :recent, :limit => 5, :order => 'created_at DESC'
-  
-
-  def edited_by?(user)
-    #user.class == User && (self.user_id == user.id || user.admin?)
-    return false unless user.class == User
-    return true if self.user_id == user.id
-    return true if user.admin?
-  end
     
   def increase_hit_without_timestamping!
     self.hits += 1

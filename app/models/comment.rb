@@ -17,6 +17,7 @@
 
 class Comment < ActiveRecord::Base
   include BodyFormat
+  include Editable
   
   before_save :format_content
   after_create :update_commentable
@@ -29,10 +30,6 @@ class Comment < ActiveRecord::Base
   named_scope :available, :conditions => {:deleted_at => nil}
   
   acts_as_paranoid
-  
-  def editable_by?(user)
-    user != nil && (self.user_id == user.id || user.admin?)
-  end
   
   def self.archives(type)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"

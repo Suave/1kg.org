@@ -26,4 +26,6 @@ guide1:
   title: guide1
   content: a test guide
   school_id: 1
+  user_id: 1
+  hits: 1
 
