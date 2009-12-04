@@ -1,4 +1,20 @@
 # == Schema Information
+#
+# Table name: posts
+#
+#  id                  :integer(4)      not null, primary key
+#  topic_id            :integer(4)      not null
+#  user_id             :integer(4)      not null
+#  body_html           :text
+#  created_at          :datetime
+#  updated_at          :datetime
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer(4)
+#  deleted_at          :datetime
+#  clean_html          :text
+#
+
+# == Schema Information
 # Schema version: 20090430155946
 #
 # Table name: posts

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: messages
 #
@@ -11,7 +10,6 @@
 #  deleted      :boolean(1)
 #  created_at   :datetime
 #  updated_at   :datetime
-#  old_id       :integer(4)
 #
 
 class Message < ActiveRecord::Base

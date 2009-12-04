@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: groups
 #
@@ -12,6 +11,7 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #  avatar     :string(255)
+#  slug       :string(255)
 #
 
 class Group < ActiveRecord::Base

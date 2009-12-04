@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: visiteds
 #
@@ -9,6 +8,9 @@
 #  visited_at :datetime
 #  status     :integer(1)
 #  created_at :datetime
+#  deleted_at :datetime
+#  notes      :string(20)
+#  wanna_at   :datetime
 #
 
 class Visited < ActiveRecord::Base

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: shares
 #
@@ -22,6 +21,8 @@
 #  last_modified_by_id      :integer(4)
 #  last_replied_at          :datetime
 #  last_replied_by_id       :integer(4)
+#  deleted_at               :datetime
+#  clean_html               :text
 #
 
 class Share < ActiveRecord::Base

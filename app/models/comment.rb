@@ -1,17 +1,18 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: comments
 #
-#  id         :integer(4)      not null, primary key
-#  user_id    :integer(4)      not null
-#  body       :text
-#  body_html  :text
-#  created_at :datetime
-#  updated_at :datetime
-#  type       :string(255)
-#  type_id    :string(255)
-#  old_id     :integer(4)
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)      not null
+#  body             :text
+#  body_html        :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  type             :string(255)
+#  type_id          :string(255)
+#  deleted_at       :datetime
+#  commentable_type :string(255)
+#  commentable_id   :integer(4)
 #
 
 class Comment < ActiveRecord::Base
@@ -22,7 +23,8 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true, :counter_cache => 'comments_count'
   belongs_to :user
   
-  validates_presence_of :body, :message => "留言内容不能为空"
+  validates_presence_of :user_id
+  validates_length_of :body, :minimum => 2, :too_short => "留言内容不能少于2个字符", :allow_nil => false
 
   named_scope :available, :conditions => {:deleted_at => nil}
   

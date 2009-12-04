@@ -1,0 +1,7 @@
+share_comment1:
+  id: 1
+  commentable_type: 'Share'
+  commentable_id: 1
+  body: Thank you for the welcome
+  type: Comment
+  user_id: 1
