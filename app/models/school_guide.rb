@@ -21,6 +21,7 @@
 
 class SchoolGuide < ActiveRecord::Base
   include BodyFormat
+  include Editable
   
   belongs_to :school
   belongs_to :user
