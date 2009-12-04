@@ -60,7 +60,8 @@ class User < ActiveRecord::Base
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
-                                  :order => "created_at desc"
+                                  :order => "created_at desc", 
+                                  :dependent => :destroy
   has_many :participations, :dependent => :destroy
   has_many :participated_activities, :through => :participations, 
                                      :source => :activity,
@@ -68,7 +69,8 @@ class User < ActiveRecord::Base
   
   has_many :submitted_schools, :class_name => "School", 
                                :conditions => "deleted_at is null",
-                               :order => "created_at desc"
+                               :order => "created_at desc", 
+                               :dependent => :destroy
   has_many :visiteds, :dependent => :destroy 
   has_many :visited_schools, :through => :visiteds, 
                              :source => :school,
