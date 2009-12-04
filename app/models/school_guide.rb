@@ -16,6 +16,7 @@
 #  comments_count      :integer(4)      default(0), not null
 #  last_replied_by_id  :integer(4)
 #  deleted_at          :datetime
+#  clean_html          :text
 #
 
 class SchoolGuide < ActiveRecord::Base

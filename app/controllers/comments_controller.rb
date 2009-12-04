@@ -2,10 +2,6 @@ class CommentsController < ApplicationController
   before_filter :login_required
   before_filter :set_commentable
   
-  def new
-    @comment = Comment.new
-  end
-  
   def create
     @comment = @commentable.comments.build(params[:comment])
     
@@ -24,9 +20,13 @@ class CommentsController < ApplicationController
   
   def update
     @comment = @commentable.comments.find(params[:id])
-    @comment.update_attributes!(params[:comment])
+
     respond_to do |format|
-      flash[:notice] = "留言修改成功"
+      if @comment.update_attributes(params[:comment])
+        flash[:notice] = "留言修改成功"
+      else
+        flash[:notice] = "留言内容不能为空"
+      end
       format.html {redirect_to commentable_path(@commentable)}
     end
   end
@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
   def set_commentable
     commentable_class = params[:commentable].constantize
     commentable_id = "#{params[:commentable].underscore}_id"
-    @commentable = commentable_class.find_by_id(params[commentable_id.to_sym])
+    @commentable = commentable_class.find(params[commentable_id.to_sym])
   end
   
 end

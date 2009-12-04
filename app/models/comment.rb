@@ -23,7 +23,8 @@ class Comment < ActiveRecord::Base
   belongs_to :commentable, :polymorphic => true, :counter_cache => 'comments_count'
   belongs_to :user
   
-  validates_presence_of :body, :message => "留言内容不能为空"
+  validates_presence_of :user_id
+  validates_length_of :body, :minimum => 2, :too_short => "留言内容不能少于2个字符", :allow_nil => false
 
   named_scope :available, :conditions => {:deleted_at => nil}
   
