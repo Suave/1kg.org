@@ -12,6 +12,7 @@ describe CommentsController do
     
     @params = {:comment => {:body => 'a test comment'}}
     @commentable = {:commentable => 'Share', :share_id => 1}
+    Sanitize.stub!(:clean)
   end
   
   describe 'post /comments/new' do

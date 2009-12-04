@@ -4,7 +4,6 @@ class CommentsController < ApplicationController
   
   def create
     @comment = @commentable.comments.build(params[:comment])
-    
     respond_to do |format|
       @comment.user = current_user
       if !@comment.save
