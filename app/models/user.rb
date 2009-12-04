@@ -55,7 +55,8 @@ class User < ActiveRecord::Base
   end
                             
   belongs_to :geo
-  has_one :profile
+
+  has_one :profile, :dependent => :destroy 
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
@@ -80,16 +81,16 @@ class User < ActiveRecord::Base
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
-																:foreign_key => "author_id"
+																:foreign_key => "author_id", :dependent => :destroy 
 
 	has_many :received_messages, 	:class_name => "MessageCopy", 
-															 	:foreign_key => "recipient_id"
+															 	:foreign_key => "recipient_id", :dependent => :destroy 
 
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
-														 		:foreign_key 	=> "recipient_id"
+														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
 														 		
-	has_many :neighborhoods, :dependent => :destroy
+	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
   
@@ -98,8 +99,8 @@ class User < ActiveRecord::Base
                            :source => :group, 
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs
-  has_many :votes
+  has_many :stuffs, :dependent => :destroy 
+  has_many :votes, :dependent => :destroy 
   
   before_save :encrypt_password
   
