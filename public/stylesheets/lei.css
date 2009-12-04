@@ -2,7 +2,7 @@ body{background:#fff}
 .summary{font-size:14px;color:#666666;margin:4px 0}
 #content-primary p,#content-secondary p {margin:10px 0;}
 
-#meta{width:620px;height:120px;padding:0 10px}
+#meta{width:620px;height:108px;padding:0 10px}
 .school_main img{width:134px;}
 .school_main{display:block;height:100px;overflow:hidden;width:134px;}
 .meta_left{float:left;width:134px}
@@ -11,6 +11,8 @@ body{background:#fff}
 .meta_right h5{display:inline;line-height:25px;}
 .meta_info{margin:5px 0}
 .meta_info p{font-size:13px;margin:3px 0 !important;}
+
+#admins{padding:5px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 
 .stars{position:relative;top:2px}
 .photo_small img{width:47px;margin-top:3px}
@@ -22,8 +24,6 @@ body{background:#fff}
 .label_lei{color:#777;border-bottom:1px #c0c0c0 solid}
 .content_lei{font-size:14px;color:#444;padding:0 5px;}
 .contents{padding:4px 8px}
-
-
 
 .important a{font-size:16px;}
 
