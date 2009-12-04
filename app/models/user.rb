@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: users
 #
@@ -18,7 +17,11 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  old_id                    :integer(4)
+#  topics_count              :integer(4)
+#  posts_count               :integer(4)
+#  guides_count              :integer(4)
+#  shares_count              :integer(4)
+#  ip                        :string(255)
 #
 
 require 'digest/sha1'
@@ -50,11 +53,11 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles, :uniq => true
 
-# This method returns true if the user is assigned the role with one of the
-# role titles given as parameters. False otherwise.
-def has_role?(*roles_identifiers)
-    roles.any? { |role| roles_identifiers.include?(role.identifier) }
-end
+  # This method returns true if the user is assigned the role with one of the
+  # role titles given as parameters. False otherwise.
+  def has_role?(*roles_identifiers)
+      roles.any? { |role| roles_identifiers.include?(role.identifier) }
+  end
 
   has_one :profile
   

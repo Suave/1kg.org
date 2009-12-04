@@ -55,7 +55,7 @@
         
       </div>
       
-      <% if @school_guide.edited_by? current_user -%>
+      <% if @school_guide.editable_by? current_user -%>
       <p class="remark">&raquo; <%= link_to "编辑", [:edit, @school, @school_guide] %> | <%= link_to "删除", [@school, @school_guide], :confirm => "确定删除么?", :method => :delete %></p>
       <% end -%>
     </div>

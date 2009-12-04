@@ -25,7 +25,6 @@
 #
 
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: users
 #
@@ -44,7 +43,11 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  old_id                    :integer(4)
+#  topics_count              :integer(4)
+#  posts_count               :integer(4)
+#  guides_count              :integer(4)
+#  shares_count              :integer(4)
+#  ip                        :string(255)
 #
 
 require File.dirname(__FILE__) + '/../spec_helper'
