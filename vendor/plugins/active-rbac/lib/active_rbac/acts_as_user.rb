@@ -52,24 +52,6 @@ module ActsAsUser
     RAILS_DEFAULT_LOGGER.info "============================================================================="
     RAILS_DEFAULT_LOGGER.info klass.reflect_on_association(:roles).inspect
     RAILS_DEFAULT_LOGGER.info "============================================================================="
-    
-    if klass.reflect_on_association(:roles).nil? then
-      RAILS_DEFAULT_LOGGER.debug "Extending class '#{klass}' with habtm :roles and has_role?."
-      
-      klass.class_eval do
-        # Protect the relation roles from mass assignment.
-        # comment following line for http://code.google.com/p/rolerequirement/issues/detail?id=9
-        # attr_protected :roles
-
-        has_and_belongs_to_many :roles, :class_name => options[:role_class].to_s, :uniq => true
-      
-        # This method returns true if the user is assigned the role with one of the
-        # role titles given as parameters. False otherwise.
-        def has_role?(*roles_identifiers)
-          roles.any? { |role| roles_identifiers.include?(role.identifier) }
-        end
-      end
-    end # :roles
 
     if not klass.reflect_on_association(:roles).nil? and not klass.reflect_on_association(:roles).klass.reflect_on_association(:static_permissions).nil? then
       RAILS_DEFAULT_LOGGER.debug "Extending class '#{klass}' with static_permissions and has_static_permission?."
@@ -79,14 +61,14 @@ module ActsAsUser
         # have been assigned to this user through his roles.
         def static_permissions
           permissions = Array.new
-
+    
           roles.each do |role|
             permissions.concat(role.static_permissions)
           end
-
+    
           return permissions
         end
-
+    
         # This method returns true if the user is granted the permission with one
         # of the given permission titles.
         def has_static_permission?(*permissions_identifiers)
