@@ -1081,11 +1081,11 @@ h3.title {
 
 .obu {float:left; width:72px;}
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {height:32px; margin:0; overflow:hidden; text-align:center; color:#AAA;}
+.obu dd {margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
 .obp {float:left; width:120px; margin:12px}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
-.obp dd {height:40px; margin:0; overflow:hidden; text-align:center;}
+.obp dd {margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
 
 .sbtn {border:1px solid black; background:orange; padding:2px;}
@@ -1131,10 +1131,10 @@ h3.title {
 .ad{margin-bottom:10px;}
 
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
-color:#fff;margin:0 4px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+color:#fff;margin:0 2px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;margin:0 1px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
 

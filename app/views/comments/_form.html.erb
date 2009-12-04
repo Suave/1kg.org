@@ -4,7 +4,7 @@
       <h3>写留言</h3>
       <% if logged_in? -%>
         <% form_for :comment, :url => comments_path(commentable) do |f| -%>
-        <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
+        <p><%= fckeditor_textarea("comment", "body", :toolbarSet => 'OneLine', :height => '400px') %></p>
         <p class="submit"><%= submit_tag "提 交" %></p>
         <% end -%>
       <% else -%>
