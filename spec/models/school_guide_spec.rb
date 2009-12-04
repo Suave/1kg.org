@@ -27,7 +27,7 @@ describe SchoolGuide do
   before do
     @school_guide = SchoolGuide.find(1)
     @valid_params = {:title => 'test',
-                     :content => 'content',
+                     :content => 'this is a valid content',
                      :school_id => 1, :user_id => 1}
   end
 

@@ -34,7 +34,7 @@ class SchoolGuide < ActiveRecord::Base
   default_scope :order => 'last_replied_at DESC'
   
   validates_presence_of :title, :message => "不能为空"
-  validates_presence_of :content, :message => "请填写正文"
+  validates_length_of   :content, :minimum => 10, :too_short => "攻略内容不能少于10个字符", :allow_nil => false
   validates_presence_of :school_id, :message => "请选择您去的学校"
   validates_presence_of :user_id
   
@@ -44,13 +44,6 @@ class SchoolGuide < ActiveRecord::Base
   after_create :initial_last_replied
   
   named_scope :recent, :limit => 5, :order => 'created_at DESC', :include => [:school, :tags, :user]
-
-  def edited_by?(user)
-    #user.class == User && (self.user_id == user.id || user.admin?)
-    return false unless user.class == User
-    return true if self.user_id == user.id
-    return true if user.admin?
-  end
     
   def increase_hit_without_timestamping!
     self.hits += 1

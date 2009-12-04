@@ -82,7 +82,7 @@ describe CommentsController do
     it "should update the comment" do
       put :update, @commentable.merge(:id => 1, :comment => {:body => 'new content'})
       response.should be_redirect
-      assigns[:comment].body.should == 'new content'
+      assigns[:comment].reload.body.should == 'new content'
     end
     
     it "should not update comment with invalid params" do
