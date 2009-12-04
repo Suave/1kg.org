@@ -37,7 +37,7 @@ class Comment < ActiveRecord::Base
   def self.archives(type)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
-    counts = Comment.find_by_sql(["select count(*) as count, #{date_func} from comments where commentable_type = ? and created_at < ? and deleted_at is null group by year,month order by year asc,month asc", Time.now, type])
+    counts = Comment.find_by_sql(["select count(*) as count, #{date_func} from comments where commentable_type = ? and created_at < ? and deleted_at is null group by year,month order by year asc,month asc", type, Time.now])
     
     sum = 0
     result = counts.map do |entry|
