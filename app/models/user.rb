@@ -58,12 +58,18 @@ class User < ActiveRecord::Base
   def has_role?(*roles_identifiers)
       roles.any? { |role| roles_identifiers.include?(role.identifier) }
   end
+<<<<<<< HEAD:app/models/user.rb
+=======
+                            
+  belongs_to :geo
+>>>>>>> 259486c02bc600fc8e19502094f955b2bacc4705:app/models/user.rb
 
   has_one :profile, :dependent => :destroy 
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
-                                  :order => "created_at desc"
+                                  :order => "created_at desc", 
+                                  :dependent => :destroy
   has_many :participations, :dependent => :destroy
   has_many :participated_activities, :through => :participations, 
                                      :source => :activity,
@@ -71,7 +77,8 @@ class User < ActiveRecord::Base
   
   has_many :submitted_schools, :class_name => "School", 
                                :conditions => "deleted_at is null",
-                               :order => "created_at desc"
+                               :order => "created_at desc", 
+                               :dependent => :destroy
   has_many :visiteds, :dependent => :destroy 
   has_many :visited_schools, :through => :visiteds, 
                              :source => :school,
