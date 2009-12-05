@@ -41,7 +41,7 @@ class SchoolNeed < ActiveRecord::Base
 #    errors.add_to_base("error")
 #  end
 #  end
-  
+
   private
   def setup_tag
     tag_list = [self.urgency, self.book, self.stationary, self.sport, 
