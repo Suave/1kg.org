@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
       roles.any? { |role| roles_identifiers.include?(role.identifier) }
   end
 
-  has_one :profile
+  has_one :profile, :dependent => :destroy 
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
@@ -77,23 +77,23 @@ class User < ActiveRecord::Base
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc"
-  has_many :posts, :order => "posts.created_at desc"
-  has_many :shares, :order => "created_at desc"
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
+  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy 
+  has_many :shares, :order => "created_at desc", :dependent => :destroy 
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy 
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
-																:foreign_key => "author_id"
+																:foreign_key => "author_id", :dependent => :destroy 
 
 	has_many :received_messages, 	:class_name => "MessageCopy", 
-															 	:foreign_key => "recipient_id"
+															 	:foreign_key => "recipient_id", :dependent => :destroy 
 
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
-														 		:foreign_key 	=> "recipient_id"
+														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
 														 		
-	has_many :neighborhoods, :dependent => :destroy
+	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
   
@@ -102,8 +102,8 @@ class User < ActiveRecord::Base
                            :source => :group, 
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs
-  has_many :votes
+  has_many :stuffs, :dependent => :destroy 
+  has_many :votes, :dependent => :destroy 
   
   before_save :encrypt_password
   
