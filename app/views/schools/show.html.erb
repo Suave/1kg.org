@@ -38,7 +38,7 @@
     <div class="meta_right">
       <%= render :partial => "status" %>
       <h1><%= h @school.title -%></h1>
-      <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校可以上网"><% end %>
+      <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校能上网"><% end %>
       <div class="meta_info">
         <h5 style="font-size:14px;">活跃度</h5><%= karma_star(@school.last_month_average_karma)-%>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
@@ -86,7 +86,7 @@
     <div class="clearfix"></div>
     </div>
     <%end%>
-  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
+  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>能上网。</p>
   <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>

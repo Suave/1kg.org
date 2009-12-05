@@ -1151,5 +1151,5 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 #school_meta{margin-top:20px;margin-left:60px;height:50px}
 .meta_col input{margin-top:5px}
 
-.more{background:url(/images/more.gif) no-repeat;padding-left:14px;color:#666;cursor:pointer;float:right}
+.more{background:url(/images/more.gif) no-repeat;padding-left:14px;padding-right:6px;color:#569701;cursor:pointer;float:right;}
 .more:hover{background-position:0 -13px;}
