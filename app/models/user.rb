@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   cattr_accessor :current_user
 
   acts_as_paranoid
-  
+
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"
   validates_presence_of     :password,                   :if => :password_required?, :message => "密码不能为空"
@@ -46,12 +46,22 @@ class User < ActiveRecord::Base
                               :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
                             }
   
+  has_and_belongs_to_many :roles, :uniq => true
+
+  # This method returns true if the user is assigned the role with one of the
+  # role titles given as parameters. False otherwise.
+  def has_role?(*roles_identifiers)
+    roles.any? { |role| roles_identifiers.include?(role.identifier) }
+  end
+                            
   belongs_to :geo
-  has_one :profile
+
+  has_one :profile, :dependent => :destroy 
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
-                                  :order => "created_at desc"
+                                  :order => "created_at desc", 
+                                  :dependent => :destroy
   has_many :participations, :dependent => :destroy
   has_many :participated_activities, :through => :participations, 
                                      :source => :activity,
@@ -59,29 +69,30 @@ class User < ActiveRecord::Base
   
   has_many :submitted_schools, :class_name => "School", 
                                :conditions => "deleted_at is null",
-                               :order => "created_at desc"
+                               :order => "created_at desc", 
+                               :dependent => :destroy
   has_many :visiteds, :dependent => :destroy 
   has_many :visited_schools, :through => :visiteds, 
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc"
-  has_many :posts, :order => "posts.created_at desc"
-  has_many :shares, :order => "created_at desc"
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy
+  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy
+  has_many :shares, :order => "created_at desc", :dependent => :destroy
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
-																:foreign_key => "author_id"
+																:foreign_key => "author_id", :dependent => :destroy 
 
 	has_many :received_messages, 	:class_name => "MessageCopy", 
-															 	:foreign_key => "recipient_id"
+															 	:foreign_key => "recipient_id", :dependent => :destroy 
 
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
-														 		:foreign_key 	=> "recipient_id"
+														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
 														 		
-	has_many :neighborhoods, :dependent => :destroy
+	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
   
@@ -90,21 +101,21 @@ class User < ActiveRecord::Base
                            :source => :group, 
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs
-  has_many :votes
+  has_many :stuffs, :dependent => :destroy 
+  has_many :votes, :dependent => :destroy 
   
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :avatar
+  attr_accessible :login, :email, :password, :password_confirmation, :avatar, :ip
 
   acts_as_state_machine :initial => :pending, :column => :state
   state :passive
   state :pending, :enter => :make_activation_code
   state :active,  :enter => :do_activate
   state :suspended
-  state :deleted, :enter => :do_delete
+  state :deleted  #, :enter => :do_delete
 
   event :register do
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
@@ -256,6 +267,11 @@ class User < ActiveRecord::Base
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
   end
   
+  def block!
+    self.blocked = true
+    self.save(false)
+  end
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
@@ -292,10 +308,6 @@ class User < ActiveRecord::Base
       self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     end
     
-    def do_delete
-      self.deleted_at = Time.now.utc
-    end
-
     def do_activate
       @activated = true
       self.activated_at = Time.now.utc

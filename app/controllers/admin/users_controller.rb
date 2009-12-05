@@ -102,4 +102,14 @@ class Admin::UsersController < Admin::BaseController
       redirect_to admin_users_path(:type => "admin")
     end
   end
+  
+  def block
+    @user = User.find(params[:id])
+    @user.delete!
+    @user.destroy
+    
+    respond_to do |format|
+      format.html {redirect_to root_path}
+    end
+  end
 end
