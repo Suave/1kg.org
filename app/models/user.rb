@@ -58,11 +58,6 @@ class User < ActiveRecord::Base
   def has_role?(*roles_identifiers)
       roles.any? { |role| roles_identifiers.include?(role.identifier) }
   end
-<<<<<<< HEAD:app/models/user.rb
-=======
-                            
-  belongs_to :geo
->>>>>>> 259486c02bc600fc8e19502094f955b2bacc4705:app/models/user.rb
 
   has_one :profile, :dependent => :destroy 
   

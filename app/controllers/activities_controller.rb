@@ -27,6 +27,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity.user = current_user
     @activity.save!
+    @activity.participators << current_user
     flash[:notice] = "发布成功"
     redirect_to activity_url(@activity)
   end
@@ -69,7 +70,6 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "该活动已删除"
       redirect_to activities_url
     end
-    
     @shares = @activity.shares
     @comments = @activity.comments.paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
