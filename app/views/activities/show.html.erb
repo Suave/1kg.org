@@ -95,7 +95,7 @@
             </tr>
             <%end%>        
             <tr>
-              <%unless @activity.location.blank? %><th>地点</th><td colspan="3"><%= @activity.location %></td><%end%>
+            <%unless @activity.location.blank? %><th>地点</th><td colspan="3"><%= @activity.location %></td><%end%>
             </tr>
             <tr>
               <th>时间</th><td><%= @activity.start_at.to_date %> 至 <%= @activity.end_at.to_date %></td>
@@ -103,10 +103,9 @@
             </tr>
             <tr>
               <%unless @activity.expense_per_head.blank? %><th>人均消费</th><td><%= @activity.expense_per_head %> 元</td><%end%>
-              <%unless  @activity.expect_strength.blank? %><th>预期人数</th><td><%= @activity.expect_strength %> 人</td><%end%>
+              <%unless @activity.expect_strength.blank? %><th>预期人数</th><td><%= @activity.expect_strength %> 人</td><%end%>
             </tr>
           </table>
-
           <%= @activity.description_html %>
         </div>
       </div>

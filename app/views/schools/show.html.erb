@@ -45,6 +45,7 @@
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>
     </div>
+    <div class="clearfix"></div>
   </div>
 
   <div class="school_box">
@@ -74,25 +75,17 @@
     
   <div class="school_box">
     <h3 class="label_lei">学校情况</h3>
-  <%if @need -%>
     <% unless  @need.urgency.blank? -%>
     <p class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <% unless needlist(@school).blank? %>
     <div style="margin-bottom:-10px">
       <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
       <p style="float:left;width:520px;font-size:15px;">
-    <%= link_to_needs @need.book unless @need.book.blank?%>
-    <%= link_to_needs @need.medicine unless @need.medicine.blank?%>
-    <%= link_to_needs @need.stationary unless @need.stationary.blank?%>
-    <%= link_to_needs @need.sport unless @need.sport.blank?%>
-    <%= link_to_needs @need.cloth unless @need.cloth.blank?%>
-    <%= link_to_needs @need.accessory unless @need.accessory.blank?%>
-    <%= link_to_needs @need.course unless @need.course.blank?%>
-    <%= link_to_needs @need.teacher unless @needteacher.blank?%>
-    <%= link_to_needs @need.other unless @need.other.blank?%>
+    <%= needlist(@school)%>
     </p>
     <div class="clearfix"></div>
     </div>
-  <%end%>
+    <%end%>
   <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>可以上网。</p>
   <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
@@ -110,12 +103,12 @@
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos %>
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
       </div>     
       <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_lei">
-        <%unless @photos.length < 0%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
+        <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
         你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
       </p>
       <% end %>
@@ -157,7 +150,6 @@
         </div>
       </div>
       <% end -%>
-    
     <%end%>
     </div>
   </div>
@@ -211,7 +203,10 @@
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
         <% if @school.validated? -%>
+          <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+          <%else%>
+          <%end%>
         <% else -%>
           <div class="contents">
             <p>学校通过验证后才有学校大使</p>
@@ -225,10 +220,22 @@
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
     <% @activity.each do |a| -%>
-    <p class="content_lei"><%= link_for_activity(a,false) %></p>
-    <p>开始时间 <%= a.start_at.to_date%><span style="float:right">发起人<%= link_to a.user.login, user_url(a.user) %></span></p>
+      <div style="padding:8px 4px;border-bottom:1px #ddd solid;">
+        <div style="float:left">
+          <%= avatar_for(a.user, "large") %>
+        </div>
+        <div style="margin-left:60px;">
+          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">活动结束</span><%end%>
+          <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
+          <span style="color:#666666; text-align:right">
+          日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>
+          </span>
+        </div>
+      </div>
+    
+    
     <% end %>
-    <p class="content_lei"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%></p>
+    <p class="content_lei" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%></p>
     </div>  
   </div>
 

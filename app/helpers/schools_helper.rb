@@ -93,8 +93,18 @@ module SchoolsHelper
   end
   
   def link_to_needs(needs)
-    needs.split(' ').map do |need|
-      link_to need, tag_path(:tag => need),:class => "need_tag"
-    end.join(' ')
+    unless needs.blank? 
+      needs.split(' ').map do |need|
+        link_to need, tag_path(:tag => need),:class => "need_tag"
+      end.join(' ')
+    else
+      ""
+    end
   end
+  
+  def needlist(school)
+    list = [school.need.book,school.need.medicine,school.need.stationary,school.need.sport,school.need.cloth,school.need.accessory,school.need.course,school.need.teacher,school.need.other]
+    list.map{|n| link_to_needs(n) }.join('')
+  end
+  
 end
