@@ -83,10 +83,6 @@
               出发地: <%= @activity.departure_id==0 ? "不限" : @activity.departure.name %> /
               目的地: <%= @activity.arrival_id==0 ? "不限" : @activity.arrival.name %>
               </td>
-              <th>标签</th>
-              <td>
-                <% @activity.tags.each do |tag| %><%= link_to h(tag.name), tag_path(:tag => tag.name) %><% end %>
-              </td>
             
             </tr>
             <% if @activity.school_id%>

@@ -40,7 +40,7 @@
       <h1><%= h @school.title -%></h1>
       <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校能上网"><% end %>
       <div class="meta_info">
-        <h5 style="font-size:14px;">活跃度</h5><%= karma_star(@school.last_month_average_karma)-%>
+        <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.last_month_average_karma)-%>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>
@@ -225,7 +225,7 @@
           <%= avatar_for(a.user, "large") %>
         </div>
         <div style="margin-left:60px;">
-          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">活动结束</span><%end%>
+          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">(活动结束了)</span><%end%>
           <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
           <span style="color:#666666; text-align:right">
           日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>

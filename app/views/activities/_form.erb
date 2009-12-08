@@ -11,9 +11,7 @@ schools = current_user.visited_schools
 　  <label>名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
-<p><label class="label">标签 </label>
-    <%= form.text_field :tag_list, :value => "", :size => 40, :class => "formText" %><span>（用空格分隔不同标签 )</span></p>
-    
+  
 <p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %>
 　   <label for="arrival_root">目的地<span class="require">*</span>
   <%if @school.nil?%>  
