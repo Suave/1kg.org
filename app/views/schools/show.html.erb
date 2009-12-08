@@ -76,7 +76,7 @@
   <div class="school_box">
     <h3 class="label_lei">学校情况</h3>
     <% unless  @need.urgency.blank? -%>
-    <p class="content_lei">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <p class="content_lei" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
     <% unless needlist(@school).blank? %>
     <div style="margin-bottom:-10px">
       <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
@@ -114,30 +114,13 @@
       <% end %>
     </div>  
   </div>
-   
-  <div class="school_box">
-    <h3 class="label_lei" >路线攻略</h3>
-    <div class="contents clearfix">
-      <%unless @school.guides.blank?%>
-      <%= render :partial => 'guides', :object => @school.guides %>
-      
-      <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
-      <%else%>
-      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
-      <%end%>
-    </div>
-  </div>
-
-
+    
   <div class="school_box">
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
-    <%if @shares.blank?%>
-    <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
-    <%else%>
-    <p><%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%></p>
+    <%unless @shares.blank?%>
       <% @shares.each do |s| -%>
-      <div style="clear:both;margin-bottom:1em;min-height:50px">
+      <div style="clear:both;margin:10px 0 16px ;min-height:50px">
         <div style="float:left">
           <%= avatar_for(s.user, "large") %>
         </div>
@@ -150,19 +133,37 @@
         </div>
       </div>
       <% end -%>
+    <p class="content_lei">去过这所学校吗？<%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <%else%>
+    <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
     </div>
   </div>
 
-<div class="school_box">
-  <h3 class="label_lei" >学校话题</h3>
-  <div class="contents">
-    <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
-    <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %></p><% end %>
-    <%= link_to "浏览全部话题", board_topics_url(@board) if @topics.size > 5%>
+  <div class="school_box">
+    <h3 class="label_lei" >学校话题</h3>
+    <div class="contents">
+      <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+      <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %></p>
+      <%else%>
+      <p class="content_lei">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%= link_to "全部话题", board_topics_url(@board) if @topics.size > 5%></p>
+      <% end %>
+    </div>
+  </div>  
 
+  
+  <div class="school_box">
+    <h3 class="label_lei" >路线攻略</h3>
+    <div class="contents clearfix">
+      <%unless @school.guides.blank?%>
+      <%= render :partial => 'guides', :object => @school.guides %>
+      
+      <p class="remark"><%= link_to '提交攻略', new_school_school_guide_path(@school),:class => "buttonlink"%></p>
+      <%else%>
+      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
+      <%end%>
+    </div>
   </div>
-</div>  
   
 <% content_for :sidebar do -%>
     <% if logged_in? && current_user.school_moderator? -%>
@@ -235,7 +236,7 @@
     
     
     <% end %>
-    <p class="content_lei" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%></p>
+    <p class="content_lei" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>找更多的人一起去学校。</p>
     </div>  
   </div>
 

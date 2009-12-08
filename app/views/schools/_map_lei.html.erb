@@ -18,10 +18,10 @@
   </script>
 <% end %>
 
-<div id="map_div" title="点击在大地图中查看" style="width: 270px; height: 180px; margin:10px 0;cursor:pointer" onclick="$('#school_large_map').click();"></div>
+<div id="map_div" title="点击在大地图中查看" style="background-color:#ddd;border:1px #ccc solid;width: 268px; height: 178px; margin:10px 0;cursor:pointer" onclick="$('#school_large_map').click();"></div>
 
 <div id="map_info">
   <p class="remark" style="text-align:right">
-    <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 490, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :id => 'school_large_map' ,:style => "display:none;"%>
+    <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map' ,:style => "display:none;"%>
   </p>
 </div>

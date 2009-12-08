@@ -10,14 +10,16 @@
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
       var point = new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>);
-      bigmarker = new GMarker(point, {draggable: 'true'});
+      var green = new GIcon(G_DEFAULT_ICON, "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/marker_green.png");
+      bigmarker = new GMarker(point);
+      greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
       
       <% if @school.edited_by(current_user) %>
-      GEvent.addListener(bigmarker, "dragend", function() {
+      GEvent.addListener(greenmarker, "dragend", function() {
         jQuery.ajax({
           type: 'PUT',
           url: '<%= school_path(@school) %>',
-          data: 'longitude=' + bigmarker.getPoint().lng() + '&latitude=' + bigmarker.getPoint().lat(),
+          data: 'longitude=' + greenmarker.getPoint().lng() + '&latitude=' + greenmarker.getPoint().lat(),
           dataType: "script"
         });
       });
@@ -25,15 +27,14 @@
 
       map.addOverlay(bigmarker);
     }
-  }
-
- window.onload = function(){initializeBig(); bigmarker.disableDragging()}
+  };
+  window.onload = function(){initializeBig(); bigmarker.disableDragging();}
  
 </script>
 
 <div id="map_div" style="width: 500px; height: 380px;"></div>
-<% if @school.edited_by(current_user) %><p class="content_lei">你是学校大使，可以 <a class="adminbutton" onclick="bigmarker.enableDragging(); return false;" href="#">更正位置</a></p><%end%>
+<% if @school.edited_by(current_user) %><p class="content_lei" ><span id="drag">你是学校大使，可以点击 <a class="adminbutton" onclick="bigmarker.remove();map.addOverlay(greenmarker);$('#drag').hide();$('#sure').show(); return false;" href="#">更正位置</a> 。</span><span id="sure" style="display:none"> 拖拽绿色地标到正确位置， <a class="adminbutton" onclick="location.reload(); return false;" href="#">修改完了</a>。</spam></p><%end%>
 <style type="text/css">.adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
-.adminbutton:hover{background-position:0 -21px;color:#fff;}
+color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;text-decoration:none}
+.adminbutton:hover{background-position:0 -21px;color:#fff;} .content_lei{font-size:14px;color:#444;padding:0 5px;margin:10px 0 0}
 </style>
