@@ -79,6 +79,8 @@ class Share < ActiveRecord::Base
   
   def html
     self.clean_html ||= sanitize(self.body_html)
+    self.save if self.clean_html_changed?
+    self.clean_html
   end
   
   private

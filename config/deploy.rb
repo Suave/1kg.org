@@ -2,7 +2,7 @@
 default_run_options[:pty] = true
 
 set :application, "1kg"
-set :user, "1kg"
+set :user, "jill"
 set :repository, "git://github.com/Suave/1kg.org.git"
 set :scm, :git
 
@@ -11,24 +11,7 @@ role :web, "1kg.org"
 role :db, "1kg.org", :primary => true
 
 namespace :deploy do
-  set :deploy_to, "/home/1kg/master"  
-  # namespace :web do
-  #   task :disable, :roles => [:app, :web] do
-  #     on_rollback { delete "#{shared_path}/system/maintenance.html" }
-  #     
-  #     require 'rubygems' 
-  #     require 'haml'
-  #     
-  #     template = File.read("./app/views/layouts/maintenance.html.haml")
-  #     haml = Haml::Engine.new(template)
-  #     maintenance = haml.render(Object.new,
-  #                          :deadline => ENV['UNTIL'],
-  #                          :reason => ENV['REASON'])
-  # 
-  #     put maintenance, "#{shared_path}/system/maintenance.html", 
-  #                      :mode => 0644
-  #   end
-  # end
+  set :deploy_to, "/home/jill/master"  
   
   desc "Custom after update code to put production database.yml in place."
   task :copy_configs, :roles => :app do
@@ -45,7 +28,7 @@ namespace :deploy do
     # ENV['REASON'] = 'an application upgrade'
     # ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
     # web.disable
-    set :deploy_to, "/home/1kg/dev"
+    set :deploy_to, "/home/jill/dev"
     set :branch, "dev"
     set :env, "production"
     
@@ -68,7 +51,7 @@ namespace :deploy do
     #     ENV['REASON'] = 'an application upgrade'
     #     ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
     #     web.disable
-    set :deploy_to, "/home/1kg/master"
+    set :deploy_to, "/home/jill/master"
     set :branch, "master"
     set :env, "production"
     
