@@ -1,4 +1,4 @@
 <p><label class="label">标题</label><%= form.text_field :title, :size => 20, :class => "formText" %></p>
 <div><label class="label"><%= avatar_for current_user, "large" %></label>
-  <%= fckeditor_textarea("topic", "body_html", :toolbarSet => 'OneLine', :width => '80%', :height => '400px') %>
+  <p><%= f.text_area :body, :cols => 60, :rows => 15 %></p>
 </div>
