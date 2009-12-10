@@ -12,7 +12,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h2>编辑活动</h2>
-      <p class="caution">有问题，去<%= link_to "大家帮助大家小组", group_url(1), :target => "_blank" %>!</p>
+      <p class="caution">活动可以关联学校了，如果是去学校的活动，我们建议你从学校的页面发起活动。</p>
       <% form_for :activity, :url => activity_url(@activity.id), :html => {:method => :put} do |f| -%>
       
       <%= render :partial => "form", :object => f %>

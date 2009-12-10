@@ -421,8 +421,8 @@ var DateTimeShortcuts = {
         quickElement('img', cal_link, '', 'src', '/images/calendar/icon_calendar.gif', 'alt', gettext('Calendar'),'style','vertical-align:middle;');
         shortcuts_span.appendChild(document.createTextNode('\240'));
         shortcuts_span.appendChild(cal_link);
-        shortcuts_span.appendChild(document.createTextNode('\240|\240'));
-        shortcuts_span.appendChild(today_link);
+        //shortcuts_span.appendChild(document.createTextNode('\240|\240'));
+        //shortcuts_span.appendChild(today_link);
         shortcuts_span.appendChild(document.createTextNode('\240'));
 
         // Create calendarbox div.

@@ -1158,3 +1158,5 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 
 .boxInner img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
 .notes{margin:-4px 6px 0;color:#666;font-size:13px}
+
+.vDateField{width:70px}

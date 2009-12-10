@@ -66,9 +66,9 @@ namespace :schools do
       school.update_attributes!(:karma => karma) #unless school.karma == karma
 
       # 更新学校当月活跃度
-      last_month_karma = karma - school.snapshots.find_by_created_on(Date.today).karma rescue karma
+      last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
       school.update_attribute(:last_month_karma, last_month_karma)
-      #puts "#{school.title}: #{karma}" unless karma == 0
+      #puts "#{school.title}: #{last_month_karma}" unless karma == 0
     end
   end 
   
