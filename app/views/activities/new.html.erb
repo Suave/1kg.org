@@ -12,9 +12,8 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h2>发布新活动</h2>
-        <p class="caution">活动可以关联学校了，如果是去学校的活动，我们建议你从学校的页面发起活动。</p>
+        <%if @school.nil?%><p class="caution">活动可以关联学校了，如果是去学校的活动，我们建议你从学校的页面发起活动。</p><%end%>
         <% form_for :activity, :url => activities_url do |f| -%>
-
         <%= render :partial => "form", :object => f %>  
         
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></span>带<span class="require">*</span>号的是必填项</p></p>
