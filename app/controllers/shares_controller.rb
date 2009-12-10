@@ -3,12 +3,12 @@ class SharesController < ApplicationController
   before_filter :find_share, :except => [:create, :index]
   
   def index
-    @shares = Share.available.paginate :page => params[:page] || 1,
+    @shares = Share.paginate :page => params[:page] || 1,
                                        :order => "last_replied_at desc",
                                        :select => "id, user_id, title, hits, comments_count, created_at",
                                        :per_page => 10
                                        
-    @hot_users = User.find_by_sql("select users.id, users.login, users.avatar, count(user_id) as count from shares left join users on users.id=shares.user_id group by user_id order by count desc limit 5;");
+    @hot_users = User.find_by_sql("select users.id, users.login, users.avatar, count(user_id) as count from shares left join users on users.id=shares.user_id and users.deleted_at is null where shares.deleted_at is null group by user_id order by count desc limit 5;");
   end
   
   
@@ -38,7 +38,7 @@ class SharesController < ApplicationController
       else
         vote = @share.votes.build(:vote => true, :user_id => current_user.id)
         vote.save(false)
-        flash[:notice] = '投票成功'
+        flash[:notice] = '推荐成功'
         format.html {redirect_to share_path(@share)}
       end
     end

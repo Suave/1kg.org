@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: boards
 #
@@ -12,7 +11,21 @@
 #  topics_count        :integer(4)      default(0)
 #  last_modified_at    :datetime
 #  last_modified_by_id :integer(4)
-#  old_id              :integer(4)
+#
+
+# == Schema Information
+#
+# Table name: boards
+#
+#  id                  :integer(4)      not null, primary key
+#  talkable_id         :integer(4)      not null
+#  talkable_type       :string(255)     not null
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
+#  topics_count        :integer(4)      default(0)
+#  last_modified_at    :datetime
+#  last_modified_by_id :integer(4)
 #
 
 class Board < ActiveRecord::Base

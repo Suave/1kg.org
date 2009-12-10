@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: city_boards
 #
@@ -8,6 +7,7 @@
 #  description      :text
 #  description_html :text
 #
+
 
 class CityBoard < ActiveRecord::Base
   include BodyFormat
@@ -29,7 +29,6 @@ class CityBoard < ActiveRecord::Base
   
   private
   def format_content
-    description.strip! if description.respond_to?(:strip!)
-    self.description_html = description.blank? ? '' : formatting_body_html(description)
+    self.description_html = sanitize(self.description)
   end
 end

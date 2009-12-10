@@ -620,4 +620,4 @@ var DateTimeShortcuts = {
 }
 
 
-addEvent(window, 'load', DateTimeShortcuts.init);
+//addEvent(window, 'load', DateTimeShortcuts.init);

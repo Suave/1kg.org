@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: shares
 #
@@ -22,9 +21,13 @@
 #  last_modified_by_id      :integer(4)
 #  last_replied_at          :datetime
 #  last_replied_by_id       :integer(4)
+#  deleted_at               :datetime
+#  clean_html               :text
 #
 
 class Share < ActiveRecord::Base
+  include BodyFormat
+  
   belongs_to :user
   belongs_to :geo
   belongs_to :activity
@@ -38,15 +41,14 @@ class Share < ActiveRecord::Base
   acts_as_taggable
   acts_as_paranoid
   
-  named_scope :available, :conditions => ["hidden=?", false]
-  
+  before_save  :format_content
   after_create :initial_last_replied
   
-  def self.recent_shares
-    available.find(:all, :order => "last_replied_at desc, comments_count desc",
-                         :limit => 10,
-                         :select => "id, user_id, title, hits, comments_count, created_at")
-  end
+  named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
+                              :limit => 10,
+                              :select => "id, user_id, title, hits, comments_count, created_at",
+                              :include => [:user, :tags]
+
   
   def hit!
     self.class.increment_counter :hits, id
@@ -75,9 +77,16 @@ class Share < ActiveRecord::Base
     return result.reverse
   end
   
+  def html
+    self.clean_html ||= sanitize(self.body_html)
+  end
+  
   private
   def initial_last_replied
     self.update_attributes!(:last_replied_at => self.created_at, :last_replied_by_id => self.user_id)
   end
   
+  def format_content
+    self.clean_html = sanitize(self.body_html)
+  end
 end

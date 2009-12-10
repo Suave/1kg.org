@@ -8,11 +8,9 @@ class SchoolsController < ApplicationController
 
   def index
     respond_to do |format|
-      #@schools = School.recent_upload
       format.html {
-        #@topics = Topic.last_10_updated_topics(SchoolBoard)
-        @photos = Photo.find(:all, :conditions => ["photos.school_id is not null"], :order => "updated_at desc", :limit => 12)
-        @recent_schools = School.recent_upload
+        @photos = Photo.latest.include([:school, :user])
+        @recent_schools = School.recent_upload.validated.include([:user, :geo])
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
         @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find(:all, :order => "created_at desc, start_at desc", :limit => 10)
@@ -163,7 +161,6 @@ class SchoolsController < ApplicationController
                                          :longitude => params[:longitude],
                                          :marked_at => Time.now,
                                          :marked_by_id => current_user.id )
-        render :text => '位置更新成功'
       end
     end
   end
@@ -204,44 +201,43 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
   
-  def show
-    @school = School.find(params[:id])
-    
-    @school.hit!
-    
-    @traffic = @school.traffic
-    @need = @school.need
-    @local   = @school.local
-    @contact = @school.contact
-    @finder  = @school.finder
-    @basic = @school.basic
-    
-    if @school.nil? or @school.deleted?
-      render_404 and return
-    end
-    
-    @visitors = @school.visitors
-    @followers = @school.interestings
-    @moderators = User.moderators_of(@school)
-    @shares = @school.shares
-    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-    if logged_in?
-      @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
-    end
-    
-    @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
-    unless @board.blank?
-      @board = @board.board
-      @topics = @board.latest_topics
-    end 
-  end
+  #旧版的学校页面
+  #def show
+  #  @school = School.find(params[:id])
+  #  
+  #  @school.hit!
+  #  
+  #  @traffic = @school.traffic
+  #  @need = @school.need
+  #  @local   = @school.local
+  #  @contact = @school.contact
+  #  @finder  = @school.finder
+  #  @basic = @school.basic
+  #  
+  #  if @school.nil? or @school.deleted?
+  #    render_404 and return
+  #  end
+  #  
+  #  @visitors = @school.visitors
+  #  @followers = @school.interestings
+  #  @moderators = User.moderators_of(@school)
+  #  @shares = @school.shares
+  #  @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
+  #  if logged_in?
+  #    @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
+  #  end
+  #  
+  #  @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
+  #  unless @board.blank?
+  #    @board = @board.board
+  #    @topics = @board.latest_topics
+  #  end 
+  #end
 
   # 学校页面改版
-  def lei
+  def show
     @school = School.find(params[:id])
-    
     @school.hit!
-    
     @traffic = @school.traffic
     @need = @school.need
     @local   = @school.local
@@ -253,21 +249,22 @@ class SchoolsController < ApplicationController
       render_404 and return
     end
     
-    @visitors = @school.visitors
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares
-    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-    @main_photo=@school.photos.find_by_id @school.main_photo_id
-    if logged_in?
-      @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
-    end
+    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
+    @main_photo = @school.photos.find_by_id @school.main_photo_id
+    
+    @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
+    @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:include => [:user])
+    @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:include => [:user])
+    @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
     unless @board.blank?
       @board = @board.board
       @topics = @board.latest_topics
-    end 
+    end
   end
   
   def destroy
@@ -304,26 +301,52 @@ class SchoolsController < ApplicationController
   end
   
   def visited
-    @school = School.find(params[:id])
-    if @school.visited?(current_user) == false
-      Visited.create!(:user_id => current_user.id,
-                      :school_id => @school.id,
-                      :status => Visited.status('visited'),
-                      :visited_at => params[:visited][:visited_at]
-                     )
-    
-    elsif @school.visited?(current_user) == 'interesting'
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:status => Visited.status('visited'),
-                                 :visited_at => params[:visited][:visited_at]
-                                )
-    
-    elsif @school.visited?(current_user) == 'visited'
-      visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
-      visited.update_attributes!(:visited_at => params[:visited][:visited_at])
-      
+    begin
+      @school = School.find(params[:id])
+      if @school.visited?(current_user) == false
+        Visited.create!(:user_id => current_user.id,
+                        :school_id => @school.id,
+                        :status => Visited.status('visited'),
+                        :notes => params[:visited][:notes],
+                        :visited_at => params[:visited][:visited_at]
+                       )
+        else
+        visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+        visited.update_attributes!(:status => Visited.status('visited'),
+                                   :notes => params[:visited][:notes],
+                                   :visited_at => params[:visited][:visited_at]
+                                  )  
+      end
+      redirect_to school_url(@school)
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = '请正确填写日期，去过的日期不能在今天之后，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
     end
-    redirect_to school_url(@school)
+  end
+ 
+   def wanna
+    begin
+      @school = School.find(params[:id])
+      if @school.visited?(current_user) == false
+        Visited.create!(:user_id => current_user.id,
+                        :school_id => @school.id,
+                        :status => Visited.status('wanna'),
+                        :notes => params[:visited][:notes],
+                        :wanna_at => params[:visited][:wanna_at]
+                       )
+      
+      else
+        visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
+        visited.update_attributes!(:status => Visited.status('wanna'),
+                                   :notes => params[:visited][:notes],
+                                   :wanna_at => params[:visited][:wanna_at]
+                                  )
+      end
+      redirect_to school_url(@school)
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = '请正确填写日期，要去的日期必需在今天之后，格式为 xxxx-xx-xx(年-月-日)'
+      redirect_to school_url(@school)
+    end
   end
   
   def interest
@@ -331,7 +354,7 @@ class SchoolsController < ApplicationController
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
     else
-      flash[:notice] = "你已经选择过感兴趣或去过这所学校了"
+      flash[:notice] = "你已经选去过或想去这所学校了"
     end
     redirect_to school_url(@school)
   end
@@ -376,7 +399,6 @@ class SchoolsController < ApplicationController
       message.author_id = 0
       message.to = [user.id]
       message.save!
-
       flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的学校大使"
       redirect_to moderator_school_url(school)
 
@@ -385,6 +407,19 @@ class SchoolsController < ApplicationController
       flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
       redirect_to moderator_school_url(school)
     end
+  end
+  
+  def setphoto
+    @school = School.find(params[:id])
+    if current_user.school_moderator?
+      @school.main_photo = Photo.find_by_id(params[:p].to_i)
+      @school.save
+      redirect_to school_url(@school)
+    else
+      flash[:notice] = "只有学校大使才可以设置学校主照片"
+      redirect_to school_url(@school)
+    end
+    
   end
   
   private
@@ -413,7 +448,6 @@ class SchoolsController < ApplicationController
     rescue ActiveRecord::RecordInvalid
       flash[:notice] = '请检查所有必填项是否填好'
       render :action => "edit_#{current_step}"
-    
     end
   end
   

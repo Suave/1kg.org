@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: users
 #
@@ -18,7 +17,37 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  old_id                    :integer(4)
+#  topics_count              :integer(4)
+#  posts_count               :integer(4)
+#  guides_count              :integer(4)
+#  shares_count              :integer(4)
+#  ip                        :string(255)
+#
+
+# == Schema Information
+#
+# Table name: users
+#
+#  id                        :integer(4)      not null, primary key
+#  login                     :string(255)
+#  email                     :string(255)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(255)
+#  remember_token_expires_at :datetime
+#  activation_code           :string(40)
+#  activated_at              :datetime
+#  state                     :string(255)     default("passive")
+#  deleted_at                :datetime
+#  avatar                    :string(255)
+#  geo_id                    :integer(4)
+#  topics_count              :integer(4)
+#  posts_count               :integer(4)
+#  guides_count              :integer(4)
+#  shares_count              :integer(4)
+#  ip                        :string(255)
 #
 
 require File.dirname(__FILE__) + '/../spec_helper'
@@ -158,7 +187,6 @@ describe User do
   it 'deletes user' do
     users(:quentin).deleted_at.should be_nil
     users(:quentin).delete!
-    users(:quentin).deleted_at.should_not be_nil
     users(:quentin).should be_deleted
   end
 

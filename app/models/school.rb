@@ -1,23 +1,27 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: schools
 #
-#  id                  :integer(4)      not null, primary key
-#  user_id             :integer(4)
-#  ref                 :string(255)
-#  validated           :boolean(1)
-#  meta                :boolean(1)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  deleted_at          :datetime
-#  category            :integer(4)
-#  geo_id              :integer(4)
-#  county_id           :integer(4)
-#  title               :string(255)     not null
-#  last_modified_at    :datetime
-#  last_modified_by_id :integer(4)
-#  old_id              :integer(4)
+#  id                       :integer(4)      not null, primary key
+#  user_id                  :integer(4)
+#  ref                      :string(255)
+#  validated                :boolean(1)
+#  meta                     :boolean(1)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  deleted_at               :datetime
+#  category                 :integer(4)
+#  geo_id                   :integer(4)
+#  county_id                :integer(4)
+#  title                    :string(255)     not null
+#  last_modified_at         :datetime
+#  last_modified_by_id      :integer(4)
+#  validated_by_id          :integer(4)
+#  validated_at             :datetime
+#  hits                     :integer(4)      default(0)
+#  karma                    :integer(4)      default(0)
+#  last_month_average_karma :integer(4)      default(0)
+#  main_photo_id            :integer(4)
 #
 
 class School < ActiveRecord::Base
@@ -42,6 +46,7 @@ class School < ActiveRecord::Base
   has_many :guides,  :class_name => "SchoolGuide", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
+  has_many :stuffs, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 
@@ -51,11 +56,15 @@ class School < ActiveRecord::Base
                           :source => :user, 
                           :conditions => "status = #{Visited.status('interesting')}"
 
+  has_many :wannas, :through => :visited, 
+                          :source => :user, 
+                          :conditions => "status = #{Visited.status('wanna')}"
+
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
   named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
   # 需要移除
-  named_scope :available, :conditions => {:deleted_at => nil}
+  #named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
@@ -66,6 +75,8 @@ class School < ActiveRecord::Base
     {:conditions => ["geo_id in (?)", city_ids]}
   }
   named_scope :top10_popular, :order => 'last_month_average_karma DESC', :limit => 10
+  named_scope :recent_upload, :order => "created_at desc", :limit => 10
+  named_scope :include, lambda {|includes| {:include => includes}}
   
   @@city_neighbors = {
                         :beijing => {:id => 1, :neighbors => {:hebei => 3, :neimenggu => 27}},
@@ -151,11 +162,7 @@ class School < ActiveRecord::Base
   def last_topic
     self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
   end
-
-  def self.recent_upload
-    validated.find(:all, :order => "created_at desc", :limit => 10)
-  end
-  
+    
   def deleted?
     deleted_at.blank? ? false : true
   end
@@ -193,6 +200,8 @@ class School < ActiveRecord::Base
       'visited'
     elsif visited.status == Visited.status('interesting')
       'interesting'
+    elsif visited.status == Visited.status('wanna')
+      'wanna'
     else
       raise "学校访问数据错误"
     end

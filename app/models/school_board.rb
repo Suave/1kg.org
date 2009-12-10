@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: school_boards
 #
@@ -7,6 +6,18 @@
 #  school_id        :integer(4)      not null
 #  description      :text
 #  description_html :text
+#  deleted_at       :datetime
+#
+
+# == Schema Information
+#
+# Table name: school_boards
+#
+#  id               :integer(4)      not null, primary key
+#  school_id        :integer(4)      not null
+#  description      :text
+#  description_html :text
+#  deleted_at       :datetime
 #
 
 class SchoolBoard < ActiveRecord::Base
@@ -25,8 +36,7 @@ class SchoolBoard < ActiveRecord::Base
   
   private
   def format_content
-    description.strip! if description.respond_to?(:strip!)
-    self.description_html = description.blank? ? '' : formatting_body_html(description)
+    self.description_html = sanitize(description||'')
   end
   
 end

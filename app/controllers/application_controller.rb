@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   
   include AuthenticatedSystem
   include ExceptionNotifiable
-  
+
   before_filter :set_current_user
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -57,7 +57,6 @@ class ApplicationController < ActionController::Base
   def set_current_user
     User.current_user = self.current_user
   end
-  
   
   private
   def app_stop

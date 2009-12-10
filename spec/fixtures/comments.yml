@@ -1,0 +1,17 @@
+share_comment1:
+  id: 1
+  commentable_type: 'Share'
+  commentable_id: 1
+  body: Thank you for the welcome
+  type: Comment
+  user_id: 1
+  created_at: <%= Time.local(2009, 10, 2).to_s(:db) %>
+deleted_comment1:
+  id: 2
+  commentable_type: 'Share'
+  commentable_id: 1
+  body: Thank you for the welcome
+  type: Comment
+  user_id: 1
+  created_at: <%= Time.local(2009, 10, 2).to_s(:db) %>
+  deleted_at: <%= Time.local(2009, 10, 3).to_s(:db) %>  

@@ -9,7 +9,7 @@ class BoardsController < ApplicationController
     
     @publics = Board.find(:all, :conditions => "(deleted_at is NULL or deleted_at='') and talkable_type = 'PublicBoard'")
     
-    #@latest_activity_topics = Topic.last_10_updated_topics(ActivityBoard)
+    @latest_activity_topics = Topic.last_10_updated_topics(ActivityBoard)
     @latest_school_topics   = Topic.last_10_updated_topics(SchoolBoard)
   end
   

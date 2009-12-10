@@ -1,35 +1,30 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
-# Table name: users
+# Table name: school_basics
 #
-#  id                        :integer(4)      not null, primary key
-#  login                     :string(255)
-#  email                     :string(255)
-#  crypted_password          :string(40)
-#  salt                      :string(40)
-#  created_at                :datetime
-#  updated_at                :datetime
-#  remember_token            :string(255)
-#  remember_token_expires_at :datetime
-#  activation_code           :string(40)
-#  activated_at              :datetime
-#  state                     :string(255)     default("passive")
-#  deleted_at                :datetime
-#  avatar                    :string(255)
-#  geo_id                    :integer(4)
-#  old_id                    :integer(4)
+#  id             :integer(4)      not null, primary key
+#  school_id      :integer(4)
+#  address        :string(255)
+#  zipcode        :integer(4)
+#  master         :string(255)
+#  telephone      :string(255)
+#  level_amount   :string(255)
+#  teacher_amount :string(255)
+#  student_amount :string(255)
+#  class_amount   :string(255)
+#  has_library    :integer(1)
+#  has_pc         :integer(1)
+#  has_internet   :integer(1)
+#  book_amount    :integer(4)      default(0)
+#  pc_amount      :integer(4)      default(0)
+#  latitude       :string(255)
+#  longitude      :string(255)
+#  marked_by_id   :integer(4)
+#  marked_at      :datetime
 #
 
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe SchoolBasic do
-  it "should parse address to coordinates before create a new school" do
-    @school_basic = SchoolBasic.new(:address => 'address')
-    User.stub!(:current_user).and_return(mock(User, :id => 1))
-    @school_basic.should_receive(:find_coordinates_by_address).and_return([1.1, 2.2])
-    @school_basic.save
-    @school_basic.latitude.should == 2.2
-    @school_basic.longitude.should == 1.1
-  end
+  it "should parse address to coordinates before create a new school"
 end

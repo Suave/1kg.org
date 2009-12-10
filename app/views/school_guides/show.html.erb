@@ -36,7 +36,7 @@
       </div>
       
       <div class="entry">
-        <%= @school_guide.content %>
+        <%= @school_guide.clean_html %>
         <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @school_guide.user.login, user_url(@school_guide.user) %> 写于 <%= @school_guide.created_at.to_date %>
         </p>
@@ -55,7 +55,7 @@
         
       </div>
       
-      <% if @school_guide.edited_by? current_user -%>
+      <% if @school_guide.editable_by? current_user -%>
       <p class="remark">&raquo; <%= link_to "编辑", [:edit, @school, @school_guide] %> | <%= link_to "删除", [@school, @school_guide], :confirm => "确定删除么?", :method => :delete %></p>
       <% end -%>
     </div>

@@ -1,6 +1,5 @@
 <% @page_title = "发布新活动" -%>
 
-
 <% content_for :crumb do -%>
 <li>发布新活动</li>
 <% end -%>
@@ -15,19 +14,10 @@
         <h2>发布新活动</h2>
         <p class="caution">有问题，去<%= link_to "大家帮助大家小组", group_url(1), :target => "_blank" %>!</p>
         <% form_for :activity, :url => activities_url do |f| -%>
-        <p><label for="activity_category" class="label">类型</label>
-          <select id="activity_category" name="activity[category]">
-            <% Activity.categories.each_with_index do |p,i| -%>
-              <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
-            <% end -%>
-          </select>
-        </p>
-        <p><label for="departure_root" class="label">出发地</label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %></p>
-        <p><label for="arrival_root" class="label">目的地</label><%= geo_select "activity", "arrival", ["不限地域", "0"] %> <%= error_message_on @activity, :arrival_id %></p>
-        
+
         <%= render :partial => "form", :object => f %>  
         
-        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></p>
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></span>带<span class="require">*</span>号的是必填项</p></p>
         <% end -%>
       </div>
     </div>

@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: users
 #
@@ -18,7 +17,11 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  old_id                    :integer(4)
+#  topics_count              :integer(4)
+#  posts_count               :integer(4)
+#  guides_count              :integer(4)
+#  shares_count              :integer(4)
+#  ip                        :string(255)
 #
 
 require 'digest/sha1'
@@ -47,11 +50,21 @@ class User < ActiveRecord::Base
                             }
   
   belongs_to :geo
-  has_one :profile
+  
+  has_and_belongs_to_many :roles, :uniq => true
+
+  # This method returns true if the user is assigned the role with one of the
+  # role titles given as parameters. False otherwise.
+  def has_role?(*roles_identifiers)
+      roles.any? { |role| roles_identifiers.include?(role.identifier) }
+  end
+
+  has_one :profile, :dependent => :destroy 
   
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
-                                  :order => "created_at desc"
+                                  :order => "created_at desc", 
+                                  :dependent => :destroy
   has_many :participations, :dependent => :destroy
   has_many :participated_activities, :through => :participations, 
                                      :source => :activity,
@@ -59,29 +72,30 @@ class User < ActiveRecord::Base
   
   has_many :submitted_schools, :class_name => "School", 
                                :conditions => "deleted_at is null",
-                               :order => "created_at desc"
+                               :order => "created_at desc", 
+                               :dependent => :destroy
   has_many :visiteds, :dependent => :destroy 
   has_many :visited_schools, :through => :visiteds, 
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc"
-  has_many :posts, :order => "posts.created_at desc"
-  has_many :shares, :order => "created_at desc"
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc"
+  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
+  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy 
+  has_many :shares, :order => "created_at desc", :dependent => :destroy 
+  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy 
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
-																:foreign_key => "author_id"
+																:foreign_key => "author_id", :dependent => :destroy 
 
 	has_many :received_messages, 	:class_name => "MessageCopy", 
-															 	:foreign_key => "recipient_id"
+															 	:foreign_key => "recipient_id", :dependent => :destroy 
 
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
-														 		:foreign_key 	=> "recipient_id"
+														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
 														 		
-	has_many :neighborhoods, :dependent => :destroy
+	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
   
@@ -90,8 +104,8 @@ class User < ActiveRecord::Base
                            :source => :group, 
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs
-  has_many :votes
+  has_many :stuffs, :dependent => :destroy 
+  has_many :votes, :dependent => :destroy 
   
   before_save :encrypt_password
   
@@ -305,7 +319,6 @@ class User < ActiveRecord::Base
     def self.search_role_members(role_id)
       u_t = User.table_name.to_s # user table name
       ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
-
       find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end

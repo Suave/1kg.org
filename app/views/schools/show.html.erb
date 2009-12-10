@@ -1,293 +1,269 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
-  
+  <%= stylesheet_link_tag 'school' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
 <% end %>
 
-<% @page_title = @title = "#{h @school.title}" -%>
+<% @page_title = "#{h @school.title}" -%>
 <% @body_class = "schools" -%>
 
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
+    $(".more").toggle(
+  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+  ); 
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
+   
 </script>
 
-<% content_for :crumb do -%>
-<li><%= link_to "学校", schools_url %></li>
-<ul>
-  <li><%= h @school.title %></li>  
-</ul>
+<% content_for :subtitle do -%>
 <% end -%>
 
-<% content_for :subtitle do -%>
-  <div class="subtitle">
-    访问量：<%= @school.hits %><span style="color:#CCC">（自09.8.22）</span>, 活跃度：<%= @school.karma %>
+  <div id="meta">
+    <div class="meta_left">
+      <% if @school.main_photo -%>
+      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
+      <%else%>
+      <img class="school_main" src="/images/school_main.png"/>
+      <%end%>
+      <% if false -%>
+      <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), photo.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
+      <%end%>
+    </div>
+    <div class="meta_right">
+      <%= render :partial => "status" %>
+      <h1><%= h @school.title -%></h1>
+      <% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校能上网"><% end %>
+      <div class="meta_info">
+        <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.last_month_average_karma)-%>
+        <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
+        <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
+      </div>
+    </div>
+    <div class="clearfix"></div>
   </div>
-  <span class="postNew tipText">
-<% if @school.visited?(current_user) == 'visited' -%>
-  我去过
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">修改时间</a>
-  <%= link_to "我没去过", novisited_school_url(@school), :method => :put %>
 
-  <% elsif @school.visited?(current_user) == 'interesting' -%>
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
-  <%= link_to "不关注了", novisited_school_url(@school), :method => :put %>
-
-  <% elsif @school.visited?(current_user) == false -%>
-  <a href="javascript:void(0);" onclick="jQuery('#visit_date').show()">我去过</a>
-  <%= link_to "我关注", interest_school_url(@school), :method => :put %>
-
-  <% end -%>        
-  </span>
-  <div id="what_time">
-  <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put'} do |f| -%>
-  <div id="visit_date" style="display:none">
-    什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="<%= @visited.visited_at.to_date if @visited && @visited.visited_at %>" class="vDateField" />
-    <%= submit_tag "确定" %>
-  </div>
-  <% end -%>
+  <div class="school_box">
+    <a class="more" name='#morecontact'>查看学校联系方式</a>
+    <div id="morecontact" style="display:none">
+    <h3 class="label_lei">联系学校</h3>
+    <% unless @basic.master.blank? %><p class="content_lei">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
+    <% unless @contact.name.blank? %><p class="content_lei">学校的联系人是 <%= h @contact.name %><% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
+    <% unless @contact.telephone.blank? %>，电话 <%= h @contact.telephone %><%end-%>
+    <% unless @contact.email.blank? %>，邮箱 <%= h @contact.email %><%end-%>
+    <% unless @contact.qq.blank? %>，QQ <%= h @contact.qq %><%end-%>。
+    </p><%end-%>
+    <% if @finder -%>
+      <%unless @finder.name.blank? %><p class="content_lei">信息收集人是 <%= h @finder.name %><%end%>
+      <% if logged_in? && current_user.admin? %>
+      <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
+      <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
+      <% end %>
+      <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
+      <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
+           。</p>
+      <% if @finder.survey_at %><p class="content_lei">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
+      <%unless @finder.note.blank? %><p class="content_lei"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+    <% end -%>
+    </div>
   </div>
     
-<% end -%>
+  <div class="school_box">
+    <h3 class="label_lei">学校情况</h3>
+    <% unless  @need.urgency.blank? -%>
+    <p class="content_lei" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <% unless needlist(@school).blank? %>
+    <div style="margin-bottom:-10px">
+      <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
+      <p style="float:left;width:520px;font-size:15px;">
+    <%= needlist(@school)%>
+    </p>
+    <div class="clearfix"></div>
+    </div>
+    <%end%>
+  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑，<%= '不' if @basic.has_internet == 0 %>能上网。</p>
+  <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
+  
+  <% unless @local.ngo_support == 2%>
+  <p class="content_lei">
+  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
+  </p>
+  <%end%>
+</div>
 
-
-<% content_for :sidebar do -%>
-  <%= render :partial => "/shared/ad" %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>地理位置</h3>
-        <%= render :partial => 'school_map', :locals => {:school => @school} %>
+  <div class="school_box">
+    <h3 class="label_lei" >学校相册</h3>
+    <div class="contents clearfix" style="padding-top:16px;">
+      <div class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      </div>     
+      <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
+      <%else%>
+      <p class="content_lei">
+        <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
+        你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
+      </p>
+      <% end %>
+    </div>  
+  </div>
+    
+  <div class="school_box">
+    <h3 class="label_lei">用户分享</h3>
+    <div class="contents clearfix">
+    <%unless @shares.blank?%>
+      <% @shares.each do |s| -%>
+      <div style="clear:both;margin:10px 0 16px ;min-height:50px">
+        <div style="float:left">
+          <%= avatar_for(s.user, "large") %>
+        </div>
+        <div style="margin-left:60px;">
+          <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
+          <span style="color:#999; text-align:right">
+            <%= s.hits %> 浏览/<%= s.comments_count %> 回复
+          </span>
+          <div class="summary">"<%= summary(s,36) %>……"</div>
+        </div>
       </div>
+      <% end -%>
+    <p class="content_lei">去过这所学校吗？<%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <%else%>
+    <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <%end%>
+    </div>
+  </div>
+
+  <div class="school_box">
+    <h3 class="label_lei" >学校话题</h3>
+    <div class="contents">
+      <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+      <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
+      <%else%>
+      <p class="content_lei">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%= link_to "全部话题", board_topics_url(@board) if @topics.size > 5%></p>
+      <% end %>
+    </div>
+  </div>  
+
+  
+  <div class="school_box">
+    <h3 class="label_lei" >路线攻略</h3>
+    <div class="contents clearfix">
+      <%unless @school.guides.blank?%>
+      <%= render :partial => 'guides', :object => @school.guides %>
+      
+      <p class="remark"><%= link_to '提交攻略', new_school_school_guide_path(@school),:class => "buttonlink"%></p>
+      <%else%>
+      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
+      <%end%>
     </div>
   </div>
   
+<% content_for :sidebar do -%>
+    <% if logged_in? && current_user.school_moderator? -%>
+    <div id="admins">你是学校管理员，可以使用以下功能：<br/>
+      <% if @school.validated? -%>
+        <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
+      <% else -%>
+        <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put ,:class => "adminbutton"%>
+      <% end -%>  
+        <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+        <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    </div>
+    <% end -%>
+    <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
+    <div id="admins">你是学校大使，可以使用以下功能：<br/>
+      <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+      <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
+    </div>
+    <% end -%>  
+  <div class="school_sidebar">
+    <h3 class="label_lei">地理位置</h3>
+    <%= render :partial => 'map_lei', :locals => {:school => @school} %>
+    <div class="clear"></div>
+  </div>
   
-  <div class="box" id="cityLatestMembers">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>学校大使</h3>
-        <span class="postNew"><a href="http://www.1kg.org/misc/school-moderator-guide" target="_blank" title="什么是学校大使？">什么是学校大使？</a></span>
+  <div class="school_sidebar">
+    <% unless @traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a><%end%>
+    <div id="moretraffic" style="display:none">
+      <h3 class="label_lei">交通指南</h3>
+      <div class="content_lei" style="margin-top:5px">
+      <%=@traffic.description_html %>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  
+  <div class="school_sidebar" id="cityLatestMembers">
+      <h3 class="label_lei">学校大使</h3>
+      <div class="sidebar_inter">
         <% if @school.validated? -%>
+          <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+          <%else%>
+          <%end%>
         <% else -%>
           <div class="contents">
             <p>学校通过验证后才有学校大使</p>
           </div>
         <% end -%>
-        <p class="remark">
-          <%= link_to "我添加新大使了么？", moderator_school_url(@school) if @school.has_moderator?(current_user) %>
-        </p>
       </div>
-    </div>
+      <div class="clearfix"></div>
   </div>
 
-  <div class="box" id="cityLatestMembers">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>去过的用户</h3>
-        <%= render :partial => "/shared/user_list", :locals => {:users => @visitors} %>
-      </div>
-    </div>
-  </div>
-  
-  <div class="box" id="cityLatestMembers">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>关注的用户</h3>
-        <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
-      </div>
-    </div>
-  </div>
-  
-  <p>&raquo; <%= link_to "前往#{@school.geo.name}", geo_url(@school.geo) %></p>
-  
-<% end -%>
-
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>学校信息<span style="position:relative;text-align:right;margin-left:10px;font-size:12px;font-weight:normal;color:#666" ><%= @school.created_at.to_date %>由<%= link_to @school.user.login, user_url(@school.user) %>提交 <%= validate_for_human @school if false%></span></h3>
-        <div class="tabbedPanel" id="tabs">
-          <%= render :partial => "show_tabmenu" %>
-          <div class="panel setting">
-            <div id='basic'>
-              <form>
-              <% if @basic -%>
-              <p><label>地　　区</label><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></p>
-              <p><label>地　　址</label><%= h @basic.address %>　　邮编： <% unless @basic.zipcode.blank? %><%= h @basic.zipcode %><%else%><span class="unknow">未知</span><%end-%> </p>
-              
-              <p><label>校　　长</label><% unless @basic.master.blank? %><%= h @basic.master %><%else%><span class="unknow">未知</span><%end-%>　　 电话：
-              <% unless @basic.telephone.blank? %><%= h @basic.telephone %></p><%else%><span class="unknow">未知</span><%end-%>
-              <% if @contact -%>
-                <p><label>联&nbsp;&nbsp;系&nbsp;&nbsp;人</label><% unless @contact.name.blank? %><%= h @contact.name %><%else%><span class="unknow">未知</span><%end-%>
-                                　　职务： <% unless @contact.role.blank? %><%= h @contact.role %><%else%><span class="unknow">未知</span><%end-%></p>
-                <p><label>联系方式</label>
-                <% unless @contact.telephone.blank? %>电话： <%= h @contact.telephone %>　<%end-%>
-                <% unless @contact.email.blank? %>邮箱：<%= h @contact.email %>　<%end-%>
-                <% unless @contact.qq.blank? %>QQ：<%= h @contact.qq %>　<%end-%>　</p>
-              <% else -%>
-                <p class="incomplete">没有联系人信息</p>
-              <% end -%>
-              <p><label>学校规模</label>年制：<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　班级：<%unless @basic.class_amount.blank?%><%= h @basic.class_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　学生：<%unless @basic.student_amount.blank?%><%= h @basic.student_amount %><%else%><span class="unknow">未知</span><%end-%>
-              　　老师：<%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %><%else%><span class="unknow">未知</span><%end-%></p>
-              <p><label>学校资源</label>图书：<%= radio_value @basic.has_library %> <%= "#{@basic.book_amount}本书，" if ! @basic.book_amount.blank? %>
-                                                                             　　电脑：<%= radio_value @basic.has_pc %> <%= "#{@basic.pc_amount}台电脑" if ! @basic.pc_amount.blank? %>，上网 <%= radio_value @basic.has_internet %></p>  
-              <% else -%>
-              <p class="incomplete">没有学校基本信息</p>
-              <% end -%>
-              
-              <% if @local %>
-                <% if @local.ngo_support == 0 -%>
-                <p><label>公益团队</label>没有</p>
-                <% elsif @local.ngo_support == 2 -%>
-                <p><label>公益团队</label>未知</p>
-                <% elsif @local.ngo_support == 1 -%>
-                <p><label>公益团队</label><%= h @local.ngo_name %> 　　公益项目：
-                <%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%else%><span class="unknow">未知</span><%end-%></p>
-                <% end -%>
-              <% end %>
-              </form>
-            </div>
-
-            <div id="guides">
-              <form>
-              <% if @school.county -%>
-                <p><label>学校位于</label><%= @school.county.name %></p>
-              <% end -%>
-              <% if @traffic -%>
-                <p><label>周边景点</label><%= h @traffic.sight %>　</p>
-                <p><label>交通指南</label>
-                  <div style="position:relative;top:-20px;left:83px;width:500px"><%=@traffic.description_html %></div>
-                </p>
-                <p>&nbsp;</p>
-              <% else -%>
-                <p class="incomplete">没有交通信息</p>
-              <% end -%>
-              </form>
-            </div>
-
-            <div id="need">
-              <form>
-              <% if @need -%>
-              <% unless  @need.book.blank? -%><p><label>图　　书</label><%= link_to_needs(@need.book) %></p><% end -%>
-              <% unless  @need.stationary.blank? -%><p><label>文　　具</label><%= link_to_needs(@need.stationary) %></p><% end -%>
-              <% unless  @need.sport.blank? -%><p><label>文体用品</label><%= link_to_needs(@need.sport) %></p><% end -%>
-              <% unless  @need.cloth.blank? -%><p><label>衣　　物</label><%= link_to_needs(@need.cloth) %></p><% end -%>
-              <% unless  @need.accessory.blank? -%><p><label>教　　具</label><%= link_to_needs(@need.accessory) %></p><% end -%>
-              <% unless  @need.medicine.blank? -%><p><label>医　　疗</label><%= link_to_needs(@need.medicine) %></p><% end -%>
-              <% unless  @need.course.blank? -%><p><label>课　　程</label><%= link_to_needs(@need.course) %></p><% end -%>
-              <% unless  @need.hardware.blank? -%><p><label>硬　　件</label><%= link_to_needs(@need.hardware) %></p><% end -%>                            
-              <% unless  @need.teacher.blank? -%><p><label>支教老师</label><%= link_to_needs(@need.teacher) %></p><% end -%>
-              <% unless  @need.other.blank? -%><p><label>其它需求</label><%= link_to_needs(@need.other) %></p><% end -%>
-              <% else -%>
-              <p class="incomplete">没有学校需求信息</p>
-              <% end -%>
-              </form>
-            </div>
-
-            <div id="contact">
-              <div style="clear:both"></div>
-              <form>
-              <% if @finder -%>
-                <%unless @finder.name.blank? %><p><label>姓　　名</label><%= h @finder.name %>　</p><%end-%>
-                <% if logged_in? && current_user.admin? %>
-                <%unless @finder.email.blank? %><p><label>邮　　件</label><%= h @finder.email %>　</p><%end-%>
-                <%unless @finder.phone_number.blank? %><p><label>联系电话</label><%= h @finder.phone_number %>　</p><%end-%>
-                <% end %>
-                <%unless @finder.qq.blank? and @finder.msn.blank?%><p><label>QQ/MSN</label><%= h @finder.qq %>/<%= h @finder.msn %>　</p><%end-%>
-                <%unless @finder.survey_at.blank? %><p><label>收集时间</label><%= h @finder.survey_at.to_date if @finder.survey_at %>　</p><%end-%>
-                <%unless @finder.note.blank? %><p style="clear:both"><label> 活动建议</label><%= h @finder.note %>　</p><%end-%>
-              <% else -%>
-
-                <p class="incomplete">没有收集人信息</p>
-
-              <% end -%>
-              </form>
-            </div>
-          </div>
+  <div class="school_sidebar">
+    <h3 class="label_lei">学校活动</h3>
+    <div class="sidebar_inter">
+    <% @activity.each do |a| -%>
+      <div style="padding:8px 4px;border-bottom:1px #ddd solid;">
+        <div style="float:left">
+          <%= avatar_for(a.user, "large") %>
         </div>
-        <p class="remark">
-          &raquo;
-          <% if logged_in? && current_user.school_moderator? -%>
-            <% if @school.validated? -%>
-              <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>
-            <% else -%>
-              <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put %>
-            <% end -%>| 
-          <% end -%>
-          
-          <% if logged_in? && @school.edited_by(current_user) -%>
-            <%= link_to "编辑", edit_school_url(@school) %>
-          <% end -%>
-
-          <% if logged_in? && @school.destroyed_by(current_user) -%>
-            | <%= link_to "删除", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete %>
-          <% end -%>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-    jQuery("#tabs").tabs();
-  </script>
-  
-  <% if false %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>学校活跃度</h3>
-        <div class="contents clearfix">
-          <% render_chart_html '/swfs/FCF_Column3D.swf', '', @school.karma_chart,
-              'myNextHTML', 600, 300, false do-%>
-          <% end -%>
+        <div style="margin-left:60px;">
+          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">(活动结束了)</span><%end%>
+          <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
+          <span style="color:#666666; text-align:right">
+          日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>
+          </span>
         </div>
       </div>
+    
+    
+    <% end %>
+    <p class="content_lei" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
+    </div>  
+  </div>
+
+  <% unless @wannas.blank? %>
+  <div class="school_sidebar">
+    <h3 class="label_lei">要去的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/wanna", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
+    </div>  
+  </div>
+  <%end%>
+
+  <% unless @visits.blank? %>
+  <div class="school_sidebar">
+    <h3 class="label_lei">去过的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
+    </div>  
+  </div>
+  <%end%>
+  
+  <% unless @followers.blank? %>
+  <div class="school_sidebar">
+    <h3 class="label_lei">关注的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
     </div>
   </div>
   <% end %>
-  
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>路线攻略</h3>
-        <div class="contents clearfix">
-          <%= render :partial => 'guides', :object => @school.guides %>
-        </div>
-        <p class="remark">&raquo; <%= link_to '提交攻略', new_school_school_guide_path(@school) %></p>
-      </div>
-    </div>
-  </div>
-  
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>学校照片</h3>
-        <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:school => @school.id) %></span>
-        <div class="contents clearfix">
-          <%= render :partial => "gallery_photo", :collection => @photos %>
-        </div>
-        <p class="remark">&raquo; <%= link_to "全部图片", photos_school_path(@school) %></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>用户分享</h3>
-        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
-        <div class="contents">
-          <%= render :partial => '/shares/shares' %>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <%= render :partial => "/topics/latest_topics", :locals => {:title => "学校话题", :board => @board, :topics => @topics} %>
+<% end -%>

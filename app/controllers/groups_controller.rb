@@ -62,6 +62,7 @@ class GroupsController < ApplicationController
     if @group.joined?(current_user)
       flash[:notice] = "你已经加入这个小组了"
     else
+      flash[:notice] = "你加入了#{@group.title}小组"
       @group.members << current_user
     end
     redirect_to CGI.unescape(params[:to] || group_url(@group))

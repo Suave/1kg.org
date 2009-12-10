@@ -12,7 +12,7 @@
       <div class="contents">
         <ul>
           <% @bulletins.each do |b| %>
-            <li>[<%= b.created_at.to_formatted_s(:month_and_day) %>] <%= link_to b.title, bulletin_url(b) %></li>
+            <li style="list-style:none">[<%= b.created_at.to_formatted_s(:month_and_day) %>] <%= link_to b.title, bulletin_url(b) %></li>
           <% end %>
         </ul>
       </div>
@@ -127,7 +127,7 @@
     <div class="boxInner">
       <h3>最新用户动态</h3>
       <div class="contents">
-        <%= render :partial => "/shared/visit", :collection => @visits %>
+        <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
       </div>
       <!--<p class="remark">&raquo; <%= link_to "浏览全部用户活动", '#' %></p>-->
     </div>

@@ -60,12 +60,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
   
   
-  map.resources :schools, :member => {:lei => :get,
-                                      :large_map => :get,
+  map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
+                                      :wanna => :put,
+                                      :setphoto => :put,
                                       :novisited => :put,
                                       :moderator => :get,
                                       :marked => :put,
@@ -143,7 +144,7 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :roles
     admin.resources :permissions
-    admin.resources :users, :collection => {:search => :get}
+    admin.resources :users, :collection => {:search => :get}, :member => {:block => :put}
     admin.resources :geos
     admin.resources :counties
     admin.resources :boards, :member => {:active => :put, :deactive => :put}

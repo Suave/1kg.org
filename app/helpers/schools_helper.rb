@@ -51,6 +51,9 @@ module SchoolsHelper
     end
 
     html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
+    if current_user && current_user.school_moderator?
+    html += "<p> #{link_to '设置为主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
+    end
     html += "<p>分享到 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
     html += "<p>#{h(photo.description)}</p>"
     html
@@ -71,13 +74,37 @@ module SchoolsHelper
   
   def karma_star(karma)
     #要加上活跃度评星算法
-    count = 4
+    if karma == nil
+      count = 0
+    elsif karma > 620
+      count = 5
+    elsif karma > 300
+      count = 4
+    elsif karma > 140
+      count = 3
+    elsif karma > 60
+      count = 2
+    elsif karma > 20
+      count = 1
+    else
+      count = 0
+    end
     html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
   end
   
   def link_to_needs(needs)
-    needs.split(',').map do |need|
-      link_to need, tag_path(:tag => need)
-    end.join(' ')
+    unless needs.blank? 
+      needs.split(' ').map do |need|
+        link_to need, tag_path(:tag => need),:class => "need_tag"
+      end.join(' ')
+    else
+      ""
+    end
   end
+  
+  def needlist(school)
+    list = [school.need.book,school.need.medicine,school.need.stationary,school.need.sport,school.need.cloth,school.need.accessory,school.need.course,school.need.teacher,school.need.other]
+    list.map{|n| link_to_needs(n) }.join('')
+  end
+  
 end

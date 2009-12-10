@@ -28,18 +28,15 @@ class SchoolGuidesController < ApplicationController
     @school_guide = SchoolGuide.find(params[:id])
     
     respond_to do |format|
-      if @school_guide.nil?
-        flash[:notice] = '对不起，攻略不存在'
-        format.html {redirect_to root_path}
-      elsif current_user.voted?(@school_guide)
+      if current_user.voted?(@school_guide)
         flash[:notice] = '对不起，您已经投过票了'
-        format.html {redirect_to [@school, @school_guide]}
       else
         vote = @school_guide.votes.build(:vote => true, :user_id => current_user.id)
         vote.save(false)
         flash[:notice] = '投票成功'
-        format.html {redirect_to [@school, @school_guide]}
       end
+      
+      format.html {redirect_to [@school, @school_guide]}
     end
   end
   
@@ -57,19 +54,14 @@ class SchoolGuidesController < ApplicationController
   end
   
   def show
-    @school_guide = SchoolGuide.find_by_id(params[:id])
+    @school_guide = SchoolGuide.find(params[:id])
 
     respond_to do |format|
-      if @school_guide
-        @voters = @school_guide.votes.map(&:user)
-        @school_guide.increase_hit_without_timestamping!
-        @comments = @school_guide.comments.paginate :page => params[:page] || 1, :per_page => 15
-        @comment = Comment.new
-        format.html
-      else
-        flash[:notice] = '对不起攻略不存在'
-        format.html { redirect_to root_path }
-      end
+      @voters = @school_guide.votes.map(&:user)
+      @school_guide.increase_hit_without_timestamping!
+      @comments = @school_guide.comments.paginate :page => params[:page] || 1, :per_page => 15
+      @comment = Comment.new
+      format.html
     end
   end
   
@@ -85,6 +77,6 @@ class SchoolGuidesController < ApplicationController
   
   private
   def set_school
-    @school = School.find_by_id(params[:school_id])
+    @school = School.find(params[:school_id])
   end
 end

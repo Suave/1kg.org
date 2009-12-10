@@ -36,3 +36,5 @@ div.info div.text {margin:5px 0 0 80px; }
 .passwordInput {font-size:1.3em; margin:30px 0 30px 30px;}
 .passwordInput input {border:1px solid #CCC; padding:2px; font-size:1em; width:160px; background:#fffec8;}
 .passwordInput input.submit {background: url(../images/button-newsletter.png) no-repeat; width: 49px; height: 25px; color: #fff; border: 0; font-size:1em;}
+
+#warning {margin:0 30px;padding:10px 10px;font-size:13px; line-height:1.8em; border:1px dashed red; background:#ffffaa;text-align:center}

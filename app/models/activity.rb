@@ -1,5 +1,33 @@
 # == Schema Information
-# Schema version: 20090430155946
+#
+# Table name: activities
+#
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)      not null
+#  school_id        :integer(4)
+#  done             :boolean(1)
+#  created_at       :datetime
+#  updated_at       :datetime
+#  deleted_at       :datetime
+#  ref              :string(255)
+#  category         :integer(4)      not null
+#  title            :string(255)     not null
+#  location         :string(255)     not null
+#  departure_id     :integer(4)      not null
+#  arrival_id       :integer(4)      not null
+#  start_at         :datetime
+#  end_at           :datetime
+#  register_over_at :datetime
+#  expense_per_head :string(255)
+#  expect_strength  :string(255)
+#  description_html :text
+#  comments_count   :integer(4)      default(0)
+#  old_id           :integer(4)
+#  sticky           :boolean(1)
+#  clean_html       :text
+#
+
+# == Schema Information
 #
 # Table name: activities
 #
@@ -35,16 +63,20 @@ class Activity < ActiveRecord::Base
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
   
-  #has_one    :discussion, :class_name => "ActivityBoard"
+  has_many :participations, :dependent => :destroy
+  has_many :participators,  :through => :participations, :source => :user
+  
+  has_many :comments, :as => 'commentable', :dependent => :destroy
+  has_many :shares
+
+  acts_as_taggable
   
   has_many :participation, :dependent => :destroy
   has_many :participators,  :through => :participation, :source => :user
   
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
-#  belongs_to :school
 
-  #named_scope :hiring,   :conditions => ["start_at > ?", Time.now]
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
@@ -79,15 +111,15 @@ class Activity < ActiveRecord::Base
   validates_presence_of :end_at, :message => "结束时间是必填项"
   
   acts_as_paranoid
-  #before_save :format_content
   
+  before_save :format_content
   
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end
   
   def self.recent_by_category(category)
-    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10
+    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10, :include => [:user, :departure, :arrival]
   end
   
   
@@ -138,10 +170,12 @@ class Activity < ActiveRecord::Base
     return result.reverse
   end
   
-  private
-  def format_content
-    description.strip! if description.respond_to?(:strip!)
-    self.description_html = description.blank? ? '' : formatting_body_html(description)
+  def html
+    self.clean_html ||= sanitize(self.description_html)
   end
   
+  private
+  def format_content
+    self.clean_html = sanitize(self.description_html)
+  end
 end

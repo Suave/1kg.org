@@ -14,7 +14,6 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-  
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">
@@ -23,6 +22,7 @@
           <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
           <table>
             <% @stuffs.each do |s| -%>
+            <% next if s.school.nil? %>
             <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
             <% end -%>
           </table>
@@ -46,6 +46,12 @@
 
 
 <h2 class="title"><%= h @user.login %></h2>
+
+<% if logged_in? && current_user.school_moderator? %>
+<div class="moderators tipText"><strong>
+  [ <%= link_to '封锁此用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？' %> ]
+</strong></div>
+<% end %>
 
 <% if @user == current_user -%>
 <div class="moderators tipText"><strong>
