@@ -5,10 +5,12 @@
     <th>最后更新</th>
   </tr>
   <% last_10_updated_topics.each do |topic| -%>
+  <% unless topic.board.talkable.school.nil?%>
   <tr class="<%= cycle('odd', 'even') %>">
     <td><%= link_to topic.title, board_topic_url(topic.board, topic), :title => "#{topic.user.login} 写于 #{topic.board.talkable.school.title}" %></td>
     <td><%= topic.posts_count %></td>
     <td><%= link_to "#{month_and_day topic.last_replied_datetime} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic.id, :anchor => (topic.last_post.id if topic.last_post)) %></td>
   </tr>
+  <%end%>
   <% end -%>
 </table>

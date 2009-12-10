@@ -21,13 +21,13 @@
       </div>
       <% form_for :visited, :url => visited_school_url(@school), :html => {:method => 'put',:id=>"visited_date",:class => "what_time",:style => "display:none"} do |f| -%>
       <p>什么时间去的？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="" class="vDateField" /></p>
-      <p>有什么感受？<input type="text" name="visited[notes]" id="visited_notes"/>(14个字以内)</p>
+      <!--<p>有什么感受？<input type="text" name="visited[notes]" id="visited_notes"/>(14个字以内)</p>-->
       <p class="date_submit"><%= submit_tag "确定"%> <input type="submit" value="取消" name="commit" onclick="jQuery('#visited_date').hide();return false"/></p>
       <% end -%>
       
       <% form_for :visited, :url => wanna_school_url(@school), :html => {:method => 'put',:id=>"wanna_date",:class => "what_time",:style => "display:none"} do |f| -%>
       <p>计划什么时间去？ <input id="visited_wanna_at" name="visited[wanna_at]" type="text" value="" class="vDateField" /></p>
-      <p>什么交通方式？<input type="text" name="visited[notes]" id="visited_notes" />(14个字以内)</p>
+      <!--<p>什么交通方式？<input type="text" name="visited[notes]" id="visited_notes" />(14个字以内)</p>-->
       <p class="date_submit"><%= submit_tag "确定" %> <input type="submit" value="取消" name="commit" onclick="jQuery('#wanna_date').hide();return false"/></p>
       <% end -%>
       

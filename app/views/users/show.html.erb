@@ -14,6 +14,23 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
+
+  <% unless @visits.blank? %>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>去过的学校</h3>
+        <div class="contents">
+        <%@visits.each do |visit|%>
+        <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过 <%= link_to h(visit.school.title), school_path(visit.school)%></p>
+        <div class="notes"><%= "“#{h visit.notes}“" unless visit.notes.blank?%></div>
+        </div>
+        <%end%>
+      </div>
+     </div>  
+  </div>
+  <%end%>
+  
   <div class="box">
     <div class="boxOuter">
       <div class="boxInner">

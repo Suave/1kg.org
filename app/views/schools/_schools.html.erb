@@ -12,7 +12,7 @@
     <% next if school.nil? %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to school.title, school_url(school) %></td>
-      <td><%= school.karma %></td>
+      <td><%= school.last_month_karma %></td>
       <td><%= link_to school.user.login, user_url(school.user) unless school.user.nil? %></td>
 
     </tr>

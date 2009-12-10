@@ -403,91 +403,7 @@ var DateTimeShortcuts = {
             }
         }
     },
-    // Add clock widget to a given field
-    addClock: function(inp) {
-        var num = DateTimeShortcuts.clockInputs.length;
-        DateTimeShortcuts.clockInputs[num] = inp;
-
-        // Shortcut links (clock icon and "Now" link)
-        var shortcuts_span = document.createElement('span');
-        inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
-        var now_link = document.createElement('a');
-        now_link.setAttribute('href', "javascript:DateTimeShortcuts.handleClockQuicklink(" + num + ", new Date().getHourMinuteSecond());");
-        now_link.appendChild(document.createTextNode(gettext('Now')));
-        var clock_link = document.createElement('a');
-        clock_link.setAttribute('href', 'javascript:DateTimeShortcuts.openClock(' + num + ');');
-        clock_link.id = DateTimeShortcuts.clockLinkName + num;
-        quickElement('img', clock_link, '', 'src', '/images/calendar/icon_clock.gif', 'alt', gettext('Clock'));
-        shortcuts_span.appendChild(document.createTextNode('\240'));
-        shortcuts_span.appendChild(now_link);
-        shortcuts_span.appendChild(document.createTextNode('\240|\240'));
-        shortcuts_span.appendChild(clock_link);
-
-        // Create clock link div
-        //
-        // Markup looks like:
-        // <div id="clockbox1" class="clockbox module">
-        //     <h2>Choose a time</h2>
-        //     <ul class="timelist">
-        //         <li><a href="#">Now</a></li>
-        //         <li><a href="#">Midnight</a></li>
-        //         <li><a href="#">6 a.m.</a></li>
-        //         <li><a href="#">Noon</a></li>
-        //     </ul>
-        //     <p class="calendar-cancel"><a href="#">Cancel</a></p>
-        // </div>
-
-        var clock_box = document.createElement('div');
-        clock_box.style.display = 'none';
-        clock_box.style.position = 'absolute';
-        clock_box.className = 'clockbox module';
-        clock_box.setAttribute('id', DateTimeShortcuts.clockDivName + num);
-        document.body.appendChild(clock_box);
-        addEvent(clock_box, 'click', DateTimeShortcuts.cancelEventPropagation);
-
-        quickElement('h2', clock_box, gettext('Choose a time'));
-        time_list = quickElement('ul', clock_box, '');
-        time_list.className = 'timelist';
-        quickElement("a", quickElement("li", time_list, ""), gettext("Now"), "href", "javascript:DateTimeShortcuts.handleClockQuicklink(" + num + ", new Date().getHourMinuteSecond());")
-        quickElement("a", quickElement("li", time_list, ""), gettext("Midnight"), "href", "javascript:DateTimeShortcuts.handleClockQuicklink(" + num + ", '00:00:00');")
-        quickElement("a", quickElement("li", time_list, ""), gettext("6 a.m."), "href", "javascript:DateTimeShortcuts.handleClockQuicklink(" + num + ", '06:00:00');")
-        quickElement("a", quickElement("li", time_list, ""), gettext("Noon"), "href", "javascript:DateTimeShortcuts.handleClockQuicklink(" + num + ", '12:00:00');")
-
-        cancel_p = quickElement('p', clock_box, '');
-        cancel_p.className = 'calendar-cancel';
-        quickElement('a', cancel_p, gettext('Cancel'), 'href', 'javascript:DateTimeShortcuts.dismissClock(' + num + ');');
-    },
-    openClock: function(num) {
-        var clock_box = document.getElementById(DateTimeShortcuts.clockDivName+num)
-        var clock_link = document.getElementById(DateTimeShortcuts.clockLinkName+num)
-    
-        // Recalculate the clockbox position
-        // is it left-to-right or right-to-left layout ?
-        if (getStyle(document.body,'direction')!='rtl') {
-            clock_box.style.left = findPosX(clock_link) + 17 + 'px';
-        }
-        else {
-            // since style's width is in em, it'd be tough to calculate
-            // px value of it. let's use an estimated px for now
-            // TODO: IE returns wrong value for findPosX when in rtl mode
-            //       (it returns as it was left aligned), needs to be fixed.
-            clock_box.style.left = findPosX(clock_link) - 110 + 'px';
-        }
-        clock_box.style.top = findPosY(clock_link) - 30 + 'px';
-    
-        // Show the clock box
-        clock_box.style.display = 'block';
-        addEvent(window, 'click', function() { DateTimeShortcuts.dismissClock(num); return true; });
-    },
-    dismissClock: function(num) {
-       document.getElementById(DateTimeShortcuts.clockDivName + num).style.display = 'none';
-       window.onclick = null;
-    },
-    handleClockQuicklink: function(num, val) {
-       DateTimeShortcuts.clockInputs[num].value = val;
-       DateTimeShortcuts.dismissClock(num);
-    },
-    // Add calendar widget to a given field.
+        // Add calendar widget to a given field.
     addCalendar: function(inp) {
         var num = DateTimeShortcuts.calendars.length;
 
@@ -495,7 +411,7 @@ var DateTimeShortcuts = {
 
         // Shortcut links (calendar icon and "Today" link)
         var shortcuts_span = document.createElement('span');
-        inp.parentNode.insertBefore(shortcuts_span, inp.nextSibling);
+        $(inp).before(shortcuts_span, inp.nextSibling);
         var today_link = document.createElement('a');
         today_link.setAttribute('href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', 0);');
         today_link.appendChild(document.createTextNode(gettext('Today')));
@@ -504,9 +420,10 @@ var DateTimeShortcuts = {
         cal_link.id = DateTimeShortcuts.calendarLinkName + num;
         quickElement('img', cal_link, '', 'src', '/images/calendar/icon_calendar.gif', 'alt', gettext('Calendar'),'style','vertical-align:middle;');
         shortcuts_span.appendChild(document.createTextNode('\240'));
-        shortcuts_span.appendChild(today_link);
-        shortcuts_span.appendChild(document.createTextNode('\240|\240'));
         shortcuts_span.appendChild(cal_link);
+        shortcuts_span.appendChild(document.createTextNode('\240|\240'));
+        shortcuts_span.appendChild(today_link);
+        shortcuts_span.appendChild(document.createTextNode('\240'));
 
         // Create calendarbox div.
         //

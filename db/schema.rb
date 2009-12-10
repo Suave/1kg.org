@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "validated_by_id"
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
-    t.integer  "last_month_average_karma", :default => 0
+    t.integer  "last_month_karma", :default => 0
   end
 
   create_table "shares", :force => true do |t|
