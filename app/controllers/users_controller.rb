@@ -181,9 +181,10 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-    @shares = @user.shares.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
-    @guides = @user.guides
+    @shares = @user.shares.paginate(:page => 1, :per_page => 5)
+    @guides = @user.guides.paginate(:page => 1, :per_page => 5)
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1})
+    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3})
     @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
   end
@@ -195,7 +196,15 @@ class UsersController < ApplicationController
     @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], 
                                       :select => "title, hits, comments_count, created_at, id")
   end
-  
+
+  def guides
+    
+    get_user_record(@user)
+    
+    @shares = @user.guides.find(:all, :conditions => ["hidden=?", false], 
+                                      :select => "title, hits, comments_count, created_at, id")
+  end
+
   def neighbors
     get_user_record(@user)
     @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :per_page => "50"

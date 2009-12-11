@@ -76,18 +76,18 @@ module SchoolsHelper
     #要加上活跃度评星算法
     if karma == nil
       count = 0
-    elsif karma > 620
-      count = 5
-    elsif karma > 300
-      count = 4
-    elsif karma > 140
-      count = 3
-    elsif karma > 60
-      count = 2
-    elsif karma > 20
-      count = 1
-    else
+    elsif karma < 20
       count = 0
+    elsif karma < 40
+      count = 1
+    elsif karma < 80
+      count = 2
+    elsif karma < 160
+      count = 3
+    elsif karma < 320
+      count = 4
+    else
+      count = 5
     end
     html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
   end

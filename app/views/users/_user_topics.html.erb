@@ -5,20 +5,21 @@
       
       <div class="tabbedPanel" id="topics_tabs">
         <ul class="tab">
-          <% [["发起的话题", "submitted"], ["参与的话题", "participated"]].each do |type| %>
+          <% [["参与的话题", "participated"],["发起的话题", "submitted"]].each do |type| %>
             <li><%= link_to type[0], "##{type[1]}" %></li>
           <% end -%>
         </ul>
 
         <div class="panel setting">
-          <div id="submitted">
-            <%= render :partial => "/users/group_topics", :object => submitted_topics %>
-            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(user) %> (<%= user.topics.size %>)</p>
-          </div>
           
           <div id="participated">
             <%= render :partial => "/users/group_topics", :object => participated_topics %>
             <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(user) %> (<%= user.posts.size %>)</p>
+          </div>
+
+          <div id="submitted">
+            <%= render :partial => "/users/group_topics", :object => submitted_topics %>
+            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(user) %> (<%= user.topics.size %>)</p>
           </div>
         </div>
       </div>

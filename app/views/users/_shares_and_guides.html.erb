@@ -33,7 +33,6 @@
             <% else -%>
               <%= render :partial => "/schools/guides", :object => guides %>
             <% end -%>
-            <p class="remark">&raquo; <%= link_to "查看#{user.login}的全部攻略", guides_user_url(user) %> (<%= user.guides.size %>)</p>
           </div>
         </div>
       </div>

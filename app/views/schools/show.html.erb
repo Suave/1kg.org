@@ -29,10 +29,7 @@
       <%else%>
       <img class="school_main" src="/images/school_main.png"/>
       <%end%>
-      <% if false -%>
-      <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), photo.public_filename(:medium), 
-        :rel => "prettyPhoto[gallery]", :description => photo_meta(photo, current_user), :title => photo.title,:class => "photo_small" %>
-      <%end%>
+      
     </div>
     <div class="meta_right">
       <%= render :partial => "status" %>
@@ -181,7 +178,6 @@
     <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
     <div id="admins">你是学校大使，可以使用以下功能：<br/>
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
-      <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
       <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>  

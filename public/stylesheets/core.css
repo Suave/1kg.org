@@ -1160,3 +1160,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 .notes{margin:-4px 6px 0;color:#666;font-size:13px}
 
 .vDateField{width:70px}
+
+.school_list_photo{float:left;width:107px;height:80px}
+.school_list_meta{float:left;margin-left:10px}
+.school_list_meta h5{font-size:14px;margin:2px 0}

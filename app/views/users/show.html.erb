@@ -15,6 +15,32 @@
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
 
+<% unless @wannas.blank? %>
+  <div class="box">
+    <div class="boxOuter">
+      <div class="boxInner">
+        <h3>要去的学校</h3>
+        <div class="contents">
+        <%@wannas.each do |visit|%>
+        <% if visit.school.main_photo -%>
+        <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
+        <%else%>
+        <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+        <%end%>        
+        <div class="school_list_meta" style="width:128px">
+        <p><% unless visit.wanna_at.blank? %>计划在<%= l(visit.wanna_at.to_date, :format => :short) %><%end%>去</p>
+        <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
+        <span>活跃度</span>
+        <%= karma_star(visit.school.last_month_karma)-%>
+        </div>
+        </div>
+        <%end%>
+        <div class="clear" style="height:20px"></div>
+      </div>
+     </div>  
+  </div>
+  <%end%>
+
   <% unless @visits.blank? %>
   <div class="box">
     <div class="boxOuter">
@@ -22,10 +48,20 @@
         <h3>去过的学校</h3>
         <div class="contents">
         <%@visits.each do |visit|%>
-        <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过 <%= link_to h(visit.school.title), school_path(visit.school)%></p>
-        <div class="notes"><%= "“#{h visit.notes}“" unless visit.notes.blank?%></div>
+        <% if visit.school.main_photo -%>
+        <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
+        <%else%>
+        <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+        <%end%>        
+        <div class="school_list_meta" style="width:128px">
+        <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过</p>
+        <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
+        <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
+        </div>
+        
         </div>
         <%end%>
+        <div class="clear" style="height:20px"></div>
       </div>
      </div>  
   </div>
@@ -76,10 +112,12 @@
 </strong></div>
 <% end -%>
 
-<%= render :partial => "shares_and_guides", :locals => {:user => @user, :shares => @shares, :guides => @guides} %>
-<%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
+<%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
+<%= render :partial => "shares_and_guides", :locals => {:user => @user, :shares => @shares, :guides => @guides} %>
+<script type="text/javascript">
+  jQuery("#tabs").tabs();
+</script>
 <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
-
 
 

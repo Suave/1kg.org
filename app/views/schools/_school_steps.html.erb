@@ -1,8 +1,8 @@
 <div class="school-steps">
   <ol class="clearfix">
-    <li <%if @step != 'basic' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=basic'" style="cursor:pointer"<%end%> class="first <%= 'current' if step == 'basic' %>"> 编辑学校基本信息</li>
-    <li <%if @step != 'traffic' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=traffic'" style="cursor:pointer"<%end%> class="middle <%= 'current' if step == 'traffic' %>"> 编辑交通信息</li>
-    <li <%if @step != 'need' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=need'" style="cursor:pointer"<%end%> class="middle <%= 'current' if step == 'need' %>"> 编辑学校需求</li>
-    <li <%if @step != 'other' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=other'" style="cursor:pointer"<%end%> class="last <%= 'current' if step == 'other' %>"> 编辑收集人信息<span class="hook"></span></li>
+    <li <%if @step != 'basic' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=basic'" style="cursor:pointer"<%end%> class="first <%= 'current' if step == 'basic' %>"> 学校基本信息</li>
+    <li <%if @step != 'traffic' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=traffic'" style="cursor:pointer"<%end%> class="middle <%= 'current' if step == 'traffic' %>"> 学校交通信息</li>
+    <li <%if @step != 'need' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=need'" style="cursor:pointer"<%end%> class="middle <%= 'current' if step == 'need' %>"> 学校需求</li>
+    <li <%if @step != 'other' %>onclick="javascript:window.location='/schools/<%=@school.id%>/edit?step=other'" style="cursor:pointer"<%end%> class="last <%= 'current' if step == 'other' %>"> 收集人信息<span class="hook"></span></li>
   </ol>
 </div>
