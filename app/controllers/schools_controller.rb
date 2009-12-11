@@ -370,7 +370,7 @@ class SchoolsController < ApplicationController
   end
   
   def check
-    @school = School.find_by_geo_id_and_title(params[:geo_id], params[:title])
+    @school = School.find(:first, :conditions => ['geo_id = ? and title like ?', params[:geo_id], "%#{params[:title]}%"]) rescue nil
     
     respond_to do |format|
       format.html {
