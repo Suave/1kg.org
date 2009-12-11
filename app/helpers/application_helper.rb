@@ -111,6 +111,7 @@ module ApplicationHelper
     end
     
     inputs << %Q"<img src='/images/indicator.gif' id='#{method}_indicator' class='indicator' style='display:none' />"
+    #inputs << %(<script type="text/javascript" charset="utf-8">$().ready(function(){$("#school_geo_id").val('#{value}');});</script>)
     return inputs << observe_field("##{method}_root",
                                      :frequency => 0.25,
                                      :loading => "jQuery('##{method}_indicator').show()",

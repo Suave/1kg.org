@@ -1,3 +1,7 @@
+<% content_for :heads do %>
+  <%= javascript_include_tag 'jquery.validate' %>
+<% end %>
+
 <% @page_title = "提交学校信息" -%>
 <% @body_class = "schools" -%>
 
@@ -27,6 +31,7 @@
           </p>-->
            <fieldset>
             <legend>学校基本信息</legend>
+            <p><%= error_message_on @school, :title %></p>
           <div id="school_meta">
             <div class="meta_col" >
             <label class="meta_label">地区</label><span class="require">*</span>
@@ -68,15 +73,7 @@
           <fieldset>
           <legend>学校基本情况</legend>
             <p><label class="label">学校规模<span class="require">*</span></label>
-            <select id=“school_basic_attributes_level_amount" name="school[basic_attributes][level_amount]">
-                <option/>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>年制
+            <%= b.select :class_amount, (1..6).to_a %>年制
             <label class="small_label" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
             <label class="small_label" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
             <label class="small_label" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
@@ -113,3 +110,32 @@
   </div>
 
 <% end -%>
+
+<script type="text/javascript" charset="utf-8">
+  
+
+  $().ready(function(){
+    $.validator.addMethod('title', function(value){
+      var geo_id = $('#school_geo_id').val();
+      if(geo_id != '') {
+        $.get('/schools/check', {
+                  geo_id: geo_id,
+                  title: value},
+                  function(data){
+                    if(data != '0')
+                      validator.showErrors({"school[title]": data}); 
+                  });
+        return true;
+      } else {
+        return true;
+      }
+    }, '学校已存在');
+    
+    var validator = $('#schoolsPostBasic').validate({
+      onsubmit: false,
+      rules: {
+        'school[title]': 'title',
+      }
+    });
+  });
+</script>
