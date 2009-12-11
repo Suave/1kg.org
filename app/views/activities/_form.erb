@@ -11,8 +11,7 @@ schools = current_user.visited_schools
 　  <label>名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
-<label class="label">开始时间<span class="require">*</span></label><input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" /><%= error_message_on @activity, :start_at %>
-<label style="margin-left:20px">结束时间<span class="require">*</span> </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
+
 <p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %>
 　   <label for="arrival_root">目的地<span class="require">*</span>
   <%if @school.nil?%>
@@ -21,6 +20,8 @@ schools = current_user.visited_schools
     <%= @school.geo.parent.name.to_s if @school.geo.parent%>  <%= @school.geo.name.to_s %>
     <input style="display:none" type="text" name="activity[arrival_id]" value="<%=@school.geo.id%>"/>
   <%end%>
+  <label style="margin-left:20px">开始时间<span class="require">*</span></label><input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" /><%= error_message_on @activity, :start_at %>
+  <label style="margin-left:20px">结束时间<span class="require">*</span> </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
 </p>
 
 <p><label class="label">相关学校</label>
