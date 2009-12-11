@@ -73,7 +73,7 @@
           <fieldset>
           <legend>学校基本情况</legend>
             <p><label class="label">学校规模<span class="require">*</span></label>
-            <%= b.select :class_amount, (1..6).to_a %>年制
+            <%= b.select :level_amount, (1..6).to_a %>年制
             <label class="small_label" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
             <label class="small_label" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
             <label class="small_label" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
