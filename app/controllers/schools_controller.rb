@@ -404,12 +404,12 @@ class SchoolsController < ApplicationController
   end
   
   def check
-    @school = School.find(:first, :conditions => ['geo_id = ? and title like ?', params[:geo_id], "%#{params[:title]}%"]) rescue nil
+    @school = School.find_similiar_by_geo_id(params[:title], params[:geo_id])
     
     respond_to do |format|
       format.html {
         render :text => @school.nil? ? '0' : 
-          "<span class='formError'>#{@school.geo.name}已经有了一所<a href='/schools/#{@school.id}/'>#{@school.title}</a></span>"
+          %(<span class='formError'><img src="/images/unchecked.gif" />#{@school.geo.name}已经有了一所<a href='/schools/#{@school.id}/'>#{@school.title}</a></span>)
       }
     end
   end

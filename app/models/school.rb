@@ -89,7 +89,7 @@ class School < ActiveRecord::Base
   attr_accessor :city, :city_unit, :town, :town_unit, :village
   
   def validate
-    school = School.find_by_geo_id_and_title(self.geo_id, self.title)
+    school = School.find_similiar_by_geo_id(self.title, self.geo_id)
     self.errors.add(:title, "我们发现#{self.geo.name}已经有了一所<a href='/schools/#{school.id}'>#{self.title}（点击访问）</a>，如果您确认这所学校和您要提交的学校不是同一所，请和我们的管理员联系。") if school
   end
   def before_create
@@ -156,8 +156,12 @@ class School < ActiveRecord::Base
       
       count(:conditions => conditions)
     end
+
+    def find_similiar_by_geo_id(title, geo_id)
+      self.find(:first, :conditions => ['geo_id = ? and title like ?', geo_id, "%#{title}%"]) rescue nil
+    end
   end
-  
+
   def hit!
     self.class.increment_counter :hits, id
   end
