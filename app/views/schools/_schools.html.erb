@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <th>校名</th>
-      <th>活跃度</th>
+      <th> 学校活跃度</th>
       <th>学校大使</th>
     </tr>
   </thead>
@@ -12,7 +12,7 @@
     <% next if school.nil? %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to school.title, school_url(school) %></td>
-      <td><%= school.last_month_karma %></td>
+      <td><%= karma_star(school.last_month_karma)-%> </td>
       <td><%= link_to school.user.login, user_url(school.user) unless school.user.nil? %></td>
 
     </tr>
