@@ -7,30 +7,30 @@ require 'gmap'
 include GMap
 
 namespace :schools do
-  # desc "生成学校需求的Tag"
-  # task :generate_need_tags => :environment do
-  #   # generate content
-  #   School.all.each do |school|
-  #     need = school.need
-  #     if need
-  #       need.tags.clear
-  #       tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
-  #       tag_list.gsub!(/,/, ' ')
-  #       tag_list.gsub!(/，/, ' ')
-  #       tag_list.gsub!(/、/, ' ')
-  #       tag_list.gsub!(/。/, ' ')
-  #       tag_list.gsub!(/：/, ' ')
-  #       tag_list.gsub!(/；/, ' ')
-  #       need.tag_list = tag_list
-  #       need.save(false)
-  #     end
-  #     
-  #     $stdout.putc('.')
-  #     $stdout.flush
-  #   end
-  #   puts ''
-  #   puts "Successful."
-  # end
+   desc "生成学校需求的Tag"
+   task :generate_need_tags => :environment do
+     # generate content
+     School.all.each do |school|
+       need = school.need
+       if need
+         need.tags.clear
+         tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
+         tag_list.gsub!(/,/, ' ')
+         tag_list.gsub!(/，/, ' ')
+         tag_list.gsub!(/、/, ' ')
+         tag_list.gsub!(/。/, ' ')
+         tag_list.gsub!(/：/, ' ')
+         tag_list.gsub!(/；/, ' ')
+         need.tag_list = tag_list
+         need.save(false)
+       end
+       
+       $stdout.putc('.')
+       $stdout.flush
+     end
+     puts ''
+     puts "Successful."
+   end
   
   desc "count schools' karma(popularity)"
   task :popularity => :environment do

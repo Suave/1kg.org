@@ -13,6 +13,9 @@ class SchoolsController < ApplicationController
         @recent_schools = School.recent_upload.validated.include([:user, :geo])
         @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
+        # 显示需求标签云
+        @tags = SchoolNeed.tag_counts[0..50]
+      
         @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find(:all, :order => "created_at desc, start_at desc", :limit => 10)
         
       }
@@ -30,6 +33,7 @@ class SchoolsController < ApplicationController
         render :json => @schools_json
       }
     end
+    
   end
   
   def info_window

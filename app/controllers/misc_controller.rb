@@ -53,9 +53,6 @@ class MiscController < ApplicationController
     @activities_for_online = Activity.recent_by_category("网上活动")
     @activities_for_other = Activity.recent_by_category("其他")
     
-    # 显示需求标签云
-    @tags = SchoolNeed.tag_counts[0..50]
-    
     # 显示最新用户动态
     @visits = Visited.latest
 
