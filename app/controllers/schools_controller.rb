@@ -117,19 +117,13 @@ class SchoolsController < ApplicationController
     @school.validated_at = Time.now
     @school.validated_by_id = current_user.id
     respond_to do |format|
-      existed_school = School.find_by_title(params[:school][:title])
-      if existed_school
-        flash[:notice] = "您要学校已存在，您可以申请成为学校管理员，然后对学校信息进行编辑."
-        format.html{redirect_to school_path(existed_school)}
+      if @school.save
+        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
       else
-        if @school.save
-          flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
-          format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
-        else
-          flash[:notice] = "请检查所有必填项是否填好"
-          @step = 'basic'
-          format.html{render :action => "new"}
-        end
+        flash[:notice] = "请检查所有必填项是否填好"
+        @step = 'basic'
+        format.html{render :action => "new"}
       end
     end
   end
@@ -377,18 +371,6 @@ class SchoolsController < ApplicationController
     @candidates = @school.visitors + @school.interestings - @moderators
   end
   
-  
-  # 提供给国旅的学校列表
-  # def cits
-  #   provinces = %w(3 146 15 40 164 27)
-  #   geo_ids = [1, 2] #天津
-  #   provinces.each do |p|
-  #     Geo.find(p).children.collect {|c| geo_ids << c}
-  #   end
-  #   @schools = School.find(:all, :conditions => ["geo_id in (?)", geo_ids], 
-  #                                          :include => [:traffic, :basic, :geo, :county])
-  # end
-  
   def manage
     school = School.find params[:id]
     user = User.find params[:user]
@@ -423,25 +405,20 @@ class SchoolsController < ApplicationController
       flash[:notice] = "只有学校大使才可以设置学校主照片"
       redirect_to school_url(@school)
     end
+  end
+  
+  def check
+    @school = School.find_similiar_by_geo_id(params[:title], params[:geo_id])
     
+    respond_to do |format|
+      format.html {
+        render :text => @school.nil? ? '0' : 
+          %(<span class='formError'><img src="/images/unchecked.gif" />#{@school.geo.name}已经有了一所<a href='/schools/#{@school.id}/'>#{@school.title}</a></span>)
+      }
+    end
   end
   
   private
-  # def submit_info(current_step, next_step, msg)
-  #   @school = School.find params[:id]
-  #   
-  #   begin
-  #     
-  #     @school.update_attributes!(params[:school])
-  #     flash[:notice] = msg      
-  #     redirect_to next_step == "done" ? school_url(@school) : new_school_url(:step => next_step, :sid => @school.id)
-  #     
-  #   rescue ActiveRecord::RecordInvalid
-  #     
-  #     render :action => current_step
-  #     
-  #   end
-  # end
   
   def update_info(current_step, next_step, msg)
     begin
