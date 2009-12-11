@@ -10,7 +10,7 @@ h2, h3, h4, h5, h6 { font-size : 100%; font-weight : normal; }
 ol, ul { list-style-type : none; }
 table { border-collapse : collapse; border-spacing : 0; }
 caption, th { text-align : left; }
-img { border : 0; max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
+img { border:0;}
 dt, address, caption, cite, code, dfn, em, i, strong, b, th, var { font-style : normal; font-weight : normal; }
 q:before, q:after { content :''; }
 
@@ -214,8 +214,10 @@ caption {
   padding: 0 20px 15px;
 }
 
+
 .box .contents ol, .box .entry ol {list-style-type: decimal; list-style-position: inside; margin-left:1.2em;}
 .box .contents ul, .box .entry ul {list-style-type: disc; list-style-position: inside; margin-left:1.2em;}
+.entry td{border:1px #666666 solid;background-color:#fff;padding:2px 4px;}
 /*
 	Secondary content
 */
@@ -243,7 +245,7 @@ body.ad-column-180 #content-secondary {
 .box h3 {
   background: url(../images/top-right.png) no-repeat right top;
   color: #000e00;
-  font: bold 1.5em Arial, Helvetica, sans-serif;
+  font: bold 1.3em Arial, Helvetica, sans-serif;
   padding: 20px 20px 10px;
 }
 
@@ -1151,5 +1153,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-siz
 #school_meta{margin-top:20px;margin-left:60px;height:50px}
 .meta_col input{margin-top:5px}
 
-.more{background:url(/images/more.gif) no-repeat;padding-left:14px;color:#666;cursor:pointer;float:right}
+.more{background:url(/images/more.gif) no-repeat;padding-left:14px;padding-right:6px;color:#333;cursor:pointer;float:right;}
 .more:hover{background-position:0 -13px;}
+
+.boxInner img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
+.notes{margin:-4px 6px 0;color:#666;font-size:13px}
+
+.vDateField{width:70px}

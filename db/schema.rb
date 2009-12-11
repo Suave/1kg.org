@@ -363,7 +363,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "validated_by_id"
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
-    t.integer  "last_month_average_karma", :default => 0
+    t.integer  "last_month_karma", :default => 0
   end
 
   create_table "shares", :force => true do |t|
@@ -495,7 +495,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "status",     :limit => 1
     t.datetime "created_at"
     t.datetime "wanna_at"
-    t.string   "notes",      :limit => 80
+    t.string   "notes",      :limit => 42
     t.datetime "deleted_at"
   end
 

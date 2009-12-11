@@ -6,27 +6,20 @@
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map_div"));
-        map.setCenter(new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>), 7);
-        map.addControl(new GSmallMapControl());
-      
+        map.setCenter(new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f%>), 7);
         var point = new GLatLng(<%= school.basic.latitude.to_f %>, <%= school.basic.longitude.to_f %>);
-        marker = new GMarker(point, {draggable: <%= logged_in? ? 'true' : 'false' %>});
-      
+        marker = new GMarker(point);
         map.addOverlay(marker);
       }
     }
-    jQuery(function(){
-      initialize();
-    })
+    window.onload = function(){initialize();}
   </script>
 <% end %>
 
-<div id="map_div" style="width: 270px; height: 180px; margin:10px 0;cursor:pointer" onclick="$('#school_large_map').click();"></div>
+<div id="map_div" title="点击在大地图中查看" style="background-color:#ddd;border:1px #ccc solid;width: 268px; height: 178px; margin:10px 0;cursor:pointer" onclick="$('#school_large_map').click();"></div>
 
 <div id="map_info">
   <p class="remark" style="text-align:right">
-    <span style="color:#666;float:left"><%= "地图位置由#{link_to school.basic.marked_by.login, user_url(school.basic.marked_by)}确认" if school.basic.marked_by %></span>
-    <%= link_to_function "更正位置", "$('#school_large_map').click();" ,:class =>"buttonlink"%>
-    <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 450, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => (logged_in? ? '拖动红色标记修改学校位置' : '要修改学校位置，<a href="/sessions/new">请先登录</a>'), :id => 'school_large_map' ,:style => "display:none;"%>
+    <%= link_to "在大地图中查看", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map' ,:style => "display:none;"%>
   </p>
 </div>

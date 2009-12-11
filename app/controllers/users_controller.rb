@@ -181,9 +181,9 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-
     @shares = @user.shares.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
     @guides = @user.guides
+    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1})
     @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
   end

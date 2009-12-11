@@ -5,7 +5,7 @@
   <div style="margin-left:56px;">
     <div>
       <p><%= link_to wanna.user.login, user_url(wanna.user) %><% unless wanna.wanna_at.blank? %> 要在<%= l(wanna.wanna_at.to_date, :format => :short) %><%end%>去<%= school unless school.blank?%><%= link_to h(wanna.school.title), school_path(wanna.school) unless school%></p>
-      <p><%= wanna.notes%></p>
+      <div class="notes"><%= "“#{h wanna.notes}“" unless wanna.notes.blank?%></div>
     </div>
   </div>
 </div>
