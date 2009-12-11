@@ -117,7 +117,7 @@
   $().ready(function(){
     $.validator.addMethod('title', function(value){
       var geo_id = $('#school_geo_id').val();
-      if(geo_id != '') {
+      if(geo_id != '' && value != '') {
         $.get('/schools/check', {
                   geo_id: geo_id,
                   title: value},
