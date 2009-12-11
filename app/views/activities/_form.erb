@@ -41,4 +41,4 @@ schools = current_user.visited_schools
   <input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" />
 </p>
 <p><label class="label">活动介绍</label><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
-<script type="text/javascript" charset="utf-8">DateTimeShortcuts.init()</script>
+<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>

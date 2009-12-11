@@ -1136,14 +1136,14 @@ h3.title {
 color:#fff;margin:0 3px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;-margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-size:15px;}
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:3px 6px 1px;width:60px;font-size:15px;background-position:0 -24px;}
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
 
 .checkbox_label{margin:0 10px 0 2px;}

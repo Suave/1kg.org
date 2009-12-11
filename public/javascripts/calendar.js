@@ -411,7 +411,7 @@ var DateTimeShortcuts = {
 
         // Shortcut links (calendar icon and "Today" link)
         var shortcuts_span = document.createElement('span');
-        $(inp).before(shortcuts_span, inp.nextSibling);
+        $(inp).before(shortcuts_span);
         var today_link = document.createElement('a');
         today_link.setAttribute('href', 'javascript:DateTimeShortcuts.handleCalendarQuickLink(' + num + ', 0);');
         today_link.appendChild(document.createTextNode(gettext('Today')));

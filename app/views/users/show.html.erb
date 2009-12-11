@@ -27,7 +27,7 @@
         <%else%>
         <img class="school_list_photo" src="/images/school_main_thumb.png"/>
         <%end%>        
-        <div class="school_list_meta" style="width:128px">
+        <div class="school_list_meta" style="width:140px">
         <p><% unless visit.wanna_at.blank? %>计划在<%= l(visit.wanna_at.to_date, :format => :short) %><%end%>去</p>
         <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
         <span>活跃度</span>
@@ -53,7 +53,7 @@
         <%else%>
         <img class="school_list_photo" src="/images/school_main_thumb.png"/>
         <%end%>        
-        <div class="school_list_meta" style="width:128px">
+        <div class="school_list_meta" style="width:140px">
         <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过</p>
         <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
         <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
