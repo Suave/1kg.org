@@ -90,7 +90,7 @@ class School < ActiveRecord::Base
   
   def validate
     school = School.find_similiar_by_geo_id(self.title, self.geo_id)
-    self.errors.add(:title, "我们发现#{self.geo.name}已经有了一所<a href='/schools/#{school.id}'>#{self.title}（点击访问）</a>，如果您确认这所学校和您要提交的学校不是同一所，请和我们的管理员联系。") if school
+    self.errors.add(:title, "我们发现#{self.geo.name}已经有了一所<a href='/schools/#{school.id}'>#{school.title}（点击访问）</a>，如果您确认这所学校和您要提交的学校不是同一所，请和我们的管理员联系。") if school
   end
   def before_create
     # 确保用户只提交了学校基本信息也不会出错
