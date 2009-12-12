@@ -50,6 +50,7 @@
         <h3>去过的学校</h3>
         <div class="contents">
         <%@visits.each do |visit|%>
+        <% next unless visit.school %>
         <div class="school_list">
           <% if visit.school.main_photo -%>
           <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
