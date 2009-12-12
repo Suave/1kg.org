@@ -147,6 +147,10 @@ class Activity < ActiveRecord::Base
   
   private
   def format_content
-    self.clean_html = sanitize(self.description_html||'')
+    begin
+      self.clean_html = sanitize(self.description_html||'')
+    rescue
+      self.clean_html = self.description_html
+    end
   end
 end
