@@ -22,19 +22,21 @@
         <h3>要去的学校</h3>
         <div class="contents">
         <%@wannas.each do |visit|%>
-        <% if visit.school.main_photo -%>
-        <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
-        <%else%>
-        <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-        <%end%>        
-        <div class="school_list_meta" style="width:140px">
-        <p><% unless visit.wanna_at.blank? %>计划在<%= l(visit.wanna_at.to_date, :format => :short) %><%end%>去</p>
-        <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
-        <span>活跃度</span>
-        <%= karma_star(visit.school.last_month_karma)-%>
-        </div>
+        <div class="school_list">
+          <% if visit.school.main_photo -%>
+          <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
+          <%else%>
+          <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+          <%end%>        
+          <div class="school_list_meta" style="width:142px;height:80px">
+          <p><% unless visit.wanna_at.blank? %>计划在<%= l(visit.wanna_at.to_date, :format => :short) %><%end%>去</p>
+          <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
+          <span>活跃度</span>
+          <%= karma_star(visit.school.last_month_karma)-%>
+          </div>
         </div>
         <%end%>
+        </div>
         <div class="clear" style="height:20px"></div>
       </div>
      </div>  
@@ -48,19 +50,20 @@
         <h3>去过的学校</h3>
         <div class="contents">
         <%@visits.each do |visit|%>
-        <% if visit.school.main_photo -%>
-        <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
-        <%else%>
-        <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-        <%end%>        
-        <div class="school_list_meta" style="width:140px">
-        <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过</p>
-        <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
-        <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
-        </div>
-        
+        <div class="school_list">
+          <% if visit.school.main_photo -%>
+          <%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ,:class => "school_list_photo" ) %>
+          <%else%>
+          <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+          <%end%>        
+          <div class="school_list_meta" style="width:142px">
+          <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过</p>
+          <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
+          <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
+          </div>
         </div>
         <%end%>
+        </div>
         <div class="clear" style="height:20px"></div>
       </div>
      </div>  
