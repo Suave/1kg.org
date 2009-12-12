@@ -42,12 +42,6 @@ class Activity < ActiveRecord::Base
 
   acts_as_taggable
   
-  has_many :participation, :dependent => :destroy
-  has_many :participators,  :through => :participation, :source => :user
-  
-  has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :shares
-
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
