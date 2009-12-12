@@ -49,11 +49,14 @@
     <div id="morecontact" style="display:none">
     <h3 class="label_lei">联系学校</h3>
     <% unless @basic.master.blank? %><p class="content_lei">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
-    <% unless @contact.name.blank? %><p class="content_lei">学校的联系人是 <%= h @contact.name %><% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
-    <% unless @contact.telephone.blank? %>，电话 <%= h @contact.telephone %><%end-%>
-    <% unless @contact.email.blank? %>，邮箱 <%= h @contact.email %><%end-%>
-    <% unless @contact.qq.blank? %>，QQ <%= h @contact.qq %><%end-%>。
-    </p><%end-%>
+    <% if @contact && !@contact.name.blank? %>
+      <p class="content_lei">学校的联系人是 <%= h @contact.name %>
+        <% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
+        <% unless @contact.telephone.blank? %>，电话 <%= h @contact.telephone %><%end-%>
+        <% unless @contact.email.blank? %>，邮箱 <%= h @contact.email %><%end-%>
+        <% unless @contact.qq.blank? %>，QQ <%= h @contact.qq %><%end-%>。
+      </p>
+    <%end-%>
     <% if @finder -%>
       <%unless @finder.name.blank? %><p class="content_lei">信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
@@ -71,8 +74,9 @@
     
   <div class="school_box">
     <h3 class="label_lei">学校情况</h3>
-    <% unless  @need.urgency.blank? -%>
-    <p class="content_lei" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p><% end -%>
+    <% if @need && !@need.urgency.blank? -%>
+      <p class="content_lei" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
+    <% end -%>
     <% unless needlist(@school).blank? %>
     <div style="margin-bottom:-10px">
       <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
@@ -88,7 +92,7 @@
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
   <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
   
-  <% unless @local.ngo_support == 2%>
+  <% if @local && @local.ngo_support != 2 -%>
   <p class="content_lei">
   <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
   </p>
@@ -208,7 +212,7 @@
   </div>
   
   <div class="school_sidebar">
-    <% unless @traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a><%end%>
+    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
     <div id="moretraffic" style="display:none">
       <h3 class="label_lei">交通指南</h3>
       <div class="content_lei" style="margin-top:5px">
@@ -216,6 +220,7 @@
       </div>
     </div>
     <div class="clear"></div>
+    <%end%>
   </div>
   
   <div class="school_sidebar">

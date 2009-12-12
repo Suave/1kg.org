@@ -103,6 +103,7 @@ module SchoolsHelper
   end
   
   def needlist(school)
+    return '' unless school.need
     list = [school.need.book,school.need.medicine,school.need.stationary,school.need.sport,school.need.cloth,school.need.accessory,school.need.course,school.need.teacher,school.need.other]
     list.map{|n| link_to_needs(n) }.join('')
   end

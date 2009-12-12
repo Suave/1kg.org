@@ -5,6 +5,7 @@ set :application, "1kg"
 set :user, "jill"
 set :repository, "git://github.com/Suave/1kg.org.git"
 set :scm, :git
+set :deploy_via, :remote_cache
 
 role :app, "1kg.org", :primary => true
 role :web, "1kg.org"
@@ -19,18 +20,16 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/photos #{current_path}/public/photos"
     run "rm -rf #{current_path}/public/user && ln -s #{deploy_to}/shared/user #{current_path}/public/user"
     run "rm -rf #{current_path}/public/group && ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"
+    run "ln -s #{deploy_to}/shared/postcard #{deploy_to}/current/public/images/postcard"
+    run "rm -rf #{deploy_to}/current/public/docs/festcard09.rar && ln -s #{deploy_to}/shared/festcard09.rar #{deploy_to}/current/public/docs/festcard09.rar"
     run "cd #{current_path} && rake schools:to_json"
   end
   
   desc "Deploy to dev server"
   task :dev do
-    # put up the maintenance screen
-    # ENV['REASON'] = 'an application upgrade'
-    # ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
-    # web.disable
     set :deploy_to, "/home/jill/dev"
     set :branch, "dev"
-    set :env, "production"
+    set :env, "development"
     
     transaction do
       update_code
@@ -40,9 +39,6 @@ namespace :deploy do
     end
     
     restart
-    
-    # remove the maintenance screen
-    #web.enable
   end
   
   desc "Long deploy will update the code migrate the database and restart the servers"
