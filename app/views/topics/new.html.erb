@@ -8,11 +8,10 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h2>写新话题</h2>
-
-  <% form_for @topic, :url => board_topics_url(@board) do |f| -%>
-  <%= render :partial => "/topics/form", :object => f %>
-  <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取消", board_url(@board) %></span></p>
-  <% end -%>
+        <% form_for @topic, :url => board_topics_url(@board) do |f| -%>
+        <%= render :partial => "/topics/form", :object => f %>
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取消", board_url(@board) %></span></p>
+        <% end -%>
       </div>
     </div>
   </div>

@@ -127,7 +127,7 @@
             <% else -%>
             
               <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>
-              <p><%= f.text_area :body_html, :cols => 60, :rows => 15 %></p>
+              <p><%= fckeditor_textarea :post, :body_html, :toolbarSet => 'OneLine', :width => '90%', :height => '400px' %></p>
               <p class="submit"><%= submit_tag "发 布" %></p>
               <% end -%>
           
