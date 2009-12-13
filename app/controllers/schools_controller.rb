@@ -10,8 +10,8 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {
         @photos = Photo.latest.include([:school, :user])
-        @recent_schools = School.recent_upload.validated.include([:user, :geo])
-        @recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+        #@recent_schools = School.recent_upload.validated.include([:user, :geo])
+        #@recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
