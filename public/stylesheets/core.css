@@ -1161,7 +1161,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 
 .vDateField{width:70px}
 
-.school_list{height:90px}
-.school_list_photo{float:left;width:107px;}
+.school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden}
 .school_list_meta{float:left;margin-left:10px}
-.school_list_meta h5{font-size:14px;margin:2px 0}
+.school_list_meta h5{margin:2px 0}
+
+.school_frame{width:100%;padding:10px}
+.school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;background-color:#f4f4f4}
