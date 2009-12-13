@@ -11,7 +11,6 @@ class PostsController < ApplicationController
   def create
     @post  = @topic.posts.build(params[:post])
     @post.user  = current_user
-    @post.format_content if params[:type] == "fast"
     @post.save!
     flash[:notice] = "回帖成功"
     redirect_to board_topic_url(@topic.board_id, @topic.id)
