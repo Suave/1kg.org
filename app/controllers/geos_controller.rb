@@ -1,7 +1,8 @@
 class GeosController < ApplicationController
   def index
+    @province = params[:province]? Geo.find( params[:province]) : nil
     @cities  = Geo.roots
-    @map_center = Geo::DEFAULT_CENTER
+    @map_center = @province ? [@province.latitude,@province.longitude,7] : Geo::DEFAULT_CENTER
     @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
     
     respond_to do |format|
