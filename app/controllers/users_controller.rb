@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics,:visited]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -181,12 +181,14 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-    @shares = @user.shares.paginate(:page => 1, :per_page => 5)
-    @guides = @user.guides.paginate(:page => 1, :per_page => 5)
-    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1})
-    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3})
-    @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
+    @shares = @user.shares.find :all, :limit => 5
+    @guides = @user.guides.find :all, :limit => 5, :include => [:school, :tags, :user]
+    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:limit => 3,:include => [:school])
+    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:limit => 3,:include => [:school])
+    @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:limit => 3,:include => [:school])
+    @submitted_topics = @user.topics.find :all, :limit => 5,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
+    
   end
   
   def shares
@@ -222,14 +224,15 @@ class UsersController < ApplicationController
     @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
-  def visited_schools
-    @schools = @user.visited_schools.paginate(:page => params[:page] || 1, :per_page => 20)
-  end
-  
   def group_topics
     @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25, :order => "last_replied_at desc"
   end
   
+  def visited
+    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:include => [:school])
+    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:include => [:school])
+    @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:include => [:school])
+  end
 
   protected
   def find_user
@@ -244,9 +247,7 @@ class UsersController < ApplicationController
     
     #user's submitted schools
     @schools = user.submitted_schools.find :all, :limit => 5
-    
-    @neighbors = user.neighbors.find :all, :limit => 9
-                                           
+    @neighbors = user.neighbors.find :all, :limit => 9                                       
     @groups = user.joined_groups.find :all, :limit => 9
   end
   
@@ -254,4 +255,5 @@ class UsersController < ApplicationController
     blocked_ids = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:id)
     cookies[:onekg_id] && blocked_ids.include?(cookies[:onekg_id].to_i)
   end
+  
 end
