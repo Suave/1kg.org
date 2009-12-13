@@ -52,7 +52,7 @@ module SchoolsHelper
 
     html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
     if current_user && current_user.school_moderator?
-    html += "<p> #{link_to '设置为主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
+    html += "<p> #{link_to '设置为学校主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
     end
     html += "<p>分享到 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
     html += "<p>#{h(photo.description)}</p>"
@@ -103,6 +103,7 @@ module SchoolsHelper
   end
   
   def needlist(school)
+    return '' unless school.need
     list = [school.need.book,school.need.medicine,school.need.stationary,school.need.sport,school.need.cloth,school.need.accessory,school.need.course,school.need.teacher,school.need.other]
     list.map{|n| link_to_needs(n) }.join('')
   end

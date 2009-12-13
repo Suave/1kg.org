@@ -28,6 +28,7 @@ class Admin::SchoolsController < Admin::BaseController
       if @school.save
         flash[:notice] = "学校基本信息已保存"
       else
+        raise @school.errors.full_messages.to_s
         flash[:notice] = "学校基本信息不完整，请重新填写"
       end
       format.html{redirect_to :back }

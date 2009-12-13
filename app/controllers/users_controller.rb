@@ -5,7 +5,8 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics,:visited]
+
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited, :guides]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -200,11 +201,8 @@ class UsersController < ApplicationController
   end
 
   def guides
-    
     get_user_record(@user)
-    
-    @shares = @user.guides.find(:all, :conditions => ["hidden=?", false], 
-                                      :select => "title, hits, comments_count, created_at, id")
+    @shares = @user.guides.find(:all, :select => "title, hits, comments_count, created_at, id")
   end
 
   def neighbors
@@ -241,7 +239,7 @@ class UsersController < ApplicationController
   
   def get_user_record(user)
     # user's published activities
-    @activities   = user.submitted_activities.find(:all, :limit => 5)
+    @activities   = @user.submitted_activities.find(:all, :limit => 5)
     @submitted    = @user.submitted_activities.find(:all, :limit => 5)
     @participated = @user.participated_activities.find(:all, :limit => 5)
     
