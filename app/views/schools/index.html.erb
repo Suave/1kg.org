@@ -17,7 +17,7 @@
 
 <% content_for :sidebar do -%>
 
-<%= render :partial => "/geos/city_search" %>
+
 <%= render :partial => "/shared/ad" %>
 
 <div class="box">
@@ -114,7 +114,14 @@
         <%= link_to "澳门","/geos?province=392" %>
         <%= link_to "台湾","/geos?province=393" %>
       </div>
+      
+      <div  style="width:190px;height:40px;float:left;background-color:#ddd;padding:10px 10px">
+      <h3>快速搜索</h3>
+        <% form_tag search_geos_url, :method => :get do -%>
+          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>
+        <% end -%>
         
+      </div>
 </div>
 
 
