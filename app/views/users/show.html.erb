@@ -60,7 +60,7 @@
 </strong></div>
 <% end -%>
 
-<%= render :partial => "shares_and_guides", :locals => {:user => @user, :shares => @shares, :guides => @guides} %>
+<%= render :partial => "shares", :object => @shares, :locals => {:user => @user} %>
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>

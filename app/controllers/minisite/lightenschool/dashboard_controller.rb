@@ -6,7 +6,7 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     @group = Group.find_by_slug('lightenschool')
     @board = @group.discussion.board
     #怎么对一个arrey以每个元素的updated_at属性来排序呢？
-    @guides = (SchoolGuide.find_tagged_with('点亮学校',:order => "updated_at desc")+Share.find_tagged_with('点亮学校',:order => "updated_at desc")).paginate(:per_page => 20, :page => params[:guide_page])
+    @guides = Share.find_tagged_with('点亮学校',:order => "updated_at desc")).paginate(:per_page => 20, :page => params[:guide_page])
     
   end
   

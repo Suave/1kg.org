@@ -14,20 +14,6 @@
 </div>
 <% end %>
 
-<% unless @guides.empty? %>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3><%= @tag %>相关的攻略</h3>
-      <div class="contents">
-        <%= render :partial => '/schools/guides', :object => @guides %>
-        <%= customize_paginate(@guides, :param_name => 'guide_page') %>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>
-
 <% unless @shares.empty? %>
 <div class="box">
   <div class="boxOuter">
