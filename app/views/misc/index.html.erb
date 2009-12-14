@@ -12,7 +12,7 @@
       <div class="contents">
         <ul>
           <% @bulletins.each do |b| %>
-            <li style="list-style:none">[<%= b.created_at.to_formatted_s(:month_and_day) %>] <%= link_to b.title, bulletin_url(b) %></li>
+            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]<span></li>
           <% end %>
         </ul>
       </div>
