@@ -17,7 +17,8 @@ class Visited < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   
-  named_scope :latest, :order => 'created_at DESC', :limit => 10,:conditions => "(status = 1)", :include => [:user, :school]
+  named_scope :latestvisit, :order => 'created_at DESC', :limit => 10,:conditions => "(status = 1)", :include => [:user, :school]
+  named_scope :latestwanna, :order => 'wanna_at ASC', :limit => 10,:conditions => "(status = 3)", :include => [:user, :school]
   
   acts_as_paranoid
   
@@ -25,7 +26,7 @@ class Visited < ActiveRecord::Base
     if status == 1 && (visited_at.blank? or visited_at > Time.now.to_date)
       errors.add('日期错误')
     end
-    if status == 3 && (wanna_at.blank? or wanna_at < Time.now.to_date)
+    if status == 3 && (visited_at.blank? or visited_at < Time.now.to_date)
       errors.add('日期错误')
     end
   end

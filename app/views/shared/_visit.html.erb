@@ -1,9 +1,9 @@
-<div style="clear:both;margin-bottom:1em;min-height:50px">
+<div class="record">
   <div style="float:left">
     <%= avatar_for(visit.user, "large") %>
   </div>
   <div style="margin-left:56px;">
-    <p><%= link_to visit.user.login, user_url(visit.user) %> <% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过<%= school unless school.blank?%><%= link_to h(visit.school.title), school_path(visit.school) unless school%></p>
+    <p style="margin:0"><%= link_to visit.user.login, user_url(visit.user) %> <%= '计划' if visit.status == 3%><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去<%= '过' if visit.status == 1%><br/><%= school unless school.blank?%><%= link_to h(visit.school.title), school_path(visit.school) unless school%></p>
     <div class="notes"><%= "“#{h visit.notes}“" unless visit.notes.blank?%></div>  
   </div>
 </div>
