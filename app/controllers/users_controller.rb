@@ -182,7 +182,6 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
     @shares = @user.shares.find :all, :limit => 5
-    @guides = @user.guides.find :all, :limit => 5, :include => [:school, :tags, :user]
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:limit => 3,:include => [:school])
     @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:limit => 3,:include => [:school])
     @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:limit => 3,:include => [:school])
