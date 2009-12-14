@@ -240,3 +240,26 @@ namespace :geo do
     end
   end
 end
+
+namespace :guides do
+  desc "将所有攻略转为分享"
+  task :to_shares => :environment do
+    SchoolGuide.all.each do |guide|
+      if Share.find_by_title(guide.title).nil?
+        puts guide.title
+        share = Share.create(:title => guide.title, :body_html => guide.content,
+          :geo_id => guide.school.geo_id,
+          :user_id => guide.user_id, :school_id => guide.school_id,
+          :hits => guide.hits, :last_modified_by_id => guide.last_modified_by_id,
+          :last_modified_at => guide.last_modified_at, :last_replied_at => guide.last_replied_at,
+          :comments_count => guide.comments_count, 
+          :last_replied_by_id => guide.last_replied_by_id)
+        guide.comments.each {|c| share.comments << c}
+        guide.votes.each {|v| share.votes << v}
+        guide.taggings.each {|t| share.taggings << t}
+        share.save(false)
+      end
+    end
+  end
+end
+
