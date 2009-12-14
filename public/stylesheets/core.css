@@ -1167,4 +1167,8 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .school_list_meta h5{margin:2px 0}
 
 .school_frame{width:100%;padding:10px}
-.school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;background-color:#f4f4f4}
+.school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+
+.zone{width:210px;height:72px;float:left}
+.zone h6{color:#999;margin-top:4px}
+.zone a{font-size:14px;margin-top:6px;}

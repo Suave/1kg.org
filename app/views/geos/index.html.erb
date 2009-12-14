@@ -9,17 +9,31 @@
 <% content_for :crumb do -%>
   <li>目的地查询</li>
   <ul>
-    <li>全国</li>
+    <li><%= @province ?  @province.name : "全国"%></li>
   </ul>
 <% end -%>
 
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h2>全国</h2>
+      <h2><%= @province ?  @province.name : "全国"%></h2>
       <div class="contents">
         <%= render :partial => 'school_maps' %>
       </div>
     </div>
   </div>
 </div>
+
+<%if @province %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function()
+  {
+    jQuery.get('/geos/' + <%=@province.id.to_s%> + '/schools', {}, function(data){
+      jQuery('#schools').html(data);
+    });
+    jQuery.get('/geos/box/' + <%=@province.id.to_s%>, {}, function(data){
+      jQuery('#geobox').html(data);
+    });
+  })
+</script>
+<%end%>
