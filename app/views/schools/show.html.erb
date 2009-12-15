@@ -150,20 +150,6 @@
       <% end %>
     </div>
   </div>  
-
-  
-  <div class="school_box">
-    <h3 class="label_lei" >路线攻略</h3>
-    <div class="contents clearfix">
-      <%unless @school.guides.blank?%>
-      <%= render :partial => 'guides', :object => @school.guides %>
-      
-      <p class="remark"><%= link_to '提交攻略', new_school_school_guide_path(@school),:class => "buttonlink"%></p>
-      <%else%>
-      <p class="content_lei">学校还没有线路攻略，如果你去过学校的话，可以<%= link_to '写篇攻略', new_school_school_guide_path(@school),:class => "buttonlink"%>给大家提供方便。</p>
-      <%end%>
-    </div>
-  </div>
   
 <% content_for :sidebar do -%>
 
