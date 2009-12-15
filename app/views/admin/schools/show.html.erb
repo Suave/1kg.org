@@ -4,7 +4,6 @@
 <% end -%>
 
 <h3><%= @school.title %></h3>
-<p>>> <%= link_to "在新窗口查看学校资料", info_school_url(@school), {:target => "_blank"} %></p>
 <p>验证: <span class="notice"><%= validate_for_human(@school) %></span> | 讨论区: <%= @school.discussion ? link_to("查看", board_url(@school.discussion.board.id)) : "<span class='notice'>无</span>" %></p>
 <div class="operations">
   <% if @school.validated? -%>
