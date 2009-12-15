@@ -1,30 +1,19 @@
 <% content_for :fullsize do -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>关于 <%= params[:q] %> 的搜索结果</h3>
-      <div class="contents">
-        <form action="/cse" id="cse-search-box">
-          <div style="margin:10px 0;">
-            <input type="hidden" name="cx" value="000273662791847545725:-zxfmpsdcdo" />
-            <input type="hidden" name="cof" value="FORID:9" />
-            <input type="hidden" name="ie" value="UTF-8" />
-            重新搜索：<input type="text" name="q" size="31" />
-            <input type="submit" name="sa" value="搜索" />
-          </div>
-        </form>
-
-        <div id="cse-search-results"></div>
-        <script type="text/javascript">
-          var googleSearchIframeName = "cse-search-results";
-          var googleSearchFormName = "cse-search-box";
-          var googleSearchFrameWidth = 600;
-          var googleSearchDomain = "www.google.com";
-          var googleSearchPath = "/cse";
-        </script>
-        <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
-        
-      </div>
+<h1>关于 <%= params[:q] %> 的搜索结果</h1>
+  <div class="contents">
+    <div id="cse-search-results"></div>
+      <div id="cse" style="width: 100%;">Loading</div>
+      <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+      <script type="text/javascript">
+        google.load('search', '1', {language : 'zh-CN'});
+        google.setOnLoadCallback(function(){
+          var customSearchControl = new google.search.CustomSearchControl('010156014000291788432:m4wc1kqvzw4');
+          customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+          customSearchControl.draw('cse');
+          customSearchControl.execute("<%= params[:q] %>");
+        }, true);
+      </script>
+      <link rel="stylesheet" href="http://www.google.com/cse/style/look/greensky.css" type="text/css" />
     </div>
   </div>
 </div>
