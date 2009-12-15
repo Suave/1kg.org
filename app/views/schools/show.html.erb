@@ -146,7 +146,7 @@
       <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
       <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
       <%else%>
-      <p class="content_lei">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%= link_to "全部话题", board_topics_url(@board) if @topics.size > 5%></p>
+      <p class="content_lei">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%= link_to "全部话题", board_topics_url(@board) if @topics.size > 1,:class => "buttonlink"%></p>
       <% end %>
     </div>
   </div>  
