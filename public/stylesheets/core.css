@@ -1154,6 +1154,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .meta_col input{margin-top:5px}
 
 .more{background:url(/images/more.gif) no-repeat;padding-left:14px;padding-right:6px;color:#333;cursor:pointer;float:right;}
+<<<<<<< HEAD:public/stylesheets/core.css
 .more:hover{background-position:0 -13px;}
 
 .boxInner img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
@@ -1179,3 +1180,5 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 
 .newbox{padding-left:10px;width:100%}
 .span_title{font-size:18px;font-weight:bold;}
+
+.white {background-color: white;}
