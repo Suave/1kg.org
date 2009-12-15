@@ -5,7 +5,6 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited, :guides]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
@@ -183,7 +182,6 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
     @shares = @user.shares.find :all, :limit => 5
-    @guides = @user.guides.find :all, :limit => 5, :include => [:school, :tags, :user]
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:limit => 3,:include => [:school])
     @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:limit => 3,:include => [:school])
     @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:limit => 3,:include => [:school])

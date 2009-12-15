@@ -138,7 +138,7 @@
 
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
-<%= render :partial => "shares_and_guides", :locals => {:user => @user, :shares => @shares, :guides => @guides} %>
+<%= render :partial => "shares", :object => @shares, :locals => {:user => @user} %>
 <script type="text/javascript">
   jQuery("#tabs").tabs();
 </script>
