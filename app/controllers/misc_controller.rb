@@ -54,8 +54,8 @@ class MiscController < ApplicationController
     @activities_for_other = Activity.recent_by_category("其他")
     
     # 显示最新用户动态
-    @visits = Visited.latest
-
+    @visits = Visited.latestvisit
+    @wannas = Visited.latestwanna
     # 网站公告
     @bulletins = Bulletin.recent
     

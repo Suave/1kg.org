@@ -1172,3 +1172,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
+
+
+.record{margin-bottom:1em;height:54px;width:270px;float:left}
+#records .record{margin-right:40px}
+
+.newbox{padding-left:10px;width:100%}
+.span_title{font-size:18px;font-weight:bold;}

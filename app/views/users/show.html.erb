@@ -14,29 +14,14 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-   <p style="text-align:right"><%= link_to "全部与 #{@user.login} 相关的学校 ", "/users/#{@user.id}/visited"%></p>
-<% unless @wannas.blank? %>
+   <p style="text-align:right"><%= link_to "与#{@user.login}相关的全部学校 ", "/users/#{@user.id}/visited"%></p>
+  <% unless @wannas.blank? %>
   <div class="school_frame">
         <h3>要去的学校</h3>
         <div class="contents">
-        <%@wannas.each do |visit|%>
-        <div class="school_list">
-          <% if visit.school.main_photo -%>
-          <div class="school_list_photo"><%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ) %></div>
-          <%else%>
-          <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-          <%end%>        
-          <div class="school_list_meta" style="width:160px;">
-          <p><% unless visit.wanna_at.blank? %>计划在<%= l(visit.wanna_at.to_date, :format => :short) %><%end%>去</p>
-          <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
-          <span>活跃度</span>
-          <%= karma_star(visit.school.last_month_karma)-%>
-          </div>
+          <%= render :partial => "visit", :collection => @wannas,:locals => {:school => nil} %>          
           <div class="clearfix"></div>
         </div>
-        <%end%>
-        </div>
-        <div class="clearfix"></div>
   </div>
   <%end%>
 
@@ -44,24 +29,9 @@
   <div class="school_frame">
         <h3>去过的学校</h3>
         <div class="contents">
-        <%@visits.each do |visit|%>
-        <% next unless visit.school %>
-        <div class="school_list">
-          <% if visit.school.main_photo -%>
-          <div class="school_list_photo"><%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title) %></div>
-          <%else%>
-          <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-          <%end%>        
-          <div class="school_list_meta" style="width:160px">
-          <p><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去过</p>
-          <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
-          <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
-          </div>
+          <%= render :partial => "visit", :collection => @visits,:locals => {:school => nil} %>          
           <div class="clearfix"></div>
         </div>
-        <%end%>
-        </div>
-        <div class="clearfix"></div>
       
   </div>
   <%end%>
@@ -71,23 +41,9 @@
   <div class="school_frame">
         <h3>关注的学校</h3>
         <div class="contents">
-        <%@interests.each do |visit|%>
-        <div class="school_list">
-          <% if visit.school.main_photo -%>
-          <div class="school_list_photo"><%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title) %></div>
-          <%else%>
-          <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-          <%end%>        
-          <div class="school_list_meta" style="width:160px">
-          <p>正在关注</p>
-          <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
-          <span>活跃度</span><%= karma_star(visit.school.last_month_karma)-%>
-          </div>
+          <%= render :partial => "visit", :collection => @interests,:locals => {:school => nil} %>          
           <div class="clearfix"></div>
         </div>
-        <%end%>
-        </div>
-        <div class="clearfix"></div>
   </div>
   <%end%>
   
@@ -107,6 +63,9 @@
       </div>
     </div>
   </div>
+  
+  
+  <style type="text/css">.school_list_meta{width:160px;}</style>
   
   <div class="box">
     <div class="boxOuter">

@@ -1,0 +1,18 @@
+  <div class="school_list">
+    <% if visit.school.main_photo -%>
+    <div class="school_list_photo"><%= image_tag(visit.school.main_photo.public_filename(:thumb), :alt => visit.school.main_photo.title ) %></div>
+    <%else%>
+    <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+    <%end%>        
+    <div class="school_list_meta">
+    <%if visit.status != 2%>
+    <p><%= '计划' if visit.status == 3%><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date, :format => :short) %><%end%>去<%= '过' if visit.status == 1%></p>
+    <%else%>
+    <p>正在关注</p>
+    <%end%>
+    <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
+    <span>活跃度</span>
+    <%= karma_star(visit.school.last_month_karma)-%>
+    </div>
+    <div class="clearfix"></div>
+   </div>
