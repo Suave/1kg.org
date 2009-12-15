@@ -254,9 +254,9 @@ namespace :guides do
           :last_modified_at => guide.last_modified_at, :last_replied_at => guide.last_replied_at,
           :comments_count => guide.comments_count, 
           :last_replied_by_id => guide.last_replied_by_id)
-        share.created_at = g.created_at
-        share.last_replied_at = g.last_replied_at
-        share.updated_at = g.updated_at
+        share.created_at = guide.created_at
+        share.last_replied_at = guide.last_replied_at
+        share.updated_at = guide.updated_at
         guide.comments.each {|c| share.comments << c}
         guide.votes.each {|v| share.votes << v}
         guide.taggings.each {|t| share.taggings << t}
