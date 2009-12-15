@@ -7,30 +7,30 @@ require 'gmap'
 include GMap
 
 namespace :schools do
-   #desc "生成学校需求的Tag"
-   #task :generate_need_tags => :environment do
-   #  # generate content
-   #  School.all.each do |school|
-   #    need = school.need
-   #    if need
-   #      need.tags.clear
-   #      tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
-   #      tag_list.gsub!(/,/, ' ')
-   #      tag_list.gsub!(/，/, ' ')
-   #      tag_list.gsub!(/、/, ' ')
-   #      tag_list.gsub!(/。/, ' ')
-   #      tag_list.gsub!(/：/, ' ')
-   #      tag_list.gsub!(/；/, ' ')
-   #      need.tag_list = tag_list
-   #      need.save(false)
-   #    end
-   #    
-   #    $stdout.putc('.')
-   #    $stdout.flush
-   #  end
-   #  puts ''
-   #  puts "Successful."
-   #end
+  # desc "生成学校需求的Tag"
+  # task :generate_need_tags => :environment do
+  #   # generate content
+  #   School.available.each do |school|
+  #     need = school.need
+  #     if need
+  #       need.tags.clear
+  #       tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
+  #       tag_list.gsub!(/,/, ' ')
+  #       tag_list.gsub!(/，/, ' ')
+  #       tag_list.gsub!(/、/, ' ')
+  #       tag_list.gsub!(/。/, ' ')
+  #       tag_list.gsub!(/：/, ' ')
+  #       tag_list.gsub!(/；/, ' ')
+  #       need.tag_list = tag_list
+  #       need.save(false)
+  #     end
+  #     
+  #     $stdout.putc('.')
+  #     $stdout.flush
+  #   end
+  #   puts ''
+  #   puts "Successful."
+  # end
   
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
@@ -42,16 +42,16 @@ namespace :schools do
       # 照片 4s/张
       karma += school.photos.count * 4
       # 分享 10s/篇
-      karma += school.shares.count * 10
+      karma += school.shares.available.count * 10
       # 分享回复 2s/个
-      school.shares.all.each do |share|
-        karma += share.comments.count * 2
+      school.shares.available.each do |share|
+        karma += share.comments.available.count * 2
       end
       # 学校话题 5s/个
-      karma += school.discussion.board.topics.count * 5
+      karma += school.discussion.board.topics.available.count * 5
       # 话题回复 2s/个
-      school.discussion.board.topics.all.each do |topic|
-        karma += topic.posts.count * 2
+      school.discussion.board.topics.available.each do |topic|
+        karma += topic.posts.available.count * 2
       end
       # TODO 学校活动
       # TODO 活动回复
@@ -65,10 +65,10 @@ namespace :schools do
       # 更新学校活跃度
       school.update_attributes!(:karma => karma) #unless school.karma == karma
 
-      # 更新学校当月活跃度
-      last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
-      school.update_attribute(:last_month_karma, last_month_karma)
-      #puts "#{school.title}: #{last_month_karma}" unless karma == 0
+      # 更新学校当月平均活跃度
+      last_month_average_karma = school.snapshots.average(:karma, :conditions => ['created_on > ?', Date.today - 1.month]).to_i rescue 0
+      school.update_attribute(:last_month_average_karma, last_month_average_karma)
+      #puts "#{school.title}: #{karma}" unless karma == 0
     end
   end 
   
@@ -254,10 +254,13 @@ namespace :guides do
           :last_modified_at => guide.last_modified_at, :last_replied_at => guide.last_replied_at,
           :comments_count => guide.comments_count, 
           :last_replied_by_id => guide.last_replied_by_id)
+        share.created_at = g.created_at
+        share.last_replied_at = g.last_replied_at
+        share.updated_at = g.updated_at
         guide.comments.each {|c| share.comments << c}
         guide.votes.each {|v| share.votes << v}
         guide.taggings.each {|t| share.taggings << t}
-        share.save(false)
+        share.save_without_timestamping
       end
     end
   end
