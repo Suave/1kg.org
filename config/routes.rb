@@ -39,7 +39,6 @@ ActionController::Routing::Routes.draw do |map|
                                     :shares => :get,
                                     :groups => :get,
                                     :group_topics => :get,
-                                    :guides => :get,
                                     :visited => :get,
                                     :submitted_topics => :get,
                                     :participated_topics => :get},
@@ -77,17 +76,13 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :school_guides, :as => 'guides', :member => {:vote => :post} do |guide|
-      guide.resources :comments, :controller => 'comments', :requirements => 
-                                            {:commentable => 'SchoolGuide'}
-    end
   end
-  map.connect "/schools/date/:year/:month/:day", :controller => "schools",  
+  map.connect "/schools/date/:year/:month/:day", :controller => "schools",
                                                  :action => "show_date", 
-                                                 :requirment => { :year => /(19|20)\d\d/,             
-                                                                  :month => /[01]?\d/,                
-                                                                  :day => /[0-3]?\d/ 
-                                                                },                      
+                                                 :requirment => { :year => /(19|20)\d\d/,
+                                                                  :month => /[01]?\d/,
+                                                                  :day => /[0-3]?\d/
+                                                                },
                                                  :month => nil, :day => nil
   
   map.resources :activities, :member => { :join => :get, 

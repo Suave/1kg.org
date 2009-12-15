@@ -82,7 +82,6 @@ class User < ActiveRecord::Base
   has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
   has_many :posts, :order => "posts.created_at desc", :dependent => :destroy 
   has_many :shares, :order => "created_at desc", :dependent => :destroy 
-  has_many :guides, :class_name => 'SchoolGuide', :order => "created_at desc", :dependent => :destroy 
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
