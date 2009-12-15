@@ -397,7 +397,7 @@ class SchoolsController < ApplicationController
   
   def setphoto
     @school = School.find(params[:id])
-    if current_user.school_moderator?
+    if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
       redirect_to school_url(@school)
