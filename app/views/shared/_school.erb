@@ -1,0 +1,14 @@
+  <div class="school_list">
+    <% if school.main_photo -%>
+    <div class="school_list_photo"><%= image_tag(school.main_photo.public_filename(:thumb), :alt => school.main_photo.title ) %></div>
+    <%else%>
+    <img class="school_list_photo" src="/images/school_main_thumb.png"/>
+    <%end%>        
+    <div class="school_list_meta">
+    <h5><%= link_to h(school.title), school_path(school)%></h5>
+    <span>活跃度</span>
+    <%= karma_star(school.last_month_karma)-%>
+    <% unless school.user.nil? %><div>学校大使: <%= link_to school.user.login, user_url(school.user)  %></div><%end-%>
+    </div>
+    <div class="clearfix"></div>
+  </div>
