@@ -116,6 +116,7 @@ class School < ActiveRecord::Base
   
   validates_presence_of :geo_id, :message => "必选项"
   validates_presence_of :title, :message => "必填项"
+  validates_presence_of :user_id
   
   # 用于导入博客学校
   class << self

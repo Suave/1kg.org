@@ -29,3 +29,8 @@ school_one:
   title: test
   user_id: 1
   geo_id: 1
+school_two:
+  id: 2
+  title: 测试小学
+  user_id: 1
+  geo_id: 1
