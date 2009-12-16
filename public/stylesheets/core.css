@@ -1178,9 +1178,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .summary{color:#666;margin:3px 0 1px}
 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
-#records .record{margin-right:40px}
+#records .record{margin-right:10px;width:300px}
 
 .newbox{padding-left:10px;width:100%}
 .span_title{font-size:18px;font-weight:bold;}
 
-.share{clear:both;margin:15px 0 15px ;height:60px}
+.share{clear:both;margin:15px 0 15px ;height:64px}
+.share img{margin-top:2px}
