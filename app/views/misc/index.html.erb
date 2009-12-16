@@ -108,17 +108,13 @@
   </div>
 </div>
            
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
+<div>
       <h3>最新活动分享</h3>
       <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
       <div class="contents">
-        <%= render :partial => "/shares/shares", :object => @recent_shares %>
+        <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
       <p class="remark">&raquo; <%= link_to "浏览全部分享", shares_url %></p>
-    </div>
-  </div>
 </div>
 <div class="box">
   <div class="boxOuter">
