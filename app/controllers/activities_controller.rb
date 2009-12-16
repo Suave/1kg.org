@@ -92,7 +92,7 @@ class ActivitiesController < ApplicationController
     else
       invited_user_ids = params[:invite].collect {|k,v| v.to_i}
       message = Message.new(:subject => "#{current_user.login}邀请您参加#{@activity.title}",
-                            :content => "#{current_user.login}( #{user_url(current_user)} )邀请您加入#{@activity.title}( #{activity_url(@activity)} )\r\n\r\n快去看看吧\r\n\r\n\r\n多背一公斤客服"
+                            :content => "#{current_user.login}( <a href='#{user_url(current_user)}'>#{user_url(current_user)}</a> )邀请您加入#{@activity.title}( <a href='#{activity_url(@activity)}'>#{activity_url(@activity)}</a> )\r\n\r\n快去看看吧\r\n\r\n\r\n多背一公斤客服"
                             )
       message.author_id = 0
       message.to = invited_user_ids
@@ -118,6 +118,4 @@ class ActivitiesController < ApplicationController
       redirect_to root_url
     end  
   end
-  
-  
 end

@@ -380,7 +380,7 @@ class SchoolsController < ApplicationController
       user.roles << Role.find_by_identifier("roles.school.moderator.#{school.id}")
 
       message = Message.new(:subject => "恭喜您成为#{school.title}的学校大使",
-                            :content => "#{user.login}，\r\n\r\n\r\n祝贺您成为#{school.title}学校大使！\r\n\r\n\r\n作为#{school.title}的学校大使，您可以：\r\n\r\n - 编辑、更新学校信息；\r\n\r\n - 添加其他去过学校的用户为学校大使；\r\n\r\n - 为学校申请1KG.org项目，解决学校的需求问题等；\r\n\r\n - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。\r\n\r\n\r\n现在就进入#{school.title}（ #{url_for(school)} ）看看吧。\r\n\r\n\r\n多背一公斤客服"
+                            :content => "<p>#{user.login}，</p><p>祝贺您成为#{school.title}学校大使！</p><p>作为#{school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><p>现在就进入#{school.title}（ <a href='#{url_for(school)}'>#{url_for(school)}</a> ）看看吧。</p><p>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = [user.id]

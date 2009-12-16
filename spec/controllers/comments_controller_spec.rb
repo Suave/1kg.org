@@ -18,8 +18,7 @@ describe CommentsController do
   describe 'post /comments/new' do
     describe 'with valid commentable' do
       before do
-        @commentables = [{:commentable => 'SchoolGuide', :school_guide_id => 1},
-                         {:commentable => 'Share', :share_id => 1},
+        @commentables = [{:commentable => 'Share', :share_id => 1},
                          {:commentable => 'Activity', :activity_id => 1},
                          {:commentable => 'Bulletin', :bulletin_id => 1}]
       end
