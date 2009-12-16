@@ -198,41 +198,8 @@ class SchoolsController < ApplicationController
       
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
-  
-  #旧版的学校页面
-  #def show
-  #  @school = School.find(params[:id])
-  #  
-  #  @school.hit!
-  #  
-  #  @traffic = @school.traffic
-  #  @need = @school.need
-  #  @local   = @school.local
-  #  @contact = @school.contact
-  #  @finder  = @school.finder
-  #  @basic = @school.basic
-  #  
-  #  if @school.nil? or @school.deleted?
-  #    render_404 and return
-  #  end
-  #  
-  #  @visitors = @school.visitors
-  #  @followers = @school.interestings
-  #  @moderators = User.moderators_of(@school)
-  #  @shares = @school.shares
-  #  @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 12)
-  #  if logged_in?
-  #    @visited = Visited.find(:first, :conditions => ["user_id=? and school_id=? and status=?", current_user, @school.id, Visited.status('visited')])
-  #  end
-  #  
-  #  @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
-  #  unless @board.blank?
-  #    @board = @board.board
-  #    @topics = @board.latest_topics
-  #  end 
-  #end
 
-  # 学校页面改版
+  # 改版学校页面
   def show
     @school = School.find(params[:id])
     @school.hit!
@@ -397,7 +364,7 @@ class SchoolsController < ApplicationController
   
   def setphoto
     @school = School.find(params[:id])
-    if current_user.school_moderator?
+    if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
       redirect_to school_url(@school)

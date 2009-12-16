@@ -48,7 +48,7 @@ class Board < ActiveRecord::Base
     topics = self.topics.find(:all,
                               :order => "updated_at desc",
                               :include => [:user],
-                              :limit => 10)
+                              :limit => 5)
   end
   
   private
