@@ -115,10 +115,10 @@
         <%= link_to "台湾","/geos?province=393" %>
       </div>
       
-      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 10px 10px">
+      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 0 10px 15px">
       <h3 style="color:#666;font-weight:bold">城市快速搜索</h3>
         <% form_tag search_geos_url, :method => :get do -%>
-          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:150px"} %> <%= submit_tag "查找", :class => "form-submit" %>
+          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>
         <% end -%>
         
       </div>
