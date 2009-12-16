@@ -7,7 +7,7 @@
     <div class="summary">“<%= summary(share,32) %>……”</div>
     <small style="color:#999">
       <%= share.votes.count %> 推荐/<%= share.comments_count %> 回复
-       <% unless share.tags.blank?%>标签：
+       <% unless share.tags.blank?%> 标签:
         <% share.tags.each do |tag| %>
           <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
         <% end %>

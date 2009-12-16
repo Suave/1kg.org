@@ -72,7 +72,7 @@ class School < ActiveRecord::Base
   named_scope :locate, lambda { |city_ids|
     {:conditions => ["geo_id in (?)", city_ids]}
   }
-  named_scope :top10_popular, :order => 'last_month_karma DESC', :limit => 10
+  named_scope :top10_popular, :order => 'last_month_karma DESC', :limit => 6
   named_scope :recent_upload, :order => "created_at desc", :limit => 10
   named_scope :include, lambda {|includes| {:include => includes}}
   

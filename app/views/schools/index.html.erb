@@ -47,7 +47,7 @@
 
 <div class="newbox" >
       <span class="postNew"><%= link_for_new_school %></span>
-      <span>地图查询</span> <%=link_to "全国地图","/geos"%>
+      <span class="span_title">地图查询</span> <%=link_to "全国地图","/geos"%>
       <div class="clearfix" style="height:20px"> </div>
       <div class="zone">
         <h6>华北地区</h6>
@@ -58,7 +58,7 @@
         <%= link_to "内蒙古","/geos?province=27" %>
       </div>
         
-      <div class="zone" style="width:150px;">
+      <div class="zone" style="width:160px;">
         <h6>东北地区</h6>  
         <%= link_to "辽宁","/geos?province=40" %>
         <%= link_to "吉林","/geos?province=55" %>
@@ -83,7 +83,7 @@
         <%= link_to "湖南","/geos?province=201" %>
       </div>
       
-      <div class="zone" style="width:150px;">
+      <div class="zone" style="width:160px;">
         <h6>华南地区</h6>
         <%= link_to "广东","/geos?province=216" %>
         <%= link_to "广西","/geos?province=238" %>
@@ -108,32 +108,31 @@
         <%= link_to "新疆","/geos?province=372" %>
       </div>
       
-      <div class="zone" style="width:150px;">
+      <div class="zone" style="width:160px;">
         <h6>港澳台地区</h6>
         <%= link_to "香港","/geos?province=391" %>
         <%= link_to "澳门","/geos?province=392" %>
         <%= link_to "台湾","/geos?province=393" %>
       </div>
       
-      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 10px 10px">
+      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 0 10px 15px">
       <h3 style="color:#666;font-weight:bold">城市快速搜索</h3>
         <% form_tag search_geos_url, :method => :get do -%>
-          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:150px"} %> <%= submit_tag "查找", :class => "form-submit" %>
+          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>
         <% end -%>
-        
       </div>
+      <div class="clearfix"></div>
 </div>
 
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最近活跃学校</h3>
+<div class="newbox">
+      <div class="clearfix"></div>
+      <span class="span_title">本月最活跃的学校</span>
+      <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
-        <%= render :partial => '/schools/schools', :object => School.top10_popular.include([:user]) %>
+        <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:user,:main_photo]) %>
       </div>
-    </div>
-  </div>
+      <style type="text/css">.school_list_meta{width:190px;}</style>
 </div>
 
 <div class="box">
