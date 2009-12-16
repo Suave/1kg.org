@@ -114,19 +114,19 @@
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
-      
+      <div class="cleanfix" style="height:20px"></div>
 </div>
 
 <div id="records" class="newbox">
       <span class="span_title">最新用户动态</span>
       
       <div class="clearfix">
-        <p style="font-size:15px;color:#666">要去学校的用户</p>
+        <p style="font-size:14px;color:#666">要去学校的用户</p>
         <%= render :partial => "/shared/visit", :collection => @wannas,:locals => {:school => nil} %>
       </div>
       
       <div class="clearfix">
-      <p style="font-size:15px;color:#666">去过学校的用户</p>
+      <p style="font-size:14px;color:#666">去过学校的用户</p>
         <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
       </div>
 

@@ -1,12 +1,18 @@
-<div style="clear:both;margin:10px 0 16px ;min-height:50px">
+<div class="share">
   <div style="float:left">
     <%= avatar_for(share.user, "large") %>
   </div>
   <div style="margin-left:60px;">
     <div><%= link_to share.user.login, user_url(share.user) %> 写了 <%= link_to h(share.title), share_url(share) %></div>
-    <span style="color:#999; text-align:right">
-      <%= share.hits %> 浏览/<%= share.comments_count %> 回复
-    </span>
-    <div class="summary">"<%= summary(share,32) %>……"</div>
+    <div class="summary">“<%= summary(share,32) %>……”</div>
+    <small style="color:#999">
+      <%= share.votes.count %> 推荐/<%= share.comments_count %> 回复
+       <% unless share.tags.blank?%>标签：
+        <% share.tags.each do |tag| %>
+          <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+        <% end %>
+        
+      <% end %>
+    </small>
   </div>
 </div>
