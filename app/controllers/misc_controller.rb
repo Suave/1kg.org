@@ -78,6 +78,7 @@ class MiscController < ApplicationController
   end
 
   def custom_search
+    @body_class = 'white'
   end
   
   private

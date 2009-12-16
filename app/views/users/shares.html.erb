@@ -15,13 +15,4 @@
   <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3><%= @user.login %>的分享</h3>
-      <div class="contents">
-        <%= render :partial => "shares", :object => @shares %>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render :partial => "shares", :object => @shares, :locals => {:user => @user} %>

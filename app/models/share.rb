@@ -89,6 +89,6 @@ class Share < ActiveRecord::Base
   end
   
   def format_content
-    self.clean_html ||= sanitize(self.body_html)
+    self.clean_html = sanitize(self.body_html)
   end
 end
