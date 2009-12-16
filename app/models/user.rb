@@ -211,6 +211,10 @@ class User < ActiveRecord::Base
     !self.roles.find_by_identifier("roles.schools.moderator").nil?
   end
   
+  def envoy_schools
+     self.roles.map {|r|  School.find_by_id((r.identifier).split('.').last.to_i) if r.identifier =~ /^roles.school.moderator./}.compact
+  end
+  
   def self.recent_citizens
     find(:all, :conditions => ["state='active'"],
                :order => "id desc",

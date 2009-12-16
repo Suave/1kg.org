@@ -40,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :groups => :get,
                                     :group_topics => :get,
                                     :visited => :get,
+                                    :envoy => :get,
                                     :submitted_topics => :get,
                                     :participated_topics => :get},
                         :has_many => [:sent] do |user|

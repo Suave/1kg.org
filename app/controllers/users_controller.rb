@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited, :guides]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited, :guides,:envoy]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -228,6 +228,10 @@ class UsersController < ApplicationController
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:include => [:school])
     @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:include => [:school])
     @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:include => [:school])
+  end
+  
+  def envoy
+    @schools = @user.envoy_schools
   end
 
   protected

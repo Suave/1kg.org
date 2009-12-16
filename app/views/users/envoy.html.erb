@@ -1,0 +1,19 @@
+
+<% @page_title = "#{@user.login}作为学校大使" -%>
+
+<% content_for :crumb do -%>
+<li>用户</li>
+<ul>
+  <li><%= h @user.login %></li>
+</ul>
+<% end -%>
+<% content_for :fullsize do -%>
+<style type="text/css">.school_list_meta{width:190px;}</style>
+<h2 class="title"><%= "#{@user.login}作为学校大使的学校" %></h2>
+<div class="clearfix"></div>
+<div>
+    <%= render :partial => "/shared/school", :collection => @schools %>
+    <div class="clearfix" style="height:20px"></div>  
+</div>  
+ 
+<%end%>
