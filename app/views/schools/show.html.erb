@@ -119,20 +119,7 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-      <% @shares.each do |s| -%>
-      <div style="clear:both;margin:10px 0 16px ;min-height:50px">
-        <div style="float:left">
-          <%= avatar_for(s.user, "large") %>
-        </div>
-        <div style="margin-left:60px;">
-          <div><%= link_to s.user.login, user_url(s.user) %> 写了 <%= link_to h(s.title), share_url(s) %></div>
-          <span style="color:#999; text-align:right">
-            <%= s.hits %> 浏览/<%= s.comments_count %> 回复
-          </span>
-          <div class="summary">"<%= summary(s,36) %>……"</div>
-        </div>
-      </div>
-      <% end -%>
+      <%= render :partial => "/shared/share", :collection => @shares %>
     <p class="content_lei">去过这所学校吗？<%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
     <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
