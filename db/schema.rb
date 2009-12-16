@@ -440,13 +440,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "comment"
     t.boolean  "auto_fill"
   end
-  
-  create_table "sale_records", :force => true do |t|
-    t.string   "buyer_name"
-    t.string   "buyer_email"
-    t.string   "order_id"
-    t.datetime "created_at"
-  end 
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
