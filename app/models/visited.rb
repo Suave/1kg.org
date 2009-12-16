@@ -18,7 +18,7 @@ class Visited < ActiveRecord::Base
   belongs_to :user
   
   named_scope :latestvisit, :order => 'created_at DESC', :limit => 6,:conditions => "(status = 1)", :include => [:user, :school,]
-  named_scope :latestwanna, :order => 'wanna_at ASC', :limit => 6,:conditions => "(status = 3)", :include => [:user, :school,]
+  named_scope :latestwanna, :order => 'visited_at ASC', :limit => 6,:conditions => "(status = 3)", :include => [:user, :school,]
   
   acts_as_paranoid
   
