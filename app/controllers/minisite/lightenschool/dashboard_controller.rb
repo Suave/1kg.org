@@ -39,7 +39,9 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
   end
   
   def winners
-    
+    @classone = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[0,3]
+    @classtwo = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[3,30]
+    @classthree = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[30,60]
   end
   
   def required
