@@ -195,6 +195,8 @@ ActionController::Routing::Routes.draw do |map|
       festcard09.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
         dash.submit   'cards',    :action => "cards"
+        dash.password '/password',:action => "password"
+        dash.comment  '/comment', :action => "comment"
       end
     end
   end
