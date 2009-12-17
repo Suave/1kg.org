@@ -38,6 +38,10 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     end
   end
   
+  def winners
+    
+  end
+  
   def required
   end
   
