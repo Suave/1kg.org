@@ -14,7 +14,8 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-   <p style="text-align:right"><%= link_to "与#{@user.login}相关的全部学校 ", "/users/#{@user.id}/visited"%></p>
+    <p style="text-align:right"><%= link_to "#{@user.login}作为大使的学校", "/users/#{@user.id}/envoy"%></p>
+    <p style="text-align:right"><%= link_to "与#{@user.login}相关的全部学校", "/users/#{@user.id}/visited"%></p>
   <% unless @wannas.blank? %>
   <div class="school_frame">
         <h3>要去的学校</h3>
