@@ -415,13 +415,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "slug",             :null => false
     t.string   "title",            :null => false
     t.text     "description_html"
+    t.integer  "bucks_count",      :default => 0
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "stuffs", :force => true do |t|
     t.string   "code",         :null => false
     t.integer  "type_id",      :null => false
-    t.integer  "buck_id",      :null => false
+    t.integer  "buck_id"
     t.integer  "user_id"
     t.integer  "school_id"
     t.datetime "matched_at"

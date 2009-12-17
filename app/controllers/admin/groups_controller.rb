@@ -2,7 +2,7 @@ class Admin::GroupsController < Admin::BaseController
   before_filter :find_group, :except => [:index, :create]
   
   def index
-    @groups = Group.find(:all, :order => "created_at desc")
+    @groups = Group.find(:all, :order => "created_at desc", :include => [:city, :creator])
   end
   
   def new

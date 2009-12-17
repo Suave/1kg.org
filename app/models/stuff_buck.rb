@@ -16,7 +16,7 @@
 #
 
 class StuffBuck < ActiveRecord::Base
-  belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id"
+  belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id", :counter_cache => "bucks_count"
   belongs_to :school
   has_many :stuffs, :foreign_key => "buck_id", :dependent => :destroy
   

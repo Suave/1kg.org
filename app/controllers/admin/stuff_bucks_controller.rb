@@ -2,7 +2,7 @@ class Admin::StuffBucksController < Admin::BaseController
   before_filter :find_stuff_type
   
   def index
-    @bucks = @type.bucks.find :all, :order => "created_at desc"
+    @bucks = @type.bucks.find :all, :order => "created_at desc", :include => :school
   end
   
   def new
