@@ -1,3 +1,14 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+  
+  <script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+  </script>
+<% end %>
+
 <% @page_title = h(@topic.title) -%>
 
 <% content_for :crumb do -%>
@@ -135,7 +146,7 @@
           <% end -%>
         <% else -%>
 
-          <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以回复话题</div>
+          <div class="contents"><%= link_to "登录", ajax_login_url(:iframe => true, :width => 550, :height => 480, :alt => "登录"), :rel => 'prettyPhoto[iframes]' %>以后可以回复话题</div>
 
         <% end -%>
       </div>
