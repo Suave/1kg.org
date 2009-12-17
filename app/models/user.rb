@@ -213,7 +213,14 @@ class User < ActiveRecord::Base
   
   def envoy_schools
      #self.roles.map {|r|  School.find(:first, :conditions => {:validated => true, :deleted_at => nil,:id => (r.identifier).split('.').last.to_i }) if r.identifier =~ /^roles.school.moderator./}.compact
-     self.roles.map {|r|  School.validated.find((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./}.compact
+    a = self.roles.map do |r|
+        begin
+	  School.validated.find((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./
+        rescue ActiveRecord::RecordNotFound
+	  nil
+        end
+      end
+    a.compact
   end
   
   def self.recent_citizens
