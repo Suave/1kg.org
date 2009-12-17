@@ -1,5 +1,10 @@
 
 <% content_for :heads do -%>
+<%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+<% end -%>
+
+<% content_for :heads do -%>
 <%= render :partial => "head" %>
 <style type="text/css"> 
 body {background: #ececec url(/images/lightenschool/background.png)no-repeat center top;}
@@ -14,19 +19,15 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 
 <% content_for :fullsize do -%>
 <div id="classzero" style="background-color:#f2613d;padding:5px;margin-bottom:10px">
-  <div style="float:left">
+  <div>
   <h2>点亮学校公益旅行攻略大赛</h2>
   <h6>旅行家奖获奖攻略名单</h6>
-  <p style="color:white;margin:25px 10px 5px; ">注意：请获奖的用户在xx年xx月xx日前，将具体的邮寄地址填写到个人资料的个人介绍里。 <a href="#" onclick="return false" style="color:#ffbbbb">在哪里填写？</a></p>
+  <p style="color:white;margin:25px 10px 5px; ">注意：请获奖的用户在xx年xx月xx日前，将具体的邮寄地址填写到个人资料的个人介绍里。 <a title="未命名图片" rel="prettyPhoto[gallery]" description='' href="/images/lightenschool/help.png">在哪里填写？</a></p>
   </div>
-  <div id="classzeromore" style="float:right">
-  
-  </div>
-
   <div class="clearfix"></div>
 </div>
-<div id="classone" style="background-color:#ffdd33;padding:5px;margin-bottom:10px">
-  <div style="float:left">
+<div id="classone" style="background-color:#ff9933;padding:5px;margin-bottom:10px">
+  <div style="float:left;clear:both">
   <h2>优秀奖</h2>
   <h6> 三名</h6>
   <h6>奖品：户外徒步鞋</h6>
@@ -34,10 +35,10 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <div style="float:right">
   <%= render :partial => "/shared/share", :collection => @classone %>
   </div>
-  <div class="clearfix"></div>
+  <div class="clearfix" style="clear:both"></div>
 </div>
 
-<div id="classtwo" style="background-color:#aaff44;padding:5px;margin-bottom:10px">
+<div id="classtwo" style="background-color:#66cc33;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>攻略奖</h2>
   <h6> 三十名</h6>
   <h6>奖品：户外背包</h6>
@@ -48,14 +49,14 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     <%= render :partial => "/shared/share", :collection => @classtwo[3,27] %>
     </div>
   </div>
-  <div class="clearfix"></div>
+  <div class="clearfix" style="clear:both"></div>
   <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classtwomore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部获奖攻略</a></p>
 </div>
 
 
-<div id="classthree" style="background-color:#44ffcc;padding:5px;margin-bottom:10px">
+<div id="classthree" style="background-color:#0099ff;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>参与奖</h2>
-  <h6>六十名</h6>
+  <h6>六十一名</h6>
   <h6>奖品：户外T恤衫</h6></div>
   <div style="float:right">
     <%= render :partial => "/shared/share", :collection => @classthree[0,3] %>
@@ -63,15 +64,21 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     <%= render :partial => "/shared/share", :collection => @classtwo[3,57] %>
     </div>
   </div>
-  <div class="clearfix"></div>
+  <div class="clearfix" style="clear:both"></div>
   <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classthreemore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部获奖攻略</a></p>
 </div>
 
   <style type="text/css">
-  h2 {font-size:24px;color:white;margin:10px 10px 0}
-  h6 {font-size:14px;color:white;margin-left:10px}
-  #classone .share{background-color:#fff0d0;border:1px #ffcc66 solid;padding:5px 10px;margin:5px 0;width:760px}
-  #classtwo .share{background-color:#f0ffd0;border:1px #99ff55 solid;padding:5px 10px;margin:5px 0;width:760px}
-  #classthree .share{background-color:#d0fff0;border:1px #55ff99 solid;padding:5px 10px;margin:5px 0;width:760px}
+  h2 {font-weight:bold;font-size:24px;color:white;margin:10px 10px 0}
+  h6 {font-weight:bold;font-size:14px;color:white;margin-left:10px}
+  #classone .share{background-color:#fff0d0;border:1px #cc6633 solid;padding:5px 10px;margin:5px 0;width:760px}
+  #classtwo .share{background-color:#f0ffd0;border:1px #009933 solid;padding:5px 10px;margin:5px 0;width:760px}
+  #classthree .share{background-color:#d0fff0;border:1px #3366ff solid;padding:5px 10px;margin:5px 0;width:760px}
   </style>
 <% end -%>
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+   
+</script>
