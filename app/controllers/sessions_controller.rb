@@ -6,24 +6,41 @@ class SessionsController < ApplicationController
   # render new.rhtml
   def new
   end
-
+  
+  def ajax_login
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
+  end
+  
   def create
     self.current_user = User.authenticate(params[:email], params[:password])
-    if logged_in?
-      if params[:remember_me] == "1"
-        current_user.remember_me unless current_user.remember_token?
-        cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+
+    respond_to do |format|
+      if logged_in?
+        if params[:remember_me] == "1"
+          current_user.remember_me unless current_user.remember_token?
+          cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
+        end
+        current_user.update_attribute(:ip, request.remote_ip)
+        # 保存用户ID
+        cookies[:onekg_id] = { :value => self.current_user.id , :expires => 1.year.from_now }
+        flash[:notice] = "欢迎 #{current_user.login}, 你已经登录"
+        format.html {redirect_back_or_default CGI.unescape(params[:to] || '/')}
+        format.js {
+          render :update do |page|
+            page << 'parent.location.reload();'
+          end
+        }
+      else
+        flash[:notice] = "邮件地址或密码错误"
+        format.html {render :action => 'new'}
+        format.js do 
+          render :update do |page|
+            page << "alert('对不起，用户名或密码错误，请重新输入!');"
+          end
+        end
       end
-      current_user.update_attribute(:ip, request.remote_ip)
-      # 保存用户ID
-      cookies[:onekg_id] = { :value => self.current_user.id , :expires => 1.year.from_now }
-      flash[:notice] = "欢迎 #{current_user.login}, 你已经登录"
-            
-      redirect_back_or_default CGI.unescape(params[:to] || '/')
-      
-    else
-      flash[:notice] = "邮件地址或密码错误"
-      render :action => 'new'
     end
   end
   
