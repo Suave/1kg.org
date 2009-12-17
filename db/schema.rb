@@ -423,7 +423,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "stuffs", :force => true do |t|
     t.string   "code",         :null => false
     t.integer  "type_id",      :null => false
-    t.integer  "buck_id",      :null => false
+    t.integer  "buck_id"
     t.integer  "user_id"
     t.integer  "school_id"
     t.datetime "matched_at"
