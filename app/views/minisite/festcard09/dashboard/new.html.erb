@@ -26,10 +26,12 @@
 <div class="lcolumn">
   <div class="boxouter">
     <h3>输入爱心密码</h3>
-    <div class="boxinter passwordInput">
+    <div class="boxinter passwordInput" style="text-align:center">
       <% form_tag minisite_festcard09_password_url do -%>
-        <%= text_field_tag "password" %>     <%= submit_tag "提 交", :class => "submit" %>
+        <%= text_field_tag "password" %>     <%= submit_tag "提 交", :class => "submit" %>        
       <% end -%>
+      <p style="color:gray; margin:5px 0 0 0;">密码是 E07组 2010 XXXXXX 2010 2010 中的X部分</p>
+      
     </div>
   </div>
   
