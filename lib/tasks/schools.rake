@@ -34,7 +34,7 @@ namespace :schools do
   
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
-    schools = School.all
+    schools = School.validated
     puts "学校总数：#{schools.size}"
     
     schools.each do |school|
@@ -42,16 +42,16 @@ namespace :schools do
       # 照片 4s/张
       karma += school.photos.count * 4
       # 分享 10s/篇
-      karma += school.shares.available.count * 10
+      karma += school.shares.count * 10
       # 分享回复 2s/个
-      school.shares.available.each do |share|
-        karma += share.comments.available.count * 2
+      school.shares.each do |share|
+        karma += share.comments.count * 2
       end
       # 学校话题 5s/个
-      karma += school.discussion.board.topics.available.count * 5
+      karma += school.discussion.board.topics.count * 5
       # 话题回复 2s/个
-      school.discussion.board.topics.available.each do |topic|
-        karma += topic.posts.available.count * 2
+      school.discussion.board.topics.each do |topic|
+        karma += topic.posts.count * 2
       end
       # TODO 学校活动
       # TODO 活动回复
@@ -66,9 +66,9 @@ namespace :schools do
       school.update_attributes!(:karma => karma) #unless school.karma == karma
 
       # 更新学校当月平均活跃度
-      last_month_average_karma = school.snapshots.average(:karma, :conditions => ['created_on > ?', Date.today - 1.month]).to_i rescue 0
-      school.update_attribute(:last_month_average_karma, last_month_average_karma)
-      #puts "#{school.title}: #{karma}" unless karma == 0
+      last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
+      school.update_attribute(:last_month_karma, last_month_karma)
+      #puts "#{school.title}: #{last_month_karma}" unless karma == 0
     end
   end 
   
