@@ -35,7 +35,13 @@ namespace :schools do
   desc "删除失效的大使权限"
   task :role_delete => :environment do
     roles = Role.all.map{|r| r if r.identifier =~ /^roles.school.moderator./}.compact
-    roles.each {|r| r.delete if School.find(:first,:conditions => {:id => (r.identifier).split('.').last.to_i}) == nil} 
+    roles.each do |r|
+      if School.find(:first,:conditions => {:id => (r.identifier).split('.').last.to_i}) == nil
+        r.delete 
+        $stdout.putc('.')
+        $stdout.flush
+      end
+    end
   end  
   
   
