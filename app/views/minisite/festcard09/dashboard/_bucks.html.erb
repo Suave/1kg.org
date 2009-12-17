@@ -1,8 +1,8 @@
 <table>
   <tr>
-    <th style="width:66%">学校</th>
-    <th style="width:14%">捐赠(册)</th>
-    <th style="width:20%">捐助团体</th>
+    <th style="width:60%">学校</th>
+    <th style="width:12%">捐赠(册)</th>
+    <th style="width:28%">已捐赠（册）</th>
   </tr>
   <% bucks.each do |b| -%>
   <tr>
@@ -21,7 +21,7 @@
       </div>
     </td>
     <td><%= b.quantity %></td>
-    <td><% if b.for_team? -%><span style="font-size:11px;"><%= b.for_team_tip %></span><% end -%></td>
+    <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %></td>
   </tr>
   <% end -%>
 </table>
