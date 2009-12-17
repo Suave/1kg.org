@@ -29,6 +29,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <div style="float:left">
   <h2>优秀奖</h2>
   <h6> 三名</h6>
+  <h6>奖品：户外徒步鞋</h6>
   </div>
   <div style="float:right">
   <%= render :partial => "/shared/share", :collection => @classone %>
@@ -38,7 +39,9 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 
 <div id="classtwo" style="background-color:#aaff44;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>攻略奖</h2>
-  <h6> 三十名</h6></div>
+  <h6> 三十名</h6>
+  <h6>奖品：户外背包</h6>
+  </div>
   <div style="float:right">
     <%= render :partial => "/shared/share", :collection => @classtwo[0,3] %>
     <div id="classtwomore" style="display:none">
@@ -46,13 +49,14 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     </div>
   </div>
   <div class="clearfix"></div>
-  <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classtwomore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部</a></p>
+  <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classtwomore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部获奖攻略</a></p>
 </div>
 
 
 <div id="classthree" style="background-color:#44ffcc;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>参与奖</h2>
-  <h6>六十名</h6></div>
+  <h6>六十名</h6>
+  <h6>奖品：户外T恤衫</h6></div>
   <div style="float:right">
     <%= render :partial => "/shared/share", :collection => @classthree[0,3] %>
     <div id="classthreemore" style="display:none">
@@ -60,7 +64,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
     </div>
   </div>
   <div class="clearfix"></div>
-  <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classthreemore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部</a></p>
+  <p style="text-align:center"><a href="#" onclick="$(this).hide();$('#classthreemore').animate({ height: 'show' });return false" style="font-size:18px;color:white">查看全部获奖攻略</a></p>
 </div>
 
   <style type="text/css">

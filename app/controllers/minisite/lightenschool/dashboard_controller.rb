@@ -39,9 +39,12 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
   end
   
   def winners
-    @classone = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[0,3]
-    @classtwo = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[3,30]
-    @classthree = Share.find_tagged_with('点亮学校',:order => "updated_at desc",:include => [:user,:tags])[30,60]
+    gold = [1000739,1000753,1000766]
+    silver = [1000502,1000760, 1000737, 1000743, 1000740, 1000758, 1000736, 1000764, 1000738, 1000767, 1000751, 1000742, 1000749, 1000757, 1000761, 1000741, 1000752, 1000420, 1000755, 1000447, 1000532, 1000748, 1000750, 1000462, 46, 73, 130, 147, 133, 1000759]
+    cooper = [1000454,1000534,1000763,1000580,1000608,134,163,7,133,1000487,1000756,1000746,2,88,44,1000318,1000375,1000328,224,1000535,1000555,1000594,69,1000338,1000595,250,164,1000358,1000373,125,1000592,1000426,1000561,1000505,1000434,1000590,1000501,45,1000471,1000547,1000582,1000374,1000335,31,10,9,1000450,12,1000326,128,120,66,67,79,1000308,1000606,110,296,4,136]
+    @classone = gold.map {|id| Share.find(id) }
+    @classtwo = silver.map {|id| Share.find(id) }
+    @classthree = cooper.map {|id| Share.find(id) }
   end
   
   def required
