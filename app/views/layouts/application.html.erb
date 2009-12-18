@@ -48,18 +48,15 @@
 	  <%= link_to "点亮学校", minisite_lightenschool_index_url,:class => "slidenav" %>
 	</div>
       </li>-->
-	
-      
       <li class="home"><a href="/misc/community-guide" target="_blank">帮助</a></li>
     </ul>
     <p style="float:right">
     <% if logged_in? -%>
     欢迎, <%= current_user.login %>(<%= link_to "帐号设置", setting_url %>|<%= link_to "我的1KG", user_url(current_user) %>) | <%= inbox_link("消息") %> | <%= link_to "退出", logout_url %>
     <% else -%>
-    <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %> | <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
+      <%= render '/shared/login_box' %>
     <% end -%>
     </p>
-    
   </div>
   
   <div id="breadcrumb">
