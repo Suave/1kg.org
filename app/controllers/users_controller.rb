@@ -38,7 +38,7 @@ class UsersController < ApplicationController
           @user.update_attribute(:ip, request.remote_ip)
           cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
           self.current_user = @user
-          flash[:notice] = "注册完成, 补充一下你的个人信息吧"
+          flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
           #redirect_to "/setting"
           redirect_back_or_default CGI.unescape(params[:to] || '/setting')
           #render :action => "wait_activation"
@@ -53,7 +53,7 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !self.current_user.active?
       self.current_user.activate!
-      flash[:notice] = "注册完成，补充一下你的个人信息吧"
+      flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
       redirect_back_or_default CGI.unescape(params[:to] || '/setting')
     else
       flash[:notice] = "激活码不正确，请联系 feedback@1kg.org"
@@ -70,31 +70,30 @@ class UsersController < ApplicationController
       @type = "account"
       render :action => "setting_account"
       
-    elsif params[:type] == "avatar"
-      @type = "avatar"
-      render :action => "setting_avatar"
-      
-    elsif params[:type] == "live"
-      @type = "personal"
-      @live_geo = @user.geo
-      @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
-      if @current_geo
-        @same_level_geos = @current_geo.siblings
-        @next_level_geos = @current_geo.children
-      else
-        @same_level_geos = Geo.roots
-        @next_level_geos = nil
-      end      
-      render :action => "setting_live"
+    #elsif params[:type] == "live"
+    #  @type = "personal"
+    #  @live_geo = @user.geo
+    #  @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
+    #  if @current_geo
+    #    @same_level_geos = @current_geo.siblings
+    #    @next_level_geos = @current_geo.children
+    #  else
+    #    @same_level_geos = Geo.roots
+    #    @next_level_geos = nil
+    #  end      
+    #  render :action => "setting_live"
       
     elsif params[:type] == 'profile'
       @type = "profile"
       @profile = @user.profile || Profile.new
       render :action => "setting_profile"
-      
+     
     else
-      @type = "personal"
-      render :action => "setting_personal"
+      @type = "avatar"
+      render :action => "setting_avatar" 
+    # else
+    #   @type = "personal"
+    #   render :action => "setting_personal"
     end
   end
   
@@ -107,6 +106,17 @@ class UsersController < ApplicationController
       redirect_to setting_url(:type => 'account')
     
     
+    elsif params[:for] == 'geo_id'
+      unless params[:user].blank?
+      @user.geo_id = params[:user][:geo_id]
+      #self.current_user = @user
+      @user.save
+      flash[:notice] = "居住地修改成功"
+      else
+        flash[:notice] = "请选择一个城市"
+      end
+      redirect_to setting_url(:type => 'account')
+     
       
     elsif params[:for] == 'password'
       @user.update_attributes!(params[:user])
@@ -114,7 +124,7 @@ class UsersController < ApplicationController
       flash[:notice] = "密码修改成功"
       redirect_to setting_url(:type => 'account')
     
-    
+  
       
     elsif params[:for] == 'avatar'
       avatar_convert(:user, :avatar)
@@ -122,16 +132,12 @@ class UsersController < ApplicationController
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "avatar")
     
-    
-    
-    
+        
     elsif params[:for] == 'move'
       @user.geo = nil
       @user.save!
       flash[:notice] = "请选择您现在的居住城市"
-      redirect_to my_city_url
-      
-      
+      redirect_to my_city_url  
       
     elsif params[:for] == 'live'
       @geo = Geo.find(params[:geo])
@@ -139,8 +145,6 @@ class UsersController < ApplicationController
       @user.save!
       flash[:notice] = "您已经入住#{@geo.name}"
       redirect_to my_city_url
-    
-    
     
     elsif params[:for] == 'profile'
       if @user.profile
