@@ -46,3 +46,7 @@ font: bold 1.5em Arial, Helvetica, sans-serif;
 
 .school_list_photo{float:left;}
 .school_list_meta{float:left;margin-left:10px}
+
+#login,#signup{width:280px;background:#F0FDD7;float:left;margin:5px 20px;}
+#login input,#signup input{width:160px}
+#commendbox{width:540px;background:#F0FDD7;float:left;margin:5px 20px 30px;margin-left:50px;}

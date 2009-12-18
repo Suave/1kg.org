@@ -12,10 +12,10 @@ schools = current_user.visited_schools
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
 
-<p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"] %> <%= error_message_on @activity, :departure_id %>
+<p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限地域", "0"],@activity.departure %> <%= error_message_on @activity, :departure_id %>
 　   <label for="arrival_root">目的地<span class="require">*</span>
   <%if @school.nil?%>
-    </label><%= geo_select "activity", "arrival", ["不限地域", "0"] %> <%= error_message_on @activity, :arrival_id %>
+    </label><%= geo_select "activity", "arrival", ["不限地域", "0"],@activity.arrival %> <%= error_message_on @activity, :arrival_id %>
   <%else%>
     <%= @school.geo.parent.name.to_s if @school.geo.parent%>  <%= @school.geo.name.to_s %>
     <input style="display:none" type="text" name="activity[arrival_id]" value="<%=@school.geo.id%>"/>

@@ -174,9 +174,10 @@ ActionController::Routing::Routes.draw do |map|
     site.namespace :lightenschool do |lightenschool|
       lightenschool.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
-        dash.submit   'submit',   :action => "submit"
+        #dash.submit   'submit',   :action => "submit"
         dash.required   'required', :action => "required"
-        dash.processing 'processing',  :action => "processing"
+        #dash.processing 'processing',  :action => "processing"
+        dash.processing 'winners',  :action => "winners"
       end
     end
     
@@ -196,6 +197,8 @@ ActionController::Routing::Routes.draw do |map|
       festcard09.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"
         dash.submit   'cards',    :action => "cards"
+        dash.password '/password',:action => "password"
+        dash.comment  '/comment', :action => "comment"
       end
     end
   end

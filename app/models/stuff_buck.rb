@@ -16,7 +16,7 @@
 #
 
 class StuffBuck < ActiveRecord::Base
-  belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id"
+  belongs_to :type, :class_name => "StuffType", :foreign_key => "type_id", :counter_cache => "bucks_count"
   belongs_to :school
   has_many :stuffs, :foreign_key => "buck_id", :dependent => :destroy
   
@@ -26,7 +26,7 @@ class StuffBuck < ActiveRecord::Base
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
   
-  after_create :generate_stuffs
+  #after_create :generate_stuffs
   
   def matched_percent
     (matched_count.to_f*100/quantity).to_i

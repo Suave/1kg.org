@@ -21,6 +21,7 @@ line-height:1.4em;
 #login,#signup{width:280px;background:#F0FDD7;float:left;margin:5px 20px;}
 #login input,#signup input{width:160px}
 #commendbox{width:540px;background:#F0FDD7;float:left;margin:5px 20px 30px;margin-left:50px;}
+#schoolbox{width:540px;background:#F0FDD7;float:left;margin:5px 20px 30px;margin-left:50px;}
 .boxinter{padding:15px;}
 
 div.info {margin-top:40px;}
