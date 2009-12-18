@@ -18,6 +18,12 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 <% end -%>
 
 <% content_for :fullsize do -%>
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });   
+</script>
+
 <div id="classzero" style="background-color:#f2613d;padding:5px;margin-bottom:10px">
   <div>
   <h2>点亮学校公益旅行攻略大赛</h2>
@@ -30,7 +36,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <div style="float:left;clear:both">
   <h2>优秀奖</h2>
   <h6> 三名</h6>
-  <h6>奖品：户外徒步鞋</h6>
+  <h6>奖品：探路者户外徒步鞋</h6>
   </div>
   <div style="float:right">
   <%= render :partial => "/shared/share", :collection => @classone %>
@@ -41,7 +47,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 <div id="classtwo" style="background-color:#66cc33;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>攻略奖</h2>
   <h6> 三十名</h6>
-  <h6>奖品：户外背包</h6>
+  <h6>奖品：探路者户外背包</h6>
   </div>
   <div style="float:right">
     <%= render :partial => "/shared/share", :collection => @classtwo[0,3] %>
@@ -57,7 +63,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
 <div id="classthree" style="background-color:#0099ff;padding:5px;margin-bottom:10px">
   <div style="float:left"><h2>参与奖</h2>
   <h6>六十一名</h6>
-  <h6>奖品：户外T恤衫</h6></div>
+  <h6>奖品：探路者户外T恤衫</h6></div>
   <div style="float:right">
     <%= render :partial => "/shared/share", :collection => @classthree[0,3] %>
     <div id="classthreemore" style="display:none">
@@ -76,9 +82,3 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   #classthree .share{background-color:#d0fff0;border:1px #3366ff solid;padding:5px 10px;margin:5px 0;width:760px}
   </style>
 <% end -%>
-<script type="text/javascript" charset="utf-8">
-  jQuery(document).ready(function(){
-    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-   
-</script>
