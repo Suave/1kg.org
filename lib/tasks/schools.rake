@@ -44,6 +44,17 @@ namespace :schools do
     end
   end  
   
+  desc "删除失效的用户动态"
+  task :visited_delete => :environment do
+    Visited.all.each do |r|
+      if School.find(:first,:conditions => {:id => r.school_id}) == nil
+        r.delete 
+        $stdout.putc('.')
+        $stdout.flush
+      end
+    end
+  end  
+
   
   desc "count schools' karma(popularity)"
   task :popularity => :environment do
