@@ -25,7 +25,7 @@
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
-#
+#  main_photo_id            :integer(4)
 
 class Activity < ActiveRecord::Base
   include BodyFormat
@@ -40,6 +40,9 @@ class Activity < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
 
+  has_many :photos, :order => "id desc", :dependent => :destroy
+  belongs_to :main_photo, :class_name => 'Photo'
+  
   acts_as_taggable
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
