@@ -195,6 +195,10 @@ class User < ActiveRecord::Base
     has_role?("roles.admin")
   end
   
+  def envoy?
+    !self.roles.find(:first, :conditions => ["identifier LIKE ?", "roles.school.moderator.%"]).blank?
+  end
+  
   def has_neighbor?(user)
     user.neighbors.include?(self)
   end
