@@ -214,17 +214,12 @@ class User < ActiveRecord::Base
   def school_moderator?
     !self.roles.find_by_identifier("roles.schools.moderator").nil?
   end
-  
+
   def envoy_schools
      #self.roles.map {|r|  School.find(:first, :conditions => {:validated => true, :deleted_at => nil,:id => (r.identifier).split('.').last.to_i }) if r.identifier =~ /^roles.school.moderator./}.compact
-    a = self.roles.map do |r|
-        begin
-	  School.validated.find((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./
-        rescue ActiveRecord::RecordNotFound
-	  nil
-        end
-      end
-    a.compact
+    a = self.roles.map{|r|((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./}.compact
+    a = School.find(:all,:conditions => ["id in (?)",a])
+    
   end
   
   def self.recent_citizens
