@@ -18,6 +18,13 @@
       <% end -%>
     </div>
     <div class="block">
+      <h3>居住地</h3>
+      <% form_for :user, :url => user_path(:id => @user, :for => 'geo_id'), :html => {:method => 'put'} do |f| %>
+        <p><label>居住地</label><%= geo_select "user", "geo",[], @user.geo_id %></p>
+        <p><label>&nbsp;</label><%= submit_tag "修改居住地" %></p>
+      <% end -%>
+    </div>
+    <div class="block">
       <h3>密码</h3>
       <% form_for :user, :url => user_path(:id => @user, :for => 'password'), :html => {:method => 'put'} do |f| %>
         <p><label>新密码</label><%= f.password_field :password, :size => 20, :class => "text" %></p>
