@@ -18,7 +18,7 @@
       <td><%= a.arrival_id==0 ? "不限" : a.arrival.name %></td>
       <td><%= date_for_short(a.start_at) %></td>
       <td style="overflow:hidden"><%= link_to a.user.login, user_url(a.user), :class => "link" %></td>
-      <td><%= a.participations.size %></td>
+      <td><%= a.participations.count %></td>
       <td><%= a.comments_count %></td>
     </tr>
     <% end -%>

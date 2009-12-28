@@ -1,9 +1,5 @@
   <div class="school_list">
-    <% if school.main_photo -%>
-    <div class="school_list_photo"><%= image_tag(school.main_photo.public_filename(:thumb), :alt => school.main_photo.title ) %></div>
-    <%else%>
-    <img class="school_list_photo" src="/images/school_main_thumb.png"/>
-    <%end%>        
+    <%= main_photo_thumb(school) -%>       
     <div class="school_list_meta">
     <h5><%= link_to h(school.title), school_path(school)%></h5>
     <span>活跃度</span>

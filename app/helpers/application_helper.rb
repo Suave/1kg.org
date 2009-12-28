@@ -236,7 +236,7 @@ module ApplicationHelper
   
   def main_photo_thumb(school)
     img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
-    "<img src=#{img_url} />"
+    "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title ),school_url(school)).to_s + "</div>"
   end
   
   def plain_text(text,replacement="")

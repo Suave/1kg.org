@@ -89,7 +89,7 @@ module SchoolsHelper
     else
       count = 5
     end
-    html = '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count)
+    html = "<sapn title='活跃度:#{karma}'>" + '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count) + '</span>'
   end
   
   def link_to_needs(needs)
