@@ -182,9 +182,8 @@ class UsersController < ApplicationController
     # postcard
     @stuffs = @user.stuffs
     @shares = @user.shares.find :all, :limit => 5
-    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:limit => 3,:include => [:school])
-    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:limit => 3,:include => [:school])
-    @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:limit => 3,:include => [:school])
+    @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
+    @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 5,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
     
