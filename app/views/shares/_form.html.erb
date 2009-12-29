@@ -1,34 +1,31 @@
 <% 
-activities = @share.new_record? ? current_user.participated_activities : @share.user.participated_activities
-schools = @share.new_record? ? current_user.visited_schools : @share.user.visited_schools
+activities = @share.new_record? ? current_user.participated_activities : (@share.user.participated_activities)
+schools = @share.new_record? ? current_user.visited_schools : (@share.user.visited_schools)
 %>
 
 
-<p><label class="label">标题</label>
+<p><label class="label">标题<span style="color:red;">(必填)</span></label>
 <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
 </p>
 
-<p><label class="label">我去的城市</label>
 <%if @geo.nil?%>
-  <%= geo_select "share", "geo", ["不限地域", "0"], @share.geo_id %> <%= error_message_on @share, :geo_id %>
+  <input style="display:none" type="text" name="share[geo_id]" value="<%= @share.geo_id ? @share.geo_id.to_s : 0%>"/>
 <%else%>
-  <%= @geo.parent.name.to_s if @geo.parent%>  <%= @geo.name.to_s %>
   <input style="display:none" type="text" name="share[geo_id]" value="<%=@geo.id%>"/>
 <%end%>
-</p>
 
-<p><label class="label">我参加的活动</label>
+<p><label class="label">相关活动</label>
 <%if @activity.nil?%>
-  <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]}, {:include_blank => true}  %>
+  <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]} + (@share.activity.nil? ? [] : [[@share.activity.title,@share.activity.id]] ), {:include_blank => true}  %>
 <%else%>
   <%=@activity.title%>
   <input style="display:none" type="text" name="share[activity_id]" value="<%=@activity.id%>"/>
 <%end%>
 </p>
 
-<p><label class="label">我去的学校</label>
+<p><label class="label">相关学校</label>
 <%if @school.nil?%>
-  <%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %>
+  <%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]} + (@share.school.nil? ? [] : [[@share.school.title,@share.school.id]] ), {:include_blank => true} %>
 <%else%>
   <%=@school.title%>
   <input style="display:none" type="text" name="share[school_id]" value="<%=@school.id%>"/>
