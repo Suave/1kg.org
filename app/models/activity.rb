@@ -34,6 +34,7 @@ class Activity < ActiveRecord::Base
   belongs_to :school
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
+  belongs_to :school
   
   has_many :participations, :dependent => :destroy
   has_many :participators,  :through => :participations, :source => :user
