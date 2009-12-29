@@ -1,0 +1,15 @@
+亲爱的<%= @user.login %>:
+
+<%= @message.sender_name %>刚刚给您发了一条消息，消息内容为：
+
+<%= @message.content %>
+
+您可以点击以下链接回复或者了解详情：
+
+<a href="http://www.1kg.org/users/<%= @user.id %>/received">http://www.1kg.org/users/<%= @user.id %>/received</a>
+
+如您不想再收到此类消息，可在您的<a href="http://www.1kg.org/setting?type=account">个人页面进行设置</a>。
+
+===========
+多背一公斤团队
+www.1kg.org
