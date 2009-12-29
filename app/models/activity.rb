@@ -31,6 +31,7 @@ class Activity < ActiveRecord::Base
   include BodyFormat
   
   belongs_to :user
+  belongs_to :school
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
   belongs_to :school

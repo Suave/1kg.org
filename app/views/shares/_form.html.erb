@@ -3,20 +3,36 @@ activities = @share.new_record? ? current_user.participated_activities : @share.
 schools = @share.new_record? ? current_user.visited_schools : @share.user.visited_schools
 %>
 
-<p><label class="label">我去的城市</label>
-<%= geo_select "share", "geo", ["不限地域", "0"], @share.geo_id %> <%= error_message_on @share, :geo_id %>
-</p>
-
-<p><label class="label">我参加的活动</label>
-<%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]}, {:include_blank => true}  %>
-</p>
-
-<p><label class="label">我去的学校</label>
-<%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %>
-</p>
 
 <p><label class="label">标题</label>
 <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
+</p>
+
+<p><label class="label">我去的城市</label>
+<%if @geo.nil?%>
+  <%= geo_select "share", "geo", ["不限地域", "0"], @share.geo_id %> <%= error_message_on @share, :geo_id %>
+<%else%>
+  <%= @geo.parent.name.to_s if @geo.parent%>  <%= @geo.name.to_s %>
+  <input style="display:none" type="text" name="share[geo_id]" value="<%=@geo.id%>"/>
+<%end%>
+</p>
+
+<p><label class="label">我参加的活动</label>
+<%if @activity.nil?%>
+  <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]}, {:include_blank => true}  %>
+<%else%>
+  <%=@activity.title%>
+  <input style="display:none" type="text" name="share[activity_id]" value="<%=@activity.id%>"/>
+<%end%>
+</p>
+
+<p><label class="label">我去的学校</label>
+<%if @school.nil?%>
+  <%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => true} %>
+<%else%>
+  <%=@school.title%>
+  <input style="display:none" type="text" name="share[school_id]" value="<%=@school.id%>"/>
+<%end%>
 </p>
 
 <p><label class="label"><%= avatar_for current_user, "large" %></label>

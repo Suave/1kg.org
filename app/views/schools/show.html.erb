@@ -48,9 +48,9 @@
     <a class="more" name='#morecontact'>查看学校联系方式</a>
     <div id="morecontact" style="display:none">
     <h3 class="label_lei">联系学校</h3>
-    <% unless @basic.master.blank? %><p class="content_lei">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
+    <% unless @basic.master.blank? %><p class="content_text">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
     <% if @contact && !@contact.name.blank? %>
-      <p class="content_lei">学校的联系人是 <%= h @contact.name %>
+      <p class="content_text">学校的联系人是 <%= h @contact.name %>
         <% unless @contact.role.blank? %>(<%= h @contact.role %>)<%end-%>
         <% unless @contact.telephone.blank? %>，电话 <%= h @contact.telephone %><%end-%>
         <% unless @contact.email.blank? %>，邮箱 <%= h @contact.email %><%end-%>
@@ -58,7 +58,7 @@
       </p>
     <%end-%>
     <% if @finder -%>
-      <%unless @finder.name.blank? %><p class="content_lei">信息收集人是 <%= h @finder.name %><%end%>
+      <%unless @finder.name.blank? %><p class="content_text">信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
       <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
       <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
@@ -66,8 +66,8 @@
       <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
       <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
            。</p>
-      <% if @finder.survey_at %><p class="content_lei">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
-      <%unless @finder.note.blank? %><p class="content_lei"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+      <% if @finder.survey_at %><p class="content_text">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
+      <%unless @finder.note.blank? %><p class="content_text"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
     </div>
   </div>
@@ -75,25 +75,25 @@
   <div class="school_box">
     <h3 class="label_lei">学校情况</h3>
     <% if @need && !@need.urgency.blank? -%>
-      <p class="content_lei" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
+      <p class="content_text" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
     <% end -%>
     <% unless needlist(@school).blank? %>
     <div style="margin-bottom:-10px">
-      <p class="content_lei" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
+      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
       <p style="float:left;width:540px;font-size:15px;">
     <%= needlist(@school)%>
     </p>
     <div class="clearfix"></div>
     </div>
     <%end%>
-  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
   <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
   
   <% if @local && @local.ngo_support != 2 -%>
-  <p class="content_lei">
+  <p class="content_text">
   <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
   </p>
   <%end%>
@@ -105,9 +105,9 @@
       <div class="clearfix">
       <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
       </div>     
-      <% if @photos.blank? %><p class="content_lei">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
+      <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
       <%else%>
-      <p class="content_lei">
+      <p class="content_gary">
         <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
         你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
       </p>
@@ -120,9 +120,9 @@
     <div class="contents clearfix">
     <%unless @shares.blank?%>
       <%= render :partial => "/shared/share", :collection => @shares %>
-    <p class="content_lei">去过这所学校吗？<%= link_to "写篇分享", new_share_url,:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <p class="content_gary">去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
-    <p class="content_lei">学校还没有分享，<%= link_to "写篇分享", new_share_url,:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
     </div>
   </div>
@@ -131,9 +131,9 @@
     <h3 class="label_lei" >学校话题</h3>
     <div class="contents">
       <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
-      <% if @topics.blank? %><p class="content_lei">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
+      <% if @topics.blank? %><p class="content_text">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
       <%else%>
-      <p class="content_lei">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%if @topics.size > 5%><%= link_to "全部话题", board_topics_url(@board),:class => "buttonlink" %><% end -%> </p>
+      <p class="content_gary">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%if @topics.size > 5%><%= link_to "全部话题", board_topics_url(@board),:class => "buttonlink" %><% end -%> </p>
       <% end %>
     </div>
   </div>  
@@ -188,7 +188,7 @@
     <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
     <div id="moretraffic" style="display:none">
       <h3 class="label_lei">交通指南</h3>
-      <div class="content_lei" style="margin-top:5px">
+      <div class="content_text" style="margin-top:5px">
       <%=@traffic.description_html %>
       </div>
     </div>
@@ -215,7 +215,7 @@
     
     
     <% end %>
-    <p class="content_lei" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
+    <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
     </div>  
   </div>
 
