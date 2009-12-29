@@ -1,18 +1,20 @@
 class Mailer < ActionMailer::Base
+  def message_notification(message_copy)
+    @recipients = message_copy.recipient.email
+    @from       = "no-reply@1kg.org"
+    @subject    = "[多背一公斤]收到新的站内信"
+    @sent_on    = Time.now
+    @body       = {:message => message_copy.message,
+                    :user => message_copy.recipient }
+    @content_type = "text/html"
+  end
+  
   def new_password_notification(user, new_password)
     @recipients = user.email
     @from       = "no-reply@1kg.org"
     @subject    = "[多背一公斤]您的新帐户密码"
     @sent_on    = Time.now
     @body       = {:new_password => new_password}
-  end
-  
-  def message_notification(message)
-    @recipients  = message.receiver.email
-    @from        = "no-reply@1kg.org"
-    @subject     = message.title
-    @sent_on     = Time.now
-    @body        = {:message => message}
   end
   
   def submitted_school_notification(school)

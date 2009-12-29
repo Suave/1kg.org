@@ -101,13 +101,17 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     
-    if params[:for] == 'login'
-      @user.update_attributes!(params[:user])
-      flash[:notice] = "用户名修改成功"
+    if params[:for] == 'account'
+      unless params[:user].blank?
+        @user.geo_id       = params[:user][:geo_id]
+        @user.login        = params[:user][:login]
+        @user.email_notify = params[:user][:email_notify]
+        @user.save
+        flash[:notice] = "帐号设置更新成功"
+      else
+        flash[:notice] = "信息不完整，请重新填写"
+      end
       redirect_to setting_url(:type => 'account')
-    
-    
-      
     elsif params[:for] == 'password'
       @user.update_attributes!(params[:user])
       #self.current_user = @user
