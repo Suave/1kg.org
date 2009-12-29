@@ -60,7 +60,7 @@ module Donation
   end
   
   class Response
-    SIGN_PARAMS = %w(orderId orderTime dealId dealTime payResult errCode key)
+    SIGN_PARAMS = %w(orderId orderTime dealId dealTime payResult errCode donationUrl key)
     def initialize(params, key)
       @params = params
       @key = key
@@ -91,6 +91,7 @@ module Donation
     def pay_result; @params[:payResult]; end
     def err_code; @params[:errCode].blank? ? '' : params[:errCode]; end
     def key; @key; end
+    def donation_url; @params[:donationUrl]; end
     def sign_msg; @params[:signMsg]; end
     
     def logger
@@ -136,15 +137,16 @@ module Donation
   end
   
   class RequestResult
-    PARAMS = %w(orderId orderTime dealId dealTime payResult errCode)
+    PARAMS = %w(orderId orderTime dealId dealTime payResult errCode donationUrl)
     
-    def initialize(redirect_url, order_id, order_time, deal_id, deal_time, pay_result, key)
+    def initialize(redirect_url, order_id, order_time, deal_id, deal_time, pay_result, donation_url, key)
       @redirect_url = redirect_url
       @order_id = order_id.to_s
       @order_time = order_time
       @deal_id = deal_id.to_s
       @deal_time = deal_time.strftime("%Y%m%d%H%M%S")
       @pay_result = pay_result
+      @donation_url = donation_url
       @key = key
     end
     
@@ -180,6 +182,7 @@ module Donation
     def pay_result; @pay_result ? '10' : '11'; end
     def err_code; @pay_result ? '' : '00000'; end
     def key; @key; end
+    def donation_url; @donation_url; end
     
     def logger
         RAILS_DEFAULT_LOGGER

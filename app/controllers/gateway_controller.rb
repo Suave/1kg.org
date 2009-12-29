@@ -29,8 +29,8 @@ class GatewayController < ApplicationController
                           )
         if @stuff.save!
            # 发信
-           donation_url = "http://www.1kg.org/market/validate?password=#{stuff_password}"
-           Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], donation_url)
+           @donation_url = "http://www.1kg.org/market/validate?password=#{stuff_password}"
+           Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], @donation_url)
            
            pay_result = true
         else
@@ -48,7 +48,7 @@ class GatewayController < ApplicationController
     end
     
     # 返回给商家
-    @result = Donation::RequestResult.new(params[:bgUrl], params[:orderId], params[:orderTime], @stuff.deal_id, @stuff.created_at, pay_result, key)
+    @result = Donation::RequestResult.new(params[:bgUrl], params[:orderId], params[:orderTime], @stuff.deal_id, @stuff.created_at, pay_result, @donation_url, key)
     redirect_to @result.url # TODO 应该发起 GET request 之后，处理 response
   end
   
