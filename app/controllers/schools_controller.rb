@@ -16,7 +16,7 @@ class SchoolsController < ApplicationController
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
       
-        @activities_for_travel = Activity.available.ongoing.by_category("公益旅游").find(:all, :order => "created_at desc, start_at desc", :limit => 10)
+        @activities_for_school = Activity.available.find(:all, :conditions => "School_id is not null",:order => "created_at desc, start_at desc", :limit => 5)
         
       }
       format.json {

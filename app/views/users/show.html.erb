@@ -14,34 +14,24 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-   <p style="text-align:right"><%= link_to "与#{@user.login}相关的全部学校 ", "/users/#{@user.id}/visited"%></p>
-  <% unless @wannas.blank? %>
+  
+  <%if @envoys.size > 0%>
   <div class="school_frame">
-        <h3>要去的学校</h3>
-        <div class="contents">
-          <%= render :partial => "visit", :collection => @wannas,:locals => {:school => nil} %>          
-          <div class="clearfix"></div>
-        </div>
-  </div>
-  <%end%>
-
-  <% unless @visits.blank? %>
-  <div class="school_frame">
-        <h3>去过的学校</h3>
-        <div class="contents">
-          <%= render :partial => "visit", :collection => @visits,:locals => {:school => nil} %>          
-          <div class="clearfix"></div>
-        </div>
-      
+    <span class="span_title2">作为大使的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></span>
+    <div class="clearfix" style="height:10px"></div>
+    <div class="contents">
+    <%= render :partial => "/shared/school", :collection => @envoys %>
+      <div class="clearfix"></div>
+    </div>
   </div>
   <%end%>
   
-  
-  <% unless @interests.blank? %>
+  <% unless @visiteds.blank? %>
   <div class="school_frame">
-        <h3>关注的学校</h3>
+        <span class="span_title2">相关的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></span>
+        <div class="clearfix" style="height:10px"></div>
         <div class="contents">
-          <%= render :partial => "visit", :collection => @interests,:locals => {:school => nil} %>          
+          <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
           <div class="clearfix"></div>
         </div>
   </div>

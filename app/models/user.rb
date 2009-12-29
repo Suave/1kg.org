@@ -195,6 +195,10 @@ class User < ActiveRecord::Base
     has_role?("roles.admin")
   end
   
+  def envoy?
+    !self.roles.find(:first, :conditions => ["identifier LIKE ?", "roles.school.moderator.%"]).blank?
+  end
+  
   def has_neighbor?(user)
     user.neighbors.include?(self)
   end
@@ -209,6 +213,16 @@ class User < ActiveRecord::Base
   
   def school_moderator?
     !self.roles.find_by_identifier("roles.schools.moderator").nil?
+  end
+
+  def envoy_schools(number = nil)
+     #self.roles.map {|r|  School.find(:first, :conditions => {:validated => true, :deleted_at => nil,:id => (r.identifier).split('.').last.to_i }) if r.identifier =~ /^roles.school.moderator./}.compact
+    a = self.roles.map{|r|((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./}.compact
+    if number
+      a = School.find(:all,:conditions => ["id in (?)",a[0,number]])
+    else
+      a = School.find(:all,:conditions => ["id in (?)",a])
+    end
   end
   
   def self.recent_citizens

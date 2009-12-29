@@ -14,6 +14,7 @@ class SchoolObserver < ActiveRecord::Observer
   
   def after_destroy(school)
     Mailer.deliver_destroyed_school_notification(school) if school.user
+    Role.find(:all,:conditions => {:identifier => "roles.school.moderator.#{school.id}"}).each {|r| r.delete}
   end
   
   def before_save(school)
