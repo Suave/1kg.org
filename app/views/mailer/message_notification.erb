@@ -1,15 +1,32 @@
-亲爱的<%= @user.login %>:
+<html><head></head>
+<body>
+  <div style="background-color: #dbf0cc; width: 572px; font-family: Arial, sans-serif; color: #000; padding: 5px;">
+    <div style="height: 36px; font-size: 14px; font-weight: bold; padding-bottom: 4px;">
+      <table style="display: inline;width: 100%;">
+        <tbody>
+          <tr>
+            <td width="32px" style="padding:0;">
+            </td>
+            <td valign="middle" height="32px" style="padding: 0;">
+              <%= @message.sender_name %> 刚刚给您发了一条消息
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size: 13px; background-color: #FFF; padding: 10px 7px 7px 7px;">
+      <span style="color: #007825; font-weight: bold;">消息内容:</span>
+      <p style="color: #000; font-size: 13px;font-family: Arial, sans-serif;">
+        <%= @message.content %>
+      </p>
+      <p>
+      您可以<a href="http://www.1kg.org/users/<%= @user.id %>/received">点击此处</a>回复或者了解详情。
+      </p>
 
-<%= @message.sender_name %>刚刚给您发了一条消息，消息内容为：
-
-<%= @message.content %>
-
-您可以点击以下链接回复或者了解详情：
-
-<a href="http://www.1kg.org/users/<%= @user.id %>/received">http://www.1kg.org/users/<%= @user.id %>/received</a>
-
-如您不想再收到此类消息，可在您的<a href="http://www.1kg.org/setting?type=account">个人页面进行设置</a>。
-
-===========
-多背一公斤团队
-www.1kg.org
+      <p style="color: #898989;">如您不想再收到此类消息，可在您的<a href="http://www.1kg.org/setting?type=account">个人页面进行设置</a></p>
+      <div style="text-align: right;">
+        <a href="http://www.1kg.org">多背一公斤团队</a>
+      </div>
+    </div>
+  </div>
+</body></html>
