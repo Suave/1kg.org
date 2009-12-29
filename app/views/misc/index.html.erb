@@ -94,7 +94,7 @@
 </div>
            
 <div class="newbox">
-      <span class="span_title">最新活动分享</span> <span><%= link_to "全部分享", shares_url %></span>
+      <span class="span_title">最新用户分享</span> <span><%= link_to "全部分享", shares_url %></span>
       <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>

@@ -88,7 +88,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :activities, :member => { :join => :get, 
                                           :quit => :put, 
-                                          :stick => :put, 
+                                          :stick => :put,
+                                          :setphoto => :put,
                                           :invite => :get,
                                           :send_invitation => :put
                                         },
