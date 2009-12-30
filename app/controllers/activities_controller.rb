@@ -28,11 +28,36 @@ class ActivitiesController < ApplicationController
     @activity.user = current_user
     @activity.save!
     @activity.participators << current_user
-    flash[:notice] = "发布成功"
-    redirect_to activity_url(@activity)
+    flash[:notice] = "活动发布成功，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"
+    redirect_to mainphoto_activity_url(@activity)
+  end
+  
+  def mainphoto
+    @photo = Photo.new
+    @photo.activity = @activity
   end
   
   def edit
+  end
+  
+  def mainphoto_create
+    @photo = Photo.new(params[:photo])
+    @photo.user = current_user
+    logger.info("PHOTO: #{@photo.inspect}")
+    if @photo.filename.nil?
+      render :action => 'mainphoto'
+    else
+      @photo.save!
+      if current_user && @activity.edited_by(current_user)
+        @activity.main_photo = @photo
+        @activity.save
+        flash[:notice] = "活动主题图设置成功"
+        redirect_to activity_url(@activity)
+      else
+        flash[:notice] = "你不可以设置此活动的主题图"
+        redirect_to activity_url(@activity)
+      end
+    end
   end
   
   def update

@@ -86,7 +86,9 @@ ActionController::Routing::Routes.draw do |map|
                                                                 },
                                                  :month => nil, :day => nil
   
-  map.resources :activities, :member => { :join => :get, 
+  map.resources :activities, :member => { :join => :get,
+                                          :mainphoto => :get,
+                                          :mainphoto_create => :post,
                                           :quit => :put, 
                                           :stick => :put,
                                           :setphoto => :put,
