@@ -482,6 +482,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "avatar"
     t.integer  "geo_id"
     t.string   "ip"
+    t.boolean  "email_notify",              :default => true
     
     t.integer  "posts_count"
     t.integer  "topics_count"

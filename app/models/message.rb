@@ -35,6 +35,10 @@ class Message < ActiveRecord::Base
   def self.create_system_notification(recipients, title, msg)
     create!(:author_id => 0, :to => recipients, :title => title, :content => msg)
   end
+  
+  def sender_name
+    author.nil? ? '系统管理员' : author.login
+  end
 
 	private
 
