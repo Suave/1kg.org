@@ -2,13 +2,13 @@
 schools = current_user.visited_schools
 %>
 <p>
-<label for="activity_category" class="label">类型</label>
+<label for="activity_category" class="label">活动类型</label>
   <select id="activity_category" name="activity[category]">
     <% Activity.categories.each_with_index do |p,i| -%>
       <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
     <% end -%>
   </select>
-　  <label>名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
+　  <label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
 

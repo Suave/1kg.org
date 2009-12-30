@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #ececec;
+  background-color: #eeeeee;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -256,13 +256,18 @@ body.ad-column-180 #content-secondary {
   padding: 0 15px 15px;
 }
 
-.box .postNew {
+.box .postNew{
   position: absolute;
   top: 15px;
   right: 20px;
-
   font-weight: bold;
 }
+
+.newbox .postNew{
+  float:right;position:inherit;
+  font-weight: bold;
+}
+
 .box .postNewButton {
 	position: absolute;
   top: 10px;
@@ -887,27 +892,9 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-table#activitiesInfo {
-  margin: .5em 0;
+#activitiesInfo {margin-left:200px;
 }
-table#activitiesInfo img {
-  float: left;
-  clear: left;
-  margin: 2px .5em 0 0;
-}
-table#activitiesInfo th {
-  background-color: #eee;
-  width: 15%;
-  border: #dedede solid 1px;
-  color: #666;
-  font-size: 1em;
-  text-align: center;
-}
-table#activitiesInfo td {
-  width: 34%;
-  padding: 2px 6px;
-  border: #dedede solid 1px;
-}
+
 h3.title {
   font-size: 2em;
   font-weight: bold;
@@ -1236,5 +1223,5 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .span_title2{font-size:15px;font-weight:bold;}
 
 .share{clear:both;margin:15px 0 15px ;height:64px}
-
 .share img{margin-top:4px}
+.sharetitle{font-size:13px;}

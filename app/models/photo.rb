@@ -58,7 +58,8 @@ class Photo < ActiveRecord::Base
                  :storage => :file_system,
                  :max_size => 2.megabytes,
                  :thumbnails => {
-                   :square => "75x75!",
+                   :square => "1000x75>",
+                   :cube => "2000x180>",
                    :thumb  => "120x80>",
                    :small  => "240x180>",
                    :medium => "565x420>"
