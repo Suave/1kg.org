@@ -80,7 +80,7 @@ class Topic < ActiveRecord::Base
   end
   
   def self.latest_updated_with_pagination_in(board_class, page)
-    Topic.available.paginate( :page => page || 1, 
+    Topic.paginate( :page => page || 1, 
                               :conditions => ["boards.talkable_type=?", board_class.class_name],
                               :include => [:user, :board],
                               :joins => [:board],
