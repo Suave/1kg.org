@@ -67,12 +67,7 @@
   </div>
 <% end -%>
 
-  <div class="box" id="activityInfo">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3></h3>
-        <span class="postNew"></span>
-        
+  <div class="newbox" id="activityInfo">
         <div class="contents">
           <div style="text-align:right">
             <%= link_to "邀请友邻", invite_activity_url(@activity) %> | <a href="#topicCommentsList">查看留言</a>
@@ -85,13 +80,13 @@
               | <%= link_to (@activity.sticky? ? "取消置顶" : "置顶"), stick_activity_url(@activity), :method => :put %>
             <% end -%>
           </div>
-          <div style="height:180px;width:180px;overflow:hidden;text-align:center;float:left">
+          <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
             <%= link_to image_tag(@activity.main_photo.public_filename(:cube), :alt => '活动主题图'), @activity.main_photo.public_filename(:medium),:class => "activity_main" if @activity.main_photo%>
             <%= image_tag('activity.png', :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
           
           <div id="activitiesInfo">
-            <p>发起: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
+            <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
             <p>开始日期: <%= @activity.start_at.to_date %>  结束日期：  <%= @activity.end_at.to_date %></td></p>
             <p>出发地: <%= link_to @activity.departure_id==0 ? "不限" : @activity.departure.name,"/geos/#{@activity.departure_id?? @activity.departure.id? : ''}" %> =>
@@ -102,11 +97,16 @@
               <!--<p><%unless @activity.expense_per_head.blank? %>人均消费： <%= @activity.expense_per_head %> 元<%end%>
               <%unless @activity.expect_strength.blank? %>预期人数： <%= @activity.expect_strength %> 人<%end%></p>-->
           </div>
-          <div class="clearfix"></div>
-          <%= @activity.description_html %>
+          <div class="clearfix" style="margin-bottom:10px;"></div>
+          <span class="span_title">活动介绍</span>
+          <div id="activityintro"><%= html_summary(@activity,0,400) %>
+          <%= link_to "查看全部","#",:onclick => "$('#activityintro').hide();$('#activityintro_more').show();return false"  unless html_summary(@activity,400,401).nil?%>
+          </div>
+          <div id="activityintro_more" style="display:none">
+            <%= @activity.clean_html%>
+            <%= link_to "收起","#",:onclick => "$('#activityintro_more').hide();$('#activityintro').show();return false"%>
+          </div>
         </div>
-      </div>
-    </div>
   </div>
 
   <%= render :partial => "/comments/comments", :object => @comments %>

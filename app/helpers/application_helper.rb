@@ -248,6 +248,10 @@ module ApplicationHelper
   def summary(article,number)
     html = plain_text(article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(0..number).to_s.lstrip
   end
+  
+  def html_summary(article,start,close)
+    html = (article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(start..close).to_s.lstrip
+  end
 
   def photo_meta(photo, current_user)
     photo.user_id = 1 if photo.user.nil?
