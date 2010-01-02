@@ -892,7 +892,7 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-#activitiesInfo {margin-left:200px;
+#activitiesInfo {margin-left:180px;width:300px
 }
 
 h3.title {
@@ -904,9 +904,10 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
-#topicCommentForm form {
-  padding: 0 30px 15px;
-}
+#topicCommentForm {
+  width:600px
+  padding:10px}
+  
 .formText, textarea {
   border: #ccc solid 1px;
   padding: 2px;
@@ -1055,7 +1056,7 @@ h3.title {
 
 /* =topicCommentsList */
 #topicCommentsList ol {
-  padding: 0 30px 20px;
+  padding: 0 10px 10px;
 }
 #topicCommentsList ol li {
   float: left;
@@ -1075,7 +1076,7 @@ h3.title {
 }
 
 #topicCommentForm form textarea {
-  width: 98%;
+  width: 600px;
 }
 
 
@@ -1183,6 +1184,12 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
 
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
+
 .checkbox_label{margin:0 10px 0 2px;}
 
 .meta_label{font-weight:bold;margin-left:4px}
@@ -1212,16 +1219,18 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .zone a{font-size:14px;margin-top:6px;}
 
 .white {background-color: white;}
+.gary_span{color:#999}
 
 .summary{color:#666;margin:3px 0 1px}
 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
-
 .newbox{padding-left:10px;width:100%;margin-bottom:20px}
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
 
-.share{clear:both;margin:15px 0 15px ;height:64px}
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
+
+.share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
