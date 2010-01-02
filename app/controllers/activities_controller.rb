@@ -26,6 +26,7 @@ class ActivitiesController < ApplicationController
   def create
     @activity = Activity.new(params[:activity])
     @activity.user = current_user
+    @activity.register_over_at = @activity.start_at
     @activity.save!
     @activity.participators << current_user
     flash[:notice] = "活动发布成功，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"

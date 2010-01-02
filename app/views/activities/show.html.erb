@@ -22,29 +22,40 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <div class="newbox">
-        <h3>
-            &raquo;
-            <% if @activity.join_closed? %>
-              报名已结束            
 
-            <% else -%>
 
-              <% if @activity.joined?(current_user) -%>
-                <%= link_to "我不去了", quit_activity_url(@activity), :method => :put %>
-              <% else -%>
-                <%= link_to "我要参加", join_activity_url(@activity) %>
-              <% end -%>
-            <% end -%>
-        </h3>
-  </div>
+    <% if @activity.edited_by current_user -%>
+    <div id="admins">
+      你是活动发起人，可以使用以下功能：<br/>
+       <%= link_to "邀请友邻", invite_activity_url(@activity),:class => "adminbutton"%>
+       <%= link_to "编辑活动", edit_activity_url(@activity.id),:class => "adminbutton" %>
+       <%= link_to "删除活动", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
+       <% if @activity.sticky_by? current_user -%>
+       <%= link_to (@activity.sticky? ? "取消置顶" : "置顶活动"), stick_activity_url(@activity), :method => :put ,:class => "adminbutton"%>
+       <% end -%>
+    </div>
+    <% elsif current_user%>
+    <div id="admins">
+               你可以 <%= link_to "邀请友邻", invite_activity_url(@activity),:class => "adminbutton"%> 来参加这个活动。
+    </div>
+    <% end -%>
+
 
     <div class="newbox">
-      <span class="span_title">参加活动的用户</span>
+      <span class="span_title">参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加<span>
         <div class="cleanfix" style="height:10px"></div>
         <%= render :partial => "/shared/user_list", :locals => {:users => @activity.participators} %>
         <div class="cleanfix" style="height:20px"></div>
     </div>
+  
+  <% if @activity.school%>
+  <div class="newbox">
+    <span class="span_title">相关学校</span>
+    <div class="cleanfix" style="height:10px"></div>
+    <%= render :partial => "/shared/school", :collection => [@activity.school] %>
+  </div>
+  <style type="text/css">.school_list_meta{width:160px}</style>
+  <%end%>
   
   <div class="newbox">
       <span class="span_title">活动分享</span>
@@ -69,21 +80,24 @@
 
   <div class="newbox" id="activityInfo">
         <div class="contents">
-          <div style="text-align:right">
-            <%= link_to "邀请友邻", invite_activity_url(@activity) %> | <a href="#topicCommentsList">查看留言</a>
-            <% if @activity.edited_by current_user -%>
-              | <%= link_to "编辑", edit_activity_url(@activity.id) %>
-              | <%= link_to "删除", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete %>
-            <% end -%>
-            
-            <% if @activity.sticky_by? current_user -%>
-              | <%= link_to (@activity.sticky? ? "取消置顶" : "置顶"), stick_activity_url(@activity), :method => :put %>
-            <% end -%>
-          </div>
+                  
           <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
             <%= link_to image_tag(@activity.main_photo.public_filename(:cube), :alt => '活动主题图'), @activity.main_photo.public_filename(:medium),:class => "activity_main" if @activity.main_photo%>
-            <%= image_tag('activity.png', :alt => '活动主题图')  unless @activity.main_photo%>
+            <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
+          
+          <div style="float:right;margin:2px 10px 0 0;text-align:right">
+            <% if @activity.join_closed? %>
+            <span class="gary_span">报名已结束 </span>
+            <% else -%>
+              <% if @activity.joined?(current_user) -%>
+                <%= link_to "不参加了", quit_activity_url(@activity), :method => :put,:class => "buttonjoin" %>
+                <br/><span class="gary_span">你参加了这个活动<span>
+              <% else -%>
+                <%= link_to "我要参加", join_activity_url(@activity) ,:class => "buttonjoin2" %>
+              <% end -%>
+            <% end -%>
+          </div>
           
           <div id="activitiesInfo">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
@@ -97,15 +111,22 @@
               <!--<p><%unless @activity.expense_per_head.blank? %>人均消费： <%= @activity.expense_per_head %> 元<%end%>
               <%unless @activity.expect_strength.blank? %>预期人数： <%= @activity.expect_strength %> 人<%end%></p>-->
           </div>
-          <div class="clearfix" style="margin-bottom:10px;"></div>
+          
+          <div class="clearfix" style="margin-bottom:20px;"></div>
           <span class="span_title">活动介绍</span>
-          <div id="activityintro"><%= html_summary(@activity,0,400) %>
+          <div class="clearfix" style="margin-bottom:5px;"></div>
+          <%= @activity.description_html %>
+          
+          <%if false%>
+          <div id="activityintro">
+          <%= html_summary(@activity,0,400) %>
           <%= link_to "查看全部","#",:onclick => "$('#activityintro').hide();$('#activityintro_more').show();return false"  unless html_summary(@activity,400,401).nil?%>
           </div>
           <div id="activityintro_more" style="display:none">
             <%= @activity.clean_html%>
             <%= link_to "收起","#",:onclick => "$('#activityintro_more').hide();$('#activityintro').show();return false"%>
           </div>
+          <%end%>
         </div>
   </div>
 
