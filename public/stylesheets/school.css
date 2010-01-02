@@ -22,7 +22,8 @@ body{background:#fff}
 .sidebar_inter{padding:8px 0}
 
 .label_lei{color:#777;border-bottom:1px #c0c0c0 solid}
-.content_lei{font-size:14px;color:#444;padding:0 5px;}
+.content_text{font-size:14px;color:#444;padding:0 5px;}
+.content_gary{font-size:14px;color:#888;padding:0 5px;}
 .contents{padding:4px 8px}
 
 .important a{font-size:16px;}

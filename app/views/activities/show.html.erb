@@ -44,7 +44,7 @@
     <div class="boxOuter">
       <div class="boxInner">
         <h3>活动分享</h3>
-        <span class="postNew"><%= link_for_new_share %></span>
+        <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url + "?activity=#{@activity.id}" %></span>
         <div class="contents">
           <%= render :partial => "/shares/shares", :object => @shares %>
         </div>

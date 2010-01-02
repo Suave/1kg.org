@@ -1,6 +1,10 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <style>.school_list_photo{width:80px;height:60px;margin-top:4px}
+         .school_list_photo img{width:80px;height:60px}
+         .school_list_meta{width:180px;}
+         </style>
 <% end %>
 
 <% @page_title = "#{@user.login}的个人空间" -%>
@@ -14,35 +18,24 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-    <%if @user.envoy?%><p style="text-align:right"><%= link_to "#{@user.login}作为学校大使的学校", "/users/#{@user.id}/envoy"%></p><%end%>
-    <p style="text-align:right"><%= link_to "与#{@user.login}相关的全部学校", "/users/#{@user.id}/visited"%></p>
-  <% unless @wannas.blank? %>
+  
+  <%if @envoys.size > 0%>
   <div class="school_frame">
-        <h3>要去的学校</h3>
-        <div class="contents">
-          <%= render :partial => "visit", :collection => @wannas,:locals => {:school => nil} %>          
-          <div class="clearfix"></div>
-        </div>
-  </div>
-  <%end%>
-
-  <% unless @visits.blank? %>
-  <div class="school_frame">
-        <h3>去过的学校</h3>
-        <div class="contents">
-          <%= render :partial => "visit", :collection => @visits,:locals => {:school => nil} %>          
-          <div class="clearfix"></div>
-        </div>
-      
+    <span class="span_title2">管理的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></span>
+    <div class="clearfix" style="height:10px"></div>
+    <div class="contents">
+    <%= render :partial => "/shared/school", :collection => @envoys %>
+      <div class="clearfix"></div>
+    </div>
   </div>
   <%end%>
   
-  
-  <% unless @interests.blank? %>
+  <% unless @visiteds.blank? %>
   <div class="school_frame">
-        <h3>关注的学校</h3>
+        <span class="span_title2">去过/要去/关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></span>
+        <div class="clearfix" style="height:10px"></div>
         <div class="contents">
-          <%= render :partial => "visit", :collection => @interests,:locals => {:school => nil} %>          
+          <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
           <div class="clearfix"></div>
         </div>
   </div>
@@ -65,8 +58,6 @@
     </div>
   </div>
   
-  
-  <style type="text/css">.school_list_meta{width:160px;}</style>
   
   <div class="box">
     <div class="boxOuter">
@@ -103,5 +94,3 @@
   jQuery("#tabs").tabs();
 </script>
 <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
-
-
