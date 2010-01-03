@@ -1,10 +1,8 @@
-  <div class="school_list">
-    <%= main_photo_thumb(school) -%>       
-    <div class="school_list_meta">
-    <h5><%= link_to h(school.title), school_path(school)%></h5>
-    <span>活跃度</span>
-    <%= karma_star(school.last_month_karma)-%>
-    <% unless school.user.nil? %><div>学校大使: <%= link_to school.user.login, user_url(school.user)  %></div><%end-%>
+  <div class="activity_list">
+    <%= topic_photo_thumb(activity) -%>       
+    <div class="activity_list_meta">
+    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <p>开始日期: <%= activity.start_at.to_date %>  结束日期：  <%= activity.end_at.to_date %></p>
     </div>
     <div class="clearfix"></div>
   </div>

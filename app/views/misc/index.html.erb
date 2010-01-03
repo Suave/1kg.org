@@ -69,7 +69,7 @@
         </ul>
         <div class="panel setting">
           <div id="travel">
-            <%= render :partial => "/activities/activities", :object => @activities_for_travel, :locals => {:show_sticky => false} %>
+            <%= render :partial => "/shared/activity", :collection => @activitys %>
           </div>
           <div id="donation">
             <%= render :partial => "/activities/activities", :object => @activities_for_donation, :locals => {:show_sticky => false} %>
