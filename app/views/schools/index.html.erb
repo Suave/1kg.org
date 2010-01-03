@@ -23,21 +23,22 @@
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>最近的出行活动</h3>
+      <h3>和学校相关的活动</h3>
       <span class="postNew"><%= link_for_new_activity %></span>
       <div class="contents">
-        <table>
-          <% @activities_for_travel.each do |a| -%>
-          <tr>
-            <td><%= link_to a.title, activity_url(a) %> <span class="tipText">[<%= month_and_day(a.start_at) %>]</span></td>
-          </tr>
+        
+          <% @activities_for_school.each do |a| -%>
+          <p style="font-size:12px" ><%= link_to a.title, activity_url(a) %></p>
+          [<%= month_and_day(a.start_at) %>]
+          <p><%= link_to a.school.title,school_url(a.school) %></p>
           <% end -%>
-        </table>
+        
       </div>
       <%= render :partial => "/activities/all_activities" %>
     </div>
   </div>
 </div>
+
 
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 

@@ -1,5 +1,5 @@
 
-<% @page_title = "#{@user.login}作为学校大使的学校" -%>
+<% @page_title = "#{@user.login} 管理的学校" -%>
 
 <% content_for :crumb do -%>
 <li>用户</li>
@@ -9,7 +9,8 @@
 <% end -%>
 <% content_for :fullsize do -%>
 <style type="text/css">.school_list_meta{width:190px;height:80px}.school_list{width:307px}</style>
-<h2 class="title"><%= "#{@user.login}作为学校大使的学校" %></h2>
+<span class="span_title"><%= "#{@user.login}管理的学校" %></span>
+<span class="gary_span"><%= "#{@user.login}是以下学校的大使" %></span>
 <div class="clearfix" style="clear:both"></div>
 <div>
     <%= render :partial => "/shared/school", :collection => @schools %>
