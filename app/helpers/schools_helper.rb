@@ -91,4 +91,61 @@ module SchoolsHelper
     list.map{|n| link_to_needs(n) }.join('')
   end
   
+  def upload_script_for(id, container)
+    javascript_tag(%(
+      var swfu;
+      jQuery(document).ready(function () {
+        swfu = new SWFUpload({
+          // Backend Settings
+          upload_url: "upload.php",
+
+          // File Upload Settings
+          file_size_limit : "2 MB", // 2MB
+          file_types : "*.*",
+          file_types_description : "JPG Images|PNG Images and GIF Images",
+          file_upload_limit : "0",
+
+          // Event Handler Settings - these functions as defined in Handlers.js
+          //  The handlers are not part of SWFUpload but are part of my website and control how
+          //  my website reacts to the SWFUpload events.
+          file_queue_error_handler : fileQueueError,
+          file_dialog_complete_handler : fileDialogComplete,
+          upload_progress_handler : uploadProgress,
+          upload_error_handler : uploadError,
+          upload_success_handler : uploadSuccess,
+          upload_complete_handler : uploadComplete,
+
+          // Button Settings
+          button_image_url : "/images/buttonlink.gif",
+          button_placeholder_id : "#{id}",
+          button_width: 60,
+          button_height: 20,
+          button_text : '<a class="buttonlink" style="color:#FFF;">上传照片</a>',
+          button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
+          button_text_top_padding: 3,
+          button_text_left_padding: 5,
+          button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+          button_cursor: SWFUpload.CURSOR.HAND,
+
+          // Flash Settings
+          flash_url : "/swfs/swfupload.swf",
+
+          custom_settings : {
+            upload_target : "#{container}"
+          },
+
+          // Debug Settings
+          debug: false
+        });
+      });
+    ))
+  end
+  
+  def upload_button(container)
+    html = upload_script_for("upload", container)
+    html += content_tag(:span, :id => "upload") do
+      "上传照片"
+    end
+    html
+  end
 end
