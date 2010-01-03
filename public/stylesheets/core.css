@@ -260,9 +260,14 @@ body.ad-column-180 #content-secondary {
   position: absolute;
   top: 15px;
   right: 20px;
-
   font-weight: bold;
 }
+
+.newbox .postNew{
+  float:right;position:inherit;
+  font-weight: bold;
+}
+
 .box .postNewButton {
 	position: absolute;
   top: 10px;
@@ -867,9 +872,9 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
-#topicCommentForm form {
-  padding: 0 30px 15px;
-}
+#topicCommentForm {
+  width:600px
+  padding:10px}
 .formText, textarea {
   border: #ccc solid 1px;
   padding: 2px;
@@ -1139,12 +1144,16 @@ color:#fff;margin:0 3px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font
 color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;-margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
-
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 
 .checkbox_label{margin:0 10px 0 2px;}
 
@@ -1170,20 +1179,34 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
 
+.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list_photo{width:64px;height:64px;overflow:hidden;}
+.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
+.activity_list_meta span{position:relative;top:-2px}
+.activity_list_meta h5{margin:2px 0}
+
+#activity_tabs li{float:left;margin:6px 4px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{background-color:#569701}
+#activity_tabs .ui-tabs-selected a{color:#fff}
+
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
 
 .white {background-color: white;}
+.gary_span{color:#999}
 
 .summary{color:#666;margin:3px 0 1px}
 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
-
 .newbox{padding-left:10px;width:100%;margin-bottom:20px}
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
 
-.share{clear:both;margin:15px 0 15px ;height:64px}
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
+
+.share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
+.sharetitle{font-size:13px;}

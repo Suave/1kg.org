@@ -2,8 +2,8 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
 <% end %>
 
 <% @page_title = "#{h @school.title}" -%>
@@ -106,12 +106,16 @@
     <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix">
       <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
-      </div>     
-      <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
+      </div>
+      <div id="upload_container"></div>
+      <% if @photos.blank? %>
+      <p class="content_text">学校还没有照片，你可以
+        <%= upload_button('upload_container') %>
+        让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_gary">
         <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
-        你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
+        你还有更多的学校照片吗？<%= upload_button('upload_container') %>分享给大家吧。
       </p>
       <% end %>
     </div>  
