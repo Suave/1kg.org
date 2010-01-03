@@ -28,7 +28,7 @@ class ActivitiesController < ApplicationController
     @activity.user = current_user
     @activity.save!
     @activity.participators << current_user
-    flash[:notice] = "活动发布成功，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"
+    flash[:notice] = "活动发布成功，作为活动发起人你会自动“参加“这个活动，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"
     redirect_to mainphoto_activity_url(@activity)
   end
   
