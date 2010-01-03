@@ -241,7 +241,7 @@ module ApplicationHelper
   
   def topic_photo_thumb(activity)
     img_url = activity.main_photo.blank?  ? "/images/activity_thumb_#{activity.category}.png" : activity.main_photo.public_filename(:square)
-    "<div class='activity_list_photo'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div>"
+    "<div class='activity_photo_frame'><div class='activity_list_photo'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div></div>"
   end
   
   def plain_text(text,replacement="")

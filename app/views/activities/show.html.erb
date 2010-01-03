@@ -104,7 +104,7 @@
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
             <p>开始日期: <%= @activity.start_at.to_date %>  结束日期：  <%= @activity.end_at.to_date %></p>
-            <p>出发地: <%= link_to @activity.departure_id==0 ? "不限" : @activity.departure.name,"/geos/#{@activity.departure_id?? @activity.departure.id? : ''}" %> =>
+            <p>出发地: <%= link_to @activity.departure_id==0 ? "不限" : @activity.departure.name,"/geos/#{@activity.departure_id?? @activity.departure.id : ''}" %> =>
               目的地: <%= link_to @activity.arrival_id==0 ? "不限" : @activity.arrival.name,"/geos/#{@activity.arrival_id?? @activity.arrival_id : ''}" %></p>
               <% if @activity.school%>
             <p>相关学校： <%= link_to @activity.school.title,school_url(@activity.school) %></p> 
