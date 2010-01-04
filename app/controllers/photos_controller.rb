@@ -20,9 +20,7 @@ class PhotosController < ApplicationController
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    respond_to do |want|
-      want.html{render(:partial => '/schools/gallery_photo', :object => @photo)}
-    end
+    render(:partial => '/schools/gallery_photo', :object => @photo)
   end
   
   def destroy
