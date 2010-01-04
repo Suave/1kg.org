@@ -1221,9 +1221,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
 
-#activity_tabs li{float:left;margin:6px 4px 0 0;padding:0 4px}
-#activity_tabs .ui-tabs-selected{background-color:#569701}
-#activity_tabs .ui-tabs-selected a{color:#fff}
+#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{}
+#activity_tabs .ui-tabs-selected a{color:#E98523}
+.activity_more {position:relative;left:540px;top:-10px}
 
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}

@@ -8,6 +8,7 @@
       <div class="contents">
         <ul>
           <li><a href="#userCount">用户总量</a></li>
+          <li><a href="#VisitedCount">"去过+要去"的总量</a></li>
           <li><a href="#cityUsersCount">城市居民入住统计</a></li>
           <li><a href="#activityCount">活动总量</a></li>
           <li><a href="#participationCount">活动参与人数统计</a></li>
@@ -32,6 +33,16 @@
     <div class="boxInner">
       <h3>用户总量</h3>
       <%= render :partial => "stat", :object => User.archives %>
+      <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
+    </div>
+  </div>
+</div>
+
+<div class="box" id="VisitedCount">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>"去过+要去"的总量</h3> <span >(没有填写具体时间的"要去"和"去过",没有计算在内)</span?
+      <%= render :partial => "stat", :object => Visited.archives %>
       <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
     </div>
   </div>

@@ -1,13 +1,18 @@
 class ActivitiesController < ApplicationController
   before_filter :login_required, :except => [:index, :show]
-  before_filter :find_activity,  :except => [:index, :hiring, :ongoing, :over, :new, :create]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category]
   
   def index
     redirect_to root_path
   end
   
-  def hiring
-    find_activities('hiring')
+  def category
+    @category_hash = {'travel' => 0,'donation' => 1,'teach' => 2,'teach' => 3,'other' => 4, 'city' => 5, 'online' => 6}
+    render_404 if @category_hash[params[:c]].nil?
+    @category = @category_hash[params[:c]]
+    @activities = Activity.ongoing.find(:all,:conditions => {:category => @category}).paginate(:page => params[:page] || 1,
+                                  :order => "created_at desc, start_at desc",
+                                  :per_page => 20)
   end
   
   def ongoing
@@ -18,6 +23,7 @@ class ActivitiesController < ApplicationController
     find_activities('over')
   end
 
+  
   def new
     @school=School.find_by_id(params[:school])
     @activity = Activity.new

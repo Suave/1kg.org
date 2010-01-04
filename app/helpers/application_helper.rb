@@ -211,27 +211,15 @@ module ApplicationHelper
   end
   
   def comments_path(commentable)
-    if commentable.is_a?(SchoolGuide)
-      [commentable.school, commentable, :comments]
-    else
-      [commentable, :comments]
-    end
+    [commentable, :comments]
   end
   
   def edit_comment_path(comment)
-    if comment.commentable.is_a?(SchoolGuide)
-      [:edit, comment.commentable.school, comment.commentable, comment]
-    else
-      [:edit, comment.commentable, comment]
-    end
+    [:edit, comment.commentable, comment]
   end
   
   def comment_path(comment)
-    if comment.commentable.is_a?(SchoolGuide)
-      [comment.commentable.school, comment.commentable, comment]
-    else
-      [comment.commentable, comment]
-    end
+    [comment.commentable, comment]
   end
   
   def main_photo_thumb(school)

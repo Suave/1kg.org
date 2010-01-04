@@ -1,0 +1,11 @@
+<% title_list = %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动) %>
+
+<% @page_title = @title = "所有未结束的#{title_list[@category]}活动" %>
+
+<% content_for :crumb do -%>
+<ul>
+  <li><%= "所有未结束的#{title_list[@category]}活动"%></li>
+</ul>
+<% end -%>
+
+<%= render :partial => "/shared/activity", :collection => @activities %>

@@ -52,7 +52,7 @@ class Comment < ActiveRecord::Base
   
   private
   def format_content
-    self.body_html = sanitize(self.body)
+    self.body_html = sanitize(self.body, true)
   end
   
   def update_commentable
