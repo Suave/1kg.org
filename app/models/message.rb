@@ -52,6 +52,9 @@ class Message < ActiveRecord::Base
 	end
 
 	def format_content
+	  content.gsub!(/\r\n/, '<br />')
+    content.gsub!(/\r/, '<br />')
+    content.gsub!(/\r/, '<br />')
     self.html_content = sanitize(content)
 	end
 end
