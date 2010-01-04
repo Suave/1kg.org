@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #ececec;
+  background-color: #eeeeee;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -256,13 +256,18 @@ body.ad-column-180 #content-secondary {
   padding: 0 15px 15px;
 }
 
-.box .postNew {
+.box .postNew{
   position: absolute;
   top: 15px;
   right: 20px;
-
   font-weight: bold;
 }
+
+.newbox .postNew{
+  float:right;position:inherit;
+  font-weight: bold;
+}
+
 .box .postNewButton {
 	position: absolute;
   top: 10px;
@@ -837,27 +842,9 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-table#activitiesInfo {
-  margin: .5em 0;
+#activitiesInfo {margin-left:180px;width:300px
 }
-table#activitiesInfo img {
-  float: left;
-  clear: left;
-  margin: 2px .5em 0 0;
-}
-table#activitiesInfo th {
-  background-color: #eee;
-  width: 15%;
-  border: #dedede solid 1px;
-  color: #666;
-  font-size: 1em;
-  text-align: center;
-}
-table#activitiesInfo td {
-  width: 34%;
-  padding: 2px 6px;
-  border: #dedede solid 1px;
-}
+
 h3.title {
   font-size: 2em;
   font-weight: bold;
@@ -867,9 +854,10 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
-#topicCommentForm form {
-  padding: 0 30px 15px;
-}
+#topicCommentForm {
+  width:600px
+  padding:10px}
+  
 .formText, textarea {
   border: #ccc solid 1px;
   padding: 2px;
@@ -1018,7 +1006,7 @@ h3.title {
 
 /* =topicCommentsList */
 #topicCommentsList ol {
-  padding: 0 30px 20px;
+  padding: 0 10px 10px;
 }
 #topicCommentsList ol li {
   float: left;
@@ -1038,7 +1026,7 @@ h3.title {
 }
 
 #topicCommentForm form textarea {
-  width: 98%;
+  width: 600px;
 }
 
 
@@ -1146,6 +1134,12 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
 
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
+
 .checkbox_label{margin:0 10px 0 2px;}
 
 .meta_label{font-weight:bold;margin-left:4px}
@@ -1170,11 +1164,24 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
 
+.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list_photo{width:64px;height:64px;overflow:hidden;}
+.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
+.activity_list_meta span{position:relative;top:-2px}
+.activity_list_meta h5{margin:2px 0}
+
+#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{}
+#activity_tabs .ui-tabs-selected a{color:#E98523}
+.activity_more {position:relative;left:540px;top:-10px}
+
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
 
 .white {background-color: white;}
+.gary_span{color:#999}
 
 .summary{color:#666;margin:3px 0 1px}
 
@@ -1185,5 +1192,8 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
 
-.share{clear:both;margin:15px 0 15px ;height:64px}
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
+
+.share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
+.sharetitle{font-size:13px;}

@@ -2,13 +2,13 @@
 schools = current_user.visited_schools
 %>
 <p>
-<label for="activity_category" class="label">类型</label>
+<label for="activity_category" class="label">活动类型</label>
   <select id="activity_category" name="activity[category]">
     <% Activity.categories.each_with_index do |p,i| -%>
       <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
     <% end -%>
   </select>
-　  <label>名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
+　  <label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText" %> <%= error_message_on @activity, :title %>
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
 
@@ -20,8 +20,11 @@ schools = current_user.visited_schools
     <%= @school.geo.parent.name.to_s if @school.geo.parent%>  <%= @school.geo.name.to_s %>
     <input style="display:none" type="text" name="activity[arrival_id]" value="<%=@school.geo.id%>"/>
   <%end%>
-  <label style="margin-left:20px">活动时间<span class="require">*</span></label><input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" /><%= error_message_on @activity, :start_at %> 至  </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
-  <label style="margin-left:20px">报名截止</label><input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
+  <label style="margin-left:20px">活动时间<span class="require">*</span></label>
+  <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
+  <%= error_message_on @activity, :start_at %>
+   至<span class="require">*</span>  </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
+  <label style="margin-left:20px">报名截止</label><input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
 </p>
 
 <p><label class="label">相关学校</label>

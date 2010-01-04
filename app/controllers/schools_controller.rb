@@ -367,6 +367,7 @@ class SchoolsController < ApplicationController
     if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
+      flash[:notice] = "学校主照片设置成功"
       redirect_to school_url(@school)
     else
       flash[:notice] = "只有学校大使才可以设置学校主照片"

@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "comments_count",   :default => 0
     t.integer  "participations_count", :default => 0
     t.integer  "old_id"
+    t.integer  "main_photo_id"
     t.boolean  "sticky",           :default => false
   end
 
@@ -363,7 +364,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "validated_by_id"
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
-    t.integer  "last_month_karma", :default => 0
+    t.integer  "last_month_karma",    :default => 0
   end
 
   create_table "shares", :force => true do |t|

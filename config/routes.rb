@@ -86,13 +86,16 @@ ActionController::Routing::Routes.draw do |map|
                                                                 },
                                                  :month => nil, :day => nil
   
-  map.resources :activities, :member => { :join => :get, 
+  map.resources :activities, :member => { :join => :get,
+                                          :mainphoto => :get,
+                                          :mainphoto_create => :post,
                                           :quit => :put, 
-                                          :stick => :put, 
+                                          :stick => :put,
+                                          :setphoto => :put,
                                           :invite => :get,
                                           :send_invitation => :put
                                         },
-                             :collection => {:ongoing => :get, :over => :get} do |activity|
+                             :collection => {:category => :get,:ongoing => :get, :over => :get} do |activity|
     activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 

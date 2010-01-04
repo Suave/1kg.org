@@ -3,9 +3,10 @@ class PhotosController < ApplicationController
   
   def new
     @photo = Photo.new
-    
     @photo.school = School.find(params[:school]) unless params[:school].blank?
     @photo.activity = Activity.find(params[:activity]) unless params[:activity].blank?
+    # @photo.school = @photo.activity.school if @photo.activity && @photo.activity.school
+    # flash[:notice] = "活动关联了学校，所以你上传的图片也会出现在学校相册里" if @photo.school && @photo.activity
   end
   
   def create
@@ -15,10 +16,10 @@ class PhotosController < ApplicationController
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    if !@photo.school_id.blank?
-      redirect_to school_url(@photo.school_id)
-    elsif !@photo.activity_id.blank?
+    if !@photo.activity_id.blank?
       redirect_to activity_url(@photo.activity_id)
+    elsif !@photo.school_id.blank?
+      redirect_to school_url(@photo.school_id)
     else
       redirect_to user_url(current_user)
     end

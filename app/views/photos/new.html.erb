@@ -3,22 +3,16 @@
 <% content_for :sidebar do -%>
 <% end -%>
 
-<div class="box" id="sharePostNew">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-      <div class="contents">
-        <% form_for :photo, :url => photos_url, :html => {:multipart => true} do |f| -%>
-        <p><label class="label">照片标题</label><%= f.text_field :title, :size => 40, :class => "formText" %></p>
-        <p><label class="label">上传照片</label><%= f.file_field :uploaded_data %></p>
-            <span style="margin-left:80px;color:#666">建议图片不要大于500kb，否则图片上传会很慢。</span>
-            <span style="margin-left:80px;color:#666">建议图片宽度不要大于580像素，文件大小不超过500kb。</span>
-        <p><label class="label">照片描述</label><%= f.text_area :description, :rows => 5, :cols => 40 %></p>
-        <%= f.hidden_field :school_id %>
-        <%= f.hidden_field :activity_id %>
-        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "上 传" %></span></p>
-        <% end -%>
-      </div>
-    </div>
+<div class="newbox">
+  <div class="contents">
+    <% form_for :photo, :url => photos_url, :html => {:multipart => true} do |f| -%>
+    <p><label class="label">照片标题</label><%= f.text_field :title, :size => 40, :class => "formText" %></p>
+    <p><label class="label">上传照片</label><%= f.file_field :uploaded_data %></p>
+        <span style="margin-left:80px;color:#666">建议图片宽度不要大于580像素，文件大小不超过500kb。</span>
+    <p><label class="label">照片描述</label><%= f.text_area :description, :rows => 5, :cols => 40 %></p>
+    <%= f.hidden_field :school_id %>
+    <%= f.hidden_field :activity_id %>
+    <p class="submit clearfix" style="margin-left:320px"><span class="btnWrap"><%= submit_tag "上 传" %></span></p>
+    <% end -%>
   </div>
 </div>

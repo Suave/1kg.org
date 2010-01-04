@@ -25,7 +25,7 @@
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
-#
+#  main_photo_id            :integer(4)
 
 class Activity < ActiveRecord::Base
   include BodyFormat
@@ -42,6 +42,9 @@ class Activity < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
 
+  has_many :photos, :order => "id desc", :dependent => :destroy
+  belongs_to :main_photo, :class_name => 'Photo'
+  
   acts_as_taggable
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
@@ -86,7 +89,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10, :include => [:user, :departure, :arrival]
+    available.ongoing.find :all,:order => "created_at desc, start_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
   end
   
   
