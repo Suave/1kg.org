@@ -102,18 +102,18 @@
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
-      <div class="clearfix">
+      <div id="photos" class="clearfix">
       <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
       </div>
       <div id="upload_container"></div>
       <% if @photos.blank? %>
       <p class="content_text">学校还没有照片，你可以
-        <%= upload_button('upload_container') %>
+        <%= upload_button('upload_container', photo_upload_path_with_session(@school)) %>
         让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_gary">
         <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
-        你还有更多的学校照片吗？<%= upload_button('upload_container') %>分享给大家吧。
+        你还有更多的学校照片吗？<%= upload_button('upload_container', photo_upload_path_with_session(@school)) %> 分享给大家吧。
       </p>
       <% end %>
     </div>  

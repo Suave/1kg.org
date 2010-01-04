@@ -41,7 +41,6 @@ module SchoolsHelper
     html
   end
   
-  
   def needs_check_box(form, tag, options, value)
     # 对秀秀和多背一公斤显示文本框模式
     if current_user.id == 31 || current_user.id == 1
@@ -91,19 +90,22 @@ module SchoolsHelper
     list.map{|n| link_to_needs(n) }.join('')
   end
   
-  def upload_script_for(id, container)
+  def upload_script_for(id, container, url)
     javascript_tag(%(
       var swfu;
       jQuery(document).ready(function () {
         swfu = new SWFUpload({
           // Backend Settings
-          upload_url: "upload.php",
+          upload_url: "#{url}",
 
           // File Upload Settings
           file_size_limit : "2 MB", // 2MB
           file_types : "*.*",
-          file_types_description : "JPG Images|PNG Images and GIF Images",
+          file_types_description : "所有图片文件",
           file_upload_limit : "0",
+          post_params: {
+            authenticity_token: "#{u(form_authenticity_token)}"
+          },
 
           // Event Handler Settings - these functions as defined in Handlers.js
           //  The handlers are not part of SWFUpload but are part of my website and control how
@@ -141,11 +143,16 @@ module SchoolsHelper
     ))
   end
   
-  def upload_button(container)
-    html = upload_script_for("upload", container)
+  def upload_button(container, url)
+    html = upload_script_for("upload", container, url)
     html += content_tag(:span, :id => "upload") do
       "上传照片"
     end
     html
+  end
+  
+  def photo_upload_path_with_session(school)
+    session_key = ActionController::Base.session_options[:key]
+    photos_path(:school_id => school.id, session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
   end
 end

@@ -28,8 +28,7 @@ Rails::Initializer.run do |config|
   config.gem "nokogiri"
   config.gem "sanitize"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
-  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
-  # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem 'mime-types', :lib => 'mime/types'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -38,7 +37,8 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-
+  config.load_paths += %W( #{RAILS_ROOT}/app/middleware )
+  
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
@@ -53,10 +53,6 @@ Rails::Initializer.run do |config|
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
   # no regular words or you'll be exposed to dictionary attacks.
-  config.action_controller.session = {
-    :session_key => '_survival-1kg.org_session',
-    :secret      => 'd50cbf7c6dc06dd9fbac7ea00ad32548c711245ca896c6ebea7c81f461c64ee9036aa7c43ef182b211c793f8f71a89eba1c36267ec25d0935b1ef5735db2f6b3'
-  }
 
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information
