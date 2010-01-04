@@ -236,4 +236,31 @@ module ApplicationHelper
   def summary(article,number)
     html = plain_text(article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(0..number).to_s.lstrip
   end
+  
+  def html_summary(article,start,close)
+    html = (article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(start..close).to_s.lstrip
+  end
+
+  def photo_meta(photo, current_user)
+    photo.user_id = 1 if photo.user.nil?
+    school = photo.school
+    activity = photo.activity
+    
+    html = content_tag(:p) do
+      meta = link_to(photo.user.login, user_url(photo.user)) + '上传于' + photo.created_at.to_date.to_s + ' '
+      meta += link_to(" 删除", photo_url(photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？") if photo.edited_by(current_user)
+      meta
+    end
+
+    html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
+    if current_user && school && school.edited_by(current_user)
+      html += "<p> #{link_to '设置为学校主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
+    elsif current_user && activity && activity.edited_by(current_user)
+      html += "<p> #{link_to '设置为活动主题图', setphoto_activity_url(photo.activity)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.activity.blank?
+    end
+    html += "<p>来自活动 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
+    html += "<p>#{h(photo.description)}</p>"
+    html
+ end
+
 end

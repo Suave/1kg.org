@@ -41,24 +41,6 @@ module SchoolsHelper
     html
   end
   
-  def photo_meta(photo, current_user)
-    photo.user_id = 1 if photo.user.nil?
-    
-    html = content_tag(:p) do
-      meta = link_to(photo.user.login, user_url(photo.user)) + '上传于' + photo.created_at.to_date.to_s
-      meta += link_to("删除", photo_url(photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？") if photo.edited_by(current_user)
-      meta
-    end
-
-    html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
-    if current_user && @school.edited_by(current_user)
-    html += "<p> #{link_to '设置为学校主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
-    end
-    html += "<p>分享到 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
-    html += "<p>#{h(photo.description)}</p>"
-    html
-  end
-  
   def needs_check_box(form, tag, options, value)
     # 对秀秀和多背一公斤显示文本框模式
     if current_user.id == 31 || current_user.id == 1
@@ -108,19 +90,22 @@ module SchoolsHelper
     list.map{|n| link_to_needs(n) }.join('')
   end
   
-  def upload_script_for(id, container)
+  def upload_script_for(id, container, url)
     javascript_tag(%(
       var swfu;
       jQuery(document).ready(function () {
         swfu = new SWFUpload({
           // Backend Settings
-          upload_url: "upload.php",
+          upload_url: "#{url}",
 
           // File Upload Settings
           file_size_limit : "2 MB", // 2MB
           file_types : "*.*",
-          file_types_description : "JPG Images|PNG Images and GIF Images",
+          file_types_description : "所有图片文件",
           file_upload_limit : "0",
+          post_params: {
+            authenticity_token: "#{u(form_authenticity_token)}"
+          },
 
           // Event Handler Settings - these functions as defined in Handlers.js
           //  The handlers are not part of SWFUpload but are part of my website and control how
@@ -158,11 +143,16 @@ module SchoolsHelper
     ))
   end
   
-  def upload_button(container)
-    html = upload_script_for("upload", container)
+  def upload_button(container, url)
+    html = upload_script_for("upload", container, url)
     html += content_tag(:span, :id => "upload") do
       "上传照片"
     end
     html
+  end
+  
+  def photo_upload_path_with_session(school)
+    session_key = ActionController::Base.session_options[:key]
+    photos_path(:school_id => school.id, session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
   end
 end
