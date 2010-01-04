@@ -62,6 +62,7 @@ namespace :schools do
     puts "学校总数：#{schools.size}"
     
     schools.each do |school|
+      puts '.'
       karma = 0
       # 照片 4s/张
       karma += school.photos.count * 4
@@ -87,10 +88,11 @@ namespace :schools do
       karma += school.hits
       
       # 更新学校活跃度
-      school.update_attributes!(:karma => karma) #unless school.karma == karma
+      school.update_attribute(:karma, karma) #unless school.karma == karma
 
       # 更新学校当月平均活跃度
       last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
+      puts last_month_karma
       school.update_attribute(:last_month_karma, last_month_karma)
       #puts "#{school.title}: #{last_month_karma}" unless karma == 0
     end
