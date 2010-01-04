@@ -31,7 +31,7 @@
       <%= render :partial => s[:partial], 
                  :locals => {:activities => @activities.ongoing.find(:all, :conditions => s[:conditions], 
                                                                            :limit => 10, 
-                                                                           :include => [:participation, :user, :arrival]
+                                                                           :include => [:participations, :user, :arrival]
                                                                     )
                             } %>
     <% end -%>
