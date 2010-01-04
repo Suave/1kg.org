@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: stuff_types
 #
@@ -8,6 +7,8 @@
 #  title            :string(255)     not null
 #  description_html :text
 #  created_at       :datetime
+#  updated_at       :datetime
+#  bucks_count      :integer(4)      default(0)
 #
 
 class StuffType < ActiveRecord::Base

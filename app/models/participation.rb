@@ -1,5 +1,4 @@
 # == Schema Information
-# Schema version: 20090430155946
 #
 # Table name: participations
 #

@@ -1,5 +1,7 @@
 class PhotosController < ApplicationController
-  before_filter :login_required, :except => :show
+  before_filter :login_required, :except => [:show, :gallery]
+  session :cookie_only => false, :only => %w(create) 
+  skip_before_filter :verify_authenticity_token
   
   def new
     @photo = Photo.new
@@ -11,18 +13,21 @@ class PhotosController < ApplicationController
   
   def create
     @photo = Photo.new(params[:photo])
+    @photo.swf_uploaded_data = params[:Filedata]
+    @photo.school_id = params[:school_id]
+    @photo.activity_id = params[:activity_id]
     @photo.user = current_user
-    logger.info("PHOTO: #{@photo.inspect}")
+    @photo.title = '未命名图片' unless @photo.title.blank?
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    if !@photo.activity_id.blank?
-      redirect_to activity_url(@photo.activity_id)
-    elsif !@photo.school_id.blank?
-      redirect_to school_url(@photo.school_id)
-    else
-      redirect_to user_url(current_user)
-    end
+    render(:text => @photo.id)
+  end
+  
+  def gallery
+    @photo = Photo.find(params[:id])
+    
+    render :partial => '/schools/gallery_photo', :object => @photo, :layout => false
   end
   
   def destroy
