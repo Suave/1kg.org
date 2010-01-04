@@ -220,7 +220,7 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
-    @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
+    @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?

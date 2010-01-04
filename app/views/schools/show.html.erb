@@ -103,7 +103,7 @@
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5]%>
       </div>     
       <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
       <%else%>
@@ -199,7 +199,7 @@
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
-    <%= render :partial => "/shared/activity", :collection => @activity unless @activity.nil?%>
+    <%= render :partial => "/shared/activity", :collection => @activities unless @activities.nil?%>
     <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
     </div>  
   </div>
