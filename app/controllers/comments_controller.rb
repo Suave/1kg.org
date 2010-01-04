@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
   
   private
   def commentable_path(commentable)
-    commentable.is_a?(SchoolGuide) ? [commentable.school, commentable] : commentable
+    commentable
   end
   
   def set_commentable

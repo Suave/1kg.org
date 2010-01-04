@@ -25,6 +25,6 @@ class SchoolLocal < ActiveRecord::Base
   
   private
   def format_content
-    self.advice_html = sanitize(advice||'')
+    self.advice_html = sanitize(advice||'', true)
   end
 end

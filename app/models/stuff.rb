@@ -32,6 +32,6 @@ class Stuff < ActiveRecord::Base
   
   private
   def format_content
-    self.comment_html = sanitize(comment||'')
+    self.comment_html = sanitize(comment||'', true)
   end
 end

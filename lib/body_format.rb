@@ -1,5 +1,11 @@
 module BodyFormat
-  def sanitize(html)
+  def sanitize(html, replace = false)
+    if replace
+      html.gsub!(/\r\n/, '<br />')
+      html.gsub!(/\r/, '<br />')
+      html.gsub!(/\r/, '<br />')
+    end
+    
     begin
       Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'embed', 'br',
         'em', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
