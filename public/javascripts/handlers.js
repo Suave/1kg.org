@@ -63,7 +63,7 @@ function uploadProgress(file, bytesLoaded) {
 
 function uploadSuccess(file, serverData) {
   try {
-    $("#photos").append(serverData);
+    addImage(serverData);
     $("a[rel^='prettyPhoto']").prettyPhoto();
   } catch (ex) {
     this.debug(ex);
@@ -119,9 +119,6 @@ function uploadError(file, errorCode, message) {
       alert(message);
       break;
     }
-
-    addImage("images/" + imageName);
-
   } catch (ex3) {
     this.debug(ex3);
   }
@@ -249,3 +246,10 @@ FileProgress.prototype.toggleCancel = function (show, swfuploadInstance) {
     };
   }
 };
+
+function addImage(id)
+{
+  $.get('/photos/gallery/' + id, function(data){
+    $("#photos").append(data)
+  });
+}

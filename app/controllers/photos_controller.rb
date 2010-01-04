@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_filter :login_required, :except => [:show]
+  before_filter :login_required, :except => [:show, :gallery]
   session :cookie_only => false, :only => %w(create) 
   skip_before_filter :verify_authenticity_token
   
@@ -20,7 +20,13 @@ class PhotosController < ApplicationController
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    render(:partial => '/schools/gallery_photo', :object => @photo)
+    render(:text => @photo.id)
+  end
+  
+  def gallery
+    @photo = Photo.find(params[:id])
+    
+    render :partial => '/schools/gallery_photo', :object => @photo, :layout => false
   end
   
   def destroy
