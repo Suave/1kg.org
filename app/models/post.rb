@@ -32,12 +32,12 @@ class Post < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.body_html)
+    self.clean_html ||= sanitize(self.body_html, true)
   end
   
   private
   def format_content
-    self.clean_html = sanitize(self.body_html)
+    self.clean_html = sanitize(self.body_html, true)
   end
   
   def update_last_replied

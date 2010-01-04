@@ -10,34 +10,6 @@ class Minisite::Lightenschool::DashboardController < ApplicationController
     
   end
   
-  def submit
-    @school_guide = SchoolGuide.new
-    @profile = current_user.profile || Profile.new
-  end
-
-  def processing
-    @school_guide = SchoolGuide.new params[:school_guide]
-    @school_guide.tag_list.add '点亮学校'
-    @school_guide.user = current_user
-     
-    profile = { :first_name => params[:first_name],
-                :last_name  => params[:last_name],
-                :phone      => params[:telephone] }
-    
-    unless update_user_profile(profile)
-      flash[:notice] = "请您完成填写个人资料，方便主办方与您联系"
-      render :action => "submit"
-    else
-      if @school_guide.save
-        flash[:notice] = "攻略提交成功！"
-        redirect_to minisite_lightenschool_index_url
-      else
-        #logger.info @school_guide.errors.full_messages.join("\n") 
-        render :action => "submit"
-      end
-    end
-  end
-  
   def winners
     gold = [1000758,1000769,1000781]
     silver = [1000756,1000775,1000759,1000757,1000753,1000754,1000752,1000774,1000779,1000502,1000782,1000761,1000781,1000766,1000776,1000773,1000755,1000760,1000420,1000771,1000447,1000765,1000751,1000767,1000532,130,46,73,147,1000462]

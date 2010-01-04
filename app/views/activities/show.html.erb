@@ -102,7 +102,7 @@
               <%unless @activity.expect_strength.blank? %><th>预期人数</th><td><%= @activity.expect_strength %> 人</td><%end%>
             </tr>
           </table>
-          <%= @activity.description_html %>
+          <%= @activity.clean_html %>
         </div>
       </div>
     </div>

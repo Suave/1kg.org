@@ -25,7 +25,7 @@ class SchoolTraffic < ActiveRecord::Base
   
   private
   def format_content
-    self.description_html = sanitize(description||'')
+    self.description_html = sanitize(description||'', true)
   end
   
   def setup_tag
