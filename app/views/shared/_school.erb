@@ -1,10 +1,11 @@
   <div class="school_list">
+    <% envoys = User.moderators_of(school) %>
     <%= main_photo_thumb(school) -%>       
     <div class="school_list_meta">
-    <h5><%= link_to h(school.title), school_path(school)%></h5>
-    <span>活跃度</span>
-    <%= karma_star(school.last_month_karma)-%>
-    <% unless school.user.nil? %><div>学校大使:<% envoys = User.moderators_of(school) %> <% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></div><%end-%>
+      <h5><%= link_to h(school.title), school_path(school)%></h5>
+      <span>活跃度</span>
+      <%= karma_star(school.last_month_karma)-%>
+      <% unless envoys.nil? %><p>学校大使:<% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></p><%end-%>
     </div>
     <div class="clearfix"></div>
   </div>
