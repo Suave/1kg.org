@@ -28,9 +28,12 @@
       <div class="contents">
         
           <% @activities_for_school.each do |a| -%>
-          <p style="font-size:12px" ><%= link_to a.title, activity_url(a) %></p>
-          [<%= month_and_day(a.start_at) %>]
-          <p><%= link_to a.school.title,school_url(a.school) %></p>
+          <div style="padding:4px 0;">
+          <p style="font-size:12px;font-weight:bold " ><%= link_to a.title, activity_url(a) %></p>
+          <span class="gary_span">时间 <%= a.start_at.to_date %> 至 <%= a.start_at.to_date %></span><br/>
+         
+          <span class="gary_span">相关学校: <%= link_to a.school.title,school_url(a.school) %> </span>
+          </div>
           <% end -%>
         
       </div>
