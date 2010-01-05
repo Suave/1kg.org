@@ -49,7 +49,7 @@ div.pp_pic_holder a:focus{outline:none}
 div.pp_overlay{background:#000;left:0;position:absolute;top:0;width:100%;z-index:9500}
 div.pp_pic_holder{display:none;position:absolute;width:100px;z-index:10000}
 .pp_content{height:40px;position:relative;text-align:left;width:100%}
-.pp_content .pp_details{display:none;margin:10px 15px 2px 20px;margin-bottom:60px\9;*margin-bottom:2px;}
+.pp_content .pp_details{display:none;margin:10px 15px 2px 20px;margin-bottom:70px\9;}
 .pp_description{display:none;float:left;margin:0}
 .pp_nav{float:left;margin:3px 0 0}
 .pp_nav p{float:left;margin:2px 4px}
