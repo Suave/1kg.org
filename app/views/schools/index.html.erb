@@ -25,10 +25,9 @@
       <span class="span_title">和学校相关的活动</span>
       <span class="postNew"><%= link_for_new_activity %></span>
       <div class="contents">
-        
           <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
-       
       </div>
+
 </div>
 
 
