@@ -51,19 +51,19 @@ class Activity < ActiveRecord::Base
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
   
-  named_scope :in_the_city, lambda { |city|
+  named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["arrival_id = ? and departure_id = ?", geo_id, geo_id] }
+    {:conditions => ["arrival_id = ? or departure_id = ?", geo_id, geo_id] }
   }
   
-  named_scope :from_the_city, lambda { |city| 
-    geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
-  }
+  # named_scope :from_the_city, lambda { |city| 
+  #  geo_id = (city.class == Geo) ? city.id : city
+  #  {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
+  #}
   
-  named_scope :on_the_fly, lambda { |city|
-    {:conditions => ["departure_id = 0 and arrival_id = 0"]}
-  }
+  #named_scope :on_the_fly, lambda { |city|
+  #  {:conditions => ["departure_id = 0 and arrival_id = 0"]}
+  #}
   
   named_scope :at, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city

@@ -4,6 +4,7 @@
   <%= stylesheet_link_tag 'school' %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
+  <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
 <% @page_title = "#{h @school.title}" -%>
@@ -203,22 +204,7 @@
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
-    <% @activity.each do |a| -%>
-      <div style="padding:8px 4px;border-bottom:1px #ddd solid;">
-        <div style="float:left">
-          <%= avatar_for(a.user, "large") %>
-        </div>
-        <div style="margin-left:60px;">
-          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">(活动结束了)</span><%end%>
-          <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
-          <span style="color:#666666; text-align:right">
-          日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>
-          </span>
-        </div>
-      </div>
-    
-    
-    <% end %>
+    <%= render :partial => "/shared/activity", :collection => @activities unless @activities.nil?%>
     <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
     </div>  
   </div>

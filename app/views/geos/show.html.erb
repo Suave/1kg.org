@@ -31,20 +31,11 @@
   
   <% if @city.children.blank? -%>
     <%#= render :partial => 'city_box' %>
-    <div class="box" id="cityLatestMembers">
-      <div class="boxOuter">
-        <div class="boxInner">
-          <h3>在<%= @city.name %>的小组</h3>
-          <span class="postNew"><%= link_for_new_group %></span>
-          <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
-        </div>
-      </div>
-    </div>
     
     <div class="box">
       <div class="boxOuter">
         <div class="boxInner">
-          <h3>分享</h3>
+          <h3><%=  "#{@city.name}居民的分享"%></h3>
           <span class="postNew"><%= link_for_new_share %></span>
           <div class="contents">
             <%= render :partial => "/shares/shares", :object => @shares %>
@@ -64,6 +55,16 @@
       </div>
     </div>
     
+    <div class="box" id="cityLatestMembers">
+      <div class="boxOuter">
+        <div class="boxInner">
+          <h3>在<%= @city.name %>的小组</h3>
+          <span class="postNew"><%= link_for_new_group %></span>
+          <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
+        </div>
+      </div>
+    </div>
+    
   <% else %>
     <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
   <% end %>
@@ -72,53 +73,21 @@
   <%= render :partial => "city_search" %>
 <% end -%>
 
-<div class="box" id="cityActivities">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最近的活动</h3>
-      <span class="postNew"><%= link_for_new_activity %></span>
-      <%#= render :partial => "/activities/activity_list" %>
-      <div class="tabbedPanel" id="tabs">
-        <ul class="tab">
-          <li><%= link_to "全部", "#all" %></li>
-          <li><%= link_to "同城", "#same" %></li>
-          <li><%= link_to "从#{@city.name}出发", "#from" %></li>
-          <li><%= link_to "#{@city.name}相关", "#misc" %></li>
-        </ul>
-        <div class="panel setting">
-          <div id="all">
-            <%= render :partial => "/activities/activities",
-                       :locals => {:activities => @all_activities, :show_sticky => false} %>
-          </div>
-          <div id="same">
-            <%= render :partial => "/activities/local_activity", 
-                       :locals => {:activities => @activities_in_the_city }  %>
-          </div>
-          <div id="from">
-            <%= render :partial => "/activities/travel_activity",
-                       :locals => {:activities => @activities_from_the_city} %>
-          </div>
-          <div id="misc">
-            <%= render :partial => "/activities/related_activity",
-                       :locals => {:activities => @activities_on_the_fly} %>
-          </div>
-        </div>
-      </div>
-      <script type="text/javascript">
-        jQuery("#tabs").tabs();
-      </script>
-    </div>
-    <%= render :partial => "/activities/all_activities" %>
-  </div>
-</div>
-
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>周边的学校</h3>
+      <h3><%= "#{@city.name}周边的学校" %></h3>
       <div class="contents">
         <%= render :partial => 'school_maps', :locals => {:city => @city} %>
       </div>
     </div>
   </div>
+</div>
+
+<div class="newbox" id="cityActivities">
+      <span class="span_title"><%= "#{@city.name}最近的活动"%></span>
+      <span class="postNew"><%= link_for_new_activity %></span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <%#= render :partial => "/activities/activity_list" %>
+      <%= render :partial => "/shared/activity", :collection => @activities %>
 </div>
