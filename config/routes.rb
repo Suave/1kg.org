@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
+                                      :apply => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
@@ -68,7 +69,8 @@ ActionController::Routing::Routes.draw do |map|
                                       :novisited => :put,
                                       :moderator => :get,
                                       :marked => :put,
-                                      :manage => :put},
+                                      :manage => :put,
+                                      :sent_apply => :post},
                           :collection => { :unconfirm => :get, 
                                            :archives => :get, 
                                            :cits => :get,

@@ -172,6 +172,23 @@ class SchoolsController < ApplicationController
     redirect_to school_url(@school)
   end
   
+  def apply
+    @school = School.find(params[:id])
+    @message = current_user.sent_messages.build
+  end
+  
+  def sent_apply
+    @school = School.find(params[:id])
+    @message = current_user.sent_messages.build(params[:message])
+    @message.recipients = User.moderators_of(@school)
+    if @message.save
+      flash[:notice] = "消息已发出"
+      redirect_to school_url(@school)
+    else	    
+      render :action => "new"
+    end
+  end
+  
   # 未标记学校列表
   def todo
     @geos = Geo.roots

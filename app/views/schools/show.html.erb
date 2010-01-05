@@ -166,16 +166,14 @@
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
-        <% if @school.validated? -%>
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
           <%else%>
+                    没有学校大使
           <%end%>
-        <% else -%>
-          <div class="contents">
-            <p>学校通过验证后才有学校大使</p>
-          </div>
-        <% end -%>
+          <% unless @moderators.include? current_user %>
+          <%= link_to '大使申请',apply_school_url(@school),:class => "adminbutton"%>
+          <% end %>
       </div>
       <div class="clearfix"></div>
   </div>
