@@ -5,6 +5,7 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
+  <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
@@ -20,23 +21,14 @@
 
 <%= render :partial => "/shared/ad" %>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>和学校相关的活动</h3>
+<div class="newbox">
+      <span class="span_title">和学校相关的活动</span>
       <span class="postNew"><%= link_for_new_activity %></span>
       <div class="contents">
         
-          <% @activities_for_school.each do |a| -%>
-          <p style="font-size:12px" ><%= link_to a.title, activity_url(a) %></p>
-          [<%= month_and_day(a.start_at) %>]
-          <p><%= link_to a.school.title,school_url(a.school) %></p>
-          <% end -%>
-        
+          <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
+       
       </div>
-      <%= render :partial => "/activities/all_activities" %>
-    </div>
-  </div>
 </div>
 
 
