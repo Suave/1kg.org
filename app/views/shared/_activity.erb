@@ -3,7 +3,11 @@
     <div class="activity_list_meta">
     <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
     <span class="gary_span"><%= activity.register_over_at.nil?? "开始日期: #{activity.start_at.to_date}" : "报名截止: #{activity.register_over_at.to_date}" %></span><br/>
-    <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+    <%begin school%>
+      <span class="gary_span">相关学校: <%= link_to activity.school.title,school_url(activity.school)%></span><br/>
+    <% rescue %>
+      <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+    <%end%>
     <span class="gary_span"><%= activity.participations_count %> 人参加</span>
     </div>
     <div class="clearfix"></div>
