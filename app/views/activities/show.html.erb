@@ -2,6 +2,7 @@
 <% content_for :heads do -%>  
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
+  <style type="text/css">.school_list_meta{width:160px;height:80px}</style>
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
@@ -39,9 +40,8 @@
     </div>
     <% end -%>
 
-
     <div class="newbox">
-      <span class="span_title">参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加<span>
+      <span class="span_title">参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加</span>
         <div class="cleanfix" style="height:10px"></div>
         <%= render :partial => "/shared/user_list", :locals => {:users => @activity.participators} %>
         <div class="cleanfix" style="height:20px"></div>
@@ -53,7 +53,6 @@
     <div class="cleanfix" style="height:10px"></div>
     <%= render :partial => "/shared/school", :collection => [@activity.school] %>
   </div>
-  <style type="text/css">.school_list_meta{width:160px}</style>
   <%end%>
   
   <div class="newbox">
@@ -91,15 +90,15 @@
             <% else -%>
               <% if @activity.joined?(current_user) -%>
                 <%= link_to "不参加了", quit_activity_url(@activity), :method => :put,:class => "buttonjoin" %>
-                <br/><span class="gary_span">你参加了这个活动<span>
+                <div class="clearfix" style="height:4px"></div>
+                <span class="gary_span">你参加了这个活动</span>
               <% else -%>
                 <%= link_to "我要参加", join_activity_url(@activity) ,:class => "buttonjoin2" %>
-                <br/><span class="gary_span">报名截止日期<%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%><span>
+                <div class="clearfix" style="height:4px"></div>
+                <span class="gary_span">报名截止日期<%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%></span>
               <% end -%>
             <% end -%>
           </div>
-          
-
           <div id="activitiesInfo">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
