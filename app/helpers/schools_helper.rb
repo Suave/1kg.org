@@ -100,9 +100,10 @@ module SchoolsHelper
 
           // File Upload Settings
           file_size_limit : "2 MB", // 2MB
-          file_types : "*.*",
+          file_types : "*.jpg; *.JPG; *.jpeg; *.JPEG; *.PNG; *.png; *.GIF; *.gif",
           file_types_description : "所有图片文件",
           file_upload_limit : "0",
+          file_queue_limit: 0,
           post_params: {
             authenticity_token: "#{u(form_authenticity_token)}"
           },
@@ -152,7 +153,7 @@ module SchoolsHelper
   end
   
   def photo_upload_path_with_session(school)
-    session_key = ActionController::Base.session_options[:key]
-    photos_path(:school_id => school.id, session_key => cookies[session_key], request_forgery_protection_token => form_authenticity_token)
+    session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
+    photos_path('photo[school_id]' => school.id, session_key => cookies[session_key])
   end
 end

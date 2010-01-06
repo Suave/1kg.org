@@ -1,14 +1,17 @@
+var uploadResult = false;
+
 function fileQueueError(file, errorCode, message) {
   try {
     var imageName = "error.gif";
     var errorName = "";
 
+    uploadResult = false;
+    
     if (errorCode == SWFUpload.errorCode_QUEUE_LIMIT_EXCEEDED) {
       errorName = "您的上传队列已满，不能再上传新文件了";
     }
 
     if (errorName != "") {
-      alert(errorName);
       return;
     }
 
@@ -23,7 +26,6 @@ function fileQueueError(file, errorCode, message) {
     case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
     case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
     default:
-      alert(message);
       break;
     }
   } catch (ex) {
@@ -46,7 +48,7 @@ function uploadProgress(file, bytesLoaded) {
 
   try {
     var percent = Math.ceil((bytesLoaded / file.size) * 100);
-
+    
     var progress = new FileProgress(file,  this.customSettings.upload_target);
     progress.setProgress(percent);
     if (percent === 100) {
@@ -61,8 +63,9 @@ function uploadProgress(file, bytesLoaded) {
   }
 }
 
-function uploadSuccess(file, serverData) {
+function uploadSuccess(file, serverData, responseReceived) {
   try {
+    uploadResult = true;
     addImage(serverData);
     $("a[rel^='prettyPhoto']").prettyPhoto();
   } catch (ex) {
@@ -78,7 +81,12 @@ function uploadComplete(file) {
     } else {
       var progress = new FileProgress(file,  this.customSettings.upload_target);
       progress.setComplete();
-      progress.setStatus("图片上传成功");
+      if(uploadResult == true) {
+        progress.setStatus("图片上传成功，请修改图片信息");
+      } else {
+        progress.setStatus("图片上传失败");
+        $('#upload_tip').show();
+      }
       progress.toggleCancel(false);
     }
   } catch (ex) {
@@ -116,7 +124,7 @@ function uploadError(file, errorCode, message) {
       imageName = "uploadlimit.gif";
       break;
     default:
-      alert(message);
+      if(message == '302') {message = "对不起，请您先登录";}
       break;
     }
   } catch (ex3) {
