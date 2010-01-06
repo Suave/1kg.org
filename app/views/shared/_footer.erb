@@ -2,13 +2,8 @@
   <div class="wrapper">
   <% @page = Page.find_by_slug('footer') -%>
   <%= render :text => @page.body if @page %>
-    <div style="margin:10px 0 20px 600px">
-    <div style="margin-right:4px;float:left">
-    <%= link_to image_tag('/images/joyent.jpg'),'http://www.joyent.com.cn' %>
-    </div>
-    <div style="width:180px;height:22px;float:left">
-    <script src="http://exp.jiankongbao.com/avai.php?t=5b9343a305cb0d65" type="text/javascript"></script>
-    </div>
+    <div style="color:#666;margin:4px">
+    <span>多背一公斤网站由 <%= link_to "joyent云平台","http://www.joyent.com.cn" %> 提供支持 ，由 <%= link_to "监控宝","http://www.jiankongbao.com"%> 提供网站监控服务。<span>
     <div>
   </div>
 </div>

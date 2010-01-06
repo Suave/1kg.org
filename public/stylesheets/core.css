@@ -1171,23 +1171,32 @@ h3.title {
 .ad{margin-bottom:10px;}
 
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
-color:#fff;margin:0 3px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+color:#fff;margin:0 3px;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;-margin:0 -1px}
+color:#fff;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;*margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
+<<<<<<< HEAD:public/stylesheets/core.css
 
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
+=======
+
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
+>>>>>>> 0a45e7b08ce064960fd0e356d2ea6ada9bf070fe:public/stylesheets/core.css
 
 .checkbox_label{margin:0 10px 0 2px;}
 
@@ -1205,7 +1214,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .vDateField{width:70px}
 
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
-.school_list_photo{float:left;width:107px;height:80px;overflow:hidden}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
