@@ -5,7 +5,10 @@
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
-  <style type="text/css">.activity_list_meta{width:182px;}</style>
+  <style type="text/css">
+  .activity_list_meta{width:192px;}
+  .school_list_meta{width:190px;-width:180px}
+  .school_list{width:310px}</style>
 <% end %>
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
@@ -125,7 +128,6 @@
         <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:user,:main_photo]) %>
       </div>
 
-      <style type="text/css">.school_list_meta{width:190px;-width:180px}.school_list{width:310px}</style>
 </div>
 
 <div class="box">
