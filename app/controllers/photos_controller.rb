@@ -15,12 +15,10 @@ class PhotosController < ApplicationController
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    respond_to do |want|
-      if params[:Filedata]
-        want.html{render(:text => @photo.id)}
-      else
-        want.html{redirect_to @photo.school || @photo.activity }
-      end
+    if params[:Filedata]
+      render(:text => @photo.id)
+    else
+      redirect_to @photo.school || @photo.activity
     end
   end
   
