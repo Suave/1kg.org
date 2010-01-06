@@ -17,7 +17,11 @@ class SchoolsController < ApplicationController
         @tags = SchoolNeed.tag_counts[0..50]
       
 
-        @activities_for_school = Activity.ongoing.find(:all, :conditions => "School_id is not null",:order => "created_at desc, start_at desc", :limit => 6)        
+        @activities_for_school = Activity.ongoing.find(:all,
+                                                       :conditions => "School_id is not null",
+                                                       :order => "created_at desc, start_at desc",
+                                                       :limit => 6,
+                                                       :include => [:main_photo, :school])        
       }
       
       format.json {
