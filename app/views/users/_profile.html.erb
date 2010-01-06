@@ -17,7 +17,6 @@
         
         <% if profile -%>
           <p><strong>博客：</strong><%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %></p>
-          <%= profile.bio_html %>
         <% end -%>
         
       </dd>
