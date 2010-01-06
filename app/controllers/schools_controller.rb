@@ -217,7 +217,7 @@ class SchoolsController < ApplicationController
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 4,:include => [:user,:tags])
-    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 5, :include => [:user, :school, :activity]).reverse
+    @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 5, :include => [:user, :school, :activity]).reverse
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])

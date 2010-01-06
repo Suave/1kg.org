@@ -88,3 +88,44 @@ function update_needs(tag)
   });
   $("#"+tag+"_needs").val(needs.join(' '));
 }
+
+/* 以下代码用于编辑图片标题 */
+//显示，隐藏编辑框
+function switch_photo_edit(id)
+{
+  if($("#edit_button_" + id).text() == "编辑") {
+    $('#photo_title_'+id).hide();
+    $('#title_edit_'+id).show();
+    $("#edit_button_" + id).text('完成');
+    $('#title_edit_'+id).focus();
+  } else {
+    $("#edit_button_" + id).text('编辑');
+    $('#photo_title_'+id).show();
+    $('#title_edit_'+id).hide();
+    update_photo_title(id);
+  }
+  return false;
+}
+
+//更新图片标题
+function update_photo_title(id)
+{
+  $.ajax({
+    type: 'PUT',
+    url:  '/photos/' + id,
+    data: 'photo[title]=' + $('#title_edit_'+id).val()
+  });
+  $('#photo_title_'+id).text($('#title_edit_'+id).val());
+}
+
+//用户点击回车，更新图片标题
+function photo_edit_key_down(e, id)
+{
+  if(e.keyCode == 0x0D)
+  {
+    switch_photo_edit(id);
+  }
+  return true;
+}
+
+/* 结束 */

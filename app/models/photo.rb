@@ -23,6 +23,7 @@
 
 class Photo < ActiveRecord::Base
   include BodyFormat
+  include Editable
   
   belongs_to :user
   belongs_to :school

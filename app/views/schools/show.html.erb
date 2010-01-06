@@ -12,11 +12,13 @@
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
     $(".more").toggle(
-  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
-  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
-  ); 
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    jQuery(".editable").click(function(element) { element.editable(); });
   });
+
    
 </script>
 
@@ -114,10 +116,13 @@
         让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_gary">
-        <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
+        <%unless @photos.size < 5 %>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
         你还有更多的学校照片吗？<%= upload_button('upload_container', photo_upload_path_with_session(@school)) %> 分享给大家吧。
       </p>
       <% end %>
+      <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试<%= link_to '传统方式', new_photo_path(:school_id => @school.id) %>上传.
+      </p>
     </div>  
   </div>
     
