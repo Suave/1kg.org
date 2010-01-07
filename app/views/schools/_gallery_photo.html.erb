@@ -2,6 +2,12 @@
   <dt><%= link_to image_tag(image_path(gallery_photo.public_filename(:thumb)), :alt => gallery_photo.title), gallery_photo.public_filename(:medium), 
         :rel => "prettyPhoto[gallery]", :description => photo_meta(gallery_photo, current_user), :title => gallery_photo.title %></dt>
   <dd>
-    <%= gallery_photo.title %>
+    <span id="photo_title_<%= gallery_photo.id %>"><%= gallery_photo.title %></span>
+    <% if logged_in? && gallery_photo.editable_by?(current_user) %>
+      <%= text_field_tag :title, gallery_photo.title, 
+          :onkeydown => "return photo_edit_key_down(event, '#{gallery_photo.id}');",
+          :style => "display:none;", :id => "title_edit_#{gallery_photo.id}", :size => 15  %>
+      (<%= link_to_function '编辑', "switch_photo_edit('#{gallery_photo.id}'); return false;", :id => "edit_button_#{gallery_photo.id}" %>|<%= link_to '删除', gallery_photo, :confirm => "确定要删除吗？", :method => 'delete' %>)
+    <% end %>
   </dd>
 </dl>
