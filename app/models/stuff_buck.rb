@@ -26,7 +26,7 @@ class StuffBuck < ActiveRecord::Base
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
   
-  #after_create :generate_stuffs
+  after_create :generate_stuffs
   
   def matched_percent
     (matched_count.to_f*100/quantity).to_i
