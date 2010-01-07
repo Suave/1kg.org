@@ -204,6 +204,16 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
 
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+
   # 改版学校页面
   def show
     @school = School.find(params[:id])
@@ -221,7 +231,7 @@ class SchoolsController < ApplicationController
     
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
-    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 4,:include => [:user,:tags])
+    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
