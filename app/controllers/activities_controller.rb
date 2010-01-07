@@ -7,7 +7,7 @@ class ActivitiesController < ApplicationController
   end
   
   def category
-    @category_hash = {'travel' => 0,'donation' => 1,'teach' => 2,'teach' => 3,'other' => 4, 'city' => 5, 'online' => 6}
+    @category_hash = {'travel' => 0,'donation' => 1,'teach' => 2,'other' => 3, 'city' => 4, 'online' => 5}
     render_404 if @category_hash[params[:c]].nil?
     @category = @category_hash[params[:c]]
     @activities = Activity.ongoing.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
