@@ -116,8 +116,8 @@
         让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_gary">
-        <%unless @photos.size < 5 %>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
-        你还有更多的学校照片吗？<%= upload_button('upload_container', photo_upload_path_with_session(@school)) %> 分享给大家吧。
+        <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
+        你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
       </p>
       <% end %>
       <p class="content_gray" style="display:none;" id="upload_tip">
@@ -130,8 +130,8 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-      <%= render :partial => "/shared/share", :collection => @shares %>
-    <p class="content_gary">去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %></share>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
     <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
@@ -163,7 +163,7 @@
         <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>
-    <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
+    <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator?-%>
     <div id="admins">你是学校大使，可以使用以下功能：<br/>
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
@@ -178,10 +178,14 @@
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
           <%else%>
-                    没有学校大使
+                    学校还没有学校大使
           <%end%>
           <% unless @moderators.include? current_user %>
-          <%= link_to '大使申请',apply_school_url(@school),:class => "adminbutton"%>
+          <div id="moderators_info">
+            <!--<p style="color:#444">什么是学校大使？</p>-->
+            <p>学校大使是与学校关系更紧密的用户，可以为学校做更多的事情，查看详情。</p>
+            <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
+          </div>
           <% end %>
       </div>
       <div class="clearfix"></div>

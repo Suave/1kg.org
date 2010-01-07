@@ -185,12 +185,12 @@ class SchoolsController < ApplicationController
   def sent_apply
     @school = School.find(params[:id])
     @message = current_user.sent_messages.build(params[:message])
-    @message.recipients = User.moderators_of(@school)
+    @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
     if @message.save
-      flash[:notice] = "消息已发出"
+      flash[:notice] = "申请已发出，请等待#{User.moderators_of(@school).nil?? '学校管理员' : '其他学校大使或学校管理员'}的确认。"
       redirect_to school_url(@school)
     else	    
-      render :action => "new"
+      render :action => "apply"
     end
   end
   
@@ -221,6 +221,16 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
 
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+
   # 改版学校页面
   def show
     @school = School.find(params[:id])
@@ -238,8 +248,8 @@ class SchoolsController < ApplicationController
     
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
-    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 4,:include => [:user,:tags])
-    @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 5, :include => [:user, :school, :activity]).reverse
+    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
+    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
