@@ -1,0 +1,30 @@
+<% @page_title = "申请学校大使" %> 
+
+<% content_for :crumb do -%>
+  <ul>
+    <li>申请学校大使</li>
+  </ul>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>申请学校大使</h3>
+      <div class="contents">
+        <% form_for :message, :url => {:controller => "schools", :action => "sent_apply"} do |form| %>
+          <p>
+          <strong><%= form.label :subject, "主题:" -%></strong>
+          <%= form.text_field :subject, :size => 40 ,:value => "申请成为 #{@school.title} 的学校大使"-%> <%= error_message_on @message, :subject %>
+          </p>
+          <p>
+          <strong><%= form.label :content, "内容:" -%></strong><%= error_message_on @message, :content %>
+          <br />
+          <%= form.text_area :content, :cols => 80,:value => "申请人姓名：\r\r联系方式(qq/msn/电话):\r\r去过学校的时间：\r\r申请加入学校大使的原因："%>
+          </p>
+          <p><%=submit_tag "写好了，发出去" -%> 或 <%= link_to "取消", schools_url(@school.id) %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
