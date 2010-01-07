@@ -40,6 +40,6 @@ schools = current_user.visited_schools
  <input style="display:none" type="text" name="activity[school_id]" value="<%=@school.id.to_s%>"/>
  <%end%>
 </p>
-
-<p><label class="label">活动介绍</label><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
+<%= error_message_on @activity, :description_html %>
+<p><label class="label">活动介绍<span class="require">*</span></label><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
 <script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>

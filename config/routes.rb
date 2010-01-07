@@ -96,7 +96,7 @@ ActionController::Routing::Routes.draw do |map|
                                           :invite => :get,
                                           :send_invitation => :put
                                         },
-                             :collection => {:category => :get,:ongoing => :get, :over => :get} do |activity|
+                             :collection => {:with_school => :get,:category => :get,:ongoing => :get, :over => :get} do |activity|
     activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 
