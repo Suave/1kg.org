@@ -25,7 +25,7 @@
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
-#
+#  main_photo_id            :integer(4)
 
 class Activity < ActiveRecord::Base
   include BodyFormat
@@ -42,25 +42,28 @@ class Activity < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares
 
+  has_many :photos, :order => "id desc", :dependent => :destroy
+  belongs_to :main_photo, :class_name => 'Photo'
+  
   acts_as_taggable
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
   
-  named_scope :in_the_city, lambda { |city|
+  named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["arrival_id = ? and departure_id = ?", geo_id, geo_id] }
+    {:conditions => ["arrival_id = ? or departure_id = ?", geo_id, geo_id] }
   }
   
-  named_scope :from_the_city, lambda { |city| 
-    geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
-  }
+  # named_scope :from_the_city, lambda { |city| 
+  #  geo_id = (city.class == Geo) ? city.id : city
+  #  {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
+  #}
   
-  named_scope :on_the_fly, lambda { |city|
-    {:conditions => ["departure_id = 0 and arrival_id = 0"]}
-  }
+  #named_scope :on_the_fly, lambda { |city|
+  #  {:conditions => ["departure_id = 0 and arrival_id = 0"]}
+  #}
   
   named_scope :at, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
@@ -76,6 +79,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :arrival_id, :message => "目的地是必选项"
   validates_presence_of :start_at, :message => "开始时间是必填项"
   validates_presence_of :end_at, :message => "结束时间是必填项"
+  validates_presence_of :description_html, :message => "活动介绍是必填项"
   
   acts_as_paranoid
   
@@ -86,7 +90,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.by_category(categories.index(category)).find :all, :order => "created_at desc, start_at desc", :limit => 10, :include => [:user, :departure, :arrival]
+    available.ongoing.find :all,:order => "created_at desc, start_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
   end
   
   

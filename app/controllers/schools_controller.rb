@@ -16,9 +16,14 @@ class SchoolsController < ApplicationController
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
       
-        @activities_for_school = Activity.available.find(:all, :conditions => "School_id is not null",:order => "created_at desc, start_at desc", :limit => 5)
-        
+
+        @activities_for_school = Activity.ongoing.find(:all,
+                                                       :conditions => "School_id is not null",
+                                                       :order => "created_at desc, start_at desc",
+                                                       :limit => 6,
+                                                       :include => [:main_photo, :school])        
       }
+      
       format.json {
         @schools = School.validated
         @schools_json = []
@@ -180,12 +185,12 @@ class SchoolsController < ApplicationController
   def sent_apply
     @school = School.find(params[:id])
     @message = current_user.sent_messages.build(params[:message])
-    @message.recipients = User.moderators_of(@school)
+    @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
     if @message.save
-      flash[:notice] = "消息已发出"
+      flash[:notice] = "申请已发出，请等待#{User.moderators_of(@school).nil?? '学校管理员' : '其他学校大使或学校管理员'}的确认。"
       redirect_to school_url(@school)
     else	    
-      render :action => "new"
+      render :action => "apply"
     end
   end
   
@@ -216,6 +221,16 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
 
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+
   # 改版学校页面
   def show
     @school = School.find(params[:id])
@@ -233,11 +248,11 @@ class SchoolsController < ApplicationController
     
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
-    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 4,:include => [:user,:tags])
+    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
-    @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
+    @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
@@ -384,6 +399,7 @@ class SchoolsController < ApplicationController
     if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
+      flash[:notice] = "学校主照片设置成功"
       redirect_to school_url(@school)
     else
       flash[:notice] = "只有学校大使才可以设置学校主照片"

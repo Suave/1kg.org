@@ -2,8 +2,7 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
 <% @page_title = "#{h @school.title}" -%>
@@ -87,8 +86,8 @@
     </div>
     <%end%>
 
-  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
 
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
@@ -105,12 +104,12 @@
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5]%>
       </div>     
       <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
       <%else%>
       <p class="content_gary">
-        <%unless @photos.size < 6%>查看<%= link_to "全部照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
+        <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
         你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
       </p>
       <% end %>
@@ -121,8 +120,8 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-      <%= render :partial => "/shared/share", :collection => @shares %>
-    <p class="content_gary">去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %></share>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
     <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
@@ -154,7 +153,7 @@
         <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>
-    <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
+    <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator?-%>
     <div id="admins">你是学校大使，可以使用以下功能：<br/>
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
@@ -169,10 +168,14 @@
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
           <%else%>
-                    没有学校大使
+                    学校还没有学校大使
           <%end%>
           <% unless @moderators.include? current_user %>
-          <%= link_to '大使申请',apply_school_url(@school),:class => "adminbutton"%>
+          <div id="moderators_info">
+            <!--<p style="color:#444">什么是学校大使？</p>-->
+            <p>学校大使是与学校关系更紧密的用户，可以为学校做更多的事情，查看详情。</p>
+            <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
+          </div>
           <% end %>
       </div>
       <div class="clearfix"></div>
@@ -199,22 +202,7 @@
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
-    <% @activity.each do |a| -%>
-      <div style="padding:8px 4px;border-bottom:1px #ddd solid;">
-        <div style="float:left">
-          <%= avatar_for(a.user, "large") %>
-        </div>
-        <div style="margin-left:60px;">
-          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">(活动结束了)</span><%end%>
-          <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
-          <span style="color:#666666; text-align:right">
-          日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>
-          </span>
-        </div>
-      </div>
-    
-    
-    <% end %>
+    <%= render :partial => "/shared/activity", :collection => @activities unless @activities.nil?%>
     <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
     </div>  
   </div>
