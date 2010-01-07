@@ -121,10 +121,13 @@ function uploadError(file, errorCode, message) {
         this.debug(ex2);
       }
     case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-      imageName = "uploadlimit.gif";
+      break;
+    case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+      alert("对不起，你的网速过慢，超时了，可以试试缩小图片或者传统上传方式！")
       break;
     default:
       if(message == '302') {message = "对不起，请您先登录";}
+      alert(message);
       break;
     }
   } catch (ex3) {
