@@ -79,14 +79,6 @@ end
 
 require 'sanitize'
 
-ActionMailer::Base.smtp_settings = {
-  :address => "127.0.0.1",
-  :domain  => "1kg.org",
-  :port => 25,
-#  :authentication => :login,
-#  :user_name => "no-reply@1kg.org",
-#  :password => '1kgmore'
-}
 
 CalendarDateSelect.format = :iso_date
 
