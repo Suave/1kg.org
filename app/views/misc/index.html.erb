@@ -12,7 +12,7 @@
       <div class="contents">
         <ul>
           <% @bulletins.each do |b| %>
-            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]<span></li>
+            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></li>
           <% end %>
         </ul>
       </div>
@@ -27,11 +27,11 @@
 
 <% @page = Page.find_by_slug('special') -%>
 <%if @page%>
-<div class="box" id="search-front">
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3>专题活动</h3>
-      <div class="contents"">
+      <div class="contents">
       <%= render :text => @page.body %>
       </div>
     </div>
