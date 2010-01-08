@@ -15,9 +15,11 @@ class SchoolsController < ApplicationController
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
-      
-        @activities_for_school = Activity.available.find(:all, :conditions => "School_id is not null",:order => "created_at desc, start_at desc", :limit => 5)
-        
+        @activities_for_school = Activity.ongoing.find(:all,
+                                                       :conditions => "School_id is not null",
+                                                       :order => "created_at desc, start_at desc",
+                                                       :limit => 6,
+                                                       :include => [:main_photo, :school])        
       }
       format.json {
         @schools = School.validated
@@ -199,6 +201,16 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
 
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+
   # 改版学校页面
   def show
     @school = School.find(params[:id])
@@ -216,8 +228,8 @@ class SchoolsController < ApplicationController
     
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
-    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 4,:include => [:user,:tags])
-    @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 5, :include => [:user, :school, :activity]).reverse
+    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
+    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])

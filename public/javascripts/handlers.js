@@ -261,6 +261,6 @@ FileProgress.prototype.toggleCancel = function (show, swfuploadInstance) {
 function addImage(id)
 {
   $.get('/photos/gallery/' + id, function(data){
-    $("#photos").append(data)
+    $("#photos").prepend(data)
   });
 }
