@@ -1090,7 +1090,7 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
-.obp {float:left; width:120px; margin:12px}
+.obp {float:left; width:120px; margin:12px; height: 130px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
@@ -1149,6 +1149,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
+
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
@@ -1171,7 +1172,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .vDateField{width:70px}
 
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
-.school_list_photo{float:left;width:107px;height:80px;overflow:hidden}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
@@ -1186,9 +1187,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
 
-#activity_tabs li{float:left;margin:6px 4px 0 0;padding:0 4px}
-#activity_tabs .ui-tabs-selected{background-color:#569701}
-#activity_tabs .ui-tabs-selected a{color:#fff}
+#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{}
+#activity_tabs .ui-tabs-selected a{color:#E98523}
+.activity_more {text-align:right;padding:0 20px}
 
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}

@@ -52,7 +52,7 @@ function uploadProgress(file, bytesLoaded) {
     var progress = new FileProgress(file,  this.customSettings.upload_target);
     progress.setProgress(percent);
     if (percent === 100) {
-      progress.setStatus("正在处理图像...");
+      progress.setStatus("正在处理图像，如果您的图片较大，可能需要一些时间，请您耐心等待...");
       progress.toggleCancel(false, this);
     } else {
       progress.setStatus("正在上传...");
