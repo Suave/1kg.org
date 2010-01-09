@@ -422,7 +422,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "stuffs", :force => true do |t|
     t.string   "code",         :null => false # 密码
     t.integer  "type_id",      :null => false # 公益项目（物资）类型
-    #t.integer  "buck_id",      :null => false
+    t.integer  "buck_id"
     t.datetime "created_at" # 交易处理时间
     t.string   "order_id"   # 商家订单号
     t.string   "order_time" # 商家订单时间

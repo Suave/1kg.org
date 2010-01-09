@@ -47,9 +47,8 @@ class GatewayController < ApplicationController
       
     end
     
-    # 返回给商家
-    @result = Donation::RequestResult.new(params[:bgUrl], params[:orderId], params[:orderTime], @stuff.deal_id, @stuff.created_at, pay_result, @donation_url, key)
-    redirect_to @result.url # TODO 应该发起 GET request 之后，处理 response
+    # 此处我认为应该直接跳转到配对页面，用户完成匹配后再返回商家网站。
+    redirect_to @donation_url
   end
   
   private
