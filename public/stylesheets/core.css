@@ -165,7 +165,6 @@ caption {
   max-width: 960px;
   font-size: 1em;
   text-align: left;
-  position: relative;
 }
 
 /* =footer */
@@ -1182,21 +1181,12 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
-<<<<<<< HEAD:public/stylesheets/core.css
-
-.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
-.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
-.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
-=======
 
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
->>>>>>> 0a45e7b08ce064960fd0e356d2ea6ada9bf070fe:public/stylesheets/core.css
 
 .checkbox_label{margin:0 10px 0 2px;}
 
@@ -1221,6 +1211,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+<<<<<<< HEAD:public/stylesheets/core.css
 
 .activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
@@ -1233,10 +1224,32 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #activity_tabs .ui-tabs-selected{}
 #activity_tabs .ui-tabs-selected a{color:#E98523}
 .activity_more {text-align:right;padding:0 20px}
+=======
+
+.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list_photo{width:64px;height:64px;overflow:hidden;}
+.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
+.activity_list_meta span{position:relative;top:-2px}
+.activity_list_meta h5{margin:2px 0}
+
+#activity_tabs li{float:left;margin:6px 8px 0 0;padding:0 1px 3px}
+#activity_tabs .ui-tabs-selected{background:url("/images/selected.gif")}
+#activity_tabs .ui-tabs-selected a{color:#E98523;}
+.activity_more {text-align:right;padding:0 20px}
+
+.photo_frame{float:left;height:80px;width:120px;margin:0 0 5px 5px;text-align:center}
+.photo{height:80px;}
+.tail{background:url("/images/tail.gif");height:10px;bottom:-1px;position:relative}
+.photo_meta{position:relative;left:90px;top:-30px;display:none;width:130px}
+.photo_from{background-color:white;padding:5px;border:1px #888 solid}
+.photo_frame:hover .photo_meta{display:block}
+>>>>>>> 37c92a360cf6239cb948572b21ca7dc30231ca48:public/stylesheets/core.css
 
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
+<<<<<<< HEAD:public/stylesheets/core.css
 
 .white {background-color: white;}
 .gary_span{color:#999}
@@ -1358,3 +1371,22 @@ a.progressCancel:hover {
 .swfupload {
 	vertical-align: top;
 }
+=======
+.white {background-color: white;}
+.gary_span{color:#888}
+
+.summary{color:#666;margin:3px 0 1px}
+
+.record{margin-bottom:1em;height:54px;width:270px;float:left}
+#records .record{margin-right:10px;width:300px}
+
+.newbox{padding-left:10px;width:100%;margin-bottom:20px}
+.span_title{font-size:18px;font-weight:bold;}
+.span_title2{font-size:15px;font-weight:bold;}
+
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
+
+.share{clear:both;margin:12px 0 12px;}
+.share img{margin-top:4px}
+.sharetitle{font-size:13px;}
+>>>>>>> 37c92a360cf6239cb948572b21ca7dc30231ca48:public/stylesheets/core.css
