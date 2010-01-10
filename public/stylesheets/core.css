@@ -1211,20 +1211,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
-<<<<<<< HEAD:public/stylesheets/core.css
 
-.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
-.activity_list_photo{width:64px;height:64px;overflow:hidden;}
-.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
-.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
-.activity_list_meta span{position:relative;top:-2px}
-.activity_list_meta h5{margin:2px 0}
-
-#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
-#activity_tabs .ui-tabs-selected{}
-#activity_tabs .ui-tabs-selected a{color:#E98523}
-.activity_more {text-align:right;padding:0 20px}
-=======
 
 .activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
@@ -1244,12 +1231,11 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .photo_meta{position:relative;left:90px;top:-30px;display:none;width:130px}
 .photo_from{background-color:white;padding:5px;border:1px #888 solid}
 .photo_frame:hover .photo_meta{display:block}
->>>>>>> 37c92a360cf6239cb948572b21ca7dc30231ca48:public/stylesheets/core.css
 
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
-<<<<<<< HEAD:public/stylesheets/core.css
+
 
 .white {background-color: white;}
 .gary_span{color:#999}
