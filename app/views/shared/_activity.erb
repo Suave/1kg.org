@@ -8,7 +8,7 @@
     <% rescue %>
       <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
     <%end%>
-    <span class="gary_span"><%= activity.participations_count %> 人参加</span>
+    <span class="gary_span"><%= activity.participations.count %> 人参加</span>
     </div>
     <div class="clearfix"></div>
   </div>
