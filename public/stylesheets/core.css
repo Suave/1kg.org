@@ -1357,22 +1357,3 @@ a.progressCancel:hover {
 .swfupload {
 	vertical-align: top;
 }
-=======
-.white {background-color: white;}
-.gary_span{color:#888}
-
-.summary{color:#666;margin:3px 0 1px}
-
-.record{margin-bottom:1em;height:54px;width:270px;float:left}
-#records .record{margin-right:10px;width:300px}
-
-.newbox{padding-left:10px;width:100%;margin-bottom:20px}
-.span_title{font-size:18px;font-weight:bold;}
-.span_title2{font-size:15px;font-weight:bold;}
-
-#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
-
-.share{clear:both;margin:12px 0 12px;}
-.share img{margin-top:4px}
-.sharetitle{font-size:13px;}
->>>>>>> 37c92a360cf6239cb948572b21ca7dc30231ca48:public/stylesheets/core.css
