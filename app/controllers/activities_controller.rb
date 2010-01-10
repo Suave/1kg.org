@@ -3,7 +3,15 @@ class ActivitiesController < ApplicationController
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
   def index
-    redirect_to root_path
+    @activities_for_all = Activity.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
+    @activities_for_travel = Activity.recent_by_category("公益旅游")
+    @activities_for_donation = Activity.recent_by_category("物资募捐")
+    @activities_for_teach = Activity.recent_by_category("支教")
+    @activities_for_city = Activity.recent_by_category("同城活动")
+    @activities_for_online = Activity.recent_by_category("网上活动")
+    @activities_for_other = Activity.recent_by_category("其他")
+    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc")
+
   end
   
   def category

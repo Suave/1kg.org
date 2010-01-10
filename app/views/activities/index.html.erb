@@ -1,10 +1,79 @@
-<% @page_title = "公 益 活 动" -%>
+<% @page_title = "活动" -%>
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
 
 <% content_for :sidebar do -%>
-  <h4>> <%= link_to "发布新活动", new_activity_path %></h4>
+
+<% @page = Page.find_by_slug('special') -%>
+<%if @page%>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>专题活动</h3>
+      <div class="contents">
+      <%= render :text => @page.body %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%end%>
+
 <% end -%>
 
-<%= render :partial => "activity_list" %>
+<div class="newbox">
+      <div id="activity_tabs">
+        <span class="span_title" style="margin-right:8px">活动</span><span class="postNew"><%= link_for_new_activity %></span>
+        <ul class="tab" >
+          <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
+            <li><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
+        </ul>
+        <div class="cleanfix" style="clear:both;height:10px"></div>
+        <div id = "all">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_all %>
+          <div class="activity_more"><%= link_to '全部活动',ongoing_activities_url,:target => "_blank" %>   <%= link_to '结束的活动',over_activities_url,:target => "_blank" %></div>
+        </div>
+        <div id = "travel">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_travel %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=travel",:target => "_blank" if @activities_for_travel.size == 8 %></div>
+        </div>
+        <div id = "teach">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_teach %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=teach",:target => "_blank" if @activities_for_teach.size == 8 %></div>
+        </div>
+        <div id = "donation">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_donation %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=donation",:target => "_blank" if @activities_for_donation.size == 8 %></div>
+        </div>
+        <div id = "online">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_online %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=online",:target => "_blank" if @activities_for_online.size == 8 %></div>
+        </div>
+        <div id = "city">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_city %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=city",:target => "_blank" if @activities_for_city.size == 8 %></div>
+        </div>
+        <div id = "other">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_other %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=other",:target => "_blank" if @activities_for_other.size == 8 %></div>
+        </div>
+      </div>
+<script type="text/javascript">
+  jQuery("#activity_tabs").tabs();
+</script>
+</div>
 
-<h3 style="margin-top:20px;">最新活动帖子 <%= title_suffix %></h3>
-<%= render :partial => "last_10_updated_topics", :object => @topics %>
+<div class="cleanfix" style="clear:both;height:20px"></div>           
+
+
+<div class="newbox">
+      <span class="span_title">最新活动照片</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>           
+      <div class="contents clearfix">
+        <%= render :partial => "/shared/photo", :collection => @photos %>
+      </div>
+</div>
+<div class="cleanfix" style="clear:both;height:20px"></div>           
