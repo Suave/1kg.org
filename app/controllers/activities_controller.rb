@@ -1,5 +1,5 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index, :show]
+  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school]
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
   def index
@@ -10,6 +10,7 @@ class ActivitiesController < ApplicationController
     @activities_for_city = Activity.recent_by_category("同城活动")
     @activities_for_online = Activity.recent_by_category("网上活动")
     @activities_for_other = Activity.recent_by_category("其他")
+    @activities_for_over = Activity.find(:all,:conditions => "done is true",:limit => 8,:order => "end_at desc", :include => [:main_photo])
     @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc")
 
   end

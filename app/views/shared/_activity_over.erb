@@ -1,0 +1,12 @@
+  <div class="activity_list">
+    <%= topic_photo_thumb(activity_over) -%>       
+    <div class="activity_list_meta">
+    <h5><%= link_to h(activity_over.title), activity_path(activity_over)%></h5>
+    <span class="gary_span">结束时间：<%= activity_over.end_at.to_date%></span><br/> 
+    <span class="gary_span"><%= activity_over.shares.count%> 篇分享</span>　 
+    <span class="gary_span"><%= activity_over.photos.count%> 张图片</span><br/>
+    <span class="gary_span"><%= activity_over.comments.count%> 条留言</span>　 
+    <span class="gary_span"><%= activity_over.participations_count %> 人参加</span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
