@@ -71,8 +71,8 @@
 <div class="cleanfix" style="clear:both;height:20px"></div>           
 
 
-<div class="newbox" id="activity_done"> <span><%= link_to '查看更多',over_activities_url,:target => "_blank" %></span>
-      <span class="span_title">活动回顾</span>
+<div class="newbox" id="activity_done">
+      <span class="span_title">活动回顾</span> <span><%= link_to '查看更多',over_activities_url,:target => "_blank" %></span>
       <div class="clearfix" style="height:10px"> </div>
       <div class="contents">
           <%= render :partial => "/shared/activity_over", :collection => @activities_for_over,:locals => {:school => true} unless @activities_for_over.nil? %>
