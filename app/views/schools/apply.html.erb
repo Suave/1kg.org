@@ -43,7 +43,7 @@
           <p>
           <strong><%= form.label :content, "内容:" -%></strong><%= error_message_on @message, :content %>
           <br />
-          <%= form.text_area :content, :cols => 80,:value => "申请人姓名：\r\r联系方式(qq/msn/电话):\r\r去过学校的时间：\r\r申请加入学校大使的原因："%>
+          <%= form.text_area :content, :cols => 80,:value => "申请人姓名：\r\r联系方式(qq/msn/电话):\r\r申请加入学校大使的原因："%>
           </p>
           <p><%=submit_tag "写好了，发出去" -%> 或 <%= link_to "取消", schools_url(@school.id) %></p>
         <% end %>

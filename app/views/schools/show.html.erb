@@ -173,7 +173,7 @@
           <% unless @moderators.include? current_user %>
           <div id="moderators_info">
             <!--<p style="color:#444">什么是学校大使？</p>-->
-            <p>学校大使是与学校关系更紧密的用户，可以为学校做更多的事情，查看详情。</p>
+            <p>学校大使是与学校关系更紧密的用户，可以为学校做更多的事情，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
             <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
           </div>
           <% end %>
