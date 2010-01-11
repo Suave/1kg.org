@@ -6,9 +6,15 @@
     <%begin school%>
       <span class="gary_span">相关学校: <%= link_to activity.school.title,school_url(activity.school)%></span><br/>
     <% rescue %>
+      <% if [0,1,2,3].include?(activity.category) %>
       <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+      <% elsif activity.category == 4%>
+      <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
+      <% else %>
+      <span class="gary_span">网络活动</span><br/>
+      <%end%>
     <%end%>
-    <span class="gary_span"><%= activity.participations_count %> 人参加</span>
+    <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span>
     </div>
     <div class="clearfix"></div>
   </div>
