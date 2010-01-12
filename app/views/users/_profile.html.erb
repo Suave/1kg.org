@@ -6,7 +6,7 @@
 	  <%= avatar_for(user, "large") %>
 	</div>
 	<div style="margin-left:56px;">
-	  <p style="margin:0">用户: <%= link_to user.login, user_url(user) %><br/>
+	  <p style="margin:0">用户： <%= link_to user.login, user_url(user) %><%= envoy_badge(user)%><br/>
 	  住在： <% if user.geo -%><%= link_to user.geo.name, geo_url(user.geo) %><% else -%>未知<% end -%>
 	  <br/><% if profile -%>博客：<%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %><% end -%>
 	  </p>

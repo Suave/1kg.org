@@ -47,7 +47,7 @@
       <div class="metadata">
         <div class="avatar"><%= link_to avatar_for(@share.user, "large"), user_url(@share.user) %></div>
         <p>
-          <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %> ...
+          <%= link_to @share.user.login, user_url(@share.user) %><%= envoy_badge(@share.user)%> 写于 <%= @share.created_at.to_date %> ...
           <%= @share.hits %> 浏览 / <%= @share.comments_count %> 回复
         </p>
       </div>
