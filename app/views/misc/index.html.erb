@@ -12,7 +12,7 @@
       <div class="contents">
         <ul>
           <% @bulletins.each do |b| %>
-            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]<span></li>
+            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></li>
           <% end %>
         </ul>
       </div>
@@ -27,11 +27,11 @@
 
 <% @page = Page.find_by_slug('special') -%>
 <%if @page%>
-<div class="box" id="search-front">
+<div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3>专题活动</h3>
-      <div class="contents"">
+      <div class="contents">
       <%= render :text => @page.body %>
       </div>
     </div>
@@ -54,47 +54,53 @@
 </div>
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最近的活动</h3>
-      <span class="postNew"><%= link_for_new_activity %></span>
-      <div class="tabbedPanel" id="tabs">
-        <ul class="tab">
-          <li><a href="#travel">公益旅行</a></li>
-          <li><a href="#donation">募捐</a></li>
-          <li><a href="#teach">支教</a></li>
-          <li><a href="#online">网络</a></li>
-          <li><a href="#other">其他</a></li>
+<div class="newbox">
+      <div id="activity_tabs">
+        <span class="span_title" style="margin-right:8px">最近的活动</span><span class="postNew"><%= link_for_new_activity %></span>
+        <ul class="tab" >
+          <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
+            <li><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
         </ul>
-        <div class="panel setting">
-          <div id="travel">
-            <%= render :partial => "/activities/activities", :object => @activities_for_travel, :locals => {:show_sticky => false} %>
-          </div>
-          <div id="donation">
-            <%= render :partial => "/activities/activities", :object => @activities_for_donation, :locals => {:show_sticky => false} %>
-          </div>
-          <div id="teach">
-            <%= render :partial => "/activities/activities", :object => @activities_for_teach, :locals => {:show_sticky => false} %>
-          </div>
-          <div id="online">
-            <%= render :partial => "/activities/activities", :object => @activities_for_online, :locals => {:show_sticky => false} %>
-          </div>
-          <div id="other">
-            <%= render :partial => "/activities/activities", :object => @activities_for_other, :locals => {:show_sticky => false} %>
-          </div>
+        <div class="cleanfix" style="clear:both;height:10px"></div>
+        <div id = "all">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_all %>
+          <div class="activity_more"><%= link_to '全部活动',ongoing_activities_url,:target => "_blank" %>   <%= link_to '结束的活动',over_activities_url,:target => "_blank" %></div>
+        </div>
+        <div id = "travel">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_travel %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=travel",:target => "_blank" if @activities_for_travel.size == 8 %></div>
+        </div>
+        <div id = "teach">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_teach %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=teach",:target => "_blank" if @activities_for_teach.size == 8 %></div>
+        </div>
+        <div id = "donation">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_donation %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=donation",:target => "_blank" if @activities_for_donation.size == 8 %></div>
+        </div>
+        <div id = "online">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_online %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=online",:target => "_blank" if @activities_for_online.size == 8 %></div>
+        </div>
+        <div id = "city">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_city %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=city",:target => "_blank" if @activities_for_city.size == 8 %></div>
+        </div>
+        <div id = "other">
+          <%= render :partial => "/shared/activity", :collection => @activities_for_other %>
+          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=other",:target => "_blank" if @activities_for_other.size == 8 %></div>
         </div>
       </div>
-      <script type="text/javascript">
-        jQuery("#tabs").tabs();
-      </script>
-    </div>
-    <%= render :partial => "/activities/all_activities" %>
-  </div>
+<script type="text/javascript">
+  jQuery("#activity_tabs").tabs();
+</script>
 </div>
-           
+
+<div class="cleanfix" style="clear:both;height:40px"></div>           
+
 <div class="newbox">
-      <span class="span_title">最新活动分享</span> <span><%= link_to "全部分享", shares_url %></span>
+      <span class="span_title">最新用户分享</span> <span><%= link_to "全部分享", shares_url %></span>
       <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>

@@ -1,8 +1,7 @@
 <% unless comments.blank? -%>
-  <div class="box" id="topicCommentsList">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>留言</h3>
+  <div class="newbox" id="topicCommentsList">
+        <span class="span_title">留言</span>
+        <div class="cleanfix" style="height:10px"></div>
         <ol class="clearfix">
           <% comments.each do |comment| -%>
           <li>
@@ -21,7 +20,5 @@
           <% end -%>
         </ol>
         <%= customize_paginate comments%>
-      </div>
-    </div>
   </div>
 <% end %>

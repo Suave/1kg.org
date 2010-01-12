@@ -2,6 +2,9 @@
   <div class="wrapper">
   <% @page = Page.find_by_slug('footer') -%>
   <%= render :text => @page.body if @page %>
+    <div style="color:#666;margin:4px">
+    <span>多背一公斤网站由 <%= link_to "joyent云平台","http://www.joyent.com.cn" %> 提供支持 ，由 <%= link_to "监控宝","http://www.jiankongbao.com"%> 提供网站监控服务。</span>
+    </div>
   </div>
 </div>
 

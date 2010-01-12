@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #ececec;
+  background-color: #eeeeee;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -256,7 +256,7 @@ body.ad-column-180 #content-secondary {
   padding: 0 15px 15px;
 }
 
-.box .postNew {
+.box .postNew{
   position: absolute;
   top: 15px;
   right: 20px;
@@ -842,27 +842,9 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-table#activitiesInfo {
-  margin: .5em 0;
+#activitiesInfo {margin-left:180px;width:300px
 }
-table#activitiesInfo img {
-  float: left;
-  clear: left;
-  margin: 2px .5em 0 0;
-}
-table#activitiesInfo th {
-  background-color: #eee;
-  width: 15%;
-  border: #dedede solid 1px;
-  color: #666;
-  font-size: 1em;
-  text-align: center;
-}
-table#activitiesInfo td {
-  width: 34%;
-  padding: 2px 6px;
-  border: #dedede solid 1px;
-}
+
 h3.title {
   font-size: 2em;
   font-weight: bold;
@@ -872,6 +854,7 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
+
 #topicCommentForm {
   width:600px
   padding:10px}
@@ -1023,7 +1006,7 @@ h3.title {
 
 /* =topicCommentsList */
 #topicCommentsList ol {
-  padding: 0 30px 20px;
+  padding: 0 10px 10px;
 }
 #topicCommentsList ol li {
   float: left;
@@ -1043,7 +1026,7 @@ h3.title {
 }
 
 #topicCommentForm form textarea {
-  width: 98%;
+  width: 600px;
 }
 
 
@@ -1138,17 +1121,23 @@ h3.title {
 .ad{margin-bottom:10px;}
 
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
-color:#fff;margin:0 3px;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;}
+color:#fff;margin:0 3px;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;-margin:0 -1px}
+color:#fff;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;*margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
+
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
@@ -1192,17 +1181,30 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 #activity_tabs .ui-tabs-selected a{color:#E98523}
 .activity_more {text-align:right;padding:0 20px}
 
+.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list_photo{width:64px;height:64px;overflow:hidden;}
+.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
+.activity_list_meta span{position:relative;top:-2px}
+.activity_list_meta h5{margin:2px 0}
+
+#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{}
+#activity_tabs .ui-tabs-selected a{color:#E98523}
+.activity_more {text-align:right;padding:0 20px}
+
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
 
 .white {background-color: white;}
-.gary_span{color:#999}
+.gary_span{color:#888}
 
 .summary{color:#666;margin:3px 0 1px}
 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
+
 .newbox{padding-left:10px;width:100%;margin-bottom:20px}
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}

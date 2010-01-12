@@ -21,6 +21,7 @@ class SchoolsController < ApplicationController
                                                        :limit => 6,
                                                        :include => [:main_photo, :school])        
       }
+
       format.json {
         @schools = School.validated
         @schools_json = []
@@ -211,6 +212,16 @@ class SchoolsController < ApplicationController
     @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
   end
 
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+
   # 改版学校页面
   def show
     @school = School.find(params[:id])
@@ -232,7 +243,7 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
-    @activity = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
+    @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
@@ -379,6 +390,7 @@ class SchoolsController < ApplicationController
     if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
+      flash[:notice] = "学校主照片设置成功"
       redirect_to school_url(@school)
     else
       flash[:notice] = "只有学校大使才可以设置学校主照片"

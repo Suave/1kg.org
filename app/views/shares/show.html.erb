@@ -1,14 +1,26 @@
 <% @page_title = "#{h @share.title} - 活动分享" -%>
 
+<% content_for :heads do -%>  
+  <style type="text/css">
+  .school_list_meta{width:160px;}
+  .activity_list_meta{width:190px;}
+  </style>
+<% end %>
+
 <% content_for :sidebar do -%>
+
+  <% if @share.activity_id %>
   <div class="newbox">
+        <span class="span_title2">分享的活动</span>
+        <div class="clearfix" style="height:10px"></div>
         <div class="contents">
-          <p>目的地城市 &raquo; <%= link_to @share.geo.name, geo_url(@share.geo) if @share.geo %></p>
-          <p>分享的活动 &raquo; <%= link_to @share.activity.title, activity_url(@share.activity) if @share.activity %></p>
+           <%= render :partial => '/shared/activity', :object => @share.activity %>
+           <div class="clearfix"></div>
         </div>
   </div>
+  <% end %>
   
-  <%if @share.school%>
+  <%if @share.school_id%>
     <div class="newbox">
         <span class="span_title2">相关学校</span>
         <div class="clearfix" style="height:10px"></div>

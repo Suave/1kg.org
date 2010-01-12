@@ -4,6 +4,7 @@
   <%= stylesheet_link_tag 'school' %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
+  <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
 <% @page_title = "#{h @school.title}" -%>
@@ -59,7 +60,8 @@
       </p>
     <%end-%>
     <% if @finder -%>
-      <%unless @finder.name.blank? %><p class="content_text">信息收集人是 <%= h @finder.name %><%end%>
+      <p class="content_text">
+      <%unless @finder.name.blank? %>信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
       <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
       <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
@@ -68,7 +70,7 @@
       <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
            。</p>
       <% if @finder.survey_at %><p class="content_text">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
-      <%unless @finder.note.blank? %><p class="content_text"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+      <%unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
     </div>
   </div>
@@ -88,8 +90,8 @@
     </div>
     <%end%>
 
-  <p class="content_lei">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_lei">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
 
   <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
   <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
@@ -97,7 +99,7 @@
   
   <% if @local && @local.ngo_support != 2 -%>
   <p class="content_text">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
+  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
   </p>
   <%end%>
 </div>
@@ -130,8 +132,8 @@
     <h3 class="label_lei">用户分享</h3>
     <div class="contents clearfix">
     <%unless @shares.blank?%>
-      <%= render :partial => "/shared/share", :collection => @shares %>
-    <p class="content_gary">去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
     <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
@@ -210,22 +212,7 @@
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
     <div class="sidebar_inter">
-    <% @activity.each do |a| -%>
-      <div style="padding:8px 4px;border-bottom:1px #ddd solid;">
-        <div style="float:left">
-          <%= avatar_for(a.user, "large") %>
-        </div>
-        <div style="margin-left:60px;">
-          <span><%= link_to a.user.login, user_url(a.user) %> 发起了:</span><% unless a.join_closed?%><span style="float:right;color:#0066cc;"><%= a.participators.size %>人参加</span><%else%><span style="float:right;color:#666666;">(活动结束了)</span><%end%>
-          <p style="font-size:14px;margin:0"><%= link_for_activity(a,false) %></p>
-          <span style="color:#666666; text-align:right">
-          日期<%= a.start_at.to_date%>至<%= a.end_at.to_date%>
-          </span>
-        </div>
-      </div>
-    
-    
-    <% end %>
+    <%= render :partial => "/shared/activity", :collection => @activities unless @activities.nil?%>
     <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
     </div>  
   </div>
