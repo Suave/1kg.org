@@ -121,12 +121,11 @@ module SchoolsHelper
           // Button Settings
           button_image_url : "/images/buttonlink.gif",
           button_placeholder_id : "#{id}",
-          button_width: 60,
-          button_height: 20,
-          button_text : '<a class="buttonlink" style="color:#FFF;">上传照片</a>',
-          button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
-          button_text_top_padding: 3,
-          button_text_left_padding: 5,
+          button_width: 64,
+          button_height: 21,
+          button_text : '<a class="buttonlink"><font color="#ffffff">上传照片</font></a>',
+          button_text_top_padding: 0,
+          button_text_left_padding: 6,
           button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
           button_cursor: SWFUpload.CURSOR.HAND,
 
