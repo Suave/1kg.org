@@ -119,11 +119,11 @@
           你还有更多的学校照片吗？
         <% end %>
         
-        <%= upload_button('upload_container', photo_upload_path_with_session(@school)) %>
+        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
         让大家更直观的了解学校情况。
       </p>
       <p class="content_gray" style="display:none;" id="upload_tip">
-        上传遇到问题？试试<%= link_to '传统方式', new_photo_path(:school_id => @school.id) %>上传.
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
       </p>
     </div>  
   </div>

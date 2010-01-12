@@ -39,10 +39,12 @@ class PhotosController < ApplicationController
     @photo = current_user.photos.find(params[:id])
     @photo.destroy
     flash[:notice] = "照片已经删除"
-    if @photo.school.blank?
-      redirect_to user_url(@photo.user_id)
-    else
+    if !@photo.school.blank?
       redirect_to school_url(@photo.school_id)
+    elsif !@photo.activity.blank?
+      redirect_to activity_url(@photo.activity_id)
+    else
+      redirect_to user_url(@photo.user_id)
     end
   end
   
