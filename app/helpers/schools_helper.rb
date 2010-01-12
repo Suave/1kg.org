@@ -41,7 +41,6 @@ module SchoolsHelper
     html
   end
   
-  
   def needs_check_box(form, tag, options, value)
     # 对秀秀和多背一公斤显示文本框模式
     if current_user.id == 31 || current_user.id == 1
@@ -91,4 +90,70 @@ module SchoolsHelper
     list.map{|n| link_to_needs(n) }.join('')
   end
   
+  def upload_script_for(id, container, url)
+    javascript_tag(%(
+      var swfu;
+      jQuery(document).ready(function () {
+        swfu = new SWFUpload({
+          // Backend Settings
+          upload_url: "#{url}",
+
+          // File Upload Settings
+          file_size_limit : "2 MB", // 2MB
+          file_types : "*.jpg; *.JPG; *.jpeg; *.JPEG; *.PNG; *.png; *.GIF; *.gif",
+          file_types_description : "所有图片文件",
+          file_upload_limit : "0",
+          file_queue_limit: 0,
+          post_params: {
+            authenticity_token: "#{u(form_authenticity_token)}"
+          },
+
+          // Event Handler Settings - these functions as defined in Handlers.js
+          //  The handlers are not part of SWFUpload but are part of my website and control how
+          //  my website reacts to the SWFUpload events.
+          file_queue_error_handler : fileQueueError,
+          file_dialog_complete_handler : fileDialogComplete,
+          upload_progress_handler : uploadProgress,
+          upload_error_handler : uploadError,
+          upload_success_handler : uploadSuccess,
+          upload_complete_handler : uploadComplete,
+
+          // Button Settings
+          button_image_url : "/images/buttonlink.gif",
+          button_placeholder_id : "#{id}",
+          button_width: 60,
+          button_height: 20,
+          button_text : '<a class="buttonlink" style="color:#FFF;">上传照片</a>',
+          button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
+          button_text_top_padding: 3,
+          button_text_left_padding: 5,
+          button_window_mode: SWFUpload.WINDOW_MODE.TRANSPARENT,
+          button_cursor: SWFUpload.CURSOR.HAND,
+
+          // Flash Settings
+          flash_url : "/swfs/swfupload.swf",
+
+          custom_settings : {
+            upload_target : "#{container}"
+          },
+
+          // Debug Settings
+          debug: false
+        });
+      });
+    ))
+  end
+  
+  def upload_button(container, url)
+    html = upload_script_for("upload", container, url)
+    html += content_tag(:span, :id => "upload") do
+      "上传照片"
+    end
+    html
+  end
+  
+  def photo_upload_path_with_session(school)
+    session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
+    photos_path('photo[school_id]' => school.id, session_key => cookies[session_key])
+  end
 end

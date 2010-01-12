@@ -1,32 +1,42 @@
 class PhotosController < ApplicationController
-  before_filter :login_required, :except => :show
+  before_filter :login_required, :except => [:show, :gallery]
+  session :cookie_only => false, :only => %w(create) 
+  skip_before_filter :verify_authenticity_token
   
   def new
-    @photo = Photo.new
-    @photo.school = School.find(params[:school]) unless params[:school].blank?
-    @photo.activity = Activity.find(params[:activity]) unless params[:activity].blank?
-    # @photo.school = @photo.activity.school if @photo.activity && @photo.activity.school
-    # flash[:notice] = "活动关联了学校，所以你上传的图片也会出现在学校相册里" if @photo.school && @photo.activity
+    @photo = Photo.new(:school_id => params[:school_id], :activity_id => params[:activity_id])
   end
   
   def create
-    @photo = Photo.new(params[:photo])
-    @photo.user = current_user
-    logger.info("PHOTO: #{@photo.inspect}")
+    @photo = current_user.photos.build(params[:photo])
+    # 针对Flash上传
+    @photo.swf_uploaded_data = params[:Filedata] if params[:Filedata]
+    @photo.title = '未命名图片' unless @photo.title.blank?
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    if !@photo.activity_id.blank?
-      redirect_to activity_url(@photo.activity_id)
-    elsif !@photo.school_id.blank?
-      redirect_to school_url(@photo.school_id)
+    if params[:Filedata]
+      render(:text => @photo.id)
     else
-      redirect_to user_url(current_user)
+      redirect_to @photo.school || @photo.activity
     end
   end
   
-  def destroy
+  def gallery
     @photo = Photo.find(params[:id])
+    
+    render :partial => '/schools/gallery_photo', :object => @photo, :layout => false
+  end
+  
+  def update
+    @photo = current_user.photos.find(params[:id])
+    @photo.update_attributes(params[:photo])
+    
+    render :text => 'Success'
+  end
+  
+  def destroy
+    @photo = current_user.photos.find(params[:id])
     @photo.destroy
     flash[:notice] = "照片已经删除"
     if @photo.school.blank?

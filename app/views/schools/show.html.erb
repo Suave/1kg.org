@@ -2,6 +2,8 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
   <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
@@ -11,11 +13,12 @@
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
     $(".more").toggle(
-  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
-  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
-  ); 
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
+
    
 </script>
 
@@ -104,16 +107,24 @@
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
-      <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0,5]%>
-      </div>     
-      <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
-      <%else%>
-      <p class="content_gary">
-        <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
-        你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
+      <div id="photos" class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      </div>
+      <div id="upload_container"></div>
+      <p class="content_text content_gary">
+        <% if @photos.blank? %>
+          学校还没有照片，你可以
+        <%else%>
+          <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %><%end%>
+          你还有更多的学校照片吗？
+        <% end %>
+        
+        <%= upload_button('upload_container', photo_upload_path_with_session(@school)) %>
+        让大家更直观的了解学校情况。
       </p>
-      <% end %>
+      <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试<%= link_to '传统方式', new_photo_path(:school_id => @school.id) %>上传.
+      </p>
     </div>  
   </div>
     
