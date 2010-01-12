@@ -66,7 +66,11 @@
   
   <div class="newbox">
       <span class="span_title">活动相册</span>
+<<<<<<< HEAD:app/views/activities/show.html.erb
       <div style="float:right;padding-top:4px"><%= link_to '上传照片',new_photo_path(:activity_id => @activity.id),:class => "buttonlink" %></div>
+=======
+      <div style="float:right;padding-top:4px"><%= link_to '上传照片',new_photo_url + "?activity_id=#{@activity.id}",:class => "buttonlink" %></div>
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:app/views/activities/show.html.erb
       <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix">
       <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
@@ -99,6 +103,10 @@
               <% end -%>
             <% end -%>
           </div>
+<<<<<<< HEAD:app/views/activities/show.html.erb
+=======
+
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:app/views/activities/show.html.erb
           <div id="activitiesInfo">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>

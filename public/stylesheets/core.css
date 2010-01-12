@@ -903,10 +903,17 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
+<<<<<<< HEAD:public/stylesheets/core.css
 #topicCommentForm {
   width:600px
   padding:10px}
   
+=======
+
+#topicCommentForm {
+  width:600px
+  padding:10px}
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:public/stylesheets/core.css
 .formText, textarea {
   border: #ccc solid 1px;
   padding: 2px;
@@ -1187,7 +1194,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
-
+ 
 .checkbox_label{margin:0 10px 0 2px;}
 
 .meta_label{font-weight:bold;margin-left:4px}
@@ -1211,7 +1218,6 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
-
 
 .activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
@@ -1237,6 +1243,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .zone a{font-size:14px;margin-top:6px;}
 
 
+
 .white {background-color: white;}
 .gary_span{color:#999}
 
@@ -1244,6 +1251,8 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
+ 
+
 .newbox{padding-left:10px;width:100%;margin-bottom:20px}
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
@@ -1253,6 +1262,8 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
+
+.envoy_badge{position:relative;top:2px}
 
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
@@ -1357,3 +1368,4 @@ a.progressCancel:hover {
 .swfupload {
 	vertical-align: top;
 }
+

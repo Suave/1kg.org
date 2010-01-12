@@ -15,15 +15,22 @@ class SchoolsController < ApplicationController
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
+<<<<<<< HEAD:app/controllers/schools_controller.rb
       
 
+=======
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:app/controllers/schools_controller.rb
         @activities_for_school = Activity.ongoing.find(:all,
                                                        :conditions => "School_id is not null",
                                                        :order => "created_at desc, start_at desc",
                                                        :limit => 6,
                                                        :include => [:main_photo, :school])        
       }
+<<<<<<< HEAD:app/controllers/schools_controller.rb
       
+=======
+
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:app/controllers/schools_controller.rb
       format.json {
         @schools = School.validated
         @schools_json = []
@@ -243,6 +250,19 @@ class SchoolsController < ApplicationController
       
     @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
   end
+<<<<<<< HEAD:app/controllers/schools_controller.rb
+=======
+
+  def shares
+    @school = School.find(params[:id])
+    
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
+      
+    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+  end
+>>>>>>> b674fb443bbcab83e5aef64721c661a46ad1b8f4:app/controllers/schools_controller.rb
 
   # 改版学校页面
   def show

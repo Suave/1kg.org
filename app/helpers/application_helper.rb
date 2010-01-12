@@ -266,6 +266,9 @@ module ApplicationHelper
     html += "<p>来自活动 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
     html += "<p>#{h(photo.description)}</p>"
     html
- end
-
+  end
+  
+  def envoy_badge(user)
+    "<img src='/images/badge.gif' title='#{user.login}是学校大使' class='envoy_badge'/>" if user.envoy?
+  end
 end
