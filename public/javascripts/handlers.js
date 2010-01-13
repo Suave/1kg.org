@@ -262,5 +262,6 @@ function addImage(id)
 {
   $.get('/photos/gallery/' + id, function(data){
     $("#photos").prepend(data)
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
 }
