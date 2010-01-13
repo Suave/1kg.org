@@ -1242,8 +1242,6 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
 
-
-
 .white {background-color: white;}
 .gary_span{color:#999}
 
@@ -1366,6 +1364,5 @@ a.progressCancel:hover {
 
 /* -- SWFUpload Object Styles ------------------------------- */
 .swfupload {
-	vertical-align: top;
+	cursor:pointer;position:relative;top:5px
 }
-

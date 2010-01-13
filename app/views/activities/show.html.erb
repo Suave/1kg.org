@@ -1,16 +1,18 @@
-<%if @photos%>
-<% content_for :heads do -%>  
-  <%= javascript_include_tag 'jquery.prettyPhoto' %>
-  <%= stylesheet_link_tag 'prettyPhoto' %>
+<% content_for :heads do -%>
+  <%if @photos%>
+    <%= javascript_include_tag 'jquery.prettyPhoto' %>
+    <%= stylesheet_link_tag 'prettyPhoto' %>
+    <script type="text/javascript" charset="utf-8">
+      jQuery(document).ready(function(){
+      jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+      });
+    </script>
+  <% end %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
   <style type="text/css">.school_list_meta{width:160px;}</style>
-<% end %>
-
-<script type="text/javascript" charset="utf-8">
-  jQuery(document).ready(function(){
-    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
 <%end%>
+
 <% @page_title = @title = @activity.title -%>
 
 <% content_for :crumb do -%>
@@ -66,9 +68,15 @@
   
   <div class="newbox">
       <span class="span_title">活动相册</span>
-      <div style="float:right;padding-top:4px"><%= link_to '上传照片',new_photo_path(:activity_id => @activity.id),:class => "buttonlink" %></div>
+      <div style="float:right;">
+        <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
+        <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
+        </p>
+      </div>
       <div class="contents clearfix" style="padding-top:16px;">
-      <div class="clearfix">
+      <div id="upload_container"></div>
+      <div class="clearfix" id="photos">
       <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
       </div>     
       </div>  

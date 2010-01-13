@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
     self.current_user.forget_me if logged_in?
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = "已经注销，欢迎再来！"
+    flash[:notice] = "已经退出，欢迎再来！"
     redirect_back_or_default('/')
   end
 end

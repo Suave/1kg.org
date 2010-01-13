@@ -177,13 +177,12 @@ class SchoolsController < ApplicationController
   def apply
     @school = School.find(params[:id])
     @message = current_user.sent_messages.build
-    flash[:notice] = "提示: 在申请前请确保你去过这所学校（在学校页面点击“去过”并填写去过的日期）。"
   end
   
   def sent_apply
     @school = School.find(params[:id])
     @message = current_user.sent_messages.build(params[:message])
-    if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id})
+    if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
       moderators = User.moderators_of(@school).map{|m| "<a href='users/#{m.id} target='_blank'>#{m.login}</a> "}
       html = "<br/><br/><br/>
@@ -335,10 +334,19 @@ class SchoolsController < ApplicationController
                                    :visited_at => params[:visited][:visited_at]
                                   )  
       end
+      if params[:callback].nil?
       redirect_to school_url(@school)
+      else
+      render :action => params[:callback]
+      end
     rescue ActiveRecord::RecordInvalid
       flash[:notice] = '请正确填写日期，去过的日期不能在今天之后，格式为 xxxx-xx-xx(年-月-日)'
+      if params[:callback].nil?
       redirect_to school_url(@school)
+      else
+      render :action => params[:callback]
+      end
+      
     end
   end
  

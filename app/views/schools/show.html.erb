@@ -118,11 +118,11 @@
           你还有更多的学校照片吗？
         <% end %>
         
-        <%= upload_button('upload_container', photo_upload_path_with_session(@school)) %>
+        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
         让大家更直观的了解学校情况。
       </p>
       <p class="content_gray" style="display:none;" id="upload_tip">
-        上传遇到问题？试试<%= link_to '传统方式', new_photo_path(:school_id => @school.id) %>上传.
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
       </p>
     </div>  
   </div>
@@ -184,7 +184,7 @@
           <% unless @moderators.include? current_user %>
           <div id="moderators_info">
             <!--<p style="color:#444">什么是学校大使？</p>-->
-            <p>学校大使是与学校关系更紧密的用户，可以为学校做更多的事情，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
+            <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
             <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
           </div>
           <% end %>

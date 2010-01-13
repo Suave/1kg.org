@@ -1,10 +1,8 @@
-<% @page_title = @title = @school.title + " 的学校大使"-%>
+<% @page_title = @title = @school.title + " 大使管理"-%>
 
 <% content_for :heads do -%>
-  
   <style type="text/css">
-  
-  .candidate{margin-bottom:1em;height:80px;width:210px;float:left}
+  .candidate{margin-bottom:1em;height:80px;width:300px;float:left}
   .hidebutton{position:relative;display:none}
   .candidate:hover .hidebutton{display:block;}
   </style>
@@ -16,7 +14,7 @@
 <% end -%>
 
 <div class="newbox">
-      <span class="span_title">学校大使</span>
+      <span class="span_title">现有的学校大使</span>
       <div class="clearfix" style="height:10px"></div> 
       <div class="contents clearfix">
         <% @moderators.each do |user| %>
@@ -25,9 +23,14 @@
             <%= avatar_for(user, "large") %>
           </div>
           <div style="margin-left:56px;">
-            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %><br/>现在是学校大使
+            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %>　<%= link_to "删除大使", manage_school_url(@school, :type => "remove", :user => user), :method => :put %>
+            <% if user.visiteds.find_by_school_id(@school.id)%>
+            <% if user.visiteds.find_by_school_id(@school.id).visited_at.nil?%>去过这所学校<%else%><%= "<br/>在 #{user.visiteds.find_by_school_id(@school.id).visited_at.to_date} 去过这所学校" %><%end%><br/>
+            <%else%>
+                 <br/>还没有填写去学校的日期
+            <%end%>
             </p>
-            <div class="hidebutton"><%= link_to "取消大使", manage_school_url(@school, :type => "remove", :user => user), :method => :put ,:class => "adminbutton" %></div>
+            
           </div>          
         </div> 
         <% end -%>
@@ -44,11 +47,10 @@
             <%= avatar_for(user, "large") %>
           </div>
           <div style="margin-left:56px;">
-            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %> <% if user.visiteds.find_by_school_id(@school.id).visited_at.nil?%>去过这所学校<%else%><%= "<br/>在 #{user.visiteds.find_by_school_id(@school.id).visited_at.to_date} <br/>去过这所学校" %><%end%><br/>
+            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %>　<%= link_to "添加大使", manage_school_url(@school, :type => "add", :user => user), :method => :put  %>
+            <% if user.visiteds.find_by_school_id(@school.id).visited_at.nil?%>去过这所学校<%else%><%= "<br/>在 #{user.visiteds.find_by_school_id(@school.id).visited_at.to_date} 去过这所学校" %><%end%><br/>
             </p>
-            <div class="hidebutton"><%= link_to "设为大使", manage_school_url(@school, :type => "add", :user => user), :method => :put ,:class => "adminbutton" %></div>
           </div>
-          
         </div>  
         <% end -%>
       </div>
