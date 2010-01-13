@@ -854,10 +854,10 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
+
 #topicCommentForm {
   width:600px
   padding:10px}
-  
 .formText, textarea {
   border: #ccc solid 1px;
   padding: 2px;
@@ -1073,7 +1073,7 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#AAA;}
 
-.obp {float:left; width:120px; margin:12px}
+.obp {float:left; width:120px; margin:12px; height: 130px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
@@ -1127,7 +1127,6 @@ color:#fff;margin:0 3px;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font
 color:#fff;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;*margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
 
-
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
@@ -1138,6 +1137,12 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
+.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
+
+.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
+.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
+color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 
 .checkbox_label{margin:0 10px 0 2px;}
@@ -1176,6 +1181,18 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #activity_tabs .ui-tabs-selected a{color:#E98523}
 .activity_more {text-align:right;padding:0 20px}
 
+.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list_photo{width:64px;height:64px;overflow:hidden;}
+.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
+.activity_list_meta span{position:relative;top:-2px}
+.activity_list_meta h5{margin:2px 0}
+
+#activity_tabs li{float:left;margin:6px 3px 0 0;padding:0 4px}
+#activity_tabs .ui-tabs-selected{}
+#activity_tabs .ui-tabs-selected a{color:#E98523}
+.activity_more {text-align:right;padding:0 20px}
+
 .zone{width:210px;height:72px;float:left}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
@@ -1192,8 +1209,112 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
 
-#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2;border:1px #d3d3d3 solid}
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
 
 .share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
+
+/* 用于照片上传 */
+/* -- Table Styles ------------------------------- */
+.progressWrapper {
+  width: 580;
+  overflow: hidden;
+}
+
+.progressContainer {
+  margin-top: 15px;
+  padding: 10px;
+  border: solid 1px #E8E8E8;
+  background-color: #F7F7F7;
+  overflow: hidden;
+}
+
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.progressName {
+	font-size: 8pt;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 14px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 0;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 7pt;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../images/cancelbutton.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+
+
+/* -- SWFUpload Object Styles ------------------------------- */
+.swfupload {
+	cursor:pointer;position:relative;top:5px
+}

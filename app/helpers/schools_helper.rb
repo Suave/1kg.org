@@ -41,7 +41,6 @@ module SchoolsHelper
     html
   end
   
-  
   def needs_check_box(form, tag, options, value)
     # 对秀秀和多背一公斤显示文本框模式
     if current_user.id == 31 || current_user.id == 1
@@ -72,7 +71,7 @@ module SchoolsHelper
     else
       count = 5
     end
-    html = "<sapn title='活跃度:#{karma}'>" + '<img src="/images/star.png" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count) + '</span>'
+    html = "<span title='活跃度:#{karma}'>" + '<img src="/images/star.png" alt="" class="stars"/>'*count + '<img src="/images/star_gary.png" class="stars"/>'*(5-count) + '</span>'
   end
   
   def link_to_needs(needs)
@@ -90,5 +89,4 @@ module SchoolsHelper
     list = [school.need.book,school.need.medicine,school.need.stationary,school.need.sport,school.need.cloth,school.need.accessory,school.need.course,school.need.teacher,school.need.other]
     list.map{|n| link_to_needs(n) }.join('')
   end
-  
 end

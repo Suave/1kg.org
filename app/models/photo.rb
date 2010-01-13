@@ -23,6 +23,7 @@
 
 class Photo < ActiveRecord::Base
   include BodyFormat
+  include Editable
   
   belongs_to :user
   belongs_to :school
@@ -67,6 +68,10 @@ class Photo < ActiveRecord::Base
     user.class == User && (self.user_id == user.id || user.admin?)
   end
   
+  def swf_uploaded_data=(data)
+    data.content_type = MIME::Types.type_for(data.original_filename)
+    self.uploaded_data = data
+  end
   
   private
   def fill_title

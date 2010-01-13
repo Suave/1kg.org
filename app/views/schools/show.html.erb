@@ -2,6 +2,8 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
   <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
@@ -11,11 +13,12 @@
 <script type="text/javascript" charset="utf-8">
   jQuery(document).ready(function(){
     $(".more").toggle(
-  function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
-  function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
-  ); 
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
   });
+
    
 </script>
 
@@ -57,7 +60,8 @@
       </p>
     <%end-%>
     <% if @finder -%>
-      <%unless @finder.name.blank? %><p class="content_text">信息收集人是 <%= h @finder.name %><%end%>
+      <p class="content_text">
+      <%unless @finder.name.blank? %>信息收集人是 <%= h @finder.name %><%end%>
       <% if logged_in? && current_user.admin? %>
       <%unless @finder.email.blank? %>，邮件<%= h @finder.email %><%end%>
       <%unless @finder.phone_number.blank? %>，电话<%= h @finder.phone_number %><%end%>
@@ -66,7 +70,7 @@
       <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
            。</p>
       <% if @finder.survey_at %><p class="content_text">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
-      <%unless @finder.note.blank? %><p class="content_text"style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+      <%unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
     </div>
   </div>
@@ -95,7 +99,7 @@
   
   <% if @local && @local.ngo_support != 2 -%>
   <p class="content_text">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。</p>
+  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
   </p>
   <%end%>
 </div>
@@ -103,16 +107,24 @@
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
-      <div class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0,5]%>
-      </div>     
-      <% if @photos.blank? %><p class="content_text">学校还没有照片，你可以<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>让大家更直观的了解学校情况。</p>
-      <%else%>
-      <p class="content_gary">
-        <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %>，<%end%>
-        你还有更多的学校照片吗？<a class="buttonlink" href="<%=new_photo_url(:school => @school.id)-%>">上传照片</a>分享给大家吧。
+      <div id="photos" class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      </div>
+      <div id="upload_container"></div>
+      <p class="content_text content_gary">
+        <% if @photos.blank? %>
+          学校还没有照片，你可以
+        <%else%>
+          <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %><%end%>
+          你还有更多的学校照片吗？
+        <% end %>
+        
+        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
+        让大家更直观的了解学校情况。
       </p>
-      <% end %>
+      <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
+      </p>
     </div>  
   </div>
     
@@ -121,7 +133,7 @@
     <div class="contents clearfix">
     <%unless @shares.blank?%>
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
-    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %></share>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
+    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%else%>
     <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
     <%end%>
