@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
   def index
-    @activities_for_all = Activity.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
+    @activities_for_all = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @activities_for_travel = Activity.recent_by_category("公益旅游")
     @activities_for_donation = Activity.recent_by_category("物资募捐")
     @activities_for_teach = Activity.recent_by_category("支教")
@@ -11,23 +11,32 @@ class ActivitiesController < ApplicationController
     @activities_for_online = Activity.recent_by_category("网上活动")
     @activities_for_other = Activity.recent_by_category("其他")
     @activities_for_over = Activity.find(:all,:conditions => "done is true",:limit => 8,:order => "end_at desc", :include => [:main_photo])
-    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc")
-
+    @photos = Photo.find(:all,:limit => 12,:conditions => ["activity_id is not null"],:order => "created_at desc")
+    @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
   end
   
   def category
     @category_hash = {'travel' => 0,'donation' => 1,'teach' => 2,'other' => 3, 'city' => 4, 'online' => 5}
     render_404 if @category_hash[params[:c]].nil?
     @category = @category_hash[params[:c]]
-    @activities = Activity.ongoing.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
+    
+    if params[:over] == "true"
+      array = Activity.over
+      @over = params[:over]
+    else
+      array = Activity.ongoing
+    end
+      @activities = array.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
-                                  :per_page => 20)
+                                :per_page => 14)
+      @most_participations = array.find(:all,:limit => 3,:order => "participations_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
+      @most_comments = array.find(:all,:limit => 3,:order => "comments_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
   end
   
   def with_school
     @activities = Activity.ongoing.find(:all,:conditions => "School_id is not null",:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
-                                  :per_page => 20)
+                                  :per_page => 14)
   end
   
   def ongoing

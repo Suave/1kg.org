@@ -2,9 +2,9 @@ namespace :misc do
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|
-      if a.end_at < (Time.now - 1.day) && ((a.shares.size > 0) or (a.photos.size > 0) )
+      if a.end_at < (Time.now - 1.day)
         done = true
-        a.update_attribute(:done,done)
+        a.update_attribute({:done=>done})
         $stdout.putc('.')
       end
     end

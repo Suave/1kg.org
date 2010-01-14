@@ -46,7 +46,7 @@ class MiscController < ApplicationController
     @hot_cities = Geo.hot_cities
     @hot_groups = Group.most_members
     @recent_citizens = User.recent_citizens
-    @activities_for_all = Activity.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
+    @activities_for_all = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @activities_for_travel = Activity.recent_by_category("公益旅游")
     @activities_for_donation = Activity.recent_by_category("物资募捐")
     @activities_for_teach = Activity.recent_by_category("支教")
