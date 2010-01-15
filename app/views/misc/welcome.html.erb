@@ -1,34 +1,18 @@
-<%# @body_class = "home" -%>
-
 <% content_for :sidebar do -%>
-<%= render :partial => "/shared/current_user_profile" %>
-
-<%#= render :partial => "/shared/blog" %>   
-
-<div class="box" id="newsletter">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>订阅多背一公斤简报</h3>
-      <div class="blockOuter">
-        <form class="contents" action="http://groups.google.com/group/1kgnews/boxsubscribe">
-          <input type="text" class="form-text" name="email" value="电子邮件" />
-          <input type="submit" class="form-submit" value="订阅" name="sub" />
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+  <%= render :partial => "/shared/current_user_profile" %>
+  <%= render :partial => '/shared/search_box' %>
 <% end -%>
-    <script type="text/javascript" src="/javascripts/jQuery/jquery.cycle.pack.js"></script>
-    <script type="text/javascript" src="/javascripts/jQuery/addLoad.js"></script>
+
+<% content_for :tail do %>
+  <script type="text/javascript" src="/javascripts/jQuery/jquery.cycle.pack.js"></script>
+  <script type="text/javascript" src="/javascripts/jQuery/addLoad.js"></script>
+<% end %>
 
 <div id="headline">
   <ul style="overflow:hidden">
     <li><%= link_to image_tag("/images/announce/festcard09.jpg", :alt => "让爱继续 - 公益贺卡"), minisite_festcard09_index_url %></li>
     <li><%= link_to image_tag("/images/announce/kuailebox.jpg", :alt => "快乐盒子 - 爱心图书室"), minisite_kuailebox_index_url %></li>
     <li><%= link_to image_tag("/images/announce/lightenschool.jpg", :alt => "点亮学校－公益旅行攻略大赛"), minisite_lightenschool_index_url %></li>    
-    
-    <!--li><%= link_to image_tag("/images/announce/intro.jpg", :alt => "旅途中的举手之劳，为孩子们的世界打开一扇窗 - “多背一公斤”公益旅游"), "/misc/about" %></li>-->
   </ul>
 </div>
 
@@ -43,10 +27,4 @@
   
   <p><%= link_to "&raquo; 随便转转, 更多了解多背一公斤", public_look_url %></p>
   <p style="font-size:0.8em; margin-left:20px;">and if you're English speaker, please visit the <%= link_to "English introduction", "/misc/en-intro" %>.</p>
-  
-  <!--<p>我们也鼓励旅行者在与乡村师生建立起信任和友谊后，自主建立公益小团队，持续地为学校提供志愿服务。</p>
-  
-  <p>1KG.org是由多背一公斤参与者自我管理的公益协作社区，社区中的所有学校信息均由用户自行收集、上传和更新，所有活动由用户自行组织和参与，所有公益团队也由用户自发组建和管理。</p>
-  
-  <p>我们期望，通过这种大众协作式的公益参与，能够实现更大规模和更有效的公益服务，从而为广大的乡村学校带来持续的改善。</p>-->
 </div>
