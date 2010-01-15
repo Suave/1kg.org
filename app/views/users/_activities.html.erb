@@ -1,10 +1,10 @@
 <div class="newbox">
       <div class="cleanfix" style="clear:both;height:10px"></div> 
-      <span class="span_title" style="margin-right:8px"><%= h user.login %>的活动</span>
+      <span class="span_title"><%= h user.login %>的活动</span>
       <div  id="activity_tabs">
         <ul class="tab">
           <% [["参与的活动", "participated"], ["发起的活动", "launched"]].each do |type| %>
-            <li><%= link_to type[0], "##{type[1]}" %></li>
+            <li><%= "<a class='more_tab' href ='##{type[1]}'> #{type[0]} <br/><span style='display:none'>查看更多</span></a>"%></li>
           <% end -%>
         </ul>
         <div class="cleanfix" style="clear:both;height:5px"></div> 
