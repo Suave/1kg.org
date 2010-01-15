@@ -188,8 +188,8 @@ class UsersController < ApplicationController
     @shares = @user.shares.find :all, :limit => 5
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)
-    @submitted_topics = @user.topics.find :all, :limit => 5,:include => [:board, :user]
-    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
+    @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
+    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
     
   end
   
@@ -248,12 +248,11 @@ class UsersController < ApplicationController
   
   def get_user_record(user)
     # user's published activities
-    @activities   = @user.submitted_activities.find(:all, :limit => 5)
-    @submitted    = @user.submitted_activities.find(:all, :limit => 5)
-    @participated = @user.participated_activities.find(:all, :limit => 5)
+    @submitted    = @user.submitted_activities.find(:all, :limit => 6,:include => [:main_photo, :departure])
+    @participated = @user.participated_activities.find(:all, :limit => 6, :include => [:main_photo, :departure])
     
     #user's submitted schools
-    @schools = user.submitted_schools.find :all, :limit => 5
+    #@schools = user.submitted_schools.find :all, :limit => 5
     @neighbors = user.neighbors.find :all, :limit => 9                                       
     @groups = user.joined_groups.find :all, :limit => 9
   end

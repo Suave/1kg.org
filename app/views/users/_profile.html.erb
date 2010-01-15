@@ -12,22 +12,10 @@
 	  </p>
 	</div>
       </div>
+	<div clear="clearfix" style="clear:both;"></div>
       <% if profile &&current_user&&current_user.school_moderator? -%>
 	  <%= profile.bio_html %>
       <%end%>
       <div clear="clearfix" style="clear:both;height:10px"></div>
-      <p class="remark" style="text-align:right">
-  	  <% unless @user == current_user -%>
-        &raquo; <%= link_to "给#{@user.login}发站内消息", new_user_sent_url(@user) %>
-        
-        <% if @user.neighbor_addable_by?(current_user) -%>
-          <br />&raquo; <%= link_to "加#{@user.login}为友邻", user_neighbors_url(@user, :my => current_user), :method => :post %>
-        <% elsif @user.neighbor_removeable_by?(current_user) -%>
-          <br /><span class="tipText">&raquo; <%= @user.login %>是我的友邻 (<%= link_to "删掉", user_neighbor_url(@user, current_user), :confirm => "确定删掉?", :method => :delete %>)</span>
-        <% end -%>
-      <% else -%>
-        <span class="tipText">&raquo; 我在看自己的空间</span>
-      <% end -%>
-      </p>
        
 </div>
