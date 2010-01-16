@@ -1,0 +1,31 @@
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>请选择要捐赠的学校</h2>
+      <div class="contents">
+        <p>您购买了<%= @stuff.product_number %>个<%= @product.title %>,您可以捐赠<%= @stuff.product_number %>个<%= @type.title %>给下面的一所学校，请选择您要捐赠的学校：</p>
+        <table>
+          <tr>
+            <th>学校</th>
+            <th>需求数量</th>
+            <th>已捐赠</th>
+            <th>&nbsp;</th>
+          </tr>
+          <% @bucks.each do |b| -%>
+          <tr>
+            <td>
+              <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
+              <%= "<br />#{b.for_team_tip}" if b.for_team? %>
+            </td>
+            <td><%= h b.quantity %></td>
+            <td><%= h b.matched_count %></td>
+            <td>
+              <%= link_to "我要捐给这所学校", "/market/denote?password=#{@password}&buck_id=#{b.id}", :method => 'post' %>
+            </td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

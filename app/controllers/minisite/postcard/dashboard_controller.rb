@@ -41,11 +41,11 @@ class Minisite::Postcard::DashboardController < ApplicationController
       set_message_and_redirect_to_index "请输入贺卡上的爱心密码, 点击验证按钮"
     else
       
-      if @stuff = Stuff.find_by_code(params[:password], :conditions => ["matched_at is not null and user_id=?", current_user])
+      if @stuff = Donation.find_by_code(params[:password], :conditions => ["matched_at is not null and user_id=?", current_user])
         # 已成功配对
         set_message_and_redirect_to_index "您这张贺卡已经选过学校"
         
-      elsif @stuff = Stuff.find_by_code(params[:password], :conditions => ["matched_at is null"])
+      elsif @stuff = Donation.find_by_code(params[:password], :conditions => ["matched_at is null"])
         # 尚未配对
         postcard = StuffType.find_by_slug("postcard")
         
@@ -63,20 +63,20 @@ class Minisite::Postcard::DashboardController < ApplicationController
   end
   
   def give
-    if @stuff = Stuff.find_by_code(params[:token], :conditions => ["matched_at is not null and user_id=?", current_user])
+    if @stuff = Donation.find_by_code(params[:token], :conditions => ["matched_at is not null and user_id=?", current_user])
       # 用户用密码验证了第二次
       flash[:notice] = "您已选择#{@stuff.school.title}学校，写两句话给学校和孩子们吧 ;)"
       render :action => "write_comment"
       
-    elsif @stuff = Stuff.find_by_code(params[:token], :conditions => ["matched_at is null"]) 
+    elsif @stuff = Donation.find_by_code(params[:token], :conditions => ["matched_at is null"]) 
       # 重复密码，有用户来验证
       @buck = StuffBuck.find(params[:id])
       @stuff.user = current_user
       @stuff.school = @buck.school
       @stuff.matched_at = Time.now
-      Stuff.transaction do 
+      Donation.transaction do 
         @stuff.save!
-        @buck.update_attributes!(:matched_count => Stuff.count(:all, :conditions => ["school_id=?", @stuff.school]))
+        @buck.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=?", @stuff.school]))
         session[:pc_code] = params[:token]
         session[:pc_user_id] = current_user.id
       end
@@ -91,7 +91,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   end
   
   def comment
-    @stuff = Stuff.find_by_code(params[:token], :conditions => ["matched_at is not null and user_id=?", current_user] )
+    @stuff = Donation.find_by_code(params[:token], :conditions => ["matched_at is not null and user_id=?", current_user] )
     set_message_and_redirect_to_index("密码错误，请重新输入") if @stuff.blank?
     
     unless @stuff.user == current_user
@@ -116,7 +116,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   end
   
   def messages
-    @stuffs = Stuff.paginate :page => params[:page] || 1, 
+    @stuffs = Donation.paginate :page => params[:page] || 1, 
                              :conditions => ["comment is not null"], 
                              :order => "matched_at desc",
                              :per_page => 30
@@ -124,7 +124,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   
   def donors
     @school = School.find(params[:id])
-    @stuffs = Stuff.paginate :page => params[:page] || 1,
+    @stuffs = Donation.paginate :page => params[:page] || 1,
                              :conditions => ["school_id = ?", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30

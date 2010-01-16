@@ -2,29 +2,30 @@
 #
 # Table name: activities
 #
-#  id               :integer(4)      not null, primary key
-#  user_id          :integer(4)      not null
-#  school_id        :integer(4)
-#  done             :boolean(1)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  deleted_at       :datetime
-#  ref              :string(255)
-#  category         :integer(4)      not null
-#  title            :string(255)     not null
-#  location         :string(255)     not null
-#  departure_id     :integer(4)      not null
-#  arrival_id       :integer(4)      not null
-#  start_at         :datetime
-#  end_at           :datetime
-#  register_over_at :datetime
-#  expense_per_head :string(255)
-#  expect_strength  :string(255)
-#  description_html :text
-#  comments_count   :integer(4)      default(0)
-#  old_id           :integer(4)
-#  sticky           :boolean(1)
-#  clean_html       :text
+#  id                   :integer(4)      not null, primary key
+#  user_id              :integer(4)      not null
+#  school_id            :integer(4)
+#  done                 :boolean(1)
+#  created_at           :datetime
+#  updated_at           :datetime
+#  deleted_at           :datetime
+#  ref                  :string(255)
+#  category             :integer(4)      not null
+#  title                :string(255)     not null
+#  location             :string(255)     not null
+#  departure_id         :integer(4)      not null
+#  arrival_id           :integer(4)      not null
+#  start_at             :datetime
+#  end_at               :datetime
+#  register_over_at     :datetime
+#  expense_per_head     :string(255)
+#  expect_strength      :string(255)
+#  description_html     :text
+#  comments_count       :integer(4)      default(0)
+#  old_id               :integer(4)
+#  sticky               :boolean(1)
+#  participations_count :integer(4)      default(0)
+#  clean_html           :text
 #
 
 # == Schema Information

@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: goods
+#
+#  id         :integer(4)      not null, primary key
+#  title      :string(255)
+#  user_id    :integer(4)
+#  body       :text
+#  price      :string(255)
+#  standard   :string(255)
+#  material   :string(255)
+#  color      :string(255)
+#  sale_url   :text
+#  serial     :string(255)
+#  recommend  :boolean(1)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Good < ActiveRecord::Base
   acts_as_taggable
   

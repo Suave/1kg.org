@@ -17,9 +17,9 @@ class GatewayController < ApplicationController
         # 生成密码
         while 1
           stuff_password = UUID.create_random.to_s.gsub("-", "").unpack('axaxaxaxaxaxaxax').join('')
-          break unless exist_stuff = Stuff.find_by_code(stuff_password)
+          break unless exist_stuff = Donation.find_by_code(stuff_password)
         end
-        @stuff = Stuff.new( :code => stuff_password,
+        @donation = Donation.new(:code => stuff_password,
                            :type_id => vendor.products.find_by_serial(params[:productSerial]).stuff_type.id,
                            :order_id => params[:orderId],
                            :order_time => params[:orderTime],
@@ -27,7 +27,7 @@ class GatewayController < ApplicationController
                            :product_number => amount,
                            :deal_id => Time.now.to_i
                           )
-        if @stuff.save!
+        if @donation.save!
            # 发信
            @donation_url = "http://www.1kg.org/market/validate?password=#{stuff_password}"
            Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], @donation_url)

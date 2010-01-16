@@ -104,7 +104,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   
   def donors
     @school = School.find(params[:id])
-    @stuffs = Stuff.paginate :page => params[:page] || 1,
+    @stuffs = Donation.paginate :page => params[:page] || 1,
                              :conditions => ["school_id = ?", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30
@@ -124,9 +124,9 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     @stuff.school = @stuff.buck.school
     @stuff.matched_at = Time.now
     @stuff.comment = params[:comment]
-    Stuff.transaction do 
+    Donation.transaction do 
       @stuff.save!
-      @stuff.buck.update_attributes!(:matched_count => Stuff.count(:all, :conditions => ["school_id=? and buck_id=?", @stuff.school, @stuff.buck.id]))
+      @stuff.buck.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=? and buck_id=?", @stuff.school, @stuff.buck.id]))
     end
     
     if params[:join] == "1"

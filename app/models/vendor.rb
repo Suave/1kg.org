@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: vendors
+#
+#  id         :integer(4)      not null, primary key
+#  slug       :string(255)
+#  title      :string(255)
+#  sign_key   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Vendor < ActiveRecord::Base
   has_many :products
   

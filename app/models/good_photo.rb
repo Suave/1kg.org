@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: good_photos
+#
+#  id           :integer(4)      not null, primary key
+#  parent_id    :integer(4)
+#  content_type :string(255)
+#  filename     :string(255)
+#  thumbnail    :string(255)
+#  size         :integer(4)
+#  width        :integer(4)
+#  height       :integer(4)
+#  created_at   :datetime
+#  updated_at   :datetime
+#  good_id      :integer(4)
+#
+
 class GoodPhoto < ActiveRecord::Base
   belongs_to :good
   
