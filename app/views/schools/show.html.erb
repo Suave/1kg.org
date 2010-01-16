@@ -143,7 +143,7 @@
   <div class="school_box">
     <h3 class="label_lei" >学校话题</h3>
     <div class="contents">
-      <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
       <% if @topics.blank? %><p class="content_text">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
       <%else%>
       <p class="content_gary">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%if @topics.size > 5%><%= link_to "全部话题", board_topics_url(@board),:class => "buttonlink" %><% end -%> </p>

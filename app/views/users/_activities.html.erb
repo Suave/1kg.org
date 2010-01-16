@@ -4,23 +4,25 @@
       <div  id="activity_tabs">
         <ul class="tab">
           <% [["参与的活动", "participated"], ["发起的活动", "launched"]].each do |type| %>
-            <li><%= "<a class='more_tab' href ='##{type[1]}'> #{type[0]} <br/><span style='display:none'>查看更多</span></a>"%></li>
+            <li class="tabs_more"><%= "<a href ='##{type[1]}'> #{type[0]} </a>"%></li>
           <% end -%>
         </ul>
-        <div class="cleanfix" style="clear:both;height:5px"></div> 
+        <div class="cleanfix" style="clear:both;height:8px"></div> 
         <div class="panel setting">
           <div id='participated'>
             <%= render :partial => "/shared/activity", :collection => @participated %>
-            <p class="remark">
-              &raquo; <%= link_to "#{user.login}参加的活动(#{user.participated_activities.count})", participated_activities_user_url(user) %>
-            </p>
+            <div class="cleanfix" style="clear:both;"></div> 
+            <span class="remark">
+              <%= link_to "&raquo; 查看全部", participated_activities_user_url(user) %>
+            </span>
           </div>
           
           <div id='launched'>
             <%= render :partial => "/shared/activity", :collection => @submitted %>
-            <p class="remark">
-              &raquo; <%= link_to "#{h user.login}发起的活动(#{user.submitted_activities.count})", submitted_activities_user_url(user) %><br />
-            </p>
+            <div class="cleanfix" style="clear:both;"></div> 
+            <span class="remark">
+              <%= link_to "&raquo; 查看全部", submitted_activities_user_url(user) %><br />
+            </span>
           </div>
         </div>
       </div>

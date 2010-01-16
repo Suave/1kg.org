@@ -13,7 +13,8 @@
             <% else -%>
               <%= render :partial => "/shared/share", :collection => @shares %>
             <% end -%>
-            <p class="remark">&raquo; <%= link_to "查看#{user.login}的全部分享", shares_user_url(user) %> (<%= user.shares.size %>)</p>
+            <div class="cleanfix" style="clear:both;"></div> 
+            <span class="remark"><%= link_to "&raquo; 查看全部", shares_user_url(user) %></span>
           </div>
         </div>
 

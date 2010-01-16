@@ -1,31 +1,20 @@
-<% content_for :fullsize do -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3><%= h @user.login %>参与过的活动</h3>
-      <span class="postNew"><%= link_to "查看全部#{@user.login}发布的活动(#{@user.submitted_activities.size})", submitted_activities_user_url(@user) %></span>
-      <div class="contents">
-      <table>
-        <tr>
-          <th>活动</th>
-          <th>发布人</th>
-          <th>出发地</th>
-          <th>目的地</th>
-          <th>最后更新</th>
-        </tr>
-        <% @activities.each do |a| -%>
-        <tr class="<%= cycle('odd', 'even') %>">
-          <td><%= link_to a.title, activity_url(a) %></td>
-          <td><%= link_to a.user.login, user_url(a.user) %></td>
-          <td><%= activity_departure_name(a) %></td>
-          <td><%= activity_arrival_name(a) %></td>
-          <td><%= activity_last_update(a) %></td>
-        </tr>
-        <% end -%>
-      </table>
-      <%= will_paginate @activities %>
-      </div>
-    </div>
-  </div>
-</div>
+<% @page_title = "所有#{@user.login}参与的活动" %>
+
+<% content_for :crumb do -%>
+<ul>
+  <li>所有<%=@user.login-%>参与的活动</li>
+</ul>
 <% end -%>
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到#{@user.login}的空间",user_url(@user)%></span>
+<% end %>
+
+<div class="newbox">
+      <span class="span_title">所有<%=@user.login-%>参与的活动</span>
+      <div class="contents">
+      <%= render :partial => "shared/activity", :collection => @activities%>
+      <%= customize_paginate @activities %>
+      </div>
+</div>

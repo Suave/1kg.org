@@ -1,27 +1,22 @@
-<% @page_title = @user.login + " 的全部友邻"-%>
+<% @page_title = @user.login + " 的友邻"-%>
 
 <% content_for :crumb do -%>
     <li><%= link_to @user.login, user_url(@user) %></li>
     <ul>
-      <li>全部友邻</li>
+      <li><%= "#{@user.login}友邻" %></li>
     </ul>
 <% end -%>
 
-<% content_for :sidebar do -%>
-  <%= render :partial => "profile", :locals => {:user => @user} %>
-  
-  <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
-  
-  <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
-<% end -%>
 
-<div class="box tipText">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h2><%= h @user.login %>的全部友邻</h2>
-      <span class="postNew">&raquo; <%= link_to "返回#{@user.login}的空间", user_url(@user) %></span>
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到#{@user.login}的空间",user_url(@user)%></span>
+<% end %>
+
+<div class="newbox">
+      <span class="span_title"><%= h @user.login %>的友邻 </span>
+      <div class="clearfix" style="height:10px"></div>
       <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
       <%= customize_paginate @neighbors %>
-    </div>
-  </div>
+        
 </div>
