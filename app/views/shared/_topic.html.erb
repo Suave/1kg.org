@@ -1,0 +1,7 @@
+<div class="topic">
+    <h5><%= link_to topic.title, board_topic_url(topic.board, topic) %></h5>
+    <span class="gary_span"><%= link_to "#{topic.user.login}",user_url(topic.user) %> 发布在 <%= link_to_topic_group(topic) %><span><br/>
+    <span class="gary_span">
+    <%= topic.posts_count %> 篇回复　
+    最后回复  <%= link_to "#{topic.last_replied_user.login}",user_url(topic.last_replied_user) %></span>
+</div>

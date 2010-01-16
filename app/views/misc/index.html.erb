@@ -59,7 +59,7 @@
         <span class="span_title" style="margin-right:8px">最近的活动</span><span class="postNew"><%= link_for_new_activity %></span>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
-            <li><%= link_to type[0], "##{type[1]}" %></li>
+            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
           <% end -%>
         </ul>
         <div class="cleanfix" style="clear:both;height:10px"></div>
