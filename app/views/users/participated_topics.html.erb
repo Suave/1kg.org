@@ -7,7 +7,7 @@
 
 <div class="newbox">
       <div class="contents">
-      <%= render :partial => "/shared/topic", :collection => @topics %>
-      <%= will_paginate @topics %>
+      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
+      <%= customize_paginate @topics %>
       </div>
 </div>

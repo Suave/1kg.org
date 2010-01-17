@@ -184,11 +184,11 @@ class SchoolsController < ApplicationController
     @message = current_user.sent_messages.build(params[:message])
     if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
-      moderators = User.moderators_of(@school).map{|m| "<a href='users/#{m.id} target='_blank'>#{m.login}</a> "}
+      moderators = User.moderators_of(@school).map{|m| "<a href='http://www.1kg.org/users/#{m.id}>#{m.login}</a> "}
       html = "<br/><br/><br/>
-              <span>申请的学校是 <a href='/schools/#{@school.id}' target='_blank'>#{@school.title}</a> </span><br/>
+              <span>申请的学校是 <a href='http://www.1kg.org/schools/#{@school.id}' target='_blank'>#{@school.title}</a> </span><br/>
               <span>现有的学校大使是 #{moderators}</span><br/>
-              <span>如果你同意这份申请，请到 <a href='/schools/#{@school.id}/moderator' target='_blank'>添加大使</a> 页面添加这个用户</span>"
+              <span>如果你同意这份申请，请到 <a href='http://www.1kg.org/schools/#{@school.id}/moderator' target='_blank'>添加大使</a> 页面添加这个用户</span>"
       @message.content += html
       @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
       if @message.save
