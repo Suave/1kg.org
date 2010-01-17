@@ -423,14 +423,14 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "code",         :null => false # 密码
     t.integer  "type_id",      :null => false # 公益项目（物资）类型
     t.integer  "buck_id"
+    t.string   "buyer_name"
+    t.string   "buyer_email"
     t.datetime "created_at" # 交易处理时间
     t.string   "order_id"   # 商家订单号
     t.string   "order_time" # 商家订单时间
     t.string   "product_serial" # 商家产品编号
     t.string   "product_number" # 商家产品数量
     t.string   "deal_id"        # 交易号
-    #t.string   "pay_result"     # 交易结果
-    #t.integer  "err_code"       # 错误代码
     
     # 验证时填写的字段
     t.integer  "user_id"

@@ -2,7 +2,7 @@ require 'digest/md5'
 require 'cgi'
 require 'iconv'
 
-module Donation
+module Onekg
   class Request
     GATEWAY_URL = "/gateway/receiveMerchantInfo"
     PARAMS = %w(inputCharset bgUrl signType buyerName buyerEmail orderId orderTime productSerial productNumber pid)

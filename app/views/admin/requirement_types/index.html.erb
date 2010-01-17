@@ -9,7 +9,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h2>公益物资</h2>
-      <p class="postNew">++ <%= link_to "添加新物资", new_admin_stuff_type_url %></p>
+      <p class="postNew">++ <%= link_to "添加新物资", new_admin_requirement_type_url %></p>
       <div class="contents">
         <table>
           <tr>
@@ -23,12 +23,12 @@
           <tr>
             <td><%= h t.slug %></td>
             <td><%= h t.title %></td>
-            <td><%= h t.bucks.size %></td>
+            <td><%= h t.requirements.size %></td>
             <td></td>
             <td>
-              <%= link_to "detail", admin_stuff_type_bucks_url(t) %> |
-              <%= link_to "edit", edit_admin_stuff_type_url(t) %> |
-              <%= link_to "delete", admin_stuff_type_url(t), :method => :delete, :confirm => "会一起删除所有bucks, 且不能恢复, 确定么?" %></td>
+              <%= link_to "detail", admin_requirement_type_requirements_url(t) %> |
+              <%= link_to "edit", edit_admin_requirement_type_url(t) %> |
+              <%= link_to "delete", admin_requirement_type_url(t), :method => :delete, :confirm => "会一起删除所有bucks, 且不能恢复, 确定么?" %></td>
           </tr>
           <% end -%>
         </table>

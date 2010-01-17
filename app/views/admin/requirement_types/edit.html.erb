@@ -10,7 +10,7 @@
     <div class="boxInner">
       <h3>更新公益产品</h3>
       <div class="contents">
-      <% form_for :type, :url => admin_stuff_type_url(@type), :html => {:method => :put} do |f| -%>
+      <% form_for :type, :url => admin_requirement_type_url(@type), :html => {:method => :put} do |f| -%>
         <%= render :partial => "form", :object => f %>
         <p><label></label><%= submit_tag "更新" %></p>
       <% end -%>

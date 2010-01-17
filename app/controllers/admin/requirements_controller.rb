@@ -14,7 +14,7 @@ class Admin::RequirementsController < Admin::BaseController
     @requirement.type = @type
     @requirement.save!
     flash[:notice] = "Buck 创建成功"
-    redirect_to admin_stuff_type_bucks_url(@type)
+    redirect_to admin_requirement_type_requirements_url(@type)
   end
   
   def edit
@@ -25,14 +25,14 @@ class Admin::RequirementsController < Admin::BaseController
     @requirement = Requirement.find(params[:id])
     @requirement.update_attributes!(params[:requirement])
     flash[:notice] = "Buck 更新成功"
-    redirect_to admin_stuff_type_bucks_url
+    redirect_to admin_requirement_type_requirements_url
   end
   
   def destroy
     @requirement = Requirement.find(params[:id])
     @requirement.destroy
     flash[:notice] = "Buck 删除成功"
-    redirect_to admin_stuff_type_bucks_url
+    redirect_to admin_requirement_type_requirements_url
   end
   
   def show
