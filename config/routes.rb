@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users, :member => {:submitted_activities => :get,
                                     :participated_activities => :get,
                                     :submitted_schools => :get,
-                                    :neighbors => :get,
+                                    :friends => :get,
                                     :shares => :get,
                                     :groups => :get,
                                     :group_topics => :get,
@@ -46,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :participated_topics => :get},
                         :has_many => [:sent] do |user|
     user.resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
-    #user.resources :neighbors
+    user.resources :neighbors
   end
     
   map.resources :geos, :collection => { :search => :get, 
