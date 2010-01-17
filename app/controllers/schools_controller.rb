@@ -175,6 +175,35 @@ class SchoolsController < ApplicationController
     redirect_to school_url(@school)
   end
   
+  def apply
+    @school = School.find(params[:id])
+    @message = current_user.sent_messages.build
+  end
+  
+  def sent_apply
+    @school = School.find(params[:id])
+    @message = current_user.sent_messages.build(params[:message])
+    if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
+      @message = current_user.sent_messages.build(params[:message])
+      moderators = User.moderators_of(@school).map{|m| "<a href='http://www.1kg.org/users/#{m.id}>#{m.login}</a> "}
+      html = "<br/><br/><br/>
+              <span>申请的学校是 <a href='http://www.1kg.org/schools/#{@school.id}' target='_blank'>#{@school.title}</a> </span><br/>
+              <span>现有的学校大使是 #{moderators}</span><br/>
+              <span>如果你同意这份申请，请到 <a href='http://www.1kg.org/schools/#{@school.id}/moderator' target='_blank'>添加大使</a> 页面添加这个用户</span>"
+      @message.content += html
+      @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
+      if @message.save
+        flash[:notice] = "申请已发出，请等待#{User.moderators_of(@school).nil?? '学校管理员' : '其他学校大使或学校管理员'}的确认。"
+        redirect_to school_url(@school)
+      else	    
+        render :action => "apply"
+      end
+    else
+      flash[:notice] = "你还没有去过这所学校，不能申请成为学校大使"
+      render :action => "apply"
+    end
+  end
+  
   # 未标记学校列表
   def todo
     @geos = Geo.roots
@@ -305,10 +334,19 @@ class SchoolsController < ApplicationController
                                    :visited_at => params[:visited][:visited_at]
                                   )  
       end
+      if params[:callback].nil?
       redirect_to school_url(@school)
+      else
+      render :action => params[:callback]
+      end
     rescue ActiveRecord::RecordInvalid
       flash[:notice] = '请正确填写日期，去过的日期不能在今天之后，格式为 xxxx-xx-xx(年-月-日)'
+      if params[:callback].nil?
       redirect_to school_url(@school)
+      else
+      render :action => params[:callback]
+      end
+      
     end
   end
  
@@ -357,8 +395,13 @@ class SchoolsController < ApplicationController
   # 学校管理员列表
   def moderator
     @school = School.find params[:id]
-    @moderators = User.moderators_of @school
-    @candidates = @school.visitors + @school.interestings - @moderators
+    if (User.moderators_of(@school) + User.school_moderators).uniq.include?(current_user)
+      @moderators = User.moderators_of @school
+      @candidates = @school.visitors - @moderators
+    else
+      flash[:notice] = "你没有添加大使的权限"
+      redirect_to school_url(@school)
+    end
   end
   
   def manage
