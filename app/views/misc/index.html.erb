@@ -5,20 +5,13 @@
 
 <% content_for :sidebar do -%>
 <% unless @bulletins.blank? -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>公告</h3>
-      <div class="contents">
-        <ul>
-          <% @bulletins.each do |b| %>
-            <li style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></li>
-          <% end %>
-        </ul>
-      </div>
-      <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url if @bulletins.length > 5%></p>
-    </div>
-  </div>
+<div class="newbox">
+  <span class="span_title">公告</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <% @bulletins.each do |b| %>
+    <p style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></p>
+  <% end %>
+  <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
 <% end -%>
   
@@ -27,30 +20,18 @@
 
 <% @page = Page.find_by_slug('special') -%>
 <%if @page%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>专题活动</h3>
-      <div class="contents">
-      <%= render :text => @page.body %>
-      </div>
-    </div>
-  </div>
+<div class="newbox">
+  <span class="span_title">专题活动</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <%= render :text => @page.body %>
 </div>
-
 <%end%>
 
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>人气小组</h3>
-      <div class="contents clearfix">
-        <%= render :partial => "/groups/groups", :object => @hot_groups %>
-      </div>
-      <p class="remark">&raquo; <%= link_to "更多小组", groups_url %></p>
-    </div>
-  </div>
+<div class="newbox">
+  <span class="span_title">人气小组</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <%= render :partial => "/groups/groups", :object => @hot_groups %>
+  <p class="remark">&raquo; <%= link_to "更多小组", groups_url %></p>
 </div>
 <% end -%>
 

@@ -53,7 +53,7 @@ class Group < ActiveRecord::Base
     end
     
     def most_members
-      find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...9]
+      find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...8]
     end
   end
   

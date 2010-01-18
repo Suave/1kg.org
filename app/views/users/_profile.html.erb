@@ -8,14 +8,23 @@
 	<div style="margin-left:56px;">
 	  <p style="margin:0">用户： <%= link_to user.login, user_url(user) %><%= envoy_badge(user)%><br/>
 	  住在： <% if user.geo -%><%= link_to user.geo.name, geo_url(user.geo) %><% else -%>未知<% end -%>
-	  <br/><% if profile -%>博客：<%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %><% end -%>
+	  <br/><% if profile -%>个人介绍：<%= profile.bio_html %>
 	  </p>
+	  <p><%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %></p><% end -%>
 	</div>
-      </div>
-	<div clear="clearfix" style="clear:both;"></div>
-      <% if profile &&current_user&&current_user.school_moderator? -%>
-	  <%= profile.bio_html %>
-      <%end%>
-      <div clear="clearfix" style="clear:both;height:10px"></div>
-       
+	<div style="margin-top: 10px;">
+    <%= link_to image_tag('/images/icon/qq.gif'), "http://user.qzone.qq.com/#{profile.qq}" unless profile.qq.blank? %>
+    <%= link_to image_tag('/images/icon/messenger.gif'), "msnim:chat?contact=#{profile.msn}" unless profile.msn.blank? %>
+    <%= link_to image_tag('/images/icon/skype.gif'), "skype:#{profile.skype}?call" unless profile.skype.blank? %>
+    <%= link_to image_tag('/images/icon/douban.gif'), "http://www.douban.com/people/#{profile.douban}" unless profile.douban.blank? %>
+    <%= link_to image_tag('/images/icon/kaixin001.gif'), "http://www.kaixin001.com/home/?uid=#{profile.kaixin001}" unless profile.kaixin001.blank? %>
+    <%= link_to image_tag('/images/icon/renren.gif'), "http://renren.com/profile.do?id=#{profile.renren}" unless profile.renren.blank? %>
+    <%= link_to image_tag('/images/icon/twitter.gif'), "http://www.twitter.com/#{profile.twitter}" unless profile.twitter.blank? %>
+	</div>
+</div>
+<div clear="clearfix" style="clear:both;"></div>
+  <% if profile &&current_user&&current_user.school_moderator? -%>
+    <%= profile.bio_html %>
+  <%end%>
+  <div clear="clearfix" style="clear:both;height:10px"></div>
 </div>
