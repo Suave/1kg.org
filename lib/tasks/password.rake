@@ -38,4 +38,13 @@ namespace :password do
       puts @stuff.code if @stuff.save!
     end
   end
+  
+  desc "generate festcard09 password for YaYa website"
+  task :festcard_for_yaya => :environment do
+    @stuff_type = StuffType.find_by_slug("festcard09")
+    (1..1000).each do |i|
+      @stuff = @stuff_type.stuffs.build(:code => "YY#{"%04d" % i}") 
+      puts @stuff.code if @stuff.save!
+    end
+  end
 end
