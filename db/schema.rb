@@ -200,6 +200,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "gender",     :limit => 1
     t.date    "birth"
     t.string  "phone"
+    
+    t.string   "twitter"
+    t.string   "kaixin001"
+    t.string   "renren"
+    t.string   "douban"
+    t.string   "qq"
+    t.string   "msn"
+    t.string   "skype"
+    
     t.integer "privacy",    :limit => 1
   end
 
@@ -483,15 +492,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "geo_id"
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
-    
-    t.string   "twitter"
-    t.string   "kaixin001"
-    t.string   "renren"
-    t.string   "douban"
-    t.string   "qq"
-    t.string   "msn"
-    t.string   "skype"
-    t.string   "blog"
     
     t.integer  "posts_count"
     t.integer  "topics_count"

@@ -69,32 +69,13 @@ class UsersController < ApplicationController
     if params[:type] == "account"
       @type = "account"
       render :action => "setting_account"
-      
-    elsif params[:type] == "avatar"
-      @type = "avatar"
-      render :action => "setting_avatar"
-      
-    elsif params[:type] == "live"
-      @type = "personal"
-      @live_geo = @user.geo
-      @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
-      if @current_geo
-        @same_level_geos = @current_geo.siblings
-        @next_level_geos = @current_geo.children
-      else
-        @same_level_geos = Geo.roots
-        @next_level_geos = nil
-      end      
-      render :action => "setting_live"
-      
     elsif params[:type] == 'profile'
       @type = "profile"
       @profile = @user.profile || Profile.new
       render :action => "setting_profile"
-      
     else
-      @type = "personal"
-      render :action => "setting_personal"
+      @type = "avatar"
+      render :action => "setting_avatar" 
     end
   end
   
