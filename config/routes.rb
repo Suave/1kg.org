@@ -143,7 +143,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :counties
     admin.resources :boards, :member => {:active => :put, :deactive => :put}
     admin.resources :moderators
-    admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get}
+    admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
     admin.resources :stuff_types do |type|

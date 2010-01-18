@@ -484,6 +484,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
     
+    t.string   "twitter"
+    t.string   "kaixin001"
+    t.string   "renren"
+    t.string   "douban"
+    t.string   "qq"
+    t.string   "msn"
+    t.string   "skype"
+    t.string   "blog"
+    
     t.integer  "posts_count"
     t.integer  "topics_count"
     t.integer  "shares_count"
