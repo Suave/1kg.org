@@ -81,6 +81,17 @@ class Admin::SchoolsController < Admin::BaseController
     @sub_school.stuffs.each {|s| s.school_id = @main_id; s.save(false)}
     @sub_school.visited.each {|v| v.school_id = @main_id; v.save(false)}
     @sub_school.activities.each {|a| a.school_id = @main_id; a.save(false)}
+    
+    if @main_school.discussion && @sub_school.discussion
+      @sub_school.discussion.board.topics.each do |t|
+        t.board_id = @main_school.discussion.board.id
+        t.save(false)
+      end
+    end
+    
+    #@sub_school.destroy
+    @main_school.save(false)
+    redirect_to admin_path
   end
   
   private
