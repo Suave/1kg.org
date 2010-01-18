@@ -1,6 +1,5 @@
 <h3>基本信息</h3>
 <% if false %><p><label>真实姓名</label>姓<%= profile_form.text_field :last_name, :size => 4, :class => 'text' %> 名<%= profile_form.text_field :first_name, :size => 4, :class => 'text' %></p><% end %>
->>>>>>> 41e814c... 允许用户设置联系信息:app/views/users/_profile_form.html.erb
 <p><label>性别</label><%= profile_form.select :gender, {"女" => 1, "男" => 0} %></p>
 <p><label>生日</label><%= profile_form.date_select :birth, :use_month_names => %w(一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月), :start_year => 1930, :end_year => Time.now.year %></p>
 <% if false %><p><label>电话</label><%= profile_form.text_field :phone, :size => 20 %></p><% end %>
