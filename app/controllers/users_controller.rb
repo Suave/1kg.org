@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited, :guides,:envoy, :submitted_topics]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -185,50 +185,46 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-    @shares = @user.shares.find :all, :limit => 5
+    @shares = @user.shares.find :all, :limit => 5, :include => [:user, :tags]
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)
-    @submitted_topics = @user.topics.find :all, :limit => 5,:include => [:board, :user]
-    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
+    @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
+    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
     
   end
   
   def shares
-    
-    get_user_record(@user)
-    
     @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], 
-                                      :select => "title, hits, comments_count, created_at, id")
+                                      :select => "user_id,title, comments_count,clean_html, id").paginate(:page => 1, :per_page => 6)
   end
 
-  def guides
-    get_user_record(@user)
-    @shares = @user.guides.find(:all, :select => "title, hits, comments_count, created_at, id")
-  end
 
-  def neighbors
-    get_user_record(@user)
-    @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :per_page => "50"
+  def friends
+    @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :per_page => 32
   end
   
   def participated_activities
-    @activities = @user.participated_activities.paginate(:page => params[:page] || 1, :per_page => 20)
+    @activities = @user.participated_activities.paginate(:page => params[:page] || 1, :per_page => 10)
+  end
+  
+  def participated_topics
+     @topics = @user.participated_topics.paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
   def submitted_activities
-    @activities = @user.submitted_activities.paginate(:page => params[:page] || 1, :per_page => 20)
+    @activities = @user.submitted_activities.paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
   def submitted_topics
-    @submitted_topics = @user.topics.paginate(:page => params[:page] || 1, :per_page => 20)
+    @topics = @user.topics.paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
   def submitted_schools
-    @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :per_page => 20)
+    @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
   def group_topics
-    @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 25, :order => "last_replied_at desc"
+    @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 10, :order => "last_replied_at desc"
   end
   
   def visited
@@ -248,14 +244,13 @@ class UsersController < ApplicationController
   
   def get_user_record(user)
     # user's published activities
-    @activities   = @user.submitted_activities.find(:all, :limit => 5)
-    @submitted    = @user.submitted_activities.find(:all, :limit => 5)
-    @participated = @user.participated_activities.find(:all, :limit => 5)
+    @submitted    = @user.submitted_activities.find(:all, :limit => 6,:include => [:main_photo, :departure])
+    @participated = @user.participated_activities.find(:all, :limit => 6, :include => [:main_photo, :departure])
     
     #user's submitted schools
-    @schools = user.submitted_schools.find :all, :limit => 5
-    @neighbors = user.neighbors.find :all, :limit => 9                                       
-    @groups = user.joined_groups.find :all, :limit => 9
+    #@schools = user.submitted_schools.find :all, :limit => 5
+    @neighbors = user.neighbors.find :all, :limit => 8                                     
+    @groups = user.joined_groups.find :all, :limit => 8
   end
   
   def in_black_list?

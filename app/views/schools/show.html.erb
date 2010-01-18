@@ -143,7 +143,7 @@
   <div class="school_box">
     <h3 class="label_lei" >学校话题</h3>
     <div class="contents">
-      <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} unless @topics.blank? %>
+      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
       <% if @topics.blank? %><p class="content_text">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
       <%else%>
       <p class="content_gary">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%if @topics.size > 5%><%= link_to "全部话题", board_topics_url(@board),:class => "buttonlink" %><% end -%> </p>
@@ -165,7 +165,7 @@
         <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>
-    <% if logged_in? && (@school.edited_by(current_user) && !current_user.school_moderator?)-%>
+    <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator?-%>
     <div id="admins">你是学校大使，可以使用以下功能：<br/>
       <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
@@ -177,16 +177,18 @@
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
-        <% if @school.validated? -%>
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
           <%else%>
+                    学校还没有学校大使
           <%end%>
-        <% else -%>
-          <div class="contents">
-            <p>学校通过验证后才有学校大使</p>
+          <% unless @moderators.include? current_user %>
+          <div id="moderators_info">
+            <!--<p style="color:#444">什么是学校大使？</p>-->
+            <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
+            <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
           </div>
-        <% end -%>
+          <% end %>
       </div>
       <div class="clearfix"></div>
   </div>
