@@ -1,0 +1,26 @@
+<% content_for :fullsize do %>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>合并重复学校</h3>
+      <div class="contents">
+      <% form_tag merging_admin_schools_path do %>
+        <p>
+          <%= label_tag "主学校（要保留的学校）ID" %>
+          <%= text_field_tag :main_school_id %>
+        </p>
+        <p>
+          <%= label_tag '待合并学校（将被删除）ID' %>
+          <%= text_field_tag :sub_school_id %>
+        </p>
+        
+        <p>
+          <%= submit_tag "开始合并" %>
+        </p>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+

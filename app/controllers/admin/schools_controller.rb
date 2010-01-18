@@ -1,5 +1,5 @@
 class Admin::SchoolsController < Admin::BaseController
-  before_filter :find_school, :except => [:index, :import, :create]
+  before_filter :find_school, :except => [:index, :import, :create, :merging, :merge]
   
   def index
     if params[:type].blank? || params[:type] == "validated"
@@ -52,6 +52,35 @@ class Admin::SchoolsController < Admin::BaseController
     @school.update_attributes!(:deleted_at => nil)
     flash[:notice] = "已经恢复 #{@school.title}"
     redirect_to admin_schools_url(:type => "trash")
+  end
+  
+  def merging
+  end
+  
+  def merge
+    @main_school = School.find(params[:main_school_id])
+    @main_id     = @main_school.id
+    @sub_school  = School.find(params[:sub_school_id])
+    
+    # 合并需求
+    if @main_school.need && @sub_school.need
+      @main_school.need.book += @sub_school.need.book
+      @main_school.need.stationary += @sub_school.need.stationary
+      @main_school.need.sport += @sub_school.need.sport
+      @main_school.need.cloth += @sub_school.need.cloth
+      @main_school.need.accessory += @sub_school.need.accessory
+      @main_school.need.course += @sub_school.need.course
+      @main_school.need.teacher += @sub_school.need.teacher
+      @main_school.need.other += @sub_school.need.other
+      @main_school.need.medicine += @sub_school.need.medicine
+      @main_school.need.hardware += @sub_school.need.hardware
+    end
+    
+    @sub_school.shares.each {|s| s.school_id = @main_id; s.save(false)}
+    @sub_school.photos.each {|p| p.school_id = @main_id; p.save(false)}
+    @sub_school.stuffs.each {|s| s.school_id = @main_id; s.save(false)}
+    @sub_school.visited.each {|v| v.school_id = @main_id; v.save(false)}
+    @sub_school.activities.each {|a| a.school_id = @main_id; a.save(false)}
   end
   
   private
