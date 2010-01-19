@@ -58,7 +58,7 @@ namespace :password do
       @stuff = Stuff.find(:first, :conditions => {:code => item, :matched_at => nil, :type_id => @stuff_type.id})
       if @stuff.nil?
         # not found
-        not_found << @stuff
+        not_found << item
       else
         # found, delete this password from DB
         @stuff.destroy
