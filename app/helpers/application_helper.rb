@@ -233,13 +233,15 @@ module ApplicationHelper
   end
   
   def plain_text(text,replacement="")
-    text = text.gsub(/<[^>]*>/){|html| replacement}
-    text = text.gsub("&nbsp;","");
-    text = text.gsub("\r\n","");
+    text.gsub!(/<[^>]*>/, '')
+    text.gsub!("&nbsp;","");
+    text.gsub!("\r\n","");
+    text
   end
   
   def summary(article,number)
-    html = plain_text(article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(0..number).to_s.lstrip
+    html = article.clean_html || article.body_html
+    plain_text(html).mb_chars.slice(0..number).to_s.lstrip
   end
   
   def html_summary(article,start,close)
@@ -265,8 +267,11 @@ module ApplicationHelper
     end
     html += "<p>#{h(photo.description)}</p>"
     html
- end
-
+  end
+  
+  def envoy_badge(user)
+    "<img src='/images/badge.gif' title='#{user.login}是学校大使' class='envoy_badge'/>" if user.envoy?
+  end
   
   def upload_script_for(id, container, url)
     javascript_tag(%(
@@ -333,5 +338,4 @@ module ApplicationHelper
     session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
     photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
   end
-  
 end

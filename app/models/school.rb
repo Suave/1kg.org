@@ -43,6 +43,8 @@ class School < ActiveRecord::Base
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
+  has_many :activities, :order => "id desc"
+  
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :stuffs, :dependent => :destroy
   has_many :visited, :dependent => :destroy
@@ -61,8 +63,6 @@ class School < ActiveRecord::Base
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   
   named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
-  # 需要移除
-  #named_scope :available, :conditions => {:deleted_at => nil}
   named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
   named_scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
@@ -270,12 +270,12 @@ class School < ActiveRecord::Base
   def self.show_date(year, month, day, valid)
     if valid
       # 已验证学校，以验证时间为准
-      self.available.find(:all, 
+      self.find(:all, 
                           :order      => "schools.updated_at desc",
                           :conditions => ["validated_at LIKE ? and validated = ?", "#{year}-#{month}-#{day}%", true])
     else
       # 待验证学校，以提交时间为准
-      self.available.find(:all,
+      self.find(:all,
                           :order => "schools.validated_at desc",
                           :conditions => ["created_at like ? and validated = ?", "#{year}-#{month}-#{day}%", false] )
     end

@@ -69,32 +69,13 @@ class UsersController < ApplicationController
     if params[:type] == "account"
       @type = "account"
       render :action => "setting_account"
-      
-    elsif params[:type] == "avatar"
-      @type = "avatar"
-      render :action => "setting_avatar"
-      
-    elsif params[:type] == "live"
-      @type = "personal"
-      @live_geo = @user.geo
-      @current_geo = (params[:live].blank? ? @live_geo : Geo.find(params[:live]))
-      if @current_geo
-        @same_level_geos = @current_geo.siblings
-        @next_level_geos = @current_geo.children
-      else
-        @same_level_geos = Geo.roots
-        @next_level_geos = nil
-      end      
-      render :action => "setting_live"
-      
     elsif params[:type] == 'profile'
       @type = "profile"
       @profile = @user.profile || Profile.new
       render :action => "setting_profile"
-      
     else
-      @type = "personal"
-      render :action => "setting_personal"
+      @type = "avatar"
+      render :action => "setting_avatar" 
     end
   end
   
@@ -182,20 +163,19 @@ class UsersController < ApplicationController
   end
   
   def show
+    @body_class = 'white'
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-    @shares = @user.shares.find :all, :limit => 5, :include => [:user, :tags]
+    @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
-    
   end
   
   def shares
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], 
-                                      :select => "user_id,title, comments_count,clean_html, id").paginate(:page => 1, :per_page => 6)
+    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false]).paginate(:page => 1, :per_page => 6)
   end
 
 

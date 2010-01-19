@@ -55,10 +55,12 @@
         </div>
   </div>
   <%end%>
+  <div class="clearfix" style="height:10px;clear:both"></div>
   
   <%unless @stuffs.empty?%>
   <div class="newbox">
         <span class="span_title"><%= h @user.login %>的公益贺卡</span>
+        <div class="clearfix" style="height:5px;clear:both"></div>
         <div class="contents">
           <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
           <table>
@@ -89,11 +91,5 @@
   $(document).ready(function(){
       jQuery("#topics_tabs").tabs();
       jQuery("#activity_tabs").tabs();
-      jQuery('.tabs_more').hover(function () {
-       jQuery(this).children(".tabs_hide").show()
-       },
-      function () {
-       jQuery(this).children(".tabs_hide").hide()
-    });
   });
 </script>
