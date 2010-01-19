@@ -55,7 +55,7 @@ namespace :password do
     not_found = []
     
     file.each do |item|
-      @stuff = Stuff.find(:first, :conditions => {:code => item, :matched_at => nil, :type_id => @stuff_type.id})
+      @stuff = Stuff.find(:first, :conditions => {:code => item.chomp, :matched_at => nil, :type_id => @stuff_type.id})
       if @stuff.nil?
         # not found
         not_found << item
@@ -64,7 +64,6 @@ namespace :password do
         @stuff.destroy
         puts "delete: #{@stuff.code} - #{@stuff.id}"
       end
-      # puts item if @stuff
     end
     
     puts "NOT FOUND following passwords:"
