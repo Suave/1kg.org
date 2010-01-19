@@ -8,12 +8,10 @@
 	<div style="margin-left:56px;">
 	  <p style="margin:0">用户: <%= link_to user.login, user_url(user) %><br/>
 	  住在： <% if user.geo -%><%= link_to user.geo.name, geo_url(user.geo) %><% else -%>未知<% end -%>
-	  <br/><% if profile -%>个人介绍：<%= profile.bio_html %>
-	  </p>
-	  <p><%= link_to profile.blog_url, profile.blog_url unless profile.nil? || profile.blog_url.blank? %></p><% end -%>
+	  <br/><% if profile -%>博客: <%= link_to profile.blog_url, profile.blog_url unless profile.nil? || profile.blog_url.blank? %></p><% end -%>
 	</div>
 	<% if profile %>
-	<div style="margin-top: 10px;">
+	<div style="margin-top: 10px;margin-left:90px">
     <%= link_to image_tag('/images/icon/qq.gif'), "http://user.qzone.qq.com/#{profile.qq}", :target => '_blank' unless profile.qq.blank? %>
     <%= link_to image_tag('/images/icon/messenger.gif'), "msnim:chat?contact=#{profile.msn}" unless profile.msn.blank? %>
     <%= link_to image_tag('/images/icon/skype.gif'), "skype:#{profile.skype}?call" unless profile.skype.blank? %>
