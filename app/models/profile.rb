@@ -22,6 +22,22 @@ class Profile < ActiveRecord::Base
   
   before_save :correct_blog_url, :format_content
   
+  def douban_url
+    self.douban.include?('http') ? self.douban : "http://www.douban.com/people/#{self.douban}"
+  end
+  
+  def kaixin001_url
+    self.kaixin001.include?('http') ? self.kaixin001 : "http://www.kaixin001.com/home/?uid=#{profile.kaixin001}"
+  end
+  
+  def renren_url
+    self.renren.include?('http') ? self.renren : "http://renren.com/profile.do?id=#{profile.renren}"
+  end
+  
+  def twitter_url
+    self.twitter.include?('http') ? self.twitter : "http://www.twitter.com/#{profile.twitter}"
+  end
+  
   private
   def format_content
     self.bio_html = sanitize(bio||'', true)

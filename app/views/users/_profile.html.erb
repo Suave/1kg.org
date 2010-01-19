@@ -17,10 +17,10 @@
     <%= link_to image_tag('/images/icon/qq.gif'), "http://user.qzone.qq.com/#{profile.qq}", :target => '_blank' unless profile.qq.blank? %>
     <%= link_to image_tag('/images/icon/messenger.gif'), "msnim:chat?contact=#{profile.msn}" unless profile.msn.blank? %>
     <%= link_to image_tag('/images/icon/skype.gif'), "skype:#{profile.skype}?call" unless profile.skype.blank? %>
-    <%= link_to image_tag('/images/icon/douban.gif'), "http://www.douban.com/people/#{profile.douban}", :target => '_blank' unless profile.douban.blank? %>
-    <%= link_to image_tag('/images/icon/kaixin001.gif'), "http://www.kaixin001.com/home/?uid=#{profile.kaixin001}", :target => '_blank' unless profile.kaixin001.blank? %>
-    <%= link_to image_tag('/images/icon/renren.gif'), "http://renren.com/profile.do?id=#{profile.renren}", :target => '_blank' unless profile.renren.blank? %>
-    <%= link_to image_tag('/images/icon/twitter.gif'), "http://www.twitter.com/#{profile.twitter}", :target => '_blank' unless profile.twitter.blank? %>
+    <%= link_to image_tag('/images/icon/douban.gif'), profile.douban_url, :target => '_blank' unless profile.douban.blank? %>
+    <%= link_to image_tag('/images/icon/kaixin001.gif'), profile.kaixin001_url, :target => '_blank' unless profile.kaixin001.blank? %>
+    <%= link_to image_tag('/images/icon/renren.gif'), profile_renren_url, :target => '_blank' unless profile.renren.blank? %>
+    <%= link_to image_tag('/images/icon/twitter.gif'), profile.twitter_url, :target => '_blank' unless profile.twitter.blank? %>
 	</div>
 	<% end %>
 </div>
