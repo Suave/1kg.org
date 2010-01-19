@@ -18,7 +18,7 @@
     <%= link_to image_tag('/images/icon/skype.gif'), "skype:#{profile.skype}?call" unless profile.skype.blank? %>
     <%= link_to image_tag('/images/icon/douban.gif'), profile.douban_url, :target => '_blank' unless profile.douban.blank? %>
     <%= link_to image_tag('/images/icon/kaixin001.gif'), profile.kaixin001_url, :target => '_blank' unless profile.kaixin001.blank? %>
-    <%= link_to image_tag('/images/icon/renren.gif'), profile_renren_url, :target => '_blank' unless profile.renren.blank? %>
+    <%= link_to image_tag('/images/icon/renren.gif'), profile.renren_url, :target => '_blank' unless profile.renren.blank? %>
     <%= link_to image_tag('/images/icon/twitter.gif'), profile.twitter_url, :target => '_blank' unless profile.twitter.blank? %>
 	</div>
 </div>
