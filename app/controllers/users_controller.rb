@@ -161,17 +161,15 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
-    @shares = @user.shares.find :all, :limit => 5, :include => [:user, :tags]
+    @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
-    
   end
   
   def shares
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false], 
-                                      :select => "user_id,title, comments_count,clean_html, id").paginate(:page => 1, :per_page => 6)
+    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false]).paginate(:page => 1, :per_page => 6)
   end
 
 
