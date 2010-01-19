@@ -11,9 +11,9 @@ class Admin::RequirementsController < Admin::BaseController
   
   def create
     @requirement = Requirement.new(params[:requirement])
-    @requirement.type = @type
+    @requirement.requirement_type = @type
     @requirement.save!
-    flash[:notice] = "Buck 创建成功"
+    flash[:notice] = "新需求创建成功"
     redirect_to admin_requirement_type_requirements_url(@type)
   end
   

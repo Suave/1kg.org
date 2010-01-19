@@ -4,46 +4,52 @@ require 'iconv'
 
 class GatewayController < ApplicationController
   def receive_merchant_info
-    vendor = Vendor.find_by_slug(params[:pid])
-    key = vendor.sign_key
-    amount = params[:productNumber].to_i
-    pay_result = false
-    @request = Onekg::RequestValidate.new(params, key)
-    # TODO 如果找不到 key 如何处理
-    if @request.valid_sign?
-      # 创建公益物资记录
-      amount.times do |i|
-        # 生成密码
-        while 1
-          stuff_password = UUID.create_random.to_s.gsub("-", "").unpack('axaxaxaxaxaxaxax').join('')
-          break unless exist_stuff = Donation.find_by_code(stuff_password)
-        end
-        @donation = Donation.new(:code => stuff_password,
-                           :type_id => vendor.products.find_by_serial(params[:productSerial]).stuff_type.id,
-                           :order_id => params[:orderId],
-                           :order_time => params[:orderTime],
-                           :product_serial => params[:productSerial],
-                           :product_number => amount,
-                           :buyer_name => params[:buyerName],
-                           :buyer_email => params[:buyerEmail],
-                           :deal_id => Time.now.to_i
-                          )
-        if @donation.save!
-           # 发信
-           @donation_url = "http://www.1kg.org/donations/new?code=#{stuff_password}"
-           Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], @donation_url)
-           pay_result = true
+    @vendor = Vendor.find_by_slug(params[:pid])
+
+    if @vendor 
+      key = @vendor.sign_key
+      amount = params[:productNumber].to_i
+      @request = Onekg::RequestValidate.new(params, key)
+      @requirement_type = RequirementType.find_by_slug(params[:productSerial])
+      
+      if @request.valid_sign? || @requirement_type.nil?
+        @donation = @vendor.donations.find_by_order_id(params[:orderId])
+
+        if @donation && @donation.matched_at
+          flash[:notice] = "您已经完成了此笔捐赠，非常感谢您的参与！"
+          redirect_to donations_path
+        elsif @donation
+          redirect_to "http://www.1kg.org/donations/new?code=#{@donation.code}"
         else
-           pay_result = false
-           logger.info("BUILD STUFF FAIL")
-        end                
+          # 生成密码
+          while 1
+            stuff_password = UUID.create_random.to_s.gsub("-", "").unpack('axaxaxaxaxaxaxax').join('')
+            break unless exist_stuff = Donation.find_by_code(stuff_password)
+          end
+
+          # 生成捐赠
+          @donation = Donation.new(:code => stuff_password,
+                             :vendor_id => @vendor.id,
+                             :type_id => @requirement_type.id,
+                             :order_id => params[:orderId],
+                             :order_time => params[:orderTime],
+                             :product_serial => params[:productSerial],
+                             :product_number => amount,
+                             :buyer_name => params[:buyerName],
+                             :buyer_email => params[:buyerEmail],
+                             :deal_id => Time.now.to_i)
+
+          @donation.save!
+          redirect_to "http://www.1kg.org/donations/new?code=#{@donation.code}"
+          #Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], @donation_url)
+        end
+      else
+        flash[:notice] = '对不起，无效的请求'
+        redirect_to donations_path
       end
-      logger.info ("VALID SIGN!!!!")
     else
-      logger.info("INVALID SIGN!!!")
-      pay_result = false
+      flash[:notice] = '对不起，商家不存在'
+      redirect_to donations_path
     end
-    # 此处我认为应该直接跳转到配对页面，用户完成匹配后再返回商家网站。
-    redirect_to @donation_url
   end
 end

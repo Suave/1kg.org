@@ -17,6 +17,11 @@ class RequirementType < ActiveRecord::Base
   has_many :requirements, :foreign_key => "type_id", :dependent => :destroy
   has_many :donations, :foreign_key => "type_id", :dependent => :destroy
   
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "150x150>" }
+  
   validates_presence_of :slug, :message => "不能为空"
   validates_presence_of :title, :message => "不能为空"
+  
+  named_scope :exchangable, :conditions => {:exchangable => true}
+  named_scope :last5, :limit => 9, :order => 'created_at DESC'
 end

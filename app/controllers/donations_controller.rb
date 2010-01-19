@@ -1,13 +1,15 @@
 class DonationsController < ApplicationController
+  layout 'donation'
+  
   def index
+    @requirements = RequirementType.exchangable.map(&:requirements).sum
   end
   
   def new
     @donation = Donation.find_by_code(params[:code])
-    @product = Product.find_by_serial(@donation.product_serial)
     
     respond_to do |want|
-      if @donation && @donation.matched_at.nil? && @product
+      if @donation && @donation.matched_at.nil?
         @requirement_type = @donation.requirement_type
         @requirements = @requirement_type.requirements
         
@@ -40,7 +42,7 @@ class DonationsController < ApplicationController
 
           Donation.transaction do
             @donation.save!
-            @requirement.update_attributes!(:matched_count => @requirement.donations.matched.count)
+            @requirement.update_attributes!(:matched_count => @requirement.donations.matched.sum(:product_number))
           end
           flash[:notice] = "密码配对成功，您捐给#{@donation.school.title}一个#{@requirement_type.title}。写两句话给学校和孩子们吧 ;)"
           want.html{redirect_to commenting_donation_path}

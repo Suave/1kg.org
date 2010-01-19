@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"  xml:lang="utf-8">
+  <head>
+    <title><%= @page_title.to_s + " - 多背一公斤" %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/screen.css" media="screen, projection" />
+    <!--[if lt IE 7]>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie6-below.css" media="screen, projection" />
+    <![endif]-->
+    <!--[if gte IE 7]>
+    <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie7-up.css" media="screen, projection" />
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="/stylesheets/temp.css" media="screen, projection" />
+    <link type="text/css" rel="stylesheet" href="/stylesheets/festcard09.css" media="screen, projection" />
+    <%= javascript_include_tag 'fckeditor/fckeditor' %>
+    <%= javascript_include_tag 'jQuery/jquery.min' %>
+    <%= javascript_include_tag 'jQuery/jrails' %>
+    <%= javascript_include_tag 'calendar.js' %>
+    <%= javascript_include_tag 'application.js' %>
+    <%= yield :heads %>
+   
+    <link type="text/css" rel="stylesheet" href="/stylesheets/calendar.css" />
+  </head>
+  <body id="org-1kg" class="<%= @body_class.to_s %>">
+		<div id="header">
+			<div class="wrapper">
+        <h1 id="logo" class="span-15">
+          <a href="/"><span><!-- for logo --></span>多背一公斤</a>
+        </h1>
+      </div>
+    </div>
+    
+<div id="navWrap">
+  <div id="nav">
+    <ul>
+      <li class="home"><%= link_to "首页", root_url %></li>
+      <li class="home"><%= link_to "小组", groups_url %></li>
+      <li class="home"><%= link_to "同城", my_city_url %></li>
+      <li class="home"><%= link_to "学校", schools_url %></li>
+      <li class="home"><%= link_to "公益贺卡", minisite_festcard09_index_url %></li>
+      <li class="home"><%= link_to "攻略大赛", minisite_lightenschool_index_url %></li>
+      <li class="home"><%= link_to "爱心图书室", minisite_kuailebox_index_url %></li>
+      <!--<li class="home" id="topicnav">专题活动<img id="slidemark" src="/images/slidemark.png" />
+        <div id="slidebar">
+	  <%= link_to "公益贺卡", "/minisite/postcard" ,:class => "slidenav"%>
+          <%= link_to "公益月饼", minisite_mooncake_index_url ,:class => "slidenav"%>
+	  <%= link_to "点亮学校", minisite_lightenschool_index_url,:class => "slidenav" %>
+	</div>
+      </li>-->
+	
+      
+      <li class="home"><a href="/misc/community-guide" target="_blank">帮助</a></li>
+    </ul>
+    <p style="float:right">
+    <% if logged_in? -%>
+    欢迎, <%= current_user.login %>(<%= link_to "帐号设置", setting_url %>|<%= link_to "我的1KG", user_url(current_user) %>) | <%= inbox_link("消息") %> | <%= link_to "退出", logout_url %>
+    <% else -%>
+    <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %> | <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
+    <% end -%>
+    </p>
+    
+  </div>
+  
+  <div id="breadcrumb">
+    <h3>你在这里:</h3>
+    <ul>
+      <li><a href="/">首页</a>
+        <ul>
+          <li>积分献爱</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+	
+<div class="wrapper">
+	<div id="content">
+	  <div id="content-layout" class="clearfix">
+	    <% if flash[:notice] -%>
+          <div class="flashNotice notice"><%= flash[:notice] %></div>
+	    <% end -%>
+
+      <div id="page-title" class="clearfix">
+        <h1><%= @title.to_s %></h1>
+        <%= yield :subtitle %>
+      </div>
+      
+      <% @page_title = "积分献爱，举手之劳！" -%>
+
+      <div style="display:block; clear:both">
+        <a href="/minisite/festcard09/cards" target="_blank"><img src="/images/point/title.png" class="pc-love" /></a>
+        <div class="pc-intro">
+          <div style="text-align:center"><img src="/images/point/logo.png" />
+            <p>此处为积分献爱计划的文字说明，需要安提供</p>
+            <p>步骤一</p>
+            <p>步骤二</p>    
+          </div>
+
+          <p style="margin-top:20px;"><%= image_tag("/images/point/flow.png") %></p>
+        </div>
+      </div>
+
+      <div class="lcolumn">
+        <%= yield %>
+      </div>
+
+      <div class="rcolumn">
+        <div class="boxouter">
+          <h3>合作商家</h3>
+          <div class="boxinter">
+            <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
+            <p><img src="/images/mooncake/sitlogo.gif"></p>
+          </div>
+        </div>
+      </div>
+      <div class="boxouter" style="float:left;width:100%">
+        <h3>积分可兑换物资</h3>
+        <% RequirementType.exchangable.last5.each do |t| %>
+          <div class="boxinter">
+          <dl class="book">
+            <dt><a href="#"><img src="<%= t.image.url(:thumb) %>" width="100" /></a></dt>
+            <dd><a href='#'><%= t.title %></a></dd>
+          </dl>
+          </div>
+        <% end %>
+      </div>
+      
+      <div id="content-secondary">
+        <%= yield :sidebar %>
+      </div><!-- end #content-secondary -->
+   </div><!-- end #content-layout -->
+ </div><!-- end #content -->
+<div class="clear"></div>
+  
+</div><!-- end #wrapper -->
+<%= render :partial => "/shared/footer" %>
+</body>
+<% #保存GMap的JS %>
+<%= yield :tail %>
+</html>

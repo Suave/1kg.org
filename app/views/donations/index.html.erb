@@ -1,18 +1,15 @@
-<% content_for :heads do -%>
-<link type="text/css" rel="stylesheet" href="/stylesheets/market.css" media="screen, projection" />
-<% end -%>
-
-<% content_for :crumb do -%>
-<li>公益市场</li>
-<% end -%>
-
-<% content_for :fullsize do -%>
-<div id="page">
-  <div style="background:#ccc;display:block;width:930;height:200px; margin:10px">
-    公益项目列表
-  </div>
-  <div style="background:#ccc;display:block;width:930;height:200px; margin:10px">
-    公益积分
+<div class="boxouter">
+  <h3>学校列表</h3>
+  <div class="boxinter">
+  <% unless @requirements.blank? -%>
+    <%= render :partial => "/shared/requirements", :object => @requirements %>
+  <% end -%>
   </div>
 </div>
-<% end -%>
+
+<div class="boxouter">
+  <h3>小组讨论</h3>
+  <div class="boxinter">
+    <p style="text-align:right"><%= link_to "进入小组", '#', :target => "_blank",:class => "buttonlink" %></p>
+  </div>
+</div>

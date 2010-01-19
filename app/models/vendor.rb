@@ -11,7 +11,7 @@
 #
 
 class Vendor < ActiveRecord::Base
-  has_many :products
+  has_many :donations
   
   validates_presence_of :slug, :message => "不能为空"
   validates_presence_of :title, :message => "不能为空"

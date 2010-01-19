@@ -417,6 +417,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "description_html"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_file_name"
+    # 是否可用积分兑换
+    t.boolean  "exchangable"
   end
 
   create_table "stuffs", :force => true do |t|
@@ -431,6 +434,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "product_serial" # 商家产品编号
     t.string   "product_number" # 商家产品数量
     t.string   "deal_id"        # 交易号
+    t.integer  "vendor_id"
     
     # 验证时填写的字段
     t.integer  "user_id"
@@ -438,7 +442,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "matched_at"
     t.text     "comment_html"
     t.text     "comment"
-    t.boolean  "auto_fill"
   end
 
   create_table "taggings", :force => true do |t|
@@ -517,45 +520,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime  "updated_at"
     # TODO: 厂商的LOGO，介绍等内容
   end
-  
-  create_table "products", :force => true do |t|
-    t.integer   "vendor_id"
-    t.integer   "stuff_type_id" # 对应公益物资
-    t.string    "title"
-    t.string    "serial" # 商品的编号，可以厂商提供，保持双方一致即可
-    t.string    "return_url" # 验证完成后，返回厂商网站的地址
-    t.datetime  "created_at"
-    t.datetime  "updated_at"
-  end
-  
-  create_table "goods", :force => true do |t|
-    t.string    "title"
-    t.integer   "user_id"
-    t.text      "body"
-    t.string    "price" # 价格
-    t.string    "standard" # 尺寸
-    t.string    "material" # 材料
-    t.string    "color" # 颜色
-    t.text      "sale_url"
-    t.string    "serial" # 商品编号，需要给 1KG，双方保持一致
-    t.boolean   "recommend",  :default => false
-    t.datetime  "created_at"
-    t.datetime  "updated_at"
-    
-  end
-  
-  create_table "good_photos", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "content_type"
-    t.string   "filename"
-    t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "good_id"
-  end 
 
   create_table "searches", :force => true do |t|
     t.string :keywords

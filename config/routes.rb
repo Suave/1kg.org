@@ -155,12 +155,12 @@ ActionController::Routing::Routes.draw do |map|
       type.resources :requirements
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
-    admin.resources :products # 公益商品供应商提供的商品
+    #admin.resources :products # 公益商品供应商提供的商品
     # for AJXY 的商城管理后台
-    admin.resources :goods, :member => {:recommend => :put}, 
-                            :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
-      good.resources :photos, :controller => "good_photos"
-    end 
+    #admin.resources :goods, :member => {:recommend => :put}, 
+    #                        :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
+    #  good.resources :photos, :controller => "good_photos"
+    #end 
     admin.resources :bulletins
   end
 
