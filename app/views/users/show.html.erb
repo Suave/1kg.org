@@ -7,7 +7,7 @@
          </style>
 <% end %>
 
-<% @page_title = "#{@user.login}的个人空间" -%>
+<% @page_title = @title = "#{@user.login}的个人空间" -%>
 
 <% content_for :crumb do -%>
 <li>用户</li>
@@ -17,9 +17,25 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+  <% if logged_in? -%>
+      <div id="admins"><%= "你是管理员，" if current_user.admin? -%>
+      <%= "#{@user.login}是你的友邻，" if current_user.neighbors.include?(@user)%>
+      <%= @user == current_user ?  "这是你自己的空间。" :"你可以对#{@user.login}使用以下功能："   -%><br/>      
+        <% unless @user == current_user -%>
+       <%= link_to "发站内信", new_user_sent_url(@user) ,:class => "adminbutton"%>
+        <% if @user.neighbor_addable_by?(current_user) -%>
+          <%= link_to "加为友邻", user_neighbors_url(@user, :my => current_user), :method => :post ,:class => "adminbutton"%>
+        <% elsif @user.neighbor_removeable_by?(current_user) -%>
+          <%= link_to "取消友邻", user_neighbor_url(@user, current_user), :confirm => "确定取消和#{@user.login}的友邻关系吗？", :method => :delete,:class => "adminbutton" %></span>
+        <% end -%>
+        <%= link_to '封锁用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？',:class => "adminbutton" if current_user.admin?%>
+      <% end -%>      
+      </div>
+
+  <%end%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
   
-  <%if @envoys.size > 0%>
+  <%unless @envoys.empty?%>
   <div class="school_frame">
     <span class="span_title2">管理的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></span>
     <div class="clearfix" style="height:10px"></div>
@@ -36,15 +52,15 @@
         <div class="clearfix" style="height:10px"></div>
         <div class="contents">
           <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
-          <div class="clearfix"></div>
         </div>
   </div>
   <%end%>
+  <div class="clearfix" style="height:10px;clear:both"></div>
   
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3><%= h @user.login %>的公益贺卡</h3>
+  <%unless @stuffs.empty?%>
+  <div class="newbox">
+        <span class="span_title"><%= h @user.login %>的公益贺卡</span>
+        <div class="clearfix" style="height:5px;clear:both"></div>
         <div class="contents">
           <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
           <table>
@@ -54,43 +70,26 @@
             <% end -%>
           </table>
         </div>
-      </div>
-    </div>
   </div>
-  
-  
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3><%= h @user.login %>的友邻</h3>
+  <%end%>
+  <div class="clearfix" style="height:10px;clear:both"></div>
+  <div class="newbox">
+        <span class="span_title2"><%= h @user.login %>的友邻</span> <%= link_to "查看全部", friends_user_url(@user) %>
+        <div class="clearfix" style="height:12px"></div>
         <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
-        <p class="remark">&raquo; <%= link_to "#{@user.login}的全部友邻(#{@user.neighbors.count})", neighbors_user_url(@user) %></p>
-      </div>
-    </div>
+        
   </div>
   <%= render :partial => "groups", :locals => {:user => @user, :groups => @groups } %>
 
 <% end -%>
 
-
-<h2 class="title"><%= h @user.login %></h2>
-
-<% if logged_in? && current_user.school_moderator? %>
-<div class="moderators tipText"><strong>
-  [ <%= link_to '封锁此用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？' %> ]
-</strong></div>
-<% end %>
-
-<% if @user == current_user -%>
-<div class="moderators tipText"><strong>
-  [ <%= link_to "写分享", new_share_url %> | <%= link_to "发起活动", new_activity_url %> | <%= link_to "提交新学校", new_school_url %> ]
-</strong></div>
-<% end -%>
-
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "shares", :object => @shares, :locals => {:user => @user} %>
+
 <script type="text/javascript">
-  jQuery("#tabs").tabs();
+  $(document).ready(function(){
+      jQuery("#topics_tabs").tabs();
+      jQuery("#activity_tabs").tabs();
+  });
 </script>
-<%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>

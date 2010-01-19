@@ -46,7 +46,6 @@ class Share < ActiveRecord::Base
   
   named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
                               :limit => 8,
-                              :select => "id, user_id, title, hits, comments_count, created_at,body_html",
                               :include => [:user, :tags]
 
   

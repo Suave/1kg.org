@@ -1,33 +1,30 @@
 <% profile = user.profile -%>
 <div class="newbox" id="uti">
       
-      <div class="record">
+      <div>
 	<div style="float:left" style="margin-top:4px">
 	  <%= avatar_for(user, "large") %>
 	</div>
 	<div style="margin-left:56px;">
 	  <p style="margin:0">用户: <%= link_to user.login, user_url(user) %><br/>
 	  住在： <% if user.geo -%><%= link_to user.geo.name, geo_url(user.geo) %><% else -%>未知<% end -%>
-	  <br/><% if profile -%>博客：<%= link_to profile.blog_url, profile.blog_url unless profile.blog_url.blank? %><% end -%>
-	  </p>
+	  <br/><% if profile -%>博客: <%= link_to profile.blog_url, profile.blog_url,:target => "_blank" unless profile.nil? || profile.blog_url.blank? %></p><% end -%>
 	</div>
-      </div>
-      <% if profile &&current_user&&current_user.school_moderator? -%>
-	  <%= profile.bio_html %>
-      <%end%>
-      <div clear="clearfix" style="clear:both;height:10px"></div>
-      <p class="remark" style="text-align:right">
-  	  <% unless @user == current_user -%>
-        &raquo; <%= link_to "给#{@user.login}发站内消息", new_user_sent_url(@user) %>
-        
-        <% if @user.neighbor_addable_by?(current_user) -%>
-          <br />&raquo; <%= link_to "加#{@user.login}为友邻", user_neighbors_url(@user, :my => current_user), :method => :post %>
-        <% elsif @user.neighbor_removeable_by?(current_user) -%>
-          <br /><span class="tipText">&raquo; <%= @user.login %>是我的友邻 (<%= link_to "删掉", user_neighbor_url(@user, current_user), :confirm => "确定删掉?", :method => :delete %>)</span>
-        <% end -%>
-      <% else -%>
-        <span class="tipText">&raquo; 我在看自己的空间</span>
-      <% end -%>
-      </p>
-       
+	<% if profile %>
+	<div style="margin-top: 10px;margin-left:60px">
+    <%= link_to image_tag('/images/icon/qq.gif'), "http://user.qzone.qq.com/#{profile.qq}", :target => '_blank' unless profile.qq.blank? %>
+    <%= link_to image_tag('/images/icon/messenger.gif'), "msnim:chat?contact=#{profile.msn}" unless profile.msn.blank? %>
+    <%= link_to image_tag('/images/icon/skype.gif'), "skype:#{profile.skype}?call" unless profile.skype.blank? %>
+    <%= link_to image_tag('/images/icon/douban.gif'), profile.douban_url, :target => '_blank' unless profile.douban.blank? %>
+    <%= link_to image_tag('/images/icon/kaixin001.gif'), profile.kaixin001_url, :target => '_blank' unless profile.kaixin001.blank? %>
+    <%= link_to image_tag('/images/icon/renren.gif'), profile.renren_url, :target => '_blank' unless profile.renren.blank? %>
+    <%= link_to image_tag('/images/icon/twitter.gif'), profile.twitter_url, :target => '_blank' unless profile.twitter.blank? %>
+	</div>
+	<% end %>
+</div>
+<div clear="clearfix" style="clear:both;"></div>
+  <% if profile &&current_user&&current_user.school_moderator? -%>
+    <%= profile.bio_html %>
+  <%end%>
+  <div clear="clearfix" style="clear:both;height:10px"></div>
 </div>

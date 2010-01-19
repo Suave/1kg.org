@@ -233,13 +233,15 @@ module ApplicationHelper
   end
   
   def plain_text(text,replacement="")
-    text = text.gsub(/<[^>]*>/){|html| replacement}
-    text = text.gsub("&nbsp;","");
-    text = text.gsub("\r\n","");
+    text.gsub!(/<[^>]*>/, '')
+    text.gsub!("&nbsp;","");
+    text.gsub!("\r\n","");
+    text
   end
   
   def summary(article,number)
-    html = plain_text(article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(0..number).to_s.lstrip
+    html = article.clean_html || article.body_html
+    plain_text(html).mb_chars.slice(0..number).to_s.lstrip
   end
   
   def html_summary(article,start,close)
@@ -248,23 +250,92 @@ module ApplicationHelper
 
   def photo_meta(photo, current_user)
     photo.user_id = 1 if photo.user.nil?
-    school = photo.school
-    activity = photo.activity
+    school = photo.school unless photo.school_id.nil?
+    activity = photo.activity unless photo.activity_id.nil?
     
     html = content_tag(:p) do
       meta = link_to(photo.user.login, user_url(photo.user)) + '上传于' + photo.created_at.to_date.to_s + ' '
-      meta += link_to(" 删除", photo_url(photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？") if photo.edited_by(current_user)
       meta
     end
 
     html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
+    html += "<p>来自活动 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
     if current_user && school && school.edited_by(current_user)
       html += "<p> #{link_to '设置为学校主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
     elsif current_user && activity && activity.edited_by(current_user)
       html += "<p> #{link_to '设置为活动主题图', setphoto_activity_url(photo.activity)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.activity.blank?
     end
-    html += "<p>来自活动 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
     html += "<p>#{h(photo.description)}</p>"
     html
- end
+  end
+  
+  def envoy_badge(user)
+    "<img src='/images/badge.gif' title='#{user.login}是学校大使' class='envoy_badge'/>" if user.envoy?
+  end
+  
+  def upload_script_for(id, container, url)
+    javascript_tag(%(
+      var swfu;
+      jQuery(document).ready(function () {
+        swfu = new SWFUpload({
+          // Backend Settings
+          upload_url: "#{url}",
+
+          // File Upload Settings
+          file_size_limit : "2 MB", // 2MB
+          file_types : "*.jpg; *.JPG; *.jpeg; *.JPEG; *.PNG; *.png; *.GIF; *.gif",
+          file_types_description : "所有图片文件",
+          file_upload_limit : "0",
+          file_queue_limit: 0,
+          post_params: {
+            authenticity_token: "#{u(form_authenticity_token)}"
+          },
+
+          // Event Handler Settings - these functions as defined in Handlers.js
+          //  The handlers are not part of SWFUpload but are part of my website and control how
+          //  my website reacts to the SWFUpload events.
+          file_queue_error_handler : fileQueueError,
+          file_dialog_complete_handler : fileDialogComplete,
+          upload_progress_handler : uploadProgress,
+          upload_error_handler : uploadError,
+          upload_success_handler : uploadSuccess,
+          upload_complete_handler : uploadComplete,
+
+          // Button Settings
+          button_image_url : "/images/buttonlink.gif",
+          button_placeholder_id : "#{id}",
+          button_width: 64,
+          button_height: 21,
+          button_text : '<a><font color="#ffffff">上传照片</font></a>',
+          button_text_top_padding: 0,
+          button_text_left_padding: 6,
+          button_window_mode: SWFUpload.WINDOW_MODE.WINDOW,
+          button_cursor: SWFUpload.CURSOR.HAND,
+
+          // Flash Settings
+          flash_url : "/swfs/swfupload.swf",
+
+          custom_settings : {
+            upload_target : "#{container}"
+          },
+
+          // Debug Settings
+          debug: false
+        });
+      });
+    ))
+  end
+  
+  def upload_button(container, url)
+    html = upload_script_for("upload", container, url)
+    html += content_tag(:span, :id => "upload") do
+      "上传照片"
+    end
+    html
+  end
+  
+  def photo_upload_path_with_session(category,id)
+    session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
+    photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
+  end
 end

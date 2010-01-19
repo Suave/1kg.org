@@ -1,0 +1,22 @@
+<% @page_title = @user.login + " 的友邻"-%>
+
+<% content_for :crumb do -%>
+    <li><%= link_to @user.login, user_url(@user) %></li>
+    <ul>
+      <li><%= "#{@user.login}友邻" %></li>
+    </ul>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到#{@user.login}的空间",user_url(@user)%></span>
+<% end %>
+
+<div class="newbox">
+      <span class="span_title"><%= h @user.login %>的友邻 </span>
+      <div class="clearfix" style="height:10px"></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
+      <%= customize_paginate @neighbors %>
+        
+</div>

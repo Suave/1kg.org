@@ -1,0 +1,53 @@
+<% @page_title = "申请学校大使" %> 
+
+<% content_for :crumb do -%>
+  <ul>
+    <li>申请学校大使</li>
+  </ul>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <% @page = Page.find_by_slug('school-moderator-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">学校大使说明</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<%end%>
+
+<div class="newbox">
+      <span class="span_title">申请学校</span>
+      <div class="clearfix" style="margin-bottom:10px">
+      <%= render :partial => "/shared/school",:object => @school%></div>
+      
+      <% visited = Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})%>
+      <% if visited.nil?%>
+        <% form_for :visited, :url => visited_school_url(@school) + "?callback=apply", :html => {:method => 'put',:id=>"visited_date"} do |f| -%>
+        <p><strong>只有去过学校的人才能申请学校大使。</strong></p>
+        <p><strong><label for="visited_visited_at">如果你去过这所学校，请填写具体的日期:</label></strong> <input id="visited_visited_at" name="visited[visited_at]" type="text" value="" class="vDateField" />（最近的一次即可）</p>
+        <p class="date_submit"><%= submit_tag "确定"%> 或 <%= link_to "取消", school_url(@school) %></p>
+        <script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
+        <% end -%>
+      <%else%>
+      <p> 你在 <%=visited.visited_at.to_date %> 去过这所学校 </p>
+      <div class="contents">
+        <span class="span_title">申请信</span>
+        <% form_for :message, :url => {:controller => "schools", :action => "sent_apply"} do |form| %>
+          <p>
+          <strong><%= form.label :subject, "主题:" -%></strong>
+          <%= form.text_field :subject, :size => 40 ,:value => "申请成为 #{@school.title} 的学校大使"-%> <%= error_message_on @message, :subject %>
+          </p>
+          <p>
+          <strong><%= form.label :content, "内容:" -%></strong><%= error_message_on @message, :content %>
+          <br />
+          <%= form.text_area :content, :cols => 80,:value => "申请人姓名：\r\r联系方式(qq/msn/电话):\r\r申请加入学校大使的原因："%>
+          </p>
+          <p><%=submit_tag "写好了，发出去" -%> 或 <%= link_to "取消", school_url(@school) %></p>
+        <% end %>
+        
+      </div>
+    <%end%>
+</div>
+

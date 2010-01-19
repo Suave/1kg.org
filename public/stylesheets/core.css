@@ -248,6 +248,12 @@ body.ad-column-180 #content-secondary {
   padding: 20px 20px 10px;
 }
 
+.newbox h3 {
+  color: #000e00;
+  font: bold 1.3em Arial, Helvetica, sans-serif;
+  padding: 20px 0px 10px;
+}
+
 #content-secondary .box h3 {
   padding: 20px 15px 10px;
 }
@@ -290,7 +296,7 @@ body.ad-column-180 #content-secondary {
 #what_time{position:absolute;top:68px;right:330px;}
 #visit_date input{width:100px;}
 
-.box p.remark {
+.box p.remark, .newbox p.remark {
   margin: 0;
   padding: 0 20px 15px;
   text-align: right;
@@ -1168,18 +1174,22 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
 
-.activity_list{margin:0 5px 6px 0;float:left;-margin:0 0 5px}
+.activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
-#content-secondary .activity_list_meta{width:192px;}
 
-#activity_tabs li{float:left;margin:6px 8px 0 0;padding:0 1px 3px}
-#activity_tabs .ui-tabs-selected{background:url("/images/selected.gif")}
-#activity_tabs .ui-tabs-selected a{color:#E98523;}
+.tabs_more{float:left;margin:6px 3px 0 0;padding:0 8px 0 0;}
+ .ui-tabs-selected a{color:#E98523}
 .activity_more {text-align:right;padding:0 20px}
+
+.remark{margin:0}
+.remark a{color:#666}
+.remark a:hover{color:#E98523}
+
+.topic {margin:0 5px 6px 0;float:left;-margin:0 0 5px;width:310px;height:70px;overflow:hidden}
 
 .photo_frame{float:left;height:80px;width:120px;margin:0 0 5px 5px;text-align:center}
 .photo{height:80px;}
@@ -1209,6 +1219,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
 
+.envoy_badge{position:relative;top:2px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
 .progressWrapper {
@@ -1310,5 +1321,6 @@ a.progressCancel:hover {
 
 /* -- SWFUpload Object Styles ------------------------------- */
 .swfupload {
-	vertical-align: top;
+	cursor:pointer;position:relative;top:5px
 }
+

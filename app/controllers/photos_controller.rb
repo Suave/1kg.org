@@ -24,7 +24,6 @@ class PhotosController < ApplicationController
   
   def gallery
     @photo = Photo.find(params[:id])
-    
     render :partial => '/schools/gallery_photo', :object => @photo, :layout => false
   end
   
@@ -36,13 +35,19 @@ class PhotosController < ApplicationController
   end
   
   def destroy
-    @photo = current_user.photos.find(params[:id])
-    @photo.destroy
-    flash[:notice] = "照片已经删除"
-    if @photo.school.blank?
-      redirect_to user_url(@photo.user_id)
+    @photo = Photo.find(params[:id])
+    if @photo.editable_by?(current_user)
+      @photo.destroy
+      flash[:notice] = "照片已经删除"
+      if !@photo.school_id.blank?
+        redirect_to school_url(@photo.school_id)
+      elsif !@photo.activity_id.blank?
+        redirect_to activity_url(@photo.activity_id)
+      else
+        redirect_to user_url(@photo.user_id)
+      end
     else
-      redirect_to school_url(@photo.school_id)
+      render_404
     end
   end
   

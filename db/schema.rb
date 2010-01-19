@@ -200,6 +200,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "gender",     :limit => 1
     t.date    "birth"
     t.string  "phone"
+    
+    t.string   "twitter"
+    t.string   "kaixin001"
+    t.string   "renren"
+    t.string   "douban"
+    t.string   "qq"
+    t.string   "msn"
+    t.string   "skype"
+    
     t.integer "privacy",    :limit => 1
   end
 
