@@ -27,15 +27,15 @@ class Profile < ActiveRecord::Base
   end
   
   def kaixin001_url
-    self.kaixin001.include?('http') ? self.kaixin001 : "http://www.kaixin001.com/home/?uid=#{profile.kaixin001}"
+    self.kaixin001.include?('http') ? self.kaixin001 : "http://www.kaixin001.com/home/?uid=#{self.kaixin001}"
   end
   
   def renren_url
-    self.renren.include?('http') ? self.renren : "http://renren.com/profile.do?id=#{profile.renren}"
+    self.renren.include?('http') ? self.renren : "http://renren.com/profile.do?id=#{self.renren}"
   end
   
   def twitter_url
-    self.twitter.include?('http') ? self.twitter : "http://www.twitter.com/#{profile.twitter}"
+    self.twitter.include?('http') ? self.twitter : "http://www.twitter.com/#{self.twitter}"
   end
   
   private
