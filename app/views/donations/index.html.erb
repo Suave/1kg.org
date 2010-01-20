@@ -1,0 +1,9 @@
+<div class="boxouter">
+  <h3>学校列表</h3>
+  <div class="boxinter">
+  <% unless @requirements.blank? -%>
+    <%= render :partial => "/shared/requirements", :object => @requirements %>
+  <% end -%>
+  </div>
+  <p style="text-align:right"><%= link_to "我要参与", '#', :target => "_blank",:class => "buttonlink" %></p>  
+</div>

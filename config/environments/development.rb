@@ -24,3 +24,5 @@ config.after_initialize do
   Bullet.rails_logger = true
   Bullet.disable_browser_cache = true
 end
+
+Paperclip.options[:command_path] = "/opt/local/bin"

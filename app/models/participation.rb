@@ -8,6 +8,17 @@
 #  created_at  :datetime
 #
 
+# == Schema Information
+#
+# Table name: participations
+#
+#  id          :integer(4)      not null, primary key
+#  user_id     :integer(4)
+#  activity_id :integer(4)
+#  created_at  :datetime
+#
+
+
 class Participation < ActiveRecord::Base
   belongs_to :activity, :counter_cache => true
   belongs_to :user

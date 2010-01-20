@@ -1,0 +1,25 @@
+<% @page_title = "公益商城" %>
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/mall.css" media="screen, projection" />
+<% end -%>
+
+<% content_for :crumb do -%>
+<li>公益商城</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="AreaL">
+  <div class="AreaL">
+    <%= render :partial => "category" %>
+  </div>
+</div>
+  
+<div class="AreaR">
+  <%= render :partial => "detail" %>
+  <%= @good.body %>
+</div>
+
+<%= render :partial => "footer" %>
+
+<% end -%>
