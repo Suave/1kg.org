@@ -15,7 +15,7 @@
     <td><%= h r.requirement_type.title %></td>
     <td><%= h r.quantity %></td>
     <td><%= h r.matched_count %></td>
-    <td>
+    <td><%= link_to '查看爱心留言', requirement_path(r) %>
     </td>
   </tr>
   <% end -%>
