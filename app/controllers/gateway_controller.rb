@@ -40,7 +40,7 @@ class GatewayController < ApplicationController
                              :deal_id => Time.now.to_i)
 
           @donation.save!
-          redirect_to "http://www.1kg.org/donations/new?code=#{@donation.code}"
+          redirect_to "http://dev.1kg.org/donations/new?code=#{@donation.code}"
           #Mailer.deliver_donation(params[:buyerName], params[:buyerEmail], @donation_url)
         end
       else
