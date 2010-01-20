@@ -1,5 +1,5 @@
 <% if @stuff -%>
-  <div class="avatar"><%= postcard_avatar_for stuff.user, "large" %></div>
+  <div class="avatar"><%= postcard_avatar_for stuff.user, "large" if stuff && stuff.user %></div>
   <div class="content">
     <p class="meta">
       <%= link_to stuff.user.login, user_url(stuff.user) %> 写于 <%= stuff.matched_at.to_date %>

@@ -1,4 +1,4 @@
-<% if @stuff -%>
+<% if @stuff && @stuff.user -%>
   <div class="avatar"><%= mooncake_avatar_for stuff.user, "large" %></div>
   <div class="content">
     <p class="meta">

@@ -7,10 +7,10 @@ class Minisite::Postcard::DashboardController < ApplicationController
     @board = PublicBoard.find_by_slug("postcard").board
     @topics = @board.topics.find(:all, :order => "sticky desc, last_replied_at desc", :limit => 10)
     
-    postcard = StuffType.find_by_slug("postcard")
+    postcard = RequirementType.find_by_slug("postcard")
     
-    @for_public_bucks = postcard.bucks.for_public_donations.find :all, :include => [:school]
-    @for_team_bucks   = postcard.bucks.for_team_donations.find :all, :include => [:school]
+    @for_public_bucks = postcard.requirements.for_public_donations.find :all, :include => [:school]
+    @for_team_bucks   = postcard.requirements.for_team_donations.find :all, :include => [:school]
     
     school_ids = (@for_public_bucks.collect {|b| b.school.id} + @for_team_bucks.collect {|b| b.school.id}).uniq
     
@@ -18,7 +18,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
 
     @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids], :limit => 10, :order => "created_at desc")
     
-    @stuff = postcard.stuffs.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    @stuff = postcard.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = @stuff.id
   end
   

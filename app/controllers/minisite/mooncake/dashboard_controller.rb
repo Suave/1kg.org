@@ -7,9 +7,9 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def index
     @group = Group.find_by_slug('mooncake')
     @board = @group.discussion.board
-    @bucks = @stuff_type.bucks
+    @bucks = @stuff_type.requirements
     # for love message
-    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and auto_fill = ?", false], :order => "matched_at desc")
+    @stuff = @stuff_type.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
     session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
     render :action => "new"
   end
@@ -116,12 +116,12 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   end
   
   def find_stuff_type
-    @stuff_type = StuffType.find_by_slug("mooncake")
+    @stuff_type = RequirementType.find_by_slug("mooncake")
   end
   
   def update_stuff
     @stuff.user = self.current_user
-    @stuff.school = @stuff.buck.school
+    @stuff.school = @stuff.requirement.school
     @stuff.matched_at = Time.now
     @stuff.comment = params[:comment]
     Donation.transaction do 
