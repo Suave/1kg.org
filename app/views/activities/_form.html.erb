@@ -8,13 +8,13 @@ schools = current_user.visited_schools
       <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
     <% end -%>
   </select>
-　  <label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:180px" %> <%= error_message_on @activity, :title %>
+　  <label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:150px" %> <%= error_message_on @activity, :title %>
 <label style="margin-left:20px">活动时间<span class="require">*</span></label>
   <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
   <%= error_message_on @activity, :start_at %>
    至<span class="require">*</span>  </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
   <label style="margin-left:20px">报名截止</label><input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
-  <div style="float:right;margin-right:50px"><%= error_message_on @activity, :time %> <span class="gary_span">注：从活动开始到结束的时间不能超过三个月 </span></div>
+  <div style="float:right;margin-right:60px;-margin-right:30px"><%= error_message_on @activity, :time %> <span class="gary_span">注：从活动开始到结束的时间不能超过三个月 </span></div>
 </p>
 <input style="display:none" type="text" name="activity[location]" value=""/>
 
