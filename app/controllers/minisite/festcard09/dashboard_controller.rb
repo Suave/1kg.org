@@ -35,10 +35,10 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   
   def comment    
     @stuff = @stuff_type.stuffs.find_by_code params[:token]
+    @bucks = @stuff_type.bucks.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
     
     if params[:buck].blank?
       flash[:notice] = "请选择一所学校"
-      @bucks = @stuff_type.bucks.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
       render :action => "write_comment"
       return
     end
