@@ -37,7 +37,7 @@
     <div class="h2bar">
     <h2>进度</h2>
     </div>
-      <% @bucks.each do |b| -%>
+      <% @requirements.each do |b| -%>
       <img src="/images/mooncake/progress10.jpg" alt="progress" /> 
       <span style="float:right; margin-top:-10px;">完成度
       <span style="font-family:'times new roman',serif;font-size:24px;">100<%#= Float(b.matched_count*100)/b.quantity -%></span>
@@ -56,7 +56,7 @@
     </div>
         <ol class="contents clearfix">
           <li id="message">
-            <%= render :partial => "message", :locals => {:stuff => @stuff} %>
+            <%= render :partial => "message", :locals => {:donation => @donation} %>
           </li>
         </ol>
         <%= periodically_call_remote :url => minisite_mooncake_love_message_url, 

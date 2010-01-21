@@ -3,26 +3,26 @@
 class Minisite::Mooncake::DashboardController < ApplicationController
   include StuffUtil
   before_filter :login_required, :except => [:index, :password, :comment, :love_message, :donors, :messages]
-  before_filter :find_stuff_type, :only => [:index, :password, :comment, :love_message, :messages]
+  before_filter :find_requirement_type, :only => [:index, :password, :comment, :love_message, :messages]
   def index
     @group = Group.find_by_slug('mooncake')
     @board = @group.discussion.board
-    @bucks = @stuff_type.requirements
+    @requirements = @requirement_type.requirements
     # for love message
-    @stuff = @stuff_type.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
-    session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
+    @donation = @requirement_type.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    session[:random_donation] = (@donation.nil? ? nil : @donation.id)
     render :action => "new"
   end
   
   def love_message
         
-    unless session[:random_stuff].nil?
-      @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and id < ? and auto_fill = ?", session[:random_stuff].to_i, false], :order => "id desc")
+    unless session[:random_donation].nil?
+      @donation = @requirement_type.donations.find(:first, :conditions => ["matched_at is not null and id < ? and auto_fill = ?", session[:random_donation].to_i, false], :order => "id desc")
     end
     
-    @stuff = @stuff_type.stuffs.find(:first, :conditions => ["matched_at is not null and auto_fill = ?", false], :order => "matched_at desc" ) if @stuff.nil?
+    @donation = @requirement_type.donations.find(:first, :conditions => ["matched_at is not null and auto_fill = ?", false], :order => "matched_at desc" ) if @donation.nil?
     
-    session[:random_stuff] = (@stuff.nil? ? nil : @stuff.id)
+    session[:random_donation] = (@donation.nil? ? nil : @donation.id)
     
   end
   
@@ -30,13 +30,13 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   def password
     return set_message_and_redirect_to_index("请输入爱心密码, 点击提交按钮") if params[:password].blank?
     
-    @stuff = @stuff_type.stuffs.find_by_code(params[:password])
+    @donation = @requirement_type.donations.find_by_code(params[:password])
     
-    if @stuff.blank?
+    if @donation.blank?
       return set_message_and_redirect_to_index("您的密码不正确")
-    elsif @stuff.matched?
-      if @stuff.auto_fill?
-        return set_message_and_redirect_to_index("您的密码已过期，系统自动匹配给#{@stuff.buck.school.title}学校")
+    elsif @donation.matched?
+      if @donation.auto_fill?
+        return set_message_and_redirect_to_index("您的密码已过期，系统自动匹配给#{@donation.requirement.school.title}学校")
       else
         return set_message_and_redirect_to_index("您的密码已配过对了")
       end
@@ -55,16 +55,16 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   end
   
   def comment
-    @stuff = @stuff_type.stuffs.find_by_code params[:token]
+    @donation = @requirement_type.donations.find_by_code params[:token]
     if logged_in?
       # logged in
-      update_stuff
+      update_donation
       
     elsif params[:status] == 'login'
       # login
       self.current_user = User.authenticate(params[:login_email], params[:login_password])
       if logged_in?
-        update_stuff
+        update_donation
       else
         flash[:notice] = "邮件地址或密码错误"
         render :action => "write_comment"
@@ -83,7 +83,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
         
         self.current_user = @user
                 
-        update_stuff
+        update_donation
       else
         flash[:notice] = @user.errors[:email]
         render :action => 'write_comment'
@@ -96,7 +96,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   end
   
   def messages
-    @stuffs = @stuff_type.stuffs.paginate :page => params[:page] || 1, 
+    @donations = @requirement_type.donations.paginate :page => params[:page] || 1, 
                                           :conditions => ["comment is not null"], 
                                           :order => "matched_at desc",
                                           :per_page => 30
@@ -104,7 +104,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   
   def donors
     @school = School.find(params[:id])
-    @stuffs = Donation.paginate :page => params[:page] || 1,
+    @donations = Donation.paginate :page => params[:page] || 1,
                              :conditions => ["school_id = ?", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30
@@ -115,18 +115,18 @@ class Minisite::Mooncake::DashboardController < ApplicationController
     minisite_mooncake_index_url
   end
   
-  def find_stuff_type
-    @stuff_type = RequirementType.find_by_slug("mooncake")
+  def find_requirement_type
+    @requirement_type = RequirementType.find_by_slug("mooncake")
   end
   
-  def update_stuff
-    @stuff.user = self.current_user
-    @stuff.school = @stuff.requirement.school
-    @stuff.matched_at = Time.now
-    @stuff.comment = params[:comment]
+  def update_donation
+    @donation.user = self.current_user
+    @donation.school = @donation.requirement.school
+    @donation.matched_at = Time.now
+    @donation.comment = params[:comment]
     Donation.transaction do 
-      @stuff.save!
-      @stuff.buck.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=? and buck_id=?", @stuff.school, @stuff.buck.id]))
+      @donation.save!
+      @donation.requirement.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=? and buck_id=?", @donation.school, @donation.requirement.id]))
     end
     
     if params[:join] == "1"

@@ -14,14 +14,35 @@
 
 <% content_for :sidebar do -%>
   <%= render :partial => "profile", :locals => {:user => @user} %>
-  <div class="box">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3><%= h @user.login %>的公益贺卡</h3>
+
+  <%unless @envoys.empty?%>
+  <div class="school_frame">
+    <span class="span_title2">管理的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></span>
+    <div class="clearfix" style="height:10px"></div>
+    <div class="contents">
+    <%= render :partial => "/shared/school", :collection => @envoys %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <%end%>
+  
+  <% unless @visiteds.blank? %>
+  <div class="school_frame">
+        <span class="span_title2">去过/要去/关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></span>
+        <div class="clearfix" style="height:10px"></div>
         <div class="contents">
-          <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
+          <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
+        </div>
+  </div>
+  <%end%>
+  <div class="clearfix" style="height:10px;clear:both"></div>
+  <%unless @donations.empty?%>
+  <div class="newbox">
+        <span class="span_title"><%= h @user.login %>的公益贺卡</span>
+        <div class="contents">
+          <p><strong>买过<%= @donations.count %>张，分别捐给：</strong></p>
           <table>
-            <% @stuffs.each do |s| -%>
+            <% @donations.each do |s| -%>
             <% next if s.school.nil? %>
             <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
             <% end -%>
@@ -63,6 +84,3 @@
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "schools", :locals => {:user => @user, :schools => @schools} %>
-
-
-

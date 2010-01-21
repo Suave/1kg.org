@@ -442,6 +442,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "matched_at"
     t.text     "comment_html"
     t.text     "comment"
+    
+    t.boolean  "auto_fill"
   end
 
   create_table "taggings", :force => true do |t|

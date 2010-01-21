@@ -180,12 +180,12 @@ class UsersController < ApplicationController
   def show
     get_user_record(@user)
     # postcard
-    @stuffs = @user.stuffs
-    @shares = @user.shares.find(:all, :order => "id desc", :select => "title, hits, comments_count, created_at, id")
-    @guides = @user.guides
-    @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1})
-    @submitted_topics = @user.topics.paginate(:page => 1, :per_page => 5)
-    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 5)
+    @donations = @user.donations
+    @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
+    @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
+    @envoys = @user.envoy_schools(4)
+    @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
+    @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
   end
   
   def shares

@@ -130,8 +130,9 @@ class User < ActiveRecord::Base
                            :source => :group, 
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs, :dependent => :destroy 
-  has_many :votes, :dependent => :destroy 
+  has_many :donations, :dependent => :destroy
+  has_many :votes, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
   
   before_save :encrypt_password
   

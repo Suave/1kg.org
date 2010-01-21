@@ -15,7 +15,7 @@
           <tr>
             <th>Slug</th>
             <th>名字</th>
-            <th>申请学校(bucks)</th>
+            <th>申请学校(需求)</th>
             <th>单价</th>
             <th>Actions</th>
           </tr>
@@ -28,7 +28,7 @@
             <td>
               <%= link_to "detail", admin_requirement_type_requirements_url(t) %> |
               <%= link_to "edit", edit_admin_requirement_type_url(t) %> |
-              <%= link_to "delete", admin_requirement_type_url(t), :method => :delete, :confirm => "会一起删除所有bucks, 且不能恢复, 确定么?" %></td>
+              <%= link_to "delete", admin_requirement_type_url(t), :method => :delete, :confirm => "会一起删除所有需求, 且不能恢复, 确定么?" %></td>
           </tr>
           <% end -%>
         </table>

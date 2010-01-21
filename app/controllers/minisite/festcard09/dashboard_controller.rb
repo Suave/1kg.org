@@ -1,8 +1,12 @@
 class Minisite::Festcard09::DashboardController < ApplicationController
+  include StuffUtil
+  before_filter :find_requirement_type, :only => [:index, :password, :comment, :love_message, :messages]
+  
   def index
     @group = Group.find_by_slug('postcard')
     @board = @group.discussion.board
-    @for_team_bucks   = @stuff_type.requirements.for_team_donations.find :all, :include => [:school]
+    
+    @for_team_bucks   = @requirement_type.requirements.for_team_donations.find :all, :include => [:school]
     render :action => "new"
   end
   
@@ -13,41 +17,41 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   def password
     return set_message_and_redirect_to_index("请输入爱心密码, 点击提交按钮") if params[:password].blank?
 
-    @stuff = @stuff_type.donations.find_by_code(params[:password])
+    @donation = @requirement_type.donations.find_by_code(params[:password])
 
-    if @stuff.blank?
+    if @donation.blank?
       return set_message_and_redirect_to_index("您的密码不正确")
-    elsif @stuff.matched?
-      if @stuff.auto_fill?
-        return set_message_and_redirect_to_index("您的密码已过期，系统自动匹配给#{@stuff.requirement.school.title}学校")
+    elsif @donation.matched?
+      if @donation.auto_fill?
+        return set_message_and_redirect_to_index("您的密码已过期，系统自动匹配给#{@donation.requirement.school.title}学校")
       else
         return set_message_and_redirect_to_index("您的密码已配过对了")
       end
     else
-      @bucks = @stuff_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
+      @requirements = @requirement_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
       render :action => "write_comment"
     end
   end
   
   def comment    
-    @stuff = @stuff_type.donations.find_by_code params[:token]
+    @donation = @requirement_type.donations.find_by_code params[:token]
+    @requirements = @requirement_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
     
-    if params[:buck].blank?
+    if params[:requirement].blank?
       flash[:notice] = "请选择一所学校"
-      @bucks = @stuff_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
       render :action => "write_comment"
       return
     end
     
     if logged_in?
       # logged in
-      update_stuff
+      update_donation
       
     elsif params[:status] == 'login'
       # login
       self.current_user = User.authenticate(params[:login_email], params[:login_password])
       if logged_in?
-        update_stuff
+        update_donation
       else
         flash[:notice] = "邮件地址或密码错误"
         render :action => "write_comment"
@@ -66,7 +70,7 @@ class Minisite::Festcard09::DashboardController < ApplicationController
         
         self.current_user = @user
                 
-        update_stuff
+        update_donation
       else
         flash[:notice] = @user.errors[:email]
         render :action => 'write_comment'
@@ -83,20 +87,20 @@ class Minisite::Festcard09::DashboardController < ApplicationController
     minisite_festcard09_index_url
   end
   
-  def find_stuff_type
-    @stuff_type = RequirementType.find_by_slug("festcard09")
+  def find_requirement_type
+    @requirement_type = RequirementType.find_by_slug("festcard09")
   end
   
-  def update_stuff
-    requirement = Requirement.find params[:buck][:id]
-    @stuff.user = self.current_user
-    @stuff.requirement = requirement
-    @stuff.school = requirement.school
-    @stuff.matched_at = Time.now
-    @stuff.comment = params[:comment]
+  def update_donation
+    requirement = Requirement.find params[:requirement][:id]
+    @donation.user = self.current_user
+    @donation.requirement = requirement
+    @donation.school = requirement.school
+    @donation.matched_at = Time.now
+    @donation.comment = params[:comment]
     Donation.transaction do 
-      @stuff.save!
-      requirement.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=? and buck_id=?", @stuff.school, requirement.id]))
+      @donation.save!
+      requirement.update_attributes!(:matched_count => Donation.count(:all, :conditions => ["school_id=? and buck_id=?", @donation.school, requirement.id]))
     end
     
     if params[:join] == "1"

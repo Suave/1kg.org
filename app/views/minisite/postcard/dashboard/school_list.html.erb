@@ -13,12 +13,12 @@
     <div class="boxInner">
       <h3>一般捐赠区</h3>
       <div class="contents">
-        <%= render :partial => "schools", :locals => {:bucks => @for_public_bucks} %>
+        <%= render :partial => "schools", :locals => {:requirements => @for_public_bucks} %>
       </div>
       <% unless @for_team_bucks.blank? %>
       <h3 style="background:none">团队捐赠区</h3>
       <div class="contents">
-        <%= render :partial => "schools", :locals => {:bucks => @for_team_bucks }  %>
+        <%= render :partial => "schools", :locals => {:requirements => @for_team_bucks }  %>
       </div>
       <% end -%>
     </div>

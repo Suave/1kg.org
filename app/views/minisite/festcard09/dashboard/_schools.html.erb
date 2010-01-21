@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>学校</th>
+    <th style="width:130px;">已捐赠(册)</th>
+  </tr>
+  <% requirements.each do |b| -%>
+  <tr>
+    <td><%= radio_button "requirement", "id", b.id %></td>
+    <td>
+      <%= link_to b.school.title, school_url(b.school), :target => "_blank" %> 有 
+      <% unless b.school.class_amount.blank?%><%= h b.school.class_amount %>个班，<% end -%>
+      <% unless b.school.student_amount.blank?%><%= h b.school.student_amount %>名学生<% end -%>。
+    </td>
+    <td><%= progressbar b.matched_percent, :generate_css => true %> <%= b.matched_count %></td>
+  </tr>
+  <% end -%>
+</table>
