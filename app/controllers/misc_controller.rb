@@ -39,7 +39,6 @@ class MiscController < ApplicationController
   
   
   def public_look
-    @body_class = 'white'
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
     

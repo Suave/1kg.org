@@ -163,7 +163,6 @@ class UsersController < ApplicationController
   end
   
   def show
-    @body_class = 'white'
     get_user_record(@user)
     # postcard
     @stuffs = @user.stuffs
