@@ -37,14 +37,14 @@ class Admin::RequirementsController < Admin::BaseController
   
   def show
     @requirement = Requirement.find(params[:id])
-    @stuffs = @requirement.donations.find :all, :include => [:user, :school]
+    @donations = @requirement.donations.find :all, :include => [:user, :school]
     
     respond_to do |format|
       format.html
       format.csv do
         csv_string = FasterCSV.generate do |csv|
-          @stuffs.each do |stuff|
-            csv << stuff.code
+          @donations.each do |donation|
+            csv << donation.code
           end
         end
         

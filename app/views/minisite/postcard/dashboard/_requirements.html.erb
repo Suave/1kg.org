@@ -4,7 +4,7 @@
     <th style="width:130px">计划捐赠(册)</th>
     <th style="width:170px">已捐赠(册)</th>
   </tr>
-  <% bucks.each do |b| -%>
+  <% requirements.each do |b| -%>
   <tr>
     <td>
       <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>

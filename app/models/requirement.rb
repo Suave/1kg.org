@@ -54,5 +54,5 @@ class Requirement < ActiveRecord::Base
       end
     end
   end
-=end  
+=end
 end
