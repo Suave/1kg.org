@@ -1,6 +1,4 @@
 class DonationsController < ApplicationController
-  layout 'donation'
-  
   def index
     @requirements = RequirementType.exchangable.map(&:requirements).sum
   end
@@ -18,10 +16,10 @@ class DonationsController < ApplicationController
         want.html {render 'new'}
       elsif @donation && @donation.matched_at?
         flash[:notice] = "对不起，您已经完成了匹配"
-        want.html { redirect_to donations_index_path }
+        want.html { redirect_to donations_path }
       else
         flash[:notice] = "对不起，您输入的密码不正确"
-        want.html { redirect_to donations_index_path }
+        want.html { redirect_to donations_path }
       end
     end
   end
