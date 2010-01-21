@@ -1,9 +1,60 @@
-<div class="boxouter">
-  <h3>学校列表</h3>
-  <div class="boxinter">
-  <% unless @requirements.blank? -%>
-    <%= render :partial => "/shared/requirements", :object => @requirements %>
-  <% end -%>
+<% content_for :heads do -%>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/festcard09.css" media="screen, projection" />
+<% end -%>
+
+<% @page_title = "积分献爱，举手之劳！" -%>
+
+<% content_for :crumb do -%>
+<li>积分献爱</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+
+<div style="display:block; clear:both">
+  <a href="/minisite/festcard09/cards" target="_blank"><img src="/images/point/title.png" class="pc-love" /></a>
+  <div class="pc-intro">
+    <div style="text-align:center"><img src="/images/point/logo.png" />
+      <p>此处为积分献爱计划的文字说明，需要安提供</p>
+      <p>步骤一</p>
+      <p>步骤二</p>    
+    </div>
+
+    <p style="margin-top:20px;"><%= image_tag("/images/point/flow.png") %></p>
   </div>
-  <p style="text-align:right"><%= link_to "我要参与", '#', :target => "_blank",:class => "buttonlink" %></p>  
 </div>
+
+<div class="lcolumn">
+  <div class="boxouter">
+    <h3>学校列表</h3>
+    <div class="boxinter">
+    <% unless @requirements.blank? -%>
+      <%= render :partial => "/shared/requirements", :object => @requirements %>
+    <% end -%>
+    </div>
+    <p style="text-align:right"><%= link_to "我要参与", '#', :target => "_blank",:class => "buttonlink" %></p>  
+  </div>
+</div>
+
+<div class="rcolumn">
+  <div class="boxouter">
+    <h3>合作商家</h3>
+    <div class="boxinter">
+      <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
+      <p><img src="/images/mooncake/sitlogo.gif"></p>
+    </div>
+  </div>
+</div>
+<div class="boxouter" style="float:left;width:100%">
+  <h3>积分可兑换物资</h3>
+  <% RequirementType.exchangable.last5.each do |t| %>
+    <div class="boxinter">
+    <dl class="book">
+      <dt><a href="#"><img src="<%= t.image.url(:thumb) %>" width="100" /></a></dt>
+      <dd><a href='#'><%= t.title %></a></dd>
+    </dl>
+    </div>
+  <% end %>
+</div>
+<% end -%>
+
+
