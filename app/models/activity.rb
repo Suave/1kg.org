@@ -74,12 +74,19 @@ class Activity < ActiveRecord::Base
     {:conditions => ["category=?", category]}
   }
 
-  validates_presence_of :title, :message => "活动名称是必填项"
-  validates_presence_of :departure_id, :message => "出发地是必选项"
-  validates_presence_of :arrival_id, :message => "目的地是必选项"
-  validates_presence_of :start_at, :message => "开始时间是必填项"
-  validates_presence_of :end_at, :message => "结束时间是必填项"
+  validates_presence_of :title, :message => "这是必填项"
+  validates_presence_of :departure_id, :message => "这是必选项"
+  validates_presence_of :arrival_id, :message => "这是必选项"
+  validates_presence_of :start_at, :message => "这是必填项"
+  validates_presence_of :end_at, :message => "这是必填项"
   validates_presence_of :description_html, :message => "活动介绍是必填项"
+  
+  def validate
+    unless  (Time.now < start_at)&&(start_at < end_at)&&(end_at < start_at + 3.month )
+      errors.add(:time,"日期填写不正确　")
+    end
+  end
+  
   
   acts_as_paranoid
   

@@ -157,7 +157,6 @@ class UsersController < ApplicationController
   end
   
   def show
-    @body_class = 'white'
     get_user_record(@user)
     # postcard
     @donations = @user.donations
@@ -169,7 +168,7 @@ class UsersController < ApplicationController
   end
   
   def shares
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false]).paginate(:page => 1, :per_page => 6)
+    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
   end
 
 
