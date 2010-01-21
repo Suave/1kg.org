@@ -6,7 +6,7 @@ module BodyFormat
       html.gsub!(/\r/, '<br />')
     end
     
-    html.gsub!(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix) { |url|
+    html.gsub!(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\s/ix) { |url|
       "<a href='#{url}'>#{url}</a>"
     }
     
