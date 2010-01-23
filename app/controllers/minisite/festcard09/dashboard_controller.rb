@@ -36,6 +36,7 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   def comment    
     @donation = @requirement_type.donations.find_by_code params[:token]
     @requirements = @requirement_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
+
     
     if params[:requirement].blank?
       flash[:notice] = "请选择一所学校"
