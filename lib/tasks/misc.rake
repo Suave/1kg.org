@@ -4,7 +4,7 @@ namespace :misc do
     Activity.find(:all,:conditions => {:done => false}).each do |a|
       if a.end_at < (Time.now - 1.day)
         done = true
-        a.update_attribute({:done=>done})
+        a.update_attribute(:done,done)
         $stdout.putc('.')
       end
     end

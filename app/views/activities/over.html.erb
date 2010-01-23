@@ -9,7 +9,7 @@
 <div class="newbox">
       <span class="span_title">所有已经结束的活动</span>
       <div class="contents">
-      <%= render :partial => "shared/activity_over", :collection => @activities%>
+      <%= render :partial => "shared/activity", :collection => @activities%>
       <%= customize_paginate @activities %>
       </div>
 </div>

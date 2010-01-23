@@ -3,15 +3,17 @@ class ActivitiesController < ApplicationController
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
   def index
-    @activities_for_all = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
-    @activities_for_travel = Activity.recent_by_category("公益旅游")
-    @activities_for_donation = Activity.recent_by_category("物资募捐")
-    @activities_for_teach = Activity.recent_by_category("支教")
-    @activities_for_city = Activity.recent_by_category("同城活动")
-    @activities_for_online = Activity.recent_by_category("网上活动")
-    @activities_for_other = Activity.recent_by_category("其他")
-    @activities_for_over = Activity.find(:all,:conditions => "done is true",:limit => 8,:order => "end_at desc", :include => [:main_photo])
-    @photos = Photo.find(:all,:limit => 12,:conditions => ["activity_id is not null"],:order => "created_at desc")
+    @activities_hash = {:all => Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])}
+    @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
+    @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
+    @activities_hash[:teach] = Activity.recent_by_category("支教")
+    @activities_hash[:city] = Activity.recent_by_category("同城活动")
+    @activities_hash[:online] = Activity.recent_by_category("网上活动")
+    @activities_hash[:other] = Activity.recent_by_category("其他")
+    @activities_hash[:over] = Activity.find(:all,:conditions => "done is true",:limit => 8,:order => "end_at desc", :include => [:main_photo])
+    @photo = Photo.find(:all,:limit => 40,:conditions => ["activity_id is not null"],:order => "created_at desc",:select => "activity_id").map{|a| a.activity_id}.uniq[0,5]
+    @photos = Activity.find(:all,:conditions => ["id in (?)",@photo]).map{|a| a.photos.last}
+    
     @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
   end
   
