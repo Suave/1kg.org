@@ -82,7 +82,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :description_html, :message => "活动介绍是必填项"
   
   def validate
-    unless  (Time.now <= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
+    unless  ((Time.now - 1.day)<= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
       errors.add(:time,"日期填写不正确　")
     end
   end
