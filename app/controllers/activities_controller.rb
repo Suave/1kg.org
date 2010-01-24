@@ -46,7 +46,17 @@ class ActivitiesController < ApplicationController
   end
   
   def over
-    find_activities('over')
+    @archives = Activity.archives
+    begin
+    @date = Time.mktime(params[:date][0,4],params[:date][5,2])
+    @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => @date..@date.end_of_month}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+    rescue
+    @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => Time.now.beginning_of_month..1.day.ago}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+    end
   end
 
   
@@ -178,7 +188,7 @@ class ActivitiesController < ApplicationController
   def find_activities(status)
     @activities = Activity.send(status.to_sym).available.paginate(:page => params[:page] || 1,
                                                                   :order => "created_at desc, start_at desc",
-                                                                  :per_page => 20)
+                                                                  :per_page => 10)
   end
   
   def find_activity

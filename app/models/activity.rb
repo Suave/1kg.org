@@ -148,29 +148,6 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def self.years
-    date_func = "extract(year from created_at) as year"
-    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year order by year desc",Time.now])
-    result = counts.map do |entry|
-      {
-        :name => entry.year + "年",
-        :year => entry.year.to_i,
-      }
-    end
-  end
-  
-  
-  def self.months
-    date_func = "extract(month from created_at) as month"
-    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by month order by month desc",Time.now])
-    result = counts.map do |entry|
-      {
-        :name => entry.month + "月",
-        :month => entry.month.to_i,
-      }
-    end
-  end
-  
   def html
     self.clean_html ||= sanitize(self.description_html)
   end
