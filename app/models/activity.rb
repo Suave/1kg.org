@@ -22,6 +22,7 @@
 #  expect_strength  :string(255)
 #  description_html :text
 #  comments_count   :integer(4)      default(0)
+#  shares_count      :integer(4)      default(0)
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
@@ -82,7 +83,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :description_html, :message => "活动介绍是必填项"
   
   def validate
-    unless  (Time.now <= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
+    unless  ((Time.now - 1.day)<= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
       errors.add(:time,"日期填写不正确　")
     end
   end
@@ -132,7 +133,7 @@ class Activity < ActiveRecord::Base
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
-    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year asc,month asc",Time.now])
+    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year desc,month desc",Time.now])
     
     sum = 0
     result = counts.map do |entry|
@@ -145,7 +146,6 @@ class Activity < ActiveRecord::Base
         :sum => sum
       }
     end
-    return result.reverse
   end
   
   def html
