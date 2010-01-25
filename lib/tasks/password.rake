@@ -48,6 +48,15 @@ namespace :password do
     end
   end
   
+  desc "generate festcard09 password for G2 Group"
+  task :festcard_for_g2group => :environment do
+    @stuff_type = StuffType.find_by_slug("festcard09")
+    (1..2000).each do |i|
+      @stuff = @stuff_type.stuffs.build(:code => "G2#{"%04d" % i}") 
+      puts @stuff.code if @stuff.save!
+    end
+  end
+  
   desc "close unsaled postcard's passwords"
   task :close_password => :environment do
     file = File.open("#{RAILS_ROOT}/db/password.csv")
