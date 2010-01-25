@@ -52,7 +52,7 @@ namespace :password do
   task :festcard_for_g2group => :environment do
     @stuff_type = StuffType.find_by_slug("festcard09")
     (1..2000).each do |i|
-      @stuff = @stuff_type.stuffs.build(:code => "G2#{"%04d" % i}") 
+      @stuff = @stuff_type.stuffs.build(:code => "JS#{"%04d" % i}") 
       puts @stuff.code if @stuff.save!
     end
   end
