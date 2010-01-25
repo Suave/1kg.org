@@ -6,14 +6,17 @@
 </ul>
 <% end -%>
 
+<% content_for :sidebar do -%>
+  <div>
+    <% @archives.each do |month|%>
+    <p><%= link_to month[:name],over_activities_url + "?date=#{month[:year]}-#{month[:month]}" %></p>
+    <% end %>
+  </div>
+<%end%>
+
 <div class="newbox">
   <span class="span_title">活动回顾</span>
   <div class="cleanfix" style="height:10px;clear:both"></div>
-  <div>
-    <% @archives.each do |month|%>
-    <%= link_to month[:name],over_activities_url + "?date=#{month[:year]}-#{month[:month]}" %>
-    <%end%>
-  </div>
   <div class="contents">
   <%= render :partial => "shared/activity", :collection => @activities%>
   <div class="cleanfix" style="height:10px;clear:both"></div>
