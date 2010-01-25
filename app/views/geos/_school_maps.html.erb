@@ -19,7 +19,7 @@
         map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
-
+        map.addControl(new GScaleControl());
         var icons = new Array
         icons[0] = new GIcon(G_DEFAULT_ICON);
         icons[0].image = "/images/invalid.png";

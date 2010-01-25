@@ -16,7 +16,7 @@
 <% end -%>
   
 <%= render :partial => '/shared/search_box' %>
-<%= render :partial => "/shared/ad" %>
+
 
 <% @page = Page.find_by_slug('special') -%>
 <%if @page%>
@@ -77,8 +77,6 @@
   jQuery("#activity_tabs").tabs();
 </script>
 </div>
-
-<div class="cleanfix" style="clear:both;height:20px"></div>           
 
 <div class="cleanfix" style="clear:both;height:40px"></div>           
 

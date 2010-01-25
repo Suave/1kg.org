@@ -184,7 +184,7 @@ class SchoolsController < ApplicationController
     @message = current_user.sent_messages.build(params[:message])
     if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
-      moderators = User.moderators_of(@school).map{|m| "<a href='http://www.1kg.org/users/#{m.id}>#{m.login}</a> "}
+      moderators = User.moderators_of(@school).map{|m| "<a href='http://www.1kg.org/users/#{m.id}'>#{m.login}</a> "}
       html = "<br/><br/><br/>
               <span>申请的学校是 <a href='http://www.1kg.org/schools/#{@school.id}' target='_blank'>#{@school.title}</a> </span><br/>
               <span>现有的学校大使是 #{moderators}</span><br/>

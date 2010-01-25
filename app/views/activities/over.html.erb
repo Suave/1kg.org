@@ -1,15 +1,22 @@
-<% @page_title = "所有已经结束的活动" -%>
+<% @page_title = "活动回顾" -%>
 
 <% content_for :crumb do -%>
 <ul>
-  <li>所有已经结束的活动</li>
+  <li>活动回顾</li>
 </ul>
 <% end -%>
 
 <div class="newbox">
-      <span class="span_title">所有已经结束的活动</span>
-      <div class="contents">
-      <%= render :partial => "shared/activity_over", :collection => @activities%>
-      <%= customize_paginate @activities %>
-      </div>
+  <span class="span_title">活动回顾</span>
+  <div class="cleanfix" style="height:10px;clear:both"></div>
+  <div>
+    <% @archives.each do |month|%>
+    <%= link_to month[:name],over_activities_url + "?date=#{month[:year]}-#{month[:month]}" %>
+    <%end%>
+  </div>
+  <div class="contents">
+  <%= render :partial => "shared/activity", :collection => @activities%>
+  <div class="cleanfix" style="height:10px;clear:both"></div>
+  <%= customize_paginate @activities %>
+  </div>
 </div>

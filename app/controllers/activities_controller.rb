@@ -3,31 +3,42 @@ class ActivitiesController < ApplicationController
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
   def index
-    @activities_for_all = Activity.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
-    @activities_for_travel = Activity.recent_by_category("公益旅游")
-    @activities_for_donation = Activity.recent_by_category("物资募捐")
-    @activities_for_teach = Activity.recent_by_category("支教")
-    @activities_for_city = Activity.recent_by_category("同城活动")
-    @activities_for_online = Activity.recent_by_category("网上活动")
-    @activities_for_other = Activity.recent_by_category("其他")
-    @activities_for_over = Activity.find(:all,:conditions => "done is true",:limit => 8,:order => "end_at desc", :include => [:main_photo])
-    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc")
-
+    @activities_hash = {:all => Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])}
+    @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
+    @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
+    @activities_hash[:teach] = Activity.recent_by_category("支教")
+    @activities_hash[:city] = Activity.recent_by_category("同城活动")
+    @activities_hash[:online] = Activity.recent_by_category("网上活动")
+    @activities_hash[:other] = Activity.recent_by_category("其他")
+    @activities_hash[:over] = Activity.find(:all,:conditions => {:end_at => (Time.now - 1.month)..Time.now},:limit => 4,:order => "participations_count desc", :include => [:main_photo])
+    @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
+    @photo = Photo.find(:all,:limit => 40,:conditions => ["activity_id is not null"],:order => "created_at desc",:select => "activity_id").map{|a| a.activity_id}.uniq[0,5]
+    @photos = Activity.find(:all,:conditions => ["id in (?)",@photo]).map{|a| a.photos.last}
+    @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
   end
   
   def category
     @category_hash = {'travel' => 0,'donation' => 1,'teach' => 2,'other' => 3, 'city' => 4, 'online' => 5}
     render_404 if @category_hash[params[:c]].nil?
     @category = @category_hash[params[:c]]
-    @activities = Activity.ongoing.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
+    
+    if params[:over] == "true"
+      array = Activity.over
+      @over = params[:over]
+    else
+      array = Activity.ongoing
+    end
+      @activities = array.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
-                                  :per_page => 20)
+                                :per_page => 14)
+      @most_participations = array.find(:all,:limit => 3,:order => "participations_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
+      @most_comments = array.find(:all,:limit => 3,:order => "comments_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
   end
   
   def with_school
     @activities = Activity.ongoing.find(:all,:conditions => "School_id is not null",:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
-                                  :per_page => 20)
+                                  :per_page => 14)
   end
   
   def ongoing
@@ -35,7 +46,17 @@ class ActivitiesController < ApplicationController
   end
   
   def over
-    find_activities('over')
+    @archives = Activity.archives
+    begin
+    @date = Time.mktime(params[:date][0,4],params[:date][5,2])
+    @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => @date..@date.end_of_month}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+    rescue
+    @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => Time.now.beginning_of_month..1.day.ago}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+    end
   end
 
   
@@ -167,7 +188,7 @@ class ActivitiesController < ApplicationController
   def find_activities(status)
     @activities = Activity.send(status.to_sym).available.paginate(:page => params[:page] || 1,
                                                                   :order => "created_at desc, start_at desc",
-                                                                  :per_page => 20)
+                                                                  :per_page => 10)
   end
   
   def find_activity

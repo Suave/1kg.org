@@ -6,7 +6,6 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <style type="text/css">
-  .activity_list_meta{width:192px;}
   .school_list_meta{width:190px;-width:180px}
   .school_list{width:310px}</style>
 <% end %>
@@ -21,8 +20,6 @@
 
 <% content_for :sidebar do -%>
 
-
-<%= render :partial => "/shared/ad" %>
 
 <div class="newbox">
       <span class="span_title">和学校相关的活动</span>
@@ -114,7 +111,7 @@
       </div>
       
       <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 0 10px 15px">
-      <h3 style="color:#666;font-weight:bold">城市快速搜索</h3>
+      <span style="font-size:12px;color:#666;font-weight:bold">城市快速搜索</span>
         <% form_tag search_geos_url, :method => :get do -%>
           <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>
         <% end -%>

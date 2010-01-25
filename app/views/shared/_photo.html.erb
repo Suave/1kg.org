@@ -3,12 +3,9 @@
         :rel => "prettyPhoto[gallery]"  %>
     </div>
     <div class="photo_meta">
-      <div class="tail"></div>
       <div class="photo_from">
-      <%= photo.title %><br/>
-      <%if photo.school_id%>学校@<%= link_to photo.school.title, school_url(photo.school) %><br/><%end%>
-      <%if photo.activity_id%>活动@<%= link_to photo.activity.title, activity_url(photo.activity)%><br/><%end%>
-      上传@<%= link_to photo.user.login, user_url(photo.user) if photo.user %> 
+      <%if photo.school_id%><%= link_to photo.school.title, school_url(photo.school) %><br/><%end%>
+      <%if photo.activity_id%><%= link_to photo.activity.title, activity_url(photo.activity)%><%end%>
       </div>
     </div>
 </div>
