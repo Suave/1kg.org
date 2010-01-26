@@ -12,8 +12,7 @@ class ActivitiesController < ApplicationController
     @activities_hash[:other] = Activity.recent_by_category("其他")
     @activities_hash[:over] = Activity.find(:all,:conditions => {:end_at => (Time.now - 1.month)..Time.now},:limit => 4,:order => "participations_count desc", :include => [:main_photo])
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
-    @photo = Photo.find(:all,:limit => 40,:conditions => ["activity_id is not null"],:order => "created_at desc",:select => "activity_id").map{|a| a.activity_id}.uniq[0,5]
-    @photos = Activity.find(:all,:conditions => ["id in (?)",@photo]).map{|a| a.photos.last}
+    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc", :group => "activity_id")
     @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
   end
   
