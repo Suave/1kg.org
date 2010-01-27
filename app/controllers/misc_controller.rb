@@ -41,7 +41,6 @@ class MiscController < ApplicationController
   def public_look
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
-    
     @recent_shares = Share.recent_shares
     @hot_cities = Geo.hot_cities
     @hot_groups = Group.most_members
