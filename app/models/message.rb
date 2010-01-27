@@ -52,6 +52,6 @@ class Message < ActiveRecord::Base
 	end
 
 	def format_content
-    self.html_content = sanitize(content, true)
+    self.html_content = sanitize(content, true, false)
 	end
 end
