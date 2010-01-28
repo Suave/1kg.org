@@ -23,8 +23,9 @@
             <%= avatar_for(user, "large") %>
           </div>
           <div style="margin-left:56px;">
-            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %>　<%= link_to "删除大使", manage_school_url(@school, :type => "remove", :user => user), :method => :put %>
-            <% if user.visiteds.find_by_school_id(@school.id)%>
+            <p style="margin:3px 0"><%= link_to user.login, user_url(user) %>
+            <%= link_to "删除大使", manage_school_url(@school, :type => "remove", :user => user), :method => :put if user == current_user||current_user.school_moderator?%>
+            <% if user.visiteds.find_by_school_id(@school.id)&&(user.visiteds.find_by_school_id(@school.id).status == 1)%>
             <% if user.visiteds.find_by_school_id(@school.id).visited_at.nil?%>去过这所学校<%else%><%= "<br/>在 #{user.visiteds.find_by_school_id(@school.id).visited_at.to_date} 去过这所学校" %><%end%><br/>
             <%else%>
                  <br/>还没有填写去学校的日期
