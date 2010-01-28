@@ -11,7 +11,32 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
   <% if current_user %>
   <div id="participated">
-  <%= render :partial => "/shared/activity", :collection => @participated[0,4] %>
+    <% @participated[0,4].each do |activity|%>
+    <div class="activity_list" style="margin-bottom:5px">
+    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <%if activity.done%>
+      <span class="gary_span">结束时间：<%= activity.end_at.to_date%></span><br/>
+      <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span><br/>
+      <span class="gary_span"><%= activity.shares.count%> 篇分享</span>　 
+      <span class="gary_span"><%= activity.photos.count%> 张图片</span>
+    <% else%>
+      <span class="gary_span"><%= activity.register_over_at.nil?? "开始日期: #{activity.start_at.to_date}" : "报名截止: #{activity.register_over_at.to_date}" %></span><br/>
+      <%begin school%>
+        <span class="gary_span">相关学校: <%= link_to activity.school.title,school_url(activity.school)%></span><br/>
+      <% rescue %>
+        <% if [0,1,2,3].include?(activity.category) %>
+        <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+        <% elsif activity.category == 4%>
+        <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
+        <% else %>
+        <span class="gary_span">网络活动</span><br/>
+        <%end%>
+      <%end%>
+      <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span>
+    <%end%>
+    </div>
+    <% end %>
+    
     <%= "<p>还没有参加过活动噢</p>" if @participated.size == 0%>
     <div class="remark"><%= link_to '查看更多',participated_activities_user_url(current_user),:target => "_blank" if @participated.size == 5%></div>
   </div>
