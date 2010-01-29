@@ -83,8 +83,10 @@ class Activity < ActiveRecord::Base
   validates_presence_of :description_html, :message => "活动介绍是必填项"
   
   def validate
-    unless  ((Time.now - 1.day)<= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
-      errors.add(:time,"日期填写不正确　")
+    if start_at && end_at
+      unless  ((Time.now - 1.day)<= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
+        errors.add(:time,"日期填写不正确　")
+      end
     end
   end
   
@@ -98,7 +100,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.find :all,:order => "created_at desc, start_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
+    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
   end
   
   
