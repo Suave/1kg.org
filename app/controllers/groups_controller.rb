@@ -136,7 +136,7 @@ class GroupsController < ApplicationController
     else
       invited_user_ids = params[:invite].collect {|k,v| v.to_i}
       message = Message.new(:subject => "#{current_user.login}邀请您加入#{@group.title}小组",
-                            :content => "<p>#{current_user.login}( <a href='#{user_url(current_user)}'>#{user_url(current_user)}</a> )邀请您加入#{@group.title}小组( <a href='#{group_url(@group)}'>#{group_url(@group)}</a> )</p><p>快去看看吧</p><p>多背一公斤团队</p>"
+                            :content => "<p>#{current_user.login}( #{user_url(current_user)})邀请您加入#{@group.title}小组( #{group_url(@group)})</p><p>快去看看吧</p><p>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = invited_user_ids
