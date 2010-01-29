@@ -29,6 +29,11 @@ Rails::Initializer.run do |config|
   config.gem "sanitize"
   config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
   config.gem 'mime-types', :lib => 'mime/types'
+  config.gem(
+    'thinking-sphinx',
+    :lib     => 'thinking_sphinx',
+    :version => '1.3.14'
+  )
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
