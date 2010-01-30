@@ -1180,9 +1180,12 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
+#content-secondary .activity_list_meta{width:190px}
 
-.tabs_more{float:left;margin:6px 3px 0 0;padding:0 8px 0 0;font-weight:bold;font-size:13px}
- .ui-tabs-selected a{color:#E98523}
+.tab{border-bottom:1px #ccc solid;height:27px}
+.tabs_more{float:left;margin:6px 2px 0;padding:0 6px 0;font-weight:bold;font-size:13px;border:1px #ccc solid;border-bottom:none;background:#e6e6e6}
+.ui-tabs-selected{padding-bottom: 1px;background:#f6f6f6}
+.ui-tabs-selected a{color:#E98523}
 .activity_more {text-align:right;padding:0 20px}
 
 .remark{margin:0;clear:both}

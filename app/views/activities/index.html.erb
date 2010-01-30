@@ -18,9 +18,10 @@
 <%end%>
 
 <div class="newbox">
-  <span class="span_title">我参与的活动</span> <%= link_to '查看全部',participated_activities_user_url(current_user)%>
-  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">我参与的活动</span> 
   <% if current_user %>
+  <%= link_to '查看全部',participated_activities_user_url(current_user)%>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
   <div id="participated">
     <% @participated.each do |activity|%>
     <div class="activity_list" style="margin-bottom:10px">
@@ -46,6 +47,7 @@
     
   </div>
   <%else%>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
   请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
   <%end%>
   <div class="cleanfix" style="clear:both;"></div>    

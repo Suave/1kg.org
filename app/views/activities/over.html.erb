@@ -1,5 +1,10 @@
 <% @page_title = "活动回顾" -%>
 
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+<% end %>
+
 <% content_for :crumb do -%>
 <ul>
   <li>活动回顾</li>
@@ -7,15 +12,36 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <div>
-    <% @archives.each do |month|%>
-    <p><%= link_to month[:name],over_activities_url + "?date=#{month[:year]}-#{month[:month]}" %></p>
-    <% end %>
-  </div>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到活动首页",activities_url%></span>
 <%end%>
 
+
 <div class="newbox">
-  <span class="span_title">活动回顾</span>
+  <div id="activity_tabs">
+    <span class="span_title" style="margin-right:8px">活动回顾</span>
+        <ul class="tab" >
+          <% years = @archives.map{|a| a[:year]}.uniq%>
+          <% years.each do |year|%>
+          <li class="tabs_more"><%= link_to "#{year}年", "#months_of_#{year}",:id => "#{year}_year"%></li>
+          <% end %>
+        </ul>
+         <% years.each do |year|%>
+         <div class="cleanfix" style="clear:both;"></div>
+         <div id = <%="months_of_#{year}"%> >
+            <% @archives.find_all{|a| a[:year]==year}.each do |month|%>
+            <%=link_to "#{month[:month]}月",(over_activities_url + "?date=#{year}-#{month[:month]}"),:id => "#{year}-#{month[:month]}"%>　 
+            <% end %>
+         </div>
+         <%end%>
+        <div class="cleanfix" style="clear:both;height:10px"></div>
+    <script type="text/javascript">
+    $("#activity_tabs").tabs();
+    $(<%="'##{@date.year}-#{@date.month}'"%>).attr("style","color:#E98523");
+    $(<%="'##{@date.year}_year'"%>).click();
+    </script>
+  </div>
+ 
   <div class="cleanfix" style="height:10px;clear:both"></div>
   <div class="contents">
   <%= render :partial => "shared/activity", :collection => @activities%>
