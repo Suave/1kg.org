@@ -184,11 +184,11 @@ class SchoolsController < ApplicationController
     @message = current_user.sent_messages.build(params[:message])
     if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
-      moderators = User.moderators_of(@school).map{|m| "<a href='http://www.1kg.org/users/#{m.id}'>#{m.login}</a> "}
+      moderators = User.moderators_of(@school).map{|m| "#{m.login}"}
       html = "<br/><br/><br/>
-              <span>申请的学校是 <a href='http://www.1kg.org/schools/#{@school.id}' target='_blank'>#{@school.title}</a> </span><br/>
+              <span>申请的学校是#{@school.title}(http://www.1kg.org/schools/#{@school.id})</span><br/>
               <span>现有的学校大使是 #{moderators}</span><br/>
-              <span>如果你同意这份申请，请到 <a href='http://www.1kg.org/schools/#{@school.id}/moderator' target='_blank'>添加大使</a> 页面添加这个用户</span>"
+              <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/moderator )添加这个用户</span>"
       @message.content += html
       @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
       if @message.save
@@ -413,7 +413,7 @@ class SchoolsController < ApplicationController
       user.roles << Role.find_by_identifier("roles.school.moderator.#{school.id}")
 
       message = Message.new(:subject => "恭喜您成为#{school.title}的学校大使",
-                            :content => "<p>#{user.login}，</p><p>祝贺您成为#{school.title}学校大使！</p><p>作为#{school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><p>现在就进入#{school.title}（ <a href='#{url_for(school)}'>#{url_for(school)}</a> ）看看吧。</p><p>多背一公斤团队</p>"
+                            :content => "<p>#{user.login}，</p><p>祝贺您成为#{school.title}学校大使！</p><p>作为#{school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><p>现在就进入#{school.title}（ #{url_for(school)} ）看看吧。</p><p>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = [user.id]

@@ -10,11 +10,11 @@ class ActivitiesController < ApplicationController
     @activities_hash[:city] = Activity.recent_by_category("同城活动")
     @activities_hash[:online] = Activity.recent_by_category("网上活动")
     @activities_hash[:other] = Activity.recent_by_category("其他")
-    @activities_hash[:over] = Activity.find(:all,:conditions => {:end_at => (Time.now - 1.month)..Time.now},:limit => 4,:order => "participations_count desc", :include => [:main_photo])
+    @activities_hash[:over] = Activity.find(:all,:conditions => {:end_at => 1.month.ago..1.day.ago},:limit => 4,:order => "participations_count desc", :include => [:main_photo])
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
-    @photo = Photo.find(:all,:limit => 40,:conditions => ["activity_id is not null"],:order => "created_at desc",:select => "activity_id").map{|a| a.activity_id}.uniq[0,5]
-    @photos = Activity.find(:all,:conditions => ["id in (?)",@photo]).map{|a| a.photos.last}
-    @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
+    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc", :group => "activity_id")
+    @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
+    @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
   end
   
   def category
@@ -160,7 +160,7 @@ class ActivitiesController < ApplicationController
     else
       invited_user_ids = params[:invite].collect {|k,v| v.to_i}
       message = Message.new(:subject => "#{current_user.login}邀请您参加#{@activity.title}",
-                            :content => "<p>#{current_user.login}( <a href='#{user_url(current_user)}'>#{user_url(current_user)}</a> )邀请您加入#{@activity.title}( <a href='#{activity_url(@activity)}'>#{activity_url(@activity)}</a> )</p><p>快去看看吧</p><p>多背一公斤团队</p>"
+                            :content => "<p>#{current_user.login}(#{user_url(current_user)})邀请您加入#{@activity.title}(#{activity_url(@activity)})</p><p>快去看看吧</p><p>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = invited_user_ids
