@@ -1218,6 +1218,8 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
 
+.comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:10px}
+
 .envoy_badge{position:relative;top:2px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
