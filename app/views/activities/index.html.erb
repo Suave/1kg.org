@@ -54,9 +54,12 @@
 
 <div class="newbox">
       <span class="span_title">最新活动留言</span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>           
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <% @comments.each do |comment| -%>
+      <%= comment.body_html %>
+      <p class="comment_author"><%= comment.user.login  %>写于活动：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
+      <%end-%>
       <div class="contents clearfix">
-         
       </div>
 </div>
 
@@ -64,7 +67,7 @@
 
 <div class="newbox">
       <div id="activity_tabs">
-        <span class="span_title" style="margin-right:8px">最近的活动</span><div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "+发活动　", new_activity_url,:class => "buttonjoin" %></div>
+        <span class="span_title" style="margin-right:8px">最近的活动</span><div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "+发活动&nbsp;", new_activity_url,:class => "buttonjoin" %></div>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
