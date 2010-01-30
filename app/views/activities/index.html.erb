@@ -57,7 +57,7 @@
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <% @comments.each do |comment| -%>
       <%= comment.body_html %>
-      <p class="comment_author"><%= comment.user.login  %>写于活动：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
+      <p class="comment_author"><%= link_to comment.user.login, user_url(comment.user) %> 写于：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
       <%end-%>
       <div class="contents clearfix">
       </div>
@@ -95,12 +95,11 @@
 
 <div class="newbox" id="activity_done">
       <span class="span_title">热门活动回顾</span>
-      <div><span class="gary_span">截至到目前，“多背一公斤”用户已经自发组织了 <%= link_to @activities_total,over_activities_url -%> 项活动，<%= link_to "去看看",over_activities_url %>。</span></div>
       <div class="clearfix" style="height:10px"> </div>
       <div class="contents">
           <%= render :partial => "/shared/activity", :collection => @activities_hash[:over] unless @activities_hash[:over].nil? %>
       </div>
-      
+      <div><span class="gary_span"> 还有<%= link_to "600多个活动",over_activities_url %>。</span></div>
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 
