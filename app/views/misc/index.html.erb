@@ -18,15 +18,6 @@
 <%= render :partial => '/shared/search_box' %>
 
 
-<% @page = Page.find_by_slug('special') -%>
-<%if @page%>
-<div class="newbox">
-  <span class="span_title">专题活动</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <%= render :text => @page.body %>
-</div>
-<%end%>
-
 <div class="newbox">
   <span class="span_title">人气小组</span>
   <div class="cleanfix" style="height:10px"></div>
