@@ -1,0 +1,19 @@
+<p><label class="label">厂商</label>
+  <%= form.hidden_field :vendor_id, :value => @product.vendor.id %><%= @product.vendor.title %>
+</p>
+
+<p><label class="label">商品名称</label>
+  <%= form.text_field :title, :size => 40, :class => "formText" %>
+</p>
+
+<p><label class="label">商品编号</label>
+  <%= form.text_field :serial, :size => 40, :class => "formText"  %>
+</p>
+
+<p><label class="label">公益物资</label>
+  <%= form.select :stuff_type_id, StuffType.all.collect{|t| [t.title, t.id]} %>
+</p>
+
+<p><label class="label">返回链接</label>
+  <%= form.text_field :return_url, :size => 40, :class => "formText" %>
+</p>

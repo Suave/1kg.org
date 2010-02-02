@@ -16,8 +16,8 @@
 #  title                    :string(255)     not null
 #  last_modified_at         :datetime
 #  last_modified_by_id      :integer(4)
-#  validated_by_id          :integer(4)
 #  validated_at             :datetime
+#  validated_by_id          :integer(4)
 #  hits                     :integer(4)      default(0)
 #  karma                    :integer(4)      default(0)
 #  last_month_karma :integer(4)      default(0)
@@ -46,7 +46,7 @@ class School < ActiveRecord::Base
   has_many :activities, :order => "id desc"
   
   belongs_to :main_photo, :class_name => 'Photo'
-  has_many :stuffs, :dependent => :destroy
+  has_many :donations, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
                       :source => :user, 

@@ -48,4 +48,13 @@ class Mailer < ActionMailer::Base
     @sent_on    = Time.now
     @body       = {:user => user, :password => password}
   end
+  
+  def donation(buyer_name, buyer_email, donation_url)
+    @recipients = buyer_email
+    @from = "no-reply@1kg.org"
+    @subject = "谢谢购买公益产品，请阅读本邮件提示完成捐赠"
+    @sent_on = Time.now
+    @body = {:buyer_name => buyer_name, :donation_url => donation_url}
+  end
+  
 end

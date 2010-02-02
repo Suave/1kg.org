@@ -1,0 +1,38 @@
+<% @page_title = "公益物资管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>公益物资</h2>
+      <p class="postNew">++ <%= link_to "添加新物资", new_admin_requirement_type_url %></p>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>Slug</th>
+            <th>名字</th>
+            <th>申请学校(需求)</th>
+            <th>单价</th>
+            <th>Actions</th>
+          </tr>
+          <% @types.each do |t| -%>
+          <tr>
+            <td><%= h t.slug %></td>
+            <td><%= h t.title %></td>
+            <td><%= h t.requirements.size %></td>
+            <td></td>
+            <td>
+              <%= link_to "detail", admin_requirement_type_requirements_url(t) %> |
+              <%= link_to "edit", edit_admin_requirement_type_url(t) %> |
+              <%= link_to "delete", admin_requirement_type_url(t), :method => :delete, :confirm => "会一起删除所有需求, 且不能恢复, 确定么?" %></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

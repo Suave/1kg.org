@@ -1,0 +1,39 @@
+<% @page_title = "公益商品管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>给买家发配对邮件</h3>
+      <div class="contents">
+        <% form_tag sending_admin_goods_url do %>
+        <p><label class="label">商家</label> 爱聚新意
+          <%= hidden_field_tag "vendor_id", "AJXY" %>
+        </p>
+        <p><label class="label">买家姓名</label>
+          <%= text_field_tag "buyer" %>
+        </p>
+        <p><label class="label">买家邮件</label>
+          <%= text_field_tag "email" %>
+        </p>
+        <p><label class="label">订单号</label>
+          <%= text_field_tag "order_id" %>
+        </p>
+        <p><label class="label">商品编号</label>
+          <%= select_tag "product_id", options_for_select(Vendor.find_by_slug("AJXY").products.collect{|g| ["#{g.title} - #{g.serial}", g.serial]}) %>
+        </p>
+        <p><label class="label">数量</label>
+          <%= text_field_tag "product_number" %>
+        </p>
+
+        
+        <p><label class="label">&nbsp;</label><%= submit_tag "发 送" %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

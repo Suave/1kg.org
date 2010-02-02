@@ -1,0 +1,5 @@
+<p><label>标示符</label><%= form.text_field :slug, :size => 40, :class => "text" %></p>
+<p><label>产品名字</label><%= form.text_field :title, :size => 40, :class => "text" %></p>
+<p><label>图片</label><%= form.file_field :image %></p>
+<p><label>可使用积分兑换</label><%= form.check_box :exchangable %></p>
+<p><label>描述</label><br /><%= fckeditor_textarea("type", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '200px') %></p>

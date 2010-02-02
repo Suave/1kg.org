@@ -13,8 +13,8 @@
 #  course     :string(255)
 #  teacher    :string(255)
 #  other      :string(255)
-#  medicine   :string(255)
 #  hardware   :string(255)
+#  medicine   :string(255)
 #
 
 class SchoolNeed < ActiveRecord::Base

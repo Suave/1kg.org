@@ -78,7 +78,7 @@ class Admin::SchoolsController < Admin::BaseController
     
     @sub_school.shares.each {|s| s.school_id = @main_id; s.save(false)}
     @sub_school.photos.each {|p| p.school_id = @main_id; p.save(false)}
-    @sub_school.stuffs.each {|s| s.school_id = @main_id; s.save(false)}
+    @sub_school.donations.each {|s| s.school_id = @main_id; s.save(false)}
     @sub_school.visited.each {|v| v.school_id = @main_id; v.save(false)}
     @sub_school.activities.each {|a| a.school_id = @main_id; a.save(false)}
     

@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :integer(4)      not null, primary key
+#  user_id          :integer(4)      not null
+#  body             :text
+#  body_html        :text
+#  created_at       :datetime
+#  updated_at       :datetime
+#  type             :string(255)
+#  type_id          :string(255)
+#  deleted_at       :datetime
+#  commentable_type :string(255)
+#  commentable_id   :integer(4)
+#
+
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Comment do

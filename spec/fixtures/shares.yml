@@ -1,3 +1,30 @@
+# == Schema Information
+#
+# Table name: shares
+#
+#  id                       :integer(4)      not null, primary key
+#  title                    :string(255)     not null
+#  geo_id                   :integer(4)      not null
+#  share_cover_file_name    :string(255)
+#  share_cover_content_type :string(255)
+#  share_cover_file_size    :string(255)
+#  body_html                :text
+#  activity_id              :integer(4)
+#  school_id                :integer(4)
+#  user_id                  :integer(4)      not null
+#  hits                     :integer(4)      default(0), not null
+#  comments_count           :integer(4)      default(0), not null
+#  hidden                   :boolean(1)
+#  created_at               :datetime
+#  updated_at               :datetime
+#  last_modified_at         :datetime
+#  last_modified_by_id      :integer(4)
+#  last_replied_at          :datetime
+#  last_replied_by_id       :integer(4)
+#  deleted_at               :datetime
+#  clean_html               :text
+#
+
 share1:
   id: 1
   title: 'test share'

@@ -1,0 +1,62 @@
+<% content_for :heads do -%>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/festcard09.css" media="screen, projection" />
+<% end -%>
+
+<% @page_title = "积分献爱，举手之劳！" -%>
+
+<% content_for :crumb do -%>
+<li>积分献爱</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="lcolumn">
+  <div class="boxouter">
+    <h3><%= @requirement.school.title %>的爱心留言</h3>
+    <div class="boxinter">
+      <table>
+        <tr>
+          <th>捐赠者</th>
+          <th>留言</th>
+          <th>捐赠物品</th>
+          <th>捐赠数量</th>
+          <th>&nbsp;</th>
+        </tr>
+        <% @requirement.donations.each do |d| -%>
+        <tr>
+          <td>
+            <%=h d.buyer_name %>
+          </td>
+          <td><%= h d.comment_html %></td>
+          <td><%= h d.requirement_type.title %></td>
+          <td><%= h d.product_number %></td>
+          <td></td>
+        </tr>
+        <% end -%>
+      </table>
+    </div>
+    <p style="text-align:right"><%= link_to "我要参与", '#', :target => "_blank",:class => "buttonlink" %></p>  
+  </div>
+  
+</div>
+
+<div class="rcolumn">
+  <div class="boxouter">
+    <h3>合作商家</h3>
+    <div class="boxinter">
+      <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
+      <p><img src="/images/mooncake/sitlogo.gif"></p>
+    </div>
+  </div>
+</div>
+<div class="boxouter" style="float:left;width:100%">
+  <h3>积分可兑换物资</h3>
+  <% RequirementType.exchangable.last5.each do |t| %>
+    <div class="boxinter">
+    <dl class="book">
+      <dt><a href="#"><img src="<%= t.image.url(:thumb) %>" width="100" /></a></dt>
+      <dd><a href='#'><%= t.title %></a></dd>
+    </dl>
+    </div>
+  <% end %>
+</div>
+<% end -%>
