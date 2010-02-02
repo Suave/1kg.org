@@ -1,3 +1,4 @@
+mkmf.log
 .project
 1kg.org.kpf
 log/*
@@ -8,6 +9,7 @@ doc/app
 doc/plugins
 db/*.sqlite3
 db/data.yml
+db/sphinx
 vendor/rails
 config/database.yml
 public/user
