@@ -6,40 +6,70 @@
 <% end %>
 
 <% content_for :sidebar do -%>
+    
+<% @page = Page.find_by_slug('special_sidebar') -%>
+<%if @page%>
 <div class="newbox">
-  <span class="span_title">我参与的活动</span>
   <div class="cleanfix" style="clear:both;height:10px"></div>
+<span class="span_title">专题活动</span>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <%= render :text => @page.body %>
+</div>
+<%end%>
+
+<div class="newbox">
+  <span class="span_title">我参与的活动</span> 
   <% if current_user %>
+  <%= link_to '查看全部',participated_activities_user_url(current_user)%>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
   <div id="participated">
-  <%= render :partial => "/shared/activity", :collection => @participated[0,4] %>
+    <% @participated.each do |activity|%>
+    <div class="activity_list" style="margin-bottom:10px">
+    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <%if activity.done%>
+      <span class="gary_span">结束时间：<%= activity.end_at.to_date%></span><br/>
+      <span class="gary_span"><%= activity.shares.count%> 篇分享</span>　 
+      <span class="gary_span"><%= activity.photos.count%> 张图片</span>
+    <% else%>
+      <span class="gary_span"><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
+        <% if [0,1,2,3].include?(activity.category) %>
+        <span class="gary_span">出发地: <%= activity.departure_id==0 ? "不限" : activity.departure.name %> => 目的地: <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+        <% elsif activity.category == 4%>
+        <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
+        <% else %>
+        <span class="gary_span">网络活动</span><br/>
+        <%end%>
+    <%end%>
+    </div>
+    <% end %>
+    
     <%= "<p>还没有参加过活动噢</p>" if @participated.size == 0%>
-    <div class="remark"><%= link_to '查看更多',participated_activities_user_url(current_user),:target => "_blank" if @participated.size == 5%></div>
+    
   </div>
   <%else%>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
   请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
   <%end%>
-</div>
-    
-<% @page = Page.find_by_slug('special') -%>
-<%if @page%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>专题活动</h3>
-      <div class="contents">
-      <%= render :text => @page.body %>
-      </div>
-    </div>
-  </div>
+  <div class="cleanfix" style="clear:both;"></div>    
 </div>
 
-<%end%>
+
+<div class="newbox">
+      <span class="span_title">最新活动留言</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <% @comments.each do |comment| -%>
+      <%= comment.body_html %>
+      <p class="comment_author"><%= link_to comment.user.login, user_url(comment.user) %> 写于：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
+      <%end-%>
+      <div class="contents clearfix">
+      </div>
+</div>
 
 <% end -%>
 
 <div class="newbox">
       <div id="activity_tabs">
-        <span class="span_title" style="margin-right:8px">最近的活动</span><span class="postNew"><%= link_for_new_activity %></span>
+        <span class="span_title" style="margin-right:8px">最近的活动</span><div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "+发活动&nbsp;", new_activity_url,:class => "buttonjoin" %></div>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
@@ -67,12 +97,11 @@
 
 <div class="newbox" id="activity_done">
       <span class="span_title">热门活动回顾</span>
-      <div><span class="gary_span">截至到目前，“多背一公斤”用户已经自发组织了 <%= link_to @activities_total,over_activities_url -%> 项活动，<%= link_to "去看看",over_activities_url %>。</span></div>
       <div class="clearfix" style="height:10px"> </div>
       <div class="contents">
           <%= render :partial => "/shared/activity", :collection => @activities_hash[:over] unless @activities_hash[:over].nil? %>
       </div>
-      
+      <div><span class="gary_span"> 还有<%= link_to "600多个活动",over_activities_url %>。</span></div>
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 

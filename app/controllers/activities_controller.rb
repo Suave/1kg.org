@@ -10,11 +10,11 @@ class ActivitiesController < ApplicationController
     @activities_hash[:city] = Activity.recent_by_category("同城活动")
     @activities_hash[:online] = Activity.recent_by_category("网上活动")
     @activities_hash[:other] = Activity.recent_by_category("其他")
-    @activities_hash[:over] = Activity.find(:all,:conditions => {:end_at => (Time.now - 1.month)..Time.now},:limit => 4,:order => "participations_count desc", :include => [:main_photo])
+    @activities_hash[:over] = Activity.find(:all,:limit => 4,:order => "shares_count desc", :conditions => {:end_at => 1.month.ago..1.day.ago},:include => [:main_photo])
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
-    @photo = Photo.find(:all,:limit => 40,:conditions => ["activity_id is not null"],:order => "created_at desc",:select => "activity_id").map{|a| a.activity_id}.uniq[0,5]
-    @photos = Activity.find(:all,:conditions => ["id in (?)",@photo]).map{|a| a.photos.last}
-    @participated = current_user.participated_activities.find(:all, :limit => 5) if current_user
+    @photos = Photo.find(:all,:limit => 10,:conditions => ["activity_id is not null"],:order => "created_at desc", :group => "activity_id")
+    @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
+    @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
   end
   
   def category
@@ -48,14 +48,22 @@ class ActivitiesController < ApplicationController
   def over
     @archives = Activity.archives
     begin
-    @date = Time.mktime(params[:date][0,4],params[:date][5,2])
-    @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => @date..@date.end_of_month}).paginate(:page => params[:page] || 1,
+      if Time.now.beginning_of_month == Time.mktime(params[:date][0,4],params[:date][5,2])
+        @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => Time.now.beginning_of_month..1.day.ago}).paginate(:page => params[:page] || 1,
                                                                   :order => "created_at desc, start_at desc",
                                                                   :per_page => 10)
+        @date = Time.now
+      else
+        @date = Time.mktime(params[:date][0,4],params[:date][5,2])
+        @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => @date..@date.end_of_month}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+      end
     rescue
     @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => Time.now.beginning_of_month..1.day.ago}).paginate(:page => params[:page] || 1,
                                                                   :order => "created_at desc, start_at desc",
                                                                   :per_page => 10)
+    @date = Time.now
     end
   end
 

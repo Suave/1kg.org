@@ -2,13 +2,13 @@
     <%= topic_photo_thumb(activity) -%>       
     <div class="activity_list_meta">
     <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
-    <%if activity.done%>
+    <%if activity.end_at < Time.now%>
       <span class="gary_span">结束时间：<%= activity.end_at.to_date%></span><br/>
       <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span><br/>
       <span class="gary_span"><%= activity.shares.count%> 篇分享</span>　 
       <span class="gary_span"><%= activity.photos.count%> 张图片</span>
     <% else%>
-      <span class="gary_span"><%= activity.register_over_at.nil?? "开始日期: #{activity.start_at.to_date}" : "报名截止: #{activity.register_over_at.to_date}" %></span><br/>
+      <span class="gary_span"><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
       <%begin school%>
         <span class="gary_span">相关学校: <%= link_to activity.school.title,school_url(activity.school)%></span><br/>
       <% rescue %>
