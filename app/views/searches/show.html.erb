@@ -1,24 +1,29 @@
 <% @page_title = @title = "搜索" %>
 
+<% @page_title = @title = "搜索" %>
+
 <% content_for :sidebar do -%>
-  <%= render :partial => '/shared/search_box' %>
-  
+  <%= render :partial => '/searches/search_box' %>
 <% end %>
 
+<div class="newbox">
+  <span class="span-title">&nbsp;</span>
+  <div class="contents">
+    <%= render :partial => '/geos/school_maps' %>
+  </div>
+</div>
+
 <% unless @schools.empty? %>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3><%= "包含 #{@keywords} 的学校" %></h3>
-      <div class="contents">
-        <%= render :partial => '/schools/schools', :object => @schools %>
-        <%= customize_paginate(@schools) %>
-      </div>
-    </div>
+<div class="newbox">
+  <span class="span-title">&nbsp;</span>
+  <div class="contents">
+    <%= render :partial => '/schools/schools', :object => @schools %>
+    <%= customize_paginate(@schools) %>
   </div>
 </div>
 <% end %>
 
+<% if false %>
 <% unless @groups.empty? %>
 <div class="box">
   <div class="boxOuter">
@@ -31,4 +36,5 @@
     </div>
   </div>
 </div>
+<% end %>
 <% end %>

@@ -537,8 +537,12 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "searches", :force => true do |t|
-    t.string :keywords
-    t.string :category, :default => 'school'
+    t.string  :q
+    t.string  :title
+    t.string  :city
+    t.string  :address
+    t.string  :need
+    t.string  :kind, :default => 'school'
     t.integer :user_id
     t.timestamps
   end
