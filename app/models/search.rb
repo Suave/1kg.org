@@ -36,7 +36,7 @@ class Search < ActiveRecord::Base
     attributes[:has_library] = true unless self.has_library.blank?
     attributes[:has_pc] = true unless self.has_pc.blank?
     
-    School.search(self.q, :conditions => conditions, :with => attributes, :page => page, :per_page => per_page)
+    School.search(self.q, :conditions => conditions, :with => attributes, :page => page, :per_page => per_page, :include => [:basic, :user])
   end
   
   def advanced?
