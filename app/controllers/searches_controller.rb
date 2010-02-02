@@ -10,7 +10,7 @@ class SearchesController < ApplicationController
     @schools = @search.schools(params[:page])
     
     @json = []
-    @schools.each do |school|
+    @schools.compact.each do |school|
       next if school.basic.blank?
       @json << {:i => school.id,
                        :t => school.icon_type,
