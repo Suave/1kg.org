@@ -64,36 +64,40 @@ namespace :schools do
     schools.each do |school|
       puts '.'
       karma = 0
-      # 照片 4s/张
-      karma += school.photos.count * 4
-      # 分享 10s/篇
-      karma += school.shares.count * 10
-      # 分享回复 2s/个
+      # 活动 10s/个 （另外活动回复 1/s + 参加 2/s）
+      school.activities.each do |activity|
+        karma += activity.comments.count * 1
+        karma += activity.participators.count * 3
+        karma += 15
+      end
+      # 照片 2s/张
+      karma += school.photos.count * 3
+      # 分享 10s/篇 (另外 分享回复 1s/个)
       school.shares.each do |share|
-        karma += share.comments.count * 2
+        karma += share.comments.count * 1
+        karma += 15
       end
-      # 学校话题 5s/个
-      karma += school.discussion.board.topics.count * 5
-      # 话题回复 2s/个
+      # 话题回复 1s/个 学校话题
       school.discussion.board.topics.each do |topic|
-        karma += topic.posts.count * 2
+        karma += topic.posts.count * 1
+        karma += 2
       end
-      # TODO 学校活动
-      # TODO 活动回复
-      # 去过用户 2s/人
-      karma += school.visitors.count * 2
+      # 去过用户 4s/人  要去 2s/人  关注  2s/人
+      karma += school.visitors.count * 6
+      karma += school.interestings.count * 3
+      karma += school.wannas.count * 3
       # 学校大使 10s/人
-      karma += User.moderators_of(school).size * 10
-      # 学校点击 1s/次
-      karma += school.hits
+      karma += User.moderators_of(school).size * 15
+      # 学校点击 0.5s/次
+      karma += school.hits/2
       
       # 更新学校活跃度
       school.update_attribute(:karma, karma) #unless school.karma == karma
 
       # 更新学校当月平均活跃度
-      last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
-      puts last_month_karma
-      school.update_attribute(:last_month_karma, last_month_karma)
+      #last_month_karma = karma - school.snapshots.find_by_created_on(Date.today - 1.month).karma rescue karma
+      #puts last_month_karma
+      #school.update_attribute(:last_month_karma, last_month_karma)
       #puts "#{school.title}: #{last_month_karma}" unless karma == 0
     end
   end 
