@@ -30,5 +30,8 @@ class Geo < ActiveRecord::Base
     find(%w(280 273 275 304 312 356 241 322 305 239 10 299 79 1))
   end
   
+  def full_name
+    self.parent ? self.parent.full_name + self.name : self.name
+  end
 end
 

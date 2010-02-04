@@ -29,7 +29,7 @@
         		<tr>
         		  <td><%= check_box_tag "delete[#{copy.id}]", copy.id %></td>
         			<td>
-        			  <div style="float:left; display:inline"><%= copy.author.nil? ? "系统发送" : link_to( h(copy.author.login), user_url(copy.author) ) %></div>
+        			  <div style="float:left; display:inline"><%= (copy.message.nil? || copy.author.nil?) ? "系统发送" : link_to( h(copy.author.login), user_url(copy.author) ) %></div>
         			  <% if copy.unread -%>
         			    <div style="float:right; font-weight:bold">></div>
         			  <% end -%>
