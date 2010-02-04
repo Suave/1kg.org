@@ -103,7 +103,7 @@ module ApplicationHelper
         inputs << %Q"
           <span id='#{method}_container'>
             <select name='#{object}[#{method}_id]' id='#{object}_#{method}_id'>
-              #{options_for_select(Geo.find(value).self_and_siblings.collect{|g| [g.name, g.id]}, value)}
+              <option value='#{Geo.find(value).id}' selected='selected'>#{Geo.find(value).name}</option>
             </select>
           </span>
         "
