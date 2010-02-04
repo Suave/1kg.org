@@ -56,4 +56,5 @@ class Mailer < ActionMailer::Base
     @sent_on = Time.now
     @body = {:buyer_name => buyer_name, :donation_url => donation_url}
   end
+
 end

@@ -339,4 +339,3 @@ class User < ActiveRecord::Base
       find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end
-

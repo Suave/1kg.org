@@ -1,4 +1,12 @@
 namespace :misc do
+<<<<<<< HEAD:lib/tasks/misc.rake
+=======
+  desc "备份数据库"
+  task :backup do
+    system('/usr/bin/ruby /home/jill/mysql_backup/mysql_tools.rb backup')
+  end
+  
+>>>>>>> 0dee129852e9a7961d874cbf2b5b461dc8e4d65e:lib/tasks/misc.rake
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|

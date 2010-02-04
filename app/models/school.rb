@@ -20,9 +20,8 @@
 #  validated_by_id          :integer(4)
 #  hits                     :integer(4)      default(0)
 #  karma                    :integer(4)      default(0)
+#  last_month_karma :integer(4)      default(0)
 #  main_photo_id            :integer(4)
-#  last_month_average_karma :integer(4)      default(0)
-#
 
 class School < ActiveRecord::Base
   belongs_to :user
