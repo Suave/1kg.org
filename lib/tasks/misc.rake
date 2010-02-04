@@ -1,7 +1,7 @@
 namespace :misc do
   desc "备份数据库"
   task :backup do
-    system('/usr/ruby /home/jill/mysql_backup/mysql_tools.rb backup')
+    system('/usr/bin/ruby /home/jill/mysql_backup/mysql_tools.rb backup')
   end
   
   desc "为有分享的结束活动标记"
