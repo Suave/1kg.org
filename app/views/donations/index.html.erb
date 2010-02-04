@@ -1,4 +1,5 @@
 <% content_for :heads do -%>
+<%= stylesheet_link_tag 'points'%>
 <% end -%>
 
 <% @page_title = "积分献爱，举手之劳！" -%>
@@ -23,31 +24,25 @@
    <img src="/images/point/title.png" />
 
   <div class="newbox">
-  <span class="span_title">积分可兑换物资</span>
+  <span class="span_title">公益物资</span>
   <% RequirementType.exchangable.last5.each do |t| %>
-    <div class="boxinter">
-    <dl class="book">
-      <dt><a href="#"><img src="<%= t.image.url(:thumb) %>" width="100" /></a></dt>
-      <dd><a href='#'><%= t.title %></a></dd>
-    </dl>
-    </div>
+      <div class="goods_list">
+      <a href="#" class="goods_photo_frame"><img src="<%= t.image.url(:thumb) %>"/></a>
+      <a href='#'><%= t.title %></a>
+      </div>
   <% end %>
   </div>
       
   <div class="newbox">
     <span class="span_title">学校列表</span>
-    <div class="boxinter">
     <% unless @requirements.blank? -%>
       <%= render :partial => "/shared/requirements", :object => @requirements %>
     <% end -%>
-    </div>
   </div>
 
 
   <div class="newbox">
     <span class="span_title">合作商家</span>
-    <div class="boxinter">
       <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
       <p><img src="/images/mooncake/sitlogo.gif"></p>
-    </div>
   </div>
