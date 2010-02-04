@@ -10,13 +10,8 @@
 
 <% content_for :sidebar do -%>
 
-<div style="display:block; clear:both">
-    <div style="text-align:center"><img src="/images/point/logo.png" />
-      <p>此处为积分献爱计划的文字说明，需要安提供</p>
-      <p>步骤一</p>
-      <p>步骤二</p>    
-    </div>
-    <p style="margin-top:20px;"><%= image_tag("/images/point/flow.png") %></p>
+<div class="newbox" style="background:white">
+<p style="font-size:14px;text-align:center">是不是日常消费积累了或多或少的积分，<br/>却总想不出该换点什么？<br/>来看看多背一公斤的公益积分行动吧，<br/>让积分表达爱心，让公益轻松为之！</p>
 </div>
 
 <% end %>
@@ -28,7 +23,7 @@
   <% RequirementType.exchangable.last5.each do |t| %>
       <div class="goods_list">
       <a href="#" class="goods_photo_frame"><img src="<%= t.image.url(:thumb) %>"/></a>
-      <a href='#'><%= t.title %></a>
+      <div class="goods_description"><%= t.description_html %></div>
       </div>
   <% end %>
   </div>
