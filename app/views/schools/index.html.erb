@@ -130,13 +130,12 @@
 
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最新学校照片</h3>
+
+<div class="newbox">
+      <span class="span_title">最新学校照片</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>           
       <div class="contents clearfix">
-        <%= render :partial => "photos", :object => @photos %>
+        <%= render :partial => "/shared/photo", :collection => @photos %>
       </div>
-    </div>
-  </div>
 </div>
+<div class="cleanfix" style="clear:both;height:20px"></div>

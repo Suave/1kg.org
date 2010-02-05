@@ -30,7 +30,7 @@
          <div class="cleanfix" style="clear:both;"></div>
          <div id = <%="months_of_#{year}"%> >
             <% @archives.find_all{|a| a[:year]==year}.each do |month|%>
-            <%=link_to "#{month[:month]}月",(over_activities_url + "?date=#{year}-#{month[:month]}"),:id => "#{year}-#{month[:month]}"%>　 
+            <%=link_to "#{month[:month]}月",(over_activities_url + "?date=#{year}-#{month[:month]}"),:id => "#{year}-#{month[:month]}",:class => "tabs_month"%>
             <% end %>
          </div>
          <%end%>
