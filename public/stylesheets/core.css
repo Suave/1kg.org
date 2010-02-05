@@ -1144,12 +1144,6 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 
-.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
-.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
-.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
-
 .checkbox_label{margin:0 10px 0 2px;}
 
 .meta_label{font-weight:bold;margin-left:4px}
@@ -1182,10 +1176,11 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta h5{margin:2px 0}
 #content-secondary .activity_list_meta{width:190px}
 
-.tab{border-bottom:1px #ccc solid;height:27px}
-.tabs_more{height:20px;float:left;margin:6px 2px 0;padding:0 6px 0;font-weight:bold;font-size:13px;border:1px #ccc solid;border-bottom:none;background:#e6e6e6}
+.tab{border-bottom:1px #ccc solid;height:27px;}
+.tabs_more{height:20px;float:left;margin:6px 2px 0;-margin:6px 2px -1px 0;padding:0 6px 0;font-weight:bold;font-size:13px;background:#e6e6e6;
+           border-left:1px #ccc solid;border-top:1px #ccc solid;border-right:1px #ccc solid;}
 .ui-tabs-selected{padding-bottom: 1px;background:#f6f6f6}
-.ui-tabs-selected a{color:#E98523}
+.ui-tabs-selected a{color:#E98523;position:relative}
 .activity_more {text-align:right;padding:0 20px}
 
 .remark{margin:0;clear:both}
@@ -1221,6 +1216,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
 
+.tabs_month{margin:10px 10px 0}
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
 
 .envoy_badge{position:relative;top:2px}
