@@ -25,9 +25,9 @@ class Photo < ActiveRecord::Base
   include BodyFormat
   include Editable
   
-  belongs_to :user
-  belongs_to :school
-  belongs_to :activity
+  belongs_to :user,:foreign_key => "user_id"
+  belongs_to :school,:foreign_key => "school_id"
+  belongs_to :activity,:foreign_key => "activity_id"
   
   acts_as_paranoid
   
