@@ -14,9 +14,29 @@
   <img src="/images/point/logo.png" />
 </div>
 
-<% end %>
+<div class="newbox">
+    <span class="span_title">好心人</span>
+    <div class="clearfix"></div>
+</div>
 
-  <img src="/images/point/title.png" />
+
+<div class="newbox">
+    <span class="span_title">爱心留言</span>
+    <div class="clearfix"></div>
+    <img src="/user/avatar/1/large/icon.gif" class="avatar" style="float:left;padding-right:6px">
+    <div class="content" style="float:left">
+    <p class="meta">
+      <a href="http://localhost:3000/users/4227">Ann</a> 写于 2009-08-25
+    </p>
+    <div class="comment-body"><p>爱会继续</p></div>
+    </div>
+</div>
+
+
+<% end %>
+  <div class="newbox" style="height:320px">
+    <img src="/images/point/title.png" />
+  </div>
 
   <div class="newbox">
   <span class="span_title">公益物资</span>
@@ -33,11 +53,4 @@
     <% unless @requirements.blank? -%>
       <%= render :partial => "/shared/requirements", :object => @requirements %>
     <% end -%>
-  </div>
-
-
-  <div class="newbox">
-    <span class="span_title">合作商家</span>
-      <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
-      <p><img src="/images/mooncake/sitlogo.gif"></p>
   </div>
