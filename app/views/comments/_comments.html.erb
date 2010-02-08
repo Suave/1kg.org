@@ -10,11 +10,7 @@
             <div class="content">
               <p class="meta">
                 <%= "##{index+1+((page)*15)}" %>
-<<<<<<< HEAD:app/views/comments/_comments.html.erb
                 <%= link_to comment.user.login, user_url(comment.user) %><%= envoy_badge(comment.user)%> 写于 <%= comment.created_at.to_date %>
-=======
-                <%= link_to comment.user.login, user_url(comment.user) %> 写于 <%= comment.created_at.to_date %>
->>>>>>> 0dee129852e9a7961d874cbf2b5b461dc8e4d65e:app/views/comments/_comments.html.erb
                 <% if comment.editable_by?(current_user) -%>
                   (<%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>)
                 <% end -%>

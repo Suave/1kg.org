@@ -29,12 +29,33 @@
           <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
           <div class="activity_more"><%= link_to '查看更多',with_school_activities_url,:target => "_blank" %></div>
       </div>
-      
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 
 
-<%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
+<div id="records" class="newbox">
+      <div id="records_tabs">
+        <span class="span_title" style="margin-right:8px">大家去那个学校呢？</span>
+        <ul class="tab" >
+          <% [["要去", "wannas"], ["去过", "visiteds"]].each do |type| %>
+            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
+        </ul>
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <div id="wannas">
+          <%= render :partial => "/shared/visit", :collection => @wannas,:locals => {:school => nil} %>
+        </div>
+        
+        <div id="visiteds">
+          <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
+        </div>
+  
+        <div class="cleanfix"></div>
+      </div>
+      <script type="text/javascript">
+  jQuery("#records_tabs").tabs();
+</script>
+</div>
 
 <%= render :partial => "submit" %>
 
@@ -139,3 +160,4 @@
       </div>
 </div>
 <div class="cleanfix" style="clear:both;height:20px"></div>
+
