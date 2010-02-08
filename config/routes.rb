@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
-  map.resources :donations, :member => {:commenting => :get, :comment => :put}
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements
 
   map.public_look "/public", :controller => "misc", :action => "public_look"

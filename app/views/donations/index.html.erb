@@ -15,9 +15,34 @@
   <img src="/images/point/logo.png" />
 
 </div>
-<% end %>
 
-  <img src="/images/point/title.png" />
+<div class="newbox">
+  <span class="span_title">捐助者名录</span>
+  <div class="clearfix" style="height:5px"></div>
+  <% @donations.each do |donation| %>
+  <p style="border-bottom:1px #ccc solid;padding:4px"><%= donation.user.nil? ? donation.buyer_name : donation.user.login %> 通过<a href="#"><%= donation.vendor.title %></a> <br/>
+      为 <a href="#"><%= donation.requirement.school.title %></a> 捐助了<%= donation.product_number %>个<%= donation.requirement_type.title %></p>
+  <% end %>
+  <div class="clearfix"></div>
+</div>
+
+
+<div class="newbox">
+    <span class="span_title">爱心留言</span>
+    <div class="clearfix" style="height:5px"></div>
+    <div style="width:290px">
+      <img src="/user/avatar/1/large/icon.gif" class="avatar" style="float:left;padding-right:6px">
+      <div class="content" style="float:left">
+      <p class="meta">
+        <a href="http://localhost:3000/users/4227">Ann</a> 写于 2009-08-25
+      </p>
+      <div class="comment-body"><p>爱会继续</p></div>
+    </div>
+</div>
+<% end %>
+  <div class="newbox" style="height:320px">
+    <img src="/images/point/title.png" />
+  </div>
 
   <div class="newbox">
   <span class="span_title">公益物资</span>
@@ -36,10 +61,4 @@
     <% end -%>
   </div>
 
-
-  <div class="newbox">
-    <span class="span_title">合作商家</span>
-      <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
-      <p><img src="/images/mooncake/sitlogo.gif"></p>
-  </div>
-
+  <div class="clearfix" style="height:20px"></div>
