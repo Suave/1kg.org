@@ -15,16 +15,13 @@
 </div>
 
 <div class="newbox">
-    <span class="span_title">捐助者名录</span>
-<div class="clearfix" style="height:5px"></div>
-    <p style="border-bottom:1px #ccc solid;padding:4px">安猪 使用了300点 <a href="#">艺龙旅行网</a> 积分<br/>
-        为 <a href="#">abcdefg学校</a> 捐助了一本新华字典</p>
-    <p style="border-bottom:1px #ccc solid;padding:4px">安猪 使用了300点 <a href="#">艺龙旅行网</a> 积分<br/>
-        为 <a href="#">abcdefg学校</a> 捐助了一本新华字典</p>
-    <p style="border-bottom:1px #ccc solid;padding:4px">安猪 使用了300点 <a href="#">艺龙旅行网</a> 积分<br/>
-        为 <a href="#">abcdefg学校</a> 捐助了一本新华字典</p>
-    <div class="clearfix"></div>
-    
+  <span class="span_title">捐助者名录</span>
+  <div class="clearfix" style="height:5px"></div>
+  <% @donations.each do |donation| %>
+  <p style="border-bottom:1px #ccc solid;padding:4px"><%= donation.user.nil? ? donation.buyer_name : donation.user.login %> 通过<a href="#"><%= donation.vendor.title %></a> <br/>
+      为 <a href="#"><%= donation.requirement.school.title %></a> 捐助了<%= donation.product_number %>个<%= donation.requirement_type.title %></p>
+  <% end %>
+  <div class="clearfix"></div>
 </div>
 
 

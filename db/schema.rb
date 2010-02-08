@@ -446,6 +446,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "product_number" # 商家产品数量
     t.string   "deal_id"        # 交易号
     t.integer  "vendor_id"
+    t.string   "return_url"
+    t.boolean  "confirmed", :default => false # 是否已得到商家网站确认
     
     # 验证时填写的字段
     t.integer  "user_id"

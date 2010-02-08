@@ -1,6 +1,7 @@
 class DonationsController < ApplicationController
   def index
     @requirements = RequirementType.exchangable.map(&:requirements).sum
+    @donations    = Donation.find(:all, :conditions => 'vendor_id is not null and buck_id is not null', :limit => 5, :order => 'created_at DESC')
   end
   
   def new
@@ -67,12 +68,16 @@ class DonationsController < ApplicationController
         @donation.comment = params[:message]
         @donation.save
         flash[:notice] = '非常感谢您的参与！'
-        session[:donation_code] = nil
-        want.html{redirect_to donations_path}
+        want.html{redirect_to thanks_donations_path}
       else
         flash[:notice] = '对不起，请您先输入密码'
         want.html{redirect_to donations_path}
       end
     end
+  end
+  
+  def thanks
+    @donation = Donation.find_by_code(session[:donation_code])
+    @requirement = @donation.requirement
   end
 end
