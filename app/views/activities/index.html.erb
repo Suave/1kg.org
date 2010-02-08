@@ -5,6 +5,10 @@
   <style type="text/css">#participated .activity_list_meta{width:180px}</style>
 <% end %>
 
+<% content_for :crumb do -%>
+<li>活动</li>
+<% end -%>
+
 <% content_for :sidebar do -%>
     
 <% @page = Page.find_by_slug('special_sidebar') -%>

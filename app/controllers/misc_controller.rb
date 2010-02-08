@@ -42,20 +42,9 @@ class MiscController < ApplicationController
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
     @recent_shares = Share.recent_shares
-    @hot_cities = Geo.hot_cities
     @hot_groups = Group.most_members
     @recent_citizens = User.recent_citizens
-    @activities_for_all = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
-    @activities_for_travel = Activity.recent_by_category("公益旅游")
-    @activities_for_donation = Activity.recent_by_category("物资募捐")
-    @activities_for_teach = Activity.recent_by_category("支教")
-    @activities_for_city = Activity.recent_by_category("同城活动")
-    @activities_for_online = Activity.recent_by_category("网上活动")
-    @activities_for_other = Activity.recent_by_category("其他")
     
-    # 显示最新用户动态
-    @visits = Visited.latestvisit
-    @wannas = Visited.latestwanna
     # 网站公告
     @bulletins = Bulletin.recent
     render :action => "index"
