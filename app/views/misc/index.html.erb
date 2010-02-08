@@ -29,19 +29,22 @@
 <div class="cleanfix" style="clear:both;height:20px"></div>           
 
 <div class="newbox">
-      <span class="span_title">最新用户分享</span> <span><%= link_to "全部分享", shares_url %></span>
+      <span class="span_title">热门分享</span> 
       <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
+      <div class="remark"><%= link_to "&raquo; 全部分享", shares_url %></div>
       <div class="cleanfix" style="height:20px"></div>
 </div>
 
 
 <div class="newbox">
-    <span class="span_title">热门话题</span> <span><%= link_to "全部话题", shares_url %></span>
+    <span class="span_title">热门话题</span>
     <div class="cleanfix" style="height:10px"></div>
     <div class="contents">
-      <%= render :partial => "/shared/topic", :collection => @recent_topics %>      </div>
+      <%= render :partial => "/shared/topic", :collection => @recent_topics %>
+    </div>
+    <div class="remark"><%= link_to "&raquo; 全部分享", topics_url %></div>
     <div class="cleanfix" style="height:20px"></div>
 </div>

@@ -984,31 +984,6 @@ h3.title {
 }
 #sharePostNew form .submit { margin-left:7em;}
 
-/* =topicSingle */
-#content-primary #topicSingle h2 {
-  padding-bottom: 5px;
-}
-#content-primary #topicSingle .metadata {
-  padding: 0 20px 20px;
-}
-#content-primary #topicSingle .metadata p,
-#content-primary #topicCommentsList ol .meta {
-  margin: 0;
-  color: #999;
-}
-#topicSingle .avatar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-#topicSingle .avatar img {
-  display: block;
-  border: #dedede solid 1px;
-}
-#topicSingle .entry {
-  padding: 0 30px 20px;
-}
-
 /* =topicCommentsList */
 #topicCommentsList ol {
   padding: 0 10px 10px;
@@ -1188,8 +1163,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .remark a:hover{color:#E98523}
 
 .topic {width:620px;height:80px;overflow:hidden}
-.topic_school_photo{float:left;height:72px;width:72px;overflow:hidden}
-.topic_school_photo img{height:72px;margin-left:-24px}
+.stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
 
 .photo_frame{float:left;height:118px;width:120px;margin:0 0 5px 5px;text-align:center;overflow:hidden}
 .photo{height:80px;}
@@ -1208,7 +1182,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
 
-.newbox{padding-left:10px;width:100%;margin-bottom:20px}
+.newbox{padding-left:10px;margin-bottom:20px}
 .span_title{font-size:18px;font-weight:bold;}
 .span_title2{font-size:15px;font-weight:bold;}
 

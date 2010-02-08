@@ -6,13 +6,13 @@ class GroupsController < ApplicationController
   
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 14
-    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 25
+    @groups = Group.find :all, :order => "created_at desc", :limit => 16
+    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 15
     if logged_in?
       @my_groups = current_user.joined_groups
       @recent_topics = current_user.recent_joined_groups_topics
-      @submitted_topics = current_user.topics.paginate(:page => 1, :per_page => 25)
-      @participated_topics = current_user.participated_topics.paginate(:page => 1, :per_page => 25)
+      @submitted_topics = current_user.topics.paginate(:page => 1, :per_page => 15)
+      @participated_topics = current_user.participated_topics.paginate(:page => 1, :per_page => 15)
     end
   end
   
