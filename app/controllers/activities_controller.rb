@@ -88,7 +88,7 @@ class ActivitiesController < ApplicationController
       else
         flash[:notice] = "对不起，只有管理员才可以删除活动"
       end 
-      format.html{redirect_to schools_url}
+      format.html{redirect_to activities_url}
     end
   end
   
