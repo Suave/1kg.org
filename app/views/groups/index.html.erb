@@ -8,7 +8,6 @@
 <% content_for :crumb do -%>
 <li>小组</li>
 <% end -%>
-
 <% content_for :sidebar do -%>
 <p style="margin:10px 15px;"><%= link_for_new_group %></p>
 
@@ -35,12 +34,13 @@
       <div class="tabbedPanel" id="tabs">
         <ul class="tab">
           <% if logged_in? -%>
-            <li><a href="#my">我参加的小组</a></li>
+            <li ><a href="#my">我参加的小组</a></li>
             <li><a href="#submitted">我发起的话题</a></li>
             <li><a href="#participated">我参与的话题</a></li>
           <% end -%>
           <li><a href="#all">最新话题</a></li>
         </ul>
+        <div class="clearfix"></div>
         <div class="panel setting">
           <% if logged_in? %>
           <div id="my">

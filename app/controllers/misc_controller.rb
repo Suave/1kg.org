@@ -44,7 +44,7 @@ class MiscController < ApplicationController
     @recent_shares = Share.recent_shares
     @hot_groups = Group.most_members
     @recent_citizens = User.recent_citizens
-    
+    @recent_topics = Topic.recent
     # 网站公告
     @bulletins = Bulletin.recent
     render :action => "index"

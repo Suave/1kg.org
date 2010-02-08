@@ -29,6 +29,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   
+  named_scope :recent,:limit => 6,:group => :board_id,:order => "last_replied_at desc",:include => [:board]
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
