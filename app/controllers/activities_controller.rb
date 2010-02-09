@@ -116,9 +116,17 @@ class ActivitiesController < ApplicationController
   end
   
   def destroy
-    @activity.update_attributes!(:deleted_at => Time.now)
-    flash[:notice] = "删除成功"
-    redirect_to root_url
+    @activity = Activity.find(params[:id])
+    
+    respond_to do |format|
+      if current_user.admin?
+        @activity.destroy
+        flash[:notice] = "成功删除活动"
+      else
+        flash[:notice] = "对不起，只有管理员才可以删除活动"
+      end 
+      format.html{redirect_to activities_url}
+    end
   end
   
   def join
