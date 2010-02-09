@@ -411,65 +411,22 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =headline ----------------------------------*/
 #headline {
   width: 600px;
-  height: 360px;
+  height:360px;
   padding-left:20px
-}
-#headlineMenu {
-  position: absolute;
-  bottom: 8px;
-  -bottom:28px;
-  right: 8px;
-  z-index: 10;
-}
-#headlineMenu a {
-  float: left;
-  background: url(../images/headlineBtn.gif) no-repeat 0 0;
-  width: 24px;
-  height: 19px;
-  margin-left: -1px;
-  color: #666;
-  text-align: center;
-}
-#headlineMenu a.activeSlide {
-  background-position: -24px 0;
-  color: #fff;
-}
-
-#headline li {
-  width: 100%;
-  height: 300px;
-}
-
-/* =vote */
-#headline .vote {
-  background: url(../images/announce/vote.jpg) no-repeat;
-  height: 260px;
-  padding: 20px;
-}
-#headline .vote p {
-  margin: .5em 0 1em;
-  color: #fff;
-  font-size: 1.2em;
 }
 /* /END Headline ---------------------------- */
 
 /* =siteIntro*/
-#siteIntro {
-  background-color: #fff;
-  width:590px;
-  border: #dedede solid 1px;
-  margin: 20px 0;
-  padding: 0 1em;
+.siteIntro {
+  float:left;
+  margin: 20px 20px;
+  padding: 5px;
+  font-size:13px;
+  color:#555;
 }
-#siteIntro p {
-  text-indent: 2em;
-}
-#siteIntro ul {
-  margin: 0 4em;
-}
-#siteIntro ul li {
-  list-style: disc;
-}
+.siteIntro p {
+margin:4px 0}
+
 
 /* =commonUse --------------------------------*/
 #commonUse {

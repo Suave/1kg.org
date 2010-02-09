@@ -4,10 +4,15 @@ class MiscController < ApplicationController
   
   def index
     @page_title = "首页"
-    logged_in? ? public_look : render(:action => "welcome")
-  end
-  
-  def welcome
+    if logged_in?
+      public_look
+    else
+      @school = School.find(:last,:conditions => "main_photo_id is not null")
+      @hot_activity = Activity.find(:all,:limit => 1,:order => "participations_count desc" ,:conditions => {:start_at => 1.day.ago..2.week.from_now})[0]
+      @school_count = School.validated.size
+      @activity_count = Activity.ongoing.size
+      render(:action => "welcome")
+    end
   end
   
   def my_city
