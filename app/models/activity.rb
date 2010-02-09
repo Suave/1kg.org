@@ -104,8 +104,6 @@ class Activity < ActiveRecord::Base
     indexes arrival.name, :as => :destination
     indexes user.login, :as => :organizer
     
-    where "deleted_at is NULL"
-    
     has :category
     has :end_at
     has :done, :as => :over
