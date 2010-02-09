@@ -1,6 +1,7 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <style type="text/css">#new_school img{height:68px}#new_school .school_list_photo{width:96px}</style>
 <% end %>
 
 <% content_for :sidebar do -%>
@@ -12,7 +13,7 @@
   <span class="span_title">公告</span>
   <div class="cleanfix" style="height:10px"></div>
   <% @bulletins.each do |b| %>
-    <p style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></p>
+    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #ccc solid"><%= link_to b.title, bulletin_url(b) %></p>
   <% end %>
   <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
@@ -28,13 +29,27 @@
 
 <div class="cleanfix" style="clear:both;height:20px"></div>           
 
+<div style="padding:10px 20px 0;background:#f2f2f2;margin-bottom:20px">
+  <h6 style="font-size:14px;color:#999;margin-top:-22px;margin-bottom:4px">最新被发现的学校</h6>
+  <div id="new_school">
+    <% envoys = User.moderators_of(@school) %>
+    <%= main_photo_thumb(@school) -%>       
+    <div class="school_list_meta">
+      <h5><%= link_to h(@school.title), school_path(@school)%></h5>
+      <span class="gary_span"><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></span>
+      <% unless envoys.nil? %><br/><span class="gary_span">学校大使: <% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></span><%end-%>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div> 
+
 <div class="newbox">
       <span class="span_title">热门分享</span> 
       <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
-      <div class="remark"><%= link_to "&raquo; 全部分享", shares_url %></div>
+      <div class="remark"><%= link_to "&raquo; 更多分享", shares_url %></div>
       <div class="cleanfix" style="height:20px"></div>
 </div>
 
@@ -45,6 +60,6 @@
     <div class="contents">
       <%= render :partial => "/shared/topic", :collection => @recent_topics %>
     </div>
-    <div class="remark"><%= link_to "&raquo; 全部分享", topics_url %></div>
+    <div class="remark"><%= link_to "&raquo; 更多话题", topics_url %></div>
     <div class="cleanfix" style="height:20px"></div>
 </div>

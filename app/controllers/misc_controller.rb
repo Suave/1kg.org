@@ -41,9 +41,10 @@ class MiscController < ApplicationController
   def public_look
     @page_title = "首页"
     @title = "欢迎来到多背一公斤"
+    @school = School.last
+    @hot_activity = Activity.find(:first,:order => :participations_count,:conditions => {:start_at => 1.day.ago..1.week.from_now})
     @recent_shares = Share.recent_shares
     @hot_groups = Group.most_members
-    @recent_citizens = User.recent_citizens
     @recent_topics = Topic.recent
     # 网站公告
     @bulletins = Bulletin.recent

@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #f9f9f9;
+  background-color: #fcfcfc;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -1159,7 +1159,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity_more {text-align:right;padding:0 20px}
 
 .remark{margin-right:20px;clear:both;text-align:right}
-.remark a{color:#666;left:540px}
+.remark a{color:#666;}
 .remark a:hover{color:#E98523}
 
 .topic {width:620px;height:80px;overflow:hidden}
@@ -1183,10 +1183,10 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #records .record{margin-right:10px;width:300px}
 
 .newbox{padding-left:10px;margin-bottom:20px}
-.span_title{font-size:18px;font-weight:bold;}
-.span_title2{font-size:15px;font-weight:bold;}
+.span_title{font-size:18px;font-weight:bold;color:#555}
+.span_title2{font-size:15px;font-weight:bold;color:#555}
 
-#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 
 .share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
