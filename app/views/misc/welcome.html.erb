@@ -1,7 +1,7 @@
 <% content_for :sidebar do -%>
-<div style="margin-left:-30px;width:280px">
+<div style="margin-left:-30px;width:290px">
   <%= render :partial => "/shared/login" %>
-  <%= render :partial => '/shared/search_box' %>
+  <div class="newbox"><%= render :partial => '/shared/search_box' %><div>
 </div>
 <% end -%>
 
@@ -9,7 +9,42 @@
   <a href="/public"><img src="/images/title.jpg" alt="多背一公斤"></a>
 </div>
 
-<div id="siteIntro" style="font-size:14px;">
-  <p><%= link_to "&raquo; 随便转转, 更多了解多背一公斤", public_look_url %></p>
-  <p style="font-si ze:0.8em; margin-left:20px;">and if you're English speaker, please visit the <%= link_to "English introduction", "/misc/en-intro" %>.</p>
+<div class="siteIntro" style="width:260px">
+  <h6 style="font-size:16px;line-height:16px">“发现+探访” 乡村学校</h6>
+  <p> 用户收集了 <%= link_to @school_count.to_s, schools_url,:style => "font-family:sans-serif;font-size:16px"%> 所乡村学校的详细信息<br/>
+  先意思一下，写一段简短的文字好难
+  </p>
+  <div class="school_list">
+    <%= main_photo_thumb(@school) -%>       
+    <div class="school_list_meta" style="width:140px;margin-top:-4px">
+      <h5><%= link_to h(@school.title), school_path(@school)%></h5>
+      <span class="gary_span"><% if @school.geo.parent %><%= @school.geo.parent.name.to_s %> > <% end %><%=  @school.geo.name.to_s %></span>
+      <br/><span class="gary_span">学校需要: <%= @school.need.tag_list[0,4]%> ...</span>
+    </div>
+  </div>
+  
+  <div class="clearfix"></div>
+</div>
+
+<div class="siteIntro" style="width:280px">
+  <h6 style="font-size:16px;line-height:16px">“发起+参与” 公益活动</h6>
+  <p> 目前有 <%= link_to @activity_count.to_s, activities_url,:style => "font-family:sans-serif;font-size:16px"%> 项用户发起的公益活动正在进行<br/>
+哎呀呀 这段文字怎么写呢？
+  </p>
+    <div class="activity_list">
+    <%= topic_photo_thumb(@hot_activity) -%>       
+    <div class="activity_list_meta" style="width:190px;height:100px">
+    <h5><%= link_to h(@hot_activity.title), activity_path(@hot_activity)%></h5>
+    <span class="gary_span"><%= "开始日期: #{@hot_activity.start_at.to_date}" %></span><br/>
+      <% if [0,1,2,3].include?(@hot_activity.category) %>
+      <span class="gary_span"> <%= @hot_activity.departure_id==0 ? "不限" : @hot_activity.departure.name %> =>  <%= @hot_activity.arrival_id==0 ? "不限" : @hot_activity.arrival.name %></span><br/>
+      <% elsif @hot_activity.category == 4%>
+      <span class="gary_span">所在城市: <%= @hot_activity.departure_id==0 ? "不限" : @hot_activity.departure.name %></span><br/>
+      <% else %>
+      <span class="gary_span">网络活动</span><br/>
+      <%end%>
+    <span class="gary_span"><%= @hot_activity.participations.count %> 人参加　 <%= @hot_activity.comments_count %> 条留言</span>
+    </div>
+  </div>
+  <div class="clearfix"></div>
 </div>
