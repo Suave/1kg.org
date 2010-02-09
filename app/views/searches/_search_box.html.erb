@@ -2,18 +2,32 @@
   <div class="cleanfix" style="height:2px"></div>
     <span "gary_span">站内搜索</span>
     <% form_tag '/search', :method => 'get' do %>
-      <input type="text" name="q" size="25" class="form-text" value="<%= @search.q.blank? ? '学校名称,地址,城市,需求...' : @search.q %>" onclick="jQuery(this).val('');return false;" id='query-box' />
-      <input type="submit" value="搜索" class="form-submit" onclick="clear_query_box();" />
+      <input type="text" name="q" size="25" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
+      <input type="submit" value="搜索" class="form-submit" onclick="clear_search_box();" />
+      <p class="small">
+        <%= radio_button_tag :kind, 'school', @search.kind == 'school', :onchange => 'switch_search_to("school");' %> 学校
+        <%= radio_button_tag :kind, 'activity', @search.kind == 'activity', :onchange => 'switch_search_to("activity");' %> 活动
+      </p>
 
-      <p class="small"><%= link_to_function '高级选项', '$("#advance_search").toggle();' %></p>
+      <p class="small"><%= link_to_function '高级选项', 'toggle_advanced_search();' %></p>
       
       <p id="advance_search" style="<%= 'display:none;' unless @search.advanced? %>">
         <%= label_tag '标题' %><%= text_field_tag :title, @search.title %><br />
-        <%= label_tag '城市' %><%= text_field_tag :city, @search.city %><br />
+        <%= label_tag '城市' %><%= text_field_tag :city, @search.city %>
+      </p>
+      <p id="advance_school" style="<%= 'display:none;' unless @search.advanced? && @search.kind == 'school' %>">
         <%= label_tag '地址' %><%= text_field_tag :address, @search.address %><br />
         <%= label_tag '需求' %><%= text_field_tag :need, @search.need %><br />
         <%= check_box_tag :has_library, 1, @search.has_library %><%= label_tag '是否有图书馆' %><br />
         <%= check_box_tag :has_pc, 1, @search.has_pc %><%= label_tag '是否有电脑' %><br />
+      </p>
+      <p id="advance_activity" style="<%= 'display:none;' unless @search.advanced? && @search.kind == 'activity' %>">
+        <%= label_tag '类型' %><%= select_tag :category, options_for_select([''] + Activity.categories, @search.need) %><br />
+        <% Search::DATE_RANGE.each do |d| %>
+          <%= radio_button_tag :on, d, @search.on == d %> <%= d %>
+        <% end %><br />
+        <%= check_box_tag :include_over, '1', @search.include_over %>包含已结束活动
+        <br />
       </p>
     <% end %>
   <div class="cleanfix" style="height:10px"></div>

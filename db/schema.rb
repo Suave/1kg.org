@@ -544,6 +544,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  :need
     t.string  :kind, :default => 'school'
     t.integer :user_id
+    t.string  :category
+    t.string  :on
+    t.string  :include_over
     t.timestamps
   end
   

@@ -93,6 +93,23 @@ class Activity < ActiveRecord::Base
   
   before_save :format_content
   
+  define_index do
+    # fields
+    indexes title
+    indexes location
+    indexes clean_html, :as => :description
+    indexes departure.name, :as => :start
+    indexes arrival.name, :as => :destination
+    indexes user.login, :as => :organizer
+    
+    where "deleted_at is NULL"
+    
+    has :category
+    has :end_at
+    has :done, :as => :over
+    has :start_at
+  end
+  
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end

@@ -1,13 +1,23 @@
 class SearchesController < ApplicationController
   def show
+    @search = Search.new(params)
+    
+    search_school if @search.kind == 'school'
+    search_activity if @search.kind == 'activity'
+        
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  private
+  def search_activity
+    @activities = @search.activities(params[:page], 14)
+  end
+  
+  def search_school
     @map_center = Geo::DEFAULT_CENTER
-    @search = Search.new(:q => params[:q], :title => params[:title], :city => params[:city],
-                          :need => params[:need], :address => params[:address],
-                          :class_amount => params[:class_amount],
-                          :student_amount => params[:student_amount],
-                          :has_library =>  params[:has_library],
-                          :has_pc => params[:has_pc])
-    @schools = @search.schools(params[:page])
+    @schools = @search.schools(params[:page]) 
     
     @json = []
     @schools.each do |school|
@@ -18,10 +28,6 @@ class SearchesController < ApplicationController
                        :a => school.basic.latitude,
                        :o => school.basic.longitude
                        }
-    end
-        
-    respond_to do |format|
-      format.html
     end
   end
 end
