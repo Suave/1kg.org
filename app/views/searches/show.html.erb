@@ -1,27 +1,15 @@
 <% @page_title = @title = "搜索" %>
 
-<% @page_title = @title = "搜索" %>
+<% content_for :heads do %>
+  <%= javascript_include_tag "search" %>
+<% end %>
 
 <% content_for :sidebar do -%>
   <%= render :partial => '/searches/search_box' %>
 <% end %>
 
-<div class="newbox">
-  <span class="span-title">&nbsp;</span>
-  <div class="contents">
-    <%= render :partial => '/geos/school_maps' %>
-  </div>
-</div>
-
-<% unless @schools.empty? %>
-<div class="newbox">
-  <span class="span-title">&nbsp;</span>
-  <div class="contents">
-    <%= render :partial => '/schools/schools', :object => @schools %>
-    <%= customize_paginate(@schools) %>
-  </div>
-</div>
-<% end %>
+<%= render :partial => 'schools' if @search.kind == 'school' %>
+<%= render :partial => 'activities' if @search.kind == 'activity' %>
 
 <% if false %>
 <% unless @groups.empty? %>
