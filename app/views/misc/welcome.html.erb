@@ -1,18 +1,15 @@
 <% content_for :sidebar do -%>
-  <%= render :partial => "/shared/current_user_profile" %>
+<div style="margin-left:-30px;width:280px">
+  <%= render :partial => "/shared/login" %>
   <%= render :partial => '/shared/search_box' %>
+</div>
 <% end -%>
 
-<% content_for :tail do %>
-  <script type="text/javascript" src="/javascripts/jQuery/jquery.cycle.pack.js"></script>
-  <script type="text/javascript" src="/javascripts/jQuery/addLoad.js"></script>
-<% end %>
-
 <div id="headline">
+  <a href="/public"><img src="/images/title.jpg" alt="多背一公斤"></a>
 </div>
 
 <div id="siteIntro" style="font-size:14px;">
-
   <p><%= link_to "&raquo; 随便转转, 更多了解多背一公斤", public_look_url %></p>
-  <p style="font-size:0.8em; margin-left:20px;">and if you're English speaker, please visit the <%= link_to "English introduction", "/misc/en-intro" %>.</p>
+  <p style="font-si ze:0.8em; margin-left:20px;">and if you're English speaker, please visit the <%= link_to "English introduction", "/misc/en-intro" %>.</p>
 </div>

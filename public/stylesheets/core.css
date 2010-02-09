@@ -411,10 +411,8 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =headline ----------------------------------*/
 #headline {
   width: 600px;
-  height: 280px;
-  overflow: hidden;
-  position: relative;
-  margin-left:8px;
+  height: 360px;
+  padding-left:20px
 }
 #headlineMenu {
   position: absolute;
@@ -1213,6 +1211,9 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
 
+.entrance{background:#ececec;border:1px #d0d0d0 solid;padding:10px 0;margin-bottom:6px;}
+.entrance_link{font-size:14px;color:#444;font-weight:bold}
+.entrance_link:hover{color:#E98523}
 .envoy_badge{position:relative;top:2px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
