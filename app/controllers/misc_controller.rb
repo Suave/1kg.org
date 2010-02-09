@@ -7,6 +7,9 @@ class MiscController < ApplicationController
     logged_in? ? public_look : render(:action => "welcome")
   end
   
+  def welcome
+  end
+  
   def my_city
     if @city = current_user.geo
       # 用户已经选择过同城
