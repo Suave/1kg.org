@@ -1,5 +1,5 @@
 <% content_for :sidebar do -%>
-<div style="margin-left:-30px;width:290px">
+<div style="margin-left:-30px;-margin-left:0;width:290px">
   <%= render :partial => "/shared/login" %>
   <div class="newbox"><%= render :partial => '/shared/search_box' %><div>
 </div>
@@ -16,39 +16,13 @@
   </div>
   <p style="text-align:right;margin:5px">    <span class="gary_span">已收录 <%= link_to @school_count.to_s, schools_url,:style => "font-family:sans-serif;font-size:16px"%> 所学校信息</span>
   </p>
-  <%if false%>
-  <div class="school_list">
-    <%= main_photo_thumb(@school) -%>
-    <div class="school_list_meta" style="width:140px;">
-      <h5><%= link_to h(@school.title), school_path(@school)%></h5>
-      <span class="gary_span"><% if @school.geo.parent %><%= @school.geo.parent.name.to_s %> > <% end %><%=  @school.geo.name.to_s %></span>
-      <br/><span class="gary_span">学校需要: <%= @school.need.tag_list[0,4]%> ...</span>
-    </div>
-  </div>
-  <%end%>
-  <div class="clearfix"></div>
+  
 </div>
 
 <div class="siteIntro" style="width:280px">
   <h6 style="font-size:16px;line-height:38px">“发起+参与” <%= link_to "公益活动",activities_url,:class=>"channel"%></h6>
-  
-<div>哎呀呀 这段文字怎么写呢？
+  <div>哎呀呀 这段文字怎么写呢？
   </div>
 <p style="text-align:right;margin:5px"><span class="gary_span"><%= link_to @activity_count.to_s, activities_url,:style => "font-family:sans-serif;font-size:16px"%> 项公益活动正在进行</span></p>
-  <%if false%>
-    <div class="activity_list">
-    <%= topic_photo_thumb(@hot_activity) -%>       
-    <div class="activity_list_meta" style="width:190px;height:100px">
-    <h5><%= link_to h(@hot_activity.title), activity_path(@hot_activity)%></h5>
-    <span class="gary_span"><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[@hot_activity.category] %></span><br/>
-    <span class="gary_span"><%= "开始日期: #{@hot_activity.start_at.to_date}" %></span><br/>
-      <% if [0,1,2,3].include?(@hot_activity.category) %>
-      <span class="gary_span"> <%= @hot_activity.departure_id==0 ? "不限" : @hot_activity.departure.name %> =>  <%= @hot_activity.arrival_id==0 ? "不限" : @hot_activity.arrival.name %></span><br/>
-      <% else%>
-      <span class="gary_span">所在城市: <%= @hot_activity.departure_id==0 ? "不限" : @hot_activity.departure.name %></span><br/>
-      <%end%>
-    </div>
-  </div>
-  <%end-%>
-  <div class="clearfix"></div>
+  
 </div>
