@@ -15,7 +15,8 @@ class Search < ActiveRecord::Base
                 :has_library, :has_pc
                 
   STUDENT_RANGE = ['', '< 50', '50 - 200', '200 - 500', '500 - 1000', '> 1000']
-  OPTIONS = ['q', 'kind', 'title', 'city', 'address', 'need', 'category', 'on', 'include_over']
+  OPTIONS = ['q', 'kind', 'title', 'city', 'address', 'need', 
+              'category', 'on', 'include_over', 'school_title', 'content']
   
   @@student_options = {'< 50' => 0..50,
     '50 - 200' => 50..200,
@@ -70,11 +71,27 @@ class Search < ActiveRecord::Base
                         :order => 'start_at DESC')
   end
   
+  def shares(page, per_page = 20)
+    conditions = {}
+    attributes = {}
+    
+    conditions[:title] = self.title unless self.title.blank?
+    conditions[:city] = self.city unless self.city.blank?
+    conditions[:school_title] = self.school_title unless self.school_title.blank?
+    conditions[:content] = self.content unless self.content.blank?
+    
+    Share.search(self.q, :conditions => conditions, 
+                        :page => page, 
+                        :per_page => per_page,
+                        :order => 'updated_at DESC')
+  end
+  
   def advanced?
     !(self.title.blank? && self.city.blank? && self.need.blank? && 
       self.address.blank? && self.class_amount.blank? &&
       self.student_amount.blank? && self.has_library.blank? &&
       self.has_pc.blank? && self.on.blank? &&
-      self.include_over.blank?)
+      self.include_over.blank? && self.school_title.blank? &&
+      self.content.blank?)
   end
 end
