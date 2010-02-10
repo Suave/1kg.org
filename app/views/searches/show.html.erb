@@ -10,6 +10,7 @@
 
 <%= render :partial => 'schools' if @search.kind == 'school' %>
 <%= render :partial => 'activities' if @search.kind == 'activity' %>
+<%= render :partial => 'shares' if @search.kind == 'share' %>
 
 <% if false %>
 <% unless @groups.empty? %>
