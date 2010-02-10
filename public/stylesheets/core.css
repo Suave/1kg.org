@@ -410,67 +410,22 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =headline ----------------------------------*/
 #headline {
   width: 600px;
-  height: 280px;
-  overflow: hidden;
-  position: relative;
-  margin-left:8px;
-}
-#headlineMenu {
-  position: absolute;
-  bottom: 8px;
-  -bottom:28px;
-  right: 8px;
-  z-index: 10;
-}
-#headlineMenu a {
-  float: left;
-  background: url(../images/headlineBtn.gif) no-repeat 0 0;
-  width: 24px;
-  height: 19px;
-  margin-left: -1px;
-  color: #666;
-  text-align: center;
-}
-#headlineMenu a.activeSlide {
-  background-position: -24px 0;
-  color: #fff;
-}
-
-#headline li {
-  width: 100%;
-  height: 300px;
-}
-
-/* =vote */
-#headline .vote {
-  background: url(../images/announce/vote.jpg) no-repeat;
-  height: 260px;
-  padding: 20px;
-}
-#headline .vote p {
-  margin: .5em 0 1em;
-  color: #fff;
-  font-size: 1.2em;
+  height:360px;
+  padding-left:20px
 }
 /* /END Headline ---------------------------- */
 
 /* =siteIntro*/
-#siteIntro {
-  background-color: #fff;
-  width:590px;
-  border: #dedede solid 1px;
-  margin: 20px 0;
-  padding: 0 1em;
+.siteIntro {
+  float:left;
+  margin: 20px 20px;
+  padding: 5px;
+  font-size:13px;
+  color:#555;
 }
-#siteIntro p {
-  text-indent: 2em;
-}
-#siteIntro ul {
-  margin: 0 4em;
-}
-#siteIntro ul li {
-  list-style: disc;
-}
+.siteIntro p {
+margin:4px 0}
+
 
 /* =commonUse --------------------------------*/
 #commonUse {
@@ -1134,7 +1089,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .vDateField{width:70px}
 
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
-.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:4px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
@@ -1187,6 +1142,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .span_title2{font-size:15px;font-weight:bold;color:#555}
 
 #admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
+#search_box{padding:6px 10px;background:#f0f0f0;margin-top:4px;border:1px #d3d3d3 solid;}
 
 .share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
@@ -1195,6 +1151,10 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .tabs_month{margin:10px 10px 0}
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
 
+.entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
+.channel{font-size:13px;color:#666}
+.entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
+.channel:hover .entrance_link:hover{color:#E98523}
 .envoy_badge{position:relative;top:2px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */

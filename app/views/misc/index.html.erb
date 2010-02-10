@@ -6,8 +6,6 @@
 
 <% content_for :sidebar do -%>
 
-<%= render :partial => '/shared/search_box' %>
-
 <% unless @bulletins.blank? -%>
 <div class="newbox">
   <span class="span_title">公告</span>
@@ -18,6 +16,8 @@
   <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
 <% end -%>
+
+<%= render :partial => '/shared/search_box' %>
   
 <div class="newbox">
   <span class="span_title">人气小组</span>
@@ -29,19 +29,10 @@
 
 <div class="cleanfix" style="clear:both;height:20px"></div>           
 
-<div style="padding:10px 20px 0;background:#f2f2f2;margin-bottom:20px">
-  <h6 style="font-size:14px;color:#999;margin-top:-22px;margin-bottom:4px">最新被发现的学校</h6>
-  <div id="new_school">
-    <% envoys = User.moderators_of(@school) %>
-    <%= main_photo_thumb(@school) -%>       
-    <div class="school_list_meta">
-      <h5><%= link_to h(@school.title), school_path(@school)%></h5>
-      <span class="gary_span"><% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %></span>
-      <% unless envoys.nil? %><br/><span class="gary_span">学校大使: <% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></span><%end-%>
-    </div>
-    <div class="clearfix"></div>
-  </div>
-</div> 
+<div class="newbox">
+      <span class="span_title">热门分享</span> 
+      
+</div>
 
 <div class="newbox">
       <span class="span_title">热门分享</span> 
