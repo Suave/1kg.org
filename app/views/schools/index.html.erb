@@ -19,19 +19,19 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-
+<%= render :partial => "submit" %>
 
 <div class="newbox">
       <span class="span_title">和学校相关的活动</span>
       <div class="clearfix" style="height:10px"> </div>
       <div class="contents">
           <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
-          <div class="activity_more"><%= link_to '查看更多',with_school_activities_url,:target => "_blank" %></div>
+          <div class="remark"><%= link_to '&raquo; 查看更多',with_school_activities_url,:target => "_blank" %></div>
       </div>
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 
-<%= render :partial => "submit" %>
+<%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
 <% end -%>
 
@@ -105,7 +105,7 @@
         <%= link_to "台湾","/geos?province=393" %>
       </div>
       
-      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 0 10px 15px">
+      <div  style="width:200px;height:40px;float:left;background-color:#f0f0f0;padding:6px 0 10px 15px">
       <span style="font-size:12px;color:#666;font-weight:bold">城市快速搜索</span>
         <% form_tag search_geos_url, :method => :get do -%>
           <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>

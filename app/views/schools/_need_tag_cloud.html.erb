@@ -1,10 +1,8 @@
-<div class="box" id="search-front">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>学校需求</h3>
+<div class="newbox" id="search-front">
+      <span class="span_title2">需求搜索</span>
       <div class="contents">
         <% form_tag '/tags', :method => 'get' do %>
-          <input type="text" name="tag" size="25" class="form-text" value="搜索标签" onclick="jQuery(this).val('');return false;" />
+          <input type="text" name="tag" size="25" class="form-text" value="录音机、书包、文具..." onclick="jQuery(this).val('');return false;" />
           <input type="submit" name="sa" value="搜索" class="form-submit" />
         <% end %>
         <br />
@@ -12,7 +10,5 @@
           <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>
         <% end %>
       </div>
-      <p class="remark">&raquo; <%= link_to "所有需求", '/tags/needs' %></p>
-    </div>
-  </div>
+      <p class="remark"> <%= link_to "&raquo; 所有需求", '/tags/needs' %></p>
 </div>

@@ -18,7 +18,7 @@ class SchoolsController < ApplicationController
         @activities_for_school = Activity.ongoing.find(:all,
                                                        :conditions => "School_id is not null",
                                                        :order => "created_at desc, start_at desc",
-                                                       :limit => 6,
+                                                       :limit => 5,
                                                        :include => [:main_photo, :school])
         # 显示最新用户动态
       }

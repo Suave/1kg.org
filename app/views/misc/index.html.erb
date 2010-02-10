@@ -5,7 +5,7 @@
   .hot{float:left}
   .hot img{height:68px;}
   .hot .school_list_photo{width:92px}
-  .hot_box{padding:0 15px ;margin-bottom:10px;height:130px;border-bottom:1px #ccc dashed}
+  .hot_box{padding:0 15px ;margin-bottom:10px;height:130px;border-bottom:1px #ccc dashed;color:#888}
   </style>
 <% end %>
 
@@ -52,8 +52,8 @@
     <%= main_photo_thumb(school) -%>       
     <div class="school_list_meta" style="width:155px">
       <h5><%= link_to h(school.title), school_path(school)%></h5>
-      <span class="gary_span"><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
-      <br/><span class="gary_span">学校需要: <%= school.need.tag_list[0,5]%> ...</span>
+      <span><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
+      <br/><span>学校需要: <%= school.need.tag_list[0,5]%> ...</span>
     </div>  
     <div class="clearfix"></div>
   </div>
@@ -73,8 +73,8 @@
     <%= topic_photo_thumb(activity) -%>       
     <div class="activity_list_meta" style="width:172px;height:100px">
     <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
-    <span class="gary_span"><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
-    <span class="gary_span"><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
+    <span><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
+    <span><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
     </div>
   </div>
   <%end%> 
