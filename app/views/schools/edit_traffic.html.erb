@@ -21,7 +21,8 @@
           <p><label class="label" for="school_school_traffic_sight">学校附近景点</label>
           <%= t.text_field :sight, :size => 30, :class => 'formText' %>
           </p>
-          <p><label class="label" for="school_school_traffic_description">交通指南<span class="require">*</span></label>（从学校所在县/市到达该学校的路线、乘车地点、交通工具、价钱、时间）
+          <p><label class="label" for="school_school_traffic_description">交通指南<span class="require">*</span></label>
+                  <span>（从学校所在县/市到达该学校的路线、乘车地点、交通工具、价钱、时间）</span><br/>
           <%= t.text_area  :description, :cols => 75, :rows => 12 %>
           </p>
           <% end -%>

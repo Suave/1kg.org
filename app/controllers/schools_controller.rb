@@ -20,9 +20,6 @@ class SchoolsController < ApplicationController
                                                        :order => "created_at desc, start_at desc",
                                                        :limit => 6,
                                                        :include => [:main_photo, :school])
-        # 显示最新用户动态
-        @visits = Visited.latestvisit
-        @wannas = Visited.latestwanna
       }
       format.json {
         @schools = School.validated

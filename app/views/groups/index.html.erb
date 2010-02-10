@@ -1,4 +1,4 @@
-<% @page_title = @title = "小组" -%>
+<% @page_title = "小组" -%>
 
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
@@ -9,7 +9,6 @@
 <li>小组</li>
 <% end -%>
 <% content_for :sidebar do -%>
-<p style="margin:10px 15px;"><%= link_for_new_group %></p>
 
 <% if logged_in? -%>
 <div class="newbox">
@@ -33,6 +32,8 @@
 <% end -%>
 
 <div class="newbox">
+    <span class="span_title">小组话题</span>
+    <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "建立小组", new_group_url,:class => "buttonjoin" %></div>
       <div id="tabs">
         <ul class="tab">
           <% if logged_in? -%>
