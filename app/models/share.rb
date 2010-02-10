@@ -48,6 +48,16 @@ class Share < ActiveRecord::Base
                               :limit => 6,
                               :include => [:user, :tags]
 
+  define_index do
+    # fields
+    indexes title
+    indexes school.title, :as => :school_title
+    indexes geo.name, :as => :city
+    indexes clean_html, :as => :content
+    
+    has :updated_at
+    has :created_at
+  end
   
   def hit!
     self.class.increment_counter :hits, id
