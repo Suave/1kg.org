@@ -6,32 +6,56 @@
 
 <% content_for :sidebar do -%>
 
+<%= render :partial => '/shared/search_box' %>
+
 <% unless @bulletins.blank? -%>
 <div class="newbox">
   <span class="span_title">公告</span>
   <div class="cleanfix" style="height:10px"></div>
   <% @bulletins.each do |b| %>
-    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #ccc solid"><%= link_to b.title, bulletin_url(b) %></p>
+    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
   <% end %>
   <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
 <% end -%>
 
-<%= render :partial => '/shared/search_box' %>
+
   
-<div class="newbox">
-  <span class="span_title">人气小组</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <%= render :partial => "/groups/groups", :object => @hot_groups %>
-  <p class="remark">&raquo; <%= link_to "更多小组", groups_url %></p>
+<div id="records" class="newbox">
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <span class="span_title2">要去学校的用户</span>
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <div id="wannas">
+          <%= render :partial => "/shared/visit", :collection => @wannas,:locals => {:school => nil} %>
+        </div>
+        <span class="span_title2">去过学校的用户</span>
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <div id="visiteds">
+          <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
+        </div>
+        <div class="cleanfix"></div>
+      </div>
 </div>
+
 <% end -%>
 
-<div class="cleanfix" style="clear:both;height:20px"></div>           
+
 
 <div class="newbox">
-      <span class="span_title">热门分享</span> 
-      
+  <span class="span_title">新被发现的学校</span>
+<div class="cleanfix" style="clear:both;height:10px"></div>           
+   <% @new_schools.each do |school|%>
+  <div class="school_list">
+    <%= main_photo_thumb(school) -%>
+    <div class="school_list_meta" style="width:160px;">
+      <h5><%= link_to h(school.title), school_path(school)%></h5>
+      <span class="gary_span"><% if school.geo.parent %><%= school.geo.parent.name.to_s %> > <% end %><%=  school.geo.name.to_s %></span><br/>
+      <span class="gary_span">学校需要: <%= school.need.tag_list[0,5]%> ...</span>
+    </div>
+  </div>
+   <%end%>
+   <p class="remark">还有</p>
+   <div class="cleanfix" style="clear:both;height:10px"></div>           
 </div>
 
 <div class="newbox">

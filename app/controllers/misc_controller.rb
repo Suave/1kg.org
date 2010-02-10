@@ -48,14 +48,15 @@ class MiscController < ApplicationController
   
   def public_look
     @page_title = "首页"
-    @title = "欢迎来到多背一公斤"
-    @school = School.last
-    @hot_activity = Activity.find(:first,:order => :participations_count,:conditions => {:start_at => 1.day.ago..1.week.from_now})
+    @new_schools = School.find(:all,:limit => 2,:order => "created_at desc",:conditions => "main_photo_id is not null")
+    @hot_activities = Activity.find(:all,:limit => 2,:order => "participations_count desc" ,:conditions => {:start_at => 1.day.ago..2.week.from_now})
     @recent_shares = Share.recent_shares
     @hot_groups = Group.most_members
     @recent_topics = Topic.recent
     # 网站公告
     @bulletins = Bulletin.recent
+    @visits = Visited.latestvisit
+    @wannas = Visited.latestwanna
     render :action => "index"
   end
   

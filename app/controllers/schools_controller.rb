@@ -21,8 +21,6 @@ class SchoolsController < ApplicationController
                                                        :limit => 6,
                                                        :include => [:main_photo, :school])
         # 显示最新用户动态
-        @visits = Visited.latestvisit
-        @wannas = Visited.latestwanna
       }
       format.json {
         @schools = School.validated
