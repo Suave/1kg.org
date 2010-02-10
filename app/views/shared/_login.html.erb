@@ -1,24 +1,26 @@
 <div class="newbox" id="intro" >
      <div class="contents" >
+       
+       <div class="entrance" style="padding-left:20px">
+          <a class="entrance_link" href="/public">&raquo; 随便看看 </a>
+          <br/><span class="gary_span">更多了解多背一公斤</span><br/>
+          <span><%= link_to "English introduction", "/misc/en-intro" %></span>
+       </div>
+       
        <div class="entrance" style="padding-left:20px">
           <a class="entrance_link" href="/signup">&raquo; 注册新用户 </a>
           <br/><span class="gary_span">轻松注册，只用不到30秒的时间</span>
        </div>
-       <div class="entrance" style="padding-left:20px">
-          <a class="entrance_link" href="/pubilc">&raquo; 随便看看 </a>
-          <br/><span class="gary_span">更多了解多背一公斤</span><br/>
-          <span><%= link_to "English introduction", "/misc/en-intro" %></span>
-       </div>
+      
        <div class="entrance">
-       <% form_tag session_path do -%>
-       <p style="text-align:center;font-size:14px;color:#444;font-weight:bold;margin-top:10px"> 用户登录</p>
-       <p><label for="email" class="label">邮箱</label> <%= text_field_tag 'email' %></p>
-       <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
-       <p class="rememberMe" style="text-align:center"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label><span>　<%= link_to "忘记密码了？", forget_password_path %></span></p>
-     
-       <p class="submit" style="text-align:center;">
-        <%= submit_tag '登 录', :style=> "width:80px" %>
-       </p>
+          <% form_tag session_path do -%>
+          <p style="text-align:center;font-size:14px;color:#444;font-weight:bold;margin-top:10px"> 用户登录　</p>
+          <p><label for="email" class="label">邮箱</label> <%= text_field_tag 'email' %></p>
+          <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
+          <p class="rememberMe" style="text-align:center"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label><span>　<%= link_to "忘记密码了？", forget_password_path %></span></p>
+          <p class="submit" style="text-align:center;">
+          <%= submit_tag '登 录', :style=> "width:80px" %>
+          </p>
        <% end -%>
        </div>
      </div>

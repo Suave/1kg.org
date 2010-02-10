@@ -1121,7 +1121,7 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .vDateField{width:70px}
 
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
-.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:4px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
@@ -1169,9 +1169,10 @@ color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-siz
 .share img{margin-top:4px}
 .sharetitle{font-size:13px;}
 
-.entrance{background:#f0f0f0;border:1px #d0d0d0 solid;padding:10px 0;margin-bottom:6px}
-.entrance_link{font-size:14px;color:#444;font-weight:bold}
-.entrance_link:hover{color:#E98523}
+.entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
+.channel{font-size:13px;color:#666}
+.entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
+.channel:hover .entrance_link:hover{color:#E98523}
 .envoy_badge{position:relative;top:2px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
