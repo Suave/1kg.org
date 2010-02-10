@@ -1,7 +1,13 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
-  <style type="text/css">#new_school img{height:68px}#new_school .school_list_photo{width:96px}</style>
+  <style type="text/css">
+  .hot{float:left}
+  .hot img{height:68px;}
+  .hot .school_list_photo{width:92px}
+  .hot_box{padding:10px 15px 0;background:#f2f2f2;margin-bottom:20px;height:86px}
+  .hot_box h6{font-size:14px;color:#999;margin-top:-22px;margin-bottom:4px}
+  </style>
 <% end %>
 
 <% content_for :sidebar do -%>
@@ -19,10 +25,8 @@
 </div>
 <% end -%>
 
-
-  
 <div id="records" class="newbox">
-        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <div class="clearfix" style="clear:both"> </div>
         <span class="span_title2">要去学校的用户</span>
         <div class="clearfix" style="height:10px;clear:both"> </div>
         <div id="wannas">
@@ -39,42 +43,55 @@
 
 <% end -%>
 
+<div class="cleanfix" style="height:15px"></div>
 
-
-<div class="newbox">
-  <span class="span_title">新被发现的学校</span>
-<div class="cleanfix" style="clear:both;height:10px"></div>           
-   <% @new_schools.each do |school|%>
-  <div class="school_list">
-    <%= main_photo_thumb(school) -%>
-    <div class="school_list_meta" style="width:160px;">
+<div class="hot_box">
+  <h6>新被发现的学校</h6>
+  <% @new_schools.each do |school|%>
+  <div class="hot">
+    <%= main_photo_thumb(school) -%>       
+    <div class="school_list_meta" style="width:155px">
       <h5><%= link_to h(school.title), school_path(school)%></h5>
-      <span class="gary_span"><% if school.geo.parent %><%= school.geo.parent.name.to_s %> > <% end %><%=  school.geo.name.to_s %></span><br/>
-      <span class="gary_span">学校需要: <%= school.need.tag_list[0,5]%> ...</span>
+      <span class="gary_span"><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
+      <br/><span class="gary_span">学校需要: <%= school.need.tag_list[0,5]%> ...</span>
+    </div>  
+    <div class="clearfix"></div>
+  </div>
+  <%end%>
+  <div class="hot" style="float:right">
+    <div class="remark" style="margin-right:0"><br/>
+        <%= link_to "&raquo; 学校频道",schools_url,:style=> "font-size:13px" %>
+        <br/>　共有<%= @school_count%>所学校</div>
+  </div>
+</div> 
+
+<div class="hot_box">
+  <h6>最受欢迎的活动</h6>
+    <% @hot_activities.each do |activity|%>
+      <div class="activity_list">
+    <%= topic_photo_thumb(activity) -%>       
+    <div class="activity_list_meta" style="width:172px;height:100px">
+    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <span class="gary_span"><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
+    <span class="gary_span"><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
     </div>
   </div>
-   <%end%>
-   <p class="remark">还有</p>
-   <div class="cleanfix" style="clear:both;height:10px"></div>           
-</div>
+  <%end%> 
+  <div class="hot" style="float:right">
+    <div class="remark" style="margin-right:0"><br/>
+        <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:13px" %>
+        <br/><%= @activity_count%>个活动在进行</div>
+  </div>
+  
+</div> 
 
 <div class="newbox">
       <span class="span_title">热门分享</span> 
       <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
+      <div class="cleanfix" style="height:10px"></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
       <div class="remark"><%= link_to "&raquo; 更多分享", shares_url %></div>
       <div class="cleanfix" style="height:20px"></div>
-</div>
-
-
-<div class="newbox">
-    <span class="span_title">热门话题</span>
-    <div class="cleanfix" style="height:10px"></div>
-    <div class="contents">
-      <%= render :partial => "/shared/topic", :collection => @recent_topics %>
-    </div>
-    <div class="remark"><%= link_to "&raquo; 更多话题", topics_url %></div>
-    <div class="cleanfix" style="height:20px"></div>
 </div>
