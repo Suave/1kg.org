@@ -18,7 +18,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
-  
+  map.topics "/topics/total",:controller => "topics", :action => "total"
+  #market
+  #map.market "/market",:controller => "market",:action => "index"
+
+  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"

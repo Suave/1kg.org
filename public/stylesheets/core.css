@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #f9f9f9;
+  background-color: #fcfcfc;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -988,31 +988,6 @@ h3.title {
 }
 #sharePostNew form .submit { margin-left:7em;}
 
-/* =topicSingle */
-#content-primary #topicSingle h2 {
-  padding-bottom: 5px;
-}
-#content-primary #topicSingle .metadata {
-  padding: 0 20px 20px;
-}
-#content-primary #topicSingle .metadata p,
-#content-primary #topicCommentsList ol .meta {
-  margin: 0;
-  color: #999;
-}
-#topicSingle .avatar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-#topicSingle .avatar img {
-  display: block;
-  border: #dedede solid 1px;
-}
-#topicSingle .entry {
-  padding: 0 30px 20px;
-}
-
 /* =topicCommentsList */
 #topicCommentsList ol {
   padding: 0 10px 10px;
@@ -1176,7 +1151,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
-#content-secondary .activity_list_meta{width:190px}
+#content-secondary .activity_list_meta{width:184px}
 
 .tab{border-bottom:1px #ccc solid;height:27px;}
 .tabs_more{height:20px;float:left;margin:6px 2px 0;-margin:6px 2px -1px 0;padding:0 6px 0;font-weight:bold;font-size:13px;background:#e6e6e6;
@@ -1186,11 +1161,13 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .activity_more {text-align:right;padding:0 20px}
 
-.remark{margin:0;clear:both}
-.remark a{color:#666;position:relative;left:540px}
+.remark{margin-right:20px;clear:both;text-align:right}
+.remark a{color:#666;}
 .remark a:hover{color:#E98523}
 
-.topic {margin:0 5px 6px 0;float:left;-margin:0 0 5px;width:310px;height:70px;overflow:hidden}
+.topic {width:620px;height:80px;overflow:hidden}
+.stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
+
 
 .photo_frame{float:left;height:118px;width:120px;margin:0 0 5px 5px;text-align:center;overflow:hidden}
 .photo{height:80px;}
@@ -1211,16 +1188,17 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #records .record{margin-right:10px;width:300px}
  
 
-.newbox{padding-left:10px;width:100%;margin-bottom:20px}
-.span_title{font-size:18px;font-weight:bold;}
-.span_title2{font-size:15px;font-weight:bold;}
+.newbox{padding-left:10px;margin-bottom:20px}
+.span_title{font-size:18px;font-weight:bold;color:#555}
+.span_title2{font-size:15px;font-weight:bold;color:#555}
 
 #admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 #search_box{padding:6px 10px;background:#f0f0f0;margin-top:4px;border:1px #d3d3d3 solid;}
 
+
 .share{clear:both;margin:12px 0 12px;}
 .share img{margin-top:4px}
-.sharetitle{font-size:13px;}
+.sharetitle,.topictitle{font-size:13px;}
 
 .tabs_month{margin:10px 10px 0}
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}

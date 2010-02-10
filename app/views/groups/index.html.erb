@@ -8,59 +8,62 @@
 <% content_for :crumb do -%>
 <li>小组</li>
 <% end -%>
-
 <% content_for :sidebar do -%>
 <p style="margin:10px 15px;"><%= link_for_new_group %></p>
 
-
 <% if logged_in? -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>我参加的小组</h3>
+<div class="newbox">
+      <span class="span_title">我的小组</span>
+      <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
         <%= render :partial => "groups", :object => @my_groups %>
       </div>
-    </div>
-  </div>
+</div>
+<%else%>
+<div class="newbox">
+      <span class="span_title">新成立的小组</span>
+      <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+        <%= render :partial => "groups", :object => @groups %>
+      </div>
+      <p class="remark">&raquo; <%= link_to "所有小组", all_groups_url %></p>
 </div>
 <% end -%>
 
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>&nbsp;</h3>
-      <div class="tabbedPanel" id="tabs">
+<div class="newbox">
+      <div id="tabs">
         <ul class="tab">
           <% if logged_in? -%>
-            <li><a href="#my">我参加的小组</a></li>
-            <li><a href="#submitted">我发起的话题</a></li>
-            <li><a href="#participated">我参与的话题</a></li>
+            <li class="tabs_more"><a href="#my">我参加的小组</a></li>
+            <li class="tabs_more"><a href="#submitted">我发起的话题</a></li>
+            <li class="tabs_more"><a href="#participated">我参与的话题</a></li>
           <% end -%>
-          <li><a href="#all">最新话题</a></li>
+          <li class="tabs_more"><a href="#all">最新话题</a></li>
         </ul>
+        <div class="clearfix" style="height:10px"></div>
         <div class="panel setting">
           <% if logged_in? %>
           <div id="my">
             <%= render :partial => "/users/group_topics", :object => @recent_topics %>
-            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多话题", group_topics_user_url(current_user) %></p>
+            <p class="remark">&raquo; <%= link_to "更多话题", group_topics_user_url(current_user) %></p>
           </div>
           
           <div id="submitted">
             <%= render :partial => "/users/group_topics", :object => @submitted_topics %>
-            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(current_user) %> (<%= current_user.topics.size %>)</p>
+            <p class="remark">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(current_user) %> (<%= current_user.topics.size %>)</p>
           </div>
           
           <div id="participated">
             <%= render :partial => "/users/group_topics", :object => @participated_topics %>
-            <p style="text-align:right;margin-right:20px;">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.participated_topics.size %>)</p>
+            <p class="remark">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.participated_topics.size %>)</p>
           </div>
           <% end -%>
           
           <div id="all">
             <%= render :partial => "/users/group_topics", :object => @recent_topics_in_all_groups %>
+             <p class="remark">&raquo; <%= link_to "更多话题", topics_url%></p>
           </div>
         </div>
       </div>
@@ -69,18 +72,4 @@
           jQuery("#tabs").tabs();
         });
       </script>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>新成立的小组</h3>
-      <div class="contents clearfix">
-        <%= render :partial => "groups", :object => @groups %>
-      </div>
-      <p class="remark">&raquo; <%= link_to "浏览所有小组", all_groups_url %></p>
-    </div>
-  </div>
 </div>

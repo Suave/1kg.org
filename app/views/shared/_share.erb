@@ -3,8 +3,8 @@
     <%= avatar_for(share.user, "large") %>
   </div>
   <div style="margin-left:60px;">
-    <div class="sharetitle"><%= link_to share.user.login, user_url(share.user) %><%= envoy_badge(share.user)%> 写的 <%= link_to h(share.title), share_url(share) %></div>
-    <div class="summary">“<%= summary(share,32) %>……”</div>
+  <div class="sharetitle"><%= link_to share.user.login, user_url(share.user) %> 写的 <%= link_to h(share.title), share_url(share) %></div>
+    <div class="summary">“<%= summary(share,40) %>……”</div>
     <small style="color:#999">
       <%= share.votes.count %> 推荐/<%= share.comments_count %> 回复
        <% unless share.tags.blank?%> 标签:
