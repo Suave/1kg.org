@@ -519,11 +519,14 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  :city
     t.string  :address
     t.string  :need
-    t.string  :kind, :default => 'school'
+    t.string  :kind
     t.integer :user_id
     t.string  :category
     t.string  :on
     t.string  :include_over
+    t.string  :school_title
+    t.string  :content
+    
     t.timestamps
   end
   
