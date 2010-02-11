@@ -2,10 +2,9 @@
   <div style="float:left">
     <%= main_photo_thumb(record.school) -%> 
   </div>
-  <div style="margin-left:96px;">
+  <div style="margin-left:100px;">
+    <%= link_to record.user.login, user_url(record.user) %> <%= '计划' if record.status == 3%><% unless record.visited_at.blank? %>在<%= l(record.visited_at.to_date) %><%end%>去<%= '过' if record.status == 1%><br/>
     <%= link_to h(record.school.title), school_path(record.school)%><br/>
-    [<%= link_to record.school.geo.parent.name.to_s,'/geos/'+record.school.geo.parent.id.to_s if record.school.geo.parent%> <%= link_to record.school.geo.name.to_s,'/geos/'+record.school.geo.id.to_s %>]
-    <p style="margin:0"><%= link_to record.user.login, user_url(record.user) %> <%= '计划' if record.status == 3%><% unless record.visited_at.blank? %>在<%= l(record.visited_at.to_date) %><%end%>去<%= '过' if record.status == 1%><br/>
-    </p>  
+    <span class="gary_span">[<%= record.school.geo.parent.name.to_s if record.school.geo.parent%> <%=  record.school.geo.name.to_s %>]</span>
   </div>
 </div>

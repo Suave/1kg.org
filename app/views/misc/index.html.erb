@@ -5,7 +5,7 @@
   .hot{float:left}
   .hot img{height:68px;}
   .hot .school_list_photo{width:92px}
-  .hot_box{padding:0 15px ;margin-bottom:10px;height:130px;border-bottom:1px #ccc dashed;color:#888}
+  .hot_box{padding:0 10px ;margin-bottom:10px;height:130px;border-bottom:1px #ccc dashed;color:#888}
   </style>
 <% end %>
 
@@ -25,20 +25,26 @@
 <% end -%>
 
 <div id="records" class="newbox">
-        <div class="clearfix" style="clear:both"> </div>
-        <span class="span_title2">大家要去哪所学校？</span>
+  <div id="record_tabs">
+        <span class="span_title" style="margin-right:8px">大家去哪些学校？</span>
+        <ul class="tab">
+            <li class="tabs_more"><a href="#wannas">要去</a></li>
+            <li class="tabs_more"><a href="#visiteds">去过</a></li>
+        </ul>
         <div class="clearfix" style="height:10px;clear:both"> </div>
         <div id="wannas">
           <%= render :partial => "/shared/record", :collection => @wannas,:locals => {:school => nil} %>
         </div>
-        <div class="clearfix" style="height:10px;clear:both"> </div>
-        <span class="span_title2">大家去过了哪所学校？</span>
-        <div class="clearfix" style="height:10px;clear:both"> </div>
         <div id="visiteds">
           <%= render :partial => "/shared/record", :collection => @visits,:locals => {:school => nil} %>
         </div>
         <div class="cleanfix"></div>
-      </div>
+  </div>
+  <script type="text/javascript">
+        $(document).ready(function(){
+          jQuery("#record_tabs").tabs();
+        });
+      </script>
 </div>
 
 <% end -%>
@@ -57,7 +63,6 @@
       <span><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
       <br/><span>学校需要: <%= school.need.tag_list[0,5]%> ...</span>
     </div>  
-    <div class="clearfix"></div>
   </div>
   <%end%>
   <div class="hot" style="float:right">
@@ -74,7 +79,7 @@
       <div class="activity_list">
     <%= topic_photo_thumb(activity) -%>       
     <div class="activity_list_meta" style="width:172px;height:100px">
-    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <h5><%= link_to short_title(activity), activity_path(activity)%></h5>
     <span><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
     <span><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
     </div>
@@ -90,8 +95,8 @@
 <div class="cleanfix" style="height:30px"></div>
 
 <div class="newbox">
+      <div style="float:right"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
       <span class="span_title">热门分享</span> 
-      <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
       <div class="cleanfix" style="height:10px"></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>

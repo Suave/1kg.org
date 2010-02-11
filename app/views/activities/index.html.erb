@@ -26,7 +26,6 @@
 <div class="newbox">
   <span class="span_title">我参与的活动</span> 
   <% if current_user %>
-  <%= link_to '查看全部',participated_activities_user_url(current_user)%>
   <div class="cleanfix" style="clear:both;height:10px"></div>
   <div id="participated">
     <% @participated.each do |activity|%>
@@ -48,7 +47,7 @@
     <%end%>
     </div>
     <% end %>
-    
+    <div class="remark"><%= link_to '&raquo; 查看全部',participated_activities_user_url(current_user)%></div>
     <%= "<p>还没有参加过活动噢</p>" if @participated.size == 0%>
     
   </div>
@@ -75,7 +74,7 @@
 
 <div class="newbox">
       <div id="activity_tabs">
-        <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
+        <div style="float:right;position:relative;top:5px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
         <span class="span_title" style="margin-right:8px">最近的活动</span>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>

@@ -34,8 +34,9 @@
 <% end -%>
 
 <div class="newbox">
+    <div style="float:right;position:relative;top:5px"><%= link_to "建立小组", new_group_url,:class => "buttonjoin" %></div>
     <span class="span_title">小组话题</span>
-    <div style="margin: 8px 10px 0pt 0pt; float: right;"><%= link_to "建立小组", new_group_url,:class => "buttonjoin" %></div>
+    
       <div id="tabs">
         <ul class="tab">
           <% if logged_in? -%>
