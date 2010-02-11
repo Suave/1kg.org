@@ -10,18 +10,16 @@
   <a href="/public"><img src="/images/title.jpg" alt="多背一公斤"></a>
 </div>
 
-<div class="siteIntro" style="width:260px">
-  <h6 style="font-size:15px;line-height:38px">旅行中探访 <%= link_to "乡村学校",schools_url,:class=>"channel"%></h6>
-  <div> 
-  </div>
-  <p style="text-align:right;margin:5px">    <span class="gary_span">用户已经提交 <%= link_to @school_count.to_s, schools_url,:style => "font-family:sans-serif;font-size:16px"%> 所学校信息</span>
+<div class="siteIntro" style="width:280px">
+  <h6 style="font-size:15px;line-height:38px">旅行中探访乡村学校</h6>
+  <a href="<%= schools_url %>"><img src="/images/school_channel.jpg" alt="学校频道"/></a>
+  <p style="text-align:right;margin:5px">    <span class="gary_span">用户已经提交 <%= link_to "<span style='font-family:sans-serif;font-size:16px'>#{@school_count.to_s}</span> 所学校信息", schools_url%> </span>
   </p>
 </div>
 
 <div class="siteIntro" style="width:280px">
-  <h6 style="font-size:16px;line-height:38px">发起与发现 <%= link_to "公益活动",activities_url,:class=>"channel"%></h6>
-  <div>哎呀呀 这段文字怎么写呢？
-  </div>
-<p style="text-align:right;margin:5px"><span class="gary_span"><%= link_to @activity_count.to_s, activities_url,:style => "font-family:sans-serif;font-size:16px"%> 项公益活动正在进行</span></p>
+  <h6 style="font-size:16px;line-height:38px">发起与参与公益活动</h6>
+  <a href="<%= activities_url %>"><img src="/images/activity_channel.jpg" alt="活动频道"/></a>
+<p style="text-align:right;margin:5px"><span class="gary_span">用户发起的 <%= link_to "<span style='font-family:sans-serif;font-size:16px'>#{@activity_count.to_s}</span> 项公益活动", activities_url%> 正在进行 </span></p>
   
 </div>
