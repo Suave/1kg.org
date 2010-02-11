@@ -19,6 +19,9 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+
+<div class="newbox"><%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
+
 <%= render :partial => "submit" %>
 
 <div class="newbox">
@@ -30,7 +33,6 @@
       </div>
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
-
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
 <% end -%>
@@ -143,3 +145,5 @@
       </div>
       <div class="remark"><%= link_to "&raquo; 更多学校话题", comments_schools_url %></div>
 </div>
+
+<div class="cleanfix" style="clear:both;height:20px"></div>
