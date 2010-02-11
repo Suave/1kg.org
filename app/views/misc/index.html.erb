@@ -26,15 +26,16 @@
 
 <div id="records" class="newbox">
         <div class="clearfix" style="clear:both"> </div>
-        <span class="span_title2">要去学校的用户</span>
+        <span class="span_title2">大家要去哪所学校？</span>
         <div class="clearfix" style="height:10px;clear:both"> </div>
         <div id="wannas">
-          <%= render :partial => "/shared/visit", :collection => @wannas,:locals => {:school => nil} %>
+          <%= render :partial => "/shared/record", :collection => @wannas,:locals => {:school => nil} %>
         </div>
-        <span class="span_title2">去过学校的用户</span>
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <span class="span_title2">大家去过了哪所学校？</span>
         <div class="clearfix" style="height:10px;clear:both"> </div>
         <div id="visiteds">
-          <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
+          <%= render :partial => "/shared/record", :collection => @visits,:locals => {:school => nil} %>
         </div>
         <div class="cleanfix"></div>
       </div>

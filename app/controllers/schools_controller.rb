@@ -11,7 +11,10 @@ class SchoolsController < ApplicationController
       format.html {
         @photos = Photo.find(:all,:limit => 10,:conditions => ["school_id is not null"],:order => "created_at desc", :group => "school_id")
         #@recent_schools = School.recent_upload.validated.include([:user, :geo])
-        #@recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+        @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
+      :include => [:user, :board],
+      :order => "last_replied_at desc",
+      :limit => 6)
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
