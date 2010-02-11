@@ -8,6 +8,8 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+<%= render :partial => '/searches/search_box', :locals => {:kind => 'topic'} %>
+
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">

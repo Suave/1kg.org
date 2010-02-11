@@ -46,6 +46,15 @@ class Topic < ActiveRecord::Base
   
   before_save :format_content
   before_create :set_last_reply
+
+  define_index do
+    # fields
+    indexes title
+    indexes clean_html, :as => :content
+    
+    has :updated_at
+    has :created_at
+  end
   
   def last_replied_datetime
     (self.posts.last || self).created_at

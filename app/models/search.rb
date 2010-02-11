@@ -34,7 +34,8 @@ class Search < ActiveRecord::Base
   }
   
   def initialize(params)
-    super(params.reject!{|k, v| !Search::OPTIONS.include?(k)})
+    params.reject!{|k, v| !Search::OPTIONS.include?(k)}
+    super(params)
   end
   
   def schools(page, per_page = 20)
@@ -84,6 +85,21 @@ class Search < ActiveRecord::Base
                         :page => page, 
                         :per_page => per_page,
                         :order => 'updated_at DESC')
+  end
+  
+  def groups(page, per_page = 20)
+    Group.search(self.q,:page => page, 
+                        :per_page => per_page)
+  end
+  
+  def topics(page, per_page = 20)
+    Topic.search(self.q,:page => page,
+                        :per_page => per_page,
+                        :order => 'updated_at DESC')
+  end
+  
+  def records(page, per_page = 20)
+    ThinkingSphinx.search(self.q, :page => page, :per_page => per_page)
   end
   
   def advanced?

@@ -1,0 +1,9 @@
+<div class="newbox">
+  <div id="activity_tabs">
+    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <div id = "all">
+      <%= render :partial => '/groups/groups', :object => @groups.compact %>
+      <div class="remark"><%= customize_paginate(@groups) %></div>
+    </div>
+  </div>
+</div>
