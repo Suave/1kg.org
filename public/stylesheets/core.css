@@ -1134,7 +1134,10 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .tab{border-bottom:1px #ccc solid;height:27px;}
 .tabs_more{height:20px;float:left;margin:6px 2px 0;-margin:6px 2px -1px 0;padding:0 6px 0;font-weight:bold;font-size:13px;background:#e6e6e6;
            border-left:1px #ccc solid;border-top:1px #ccc solid;border-right:1px #ccc solid;}
+.tabs_more a{color:#888}
+.tabs_more a:hover{color:#E98523;}
 .ui-tabs-selected{padding-bottom: 1px;background:#f9f9f9}
+
 .ui-tabs-selected a{color:#E98523;position:relative}
  
 .activity_more {text-align:right;padding:0 20px}
