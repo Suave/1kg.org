@@ -355,6 +355,7 @@ body.home #navWrap {
   margin: -45px auto 0;
   position: relative;
   z-index: 10;
+  -left:25px
 }
 /* =nav */
 #nav {
