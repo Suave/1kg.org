@@ -59,8 +59,8 @@
   <%end%>
   
   <div class="newbox">
+      <div style="float:right;"><%= link_to '写篇分享',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
       <span class="span_title">活动分享</span>
-      <div style="float:right;padding-top:4px"><%= link_to '写篇分享',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @shares %>
       </div>
@@ -68,13 +68,13 @@
   </div>
   
   <div class="newbox">
-      <span class="span_title">活动相册</span>
       <div style="float:right;">
         <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
         <p class="content_gray" style="display:none;" id="upload_tip">
         上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
         </p>
       </div>
+      <span class="span_title">活动相册</span>
       <div class="contents clearfix" style="padding-top:16px;">
       <div id="upload_container"></div>
       <div class="clearfix" id="photos">
