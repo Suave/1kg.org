@@ -1,0 +1,41 @@
+<div class="newbox">
+  <% if @objects['School'] %>
+  <span class="span_title">学校</span>
+  <div class="contents">
+    <%= render :partial => '/schools/schools', :object => @objects['School'] %>
+  </div>
+  <% end %>
+  
+  <% if @objects['Activity'] %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">活动</span>
+  <div class="contents">
+    <%= render :partial => "/shared/activity", :collection => @objects['Activity'].compact %>
+  </div>
+  <% end %>
+  
+  <% if @objects['Share'] %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">分享</span>
+  <div class="contents">
+    <%= render :partial => "/shared/share", :collection => @objects['Share'].compact %>
+  </div>
+  <% end %>
+
+  <% if @objects['Group'] %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">小组</span>
+  <div class="contents">
+    <%= render :partial => '/groups/groups', :object => @objects['Group'].compact %>
+  </div>
+  <% end %>
+
+  <% if @objects['Topic'] %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">主题</span>
+  <div class="contents">
+    <%= render :partial => '/topics/topics', :object => @objects['Topic'].compact %>
+  </div>
+  <% end %>
+  <div class="remark"><%= customize_paginate(@records) %></div>
+</div>
