@@ -73,7 +73,7 @@
 <div class="newbox">
       <div id="activity_tabs">
         <div style="float:right;position:relative;top:5px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
-        <span class="span_title" style="margin-right:8px">最近的活动</span>
+        <span class="span_title" style="margin-right:8px">最近的活动</span><%= link_to '查看以往活动',over_activities_url%>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>

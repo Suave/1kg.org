@@ -1,4 +1,4 @@
-<% @page_title = @title = "学校" -%>
+<% @page_title = "学校" -%>
 
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
@@ -37,7 +37,7 @@
 
 <div class="newbox" >
       <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
-      <span class="span_title">地图查询</span> <%=link_to "全国地图","/geos"%>
+      <span class="span_title">地图查询学校</span> <%=link_to "全国地图","/geos"%>
       <div class="clearfix" style="clear:both;height:20px"> </div>
       <div class="zone">
         <h6>华北地区</h6>

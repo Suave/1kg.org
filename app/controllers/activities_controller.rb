@@ -30,8 +30,6 @@ class ActivitiesController < ApplicationController
       @activities = array.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
                                 :per_page => 14)
-      @most_participations = array.find(:all,:limit => 3,:order => "participations_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
-      @most_comments = array.find(:all,:limit => 3,:order => "comments_count desc", :conditions => {:category => @category,},:include => [:main_photo, :departure, :arrival])
   end
   
   def with_school
