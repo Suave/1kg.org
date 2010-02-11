@@ -36,6 +36,7 @@ h4, h5, h6 {
   font-weight: bold;
 }
 
+
 strong {
   font-weight: bold;
 }
@@ -1017,9 +1018,7 @@ h3.title {
   color: #999;
 }
 .shareEntry .avatar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  float:left
 }
 .shareEntry .avatar img {
   display: block;
@@ -1116,7 +1115,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .vDateField{width:70px}
  
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
-.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:4px}
+.school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
@@ -1132,12 +1131,12 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta h5{margin:2px 0}
 #content-secondary .activity_list_meta{width:184px}
  
-.tab{border-bottom:1px #ccc solid;height:27px;}
-.tabs_more{height:20px;float:left;margin:6px 2px 0;-margin:6px 2px -1px 0;padding:0 6px 0;font-weight:bold;font-size:13px;background:#e6e6e6;
+.tab{-background:url("/images/border.gif") repeat-x;height:27px;border-bottom:1px #ccc solid;-border:none}
+.tabs_more{height:20px;*height:19px;float:left;margin-top:6px;margin-left:4px;padding:0 6px;*padding-top:1px;font-weight:bold;font-size:13px;background:#e6e6e6;
            border-left:1px #ccc solid;border-top:1px #ccc solid;border-right:1px #ccc solid;}
 .tabs_more a{color:#888}
 .tabs_more a:hover{color:#E98523;}
-.ui-tabs-selected{padding-bottom: 1px;background:#f9f9f9}
+.ui-tabs-selected{padding-bottom: 1px;background:#fcfcfc}
 
 .ui-tabs-selected a{color:#E98523;position:relative}
  

@@ -1,5 +1,5 @@
 <% @page_title = "#{h @share.title} - 活动分享" -%>
-
+<% @title = h @share.title %>
 <% content_for :heads do -%>  
   <style type="text/css">
   .school_list_meta{width:160px;}
@@ -7,51 +7,58 @@
 <% end %>
 
 <% content_for :sidebar do -%>
-
-  <% if @share.activity_id %>
-  <div class="newbox">
-        <span class="span_title2">分享的活动</span>
-        <div class="clearfix" style="height:10px"></div>
-        <div class="contents">
-           <%= render :partial => '/shared/activity', :object => @share.activity %>
-           <div class="clearfix"></div>
-        </div>
+  <% if @share.moderated_by?(current_user) -%>
+  <div id="admins">
+      <% if current_user.admin?%>
+      你是管理员，可以:<br/>
+      <% else %>
+      你是分享的作者，可以:<br/>
+      <%end%>
+      <%= link_to "编辑分享", edit_share_url(@share),:class => "adminbutton"%> <%= link_to "删除分享", share_url(@share), :confirm => "确定删除么?", :method => :delete ,:class => "adminbutton"%></p> 
   </div>
-  <% end %>
-  
+  <% end -%>
   <%if @share.school_id%>
     <div class="newbox">
         <span class="span_title2">相关学校</span>
-        <div class="clearfix" style="height:10px"></div>
+        <div class="clearfix" style="height:5px"></div>
         <div class="contents">
           <%= render :partial => '/shared/school', :object => @share.school %>
           <div class="clearfix"></div>
         </div>
     </div>
   <%end%>
+
+  <% if @share.activity_id %>
+  <div class="newbox">
+        <span class="span_title2">分享的活动</span>
+        <div class="clearfix" style="height:5px"></div>
+        <div class="contents">
+           <%= render :partial => '/shared/activity', :object => @share.activity %>
+        </div>
+        <div class="clearfix" style="clear:both;height:10px"></div>
+  </div>
+  <% end %>
   
-  <p>&raquo; <%= link_to "去#{@share.user.login}的空间", user_url(@share.user) %></p>
   <%= render :partial => '/shared/voters', :object => @voters %>
 <% end -%>
 
-<div class="box shareEntry">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h2><%= h @share.title %></h2>
-      <small style="margin-left:26px" >标签：
+<div class="newbox shareEntry">
+      <div style="width:100%;height:60px">
+        <%= link_to avatar_for(@share.user, "large"), user_url(@share.user) %>
+        <div style="float:left;padding-left:6px">
+          <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %> ...
+          <%= @share.hits %> 浏览 / <%= @share.comments_count %> 回复
+          <br/>
+        <small>标签：
           <% @share.tags.each do |tag| %>
             <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
           <% end %>
-      </small>
-      <div class="metadata">
-        <div class="avatar"><%= link_to avatar_for(@share.user, "large"), user_url(@share.user) %></div>
-        <p>
-          <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %> ...
-          <%= @share.hits %> 浏览 / <%= @share.comments_count %> 回复
-        </p>
+        </small>
+        </div>
       </div>
+        
       
-      <div class="entry">
+      <div>
         <%= @share.html %>
         <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
@@ -69,12 +76,6 @@
         <% end -%>
         </p>
       </div>
-      
-      <% if @share.moderated_by?(current_user) -%>
-      <p class="remark">&raquo; <%= link_to "编辑", edit_share_url(@share) %> | <%= link_to "删除", share_url(@share), :confirm => "确定删除么?", :method => :delete %></p>
-      <% end -%>
-    </div>
-  </div>
 </div>
 
 <%= render :partial => "/comments/comments", :object => @comments %>
