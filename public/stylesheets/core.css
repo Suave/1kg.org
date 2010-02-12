@@ -1080,9 +1080,9 @@ h3.title {
 .tipText {color:#999;}
 .right {text-align:right;}
 
-.obu {float:left; width:72px;}
+.obu {float:left; width:70px;}
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
+.obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
 .obp {float:left; width:120px; margin:12px; height: 130px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
@@ -1217,7 +1217,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #records .record{margin-right:10px;width:300px}
  
 .newbox{padding-left:10px;margin-bottom:20px}
-.span_title{font-size:18px;font-weight:bold;color:#555}
+.span_title{font-size:17px;font-weight:bold;color:#555}
 .span_title2{font-size:15px;font-weight:bold;color:#555}
  
 #admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
@@ -1232,10 +1232,12 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
 
 .entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
-.channel{font-size:15px;color:#777}
+.channel{margin-right:0;position:relative;top:-36px;text-align:right}
+.channel a{color:#666}
 .entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
-.channel:hover .entrance_link:hover{color:#E98523}
 .envoy_badge{position:relative;top:2px}
+.channel a:hover,.entrance_link:hover{color:#E98523}
+
 .counter{"times new roman",serif;font-style:italic;font-size:16px}
 
 /* 用于照片上传 */

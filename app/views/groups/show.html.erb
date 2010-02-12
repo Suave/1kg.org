@@ -8,40 +8,27 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+
 <%= render :partial => '/searches/search_box', :locals => {:kind => 'topic'} %>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>
-          &raquo;
-          <% if @group.joined?(current_user) -%>
-            <%= link_to "退出小组", quit_group_url(@group), :method => :put %>
-          <% else -%>
-            <%= link_to "加入小组", join_group_url(@group) %>
-          <% end -%>
-        </h3>
-    </div>
-  </div>
+<div id="admins">
+  <% if @group.joined?(current_user) -%>
+    你已经是小组成员，如有必要可以<%= link_to "退出小组", quit_group_url(@group), :method => :put ,:class=>"adminbutton"%>
+  <% else -%>
+    你不是小组成员，可以 <%= link_to "加入小组", join_group_url(@group) ,:class=>"adminbutton"%>
+  <% end -%>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>小组长</h3>
+<div class="newbox">
+      <span class="span_title2">小组长</span>
       <%= render :partial => "/shared/user_list", :locals => {:users => User.moderators_of(@board)} %>
-    </div>
-  </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>小组成员</h3>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 12)} %>
-      <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
-    </div>
-  </div>
+
+<div class="newbox">
+    <span class="span_title2">小组成员</span>
+    <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 12)} %>
+    <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
 </div>
 <% end -%>
 
@@ -78,15 +65,14 @@
   </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-  <h3>小组话题</h3>
-  <span class="postNew">++ <%= link_to "写新话题", new_topic_group_url(@group) %></span>
+<div class="newbox">
+  <div style="float:right"><%= link_to "写新话题", new_topic_group_url(@group),:class => "buttonjoin" %></div>
+  
+  <span class="span_title">小组话题</span>
+  <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
   </div>
   <p class="remark">&raquo; <%= link_to "浏览全部话题", board_url(@board) %></p>
-    </div>
-  </div>
 </div>
+ 

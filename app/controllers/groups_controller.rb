@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 16
+    @groups = Group.find :all, :order => "created_at desc", :limit => 12
     @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 15
     if logged_in?
       @my_groups = current_user.joined_groups
