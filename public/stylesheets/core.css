@@ -463,7 +463,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =headline ----------------------------------*/
 #headline {
   width: 600px;
-  height:360px;
+  height:330px;
   padding-left:20px
 }
 /* /END Headline ---------------------------- */
@@ -471,8 +471,8 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =siteIntro*/
 .siteIntro {
   float:left;
-  margin: 10px 20px;
-  -margin: 10px 10px;
+  margin: 0 20px;
+  -margin: 0 10px;
   padding: 5px;
   font-size:13px;
   color:#555;
@@ -1236,6 +1236,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
 .channel:hover .entrance_link:hover{color:#E98523}
 .envoy_badge{position:relative;top:2px}
+.counter{"times new roman",serif;font-style:italic;font-size:16px}
 
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */

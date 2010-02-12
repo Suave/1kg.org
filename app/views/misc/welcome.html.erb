@@ -4,23 +4,27 @@
   <%= render :partial => '/searches/search_box' %>
   <div style="clear:both;height:30px"></div>
 </div>
+  
+      <span><%= link_to "English introduction", "/misc/en-intro" %></span>
 <% end -%>
 
 <div id="headline">
   <a href="/public"><img src="/images/title.jpg" alt="多背一公斤"></a>
 </div>
+<p style="text-align:center">
+  <span class="gary_span">
+    <%= link_to "<span class='counter'>#{@school_count.to_s}</span> 所学校信息", schools_url%> 被收录，
+    <%= link_to "<span class='counter'>#{@activity_count.to_s}</span> 项公益活动", activities_url%> 正在进行
+  </span>
+</p>
 
 <div class="siteIntro" style="width:270px">
-  <h6 style="font-size:15px;line-height:38px">旅行中探访乡村学校</h6>
-  <a href="<%= schools_url %>"><img src="/images/school_channel.jpg" alt="学校频道"/></a>
-  <p style="text-align:right;margin:5px">    <span class="gary_span">用户已经提交 <%= link_to "<span style='font-family:sans-serif;font-size:16px'>#{@school_count.to_s}</span> 所学校信息", schools_url%> </span>
-  </p>
+  <a href="<%= schools_url %>"><img src="/images/school_channel.png" alt="学校频道"/></a>
+<h6 style="font-size:15px;line-height:24px;text-align:center">旅行中探访乡村学校</h6>
 </div>
 
 <div class="siteIntro" style="width:270px">
-  <h6 style="font-size:16px;line-height:38px">发起与参与公益活动</h6>
-  <a href="<%= activities_url %>"><img src="/images/activity_channel.jpg" alt="活动频道"/></a>
-<p style="text-align:right;margin:5px"><span class="gary_span">用户发起的 <%= link_to "<span style='font-family:sans-serif;font-size:16px'>#{@activity_count.to_s}</span> 项公益活动", activities_url%> 正在进行 </span></p>
-  
+  <a href="<%= activities_url %>"><img src="/images/activity_channel.png" alt="活动频道"/></a>
+  <h6 style="font-size:15px;line-height:24px;text-align:center">发起和参与公益活动</h6>
 </div>
-      <span><%= link_to "English introduction", "/misc/en-intro" %></span>
+<div style="height:20px;clear:both"></div>
