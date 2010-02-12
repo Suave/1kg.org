@@ -118,24 +118,6 @@
 <div class="clearfix" style="clear:both;"> </div>
 
 <div class="newbox">
-      <span class="span_title">近期活跃的学校</span>
-      <div class="clearfix" style="height:10px"></div>
-      <div class="contents clearfix">
-        <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:main_photo]) %>
-      </div>
-
-</div>
-
-<div class="newbox">
-      <span class="span_title">最新学校照片</span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>           
-      <div class="contents clearfix">
-        <%= render :partial => "/shared/photo", :collection => @photos %>
-      </div>
-</div>
-<div class="cleanfix" style="clear:both;height:20px"></div>
-
-<div class="newbox">
       <div class="clearfix"></div>
       <span class="span_title">热门的学校话题</span>
       <div class="clearfix" style="height:10px"></div>
@@ -144,3 +126,23 @@
       </div>
       <div class="remark"><%= link_to "&raquo; 更多学校话题", comments_schools_url %></div>
 </div>
+
+
+<div class="newbox">
+      <span class="span_title">最新学校照片</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>           
+      <div class="contents clearfix">
+        <%= render :partial => "/shared/photo", :collection => @photos %>
+      </div>
+</div>
+
+<div class="newbox">
+      <span class="span_title">近期活跃的学校</span>
+      <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+        <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:main_photo]) %>
+      </div>
+
+</div>
+
+<div class="cleanfix" style="clear:both;height:20px"></div>
