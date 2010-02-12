@@ -2,9 +2,14 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
-  <style type="text/css">#participated .activity_list_meta{width:180px}</style>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
 <% end %>
-
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+</script>
 <% content_for :crumb do -%>
 <li>活动</li>
 <% end -%>
