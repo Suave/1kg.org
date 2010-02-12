@@ -26,7 +26,7 @@
   <div id="meta">
     <div class="meta_left">
       <% if @school.main_photo -%>
-      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
+      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
       <%else%>
       <img class="school_main" src="/images/school_main.png"/>
       <%end%>
