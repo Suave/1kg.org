@@ -102,7 +102,6 @@ class User < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
                            :source => :group,
-                           :limit => 12,
                            :order => "memberships.created_at desc"
   
   has_many :stuffs, :dependent => :destroy
