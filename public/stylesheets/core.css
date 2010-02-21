@@ -1147,6 +1147,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .remark a:hover{color:#E98523}
 
 .topic {width:620px;height:80px;overflow:hidden}
+.topic img{height:60px;}
+.topic .school_list_photo{width:80px;padding-right:10px}
+
 .stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
  
  
@@ -1189,7 +1192,6 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .channel a{color:#666}
 .entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
 .channel a:hover,.entrance_link:hover{color:#E98523}
-
 
 .counter{"times new roman",serif;font-style:italic;font-size:16px}
 /* 用于照片上传 */
