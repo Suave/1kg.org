@@ -86,7 +86,7 @@ class Topic < ActiveRecord::Base
                               :include => [:user, :board],
                               :joins => [:board],
                               :order => "last_replied_at desc",
-                              :per_page => 20)
+                              :per_page => 10)
   end
   
   def html
