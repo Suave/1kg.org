@@ -286,6 +286,17 @@ class User < ActiveRecord::Base
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
   end
   
+  def participated_group_topics
+    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
+    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
+  end
+  
+  #只包含在小组发起的话题
+  def sumbit_group_topics
+    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
+    self.topics.find(:all, :conditions => ['deleted_at IS NULL and board_id in (?)',board_ids])
+  end
+  
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
