@@ -9,7 +9,7 @@ class SchoolsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @photos = Photo.find(:all,:limit => 10,:conditions => ["school_id is not null"],:order => "created_at desc", :group => "school_id")
+        @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
         #@recent_schools = School.recent_upload.validated.include([:user, :geo])
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
