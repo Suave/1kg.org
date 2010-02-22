@@ -51,7 +51,10 @@ class GroupsController < ApplicationController
   
   def show
     @board = @group.discussion.board
-    @topics = @board.latest_topics
+    @topics = @board.topics.find(:all,
+                              :order => "updated_at desc",
+                              :include => [:user],
+                              :limit => 10)
   end
   
   def members
