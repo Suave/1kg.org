@@ -49,7 +49,8 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title, :format_content
   
-  named_scope :latest, :conditions => "photos.school_id is not null", :order => "updated_at desc", :limit => 12
+  named_scope :with_activity, :conditions => "photos.activity_id is not null"
+  named_scope :with_school, :conditions => "photos.school_id is not null"
   named_scope :include, lambda {|includes| {:include => includes}}
   
   def self.recent

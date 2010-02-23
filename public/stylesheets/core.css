@@ -1035,7 +1035,7 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
-.obp {float:left; width:120px; margin:12px; height: 130px;}
+.obp {float:left; width:115px; margin:12px; height: 130px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
