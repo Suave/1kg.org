@@ -130,7 +130,9 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put,
                                       :members => :get
                                     },
-                          :collection => {:all => :get}
+                          :collection => {:all => :get,
+                            :participated => :get,
+                            :submitted => :get}
   
   map.resources :photos
   

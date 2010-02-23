@@ -59,12 +59,12 @@
           
           <div id="submitted">
             <%= render :partial => "/users/group_topics", :object => @submitted_topics %>
-            <p class="remark">&raquo; <%= link_to "更多我发起的话题", submitted_topics_user_url(current_user) %> (<%= current_user.topics.size %>)</p>
+            <p class="remark">&raquo; <%= link_to "查看全部", submitted_groups_url%></p>
           </div>
           
           <div id="participated">
             <%= render :partial => "/users/group_topics", :object => @participated_topics %>
-            <p class="remark">&raquo; <%= link_to "更多我参与的话题", participated_topics_user_url(current_user) %> (<%= current_user.participated_topics.size %>)</p>
+            <p class="remark">&raquo; <%= link_to "查看全部", participated_groups_url %></p>
           </div>
           <% end -%>
           

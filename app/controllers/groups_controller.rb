@@ -28,6 +28,24 @@ class GroupsController < ApplicationController
     
   end
   
+  def participated
+    @title = "我参与的话题"
+    @topics = current_user.participated_group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
+  end
+  
+  def submitted
+    @title = "我发起的话题"
+    @topics = current_user.group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
+  end
+  
   def create
     avatar_convert(:group, :avatar)
     @group = Group.new(params[:group])

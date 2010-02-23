@@ -286,6 +286,7 @@ class User < ActiveRecord::Base
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
   end
   
+  #只包含在小组参与的话题
   def participated_group_topics
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map{|p| p.topic if p.board.talkable_type == "GroupBoard"}.uniq.compact
   end
