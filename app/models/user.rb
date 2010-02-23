@@ -287,14 +287,12 @@ class User < ActiveRecord::Base
   end
   
   def participated_group_topics
-    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
-    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
+    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map{|p| p.topic if p.board.talkable_type == "GroupBoard"}.uniq.compact
   end
   
   #只包含在小组发起的话题
-  def sumbit_group_topics
-    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
-    self.topics.find(:all, :conditions => ['deleted_at IS NULL and board_id in (?)',board_ids])
+  def group_topics
+    self.topics.find(:all, :conditions => ["boards.talkable_type = ?","GroupBoard"],:include => [:board])
   end
   
   def self.archives

@@ -11,8 +11,8 @@ class GroupsController < ApplicationController
     if logged_in?
       @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 12)
       @recent_topics = current_user.recent_joined_groups_topics
-      @submitted_topics = current_user.sumbit_group_topics.paginate(:page => 1, :per_page => 15)
       @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
+      @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
     end
   end
   
