@@ -135,7 +135,7 @@ class Activity < ActiveRecord::Base
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
     
-    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year desc,month desc",Time.now])
+    counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year asc,month asc",Time.now])
     
     sum = 0
     result = counts.map do |entry|
@@ -148,6 +148,7 @@ class Activity < ActiveRecord::Base
         :sum => sum
       }
     end
+    return result.reverse
   end
   
   def html
