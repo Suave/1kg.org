@@ -50,7 +50,7 @@ class Activity < ActiveRecord::Base
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
-  named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
+  named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
   
   named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
