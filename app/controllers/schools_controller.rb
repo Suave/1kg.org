@@ -444,6 +444,34 @@ class SchoolsController < ApplicationController
     end
   end
   
+  def mainphoto
+    @photo = Photo.new
+    @photo.school = @school = School.find(params[:id])
+    @photos = @school.photos
+  end
+  
+  
+  def mainphoto_create
+    @school = School.find(params[:id])
+    @photo = Photo.new(params[:photo])
+    @photo.user = current_user
+    logger.info("PHOTO: #{@photo.inspect}")
+    if @photo.filename.nil?
+      render :action => 'mainphoto'
+    else
+      @photo.save!
+      if current_user && @school.edited_by(current_user)
+        @school.main_photo = @photo
+        @school.save
+        flash[:notice] = "活动主题图设置成功"
+        redirect_to school_url(@school)
+      else
+        flash[:notice] = "你不可以设置此活动的主题图"
+        redirect_to school_url(@school)
+      end
+    end
+  end
+  
   def check
     @school = School.find_similiar_by_geo_id(params[:title], params[:geo_id])
     

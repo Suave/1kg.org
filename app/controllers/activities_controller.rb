@@ -22,14 +22,13 @@ class ActivitiesController < ApplicationController
     @category = @category_hash[params[:c]]
     
     if params[:over] == "true"
-      array = Activity.over
+      @activities = Activity.over.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival],:order => "end_at desc").paginate(:page => params[:page] || 1,
+                                :per_page => 14)
       @over = params[:over]
     else
-      array = Activity.ongoing
-    end
-      @activities = array.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
-                                  :order => "created_at desc, start_at desc",
+      @activities = Activity.ongoing.find(:all,:conditions => {:category => @category},:include => [:main_photo, :departure, :arrival],:order => "created_at desc").paginate(:page => params[:page] || 1,
                                 :per_page => 14)
+      end
   end
   
   def with_school

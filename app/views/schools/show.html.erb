@@ -28,7 +28,11 @@
       <% if @school.main_photo -%>
       <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
       <%else%>
-      <img class="school_main" src="/images/school_main.png"/>
+        <% if logged_in? && @school.edited_by(current_user)%>
+        <%= link_to image_tag("school_main_set.png"),mainphoto_school_url(@school) %>
+        <%else%>
+        <img class="school_main" src="/images/school_main.png"/>
+        <%end%>
       <%end%>
       
     </div>

@@ -11,8 +11,8 @@ class GroupsController < ApplicationController
     if logged_in?
       @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 12)
       @recent_topics = current_user.recent_joined_groups_topics
-      @submitted_topics = current_user.topics.paginate(:page => 1, :per_page => 15)
-      @participated_topics = current_user.participated_topics.paginate(:page => 1, :per_page => 15)
+      @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
+      @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
     end
   end
   
@@ -26,6 +26,24 @@ class GroupsController < ApplicationController
   
   def new
     
+  end
+  
+  def participated
+    @title = "我参与的话题"
+    @topics = current_user.participated_group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
+  end
+  
+  def submitted
+    @title = "我发起的话题"
+    @topics = current_user.group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
   end
   
   def create
