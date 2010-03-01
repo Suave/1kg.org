@@ -61,6 +61,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
+                                      :mainphoto => :get,
+                                      :mainphoto_create => :post,
                                       :apply => :get,
                                       :shares => :get,
                                       :moderator => :get,
