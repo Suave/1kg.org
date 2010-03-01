@@ -419,18 +419,32 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "for_team_tip"
     t.boolean  "for_team",      :default => false
     t.boolean  "hidden",        :default => false
+    # 为公益项目申请添加的内容
+    t.integer  "applicator_id"
+    t.datetime "updated_at"
+    t.string   "applicator_telephone"
+    t.text     "apply_reason"
+    t.text     "apply_plan"
   end
 
   create_table "stuff_types", :force => true do |t|
-    t.string   "slug",             :null => false
-    t.string   "title",            :null => false
+    t.string   "slug"
+    t.integer  "creator_id"
+    t.string   "title"
+    t.datetime "apply_end_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.text     "description_html"
-    t.integer  "bucks_count",      :default => 0
+    t.string   "feedback_require"
+    t.integer  "requirements_count",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name"
     # 是否可用积分兑换
-    t.boolean  "exchangable"
+    t.boolean  "exchangable",             :default => false
+    t.datetime  "validated_at"
+    t.integer   "validated_by_id"
+    t.integer  "comments_count",   :default => 0
   end
 
   create_table "stuffs", :force => true do |t|

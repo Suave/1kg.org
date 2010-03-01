@@ -1,0 +1,19 @@
+<% @page_title = "公益产品管理" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>创建新的公益项目</h3>
+      <div class="contents">
+      <% form_for :project, :url => requirement_types_url, :html => {:multipart => true} do |f| -%>
+        <%= error_messages_for :project %>
+        <%= render :partial => "form", :object => f %>
+        <p><label></label><%= submit_tag "创建" %></p>
+      <% end -%>
+      </div>
+    </div>
+  </div>
+</div>
