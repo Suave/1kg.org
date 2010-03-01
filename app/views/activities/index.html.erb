@@ -87,10 +87,10 @@
           <div class="remark"><%= link_to "&raquo; 查看更多",ongoing_activities_url,:target => "_blank" %></div>
         </div>
         
-        <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
+        <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络','online'],['同城','city'],['其他','other']].each do |type| %>
         <div id ="<%= type[1]%>">
           <%= render :partial => "/shared/activity", :collection => @activities_hash[type[1].to_sym] %>
-          <div class="remark"><%= link_to "&raquo; 查看更多",category_activities_url+"?c=#{type[1]}",:target => "_blank" if @activities_hash[type[1].to_sym].size == 8 %></div>
+           <div style="color:#666;margin-right:20px;clear:both;text-align:right;">&raquo; 全部 <%= link_to "进行中",category_activities_url+"?c=#{type[1]}",:target => "_blank" %>/<%= link_to "已结束",category_activities_url+"?c=#{type[1]}&&over=true",:target => "_blank" %> 的<%= type[0]%>活动 </div>
         </div>
         <% end -%>
       </div>
