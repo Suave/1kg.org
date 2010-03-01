@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
-  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}
   map.resources :requirements
 
   map.public_look "/public", :controller => "misc", :action => "public_look"
@@ -18,11 +18,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
-  map.topics "/topics/total",:controller => "topics", :action => "total"
-  #market
-  #map.market "/market",:controller => "market",:action => "index"
-
-  #map.resources :users
+  
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"
@@ -32,7 +28,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.with_options :controller => "sessions" do |session|
     session.login 'login', :action => "new"
-    session.ajax_login 'ajax_login', :action => "ajax_login"
     session.logout 'logout', :action => "destroy"
     session.forget_password 'forget_password', :action => 'forget_password'
     session.reset_password 'reset_password', :action => 'reset_password'
@@ -66,8 +61,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
-                                      :mainphoto => :get,
-                                      :mainphoto_create => :post,
                                       :apply => :get,
                                       :shares => :get,
                                       :moderator => :get,
@@ -127,7 +120,7 @@ ActionController::Routing::Routes.draw do |map|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
-  map.resource :search
+  map.resources :searches
   
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
@@ -138,13 +131,14 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put,
                                       :members => :get
                                     },
-                          :collection => {:all => :get,
-                            :participated => :get,
-                            :submitted => :get}
+                          :collection => {:all => :get}
   
   map.resources :photos
 
-  
+  map.resources :requirement_types, :as => 'projects' do |project|
+    project.resources :requirements
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  end
   # map.with_options :controller => "mall" do |mall|
   #   mall.mall_index '/mall', :action => "index"
   #   mall.mall_category '/mall/category/:tag', :action => "category"
@@ -163,7 +157,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
-    admin.resources :requirement_types do |type|
+    admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家

@@ -1,34 +1,53 @@
 class Admin::RequirementTypesController < Admin::BaseController
+  before_filter :find_project, :except => [:index, :new, :create]
   def index
-    @types = RequirementType.find :all, :include => :requirements 
+    @projects = RequirementType.find :all, :include => :creator 
   end
   
   def new
-    @type = RequirementType.new
+    @project = RequirementType.new
   end
   
   def create
-    @type = RequirementType.new(params[:type])
-    @type.save!
-    flash[:notice] = "产品创建成功"
+    @project = RequirementType.new(params[:project])
+    @project.feedback_require = params[:project][:feedback_require].join(",")
+    @project.validated_at = Time.now
+    @project.validated_by_id = current_user.id
+    @project.save!
+    flash[:notice] = "项目创建成功"
     redirect_to admin_requirement_types_url
   end
   
   def edit
-    @type = RequirementType.find(params[:id])
   end
   
   def update
-    @type = RequirementType.find(params[:id])
-    @type.update_attributes!(params[:type])
-    flash[:notice] = "产品更新成功!"
+    @project.feedback_require = params[:project][:feedback_require].join(",")
+    @project.update_attributes!(params[:project])
+    flash[:notice] = "项目更新成功!"
     redirect_to admin_requirement_types_url
   end
   
   def destroy
-    @type = RequirementType.find(params[:id])
-    @type.destroy
-    flash[:notice] = "删除产品 #{@type.title}"
+    @project.destroy
+    flash[:notice] = "删除项目 #{@project.title}"
     redirect_to admin_requirement_types_url
+  end
+  
+  def validate
+    @project.update_attributes!(:validated_at => Time.now, :validated_by_id => current_user.id)
+    flash[:notice] = "已通过验证"
+    redirect_to admin_requirement_type_requirements_url(@project)
+  end
+
+  def cancel
+    @project.update_attributes!(:validated_at => nil, :validated_by_id => current_user.id)
+    flash[:notice] = "已取消验证"
+    redirect_to admin_requirement_type_requirements_url(@project)
+  end
+  
+  private
+  def find_project
+    @project = RequirementType.find params[:id]
   end
 end

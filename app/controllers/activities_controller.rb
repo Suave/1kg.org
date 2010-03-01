@@ -60,6 +60,12 @@ class ActivitiesController < ApplicationController
                                                                   :order => "created_at desc, start_at desc",
                                                                   :per_page => 10)
     @date = Time.now
+    if @activities.empty?
+      @activities = Activity.find(:all, :order => "participations_count desc",:conditions => {:end_at => 1.month.ago.beginning_of_month..1.day.ago}).paginate(:page => params[:page] || 1,
+                                                                  :order => "created_at desc, start_at desc",
+                                                                  :per_page => 10)
+      @date = 1.month.ago
+    end
     end
   end
 
