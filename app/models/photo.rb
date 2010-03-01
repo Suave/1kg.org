@@ -25,9 +25,9 @@ class Photo < ActiveRecord::Base
   include BodyFormat
   include Editable
   
-  belongs_to :user
-  belongs_to :school
-  belongs_to :activity
+  belongs_to :user,:foreign_key => "user_id"
+  belongs_to :school,:foreign_key => "school_id"
+  belongs_to :activity,:foreign_key => "activity_id"
   
   acts_as_paranoid
   
@@ -49,7 +49,8 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title, :format_content
   
-  named_scope :latest, :conditions => "photos.school_id is not null", :order => "updated_at desc", :limit => 12
+  named_scope :with_activity, :conditions => "photos.activity_id is not null"
+  named_scope :with_school, :conditions => "photos.school_id is not null"
   named_scope :include, lambda {|includes| {:include => includes}}
   
   def self.recent

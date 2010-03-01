@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   
   has_many :memberships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
-                           :source => :group, 
+                           :source => :group,
                            :order => "memberships.created_at desc"
   
   has_many :stuffs, :dependent => :destroy
@@ -284,7 +284,7 @@ class User < ActiveRecord::Base
   end
   
   def recent_joined_groups_topics
-    joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 25
+    joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 15
   end
   
   def voted?(obj)
@@ -311,6 +311,16 @@ class User < ActiveRecord::Base
   
   def participated_topics
     self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
+  end
+  
+  #只包含在小组参与的话题
+  def participated_group_topics
+    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map{|p| p.topic if p.board.talkable_type == "GroupBoard"}.uniq.compact
+  end
+  
+  #只包含在小组发起的话题
+  def group_topics
+    self.topics.find(:all, :conditions => ["boards.talkable_type = ?","GroupBoard"],:include => [:board])
   end
   
   def self.archives

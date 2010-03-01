@@ -59,8 +59,8 @@
   <%end%>
   
   <div class="newbox">
+      <div style="float:right;"><%= link_to '写篇分享',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
       <span class="span_title">活动分享</span>
-      <div style="float:right;padding-top:4px"><%= link_to '写篇分享',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @shares %>
       </div>
@@ -68,13 +68,13 @@
   </div>
   
   <div class="newbox">
-      <span class="span_title">活动相册</span>
       <div style="float:right;">
         <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
         <p class="content_gray" style="display:none;" id="upload_tip">
         上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
         </p>
       </div>
+      <span class="span_title">活动相册</span>
       <div class="contents clearfix" style="padding-top:16px;">
       <div id="upload_container"></div>
       <div class="clearfix" id="photos">
@@ -87,13 +87,8 @@
 
   <div class="newbox" id="activityInfo">
         <div class="contents">
-                  
-          <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= link_to image_tag(@activity.main_photo.public_filename(:cube), :alt => '活动主题图'), @activity.main_photo.public_filename(:medium),:class => "activity_main" if @activity.main_photo%>
-            <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
-          </div>   
           
-          <div style="float:right;margin:2px 10px 0 0;text-align:right">
+          <div style="width:120px;float:right;text-align:right">
             <% if @activity.join_closed? %>
             <span class="gary_span">报名已结束 </span>
             <% else -%>
@@ -104,10 +99,16 @@
               <% else -%>
                 <%= link_to "我要参加", join_activity_url(@activity) ,:class => "buttonjoin2" %>
                 <div class="clearfix" style="height:4px"></div>
-                <span class="gary_span">报名截止日期<%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%></span>
+                <span class="gary_span">报名截止日期<br/><%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%></span>
               <% end -%>
             <% end -%>
           </div>
+          
+          <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
+            <%= link_to image_tag(@activity.main_photo.public_filename(:cube), :alt => '活动主题图'), @activity.main_photo.public_filename(:medium),:class => "activity_main" if @activity.main_photo%>
+            <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
+          </div>   
+          
 
           <div id="activitiesInfo">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
@@ -118,8 +119,6 @@
               <% if @activity.school%>
             <p>相关学校： <%= link_to @activity.school.title,school_url(@activity.school) %></p> 
               <%end%>
-              <!--<p><%unless @activity.expense_per_head.blank? %>人均消费： <%= @activity.expense_per_head %> 元<%end%>
-              <%unless @activity.expect_strength.blank? %>预期人数： <%= @activity.expect_strength %> 人<%end%></p>-->
           </div>
           
           <div class="clearfix" style="margin-bottom:20px;"></div>

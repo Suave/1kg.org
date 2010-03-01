@@ -13,26 +13,7 @@
   <div class="boxouter">
     <h3><%= @requirement.school.title %>的爱心留言</h3>
     <div class="boxinter">
-      <table>
-        <tr>
-          <th>捐赠者</th>
-          <th>留言</th>
-          <th>捐赠物品</th>
-          <th>捐赠数量</th>
-          <th>&nbsp;</th>
-        </tr>
-        <% @requirement.donations.each do |d| -%>
-        <tr>
-          <td>
-            <%=h d.buyer_name %>
-          </td>
-          <td><%= h d.comment_html %></td>
-          <td><%= h d.requirement_type.title %></td>
-          <td><%= h d.product_number %></td>
-          <td></td>
-        </tr>
-        <% end -%>
-      </table>
+      <%= render :partial => 'requirement', :object => @requirement %>
     </div>
     <p style="text-align:right"><%= link_to "我要参与", '#', :target => "_blank",:class => "buttonlink" %></p>  
   </div>

@@ -1,0 +1,33 @@
+<% content_for :heads do -%>
+  <link type="text/css" rel="stylesheet" href="/stylesheets/festcard09.css" media="screen, projection" />
+<% end -%>
+
+<% @page_title = "积分献爱，举手之劳！" -%>
+
+<% content_for :crumb do -%>
+<li>积分献爱</li>
+<li>捐赠成功</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<div class="lcolumn">
+  <div class="boxouter">
+    <h3>留言成功，非常感谢！</h3>
+    <div class="boxinter">
+      <%= render :partial => '/requirements/requirement', :object => @requirement %>
+    </div>
+  </div>
+  
+</div>
+
+<div class="rcolumn">
+  <div class="boxouter">
+    <h3>合作商家</h3>
+    <div class="boxinter">
+      <p><img src="/images/kuailebox/kuaileboxlogo.png"></p>
+      <p><img src="/images/mooncake/sitlogo.gif"></p>
+    </div>
+  </div>
+</div>
+
+<% end -%>
