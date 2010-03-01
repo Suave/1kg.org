@@ -9,17 +9,21 @@ class SchoolsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @photos = Photo.latest.include([:school, :user])
+        @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
         #@recent_schools = School.recent_upload.validated.include([:user, :geo])
-        #@recent_school_comments = Topic.last_10_updated_topics(SchoolBoard)
+        @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
+      :include => [:user, :board],
+      :order => "last_replied_at desc",
+      :limit => 6)
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
         @activities_for_school = Activity.ongoing.find(:all,
                                                        :conditions => "School_id is not null",
                                                        :order => "created_at desc, start_at desc",
-                                                       :limit => 6,
-                                                       :include => [:main_photo, :school])        
+                                                       :limit => 5,
+                                                       :include => [:main_photo, :school])
+        # 显示最新用户动态
       }
       format.json {
         @schools = School.validated
@@ -437,6 +441,34 @@ class SchoolsController < ApplicationController
     else
       flash[:notice] = "只有学校大使才可以设置学校主照片"
       redirect_to school_url(@school)
+    end
+  end
+  
+  def mainphoto
+    @photo = Photo.new
+    @photo.school = @school = School.find(params[:id])
+    @photos = @school.photos
+  end
+  
+  
+  def mainphoto_create
+    @school = School.find(params[:id])
+    @photo = Photo.new(params[:photo])
+    @photo.user = current_user
+    logger.info("PHOTO: #{@photo.inspect}")
+    if @photo.filename.nil?
+      render :action => 'mainphoto'
+    else
+      @photo.save!
+      if current_user && @school.edited_by(current_user)
+        @school.main_photo = @photo
+        @school.save
+        flash[:notice] = "活动主题图设置成功"
+        redirect_to school_url(@school)
+      else
+        flash[:notice] = "你不可以设置此活动的主题图"
+        redirect_to school_url(@school)
+      end
     end
   end
   

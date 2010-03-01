@@ -6,13 +6,13 @@ class GroupsController < ApplicationController
   
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 14
-    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 25
+    @groups = Group.find :all, :order => "created_at desc", :limit => 12
+    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 15
     if logged_in?
-      @my_groups = current_user.joined_groups
+      @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 12)
       @recent_topics = current_user.recent_joined_groups_topics
-      @submitted_topics = current_user.topics.paginate(:page => 1, :per_page => 25)
-      @participated_topics = current_user.participated_topics.paginate(:page => 1, :per_page => 25)
+      @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
+      @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
     end
   end
   
@@ -26,6 +26,24 @@ class GroupsController < ApplicationController
   
   def new
     
+  end
+  
+  def participated
+    @title = "我参与的话题"
+    @topics = current_user.participated_group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
+  end
+  
+  def submitted
+    @title = "我发起的话题"
+    @topics = current_user.group_topics.paginate( :page => params[:page] || 1,
+                                        :include => [:user],
+                                        :per_page => 20
+                                      )
+    render :template => "/groups/topics"
   end
   
   def create
@@ -51,7 +69,10 @@ class GroupsController < ApplicationController
   
   def show
     @board = @group.discussion.board
-    @topics = @board.latest_topics
+    @topics = @board.topics.find(:all,
+                              :order => "updated_at desc",
+                              :include => [:user],
+                              :limit => 10)
   end
   
   def members

@@ -1,106 +1,107 @@
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
   <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <style type="text/css">
+  .hot{float:left}
+  .hot img{height:68px;}
+  .hot .school_list_photo{width:92px}
+  .hot_box{width:620px;padding:0 10px ;margin-bottom:10px;border-bottom:1px #ccc dashed;color:#888}
+  </style>
 <% end %>
 
 <% content_for :sidebar do -%>
+
+<%= render :partial => '/shared/search_box' %>
+
 <% unless @bulletins.blank? -%>
 <div class="newbox">
   <span class="span_title">公告</span>
   <div class="cleanfix" style="height:10px"></div>
   <% @bulletins.each do |b| %>
-    <p style="list-style:none;margin-bottom:4px"><%= link_to b.title, bulletin_url(b) %><span style="color:#666">[<%= b.created_at.to_formatted_s(:month_and_day) %>]</span></p>
+    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
   <% end %>
   <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
 <% end -%>
-  
-<%= render :partial => '/shared/search_box' %>
 
-
-<% @page = Page.find_by_slug('special') -%>
-<%if @page%>
-<div class="newbox">
-  <span class="span_title">专题活动</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <%= render :text => @page.body %>
+<div id="records" class="newbox">
+  <div id="record_tabs">
+        <span class="span_title" style="margin-right:8px">用户动态</span>
+        <ul class="tab">
+            <li class="tabs_more"><a href="#wannas">要去</a></li>
+            <li class="tabs_more"><a href="#visiteds">去过</a></li>
+        </ul>
+        <div class="clearfix" style="height:10px;clear:both"> </div>
+        <div id="wannas">
+          <%= render :partial => "/shared/record", :collection => @wannas,:locals => {:school => nil} %>
+        </div>
+        <div id="visiteds">
+          <%= render :partial => "/shared/record", :collection => @visits,:locals => {:school => nil} %>
+        </div>
+        <div class="cleanfix"></div>
+  </div>
+  <script type="text/javascript">
+        $(document).ready(function(){
+          jQuery("#record_tabs").tabs();
+        });
+      </script>
 </div>
-<%end%>
 
-<div class="newbox">
-  <span class="span_title">人气小组</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <%= render :partial => "/groups/groups", :object => @hot_groups %>
-  <p class="remark">&raquo; <%= link_to "更多小组", groups_url %></p>
-</div>
 <% end -%>
 
-<div class="newbox">
-      <div id="activity_tabs">
-        <span class="span_title" style="margin-right:8px">最近的活动</span><span class="postNew"><%= link_for_new_activity %></span>
-        <ul class="tab" >
-          <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
-            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
-          <% end -%>
-        </ul>
-        <div class="cleanfix" style="clear:both;height:10px"></div>
-        <div id = "all">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_all %>
-          <div class="activity_more"><%= link_to '全部活动',ongoing_activities_url,:target => "_blank" %>   <%= link_to '结束的活动',over_activities_url,:target => "_blank" %></div>
-        </div>
-        <div id = "travel">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_travel %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=travel",:target => "_blank" if @activities_for_travel.size == 8 %></div>
-        </div>
-        <div id = "teach">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_teach %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=teach",:target => "_blank" if @activities_for_teach.size == 8 %></div>
-        </div>
-        <div id = "donation">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_donation %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=donation",:target => "_blank" if @activities_for_donation.size == 8 %></div>
-        </div>
-        <div id = "online">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_online %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=online",:target => "_blank" if @activities_for_online.size == 8 %></div>
-        </div>
-        <div id = "city">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_city %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=city",:target => "_blank" if @activities_for_city.size == 8 %></div>
-        </div>
-        <div id = "other">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_other %>
-          <div class="activity_more"><%= link_to '查看更多',category_activities_url+"?c=other",:target => "_blank" if @activities_for_other.size == 8 %></div>
-        </div>
-      </div>
-<script type="text/javascript">
-  jQuery("#activity_tabs").tabs();
-</script>
-</div>
+<div class="cleanfix" style="height:15px"></div>
 
-<div class="cleanfix" style="clear:both;height:20px"></div>           
+<div class="hot_box">
+  <span class="span_title">新提交学校</span>
+  <div class="cleanfix" style="height:3px"></div>
+  <% @new_schools.each do |school|%>
+  <div class="hot">
+    <%= main_photo_thumb(school) -%>       
+    <div class="school_list_meta" style="width:155px;height:80px">
+      <h5><%= link_to short_title(school,10), school_path(school)%></h5>
+      <span><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
+      <br/><span>学校需要: <%= school.need.tag_list[0,4]%> ...</span>
+    </div>  
+  </div>
+  <%end%>
+  <div class="hot" style="float:right">
+    <div class="channel">
+        <%= link_to "&raquo; 学校频道",schools_url,:style=> "font-size:14px;font-weight:bold" %>
+        <br/>　共有<%= @school_count%>所学校</div>
+  </div>
+  <div  style="clear:both"></div>
+</div> 
+
+<div class="hot_box" style="height:210px">
+  <span class="span_title">最受欢迎活动</span>
+  <div class="cleanfix" style="height:3px"></div>
+    <% @hot_activities.each do |activity|%>
+      <div class="activity_list">
+    <%= topic_photo_thumb(activity) -%>       
+    <div class="activity_list_meta" style="width:172px;height:90px">
+    <h5><%= link_to short_title(activity), activity_path(activity)%></h5>
+    <span><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
+    <span><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
+    </div>
+  </div>
+  <%end%> 
+  <div class="hot" style="float:right">
+    <div class="channel">
+        <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:14px;font-weight:bold" %>
+        <br/><%= @activity_count%>个活动在进行</div>
+  </div>
+  <div  style="clear:both"></div>
+</div> 
+
+<div class="cleanfix" style="height:30px"></div>
 
 <div class="newbox">
-      <span class="span_title">最新用户分享</span> <span><%= link_to "全部分享", shares_url %></span>
-      <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
+      <div style="float:right"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
+      <span class="span_title">热门分享</span> 
+      <div class="cleanfix" style="height:10px"></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>
       </div>
+      <div class="remark"><%= link_to "&raquo; 更多分享", shares_url %></div>
       <div class="cleanfix" style="height:20px"></div>
-</div>
-
-<div id="records" class="newbox">
-      <span class="span_title">最新用户动态</span>
-      
-      <div class="clearfix">
-        <p style="font-size:14px;color:#666">要去学校的用户</p>
-        <%= render :partial => "/shared/visit", :collection => @wannas,:locals => {:school => nil} %>
-      </div>
-      
-      <div class="clearfix">
-      <p style="font-size:14px;color:#666">去过学校的用户</p>
-        <%= render :partial => "/shared/visit", :collection => @visits,:locals => {:school => nil} %>
-      </div>
-
-      <div class="cleanfix"></div>
 </div>
