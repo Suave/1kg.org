@@ -680,7 +680,7 @@ body.signinup p.login {
  * -------------------------------------------------------------------------- */
 /* =提交学校信息 ----------*/
 .school-steps ol {
-  padding: .3em 1em 1.2em;
+  padding: .3em 1em 1.2em;list-style-type: decimal; list-style-position: inside; margin-left:1.2em;
 }
 .school-steps ol li {
   float: left;
@@ -688,8 +688,8 @@ body.signinup p.login {
   font-weight: bold;
   font-size: 1.4em;
   background: url(../images/round-grey.gif) no-repeat left center;
-  margin-right: 1.2em;
-  padding: 0 0 0 6px;
+  margin-right: 24px;
+  padding: 0 0 0 4px;
 }
 .school-steps ol li span {
   color: #fff;
