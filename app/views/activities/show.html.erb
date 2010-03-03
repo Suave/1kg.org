@@ -122,18 +122,8 @@
           <div class="clearfix" style="margin-bottom:20px;"></div>
           <span class="span_title">活动介绍</span>
           <div class="clearfix" style="margin-bottom:5px;"></div>
-          <%= @activity.clean_html %>
-          
-          <%if false%>
-          <div id="activityintro">
-          <%= html_summary(@activity,0,400) %>
-          <%= link_to "查看全部","#",:onclick => "$('#activityintro').hide();$('#activityintro_more').show();return false"  unless html_summary(@activity,400,401).nil?%>
-          </div>
-          <div id="activityintro_more" style="display:none">
-            <%= @activity.clean_html%>
-            <%= link_to "收起","#",:onclick => "$('#activityintro_more').hide();$('#activityintro').show();return false"%>
-          </div>
-          <%end%>
+          <%= @activity.description_html %>
+        
         </div>
   </div>
 

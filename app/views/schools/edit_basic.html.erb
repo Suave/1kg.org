@@ -5,86 +5,76 @@
 <% end -%>
 
 <% content_for :fullsize do -%>
-  <div class="box" id="schoolsPostNew">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h2><!-- --></h2>
-        <div class="contents">
-          
-          <%= render :partial => 'school_steps', :locals => {:step => 'basic'} %>
-          
-          <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
-           <fieldset>
-            <legend>学校基本信息</legend>
-          <div id="school_meta">
-            <div class="meta_col" >
-            <label class="meta_label">地区</label><span class="require">*</span>
-              <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
-              </div>
-            </div>
-            <div class="meta_col">
-              <label class="meta_label">地址</label><span class="require">*</span><br/>
-            <% f.fields_for :basic_attributes, @school.basic do |b| -%>
-            <%= b.hidden_field :id %>
-            <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
-            <div class="meta_col">
-            <label class="meta_label">学校名称</label><span class="require">*</span><br/>
-            <%= f.text_field :title, :size => 16, :class => "formText" %>
-            </div>
-          </div>
-            <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
-            <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
-          </fieldset>
-
-          <fieldset>
-          <legend>学校联系人</legend>
-          <% f.fields_for :contact_attributes, @school.contact do |c| -%>
-          <%= c.hidden_field :id %>
-          <p><label class="label">姓名<span class="require">*</span></label><%= c.text_field :name, :size => 10, :class => 'formText' %>
-          <label class="small_label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %>
-          <label class="small_label">电话<span class="require">*</span></label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
-          <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
-          <% end -%>
-          </fieldset>
-          
-          <fieldset>
-          <legend>学校基本情况</legend>  
-            <p><label class="label">学校规模<span class="require">*</span></label>
-                <%=select 'school[basic_attributes]',:level_amount,[['1',1],['2',2],['3',3],['4',4],['5',5],['6',6]], {:include_blank=>true,:selected => @school.basic.level_amount.to_i}%>
-                             年制
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
-            <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
-            <p class="radioBtn"><label class="label">图书室</label><%= radio_choice b, :has_library %></p>
-            <p id="howmanybook" style="display:none"><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
-            <p class="radioBtn"><label class="label">电脑</label><%= radio_choice b, :has_pc %></p>
-            <p id="howmanypc" style="display:none"><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
-            <p id="online" style="display:none" class="radioBtn"><label class="label">电脑上网</label><%= radio_choice b, :has_internet %></p>
-            <% f.fields_for :local_attributes, @school.local do |l| -%>
-            <%= l.hidden_field :id %>
-            <p class="radioBtn"><label class="label">公益团队</label><%= radio_choice l, :ngo_support %></p>
-            <p style="display:none" id="ngoname"><label class="label" >团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
-            <p style="display:none" id="ngoproject"><label class="label" >已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
-            <% end -%>
-          </fieldset>
-          <script type="text/javascript">
-          $('#school_basic_attributes_has_library_0').delayedObserver(0.25, function(){$('#howmanybook').hide()})
-          $('#school_basic_attributes_has_library_1').delayedObserver(0.25, function(){$('#howmanybook').show()})
-          $('#school_basic_attributes_has_library_2').delayedObserver(0.25, function(){$('#howmanybook').hide()})
-          $('#school_basic_attributes_has_pc_0').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
-          $('#school_basic_attributes_has_pc_1').delayedObserver(0.25, function(){$('#howmanypc').show();$('#online').show();})
-          $('#school_basic_attributes_has_pc_2').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
-          $('#school_local_attributes_ngo_support_0').delayedObserver(0.25, function(){$('#ngoname').hide();$('#ngoproject').hide();})
-          $('#school_local_attributes_ngo_support_1').delayedObserver(0.25, function(){$('#ngoname').show();$('#ngoproject').show();})
-          $('#school_local_attributes_ngo_support_2').delayedObserver(0.25, function(){$('#ngoname').hide();$('#ngoproject').hide();})
-          </script>    
-          <% end -%>
-          
-          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span>带<span class="require">*</span>号的是必填项</p>
-          <% end -%>
+  <%= render :partial => 'school_steps', :locals => {:step => 'basic'} %>
+  <div style="padding:10px 20px">  
+    <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
+     <fieldset>
+      <legend>学校基本信息</legend>
+    <div id="school_meta">
+      <div class="meta_col" >
+      <label class="meta_label">地区</label><span class="require">*</span>
+        <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
         </div>
       </div>
+      <div class="meta_col">
+        <label class="meta_label">地址</label><span class="require">*</span><br/>
+      <% f.fields_for :basic_attributes, @school.basic do |b| -%>
+      <%= b.hidden_field :id %>
+      <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
+      <div class="meta_col">
+      <label class="meta_label">学校名称</label><span class="require">*</span><br/>
+      <%= f.text_field :title, :size => 16, :class => "formText" %>
+      </div>
     </div>
-  </div>
+      <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
+      <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
+    </fieldset>
 
+    <fieldset>
+    <legend>学校联系人</legend>
+    <% f.fields_for :contact_attributes, @school.contact do |c| -%>
+    <%= c.hidden_field :id %>
+    <p><label class="label">姓名<span class="require">*</span></label><%= c.text_field :name, :size => 10, :class => 'formText' %>
+    <label class="small_label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %>
+    <label class="small_label">电话<span class="require">*</span></label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
+    <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
+    <% end -%>
+    </fieldset>
+    
+    <fieldset>
+    <legend>学校基本情况</legend>  
+      <p><label class="label">学校规模<span class="require">*</span></label>
+          <%=select 'school[basic_attributes]',:level_amount,[['1',1],['2',2],['3',3],['4',4],['5',5],['6',6]], {:include_blank=>true,:selected => @school.basic.level_amount.to_i}%>
+                       年制
+      <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
+      <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
+      <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
+      <p class="radioBtn"><label class="label">图书室</label><%= radio_choice b, :has_library %></p>
+      <p id="howmanybook" style="display:none"><label class="label" for="school_school_basic_book_amount">学校有图书</label><%= b.text_field :book_amount, :size => 10, :class => "formText" %> 册</p>
+      <p class="radioBtn"><label class="label">电脑</label><%= radio_choice b, :has_pc %></p>
+      <p id="howmanypc" style="display:none"><label class="label" for="school_school_basic_pc_amount">学校有电脑</label><%= b.text_field :pc_amount, :size => 10, :class => "formText" %> 台</p>
+      <p id="online" style="display:none" class="radioBtn"><label class="label">电脑上网</label><%= radio_choice b, :has_internet %></p>
+      <% f.fields_for :local_attributes, @school.local do |l| -%>
+      <%= l.hidden_field :id %>
+      <p class="radioBtn"><label class="label">公益团队</label><%= radio_choice l, :ngo_support %></p>
+      <p style="display:none" id="ngoname"><label class="label" >团队名称</label><%= l.text_field :ngo_name, :size => 10, :class => 'formText' %></p>
+      <p style="display:none" id="ngoproject"><label class="label" >已开展项目</label><%= l.text_field :ngo_projects, :size => 40, :class => "formText" %></p>
+      <% end -%>
+    </fieldset>
+    <script type="text/javascript">
+    $('#school_basic_attributes_has_library_0').delayedObserver(0.25, function(){$('#howmanybook').hide()})
+    $('#school_basic_attributes_has_library_1').delayedObserver(0.25, function(){$('#howmanybook').show()})
+    $('#school_basic_attributes_has_library_2').delayedObserver(0.25, function(){$('#howmanybook').hide()})
+    $('#school_basic_attributes_has_pc_0').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
+    $('#school_basic_attributes_has_pc_1').delayedObserver(0.25, function(){$('#howmanypc').show();$('#online').show();})
+    $('#school_basic_attributes_has_pc_2').delayedObserver(0.25, function(){$('#howmanypc').hide();$('#online').hide();})
+    $('#school_local_attributes_ngo_support_0').delayedObserver(0.25, function(){$('#ngoname').hide();$('#ngoproject').hide();})
+    $('#school_local_attributes_ngo_support_1').delayedObserver(0.25, function(){$('#ngoname').show();$('#ngoproject').show();})
+    $('#school_local_attributes_ngo_support_2').delayedObserver(0.25, function(){$('#ngoname').hide();$('#ngoproject').hide();})
+    </script>    
+    <% end -%>
+    
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span>带<span class="require">*</span>号的是必填项</p>
+    <% end -%>
+  </div>
 <% end -%>

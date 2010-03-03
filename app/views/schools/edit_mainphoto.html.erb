@@ -1,0 +1,40 @@
+<% @page_title = "编辑学校信息" -%>
+<% @body_class = "schools" -%>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<% content_for :fullsize do -%>
+  <%= render :partial => 'school_steps', :locals => {:step => 'mainphoto'} %>
+  <div style="padding:20px">  
+    <div class="newbox">
+    <span class="span_title" style="margin-left:8px">上传学校主照片</span>
+    <div class="contents">
+      <% form_for :photo, :url => mainphoto_create_school_url, :html => {:multipart => true} do |f| -%>
+      <p><label class="label">照片标题</label><%= f.text_field :title, :size => 40, :class => "formText" %></p>
+          <input style="display:none" class="formText" type="text" size="40" name="photo[mainphoto]" value="true"/>
+      <p><label class="label">上传照片</label><%= f.file_field :uploaded_data %></p>
+      <%= f.hidden_field :school_id %>
+      <p class="submit clearfix" style="margin-left:10px"><span class="btnWrap"><%= submit_tag "上 传" %></span> <span class="btnWrap"><%= link_to "跳过", school_url(@school) %></span></p> 
+      <% end -%>
+    </div>
+    </div>
+    <div style="clear:both;height:40px;"></div>
+    <% unless @school.photos.empty? %>    
+    <div class="newbox">
+      <span class="span_title" style="margin-left:8px">从学校相册里选择</span>
+      <div style="clear:both;height:10px;"></div>
+      <% @school.photos.each do |p| %>
+      <dl class="obp" style="margin:0">
+        <dt><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title), p.public_filename(:medium), 
+              :rel => "prettyPhoto[gallery]",:title => ''  %>
+        </dt>
+        <dd>
+          <span><%= link_to '设为主照片', setphoto_school_url(p.school)+'?p='+p.id.to_s,:method => :put %></span>
+        </dd>
+      </dl>
+      <% end -%>
+    </div>
+    <% end %>
+  </div>        
+<% end -%>

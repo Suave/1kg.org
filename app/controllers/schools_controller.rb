@@ -123,7 +123,7 @@ class SchoolsController < ApplicationController
     @school.validated_by_id = current_user.id
     respond_to do |format|
       if @school.save
-        flash[:notice] = "学校基本信息已保存，请继续填写学校交通信息"
+        flash[:notice] = "学校提交成功！请继续填写学校交通信息.."
         format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
       else
         flash[:notice] = "请检查所有必填项是否填好"
@@ -135,7 +135,7 @@ class SchoolsController < ApplicationController
   
   def edit
     @school = School.find(params[:id])
-    %w(basic traffic need other position).include?(params[:step]) ? @step = params[:step] : @step = "basic"
+    %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
     render :action => "edit_#{@step}"
   end
   
@@ -151,7 +151,9 @@ class SchoolsController < ApplicationController
         elsif params[:step] == 'need'
           update_info "need", "other", "学校需求信息修改成功！"
         elsif params[:step] == 'other'
-          update_info "other", "done", "学校信息修改完成！"
+          update_info "other", "mainphoto", "收集人信息修改成功！"
+        elsif params[:step] == 'mainphoto'
+          update_info "mainphoto", "done", "学校信息修改完成！"
         end
         if params[:moderator] == 'add'
           user = User.find params[:uid]
@@ -444,30 +446,31 @@ class SchoolsController < ApplicationController
     end
   end
   
-  def mainphoto
-    @photo = Photo.new
-    @photo.school = @school = School.find(params[:id])
-    @photos = @school.photos
-  end
-  
-  
   def mainphoto_create
     @school = School.find(params[:id])
     @photo = Photo.new(params[:photo])
+    @photo.school_id = @school.id
+    @photos = @school.photos
     @photo.user = current_user
     logger.info("PHOTO: #{@photo.inspect}")
     if @photo.filename.nil?
-      render :action => 'mainphoto'
+      flash[:notice] = "请选择要上传的照片"
+      render :action => "edit_mainphoto"
     else
+      begin
       @photo.save!
-      if current_user && @school.edited_by(current_user)
-        @school.main_photo = @photo
-        @school.save
-        flash[:notice] = "活动主题图设置成功"
-        redirect_to school_url(@school)
-      else
-        flash[:notice] = "你不可以设置此活动的主题图"
-        redirect_to school_url(@school)
+        if current_user && @school.edited_by(current_user)
+          @school.main_photo = @photo
+          @school.save
+          flash[:notice] = "学校主照片设置成功"
+          redirect_to school_url(@school)
+        else
+          flash[:notice] = "你没有设置此学校主照片的权限"
+          redirect_to school_url(@school)
+        end
+      rescue
+        flash[:notice] = "图片格式有误，请使用 jpg,png,gif 等常见图片格式"
+        render :action => "edit_mainphoto"
       end
     end
   end
