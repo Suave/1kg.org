@@ -1,7 +1,12 @@
 <div class="topic">
-    <h5><%= link_to topic.title, board_topic_url(topic.board, topic) %></h5>
-    <span class="gary_span"><%= link_to "#{topic.user.login}",user_url(topic.user) %> 发布在 <%= link_to_topic_group(topic) %><span><br/>
-    <span class="gary_span">
-    <%= topic.posts_count %> 篇回复　
-    最后回复  <%= link_to "#{topic.last_replied_user.login}",user_url(topic.last_replied_user) %></span>
+  <%= main_photo_thumb(topic.board.talkable.school) if topic.board.talkable_type == "SchoolBoard"  -%>
+  <div class="topictitle">
+    <% if topic.board.talkable_type == "SchoolBoard" %>
+    <%= link_to topic.board.talkable.school.title,school_url(topic.board.talkable.school) %> 的话题 <%= link_to h(topic.title), board_topic_url(topic.board,topic) %>
+    <% elsif topic.board.talkable_type == "GroupBoard" %>
+    <%= link_to "#{topic.board.talkable.group.title}小组",group_url(topic.board.talkable.group) %> 的话题 <%= link_to h(topic.title), board_topic_url(topic.board,topic) %>
+    <% end %>
+  </div>
+    <div class="summary">“<%= summary(topic,38) %>……”</div>
+    <small style="color:#999"> <%= topic.posts_count %> 篇回复　<%= link_to topic.user.login, user_url(topic.user) %> 写于 <%= topic.created_at.to_date %> </small>
 </div>

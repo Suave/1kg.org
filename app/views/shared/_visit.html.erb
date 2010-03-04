@@ -3,7 +3,7 @@
     <%= avatar_for(visit.user, "large") %>
   </div>
   <div style="margin-left:56px;">
-    <p style="margin:0"><%= link_to visit.user.login, user_url(visit.user) %> <%= '计划' if visit.status == 3%><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date) %><%end%>去<%= '过' if visit.status == 1%><br/>
+    <p style="margin:0"><%= link_to visit.user.login, user_url(visit.user) %> <%= '要' if visit.status == 3%><% unless visit.visited_at.blank? %>在<%= l(visit.visited_at.to_date) %><%end%>去<%= '过' if visit.status == 1%><br/>
     <% if school.blank?%><%= link_to h(visit.school.title), school_path(visit.school)%> [<%= link_to visit.school.geo.parent.name.to_s,'/geos/'+visit.school.geo.parent.id.to_s if visit.school.geo.parent%> <%= link_to visit.school.geo.name.to_s,'/geos/'+visit.school.geo.id.to_s %>]<%else%><%=school%><%end%>
     </p>  
   </div>

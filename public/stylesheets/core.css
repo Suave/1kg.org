@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #f3f3f3;
+  background-color: #fcfcfc;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
@@ -35,6 +35,7 @@ h4, h5, h6 {
   font-size: 1em;
   font-weight: bold;
 }
+
 
 strong {
   font-weight: bold;
@@ -297,14 +298,14 @@ body.ad-column-180 #content-secondary {
 #what_time{position:absolute;top:68px;right:330px;}
 #visit_date input{width:100px;}
 
-.box p.remark, .newbox p.remark {
+.box .remark, .newbox .remark {
   margin: 0;
-  padding: 0 20px 15px;
-  text-align: right;
+  padding: 0 20px 10px;
 }
 #content-primary .box p.remark {
   margin: 0;
 }
+
 
 /* =header
 ----------------------------------------------------------------------*/
@@ -355,6 +356,7 @@ body.home #navWrap {
   margin: -45px auto 0;
   position: relative;
   z-index: 10;
+  -left:25px
 }
 /* =nav */
 #nav {
@@ -411,67 +413,23 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =headline ----------------------------------*/
 #headline {
   width: 600px;
-  height: 280px;
-  overflow: hidden;
-  position: relative;
-  margin-left:8px;
-}
-#headlineMenu {
-  position: absolute;
-  bottom: 8px;
-  -bottom:28px;
-  right: 8px;
-  z-index: 10;
-}
-#headlineMenu a {
-  float: left;
-  background: url(../images/headlineBtn.gif) no-repeat 0 0;
-  width: 24px;
-  height: 19px;
-  margin-left: -1px;
-  color: #666;
-  text-align: center;
-}
-#headlineMenu a.activeSlide {
-  background-position: -24px 0;
-  color: #fff;
-}
-
-#headline li {
-  width: 100%;
-  height: 300px;
-}
-
-/* =vote */
-#headline .vote {
-  background: url(../images/announce/vote.jpg) no-repeat;
-  height: 260px;
-  padding: 20px;
-}
-#headline .vote p {
-  margin: .5em 0 1em;
-  color: #fff;
-  font-size: 1.2em;
+  height:330px;
+  padding-left:20px
 }
 /* /END Headline ---------------------------- */
 
 /* =siteIntro*/
-#siteIntro {
-  background-color: #fff;
-  width:590px;
-  border: #dedede solid 1px;
-  margin: 20px 0;
-  padding: 0 1em;
+.siteIntro {
+  float:left;
+  margin: 0 6px;
+  -margin: 0 5px;
+  padding: 5px;
+  font-size:13px;
+  color:#555;
 }
-#siteIntro p {
-  text-indent: 2em;
-}
-#siteIntro ul {
-  margin: 0 4em;
-}
-#siteIntro ul li {
-  list-style: disc;
-}
+.siteIntro p {
+margin:4px 0}
+
 
 /* =commonUse --------------------------------*/
 #commonUse {
@@ -571,7 +529,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
   background-color: #fff;
   height: 14px;
   margin-right: 5px;
-  padding: 5px;
+  padding: 4px;
   color: #c60;
   border: #ccc solid 1px;
 }
@@ -722,7 +680,7 @@ body.signinup p.login {
  * -------------------------------------------------------------------------- */
 /* =提交学校信息 ----------*/
 .school-steps ol {
-  padding: .3em 1em 1.2em;
+  padding: .3em 1em 1.2em;list-style-type: decimal; list-style-position: inside; margin-left:1.2em;
 }
 .school-steps ol li {
   float: left;
@@ -730,8 +688,8 @@ body.signinup p.login {
   font-weight: bold;
   font-size: 1.4em;
   background: url(../images/round-grey.gif) no-repeat left center;
-  margin-right: 1.2em;
-  padding: 0 0 0 6px;
+  margin-right: 24px;
+  padding: 0 0 0 4px;
 }
 .school-steps ol li span {
   color: #fff;
@@ -1060,9 +1018,7 @@ h3.title {
   color: #999;
 }
 .shareEntry .avatar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  float:left
 }
 .shareEntry .avatar img {
   display: block;
@@ -1075,11 +1031,11 @@ h3.title {
 .tipText {color:#999;}
 .right {text-align:right;}
 
-.obu {float:left; width:72px;}
+.obu {float:left; width:70px;}
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
+.obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
-.obp {float:left; width:120px; margin:12px; height: 130px;}
+.obp {float:left; width:115px; margin:12px; height: 130px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;}
 .obp dd span {display:block;}
@@ -1125,96 +1081,119 @@ h3.title {
 .tag4 { font-size: 1.6em; }
 
 .ad{margin-bottom:10px;}
-
+ 
 .buttonlink{background:url(/images/buttonlink.gif) no-repeat;
 color:#fff;margin:0 3px;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
 color:#fff;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;*margin:0 -1px}
 .adminbutton:hover{background-position:0 -21px;color:#fff;}
-
+ 
 .buttonstatus{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonstatus2{background:url(/images/buttonstatus.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
-
+ 
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
-
-.buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;}
-.buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;-padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
-.buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
-
 .checkbox_label{margin:0 10px 0 2px;}
 
 .meta_label{font-weight:bold;margin-left:4px}
 .meta_col{float:left;margin-right:10px}
 #school_meta{margin-top:20px;margin-left:60px;height:50px}
 .meta_col input{margin-top:5px}
-
+ 
 .more{background:url(/images/more.gif) no-repeat;padding-left:14px;padding-right:6px;color:#333;cursor:pointer;float:right;}
 .more:hover{background-position:0 -13px;}
-
-.boxInner img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
+.contents img,.entry img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
 .notes{margin:-4px 6px 0;color:#666;font-size:13px}
-
+ 
 .vDateField{width:70px}
-
+ 
 .school_list{margin:0 2px 10px 0;float:left;-margin:0 0 5px}
 .school_list_photo{float:left;width:107px;height:80px;overflow:hidden;margin-top:2px}
 .school_list_meta{float:left;margin-left:10px}
 .school_list_meta span{position:relative;top:-2px}
 .school_list_meta h5{margin:2px 0}
-
+ 
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
-
+ 
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
+#content-secondary .activity_list_meta{width:184px}
+ 
+.tab{-background:url("/images/border.gif") repeat-x;height:27px;border-bottom:1px #ccc solid;-border:none}
+.tabs_more{height:20px;*height:19px;float:left;margin-top:6px;margin-left:4px;padding:0 6px;*padding-top:1px;font-weight:bold;font-size:13px;background:#e6e6e6;
+           border-left:1px #ccc solid;border-top:1px #ccc solid;border-right:1px #ccc solid;}
+.tabs_more a{color:#888}
+.tabs_more a:hover{color:#E98523;}
+.ui-tabs-selected{padding-bottom: 1px;background:#fcfcfc}
 
-.tabs_more{float:left;margin:6px 3px 0 0;padding:0 8px 0 0;font-weight:bold;font-size:13px}
-.ui-tabs-selected a{color:#E98523}
+.ui-tabs-selected a{color:#E98523;position:relative}
+ 
 .activity_more {text-align:right;padding:0 20px}
-
-.remark{margin:0}
-.remark a{color:#666}
+ 
+.remark{margin-right:20px;clear:both;text-align:right;}
+.remark a{color:#666;}
 .remark a:hover{color:#E98523}
 
-.topic {margin:0 5px 6px 0;float:left;-margin:0 0 5px;width:310px;height:70px;overflow:hidden}
+.topic {width:620px;height:80px;overflow:hidden}
+.topic img{height:60px;}
+.topic .school_list_photo{width:80px;margin-right:10px}
 
-.zone{width:210px;height:72px;float:left}
+.stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
+ 
+ 
+.photo_frame{float:left;height:118px;width:120px;margin:0 0 5px 5px;text-align:center;overflow:hidden}
+.photo{height:80px;}
+.photo_meta{}
+.photo_from{}
+.photo_frame:hover .photo_meta{}
+ 
+.zone{width:210px;height:68px;float:left;-height:48px}
 .zone h6{color:#999;margin-top:4px}
 .zone a{font-size:14px;margin-top:6px;}
-
+ 
 .white {background-color: white;}
-.gary_span{color:#888}
-
+.gary_span{color:#999}
+ 
 .summary{color:#666;margin:3px 0 1px}
-
+ 
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
-
-.newbox{padding-left:10px;width:100%;margin-bottom:20px}
-.span_title{font-size:18px;font-weight:bold;}
-.span_title2{font-size:15px;font-weight:bold;}
-
-#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f2f2f2}
-
-.share{clear:both;margin:12px 0 12px;}
+ 
+ 
+.newbox{padding-left:10px;margin-bottom:20px}
+.span_title{font-size:17px;font-weight:bold;color:#555}
+.span_title2{font-size:15px;font-weight:bold;color:#555}
+ 
+#admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
+#search_box{padding:6px 10px;margin-top:4px;}
+ 
+ 
+.share{clear:both;margin:12px 0 18px;}
 .share img{margin-top:4px}
-.sharetitle{font-size:13px;}
+.sharetitle,.topictitle{font-size:13px;}
+ 
+.tabs_month{margin:10px 10px 0}
+.comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
+ 
+.entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
+.channel{margin-right:0;position:relative;top:-36px;text-align:right}
+.channel a{color:#666}
+.entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
+.channel a:hover,.entrance_link:hover{color:#E98523}
 
-.envoy_badge{position:relative;top:2px}
+.counter{"times new roman",serif;font-style:italic;font-size:16px}
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
 .progressWrapper {

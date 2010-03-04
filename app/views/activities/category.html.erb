@@ -1,11 +1,23 @@
-<% title_list = %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动) %>
-
-<% @page_title = @title = "所有未结束的#{title_list[@category]}活动" %>
+<% title_list = %w(公益旅游 物资募捐 支教 其他 同城 网上) %>
+<% category_list = %w(travel donation teach other city online) %>
+<% @page_title = "所有的#{title_list[@category]}活动" %>
 
 <% content_for :crumb do -%>
 <ul>
-  <li><%= "所有未结束的#{title_list[@category]}活动"%></li>
+  <li><%= "所有的#{title_list[@category]}活动"%></li>
 </ul>
 <% end -%>
 
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到活动首页",activities_url%></span>
+<%end%>
+<span class="span_title"><%= "所有的#{title_list[@category]}活动"%></span>
+<%= link_to "查看已结束的活动",category_activities_url+"?c=#{category_list[@category]}&&over=true" unless @over %>
+<%= link_to "查看未结束的活动",category_activities_url+"?c=#{category_list[@category]}" if @over %>
+<div class="cleanfix" style="clear:both;height:10px"></div>
 <%= render :partial => "/shared/activity", :collection => @activities %>
+<div class="cleanfix" style="clear:both;height:10px"></div>
+<%= customize_paginate @activities %>
+<div class="cleanfix" style="clear:both;height:10px"></div>
