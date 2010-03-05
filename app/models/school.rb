@@ -24,6 +24,9 @@
 #  main_photo_id            :integer(4)
 
 class School < ActiveRecord::Base
+  include ThinkingSphinx::ActiveRecord::Scopes
+  include ThinkingSphinx::SearchMethods
+  
   belongs_to :user
   belongs_to :geo
   belongs_to :county
