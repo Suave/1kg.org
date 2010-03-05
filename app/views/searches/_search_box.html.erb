@@ -1,17 +1,25 @@
+<% @kind = kind rescue '' %>
+<% @search ||= Search.new('kind' => @kind) %>
+<% content_for :heads do %>
+  <%= javascript_include_tag "search" %>
+<% end %>
 <div id="admins">
   <div class="cleanfix" style="height:2px"></div>
     <span "gary_span">站内搜索</span>
     <% form_tag '/search', :method => 'get' do %>
       <input type="text" name="q" size="25" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
       <input type="submit" value="搜索" class="form-submit" onclick="clear_search_box();" />
-      <p class="small">
+      <p class="small"  style="margin:0px;">
+        <%= radio_button_tag :kind, 'all', @search.kind == 'all', :onchange => 'switch_search_to("all");' %> 全部
         <%= radio_button_tag :kind, 'school', @search.kind == 'school', :onchange => 'switch_search_to("school");' %> 学校
         <%= radio_button_tag :kind, 'activity', @search.kind == 'activity', :onchange => 'switch_search_to("activity");' %> 活动
         <%= radio_button_tag :kind, 'share', @search.kind == 'share', :onchange => 'switch_search_to("share");' %> 分享
+        <%= radio_button_tag :kind, 'group', @search.kind == 'group', :onchange => 'switch_search_to("group");' %> 小组
+        <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onchange => 'switch_search_to("topic");' %> 话题
       </p>
-
-      <p class="small"><%= link_to_function '高级选项', 'toggle_advanced_search();' %></p>
       
+      <p class="small" style="margin:0px;"><%= link_to_function '高级选项', 'toggle_advanced_search();' %></p>
+
       <p id="advance_search" style="<%= 'display:none;' unless @search.advanced? %>">
         <%= label_tag '标题' %><%= text_field_tag :title, @search.title %><br />
         <%= label_tag '城市' %><%= text_field_tag :city, @search.city %>

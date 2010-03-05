@@ -141,15 +141,6 @@ class School < ActiveRecord::Base
   # 用于导入博客学校
   class << self
     include SchoolImport
-<<<<<<< HEAD:app/models/school.rb
-  
-    def search(keywords, page, per_page = 20)
-      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
-    end
-  
-=======
-
->>>>>>> fcbd624... 更新搜索:app/models/school.rb
     def categories
       %w(小学 中学 四川灾区板房学校)
     end

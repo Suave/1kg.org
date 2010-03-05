@@ -14,7 +14,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-
+<%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %>
 <div class="newbox">
       <span class="span_title">和学校相关的活动</span>
       <div class="clearfix" style="height:10px"> </div>

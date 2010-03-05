@@ -36,6 +36,12 @@ class Group < ActiveRecord::Base
   validates_presence_of :title, :message => "请填写小组名"
   validates_presence_of :geo_id, :message => "请选择小组所在城市"
   
+  define_index do
+    # fields
+    indexes title
+    indexes body_html, :as => :description
+  end
+  
   def joined?(user)
     user.class == User && members.include?(user)
   end
@@ -48,10 +54,6 @@ class Group < ActiveRecord::Base
   end
   
   class << self
-    def search(keywords, page, per_page = 20)
-      Group.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
-    end
-    
     def most_members
       find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...8]
     end

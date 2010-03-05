@@ -1,10 +1,12 @@
 <% content_for :sidebar do -%>
+
 <div style="margin-left:-30px;-margin-left:0;width:290px">
   <%= render :partial => "/shared/login" %>
-  <div class="newbox"><%= render :partial => '/shared/search_box' %><div>
+  <%= render :partial => '/searches/search_box' %>
 </div>
   
-      <div class="remark"><%= link_to "English introduction", "/misc/en-intro" %></div>
+<div class="remark"><%= link_to "English introduction", "/misc/en-intro" %></div>
+
 <% end -%>
 
 <div id="headline">
