@@ -3,6 +3,9 @@
 log/*
 tmp/*
 tmp/**/*
+config/*.sphinx.conf
+db/sphinx/*
+db/sphinx/**/*
 doc/api
 doc/app
 doc/plugins
