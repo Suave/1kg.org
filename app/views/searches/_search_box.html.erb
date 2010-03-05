@@ -17,19 +17,19 @@
   <div class="cleanfix" style="height:2px"></div>
     <span "gary_span"><%= @kind.empty? ? '站内' : search_titles[@kind.to_sym]%>搜索</span>
     <% form_tag '/search', :method => 'get' do %>
-      <input type="text" name="q" size="25" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
+      <input type="text" name="q" style="width:220px" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
       <input type="submit" value="搜索" class="form-submit" onclick="clear_search_box();" />
       
-      <p style="clear:both;width:280px;height:10px;font-size:12px;line-height:18px"><%= link_to_function '高级选项','',:class => "more",:name => "#advance_box"%></p>
+      <p style="clear:both;width:280px;*margin:2px 0;font-size:12px;line-height:18px"><%= link_to_function '高级选项','',:class => "more",:name => "#advance_box"%></p>
       <div style="clear:both"></div>
       <div id="advance_box" style="display:none">
       <div class="small"  style="margin:4px 0;">
-        <%= radio_button_tag :kind, 'all', @search.kind == 'all', :onchange => 'switch_search_to("all");' %> 全部
-        <%= radio_button_tag :kind, 'school', @search.kind == 'school', :onchange => 'switch_search_to("school");' %> 学校
-        <%= radio_button_tag :kind, 'activity', @search.kind == 'activity', :onchange => 'switch_search_to("activity");' %> 活动
-        <%= radio_button_tag :kind, 'share', @search.kind == 'share', :onchange => 'switch_search_to("share");' %> 分享
-        <%= radio_button_tag :kind, 'group', @search.kind == 'group', :onchange => 'switch_search_to("group");' %> 小组
-        <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onchange => 'switch_search_to("topic");' %> 话题
+        <%= radio_button_tag :kind, 'all', @search.kind == 'all', :onclick => 'switch_search_to("all");' %>全部
+        <%= radio_button_tag :kind, 'school', @search.kind == 'school', :onclick => 'switch_search_to("school");' %>学校
+        <%= radio_button_tag :kind, 'activity', @search.kind == 'activity', :onclick => 'switch_search_to("activity");' %>活动
+        <%= radio_button_tag :kind, 'share', @search.kind == 'share', :onclick => 'switch_search_to("share");' %>分享
+        <%= radio_button_tag :kind, 'group', @search.kind == 'group', :onclick => 'switch_search_to("group");' %>小组
+        <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onclick => 'switch_search_to("topic");' %>话题
       </div>
       
       <p id="advance_school" class="advances" style="<%= 'display:none;' unless @search.advanced? && @search.kind == 'school' %>">
@@ -50,7 +50,7 @@
         <%= label_tag '城市' %> <%= text_field_tag :city, @search.city %><br/>
         <%= label_tag '类型' %> <%= select_tag :category, options_for_select([''] + Activity.categories, @search.need) %><br />
         <% Search::DATE_RANGE.each do |d| %>
-          <%= radio_button_tag :on, d, @search.on == d %> <%= d %>
+          <%= radio_button_tag :on, d, @search.on == d %><%= d %>
         <% end %><br />
         <%= check_box_tag :include_over, '1', @search.include_over %> 包含已结束活动
         <br />
