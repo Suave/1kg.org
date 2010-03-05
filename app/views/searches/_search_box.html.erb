@@ -3,6 +3,15 @@
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
   <%= javascript_include_tag "search" %>
+  <script type="text/javascript">
+  $(document).ready(function(){
+  search_box_blur();
+  $(".more").toggle(
+      function () {$($(this).attr('name')).show();$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).hide();$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
+  <%unless @kind.empty? %>$(<%="'#advance_#{@kind}'"-%>).show()<% end %>
+  });</script>
 <% end %>
 <div id="admins">
   <div class="cleanfix" style="height:2px"></div>

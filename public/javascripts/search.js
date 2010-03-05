@@ -1,10 +1,3 @@
-$(document).ready(function(){
-  search_box_blur();
-  $(".more").toggle(
-      function () {$($(this).attr('name')).show();$(this).attr('style','background-image:url(/images/less.gif)')},
-      function () {$($(this).attr('name')).hide();$(this).attr('style','background-image:url(/images/more.gif)')}
-    );
-});
 
 function switch_search_to(kind)
 {$(".advances").hide();
