@@ -25,10 +25,10 @@ class Search < ActiveRecord::Base
     '> 1000' => 1000..10000
   }
   
-  DATE_RANGE = ['最近一周', '最近一个月', '今天', '周末']
+  DATE_RANGE = ['最近一周', '最近一月', '今天', '周末']
   @@date_options = {
-    '最近一周' => Time.now..(Time.now + 7.day),
-    '最近一个月' => Time.now..(Time.now + 30.day),
+    '最近一周' => Time.now.beginning_of_day..7.day.from_now,
+    '最近一月' => Time.now.beginning_of_day..30.day.from_now,
     '今天'   => Time.now.beginning_of_day..Time.now.end_of_day,
     '周末'   => (Time.now.end_of_week - 58.hour)..Time.now.end_of_week
   }

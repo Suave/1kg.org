@@ -11,7 +11,7 @@
 
 <% content_for :sidebar do -%>
 
-<%= render :partial => '/shared/search_box' %>
+<%= render :partial => '/searches/search_box' %>
 
 <% unless @bulletins.blank? -%>
 <div class="newbox">
@@ -23,8 +23,6 @@
   <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
 </div>
 <% end -%>
-  
-<%= render :partial => '/searches/search_box' %>
 
 <div id="records" class="newbox">
   <div id="record_tabs">
