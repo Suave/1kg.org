@@ -62,7 +62,6 @@ namespace :schools do
     puts "学校总数：#{schools.size}"
     
     schools.each do |school|
-      puts '.'
       karma = 0
       # 活动 20s/个 （另外活动回复 1/s + 参加 2/s）
       school.activities.each do |activity|
