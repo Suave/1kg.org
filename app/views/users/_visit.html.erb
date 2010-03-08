@@ -8,7 +8,7 @@
     <%end%>
     <h5><%= link_to h(visit.school.title), school_path(visit.school)%></h5>
     <span>活跃度</span>
-    <%= karma_star(visit.school.last_month_karma)-%>
+    <%= karma_star(visit.school.karma)-%>
     </div>
     <div class="clearfix"></div>
    </div>
