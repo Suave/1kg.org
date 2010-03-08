@@ -64,32 +64,30 @@ namespace :schools do
     schools.each do |school|
       puts '.'
       karma = 0
-      # 活动 10s/个 （另外活动回复 1/s + 参加 2/s）
+      # 活动 20s/个 （另外活动回复 1/s + 参加 2/s）
       school.activities.each do |activity|
         karma += activity.comments.count * 1
-        karma += activity.participators.count * 3
-        karma += 15
+        karma += activity.participators.count * 2
+        karma += 20
       end
       # 照片 2s/张
-      karma += school.photos.count * 3
+      karma += school.photos.count * 2
       # 分享 10s/篇 (另外 分享回复 1s/个)
       school.shares.each do |share|
         karma += share.comments.count * 1
-        karma += 15
+        karma += 10
       end
-      # 话题回复 1s/个 学校话题
+      # 话题回复 1s/个 学校话题 2s/个
       school.discussion.board.topics.each do |topic|
         karma += topic.posts.count * 1
         karma += 2
       end
       # 去过用户 4s/人  要去 2s/人  关注  2s/人
-      karma += school.visitors.count * 6
-      karma += school.interestings.count * 3
-      karma += school.wannas.count * 3
+      karma += school.visitors.count * 4
+      karma += school.interestings.count * 2
+      karma += school.wannas.count * 2
       # 学校大使 10s/人
-      karma += User.moderators_of(school).size * 15
-      # 学校点击 0.5s/次
-      karma += school.hits/2
+      karma += User.moderators_of(school).size * 10
       
       # 更新学校活跃度
       school.update_attribute(:karma, karma) #unless school.karma == karma

@@ -75,7 +75,7 @@ class School < ActiveRecord::Base
   named_scope :locate, lambda { |city_ids|
     {:conditions => ["geo_id in (?)", city_ids]}
   }
-  named_scope :top10_popular, :order => 'last_month_karma DESC', :limit => 6
+  named_scope :top10_popular, :order => 'karma DESC', :limit => 6
   named_scope :recent_upload, :order => "created_at desc", :limit => 10
   named_scope :include, lambda {|includes| {:include => includes}}
   
@@ -278,7 +278,7 @@ class School < ActiveRecord::Base
       @schools = School.top10_popular
       data = []
       @schools.each do |school|
-        data << ["#{school.title}", school.last_month_karma]
+        data << ["#{school.title}", school.karma]
       end
     
       column_2d_chart("最活跃学校", data, '活跃度', 'School')
