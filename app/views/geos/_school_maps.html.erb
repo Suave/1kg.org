@@ -4,6 +4,10 @@
   <% # 如果提供城市，则只显示此城市的学校 %>
   <% if @city %>
     <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
+  <% elsif @search %>
+    <script type="text/javascript">
+      var schools = <%= @json.to_json %>;
+    </script>
   <% else %>
     <script type="text/javascript" src="/schools.json"></script>
   <% end %>

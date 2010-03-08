@@ -13,13 +13,13 @@
           <div id="participated_t">
             <%= render :partial => "/topics/topics", :locals => {:topics => participated_topics} unless participated_topics.blank? %>
             <div class="cleanfix" style="clear:both;height:10px"></div> 
-            <span class="remark"><%= link_to "&raquo; 查看全部", participated_topics_user_url(user) %></span>
+            <div class="remark"><%= link_to "&raquo; 查看全部", participated_topics_user_url(user) %></div>
           </div>
 
           <div id="submitted">
             <%= render :partial => "/topics/topics", :locals => {:topics => submitted_topics} unless submitted_topics.blank? %>
             <div class="cleanfix" style="clear:both;height:10px"></div>
-            <span class="remark"><%= link_to "&raquo; 查看全部", submitted_topics_user_url(user) %></span>
+            <div class="remark"><%= link_to "&raquo; 查看全部", submitted_topics_user_url(user) %></div>
           </div>
         </div>
       </div>

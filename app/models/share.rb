@@ -28,9 +28,9 @@
 class Share < ActiveRecord::Base
   include BodyFormat
   
-  belongs_to :user
+  belongs_to :user,:counter_cache => true
   belongs_to :geo
-  belongs_to :activity
+  belongs_to :activity, :counter_cache => true
   belongs_to :school
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
@@ -48,6 +48,16 @@ class Share < ActiveRecord::Base
                               :limit => 8,
                               :include => [:user, :tags]
 
+  define_index do
+    # fields
+    indexes title
+    indexes school.title, :as => :school_title
+    indexes geo.name, :as => :city
+    indexes clean_html, :as => :content
+    
+    has :updated_at
+    has :created_at
+  end
   
   def hit!
     self.class.increment_counter :hits, id

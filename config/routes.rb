@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
-  
+  map.topics "/topics/total",:controller => "topics", :action => "total"
   #market
   #map.market "/market",:controller => "market",:action => "index"
 
@@ -60,6 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
+                                      :mainphoto_create => :post,
                                       :apply => :get,
                                       :shares => :get,
                                       :moderator => :get,
@@ -119,7 +120,7 @@ ActionController::Routing::Routes.draw do |map|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
-  map.resources :searches
+  map.resource :search
   
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
@@ -130,7 +131,9 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put,
                                       :members => :get
                                     },
-                          :collection => {:all => :get}
+                          :collection => {:all => :get,
+                            :participated => :get,
+                            :submitted => :get}
   
   map.resources :photos
   

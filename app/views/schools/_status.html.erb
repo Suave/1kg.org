@@ -28,6 +28,7 @@
       <% form_for :visited, :url => wanna_school_url(@school), :html => {:method => 'put',:id=>"wanna_date",:class => "what_time",:style => "display:none"} do |f| -%>
       <p>计划什么时间去？<input id="visited_visited_at" name="visited[visited_at]" type="text" value="" class="vDateField" /></p>
       <!--<p>什么交通方式？<input type="text" name="visited[notes]" id="visited_notes" />(14个字以内)</p>-->
+      <span class="gary_span">去学校别忘了带上一份<a href="/school_info.xls" target="_blank"> 学校信息收集表</a></span>
       <p class="date_submit"><%= submit_tag "确定" %> <input type="submit" value="取消" name="commit" onclick="jQuery('#wanna_date').hide();return false"/></p>
       <% end -%>
       

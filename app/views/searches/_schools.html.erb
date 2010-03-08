@@ -1,0 +1,16 @@
+<div class="newbox">
+  <span class="span-title">&nbsp;</span>
+  <div class="contents">
+    <%= render :partial => '/geos/school_maps' %>
+  </div>
+</div>
+
+<% unless @schools.empty? %>
+<div class="newbox">
+  <span class="span-title">&nbsp;</span>
+  <div class="contents">
+    <%= render :partial => '/schools/schools', :object => @schools %>
+    <%= customize_paginate(@schools) %>
+  </div>
+</div>
+<% end %>

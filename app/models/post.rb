@@ -18,6 +18,7 @@ class Post < ActiveRecord::Base
   include BodyFormat
   
   belongs_to :topic, :counter_cache => 'posts_count'
+  delegate :board, :to => :topic, :allow_nil => true
   belongs_to :user
   
   acts_as_paranoid

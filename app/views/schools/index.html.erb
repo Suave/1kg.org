@@ -1,4 +1,4 @@
-<% @page_title = @title = "学校" -%>
+<% @page_title = "学校" -%>
 
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
@@ -6,45 +6,34 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <style type="text/css">
-  .activity_list_meta{width:192px;}
   .school_list_meta{width:190px;-width:180px}
   .school_list{width:310px}</style>
 <% end %>
-<script type="text/javascript" charset="utf-8">
-  jQuery(document).ready(function(){
-    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-</script>
 <% content_for :crumb do -%>
 <li>学校</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
-
-
+<%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %>
 <div class="newbox">
       <span class="span_title">和学校相关的活动</span>
-      <span class="postNew"><%= link_for_new_activity %></span>
       <div class="clearfix" style="height:10px"> </div>
       <div class="contents">
           <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
-          <div class="activity_more"><%= link_to '查看更多',with_school_activities_url,:target => "_blank" %></div>
+          <div class="remark"><%= link_to '&raquo; 查看更多',with_school_activities_url,:target => "_blank" %></div>
       </div>
-      
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 
-
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
-<%= render :partial => "submit" %>
 
 <% end -%>
 
 <div class="newbox" >
-      <span class="postNew" style="margin-right:30px"><%= link_for_new_school %></span>
-      <span class="span_title">地图查询</span> <%=link_to "全国地图","/geos"%>
-      <div class="clearfix" style="height:20px"> </div>
+      <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
+      <span class="span_title">地图查询学校</span> <%=link_to "全国地图","/geos"%>
+      <div class="clearfix" style="clear:both;height:20px"> </div>
       <div class="zone">
         <h6>华北地区</h6>
         <%= link_to "北京","/geos?province=1" %>
@@ -54,7 +43,7 @@
         <%= link_to "内蒙古","/geos?province=27" %>
       </div>
         
-      <div class="zone" style="width:160px;">
+      <div class="zone" style="width:180px;">
         <h6>东北地区</h6>  
         <%= link_to "辽宁","/geos?province=40" %>
         <%= link_to "吉林","/geos?province=55" %>
@@ -71,7 +60,7 @@
         <%= link_to "江西","/geos?province=134" %>
         <%= link_to "山东","/geos?province=146" %>
       </div>
-      
+      <div class="clearfix" style="clear:both;"> </div>
       <div class="zone">
         <h6>华中地区</h6>
         <%= link_to "河南","/geos?province=164" %>
@@ -79,14 +68,14 @@
         <%= link_to "湖南","/geos?province=201" %>
       </div>
       
-      <div class="zone" style="width:160px;">
+      <div class="zone" style="width:180px;">
         <h6>华南地区</h6>
         <%= link_to "广东","/geos?province=216" %>
         <%= link_to "广西","/geos?province=238" %>
         <%= link_to "海南","/geos?province=253" %>
       </div>
       
-      <div class="zone">
+      <div class="zone" style="width:240px">
         <h6>西南地区</h6>
         <%= link_to "重庆","/geos?province=273" %>
         <%= link_to "四川","/geos?province=274" %>
@@ -94,7 +83,7 @@
         <%= link_to "云南","/geos?province=306" %>
         <%= link_to "西藏","/geos?province=323" %>
       </div>
-      
+      <div class="clearfix" style="clear:both;"> </div>
       <div class="zone">
         <h6>西北地区</h6>
         <%= link_to "陕西","/geos?province=331" %>
@@ -104,40 +93,49 @@
         <%= link_to "新疆","/geos?province=372" %>
       </div>
       
-      <div class="zone" style="width:160px;">
+      <div class="zone" style="width:180px;">
         <h6>港澳台地区</h6>
         <%= link_to "香港","/geos?province=391" %>
         <%= link_to "澳门","/geos?province=392" %>
         <%= link_to "台湾","/geos?province=393" %>
       </div>
       
-      <div  style="width:200px;height:40px;float:left;background-color:#e0e0e0;padding:6px 0 10px 15px">
+      <div  style="width:220px;height:40px;float:left;background-color:#f0f0f0;padding:6px 0 10px 15px">
       <span style="font-size:12px;color:#666;font-weight:bold">城市快速搜索</span>
         <% form_tag search_geos_url, :method => :get do -%>
-          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:140px"} %> <%= submit_tag "查找", :class => "form-submit" %>
+          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:160px"} %> <%= submit_tag "查找", :class => "form-submit" %>
         <% end -%>
       </div>
-      <div class="clearfix"></div>
+      <div class="clearfix" style="clear:both;"> </div>
+      <div><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
 </div>
 
+<div class="clearfix" style="clear:both;"> </div>
 
 <div class="newbox">
       <div class="clearfix"></div>
-      <span class="span_title">本月最活跃的学校</span>
+      <span class="span_title">学校话题</span>
+      <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+        <%= render :partial => '/shared/topic', :collection => @recent_school_comments %>
+      </div>
+      <div class="remark"><%= link_to "&raquo; 更多学校话题", comments_schools_url %></div>
+</div>
+
+<div class="newbox">
+      <span class="span_title">最新学校照片</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>           
+      <div class="contents clearfix">
+        <%= render :partial => "/shared/photo", :collection => @photos %>
+      </div>
+</div>
+
+<div class="newbox">
+      <span class="span_title">近期活跃的学校</span>
       <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
         <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:main_photo]) %>
       </div>
-
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>最新学校照片</h3>
-      <div class="contents clearfix">
-        <%= render :partial => "photos", :object => @photos %>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="cleanfix" style="clear:both;height:20px"></div>

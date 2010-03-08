@@ -24,6 +24,9 @@
 #  main_photo_id            :integer(4)
 
 class School < ActiveRecord::Base
+  include ThinkingSphinx::ActiveRecord::Scopes
+  include ThinkingSphinx::SearchMethods
+  
   belongs_to :user
   belongs_to :geo
   belongs_to :county
@@ -85,6 +88,26 @@ class School < ActiveRecord::Base
                         :macao => {:id => 392, :neighbors => {:guangdong => 216, :fujian => 124}}
   }
   
+  define_index do
+    # fields
+    indexes title
+    indexes basic.address, :as => :address
+    indexes geo.name, :as => :city
+    indexes [need.book, need.stationary, need.sport, 
+              need.cloth, need.accessory, need.medicine, need.course, 
+              need.hardware, need.teacher, need.other], :as => :need
+    indexes contact.name, :as => :contact
+    
+    where "validated = 1 and meta = 0"
+    
+    has basic(:class_amount), :as => :class_amount
+    has basic(:teacher_amount), :as => :teacher_amount
+    has basic(:student_amount), :as => :student_amount
+    has basic(:has_pc), :as => :has_pc
+    has basic(:has_library), :as => :has_library
+    has basic(:has_internet), :as => :has_internet
+  end
+
   attr_accessor :city, :city_unit, :town, :town_unit, :village
   
   def validate_on_create
@@ -121,11 +144,6 @@ class School < ActiveRecord::Base
   # 用于导入博客学校
   class << self
     include SchoolImport
-  
-    def search(keywords, page, per_page = 20)
-      School.paginate(:page => page, :per_page => per_page, :conditions => ['title like ?', "%#{keywords}%"])
-    end
-  
     def categories
       %w(小学 中学 四川灾区板房学校)
     end

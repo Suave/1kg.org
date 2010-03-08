@@ -1,12 +1,15 @@
 class TopicsController < ApplicationController
-  before_filter :login_required, :except => [:show, :index]
-  before_filter :find_board,     :except => [:edit]
-  before_filter :find_topic,     :except => [:index, :create]
+  before_filter :login_required, :except => [:show, :index,:total]
+  before_filter :find_board,     :except => [:edit,:total]
+  before_filter :find_topic,     :except => [:index, :create,:total]
   
   def index
     @topics = @board.topics.paginate(:page => params[:page] || 1, :per_page => 20)
   end
   
+  def total
+    @topics = Topic.find(:all,:limit => 100,:order => "last_replied_at desc").paginate(:page => params[:page] || 1, :per_page => 10)
+  end
   
   def new
   end
@@ -52,6 +55,7 @@ class TopicsController < ApplicationController
     else
       @posts = @topic.posts.available
       @post  = Post.new
+      @others  = @topic.board.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
     end
   end
   
