@@ -18,7 +18,7 @@ module BodyFormat
     end
     
     begin
-      html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'embed', 'br',
+      html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'q', 'embed', 'br',
         'em', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
           :attributes => {'a' => ['href', 'target', 'title'], 
             'img' => ['src', 'alt', 'title'], 

@@ -1,6 +1,6 @@
 <% unless comments.blank? -%>
   <div class="newbox" id="topicCommentsList">
-        <span class="span_title">留言</span>
+        <span class="span_title">回复</span>
         <div class="cleanfix" style="height:10px"></div>
         <ol class="clearfix">
           <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
@@ -11,13 +11,20 @@
               <p class="meta">
                 <%= "##{index+1+((page)*15)}" %>
                 <%= link_to comment.user.login, user_url(comment.user) %><%= envoy_badge(comment.user)%> 写于 <%= comment.created_at.to_date %>
+                <%= link_to "回复此评论", '#', :onclick => 'reply_comment(this); return false;' if comment.repliable? %>
                 <% if comment.editable_by?(current_user) -%>
-                  (<%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>)
+                  | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
                 <% end -%>
               </p>
               <%= comment.body_html %>
+              <%= render :partial => "/comments/comments", :object => comment.comments.paginate(:page => 1, :per_page => 100) %>
             </div>
           </li>
+          <% if comment.repliable?  %>
+          <li class="reply" style="display:none;">
+            <%= render :partial => "/comments/form", :locals => {:commentable => comment} %>
+          </li>
+          <% end %>
           <% end -%>
         </ol>
         <%= customize_paginate comments%>
