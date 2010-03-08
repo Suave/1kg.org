@@ -1,19 +1,19 @@
-$(document).ready(function(){
-  search_box_blur();
-});
-
 function switch_search_to(kind)
-{
+{$(".advances").hide();
   if(kind == 'school')
   {
+    $("#advance_school").show();
     if(search_box_can_clear()) {
       $("#query-box").val('学校名称,地址,城市,需求...');
     }
+    
   } else if(kind == 'activity') {
+    $("#advance_activity").show();
     if(search_box_can_clear()) {
       $("#query-box").val('活动标题,城市,介绍...');
     }
   } else if(kind == 'share') {
+    $("#advance_share").show();
     if(search_box_can_clear()) {
       $("#query-box").val('攻略标题,学校名称,城市...');
     }
@@ -25,16 +25,11 @@ function switch_search_to(kind)
     if(search_box_can_clear()) {
       $("#query-box").val('话题标题,正文,回帖...');
     }
-  } else if(kind == 'topic') {
+  } else if(kind == 'all') {
     if(search_box_can_clear()) {
       $("#query-box").val('搜索学校,活动,话题...');
     }
   }
-  
-  $("#advance_school").hide();
-  $("#advance_activity").hide();
-  $("#advance_search").hide();
-  $("#advance_share").hide();
 }
 
 function search_box_can_clear()
@@ -71,19 +66,5 @@ function clear_search_box()
 {
   if(search_box_can_clear()) {
     $("#query-box").val('');
-  }
-}
-
-function toggle_advanced_search()
-{
-  if($("#kind_school").attr('checked') == true) {
-    $("#advance_school").toggle();
-    $("#advance_search").toggle();
-  } else if($("#kind_activity").attr('checked') == true) {
-    $("#advance_activity").toggle();
-    $("#advance_search").toggle();    
-  } else if($("#kind_share").attr('checked') == true) {
-    $("#advance_share").toggle();
-    $("#advance_search").toggle();
   }
 }

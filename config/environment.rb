@@ -27,7 +27,7 @@ Rails::Initializer.run do |config|
   config.gem "hpricot"
   config.gem "nokogiri"
   config.gem "sanitize"
-  config.gem 'javan-whenever', :lib => false, :source => 'http://gems.github.com'
+  config.gem "json"
   config.gem 'mime-types', :lib => 'mime/types'
   config.gem(
     'thinking-sphinx',

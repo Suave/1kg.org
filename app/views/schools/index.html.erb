@@ -16,7 +16,6 @@
 <% content_for :sidebar do -%>
 
 <div class="newbox"><%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
-
 <div class="newbox">
       <span class="span_title">和学校相关的活动</span>
       <div class="clearfix" style="height:10px"> </div>
@@ -26,6 +25,7 @@
       </div>
       <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
+
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
 
