@@ -1,0 +1,14 @@
+  <div class="school_list">
+    <% school = requirement.school%>
+    <% envoys = User.moderators_of(school) %>
+    <%= main_photo_thumb(school) -%>       
+    <div class="school_list_meta">
+      <h5><%= link_to h(school.title), school_path(school)%></h5>
+      <span class="gary_span">活跃度</span>
+      <%= karma_star(school.karma)-%>
+      <% unless envoys.nil? %><br/><span class="gary_span">学校大使:<% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></span><%end-%>
+    </div>
+    <%= h requirement.matched_count %>/<%= h requirement.quantity %>
+    
+    <div class="clearfix"></div>
+  </div>
