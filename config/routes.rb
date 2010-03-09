@@ -1,6 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
   #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
+  
+  # 用于公益积分
+  map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}
+  map.resources :requirements
+  
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
@@ -144,6 +150,11 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+
+  map.resources :requirement_types, :as => 'projects' do |project|
+    project.resources :requirements
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -157,9 +168,10 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
-    admin.resources :stuff_types do |type|
-      type.resources :bucks, :controller => "stuff_bucks"
+    admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
+      type.resources :requirements
     end
+    admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
   end
 
