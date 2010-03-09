@@ -15,12 +15,8 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-      <div class="contents">
+  <div class="clearfix"  style="height:20px"></div>
+  <div class="contents">
         <% if @topic.board.talkable.class == GroupBoard -%>
           <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.group.title}小组", group_url(@topic.board.talkable.group) %></p>
           <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.group.title}小组讨论区", board_url(@topic.board_id) %></p>
@@ -33,27 +29,32 @@
         
         <% else -%>
           <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
-          
         <% end -%>
-        
-        
-        
-      </div>
-    </div>
   </div>
-</div>
+  
+  <% unless @others.empty?%>
+  <div class="cleanfix" style="height:30px"></div>
+  <div class="newbox">
+    <span class="span_title">
+      <% if @topic.board.talkable.class == GroupBoard -%>小组的<% elsif @topic.board.talkable.class == SchoolBoard -%>学校的<% end %>其他话题</span>
+    <div class="cleanfix" style="height:10px"></div>
+    <div class="contents">
+      <%= render :partial => "/shared/stopic", :collection => @others %>
+    </div>
+    <div class="cleanfix" style="height:20px"></div>
+  </div>
+  <%end%>
 
+  
+  
 <% end -%>
 
-  <div class="box" id="topicSingle">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h2><%= @topic.title %></h2>
+  <div class="newbox" id="topicSingle">
+        
 
-        <div class="metadata">
-          <div class="avatar"><%= link_to avatar_for(@topic.user, "large"), user_url(@topic.user) %></div>
-          <p>
-            <%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %>
+        <div class="metadata" style="border-bottom:1px #ccc solid;padding-bottom:4px">
+            <h2 style="font-size:20px;font-weight:bold;padding-bottom:4px"><%= @topic.title %></h2>
+            <span class="gary_span"><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></span>
             <% if @topic.moderatable_by? current_user -%>
               <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_board_topic_url(@topic.board_id, @topic), :method => :put %> |
               <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_board_topic_url(@topic.board_id, @topic), :method => :put %> |
@@ -63,9 +64,9 @@
               <%= link_to "编辑", edit_board_topic_url(@topic.board_id, @topic) %> |
               <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>
             <% end -%>
-          </p>
         </div>
         <div class="entry">
+          
           <%= @topic.html %>
           <p style="color:gray; text-align:right;">
             <% if @topic.last_modified_user -%>
@@ -73,8 +74,6 @@
             <% end -%>
           </p>
         </div>
-      </div>
-    </div>
   </div>
 
 <% unless @posts.blank? -%>

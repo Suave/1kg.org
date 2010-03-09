@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "description_html"
     t.integer  "comments_count",   :default => 0
     t.integer  "participations_count", :default => 0
+    t.integer  "shares_count", :default => 0
     t.integer  "old_id"
     t.integer  "main_photo_id"
     t.boolean  "sticky",           :default => false
@@ -536,9 +537,19 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "searches", :force => true do |t|
-    t.string :keywords
-    t.string :category, :default => 'school'
+    t.string  :q
+    t.string  :title
+    t.string  :city
+    t.string  :address
+    t.string  :need
+    t.string  :kind
     t.integer :user_id
+    t.string  :category
+    t.string  :on
+    t.string  :include_over
+    t.string  :school_title
+    t.string  :content
+    
     t.timestamps
   end
   

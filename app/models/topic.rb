@@ -29,6 +29,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   
+  named_scope :recent,:limit => 6,:group => :board_id,:order => "last_replied_at desc",:include => [:board]
   named_scope :unsticky,  :conditions => ["sticky=?", false]
   named_scope :in_boards_of, lambda {|board_ids| 
     { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
@@ -46,6 +47,15 @@ class Topic < ActiveRecord::Base
   
   before_save :format_content
   before_create :set_last_reply
+
+  define_index do
+    # fields
+    indexes title
+    indexes clean_html, :as => :content
+    
+    has :updated_at
+    has :created_at
+  end
   
   def last_replied_datetime
     (self.posts.last || self).created_at
@@ -85,7 +95,7 @@ class Topic < ActiveRecord::Base
                               :include => [:user, :board],
                               :joins => [:board],
                               :order => "last_replied_at desc",
-                              :per_page => 20)
+                              :per_page => 10)
   end
   
   def html

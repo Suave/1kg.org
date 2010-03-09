@@ -1,4 +1,5 @@
 namespace :misc do
+
   desc "备份数据库"
   task :backup do
     system('/usr/bin/ruby /home/jill/mysql_backup/mysql_tools.rb backup')
@@ -40,4 +41,3 @@ namespace :misc do
   end  
 
 end
-

@@ -1,10 +1,110 @@
-<% @page_title = "公 益 活 动" -%>
-
-<% content_for :sidebar do -%>
-  <h4>> <%= link_to "发布新活动", new_activity_path %></h4>
+<% @page_title = "活动" -%>
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
+  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+<% end %>
+<% content_for :crumb do -%>
+<li>活动</li>
 <% end -%>
 
-<%= render :partial => "activity_list" %>
+<% content_for :sidebar do -%>
+<%= render :partial => '/searches/search_box', :locals => {:kind => 'activity'} %>
+    
+<% @page = Page.find_by_slug('special_sidebar') -%>
+<%if @page%>
+<div class="newbox">
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+<span class="span_title">专题活动</span>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <%= render :text => @page.body %>
+</div>
+<%end%>
 
-<h3 style="margin-top:20px;">最新活动帖子 <%= title_suffix %></h3>
-<%= render :partial => "last_10_updated_topics", :object => @topics %>
+<div class="newbox">
+  <span class="span_title">我参与的活动</span> 
+  <% if current_user %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <div id="participated">
+    <% @participated.each do |activity|%>
+    <div class="activity_list" style="margin-bottom:10px;width:290px">
+    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <%if activity.done%>
+      <span class="gary_span">结束时间：<%= activity.end_at.to_date%></span><br/>
+      <span class="gary_span"><%= activity.shares.count%> 篇分享</span>　 
+      <span class="gary_span"><%= activity.photos.count%> 张图片</span>
+    <% else%>
+      <span class="gary_span"><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
+        <% if [0,1,2,3].include?(activity.category) %>
+        <span class="gary_span"><%= activity.departure_id==0 ? "不限" : activity.departure.name %> =>  <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+        <% elsif activity.category == 4%>
+        <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
+        <% else %>
+        <span class="gary_span">网络活动</span><br/>
+        <%end%>
+    <%end%>
+    </div>
+    <% end %>
+    <div class="remark"><%= link_to '&raquo; 查看全部',participated_activities_user_url(current_user)%></div>
+    <%= "<p>还没有参加过活动噢</p>" if @participated.size == 0%>
+    
+  </div>
+  <%else%>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
+  <%end%>
+  <div class="cleanfix" style="clear:both;"></div>    
+</div>
+
+<%if false%>
+<div class="newbox">
+      <span class="span_title">最新活动留言</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <% @comments.each do |comment| -%>
+      <%= comment.body_html %>
+      <p class="comment_author"><%= link_to comment.user.login, user_url(comment.user) %> 写于：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
+      <%end-%>
+      <div class="contents clearfix">
+      </div>
+</div>
+<% end -%>
+<% end -%>
+
+<div class="newbox">
+      <div id="activity_tabs">
+        <div style="float:right;position:relative;top:5px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
+        <span class="span_title" style="margin-right:8px">最近的活动</span><%= link_to '查看已结束活动',over_activities_url%>
+        <ul class="tab" >
+          <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
+            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
+        </ul>
+        <div class="cleanfix" style="clear:both;height:10px"></div>
+        <div id = "all">
+          <%= render :partial => "/shared/activity", :collection => @activities_hash[:all] %>
+          <div class="remark"><%= link_to "&raquo; 查看更多",ongoing_activities_url,:target => "_blank" %></div>
+        </div>
+        
+        <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络','online'],['同城','city'],['其他','other']].each do |type| %>
+        <div id ="<%= type[1]%>">
+          <%= render :partial => "/shared/activity", :collection => @activities_hash[type[1].to_sym] %>
+           <div style="color:#666;margin-right:20px;clear:both;text-align:right;">&raquo; 查看更多(<%= link_to "进行中",category_activities_url+"?c=#{type[1]}",:target => "_blank" %>/<%= link_to "已结束",category_activities_url+"?c=#{type[1]}&&over=true",:target => "_blank" %>)</div>
+        </div>
+        <% end -%>
+      </div>
+<script type="text/javascript">
+  jQuery("#activity_tabs").tabs();
+</script>
+</div>
+
+<div class="cleanfix" style="clear:both;height:20px"></div>           
+
+<div class="newbox">
+      <span class="span_title">最新活动照片</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>           
+      <div class="contents clearfix">
+        <%= render :partial => "/shared/photo", :collection => @photos %>
+      </div>
+</div>
+<div class="cleanfix" style="clear:both;height:20px"></div>

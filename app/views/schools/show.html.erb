@@ -4,7 +4,6 @@
   <%= stylesheet_link_tag 'school' %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
-  <style type="text/css">.activity_list_meta{width:182px;}</style>
 <% end %>
 
 <% @page_title = "#{h @school.title}" -%>
@@ -27,9 +26,13 @@
   <div id="meta">
     <div class="meta_left">
       <% if @school.main_photo -%>
-      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.main_photo.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
+      <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
       <%else%>
-      <img class="school_main" src="/images/school_main.png"/>
+        <% if logged_in? && @school.edited_by(current_user)%>
+        <%= link_to image_tag("school_main_set.png"),school_url(@school)+"/edit?step=mainphoto" %>
+        <%else%>
+        <img class="school_main" src="/images/school_main.png"/>
+        <%end%>
       <%end%>
       
     </div>
@@ -38,7 +41,7 @@
       <h1><%= h @school.title -%></h1>
       <!--<% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校能上网"><% end %>-->
       <div class="meta_info">
-        <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.last_month_karma)-%> <span style="color:#999;font-size:10px">累计活跃度:<%=@school.karma%></span>
+        <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.karma)-%> <span style="color:#999;font-size:10px">累计活跃度:<%=@school.karma%></span>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>

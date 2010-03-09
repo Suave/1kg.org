@@ -5,78 +5,71 @@
 <% end -%>
 
 <% content_for :fullsize do -%>
-  <div class="box" id="schoolsPostNeeds">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h2><!-- --></h2>
-        <div class="contents">
-          <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
-          <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
-          <%= f.hidden_field :id %>
-          
-          <% f.fields_for :need_attributes, @school.need do |n| -%>
-          <%= n.hidden_field :id %>
-          <% if current_user.school_moderator? %>
-          <p>
-            <label class="label" for="school_school_need_urgency">紧急</label>
-            <%= n.text_field :urgency %>
-          </p>
-          <% end %>
-          <p>
-            <label class="label" for="school_school_need_book">书籍</label>
-            <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_stationary">文具</label>
-            <%= needs_check_box n, :stationary, SchoolNeed::STATIONARY_NEEDS, @school.need.stationary %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_sport">文体用品</label>
-            <%= needs_check_box n, :sport, SchoolNeed::SPORT_NEEDS, @school.need.sport %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_cloth">衣服</label>
-            <%= needs_check_box n, :cloth, SchoolNeed::CLOTH_NEEDS, @school.need.cloth %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_accessory">教具</label>
-            <%= needs_check_box n, :accessory, SchoolNeed::ACCESSORY_NEEDS, @school.need.accessory %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_course">医疗</label>
-            <%= needs_check_box n, :medicine, SchoolNeed::MEDICINE_NEEDS, @school.need.medicine %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_course">课程活动</label>
-            <%= needs_check_box n, :course, SchoolNeed::COURSE_NEEDS, @school.need.course %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_course">硬件</label>
-            <%= needs_check_box n, :hardware, SchoolNeed::HARDWARE_NEEDS, @school.need.hardware %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_teacher">支教老师</label>
-            <%= needs_check_box n, :teacher, SchoolNeed::TEACHER_NEEDS, @school.need.teacher %>
-          </p>
-          
-          <p>
-            <label class="label" for="school_school_need_other">其他</label>
-            <%= n.text_field :other, :size => 40, :class => 'formText' %>
-          </p>
-          
-          <% end -%>
-          <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
-          <% end -%>
-        </div>
-      </div>
-    </div>
+  <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
+  <div style="padding:10px 20px">
+    <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
+    <%= f.hidden_field :id %>
+    
+    <% f.fields_for :need_attributes, @school.need do |n| -%>
+    <%= n.hidden_field :id %>
+    <% if current_user.school_moderator? %>
+    <p>
+      <label class="label" for="school_school_need_urgency">紧急</label>
+      <%= n.text_field :urgency %>
+    </p>
+    <% end %>
+    <p>
+      <label class="label" for="school_school_need_book">书籍</label>
+      <%= needs_check_box n, :book, SchoolNeed::BOOK_NEEDS, @school.need.book %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_stationary">文具</label>
+      <%= needs_check_box n, :stationary, SchoolNeed::STATIONARY_NEEDS, @school.need.stationary %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_sport">文体用品</label>
+      <%= needs_check_box n, :sport, SchoolNeed::SPORT_NEEDS, @school.need.sport %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_cloth">衣服</label>
+      <%= needs_check_box n, :cloth, SchoolNeed::CLOTH_NEEDS, @school.need.cloth %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_accessory">教具</label>
+      <%= needs_check_box n, :accessory, SchoolNeed::ACCESSORY_NEEDS, @school.need.accessory %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">医疗</label>
+      <%= needs_check_box n, :medicine, SchoolNeed::MEDICINE_NEEDS, @school.need.medicine %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">课程活动</label>
+      <%= needs_check_box n, :course, SchoolNeed::COURSE_NEEDS, @school.need.course %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">硬件</label>
+      <%= needs_check_box n, :hardware, SchoolNeed::HARDWARE_NEEDS, @school.need.hardware %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_teacher">支教老师</label>
+      <%= needs_check_box n, :teacher, SchoolNeed::TEACHER_NEEDS, @school.need.teacher %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_other">其他</label>
+      <%= n.text_field :other, :size => 40, :class => 'formText' %>
+    </p>
+    
+    <% end -%>
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
+    <% end -%>
   </div>
 <% end -%>

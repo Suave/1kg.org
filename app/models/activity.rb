@@ -22,6 +22,7 @@
 #  expect_strength  :string(255)
 #  description_html :text
 #  comments_count   :integer(4)      default(0)
+#  shares_count      :integer(4)      default(0)
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
@@ -40,7 +41,7 @@ class Activity < ActiveRecord::Base
   has_many :participators,  :through => :participations, :source => :user
   
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :shares
+  has_many :shares,                         :dependent => :destroy
 
   has_many :photos, :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
@@ -49,7 +50,7 @@ class Activity < ActiveRecord::Base
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
-  named_scope :over,     :conditions => ["done=? or end_at < ?", true, Time.now - 1.day]
+  named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
   
   named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
@@ -93,6 +94,21 @@ class Activity < ActiveRecord::Base
   acts_as_paranoid
   
   before_save :format_content
+  
+  define_index do
+    # fields
+    indexes title
+    indexes location
+    indexes clean_html, :as => :description
+    indexes departure.name, :as => :start
+    indexes arrival.name, :as => :destination
+    indexes user.login, :as => :organizer
+    
+    has :category
+    has :end_at
+    has :done, :as => :over
+    has :start_at
+  end
   
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)

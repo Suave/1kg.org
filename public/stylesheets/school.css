@@ -26,7 +26,7 @@ body{background:#fff}
 
 .important a{font-size:16px;}
 
-#visited_date,#wanna_date{width:200px;text-align:right;padding:8px;border:3px #888 solid;background-color:#eee}
+#visited_date,#wanna_date{width:220px;text-align:right;padding:8px;border:3px #888 solid;background-color:#eee}
 #visited_date p,#wanna_date p{margin:5px 0 10px}
 #visited_visited_at,#visited_wanna_at{width:70px;}
 #visited_notes{width:130px}
@@ -34,7 +34,7 @@ body{background:#fff}
 #status p{color:#888}
 
 #map_info{}
-.what_time{margin-top:28px;left:426px;position:absolute}
+.what_time{margin-top:28px;left:406px;position:absolute}
 
 .obp{margin:0}
 .need_tag{margin:0 2px;}

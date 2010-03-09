@@ -6,7 +6,7 @@
 <div class="box" id="signup">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>注册成为新会员</h3>
+      <h3>用户注册</h3>
       
 <% form_for :user, :url => users_path do |f| -%>
 <%= hidden_field_tag :to, params[:to] if params[:to] %>
@@ -33,7 +33,7 @@
   <p class="tip">如果收不到确认邮件，请发邮件联系 <a href="mailto:feedback@1kg.org">feedback@1kg.org</a>，我们会帮您激活帐户。</p>
 </div>
 -->
-<p class="login">&raquo; 我已经是会员了，现在<%= link_to "登录", login_url %></p>
+<p class="login">&raquo; 我已经注册了，现在要<%= link_to "登录", login_url %></p>
 
     </div>
   </div>

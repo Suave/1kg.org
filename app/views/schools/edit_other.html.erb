@@ -4,15 +4,9 @@
 <% content_for :sidebar do -%>
 <% end -%>
 
-<% content_for :fullsize do -%>
-  <div class="box" id="schoolsPostOther">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h2><!-- --></h2>
-        <div class="contents">
-          
-        <%= render :partial => 'school_steps', :locals => {:step => 'other'} %>
-    
+<% content_for :fullsize do -%>          
+  <%= render :partial => 'school_steps', :locals => {:step => 'other'} %>
+  <div style="padding:10px 20px">  
     <% form_for :school, :url => school_url(@school.id, :step => 'other'), :html => {:method => :put} do |f| -%>
     <%= f.hidden_field :id %>
     
@@ -36,8 +30,5 @@
     
     <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "完成" %></span></p>
     <% end -%>
-        </div>
-      </div>
-    </div>
   </div>
 <% end -%>
