@@ -426,6 +426,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    
+    t.boolean  "validated"
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
   end
 
   create_table "stuff_types", :force => true do |t|

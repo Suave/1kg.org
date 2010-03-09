@@ -29,7 +29,7 @@
             <td><%= h t.title %></td>
             <td><%= h t.creator.login unless t.creator.blank? %></td>
             <td><%= h t.requirements_count %></td>
-            <td></td>
+            <td><%= h t.requirements.confirmed.size %></td>
             <td><%= h t.apply_end_at.to_date unless t.apply_end_at.blank? %></td>
             <td><%= h t.end_at.to_date unless t.end_at.blank? %></td>
             <td>

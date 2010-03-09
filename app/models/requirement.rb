@@ -20,10 +20,12 @@ class Requirement < ActiveRecord::Base
   
   belongs_to :requirement_type, :foreign_key => "type_id", :counter_cache => "requirements_count"
   belongs_to :school
+  belongs_to :applicator, :class_name => "User", :foreign_key => "applicator_id"
   has_many :donations, :foreign_key => "buck_id", :dependent => :destroy
   
   validates_presence_of :type_id, :school_id
   
+  named_scope :confirmed, :conditions => ["validated = ?", true]
   named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
