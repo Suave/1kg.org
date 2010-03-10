@@ -175,7 +175,12 @@
     </div>
     <% end -%>  
 
-
+    <div class="school_sidebar">
+      <h3 class="label_lei">正在进行的项目</h3>
+      <div class="sidebar_inter">
+        <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
+      </div>
+    </div>
 
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>

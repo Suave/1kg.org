@@ -20,7 +20,6 @@ ActionController::Routing::Routes.draw do |map|
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
   map.topics "/topics/total",:controller => "topics", :action => "total"
 
-  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"
@@ -140,6 +139,10 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :photos
 
+  map.resources :requirement_types, :as => 'projects' do |project|
+    project.resources :requirements
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  end
   
   # map.with_options :controller => "mall" do |mall|
   #   mall.mall_index '/mall', :action => "index"
@@ -159,7 +162,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
-    admin.resources :requirement_types do |type|
+    admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家

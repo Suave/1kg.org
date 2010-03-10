@@ -3,6 +3,12 @@ class Admin::RequirementsController < Admin::BaseController
   
   def index
     @requirements = @type.requirements.find :all, :order => "created_at desc"
+    
+    if @type.exchangable?
+      render :action => "exchangable_list"
+    else
+      render :action => "non_exchangable_list"
+    end
   end
   
   def new
