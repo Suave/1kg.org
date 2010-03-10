@@ -110,4 +110,8 @@ class Search < ActiveRecord::Base
       self.include_over.blank? && self.school_title.blank? &&
       self.content.blank?)
   end
+  
+  def need_common?
+    self.kind == 'school' || self.kind == 'activity' || self.kind == 'share'
+  end
 end

@@ -3,17 +3,20 @@ function switch_search_to(kind)
 {$(".advances").hide();
   if(kind == 'school')
   {
+    $("#advance_common").show();	
     $("#advance_school").show();
     if(search_box_can_clear()) {
       $("#query-box").val('学校名称,地址,城市,需求...');
     }
     
   } else if(kind == 'activity') {
+    $("#advance_common").show();
     $("#advance_activity").show();
     if(search_box_can_clear()) {
       $("#query-box").val('活动标题,城市,介绍...');
     }
   } else if(kind == 'share') {
+    $("#advance_common").show();
     $("#advance_share").show();
     if(search_box_can_clear()) {
       $("#query-box").val('攻略标题,学校名称,城市...');
