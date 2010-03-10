@@ -1,8 +1,8 @@
   <div class="school_list">
     <% school = requirement.school%>
     <% envoys = User.moderators_of(school) %>
-    <%= main_photo_thumb(school) -%>       
     <div class="school_list_meta">
+      <h6>受捐学校</h6>
       <h5><%= link_to h(school.title), school_path(school)%></h5>
       <span class="gary_span">活跃度</span>
       <%= karma_star(school.karma)-%>

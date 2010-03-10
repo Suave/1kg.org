@@ -53,14 +53,9 @@
       <div class="goods_list">
       <a href="#" class="goods_photo_frame"><img src="<%= t.image.url(:thumb) %>"/></a>
       <div class="goods_description"><%= t.description_html %></div>
+      <%= render :partial => "/shared/requirement", :object => t.requirements.find(:first,:conditions => "matched_count < quantity") %>
       </div>
   <% end %>
   </div>
       
-  <div class="newbox">
-    <span class="span_title">学校列表</span>
-    <% unless @requirements.blank? -%>
-      <%= render :partial => "/shared/requirements", :object => @requirements %>
-    <% end -%>
-  </div>
     <div class="clearfix" style="height:20px"></div>
