@@ -1,14 +1,6 @@
-  <div class="school_list">
-    <% school = requirement.school%>
-    <% envoys = User.moderators_of(school) %>
-    <div class="school_list_meta">
-      <h6>受捐学校</h6>
-      <h5><%= link_to h(school.title), school_path(school)%></h5>
-      <span class="gary_span">活跃度</span>
-      <%= karma_star(school.karma)-%>
-      <% unless envoys.nil? %><br/><span class="gary_span">学校大使:<% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></span><%end-%>
-    </div>
-    <%= h requirement.matched_count %>/<%= h requirement.quantity %>
-    
-    <div class="clearfix"></div>
-  </div>
+<div>
+    <p>接收学校：
+      <%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %>
+    </p>
+    <p >完成度：<%= h requirement.matched_count %>/<%= h requirement.quantity %><%= progressbar (requirement.matched_count/requirement.quantity), :generate_css => true %></p>
+</div>

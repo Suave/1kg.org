@@ -1,3 +1,5 @@
-.goods_list{width:580px;height:120px;padding:10px 0}
-.goods_photo_frame{display:block;width:120px;height:120px;overflow:hidden;border:1px #ccc solid;}
-.goods_description{position:relative;top:-120px;left:140px;width:480px}
+.goods_list{width:270px;height:160px;padding:10px 0;float:left}
+.goods_photo_frame{float:left;display:block;width:80px;height:80px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
+.goods_description{float:left;width:100%;}
+.goods_meta{float:left;width:178px;height:82px}
+.right_span{float:right}
