@@ -1,6 +1,0 @@
-<div>
-    <p>接收学校：
-      <%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %>
-    </p>
-    <p >完成度：<%= h requirement.matched_count %>/<%= h requirement.quantity %><%= progressbar (requirement.matched_count/requirement.quantity), :generate_css => true %></p>
-</div>

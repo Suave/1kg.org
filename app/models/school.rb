@@ -47,6 +47,7 @@ class School < ActiveRecord::Base
   has_many :shares, :order => "id desc", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
+  has_many :requirements, :order => "id desc", :dependent => :destroy
   
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :donations, :dependent => :destroy
@@ -187,6 +188,10 @@ class School < ActiveRecord::Base
 
   def last_topic
     self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
+  end
+    
+  def current_goods
+    self.requirements.find(:all,:include => [:requirement_type]).map{|r| r.requirement_type if r.requirement_type.exchangable == true}.compact
   end
     
   def deleted?

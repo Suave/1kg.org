@@ -1,6 +1,6 @@
 <div class="goods_list">
     <a href="#" class="goods_photo_frame"><img src="<%= goods.image.url(:thumb) %>"/></a>
-    <% requirement = goods.requirements.find(:first,:conditions => "matched_count < quantity") %>
+    <% requirement = goods.requirements.find(:first,:conditions => {:school_id => school.id}) rescue goods.requirements.find(:first,:conditions => "matched_count < quantity") %>
     <div class="goods_meta">
       <span>接收学校：</span>
       <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %>
@@ -9,5 +9,4 @@
       <%= progressbar (requirement.matched_count/requirement.quantity), :generate_css => true %><span class="right_span"><%= h requirement.matched_count %>/<%= h requirement.quantity %></span></div>
       </div>
     <div class="goods_description"><%= goods.description_html %></div>
-    
 </div>
