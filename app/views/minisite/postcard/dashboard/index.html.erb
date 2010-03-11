@@ -47,18 +47,18 @@
         <h3>可捐赠图书的学校</h3>
         <span class="postNew"><%= link_to "申请捐赠学校", activity_url(367), :target => "_blank" %></span>
         <div class="contents">
-          <%= render :partial => "bucks", :object => @for_public_bucks %>
+          <%= render :partial => "requirements", :object => @for_public_bucks %>
         </div>
         
         <% unless @for_team_bucks.blank? -%>
         <h3 style="background:none">团队捐赠区</h3>
         <div class="contents">
-          <%= render :partial => "bucks", :object => @for_team_bucks %>
+          <%= render :partial => "requirements", :object => @for_team_bucks %>
         </div>
         <% end -%>
         
         <div style="text-align:right;" class="contents">
-          累计捐出 <%= Stuff.count(:all, :conditions => "matched_at is not null") %> 册
+          累计捐出 <%= Donation.count(:all, :conditions => "matched_at is not null") %> 册
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@
         <span class="postNew"><%= link_to "全部", minisite_postcard_messages_url, :target => "_blank" %></span>
         <ol class="contents clearfix">
           <li id="message">
-            <%= render :partial => "message", :locals => {:stuff => @stuff} %>
+            <%= render :partial => "message", :locals => {:donation => @donation} %>
           </li>
         </ol>
         <%= periodically_call_remote :url => minisite_postcard_love_message_url, 

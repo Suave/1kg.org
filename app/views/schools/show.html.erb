@@ -105,7 +105,7 @@
   <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
   </p>
   <%end%>
-</div>
+  </div>
 
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
@@ -175,8 +175,22 @@
     </div>
     <% end -%>  
 
+    <div class="school_sidebar">
+      <h3 class="label_lei">正在进行的项目</h3>
+      <div class="sidebar_inter">
+        <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
+      </div>
+    </div>
 
-
+   
+  <div class="school_sidebar"> 
+    <% if  @donation %>
+    <%= link_to image_tag("/images/point/donation.png"),donations_url%>
+    <%else%>
+    <%= link_to image_tag("/images/point/sidebar.png"),donations_url%>
+    <%end%>
+  </div>
+  
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
@@ -195,7 +209,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-
+  
   <div class="school_sidebar">
     <h3 class="label_lei">地理位置</h3>
     <%= render :partial => 'map_lei', :locals => {:school => @school} %>

@@ -1,0 +1,46 @@
+<% @page_title = "公益物资管理" -%>
+
+<% content_for :fullsize do -%>
+<p class="right">&raquo; <%= link_to "返回管理首页", admin_url %></p>
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>所有公益项目</h2>
+      <p class="postNew">+ <%= link_to "添加新项目", new_admin_requirement_type_url %></p>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>积分？</th>
+            <th>验证？</th>
+            <th>Slug</th>
+            <th>名字</th>
+            <th>管理员</th>
+            <th>申请学校</th>
+            <th>通过学校</th>
+            <th>申请结束</th>
+            <th>项目结束</th>
+            <th>Actions</th>
+          </tr>
+          <% @projects.each do |t| -%>
+          <tr>
+            <td><%= "Y" if t.exchangable? %></td>
+            <td><%= "Y" if t.validated? %></td>
+            <td><%= h t.slug %></td>
+            <td><%= h t.title %></td>
+            <td><%= h t.creator.login unless t.creator.blank? %></td>
+            <td><%= h t.requirements_count %></td>
+            <td><%= h t.requirements.confirmed.size %></td>
+            <td><%= h t.apply_end_at.to_date unless t.apply_end_at.blank? %></td>
+            <td><%= h t.end_at.to_date unless t.end_at.blank? %></td>
+            <td>
+              <%= link_to "检查", admin_requirement_type_requirements_url(t) %> |
+              <%= link_to "编辑", edit_admin_requirement_type_url(t) %> |
+              <%= link_to "删除", admin_requirement_type_url(t), :method => :delete, :confirm => "会一起删除所有需求, 且不能恢复, 确定么?" %></td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<% end -%>

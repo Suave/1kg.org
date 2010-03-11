@@ -1,0 +1,14 @@
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2>爱心寄语</h2>
+      <div class="contents">
+        <p>给孩子们说几句话吧:</p>
+        <% form_tag comment_donation_path(@donation), :method => 'put' do %>
+          <p><%= text_area_tag :message, '', :rows => 10, :cols => 60 %></p>
+          <p><%= submit_tag '提交' %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

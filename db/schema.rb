@@ -420,27 +420,62 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "for_team_tip"
     t.boolean  "for_team",      :default => false
     t.boolean  "hidden",        :default => false
+    # 为公益项目申请添加的内容
+    t.integer  "applicator_id"
+    t.datetime "updated_at"
+    t.string   "applicator_telephone"
+    t.text     "apply_reason"
+    t.text     "apply_plan"
+    
+    t.boolean  "validated"
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
   end
 
   create_table "stuff_types", :force => true do |t|
-    t.string   "slug",             :null => false
-    t.string   "title",            :null => false
+    t.string   "slug"
+    t.integer  "creator_id"
+    t.string   "title"
+    t.datetime "apply_end_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.text     "description_html"
-    t.integer  "bucks_count",      :default => 0
+    t.string   "feedback_require"
+    t.string   "link"
+    t.integer  "requirements_count",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "image_file_name"
+    # 是否可用积分兑换
+    t.boolean  "exchangable",             :default => false
+    t.datetime  "validated_at"
+    t.integer   "validated_by_id"
+    t.integer  "comments_count",   :default => 0
   end
 
   create_table "stuffs", :force => true do |t|
-    t.string   "code",         :null => false
-    t.integer  "type_id",      :null => false
+    t.string   "code",         :null => false # 密码
+    t.integer  "type_id",      :null => false # 公益项目（物资）类型
     t.integer  "buck_id"
+    t.string   "buyer_name"
+    t.string   "buyer_email"
+    t.datetime "created_at" # 交易处理时间
+    t.string   "order_id"   # 商家订单号
+    t.string   "order_time" # 商家订单时间
+    t.string   "product_serial" # 商家产品编号
+    t.string   "product_number" # 商家产品数量
+    t.string   "deal_id"        # 交易号
+    t.integer  "vendor_id"
+    t.string   "return_url"
+    t.boolean  "confirmed", :default => false # 是否已得到商家网站确认
+    
+    # 验证时填写的字段
     t.integer  "user_id"
     t.integer  "school_id"
     t.datetime "matched_at"
-    t.datetime "created_at"
     t.text     "comment_html"
     t.text     "comment"
+    
     t.boolean  "auto_fill"
   end
 
@@ -511,6 +546,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "wanna_at"
     t.string   "notes",      :limit => 42
     t.datetime "deleted_at"
+  end
+  
+  create_table "vendors", :force => true do |t|
+    t.string    "slug" # 厂商唯一标示符
+    t.string    "title" # 厂商名字
+    t.string    "sign_key" # 唯一密钥，双方要保密
+    t.datetime  "created_at"
+    t.datetime  "updated_at"
+    # TODO: 厂商的LOGO，介绍等内容
   end
 
   create_table "searches", :force => true do |t|

@@ -7,7 +7,7 @@
 
 <div>
   <div class="contents">
-    <% form_tag minisite_festcard09_comment_url(:token => @stuff.code) do -%>
+    <% form_tag minisite_festcard09_comment_url(:token => @donation.code) do -%>
     <%= hidden_field_tag :status, "login" %>
     
     <%= render :partial => "/minisite/mooncake/dashboard/signup_and_login" %>
@@ -15,7 +15,7 @@
     <div id="schoolbox">
       <h3>书想送给哪个学校？</h3>
       <div class="boxinter">
-        <%= render :partial => "schools", :locals => {:bucks => @bucks} %>
+        <%= render :partial => "schools", :locals => {:requirements => @requirements} %>
       </div>
     </div>
     

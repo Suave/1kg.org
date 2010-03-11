@@ -9,7 +9,7 @@
 #  status     :integer(1)
 #  created_at :datetime
 #  deleted_at :datetime
-#  notes      :string(42)
+#  notes      :string(20)
 #  wanna_at   :datetime
 #
 

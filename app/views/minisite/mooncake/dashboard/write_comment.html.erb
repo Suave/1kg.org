@@ -6,7 +6,7 @@
 
 <div>
   <div class="contents">
-    <% form_tag minisite_mooncake_comment_url(:token => @stuff.code) do -%>
+    <% form_tag minisite_mooncake_comment_url(:token => @donation.code) do -%>
     <%= hidden_field_tag :status, "login" %>
 
     <%= render :partial => "signup_and_login" %>
