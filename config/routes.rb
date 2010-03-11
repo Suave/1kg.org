@@ -155,6 +155,11 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :requirements
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
   end
+# map.with_options :controller => "mall" do |mall|
+  #   mall.mall_index '/mall', :action => "index"
+  #   mall.mall_category '/mall/category/:tag', :action => "category"
+  #   mall.mall_detail '/mall/good/:id', :action => "show"
+  # end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -172,6 +177,12 @@ ActionController::Routing::Routes.draw do |map|
       type.resources :requirements
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
+    #admin.resources :products # 公益商品供应商提供的商品
+    # for AJXY 的商城管理后台
+    #admin.resources :goods, :member => {:recommend => :put}, 
+    #                        :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
+    #  good.resources :photos, :controller => "good_photos"
+    #end 
     admin.resources :bulletins
   end
 
@@ -234,4 +245,97 @@ ActionController::Routing::Routes.draw do |map|
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+=======
+  
+  # map.with_options :controller => "mall" do |mall|
+  #   mall.mall_index '/mall', :action => "index"
+  #   mall.mall_category '/mall/category/:tag', :action => "category"
+  #   mall.mall_detail '/mall/good/:id', :action => "show"
+  # end
+  
+  map.admin '/admin', :controller => 'admin/misc', :action => 'index'
+  map.namespace :admin do |admin|
+    admin.resources :roles
+    admin.resources :permissions
+    admin.resources :users, :collection => {:search => :get}, :member => {:block => :put}
+    admin.resources :geos
+    admin.resources :counties
+    admin.resources :boards, :member => {:active => :put, :deactive => :put}
+    admin.resources :moderators
+    admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
+    admin.resources :pages
+    admin.resources :groups
+    admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
+      type.resources :requirements
+    end
+    admin.resources :vendors # 公益商品供应商，包括积分兑换商家
+    #admin.resources :products # 公益商品供应商提供的商品
+    # for AJXY 的商城管理后台
+    #admin.resources :goods, :member => {:recommend => :put}, 
+    #                        :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
+    #  good.resources :photos, :controller => "good_photos"
+    #end 
+    admin.resources :bulletins
+  end
+
+  # 公益产品
+  map.namespace :minisite do |site|
+    site.namespace :postcard do |postcard|
+      postcard.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+        dash.password 'password', :action => "password"
+        dash.give     'give/:id', :action => "give"
+        dash.comment  'comment/:id', :action => "comment"
+        dash.messages 'messages', :action => "messages"
+        dash.donors   'donors/:id', :action => "donors"
+        dash.love_message 'love_message', :action => "love_message"
+      end
+    end
+    
+    site.namespace :mooncake do |mooncake|
+      mooncake.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+        dash.password '/password',:action => "password"
+        dash.comment  '/comment', :action => "comment"
+        dash.love_message 'love_message', :action => "love_message"
+        dash.messages 'messages', :action => "messages"
+        dash.donors   'donors/:id', :action => "donors"
+      end
+    end
+    
+    site.namespace :lightenschool do |lightenschool|
+      lightenschool.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+        #dash.submit   'submit',   :action => "submit"
+        dash.required   'required', :action => "required"
+        #dash.processing 'processing',  :action => "processing"
+        dash.processing 'winners',  :action => "winners"
+      end
+    end
+    
+    site.namespace :kuailebox do |kuailebox|
+      kuailebox.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
+    
+    site.namespace :cnbloggercon09 do |cnbloggercon09|
+      cnbloggercon09.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+      end
+    end
+    
+    site.namespace :festcard09 do |festcard09|
+      festcard09.with_options :controller => "dashboard" do |dash|
+        dash.index    '',         :action => "index"
+        dash.submit   'cards',    :action => "cards"
+        dash.password '/password',:action => "password"
+        dash.comment  '/comment', :action => "comment"
+      end
+    end
+  end
+  
+  map.connect ':controller/:action/:id'
+  map.connect ':controller/:action/:id.:format'
+>>>>>>> 4bef55ae6a0aa57d8607bfa4a5a672498ab49dd9:config/routes.rb
 end

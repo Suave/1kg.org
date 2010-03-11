@@ -2,7 +2,7 @@ class SearchesController < ApplicationController
   def show
     @page = params[:page]
     @search = Search.new(params)
-
+    
     search_school if @search.kind == 'school'
     search_activity if @search.kind == 'activity'
     search_share if @search.kind == 'share'

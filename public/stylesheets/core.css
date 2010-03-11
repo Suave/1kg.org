@@ -1348,3 +1348,10 @@ a.progressCancel:hover {
 .swfupload {
 	cursor:pointer;position:relative;top:5px
 }
+
+/* -- 积分 Styles ------------------------------- */
+.goods_list{width:280px;padding:10px 0;float:left}
+.goods_photo_frame{float:left;display:block;width:80px;height:80px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
+.goods_meta{float:left;width:100%;}
+.goods_description{float:left;width:178px;height:82px}
+.right_span{float:right}
