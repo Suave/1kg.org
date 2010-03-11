@@ -16,7 +16,7 @@ q:before, q:after { content :''; }
 
 /* =body */
 body {
-  background-color: #fcfcfc;
+  background-color: #fdfdfd;
   color: #333;
 	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
