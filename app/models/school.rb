@@ -190,10 +190,6 @@ class School < ActiveRecord::Base
     self.discussion.board.topics.find(:first, :order => "last_replied_at desc")
   end
     
-  def current_goods
-    self.requirements.find(:all,:include => [:requirement_type]).map{|r| r.requirement_type if r.requirement_type.exchangable == true}.compact
-  end
-    
   def deleted?
     deleted_at.blank? ? false : true
   end

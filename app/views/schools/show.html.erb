@@ -182,6 +182,15 @@
       </div>
     </div>
 
+   
+  <div class="school_sidebar"> 
+    <% if  @donation %>
+    <%= link_to image_tag("/images/point/donation.png"),donations_url%>
+    <%else%>
+    <%= link_to image_tag("/images/point/sidebar.png"),donations_url%>
+    <%end%>
+  </div>
+  
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
@@ -199,12 +208,6 @@
           <% end %>
       </div>
       <div class="clearfix"></div>
-  </div>
-
-  <div class="school_sidebar">
-    <h3 class="label_lei">积分捐赠</h3>
-    <%= render :partial => 'shared/goods', :collection => @goods,:locals => {:school => @school} %>
-    <div class="clear"></div>
   </div>
   
   <div class="school_sidebar">

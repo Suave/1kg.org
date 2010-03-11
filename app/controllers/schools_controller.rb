@@ -266,7 +266,7 @@ class SchoolsController < ApplicationController
     @contact = @school.contact
     @finder  = @school.finder
     @basic = @school.basic
-    @goods = @school.current_goods
+    @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
     
     if @school.nil? or @school.deleted?
       render_404 and return

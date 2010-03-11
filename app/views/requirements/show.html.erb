@@ -7,7 +7,13 @@
 <% content_for :crumb do -%>
 <li>积分献爱</li>
 <% end -%>
-<div style="width:640px;height:120px">
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<span class="remark"><%= link_to "&raquo; 回到积分行动首页",donations_url%></span>
+<% end %>
+
+<div class="newbox" style="width:640px;height:120px">
   <div  style="float:left">
     <span class="span_title">公益物资</span>
     <div class="cleanfix"></div>
