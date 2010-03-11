@@ -61,9 +61,6 @@ class Admin::RequirementsController < Admin::BaseController
     end
   end
   
-  
-  
-  
   private
   def find_requirement_type
     @type = RequirementType.find(params[:requirement_type_id])

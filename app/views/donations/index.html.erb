@@ -1,5 +1,10 @@
 <% content_for :heads do -%>
-<style type="text/css">.goods_list{margin-right:36px}</style>
+<style type="text/css">
+  .goods_list{margin-right:30px}
+  .school_list_photo img{height:68px;}
+  .school_list_photo{width:92px}
+  .school_meta{width:170px}
+</style>
 <% end -%>
 
 <% @page_title = "积分献爱，举手之劳！" -%>
@@ -28,7 +33,7 @@
   <div class="newbox">
   <span class="span_title">公益物资</span>
       <div class="clearfix" style="height:5px"></div>
-      <%= render :partial => "/shared/goods", :collection => RequirementType.exchangable.last5 %>
+      <%= render :partial => "/shared/goods", :collection => RequirementType.exchangable.last5,:locals => {:with_list => true} %>
   </div>
       
   <div class="clearfix" style="height:20px"></div>

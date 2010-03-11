@@ -441,6 +441,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "end_at"
     t.text     "description_html"
     t.string   "feedback_require"
+    t.string   "link"
     t.integer  "requirements_count",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
