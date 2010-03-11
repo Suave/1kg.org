@@ -1,5 +1,5 @@
 <div class="goods_list">
-    <a href="#" class="goods_photo_frame"><img src="<%= goods.image.url(:thumb) %>"/></a>
+    <a href="<%= goods.link%>" class="goods_photo_frame"><img src="<%= goods.image.url(:thumb) %>"/></a>
     <% requirements = goods.requirements.find(:all,:order => "status desc") %>
     <div class="goods_description"><%= goods.description_html %></div>
     <div style="clear:both"></div>
@@ -11,7 +11,7 @@
       <%= main_photo_thumb(requirement.school) -%>       
       <div class="school_list_meta">
         <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
-        <div style="margin-top:4px;">捐赠总量: <span style="font-size:20px;top:0;color:#666">50</span>册<br/>
+        <div style="margin-top:4px;">捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册<br/>
         <span style="color:#d80;font-weight:bold">正在接受捐赠</span><span class="right_span">捐赠名单</span>
         </div>
        </div>
@@ -27,7 +27,7 @@
             <%elsif requirement.status == "0"%>
                <span style="color:#999;font-weight:bold">捐赠已完成</span>
             <% end%><br/>
-            <div style="text-align:right"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:left;margin-top:10px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666">50</span>册</div>
+            <div style="text-align:right"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:left;margin-top:10px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
           </div>  
         <%end%>
       <%end%>
