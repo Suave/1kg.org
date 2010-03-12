@@ -29,7 +29,7 @@ class Requirement < ActiveRecord::Base
   validates_acceptance_of :agree_feedback_terms
   
   named_scope :confirmed, :conditions => ["validated = ?", true]
-  named_scope :unconfirmed, :conditions => ["validated = ?", false]  
+  named_scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]
   named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
