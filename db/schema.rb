@@ -428,6 +428,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    
+    t.boolean  "validated"
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
   end
 
   create_table "stuff_types", :force => true do |t|
@@ -439,6 +443,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "end_at"
     t.text     "description_html"
     t.string   "feedback_require"
+    t.string   "link"
     t.integer  "requirements_count",      :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"

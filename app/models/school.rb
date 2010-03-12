@@ -47,6 +47,7 @@ class School < ActiveRecord::Base
   has_many :shares, :order => "id desc", :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
+  has_many :requirements, :order => "id desc", :dependent => :destroy
   
   belongs_to :main_photo, :class_name => 'Photo'
   has_many :donations, :dependent => :destroy
