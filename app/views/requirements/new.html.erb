@@ -30,13 +30,15 @@
   </div>
 </div>
 
+<% form_for :apply, :url => requirement_type_requirements_url(@project) do |f| -%>
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
       <h3>项目反馈要求</h3>
       <p class="postNew"></p>
       <div class="contents">
-        TODO：根据项目发布时的选择罗列，用户需要同意协议
+        <p><%= @project.feedback_require.gsub("\n", '<br />') %></p>
+        <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈</p>
       </div>
     </div>
   </div>
@@ -48,19 +50,19 @@
       <h3>填写申请表</h3>
       <p class="postNew"></p>
       <div class="contents">
-        <% form_for :apply, :url => requirement_type_requirements_url(@project) do |f| -%>
         <%= f.hidden_field :school_id, {:value => @school.id} %>
         <p><label class="label">申请人</label>
           <%= f.hidden_field :applicator_id, {:value => current_user.id} %>
           <%= h current_user.login %>
         </p>
         <p><label class="label">申请者电话</label><%= f.text_field :applicator_telephone %></p>
+        <p><label class="label">申请数量</label><%= f.text_field :quantity %></p>
         <p><label class="label">申请理由</label><%= f.text_area :apply_reason, :cols => 80, :rows => 10 %></p>
         <p><label class="label">实施计划</label><%= f.text_area :apply_plan, :cols => 80, :rows => 10 %></p>
         <p><label class="label">&nbsp;</label>(含物资到达后的分配、使用方案，如有资金申请，请写明预算。)</p>
         <p><label class="label">&nbsp;</label><%= submit_tag "申 请" %></p>
-        <% end -%>
       </div>
     </div>
   </div>
 </div>
+<% end -%>

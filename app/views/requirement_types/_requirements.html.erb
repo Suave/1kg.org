@@ -1,0 +1,18 @@
+<table>
+  <tr>
+    <th>学校名称</th>
+    <th>活跃度</th>
+    <th>申请数量</th>
+    <th>学校大使</th>
+  </tr>
+  <% requirements.each do |r| -%>
+  <tr>
+    <td>
+      <%= link_to r.school.title, school_path(r.school) %>
+    </td>
+    <td><%= karma_star(r.school.karma)-%></td>
+    <td><%= h r.quantity %></td>
+    <td><%= link_to r.school.user.login, user_url(r.school.user) unless r.school.user.nil? %></td>
+  </tr>
+  <% end -%>
+</table>

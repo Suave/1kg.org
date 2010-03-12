@@ -428,21 +428,22 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    t.text     "feedback"
     
-    t.boolean  "validated"
+    t.boolean  "validated",    :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
   end
 
   create_table "stuff_types", :force => true do |t|
-    t.string   "slug"
+    t.string   "slug", :default => ''
     t.integer  "creator_id"
     t.string   "title"
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"
     t.text     "description_html"
-    t.string   "feedback_require"
+    t.text     "feedback_require"
     t.string   "link"
     t.integer  "requirements_count",      :default => 0
     t.datetime "created_at"

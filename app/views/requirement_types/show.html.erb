@@ -58,6 +58,8 @@
       <h3>申请成功的学校</h3>
       <p class="postNew"></p>
       <div class="contents">
+        <%= render :partial => "requirements", :object => @project.requirements.confirmed %>
+        <div style="clear:both;"></div>
       </div>
     </div>
   </div>
@@ -69,6 +71,8 @@
       <h3>提交申请的学校</h3>
       <p class="postNew"></p>
       <div class="contents">
+        <%= render :partial => "requirements", :object => @project.requirements.unconfirmed %>
+        <div style="clear:both;"></div>
       </div>
     </div>
   </div>
