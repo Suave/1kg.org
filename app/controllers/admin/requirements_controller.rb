@@ -17,6 +17,7 @@ class Admin::RequirementsController < Admin::BaseController
   
   def create
     @requirement = Requirement.new(params[:requirement])
+    @requirement.agree_feedback_terms = true
     @requirement.requirement_type = @type
     @requirement.save!
     flash[:notice] = "新需求创建成功"
@@ -25,6 +26,13 @@ class Admin::RequirementsController < Admin::BaseController
   
   def edit
     @requirement = Requirement.find(params[:id])
+  end
+  
+  def approve
+    @requirement = Requirement.find(params[:id])
+    @requirement.update_attribute(:validated, true)
+    
+    redirect_to admin_requirement_type_requirements_url(@requirement.requirement_type)
   end
   
   def update

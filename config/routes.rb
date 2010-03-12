@@ -84,6 +84,7 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
+    school.resources :requirements
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
                                                  :action => "show_date", 
@@ -164,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
-      type.resources :requirements
+      type.resources :requirements, :member => {:approve => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     #admin.resources :products # 公益商品供应商提供的商品

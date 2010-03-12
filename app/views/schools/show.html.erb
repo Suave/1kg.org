@@ -178,6 +178,11 @@
     <div class="school_sidebar">
       <h3 class="label_lei">正在进行的项目</h3>
       <div class="sidebar_inter">
+        <ul>
+          <% @school.requirements.each do |r| %>
+            <li><%= link_to r.requirement_type.title, school_requirement_path(@school, r) %></li>
+          <% end %>
+        </ul>
         <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
       </div>
     </div>
