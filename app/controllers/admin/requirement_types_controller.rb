@@ -5,12 +5,11 @@ class Admin::RequirementTypesController < Admin::BaseController
   end
   
   def new
-    @project = RequirementType.new
+    @project = RequirementType.new(:feedback_require => "1. 需要上传快递\n2. 需要上传物资签\n3. 需要上传项目照片\n4. 需要写项目执行报告")
   end
   
   def create
     @project = RequirementType.new(params[:project])
-    @project.feedback_require = params[:project][:feedback_require].join(",")
     @project.validated_at = Time.now
     @project.validated_by_id = current_user.id
     @project.save!
@@ -22,7 +21,6 @@ class Admin::RequirementTypesController < Admin::BaseController
   end
   
   def update
-    @project.feedback_require = params[:project][:feedback_require].join(",")
     @project.update_attributes!(params[:project])
     flash[:notice] = "项目更新成功!"
     redirect_to admin_requirement_types_url

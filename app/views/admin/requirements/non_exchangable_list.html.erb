@@ -29,13 +29,14 @@
               <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
               <%= "<br />#{b.for_team_tip}" if b.for_team? %>
             </td>
-            <td><%= h b.applicator.login %></td>
+            <td><%= h b.applicator.login if b.applicator %></td>
             <td>
               <%= b.validated.nil? ? "未处理" : (b.validated? ? "通过" : "未通过") %></td>
             <td>
-              <%= link_to "detail", admin_requirement_type_requirement_url(@type, b) %> |
-              <%= link_to "edit", edit_admin_requirement_type_requirement_url(@type, b) %> |
-              <%= link_to "delete", admin_requirement_type_requirement_url(@type, b), :method => :delete, :confirm => "相关的捐赠会一同删掉, 且不能恢复, 确定删除?" %>
+              <%= link_to "详情", admin_requirement_type_requirement_url(@type, b) %> |
+              <%= link_to "修改", edit_admin_requirement_type_requirement_url(@type, b) %> |
+              <%= link_to "删除", admin_requirement_type_requirement_url(@type, b), :method => :delete, :confirm => "相关的捐赠会一同删掉, 且不能恢复, 确定删除?" %> |
+              <%= link_to "批准", approve_admin_requirement_type_requirement_url(@type, b), :method => 'put' if b.validated.nil? || !b.validated %>
             </td>
           </tr>
           <% end -%>
