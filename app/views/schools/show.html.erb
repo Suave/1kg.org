@@ -183,12 +183,18 @@
     </div>
 
    
-  <div class="school_sidebar"> 
-    <% if  @donation %>
-    <%= link_to image_tag("/images/point/donation.png"),donations_url%>
-    <%else%>
-    <%= link_to image_tag("/images/point/sidebar.png"),donations_url%>
-    <%end%>
+  <div class="school_sidebar">
+    <div class="sidebar_inter">
+      <div id="donations_info">  
+      <% if  @donation %>
+      <p>这所学校正在参加积分换图书行动！</p>
+      <p style="text-align:right"> <%= link_to '查看详情',apply_school_url(@school),:class => "adminbutton"%> </p>
+      <%else%>
+      <p>为这所学校申请积分换图书行动！</p>
+      <p style="text-align:right">现在就 <%= link_to '提出申请',apply_school_url(@school),:class => "adminbutton"%> </p>
+      <%end%>
+      </div>
+    </div>
   </div>
   
   <div class="school_sidebar" id="cityLatestMembers">
@@ -200,6 +206,8 @@
                     学校还没有学校大使
           <%end%>
           <% unless @moderators.include? current_user %>
+          <a class="more" name='#moderators_info'>什么是学校大使？</a>
+          <div style="clear:both;height:10px"></div>
           <div id="moderators_info">
             <!--<p style="color:#444">什么是学校大使？</p>-->
             <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
