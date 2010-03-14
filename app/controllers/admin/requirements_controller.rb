@@ -17,7 +17,7 @@ class Admin::RequirementsController < Admin::BaseController
   
   def create
     @requirement = Requirement.new(params[:requirement])
-    @requirement.agree_feedback_terms = true
+    #@requirement.agree_feedback_terms = true
     @requirement.requirement_type = @type
     @requirement.save!
     flash[:notice] = "新需求创建成功"

@@ -1,7 +1,7 @@
 <div class="goods_list">
     <img  class="goods_photo_frame" src="<%= goods.image.url(:thumb) %>"/>
-    <% donating = goods.requirements.find(:first,:conditions => {:status => "0"}) %>
-    <% done = goods.requirements.find(:all,:conditions => {:status => "1"}) %>
+    <% donating = goods.requirements.find(:first,:conditions => {:status => "1"}) %>
+    <% done = goods.requirements.find(:all,:conditions => {:status => "0"}) %>
     <div class="goods_description"><%= goods.description_html %></div>
     <div style="clear:both"></div>
     
