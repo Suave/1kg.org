@@ -8,7 +8,7 @@
     <%if (with_list rescue false)%>
     <% unless donating.nil?%>
         <div id="donationg">
-          <h5 style="color:#e19245;padding:12px 0 4px;font-size:13px;">正在接受<%= goods.title%>捐赠的学校</h5>    
+          <h5 style="color:#e19245;padding:12px 0 4px;font-size:13px;">正在接受捐赠的学校</h5>    
           <%= main_photo_thumb(donating.school) -%>       
           <div class="school_list_meta">
             <h6><%= link_to donating.school.title, school_url(donating.school), :target => "_blank" %></h6>
@@ -18,6 +18,8 @@
             </div>
            </div>
            <div style="clear:both"></div>
+           <p style="margin-bottom:4px;margin-left:8px;color:#666">使用积分，立即捐赠:</p><%= goods.vendor_link %>
+           
         </div>
         <%end%>
         
