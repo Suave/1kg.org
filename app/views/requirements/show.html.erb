@@ -8,10 +8,10 @@
 <li>积分献爱</li>
 <% end -%>
 
-<% content_for :sidebar do -%>
-  <div class="cleanfix" style="clear:both;height:20px"></div> 
-<span class="remark"><%= link_to "&raquo; 回到积分行动首页",donations_url%></span>
-<% end %>
+<% content_for :fullsize do -%>
+
+
+<span class="remark" style="position:relative;left:680px;top:30px"><%= link_to "&raquo; 回到积分行动首页",donations_url%></span>
 
 <div class="newbox" style="width:640px;height:120px">
   <div  style="float:left">
@@ -35,3 +35,5 @@
     <%=@requirement.notes_html%>
   </div>
 </div>
+
+<% end %>

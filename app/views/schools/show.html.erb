@@ -211,8 +211,8 @@
           <%end%>
           <% unless @moderators.include? current_user %>
           <a class="more" name='#moderators_info'>什么是学校大使？</a>
-          <div style="clear:both;height:10px"></div>
-          <div id="moderators_info">
+          <div style="clear:both;height:5px"></div>
+          <div id="moderators_info" style="display:none">
             <!--<p style="color:#444">什么是学校大使？</p>-->
             <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
             <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>

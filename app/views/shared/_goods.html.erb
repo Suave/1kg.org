@@ -1,34 +1,36 @@
 <div class="goods_list">
-    <a href="<%= goods.link%>" class="goods_photo_frame"><img src="<%= goods.image.url(:thumb) %>"/></a>
+    <img  class="goods_photo_frame" src="<%= goods.image.url(:thumb) %>"/>
     <% donating = goods.requirements.find(:first,:conditions => {:status => "0"}) %>
     <% done = goods.requirements.find(:all,:conditions => {:status => "1"}) %>
     <div class="goods_description"><%= goods.description_html %></div>
     <div style="clear:both"></div>
     
+    <%if (with_list rescue false)%>
     <% unless donating.nil?%>
-    <div id="donationg">
-      <h5 style="color:#e19245;padding:8px 0 4px;font-size:13px;">正在接受捐赠的学校</h5>    
-      <%= main_photo_thumb(donating.school) -%>       
-      <div class="school_list_meta">
-        <h6><%= link_to donating.school.title, school_url(donating.school), :target => "_blank" %></h6>
-        <div style="margin-top:4px;">
-            捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册<br/>
-            <%= link_to "捐赠者名单",requirement_url(donating)%>
+        <div id="donationg">
+          <h5 style="color:#e19245;padding:12px 0 4px;font-size:13px;">正在接受<%= goods.title%>捐赠的学校</h5>    
+          <%= main_photo_thumb(donating.school) -%>       
+          <div class="school_list_meta">
+            <h6><%= link_to donating.school.title, school_url(donating.school), :target => "_blank" %></h6>
+            <div style="margin-top:4px;">
+                捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册<br/>
+                <%= link_to "捐赠者名单",requirement_url(donating)%>
+            </div>
+           </div>
+           <div style="clear:both"></div>
         </div>
-       </div>
-       <div style="clear:both"></div>
-    </div>
-    <%end%>
-    
-    <% unless done.empty?%>
-    <div style="padding:0 8px">
-      <h5 style="color:#666;padding:8px 0 4px;font-size:13px;">已完成捐赠的学校</h5>    
-        <% done.each do |requirement|%>
-          <div style="padding:4px 0;border-bottom:1px solid #ddd;margin-bottom:5px;">
-            <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
-            <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:right;margin-top:10px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
-          </div>  
         <%end%>
-    </div>
+        
+        <% unless done.empty?%>
+        <div style="padding:0 8px">
+          <h5 style="color:#666;padding:8px 0 4px;font-size:13px;">已完成捐赠的学校</h5>    
+            <% done.each do |requirement|%>
+              <div style="padding:4px 0;border-bottom:1px solid #ddd;margin-bottom:5px;">
+                <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
+                <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:right;margin-top:10px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
+              </div>  
+            <%end%>
+        </div>
+        <%end%>
     <%end%>
 </div>
