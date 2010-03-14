@@ -25,4 +25,4 @@ config.after_initialize do
   Bullet.disable_browser_cache = true
 end
 
-Paperclip.options[:command_path] = "/opt/local/bin"
+Paperclip.options[:command_path] = "/home/makestory/1kg.org/vendor/plugins/paperclip"

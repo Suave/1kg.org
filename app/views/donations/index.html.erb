@@ -4,6 +4,13 @@
   .school_list_photo img{height:68px;}
   .school_list_photo{width:92px}
   .school_meta{width:170px}
+  #misc {padding:4em 0;width:960px;clear:both;text-align:center;font-size:13px;line-height:26px;}
+  #misc img {margin:0 4px;}
+  #misc span {position:relative;top:-20px;}
+  #partners {float:right;width:290px}
+  #partners img{border:1px #ddd solid}
+  #donationg {background-color:#fdf2d5;padding:0 8px;margin:10px 0;border:1px #f4d5b9 solid}
+
 </style>
 <% end -%>
 
@@ -13,35 +20,28 @@
 <li>积分献爱</li>
 <% end -%>
 
-<% content_for :sidebar do -%>
+<% content_for :fullsize do -%>
 
-<img src="/images/point/logo.png" />
-
-<div class="newbox">
+  <img src="/images/point/title.png" />
+  <div class="clearfix" style="clear:both;height:20px"></div>
+      
+  <div class="newbox" style="width:640px;float:left">
+  <span class="span_title">公益物资</span> <span class="gary_span">目前有两类图书可以选择</span>
+      <div class="clearfix" style="height:5px"></div>
+      <%= render :partial => "/shared/goods", :collection => RequirementType.exchangable.last5,:locals => {:with_list => true} %>
+  </div>
+      
+<div class="newbox" id="partners">
   <span class="span_title">合作商家</span>
   <div class="clearfix" style="height:5px"></div>
   <%= link_to image_tag("/images/partners/elong.gif"),"http://www.elong.com"%>
   <%= link_to image_tag("/images/partners/i-part.gif"),"http://www.i-part.com"%>
   <%= link_to image_tag("/images/partners/etpass.gif"),"http://www.etpass.com"%>
-</div>
+</div>  
 
-
-<div class="newbox">
-  <span class="span_title">项目支持</span>
-  <div class="clearfix" style="height:5px"></div>
-  <%= link_to image_tag("/images/partners/fupin.jpg"),"http://www.fupin.org.cn"%>
+<div id="misc">
+<p><span >项目支持 :</span> <a href="http://www.fupin.org.cn" target="_blank" title="扶贫基金会"><img src="/images/partners/fupin.jpg"></a></p>
+  <p>发起方：多背一公斤公益网站　　主办方：爱聚（北京）咨询有限公司 </p>
 </div>
 
 <% end %>
-
-
-  <img src="/images/point/title.png" />
-  <div class="clearfix" style="clear:both;height:40px"></div>
-  <div class="newbox">
-  <span class="span_title">公益物资</span>
-      <div class="clearfix" style="height:5px"></div>
-      <%= render :partial => "/shared/goods", :collection => RequirementType.exchangable.last5,:locals => {:with_list => true} %>
-  </div>
-      
-  <div class="clearfix" style="clear:both;height:20px"></div>
-
