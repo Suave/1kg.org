@@ -10,11 +10,11 @@
         <div id="donationg">
           <h5 style="color:#e19245;padding:12px 0 4px;font-size:13px;">正在接受捐赠的学校</h5>    
           <%= main_photo_thumb(donating.school) -%>       
-          <div class="school_list_meta">
+          <div class="school_list_meta" style="width:190px">
             <h6><%= link_to donating.school.title, school_url(donating.school), :target => "_blank" %></h6>
+            <span class="gary_span">[<%= donating.school.geo.parent.name.to_s%> <%= donating.school.geo.name.to_s %>]</span>
             <div style="margin-top:4px;">
-                捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册<br/>
-                <%= link_to "捐赠者名单",requirement_url(donating)%>
+                捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册<%= link_to "捐赠者名单",requirement_url(donating),:style => "float:right;margin-top:9px"%>
             </div>
            </div>
            <div style="clear:both"></div>
@@ -29,7 +29,7 @@
             <% done.each do |requirement|%>
               <div style="padding:4px 0;border-bottom:1px solid #ddd;margin-bottom:5px;">
                 <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
-                <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:right;margin-top:10px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
+                <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:right;margin-top:9px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
               </div>  
             <%end%>
         </div>
