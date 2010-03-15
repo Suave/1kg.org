@@ -122,8 +122,9 @@
           <div class="clearfix" style="margin-bottom:20px;"></div>
           <span class="span_title">活动介绍</span>
           <div class="clearfix" style="margin-bottom:5px;"></div>
-          <%= @activity.html %>
-        
+          <%= @activity.html.mb_chars.slice(0..255) %><span id="more"><%= '...' if @activity.html.mb_chars.length > 255 %></span>
+          <span id="rest" style="display:none;"><%= @activity.html.mb_chars.slice(256..-1) %></span>
+          (<%= link_to_function '显示全部', '$("#rest").toggle();$("#more").toggle();' if @activity.html.mb_chars.length > 255 %>)
         </div>
   </div>
 
