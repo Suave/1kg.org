@@ -65,23 +65,6 @@
       </div>
       <div class="cleanfix" style="height:20px"></div>
   </div>
-  
-  <div class="newbox">
-      <div style="float:right;">
-        <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
-        <p class="content_gray" style="display:none;" id="upload_tip">
-        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
-        </p>
-      </div>
-      <span class="span_title">活动相册</span>
-      <div class="contents clearfix" style="padding-top:16px;">
-      <div id="upload_container"></div>
-      <div class="clearfix" id="photos">
-      <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
-      </div>     
-      </div>  
-      <div class="cleanfix" style="height:20px"></div>
-  </div>
 <% end -%>
 
   <div class="newbox" id="activityInfo">
@@ -126,6 +109,23 @@
           <span id="rest" style="display:none;"><%= @activity.html.mb_chars.slice(256..-1) %></span>
           (<%= link_to_function '显示全部', '$("#rest").toggle();$("#more").toggle();' if @activity.html.mb_chars.length > 255 %>)
         </div>
+  </div>
+  
+  <div class="newbox">
+      <div style="float:right;">
+        <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
+        <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
+        </p>
+      </div>
+      <span class="span_title">活动相册</span>
+      <div class="contents clearfix" style="padding-top:16px;">
+      <div id="upload_container"></div>
+      <div class="clearfix" id="photos">
+      <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
+      </div>     
+      </div>  
+      <div class="cleanfix" style="height:20px"></div>
   </div>
 
   <%= render :partial => "/comments/comments", :object => @comments %>
