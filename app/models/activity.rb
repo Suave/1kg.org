@@ -167,7 +167,8 @@ class Activity < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.description_html)
+    self.update_attribute(:clean_html, sanitize(self.description_html)) if self.clean_html.blank?
+    self.clean_html
   end
   
   private
