@@ -13,9 +13,7 @@
           <div class="school_list_meta" style="width:190px">
             <h6><%= link_to donating.school.title, school_url(donating.school), :target => "_blank" %></h6>
             <span class="gary_span">[<%= donating.school.geo.parent.name.to_s%> <%= donating.school.geo.name.to_s %>]</span>
-            <div style="margin-top:4px;">
-                捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册<%= link_to "捐赠者名单",requirement_url(donating),:style => "float:right;margin-top:9px"%>
-            </div>
+            <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(donating),:style => "float:right;margin-top:9px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= donating.quantity%></span>册</div>
            </div>
            <div style="clear:both"></div>
            <p style="margin-bottom:4px;margin-left:8px;color:#666">使用积分，立即捐赠:</p><%= goods.vendor_link %>
