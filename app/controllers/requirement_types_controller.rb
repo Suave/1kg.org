@@ -12,6 +12,7 @@ class RequirementTypesController < ApplicationController
   
   def create
     @project = RequirementType.new(params[:project])
+    @project.slug = ''
     @project.save!
     flash[:notice] = "项目已经发布，请等待管理员的审核，发布后会通过邮件通知您"
     redirect_to requirement_types_url
