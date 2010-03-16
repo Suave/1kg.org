@@ -7,12 +7,12 @@ class RequirementTypesController < ApplicationController
   end
   
   def new
-    @project = RequirementType.new
+    @project = RequirementType.new(:feedback_require => "1. 需要上传快递\n2. 需要上传物资签\n3. 需要上传项目照片\n4. 需要写项目执行报告")
   end
   
   def create
     @project = RequirementType.new(params[:project])
-    @project.feedback_require = params[:project][:feedback_require].join(",")
+    @project.slug = ''
     @project.save!
     flash[:notice] = "项目已经发布，请等待管理员的审核，发布后会通过邮件通知您"
     redirect_to requirement_types_url
