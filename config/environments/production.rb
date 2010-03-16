@@ -31,3 +31,5 @@ ActionMailer::Base.smtp_settings = {
 #  :user_name => "no-reply@1kg.org",
 #  :password => '1kgmore'
 }
+
+Paperclip.options[:command_path] = "/opt/local/bin"
