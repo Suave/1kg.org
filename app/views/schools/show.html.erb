@@ -185,21 +185,22 @@
         <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
       </div>
     </div>
-
-   
+    
+  <%if false%> 
   <div class="school_sidebar">
     <div class="sidebar_inter">
       <div id="donations_info">  
       <% if  @donation %>
       <p>这所学校正在参加积分换图书行动！</p>
-      <p style="text-align:right"> <%= link_to '查看详情',apply_school_url(@school),:class => "adminbutton"%> </p>
+      <p style="text-align:right"> <%= link_to '查看详情',"#",:class => "adminbutton"%> </p>
       <%else%>
       <p>为这所学校申请积分换图书行动！</p>
-      <p style="text-align:right">现在就 <%= link_to '提出申请',apply_school_url(@school),:class => "adminbutton"%> </p>
+      <p style="text-align:right">现在就 <%= link_to '提出申请',"#",:class => "adminbutton"%> </p>
       <%end%>
       </div>
     </div>
   </div>
+  <%end%>
   
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>

@@ -28,6 +28,7 @@ class Requirement < ActiveRecord::Base
   has_many :donations, :foreign_key => "buck_id", :dependent => :destroy
   
   validates_presence_of :type_id, :school_id
+  validates_numericality_of :quantity
   validates_acceptance_of :agree_feedback_terms
   
   named_scope :confirmed, :conditions => ["validated = ?", true]

@@ -1,12 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
-  #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
-  
+
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
-  map.resources :donations, :member => {:commenting => :get, :comment => :put}
-  map.resources :requirements
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
+  map.resources :requirements, :member => {}
   
+
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
@@ -20,10 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
   map.topics "/topics/total",:controller => "topics", :action => "total"
-  #market
-  #map.market "/market",:controller => "market",:action => "index"
 
-  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"
@@ -123,14 +120,6 @@ ActionController::Routing::Routes.draw do |map|
     share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
-  map.resources :posts do |post|
-    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
-  end
-  
-  map.resources :comments do |post|
-    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
-  end
-  
   map.resources :bulletins do |bulletin|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
@@ -156,7 +145,8 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :requirements
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
   end
-# map.with_options :controller => "mall" do |mall|
+  
+  # map.with_options :controller => "mall" do |mall|
   #   mall.mall_index '/mall', :action => "index"
   #   mall.mall_category '/mall/category/:tag', :action => "category"
   #   mall.mall_detail '/mall/good/:id', :action => "show"
@@ -175,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
-      type.resources :requirements, :member => {:approve => :put}
+      type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     #admin.resources :products # 公益商品供应商提供的商品
