@@ -56,7 +56,7 @@
           <%= h current_user.login %>
         </p>
         <p><label class="label">申请者电话</label><%= f.text_field :applicator_telephone %></p>
-        <p><label class="label">申请数量</label><%= f.text_field :quantity %></p>
+        <p><label class="label">申请数量</label><%= f.text_field :quantity %><%= error_message_on @apply, :quantity %></p>
         <p><label class="label">申请理由</label><%= f.text_area :apply_reason, :cols => 80, :rows => 10 %></p>
         <p><label class="label">实施计划</label><%= f.text_area :apply_plan, :cols => 80, :rows => 10 %></p>
         <p><label class="label">&nbsp;</label>(含物资到达后的分配、使用方案，如有资金申请，请写明预算。)</p>
