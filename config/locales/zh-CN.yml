@@ -113,7 +113,7 @@
         exclusion: "是保留关键字"
         invalid: "是无效的"
         confirmation: "与确认值不匹配"
-        accepted: "必须是可被接受的"
+        accepted: "必须接受"
         empty: "不能留空"
         blank: "不能为空字符"
         too_long: "过长（最长为 {{count}} 个字符）"
