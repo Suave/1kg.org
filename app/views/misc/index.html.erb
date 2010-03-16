@@ -11,7 +11,7 @@
 
 <% content_for :sidebar do -%>
 
-<%= render :partial => '/shared/search_box' %>
+<%= render :partial => '/searches/search_box' %>
 
 <% unless @bulletins.blank? -%>
 <div class="newbox">
@@ -81,7 +81,7 @@
     <div class="activity_list_meta" style="width:172px;height:90px">
     <h5><%= link_to short_title(activity), activity_path(activity)%></h5>
     <span><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
-    <span><%= "开始日期: #{activity.start_at.to_date}" %></span><br/>
+    <span><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>
     </div>
   </div>
   <%end%> 

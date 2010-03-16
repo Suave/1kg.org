@@ -120,7 +120,7 @@ ActionController::Routing::Routes.draw do |map|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
-  map.resources :searches
+  map.resource :search
   
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 

@@ -8,6 +8,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+<%= render :partial => '/searches/search_box', :locals => {:kind => 'topic'} %>
 <div id="admins">
   <% if @group.joined?(current_user) -%>
     你已经是小组成员，如有必要可以<%= link_to "退出小组", quit_group_url(@group), :method => :put ,:class=>"adminbutton"%>

@@ -1,12 +1,18 @@
+mkmf.log
 .project
 1kg.org.kpf
 log/*
 tmp/*
 tmp/**/*
+config/*.sphinx.conf
+db/sphinx/*
+db/sphinx/**/*
 doc/api
 doc/app
 doc/plugins
 db/*.sqlite3
+db/data.yml
+db/sphinx
 vendor/rails
 config/database.yml
 public/user
@@ -27,6 +33,7 @@ public/pictures/**/*
 public/good_photos
 public/good_photos/*
 public/good_photos/**/*
+public/system
 public/schools.json
 public/images/calendar_date_select/
 public/javascripts/calendar_date_select/

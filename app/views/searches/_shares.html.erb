@@ -1,0 +1,7 @@
+<div class="newbox">
+  <div class="contents">
+    <%= render :partial => "/shared/share", :collection => @shares.compact %>
+  </div>
+  <%= will_paginate @shares %>
+  <div class="cleanfix" style="height:20px"></div>
+</div>
