@@ -38,7 +38,7 @@
       <p class="postNew"></p>
       <div class="contents">
         <p><%= @project.feedback_require.gsub("\n", '<br />') %></p>
-        <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈</p>
+        <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈 <%= error_message_on @apply, :agree_feedback_terms %></p>
       </div>
     </div>
   </div>
