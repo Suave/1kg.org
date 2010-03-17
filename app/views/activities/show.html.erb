@@ -108,6 +108,12 @@
           <%= @activity.html.mb_chars.slice(0..255) %><span id="more"><%= '...' if @activity.html.mb_chars.length > 255 %></span>
           <span id="rest" style="display:none;"><%= @activity.html.mb_chars.slice(256..-1) %></span>
           (<%= link_to_function '显示全部', '$("#rest").toggle();$("#more").toggle();' if @activity.html.mb_chars.length > 255 %>)
+         <p style="text-align:right">
+        <!-- JiaThis Button BEGIN -->
+        <a href="http://www.jiathis.com/share.html" class="jiathis"><img src="http://www.jiathis.com/code/images/jiathis2.gif" width="125" height="21" border="0" id="jiathis_a"/></a>
+        <script type="text/javascript" src="http://www.jiathis.com/code/jia.js" charset=utf-8></script>
+        <!-- JiaThis Button END -->
+        </p>
         </div>
   </div>
   
