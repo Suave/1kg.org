@@ -218,6 +218,11 @@ caption {
 
 .box .contents ol, .box .entry ol {list-style-type: decimal; list-style-position: inside; margin-left:1.2em;}
 .box .contents ul, .box .entry ul {list-style-type: disc; list-style-position: inside; margin-left:1.2em;}
+
+/*entry*/
+.entry ul li{list-style-type: disc;}
+.entry ol li{list-style-type: decimal;}
+.entry ul,.entry ol{padding-left:40px;margin:12px 0}
 .entry td{border:1px #666666 solid;background-color:#fff;padding:2px 4px;}
 /*
 	Secondary content

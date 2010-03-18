@@ -18,13 +18,13 @@ module BodyFormat
     end
     
     begin
-      html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'q', 'embed', 'br',
-        'em', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
+      html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'embed', 'br',
+        'em','strong', 'strike', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
           :attributes => {'a' => ['href', 'target', 'title'], 
             'img' => ['src', 'alt', 'title'], 
             'span' => ['style'],
             'object' => ['width', 'height'],
-            'td' => ['colspan', 'width', 'height'],
+            'td' => ['colspan', "rowspan",'width', 'height'],
             'tr' => ['width', 'height'],
             'table' => ['border'],
             'param' => ['name', 'value'],
