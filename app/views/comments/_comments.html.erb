@@ -22,7 +22,7 @@
           </li>
           <% if comment.repliable?  %>
           <li class="reply" style="display:none;">
-            <%= render :partial => "/comments/form", :locals => {:commentable => comment} %>
+            <%= render :partial => "/comments/form", :locals => {:commentable => comment.commentable} %>
           </li>
           <% end %>
           <% end -%>
