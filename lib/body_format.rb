@@ -19,11 +19,12 @@ module BodyFormat
     
     begin
       html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'embed', 'br',
-        'em', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
+        'em','strong', 'strike', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
           :attributes => {'a' => ['href', 'target', 'title'], 
             'img' => ['src', 'alt', 'title'], 
             'span' => ['style'],
             'object' => ['width', 'height'],
+            'td' => ["colspan"],
             'param' => ['name', 'value'],
             'embed' => ['src', 'type', 'allowscriptaccess', 'allowfullscreen', 'wmode', 'width', 'height']})
     rescue
