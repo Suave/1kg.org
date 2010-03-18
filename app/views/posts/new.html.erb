@@ -25,7 +25,7 @@
           <%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %>
         </p>
       </div>
-      <div class="entry">
+      <div id="entry">
         <%= @topic.body_html %>
         <p style="color:gray; text-align:right;">
           <% if @topic.last_modified_user -%>

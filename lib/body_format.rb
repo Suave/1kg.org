@@ -24,7 +24,9 @@ module BodyFormat
             'img' => ['src', 'alt', 'title'], 
             'span' => ['style'],
             'object' => ['width', 'height'],
-            'td' => ["colspan","rowspan"],
+            'td' => ['colspan', "rowspan",'width', 'height'],
+            'tr' => ['width', 'height'],
+            'table' => ['border'],
             'param' => ['name', 'value'],
             'embed' => ['src', 'type', 'allowscriptaccess', 'allowfullscreen', 'wmode', 'width', 'height']})
     rescue
