@@ -62,7 +62,6 @@ FCKConfig.ToolbarSets["OneLine"] = [
 	['Undo','Redo'],
 	['Cut','Copy','Paste','PasteWord'],
 	['Bold','Italic','StrikeThrough'],
-	['JustifyLeft','JustifyCenter','JustifyRight'],
 	['OrderedList','UnorderedList'],
 	['TextColor','BGColor'],
 	['Link','Unlink'],
