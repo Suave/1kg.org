@@ -35,8 +35,8 @@
   <span class="span_title">执行报告</span>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.feedback %>
-  <% if logged_in? && User.moderators_of(@school).include?(current_user) && !current_user.school_moderator?-%>
-  <div id="admins">你是学校大使，可以更新此项目的执行报告：<br/>
+  <% if logged_in? && @requirement.applicator == current_user -%>
+  <div id="admins">你是项目申请者，可以更新此项目的执行报告：<br/>
     <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "adminbutton"%>
   </div>
   <% end -%>

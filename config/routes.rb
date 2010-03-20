@@ -165,7 +165,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
-      type.resources :requirements, :member => {:approve => :put}
+      type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     #admin.resources :products # 公益商品供应商提供的商品
