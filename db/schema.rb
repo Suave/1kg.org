@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "type_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "comments_count"
     t.datetime "deleted_at"
   end
 
@@ -182,6 +183,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false
     t.integer  "user_id",             :null => false
+    t.integer  "comments_count"
     t.text     "body_html"
     t.text     "clean_html"
     t.datetime "created_at"

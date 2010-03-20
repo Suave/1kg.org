@@ -23,6 +23,7 @@ class Comment < ActiveRecord::Base
   after_create :update_commentable
   belongs_to :commentable, :polymorphic => true, :counter_cache => 'comments_count'
   belongs_to :user
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   
   validates_presence_of :user_id
   validates_length_of :body, :minimum => 2, :too_short => "留言内容不能少于2个字符", :allow_nil => false
@@ -48,6 +49,10 @@ class Comment < ActiveRecord::Base
       }
     end
     return result.reverse
+  end
+  
+  def repliable?
+    !self.commentable.is_a?(Post) && !self.commentable.is_a?(Comment)
   end
   
   private
