@@ -45,7 +45,7 @@ class MiscController < ApplicationController
     @school_count = School.validated.size
     @activity_count = Activity.ongoing.size
     @new_schools = School.find(:all,:limit => 4,:order => "created_at desc")
-    @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => {:created_at => 3.month.ago..Time.now})
+    @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => {:created_at => 1.month.ago..Time.now})
     @recent_shares = Share.recent_shares
     # 网站公告
     @bulletins = Bulletin.recent
