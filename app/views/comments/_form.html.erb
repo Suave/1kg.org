@@ -2,7 +2,8 @@
   <% if logged_in? -%>
     <% form_for :comment, :url => comments_path(commentable) do |f| -%>
     <p><%= f.text_area :body, :cols => 54, :rows => 6 %></p>
-    <p class="submit"><%= submit_tag "回 复" %></p>
+    <p class="submit"><%= submit_tag "回 复" %> <%if (cancal rescue false)%><input type="submit" value="取消" onclick="$(this).parent().parent().parent().parent().hide();return false"/><%end%>
+    </p>
     <% end -%>
   <% else -%>
     <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以留言</div>

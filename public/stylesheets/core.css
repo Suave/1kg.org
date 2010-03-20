@@ -1024,9 +1024,7 @@ h3.title {
 }
 
 /* =topicCommentsList */
-#topicCommentsList ol {
-  padding: 0 10px 10px;
-}
+
 #topicCommentsList ol li {
   float: left;
   width: 100%;

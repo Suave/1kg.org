@@ -128,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :comments do |post|
     post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
   end
-  
+
   map.resources :bulletins do |bulletin|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
