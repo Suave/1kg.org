@@ -26,15 +26,6 @@
             <% end %>
             <%= render :partial => "/comments/replys", :object => comment.comments.paginate(:page => 1, :per_page => 100) unless comment.comments.blank?%>
           </li>
-<<<<<<< HEAD:app/views/comments/_comments.html.erb
-          <% if comment.repliable?  %>
-          <li class="reply" style="display:none;">
-            <%= render :partial => "/comments/form", :locals => {:commentable => comment} %>
-          </li>
-          <% end %>
-=======
-          
->>>>>>> 8031a6d8f8e2ba7cbfe5ed625dd732d817224737:app/views/comments/_comments.html.erb
           <% end -%>
         </ol>
         <%= customize_paginate comments%>
