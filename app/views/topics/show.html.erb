@@ -104,7 +104,7 @@
                 
                 <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' %>
                 <% if p.editable_by current_user -%>
-                  <%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
+                    | <%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
                   <% if p.deleted_at.blank? -%>
                     | <%= link_to "删除", board_topic_post_url(@board, @topic, p), :method => :delete, :confirm => "确定要删除么?" %>
                   <% end -%>
