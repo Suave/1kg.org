@@ -5,16 +5,15 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+
 <% end -%>
 
-<% content_for :fullsize do -%>
  <div class="newbox" id="activitiesPostNew">
         <span class="span_title">编辑活动</span>
-        <div class="clearfix" style="height:10px"></div>
+        <div class="clearfix" style="height:20px"></div>
       <% form_for :activity, :url => activity_url(@activity.id), :html => {:method => :put} do |f| -%>
       
       <%= render :partial => "form", :object => f %>
       <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "修 改" %></span>/ <%= link_to "取消", activity_url(@activity) %></span>带<span class="require">*</span>号的是必填项</p></p>
       <% end -%>
 </div>
-<% end -%>
