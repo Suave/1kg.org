@@ -20,6 +20,7 @@
         <span class="span_title">发布新活动</span>
         <div class="clearfix" style="height:10px"></div>
         <div class="caution" style="-float:left">发布你的活动吧，注意活动从开始到结束，时间不能超过三个月噢。</div>
+        <div class="clearfix" style="height:10px"></div>
         <% form_for :activity, :url => activities_url do |f| -%>
         <%= render :partial => "form", :object => f %>  
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
