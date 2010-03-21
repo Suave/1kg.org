@@ -17,7 +17,6 @@
                 <% end -%>
               </p>
               <%= comment.body_html %>
-              <%= render :partial => "/comments/comments", :object => comment.comments.paginate(:page => 1, :per_page => 100) %>
             </div>
             <% if comment.repliable?  %>
               <li class="reply" style="display:none;">
