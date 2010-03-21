@@ -18,8 +18,8 @@
 
   <div class="newbox" id="activitiesPostNew">
         <span class="span_title">发布新活动</span>
-        <div class="clearfix" style="height:20px"></div>
-        <%if @school.nil?%><div class="caution" style="-float:left">活动可以关联学校了，如果是去学校的活动，我们建议你从学校的页面发起活动。</div><%end%>
+        <div class="clearfix" style="height:10px"></div>
+        <div class="caution" style="-float:left">发布你的活动吧，注意活动从开始到结束，时间不能超过三个月噢。</div>
         <% form_for :activity, :url => activities_url do |f| -%>
         <%= render :partial => "form", :object => f %>  
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
