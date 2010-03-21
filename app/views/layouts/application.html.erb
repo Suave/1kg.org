@@ -18,6 +18,7 @@
     <%= javascript_include_tag 'jQuery/jrails' %>
     <%= javascript_include_tag 'calendar.js' %>
     <%= javascript_include_tag 'application.js' %>
+    <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
    
     <link type="text/css" rel="stylesheet" href="/stylesheets/calendar.css" />
