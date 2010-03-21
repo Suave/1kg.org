@@ -65,7 +65,7 @@
               <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>
             <% end -%>
         </div>
-        <div class="entry">
+        <div id="entry">
           
           <%= @topic.html %>
           <p style="color:gray; text-align:right;">
