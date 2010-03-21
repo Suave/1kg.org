@@ -4,7 +4,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 %>
 
 
-<p><label class="label">标题<span style="color:red;">(必填)</span></label>
+<p><label class="label">分享标题<span style="color:red;">＊</span></label>
 <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
 </p>
 
@@ -14,7 +14,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
   <input style="display:none" type="text" name="share[geo_id]" value="<%=@geo.id%>"/>
 <%end%>
 
-<p><label class="label">相关活动</label>
+<p><label class="label">相关活动　</label>
 <%if @activity.nil?%>
   <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]} + (@share.activity.nil? ? [] : [[@share.activity.title,@share.activity.id]] ), {:include_blank => true}  %>
 <%else%>
@@ -23,7 +23,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 <%end%>
 </p>
 
-<p><label class="label">相关学校</label>
+<p><label class="label">相关学校　</label>
 <%if @school.nil?%>
   <%= form.select :school_id, schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]} + (@share.school.nil? ? [] : [[@share.school.title,@share.school.id]] ), {:include_blank => true} %>
 <%else%>
@@ -32,11 +32,11 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 <%end%>
 </p>
 
-<p><label class="label"><%= avatar_for current_user, "large" %></label>
-<%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+<p>
+<%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine',:height => '480px') %>
 </p>
 
-<p><label class="label">标签</label>
+<p><label class="label">附加标签</label>
 <%= form.text_field :tag_list, :size => 40, :class => "formText" %>
 <span>（以空格分隔不同标签）</span>
 </p>

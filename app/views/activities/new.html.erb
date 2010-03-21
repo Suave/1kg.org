@@ -5,16 +5,27 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+<% @page = Page.find_by_slug('activity-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">活动编辑指南</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
 <% end -%>
 
-<% content_for :fullsize do -%>
+
   <div class="newbox" id="activitiesPostNew">
         <span class="span_title">发布新活动</span>
-        <div class="clearfix" style="height:10px"></div>
+        <div class="clearfix" style="height:20px"></div>
         <%if @school.nil?%><div class="caution" style="-float:left">活动可以关联学校了，如果是去学校的活动，我们建议你从学校的页面发起活动。</div><%end%>
         <% form_for :activity, :url => activities_url do |f| -%>
         <%= render :partial => "form", :object => f %>  
-        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取 消", root_url %></span></span>带<span class="require">*</span>号的是必填项</p></p>
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
+        <span class="btnWrap"><%= link_to "取 消", activities_url %></span>带<span class="require">*</span>号的是必填项
+        </p>
         <% end -%>
   </div>
-<% end -%>
+
+

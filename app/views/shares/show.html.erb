@@ -70,7 +70,7 @@
         <span>已有 <%= @share.votes.count -%> 人推荐这篇分享 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@share) -%>
-                        您已推荐了
+            您已推荐了
           <% else -%>
             <%= link_to '我要推荐', vote_share_path(@share), :method => 'post', :class => 'buttonlink' %>
           <% end -%>
