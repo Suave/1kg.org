@@ -2,6 +2,7 @@
     <img  class="goods_photo_frame" src="<%= goods.image.url(:thumb) %>"/>
     <% donating = goods.requirements.find(:first,:conditions => {:status => "1"}) %>
     <% done = goods.requirements.find(:all,:conditions => {:status => "0"}) %>
+    <% waiting = goods.requirements.find(:all,:conditions => {:status => "2"}) %>
     <div class="goods_description"><%= goods.description_html %></div>
     <div style="clear:both"></div>
     
@@ -25,12 +26,26 @@
         <div style="padding:0 8px">
           <h5 style="color:#666;padding:8px 0 4px;font-size:13px;">已完成捐赠的学校</h5>    
             <% done.each do |requirement|%>
-              <div style="padding:4px 0;border-bottom:1px solid #ddd;margin-bottom:5px;">
+              <div style="padding:4px;border-bottom:1px solid #ddd;margin-bottom:5px;">
                 <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
                 <div style="text-align:left"><%= link_to "捐赠者名单",requirement_url(requirement),:style => "float:right;margin-top:9px"%> 捐赠总量: <span style="font-size:20px;top:0;color:#666"> <%= requirement.quantity%></span>册</div>
               </div>  
             <%end%>
         </div>
         <%end%>
+        
+        
+        <% unless waiting.empty?%>
+        <div style="padding:0 8px">
+          <h5 style="color:#666;padding:8px 0 4px;font-size:13px;">待捐赠的学校</h5>    
+            <% waiting.each do |requirement|%>
+              <div style="padding:4px;border-bottom:1px solid #ddd;margin-bottom:5px;">
+                <h6><%= link_to requirement.school.title, school_url(requirement.school), :target => "_blank" %></h6>
+                <div style="text-align:left">需求总量:  <%= requirement.quantity%>册</div>
+              </div>  
+            <%end%>
+        </div>
+        <%end%>
+        
     <%end%>
 </div>
