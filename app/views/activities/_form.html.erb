@@ -1,24 +1,36 @@
-<%
-schools = current_user.visited_schools
-%>
-<p>
-<label for="activity_category" class="label">活动类型</label>
-  <select id="activity_category" name="activity[category]">
-    <% Activity.categories.each_with_index do |p,i| -%>
-      <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
-    <% end -%>
-  </select>
-　  <label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:150px" %> <%= error_message_on @activity, :title %>
-<label style="margin-left:20px">活动时间<span class="require">*</span></label>
-  <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
-  <%= error_message_on @activity, :start_at %>
-   至<span class="require">*</span>  </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :end_at %>
-  <label style="margin-left:20px">报名截止</label><input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
-  <div style="float:right;margin-right:100px;-margin-right:50px"><%= error_message_on @activity, :time %> <span class="gary_span">注：从活动开始到结束的时间不能超过三个月 </span></div>
-</p>
-<input style="display:none" type="text" name="activity[location]" value=""/>
-<p><label for="departure_root" class="label">出发地<span class="require">*</span></label><%= geo_select "activity", "departure", ["不限", "0"],@activity.departure %> <%= error_message_on @activity, :departure_id %>
-  <label for="arrival_root">目的地<span class="require">*</span>
+<%schools = current_user.visited_schools%>
+  
+  <div style="float:right;width:300px;text-align:right">
+    
+      <label>活动时间<span class="require">*</span></label>
+      <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
+       至<span class="require">*</span>  </label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" />
+     
+      <div style="margin-top:15px">
+        <% if !(error_message_on @activity, :start_at).empty? ||!(error_message_on @activity, :end_at).empty?%><span style='color:red'>请把活动时间填写完整</span>　
+        <% elsif !(error_message_on @activity, :time).empty?%>
+        <%= error_message_on @activity, :time %>
+        <% end %>
+      <label>报名截止</label> <input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %></div>
+    
+  </div>
+    
+  <p>
+    <label for="activity_category">活动类型</label>　
+    <select id="activity_category" name="activity[category]">
+      <% Activity.categories.each_with_index do |p,i| -%>
+        <option value="<%= i %>" <%= "selected=\"selected\"" if @activity.category==i %>><%= p %></option>
+      <% end -%>
+    </select>
+　</p>
+  
+  <p><label>活动名称 <span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:180px" %> <%= error_message_on @activity, :title %>
+  </p>
+  
+  <input style="display:none" type="text" name="activity[location]" value=""/>
+  
+  <p><label for="departure_root">出发地点 <span class="require">*</span> </label><%= geo_select "activity", "departure", ["不限", "0"],@activity.departure %> <%= error_message_on @activity, :departure_id %>　
+  <label for="arrival_root">目的地点 <span class="require">*</span>
   <%if @school.nil?%>
     </label><%= geo_select "activity", "arrival", ["不限", "0"],@activity.arrival %> <%= error_message_on @activity, :arrival_id %>
   <%else%>
@@ -30,19 +42,18 @@ schools = current_user.visited_schools
 
 
 
-<p><label class="label">相关学校</label>
+<p><label >相关学校</label>　
  <%if @school.nil?%>
   <%unless @activity.school_id.nil?%>
   <%= form.select :school_id, [[School.find_by_id(@activity.school_id).title,@activity.school_id]] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]} + [['没有相关学校','']], {:include_blank => false}%> 
   <%else%>
   <%= form.select :school_id, [['学校名称','']] + schools.find(:all, :select => "schools.id, schools.title").collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%> 
-  <span style="color:#666;margin-left:10px"> 可以从你"关注"、"要去"、"去过"的学校里选择</span>
+  <span style="color:#666;margin-left:10px"> 从你"关注"、"要去"、"去过"的学校里选择</span>
   <%end%>
  <%else%>
  <%=@school.title%>
  <input style="display:none" type="text" name="activity[school_id]" value="<%=@school.id.to_s%>"/>
  <%end%>
 </p>
-<%= error_message_on @activity, :description_html %>
-<p><label class="label">活动介绍<span class="require">*</span></label><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
+<p><label >活动介绍 <span class="require">*</span></label><%= error_message_on @activity, :description_html %><br/><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '640px', :height => '400px') %></p>
 <script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
