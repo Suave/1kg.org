@@ -24,7 +24,7 @@
         <% form_for :activity, :url => activities_url do |f| -%>
         <%= render :partial => "form", :object => f %>  
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
-        <span class="btnWrap"><%= link_to "取 消", activities_url %></span>带<span class="require">*</span>号的是必填项
+        <span><%= link_to "取 消 ", activities_url,:style => "width:100px"%></span> 带<span class="require">*</span>号的是必填项
         </p>
         <% end -%>
   </div>
