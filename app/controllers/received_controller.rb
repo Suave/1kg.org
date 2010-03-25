@@ -4,7 +4,7 @@ class ReceivedController < ApplicationController
 	before_filter :login_required
 
   def index
-		@copies = current_messages.paginate :per_page => 10,
+		@copies = current_messages.paginate :per_page => 30,
 																				:page 		=> params[:page],
 																				:include 	=> [:message],
 																				:order 		=> "unread desc, messages.created_at DESC"
