@@ -18,7 +18,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
 
     @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids], :limit => 10, :order => "created_at desc")
     
-    @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")
+    @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null and user_id is not null"], :order => "matched_at desc")
     session[:random_donation] = @donation.id
   end
   
@@ -26,7 +26,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
     postcard = RequirementType.find_by_slug("postcard")
         
     unless session[:random_donation].nil?
-      @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null and id < ?", session[:random_donation].to_i], :order => "id desc")
+      @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null and user_id is not null and id < ?", session[:random_donation].to_i], :order => "id desc")
     end
     
     @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc" ) if @donation.nil?
