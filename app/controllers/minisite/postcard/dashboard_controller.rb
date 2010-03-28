@@ -43,7 +43,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
       
       if @donation = Donation.find_by_code(params[:password], :conditions => ["school_id is not null"])
         # 已成功配对
-        set_message_and_redirect_to_index "此贺卡捐赠的图书已送到#{link_to @donation.school.title, school_url(@donation.school)}"
+        set_message_and_redirect_to_index "此贺卡捐赠的图书已送到#{@donation.school.title}"
         
       elsif @donation = Donation.find_by_code(params[:password], :conditions => ["matched_at is null"])
         # 尚未配对
