@@ -125,7 +125,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   def donors
     @school = School.find(params[:id])
     @donations = Donation.paginate :page => params[:page] || 1,
-                             :conditions => ["school_id = ? and user_id is null", params[:id]],
+                             :conditions => ["school_id = ? and user_id is not null", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30
   end
