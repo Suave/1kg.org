@@ -1,5 +1,6 @@
 <%schools = current_user.visited_schools%>
-     
+<div style="clear:both"></div>
+<div>
   <p>
     <label for="activity_category">活动类型</label>　
     <select id="activity_category" name="activity[category]">
@@ -21,11 +22,8 @@
   <%else%>
     <%= @school.geo.parent.name.to_s if @school.geo.parent%>  <%= @school.geo.name.to_s %>
     <input style="display:none" type="text" name="activity[arrival_id]" value="<%=@school.geo.id%>"/>
-  <%end%>
-  
+  <%end%>  
 </p>
-
-
 
 <p><label >相关学校</label>
  <%if @school.nil?%>
