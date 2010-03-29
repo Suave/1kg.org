@@ -41,9 +41,9 @@ class Minisite::Postcard::DashboardController < ApplicationController
       set_message_and_redirect_to_index "请输入贺卡上的爱心密码, 点击验证按钮"
     else
       
-      if @donation = Donation.find_by_code(params[:password], :conditions => ["matched_at is not null and user_id=?", current_user])
+      if @donation = Donation.find_by_code(params[:password], :conditions => ["school_id is not null"])
         # 已成功配对
-        set_message_and_redirect_to_index "您这张贺卡已经选过学校"
+        set_message_and_redirect_to_index "此贺卡捐赠的图书已送到#{@donation.school.title}"
         
       elsif @donation = Donation.find_by_code(params[:password], :conditions => ["matched_at is null"])
         # 尚未配对
@@ -125,7 +125,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   def donors
     @school = School.find(params[:id])
     @donations = Donation.paginate :page => params[:page] || 1,
-                             :conditions => ["school_id = ?", params[:id]],
+                             :conditions => ["school_id = ? and user_id is not null", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30
   end
