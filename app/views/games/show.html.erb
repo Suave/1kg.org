@@ -1,0 +1,64 @@
+<% @page_title = "#{h @game.name}" -%>
+<% @title = h @game.name %>
+
+<% content_for :crumb do -%>
+<li><%= link_to '游戏', games_path %></li>
+<li><%= @game.name %></li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+  <div id="admins">
+    <p>
+      游戏不错？你可以:<br/>
+      <%= link_to "丰富内容", edit_game_path(@game),:class => "adminbutton"%> <%= link_to "收藏游戏", '#',:class => "adminbutton"%>
+    </p> 
+  </div>
+
+  <div class="newbox">
+    <span class="span_title2">玩过此游戏的用户</span>
+    <div class="clearfix" style="height:5px"></div>
+    <div class="contents">
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="newbox">
+    <span class="span_title2">使用过此游戏的活动</span>
+    <div class="clearfix" style="height:5px"></div>
+    <div class="contents">
+    </div>
+    <div class="clearfix" style="clear:both;height:10px"></div>
+  </div>
+<% end -%>
+
+<div class="newbox shareEntry">
+  <div style="width:100%;height:60px">
+    <%= link_to avatar_for(@game.user, "large"), user_url(@game.user) %>
+    <div style="float:left;padding-left:6px">
+      <%= link_to @game.user.login, user_url(@game.user) %> 最后编辑于 <%= @game.updated_at.to_date %> ...
+      <br/>
+      <small>标签：
+        <% @game.tags.each do |tag| %>
+          <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+        <% end %>
+      </small>
+    </div>
+  </div>
+        
+  <div id="entry">
+    <%= @game.content %>
+  </div>
+      
+  <div style="text-align:right">
+    <p id ="voting" style="margin:7px 0;">
+      <span>已有 5 人推荐这个游戏 </span>
+      <%= link_to '我要推荐', '#', :class => 'buttonlink' %>
+    </p>
+    <p>
+      <!-- JiaThis Button BEGIN -->
+      <a href="http://www.jiathis.com/share.html" class="jiathis"><img src="http://www.jiathis.com/code/images/jiathis2.gif" width="125" height="21" border="0" id="jiathis_a"/></a>
+      <script type="text/javascript" src="http://www.jiathis.com/code/jia.js" charset=utf-8></script>
+      <!-- JiaThis Button END -->
+    </p>
+  </div>
+</div>

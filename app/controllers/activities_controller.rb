@@ -15,8 +15,9 @@ class ActivitiesController < ApplicationController
   :cleanup_on_startup => true,  
   :convert_fonts_to_spans => true,
   :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,pastetext,pasteword,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,forecolor,backcolor,|,link,unlink,|,image,emotions,|,code"],
-  :theme_advanced_buttons2 => [],
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,forecolor,backcolor,|,link,unlink,|,image,emotions,|,code"],
+  :theme_advanced_buttons2 => ["tablecontrols"],
+  :theme_advanced_buttons3 => [],
   :language => :en,
   :plugins => %w{contextmenu paste table fullscreen} }, :only => [:new, :create, :edit, :update]
   
