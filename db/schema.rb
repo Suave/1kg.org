@@ -597,4 +597,15 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime  "created_at"
     t.datetime  "udpated_at"
   end
+  
+  create_table :games, :force => true do |t|
+    t.integer :user_id
+    t.string  :name
+    t.string  :level
+    t.string  :length
+    t.string  :size
+    t.text    :content
+    
+    t.timestamps
+  end
 end

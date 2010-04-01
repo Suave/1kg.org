@@ -94,6 +94,28 @@
   
 </div><!-- end #wrapper -->
 <%= render :partial => "/shared/footer" %>
+
+<script type="text/javascript">
+  var uservoiceOptions = {
+    key: '1kg',
+    host: '1kg.uservoice.com', 
+    forum: '48375',
+    alignment: 'right',
+    background_color:'#FF0000', 
+    text_color: 'white',
+    hover_color: '#0066CC',
+    lang: 'cn',
+    showTab: true
+  };
+  function _loadUserVoice() {
+    var s = document.createElement('script');
+    s.src = ("https:" == document.location.protocol ? "https://" : "http://") + "uservoice.com/javascripts/widgets/tab.js";
+    document.getElementsByTagName('head')[0].appendChild(s);
+  }
+  _loadSuper = window.onload;
+  window.onload = (typeof window.onload != 'function') ? _loadUserVoice : function() { _loadSuper(); _loadUserVoice(); };
+</script>
+
 </body>
 <% #保存GMap的JS %>
 <%= yield :tail %>
