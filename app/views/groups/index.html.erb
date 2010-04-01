@@ -10,7 +10,6 @@
 <% end -%>
 <% content_for :sidebar do -%>
 <%= render :partial => '/searches/search_box', :locals => {:kind => 'group'} %>
-<p style="margin:10px 15px;"><%= link_for_new_group %></p>
 
 <div class="newbox">
   <span class="span_title">我的小组</span>
@@ -25,6 +24,16 @@
   请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
 <%end%>
 </div>
+
+<% if logged_in? -%>
+    <div class="newbox">
+      <span class="span_title">你可能感兴趣的小组</span>
+      <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+        <%= render :partial => "groups", :object => @my_recommends %>
+      </div>
+    </div>
+<%end%>
 
 <div class="newbox">
       <span class="span_title">新成立的小组</span>
