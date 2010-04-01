@@ -17,7 +17,7 @@
       <% form_for :share, :url => share_url(@share), :html => {:method => :put} do |f| -%>
         <%= render :partial => "form", :object => f %>        
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "更 新" %></span>
-        <span class="btnWrap"><%= link_to "取 消", root_url %></span>带<span class="require">*</span>号的是必填项
+        <span><%= link_to "取 消", root_url %></span>　带<span class="require">*</span>号的是必填项
         </p>
       <% end -%>
 </div>
