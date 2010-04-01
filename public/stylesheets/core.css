@@ -1114,6 +1114,7 @@ h3.title {
 
 .ui-tabs-hide { display: none; }
 .ui-tabs-panel { width: 100%;}
+.ui-tabs-panel td{ padding:9px 6px}
 .subtitle {float:left; margin:17px; 0 0 1em;}
 
 .share_by_widget li {color:#999; float:left; margin:10px 15px 5px 0; list-style-type:none;}

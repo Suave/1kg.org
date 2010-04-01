@@ -258,7 +258,7 @@ class User < ActiveRecord::Base
   end
   
   def recent_joined_groups_topics
-    joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 15
+    joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 20
   end
   
   def voted?(obj)
