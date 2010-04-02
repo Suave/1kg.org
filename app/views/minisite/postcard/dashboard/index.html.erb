@@ -58,7 +58,7 @@
         <% end -%>
         
         <div style="text-align:right;" class="contents">
-          累计捐出 <%= Donation.count(:all, :conditions => "matched_at is not null") %> 册
+          累计捐出 <%= @total_donation_count %> 册
         </div>
       </div>
     </div>
