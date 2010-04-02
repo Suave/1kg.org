@@ -7,19 +7,25 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+  <% if logged_in? && current_user == @game.user %>
   <div id="admins">
     <p>
-      游戏不错？你可以:<br/>
-      <%= link_to "丰富内容", edit_game_path(@game),:class => "adminbutton"%> <%= link_to "收藏游戏", '#',:class => "adminbutton"%>
-    </p> 
+      你是游戏的创建者，你可以:<br/>
+      <%= link_to "管理版本", edit_game_path(@game),:class => "adminbutton"%> <%= link_to "删除游戏", '#',:class => "adminbutton"%>
+    </p>
   </div>
+  <% end %>
 
   <div class="newbox">
-    <span class="span_title2">玩过此游戏的用户</span>
+    <span class="span_title2">修订记录</span>
     <div class="clearfix" style="height:5px"></div>
     <div class="contents">
-      <div class="clearfix"></div>
+      <% @game.versions.reverse.each do |v| %>
+        <p><%= link_to v.user.login, v.user %> 修订于 <%= v.created_at.to_date %>:
+        <%= link_to v.comment, game_path(@game, :version => v.version) %></p>
+      <% end %>
     </div>
+    <div class="clearfix"></div>
   </div>
 
   <div class="newbox">
@@ -31,34 +37,39 @@
   </div>
 <% end -%>
 
-<div class="newbox shareEntry">
-  <div style="width:100%;height:60px">
-    <%= link_to avatar_for(@game.user, "large"), user_url(@game.user) %>
-    <div style="float:left;padding-left:6px">
-      <%= link_to @game.user.login, user_url(@game.user) %> 最后编辑于 <%= @game.updated_at.to_date %> ...
-      <br/>
-      <small>标签：
-        <% @game.tags.each do |tag| %>
-          <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
-        <% end %>
-      </small>
+<div class="newbox" id="activityInfo">
+  <div class="contents">
+    <div style="width:120px;float:right;text-align:right">
+      <%= link_to "我要补充", edit_game_path(@game),:class => "buttonjoin2"%> 
     </div>
-  </div>
         
-  <div id="entry">
-    <%= @game.content %>
-  </div>
-      
-  <div style="text-align:right">
-    <p id ="voting" style="margin:7px 0;">
-      <span>已有 5 人推荐这个游戏 </span>
-      <%= link_to '我要推荐', '#', :class => 'buttonlink' %>
-    </p>
-    <p>
+    <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
+      <%= link_to image_tag(@game.photo.url(:medium), :alt => '游戏主题图'), :class => "activity_main" %>
+    </div>   
+        
+    <div id="activitiesInfo">
+      <p>游戏人数: <%= @game.size %></p>
+      <p>游戏时间: <%= @game.length %></p>
+      <p>适合年龄: <%= @game.level %></p>
+      <p>游戏类型: <%= @game.category %></p>
+      <p>当前版本: <%= @game.version %></p>
+      <p>最后修订: <%= link_to @game.user.login, @game.user %> 于 <%= @game.updated_at.to_date %></p>      
+      <p>游戏标签: <% @game.tags.each do |tag| %>
+        <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
+      <% end %>
+      </p>        
+    </div>
+    
+    <div class="entry">
+      <span class="span_title">游戏介绍</span>
+      <%= @game.content %>
+
+      <p style="text-align:right">
       <!-- JiaThis Button BEGIN -->
       <a href="http://www.jiathis.com/share.html" class="jiathis"><img src="http://www.jiathis.com/code/images/jiathis2.gif" width="125" height="21" border="0" id="jiathis_a"/></a>
       <script type="text/javascript" src="http://www.jiathis.com/code/jia.js" charset=utf-8></script>
       <!-- JiaThis Button END -->
-    </p>
+      </p>
+    </div>
   </div>
 </div>
