@@ -7,6 +7,7 @@ class GamesController < ApplicationController
   
   def show
     @game = Game.find(params[:id])
+    @game.revert_to(params[:version]) if params[:version]
   end
   
   def new
