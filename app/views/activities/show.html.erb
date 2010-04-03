@@ -11,6 +11,7 @@
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
   <style type="text/css">.school_list_meta{width:160px;}</style>
+  <meta name="description" content="来自多背一公斤的活动： <%= summary(@activity ,40)%>">)
 <%end%>
 
 <% @page_title = @title = @activity.title -%>
@@ -106,6 +107,7 @@
 
           <span class="span_title">活动介绍</span>
           <div class="clearfix" style="margin-bottom:5px;"></div>
+
           <div id="entry">
             <div id="summary">
             <% summery = (@activity.description_html).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..418) %> 
@@ -118,6 +120,8 @@
               <a href="#" onclick="javascript:$('#detail').hide();$('#summary').show();return false">(显示摘要)</a>
             </div>
           </div>
+
+        <%= share_link(summary(@activity ,40))%>
 
         </div>
   </div>
