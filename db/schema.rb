@@ -600,12 +600,31 @@ ActiveRecord::Schema.define(:version => 0) do
   
   create_table :games, :force => true do |t|
     t.integer :user_id
+    t.string  :photo_file_name
+    t.string  :comment    
+    t.string  :category
     t.string  :name
     t.string  :level
     t.string  :length
     t.string  :size
     t.text    :content
+    t.integer :version
     
+    t.timestamps
+  end
+  
+  create_table :game_versions, :force => true do |t|
+    t.integer :game_id
+    t.integer :version
+    t.integer :user_id
+    t.string  :photo_file_name
+    t.string  :comment    
+    t.string  :category
+    t.string  :name
+    t.string  :level
+    t.string  :length
+    t.string  :size
+    t.text    :content
     t.timestamps
   end
 end
