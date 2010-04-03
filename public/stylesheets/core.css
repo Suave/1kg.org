@@ -1313,6 +1313,6 @@ a.progressCancel:hover {
 .goods_description{float:left;width:220px;height:82px}
 
 .right_span{float:right;}
-.share_link{text-align:right;color:#666;border-top:1px solid #ddd;padding:6px}
+.share_link{text-align:right;color:#666;border-top:1px solid #ddd;padding:5px;margin-top:8px}
 .share_link img{position:relative;top:3px;}
 .share_link a{margin-left:5px;}
