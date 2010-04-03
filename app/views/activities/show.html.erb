@@ -126,9 +126,9 @@
           <div class="clearfix" style="margin-bottom:5px;"></div>
           <div id="entry">
             <div id="summary">
-            <% summery = (@activity.description_html).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..418) %> 
-            <%= summery[418].nil? ? @activity.description_html  : (summery + "...") %>
-            <% unless summery[418].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#detail').show();return false">(显示全文)</a><% end%>
+            <% short = (@activity.description_html).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..418) %> 
+            <%= short[418].nil? ? @activity.description_html  : (short + "...") %>
+            <% unless short[418].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#detail').show();return false">(显示全文)</a><% end%>
             </div>
             
             <div id="detail" style="display:none">
