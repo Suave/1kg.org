@@ -62,10 +62,13 @@ FCKConfig.ToolbarSets["OneLine"] = [
 	['Undo','Redo'],
 	['Cut','Copy','Paste','PasteWord'],
 	['Bold','Italic','StrikeThrough'],
-	['JustifyLeft','JustifyCenter','JustifyRight'],
 	['OrderedList','UnorderedList'],
 	['TextColor','BGColor'],
 	['Link','Unlink'],
 	['Image','Smiley'],
+	['Source']
+] ;
+FCKConfig.ToolbarSets["Image"] = [
+	['Image'],
 	['Source']
 ] ;

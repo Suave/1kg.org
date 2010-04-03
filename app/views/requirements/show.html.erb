@@ -1,0 +1,39 @@
+<% content_for :heads do -%>
+  
+<% end -%>
+
+<% @page_title = "捐助者名单（#{@requirement.school.title}）" -%>
+
+<% content_for :crumb do -%>
+<li>积分献爱</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+
+
+<span class="remark" style="position:relative;left:680px;top:30px"><%= link_to "&raquo; 回到积分行动首页",donations_url%></span>
+
+<div class="newbox" style="width:640px;height:120px">
+  <div  style="float:left">
+    <span class="span_title">公益物资</span>
+    <div class="cleanfix"></div>
+    <%= render :partial => "/shared/goods", :object => @requirement.requirement_type %>
+  </div>
+  
+  <div class="newbox" style="float:left">
+    <span class="span_title">受助学校</span>
+    <div class="cleanfix" style="height:6px"></div>
+    <%= render :partial => "/shared/school", :object => @requirement.school %>
+  </div>
+</div>
+
+<div class="cleanfix" style="clear:both;height:3px"></div>
+<div class="newbox">
+  <span class="span_title">捐助者名单</span>
+  <div class="cleanfix" style="height:3px"></div>
+  <div class="donar_list">
+    <%=@requirement.notes_html%>
+  </div>
+</div>
+
+<% end %>

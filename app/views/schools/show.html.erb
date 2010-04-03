@@ -105,7 +105,7 @@
   <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
   </p>
   <%end%>
-</div>
+  </div>
 
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
@@ -175,8 +175,34 @@
     </div>
     <% end -%>  
 
-
-
+  <%if false%>
+    <div class="school_sidebar">
+      <h3 class="label_lei">正在进行的项目</h3>
+      <div class="sidebar_inter">
+        <ul>
+          <% @school.requirements.each do |r| %>
+            <li><%= link_to r.requirement_type.title, school_requirement_path(@school, r) %></li>
+          <% end %>
+        </ul>
+        <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
+      </div>
+    </div>
+    
+  <div class="school_sidebar">
+    <div class="sidebar_inter">
+      <div id="donations_info">  
+      <% if  @donation %>
+      <p>这所学校正在参加积分换图书行动！</p>
+      <p style="text-align:right"> <%= link_to '查看详情',"/donations"%> </p>
+      <%else%>
+      <p>为这所学校申请参加积分换图书行动！</p>
+      <p style="text-align:right">现在就 <%= link_to '提出申请',"http://www.1kg.org/activities/100945"%> </p>
+      <%end%>
+      </div>
+    </div>
+  </div>
+  <%end%>
+  
   <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
@@ -186,7 +212,9 @@
                     学校还没有学校大使
           <%end%>
           <% unless @moderators.include? current_user %>
-          <div id="moderators_info">
+          <a class="more" name='#moderators_info'>什么是学校大使？</a>
+          <div style="clear:both;height:5px"></div>
+          <div id="moderators_info" style="display:none">
             <!--<p style="color:#444">什么是学校大使？</p>-->
             <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
             <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
@@ -195,7 +223,7 @@
       </div>
       <div class="clearfix"></div>
   </div>
-
+  
   <div class="school_sidebar">
     <h3 class="label_lei">地理位置</h3>
     <%= render :partial => 'map_lei', :locals => {:school => @school} %>

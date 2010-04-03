@@ -1,0 +1,11 @@
+<p><label>产品名字</label><%= form.text_field :title, :size => 40, :class => "text" %></p>
+<p><label>图片</label><%= form.file_field :image %></p>
+<p><label>申请截至时间</label><%= form.text_field :apply_end_at, {:class => "vDateField"} %></p>
+<p><label>项目开始时间</label><%= form.text_field :start_at, {:class => "vDateField"} %></p>
+<p><label>项目结束时间</label><%= form.text_field :end_at, {:class => "vDateField"} %> （可选）</p>
+<p><label>项目介绍</label><br /><%= fckeditor_textarea("project", "description_html", :toolbarSet => 'OneLine', :width => 500,:height =>300) %>
+<p><label>商家链接</label><br /><%= fckeditor_textarea("project", "vendor_link", :toolbarSet => 'Image', :width => 500,:height =>200) %>
+<p><label>反馈要求</label><br />
+  <%= form.text_area :feedback_require, :size => "76x6" %>
+</p>
+<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>

@@ -18,8 +18,8 @@ class Neighborhood < ActiveRecord::Base
   def send_message_notification
     title = "#{self.user.login}刚刚加你为好友了"
     content = "<p>#{self.neighbor.login}</p>" + 
-              "<p>#{self.user.login}刚刚加你为好友，去他/她的主页( http://www.1kg.org/users/#{self.user.id} )看看吧</p>" +
-              "<p>多背一公斤团队</p>"
+              "<p>#{self.user.login}刚刚加你为好友，去他/她的主页( http://www.1kg.org/users/#{self.user.id} )看看吧,</p>" +
+              "<br/><p>多背一公斤团队</p>"
     #Message.create_system_notification([self.neighbor_id], title, content)    
     msg = Message.new
     msg.author_id = 0

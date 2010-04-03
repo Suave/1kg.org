@@ -1,0 +1,67 @@
+<% @page_title = "所有#{@type.title}需求" -%>
+
+<% content_for :sidebar do -%>
+  <% unless @type.validated? %>
+    <p>&raquo; <%= link_to "通过验证", validate_admin_requirement_type_url(@type), :method => :put %></p>
+  <% else -%>
+    <p>&raquo; <%= link_to "取消验证", cancel_admin_requirement_type_url(@type), :method => :put %></p>
+  <% end -%>
+  <p>&raquo; <%= link_to "返回项目列表", admin_requirement_types_url %></p>
+  <p>&raquo; <%= link_to "返回管理首页", admin_url %></p>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= h @type.title %></h2>
+      <div class="contents">
+        <p><%= image_tag(@type.image.url(:thumb)) %></p>
+        <p>开始时间:<%= @type.start_at %><br />
+          结束时间:<%= @type.end_at %><br />
+          申请结束时间：<%= @type.apply_end_at %></p>
+        <p>项目介绍：<%= @type.description_html %></p>
+        <p>商家链接：<%= @type.vendor_link %></p>
+        <p>反馈要求：<br /><%= @type.feedback_require.gsub("\n", '<br />') %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h2><%= h @type.title %> 的申请</h2>
+      <div class="contents">
+        <table>
+          <tr>
+            <th>学校(活跃度)</th>
+            <th>申请人</th>
+            <th>状态</th>
+            <th>Actions</th>
+          </tr>
+          <% @requirements.each do |b| -%>
+          <tr>
+            <td>
+              <%= link_to b.school.title, school_url(b.school), :target => "_blank" %>
+              <%= "<br />#{b.for_team_tip}" if b.for_team? %>
+            </td>
+            <td><%= h b.applicator.login if b.applicator %></td>
+            <td>
+              <%= b.validated.nil? ? "未处理" : (b.validated? ? "通过" : "未通过") %></td>
+            <td>
+              <%= link_to "详情", admin_requirement_type_requirement_url(@type, b) %> |
+              <%= link_to "修改", edit_admin_requirement_type_requirement_url(@type, b) %> |
+              <%= link_to "删除", admin_requirement_type_requirement_url(@type, b), :method => :delete, :confirm => "相关的捐赠会一同删掉, 且不能恢复, 确定删除?" %> |
+              <% if b.validated.nil? || !b.validated %>
+                <%= link_to "批准申请", approve_admin_requirement_type_requirement_url(@type, b), :method => 'put'  %>
+              <% else %>
+                <%= link_to "取消申请", reject_admin_requirement_type_requirement_url(@type, b), :method => 'put'  %>
+              <% end %>
+            </td>
+          </tr>
+          <% end -%>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

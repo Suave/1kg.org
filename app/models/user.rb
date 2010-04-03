@@ -17,10 +17,10 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  topics_count              :integer(4)
-#  posts_count               :integer(4)
 #  guides_count              :integer(4)
+#  topics_count              :integer(4)
 #  shares_count              :integer(4)
+#  posts_count               :integer(4)
 #  ip                        :string(255)
 #
 
@@ -105,6 +105,7 @@ class User < ActiveRecord::Base
                            :order => "memberships.created_at desc"
   
   has_many :stuffs, :dependent => :destroy
+  has_many :donations, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   

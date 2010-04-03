@@ -1,0 +1,33 @@
+<% @page_title = "商品图片管理 - 商城管理" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3><%= h @good.title %> 图片</h3>
+      <span class="postNew">++ <%= link_to "上传图片", new_admin_good_photo_url %></span>
+      <div class="contents">
+        <p><%= link_to "&raquo; 返回商品列表", admin_goods_url %></p>
+        <p>商品图片不能超过5张，尺寸为 300x300 像素</p>
+        <table border="0" cellspacing="5" cellpadding="5">
+          <tr>
+            <th>序号</th>
+            <th>图片</th>
+            <th>操作</th>
+          </tr>
+          <% @photos.each_with_index do |p, i| %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= image_tag p.public_filename %></td>
+            <td><%= link_to "删除", admin_good_photo_url(@good, p), :method => :delete, :confirm => "确定删除么？此操作不能恢复"%></td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

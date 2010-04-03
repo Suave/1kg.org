@@ -124,13 +124,11 @@
           <div class="clearfix" style="margin-bottom:20px;"></div>
           <span class="span_title">活动介绍</span>
           <div class="clearfix" style="margin-bottom:5px;"></div>
-          <%= @activity.description_html %>
-         <p style="text-align:right">
-        <!-- JiaThis Button BEGIN -->
-        <a href="http://www.jiathis.com/share.html" class="jiathis"><img src="http://www.jiathis.com/code/images/jiathis2.gif" width="125" height="21" border="0" id="jiathis_a"/></a>
-        <script type="text/javascript" src="http://www.jiathis.com/code/jia.js" charset=utf-8></script>
-        <!-- JiaThis Button END -->
-        </p>
+
+          <div id="entry">
+            <%= @activity.description_html %>
+          </div>
+
         </div>
   </div>
 

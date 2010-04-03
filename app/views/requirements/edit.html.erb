@@ -1,0 +1,5 @@
+<h1>更新项目执行报告</h1>
+<% form_for [@school, @requirement] do |form| %>
+  <p><label>执行报告</label><br /><%= fckeditor_textarea("requirement", "feedback", :toolbarSet => 'OneLine', :width => 600, :height => 500) %>
+  <p><label></label><%= submit_tag "更新报告" %></p>
+<% end %>

@@ -57,17 +57,18 @@
         </div>
       </div>
         
-      
-      <div style="text-align:right">
+      <div>
+        <div id="entry">
         <%= @share.html %>
-        <p style="margin:7px 0;padding-right:5px">
+        </div>
+        <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>
         <p id ="voting" style="margin:7px 0;">
         <span>已有 <%= @share.votes.count -%> 人推荐这篇分享 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@share) -%>
-                        您已推荐了
+            您已推荐了
           <% else -%>
             <%= link_to '我要推荐', vote_share_path(@share), :method => 'post', :class => 'buttonlink' %>
           <% end -%>

@@ -2,7 +2,7 @@
   <dt><%= link_to image_tag(image_path(gallery_photo.public_filename(:thumb)), :alt => gallery_photo.title), gallery_photo.public_filename(:medium), 
         :rel => "prettyPhoto[gallery]", :description => photo_meta(gallery_photo, current_user), :title => gallery_photo.title %></dt>
   <dd>
-    <span id="photo_title_<%= gallery_photo.id %>"><%= gallery_photo.title %></span>
+    <span id="photo_title_<%= gallery_photo.id %>"><%= short_title(gallery_photo,16) %></span>
     <% if logged_in? && gallery_photo.editable_by?(current_user) %>
       <%= text_field_tag :title, gallery_photo.title, 
           :onkeydown => "return photo_edit_key_down(event, '#{gallery_photo.id}');",
