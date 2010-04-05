@@ -28,6 +28,7 @@ module BodyFormat
             'tr' => ['width', 'height'],
             'table' => ['border'],
             'param' => ['name', 'value'],
+            'object' => ['data','type', 'width', 'height'],
             'embed' => ['src', 'type', 'allowscriptaccess', 'allowfullscreen', 'wmode', 'width', 'height']})
     rescue
       html
