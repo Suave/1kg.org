@@ -1,13 +1,8 @@
 <% content_for :heads do -%>
-  <%= javascript_include_tag 'jquery.prettyPhoto' %>
-  <%= stylesheet_link_tag 'prettyPhoto' %>
-  
-  <script type="text/javascript" charset="utf-8">
-  jQuery(document).ready(function(){
-    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-  });
-  </script>
-<% end %>
+  <style type="text/css">.school_list_meta{width:160px;}</style>
+  <meta name="description" content="来自多背一公斤的话题： <%= summary(@topic ,60)%>...">
+<%end%>
+
 
 <% @page_title = h(@topic.title) -%>
 
@@ -82,12 +77,8 @@
               本帖由 <%= @topic.last_modified_user.login %> 最后修改于 <%= @topic.last_modified_at.to_date %>
             <% end -%>
           </p>
-         <p style="text-align:right;">
-        <!-- JiaThis Button BEGIN -->
-        <a href="http://www.jiathis.com/share.html" class="jiathis"><img src="http://www.jiathis.com/code/images/jiathis2.gif" width="125" height="21" border="0" id="jiathis_a"/></a>
-        <script type="text/javascript" src="http://www.jiathis.com/code/jia.js" charset=utf-8></script>
-        <!-- JiaThis Button END -->
-        </p>
+       
+        <%= share_link(summary(@topic ,60))%>
         </div>
   </div>
 
