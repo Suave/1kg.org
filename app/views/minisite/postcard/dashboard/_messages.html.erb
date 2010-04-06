@@ -2,6 +2,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3></h3>
+      <p>用户配对<%= donations.total_entries %>张，系统自动配对<%= @auto_donation_count %>张</p>
       <ol class="clearfix">
         <% donations.each do |s| -%>
         <li>
