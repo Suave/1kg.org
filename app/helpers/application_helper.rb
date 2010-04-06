@@ -233,7 +233,7 @@ module ApplicationHelper
   end
   
   def plain_text(text,replacement="")
-    text.gsub!(/<[^>]*>/, '')
+    text = text.gsub(/<[^>]*>/, '')
     text.gsub!("&nbsp;","");
     text.gsub!("\r\n","");
     text
