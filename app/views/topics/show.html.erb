@@ -1,3 +1,9 @@
+<% content_for :heads do -%>
+  <style type="text/css">.school_list_meta{width:160px;}</style>
+  <meta name="description" content="来自多背一公斤的话题： <%= summary(@topic ,60)%>...">
+<%end%>
+
+
 <% @page_title = h(@topic.title) -%>
 
 <% content_for :crumb do -%>
@@ -73,6 +79,8 @@
               本帖由 <%= @topic.last_modified_user.login %> 最后修改于 <%= @topic.last_modified_at.to_date %>
             <% end -%>
           </p>
+       
+        <%= share_link(summary(@topic ,60))%>
         </div>
   </div>
 
