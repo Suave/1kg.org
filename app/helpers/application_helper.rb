@@ -254,6 +254,8 @@ module ApplicationHelper
       html += " <a target='_blank' href='http://www.douban.com/recommend/?url=#{request.url}&title=#{title}'><img src='/images/icon/douban.gif' alt='分享到豆瓣'/> 豆瓣</a>"
       html += " <a target='_blank' href='http://share.renren.com/share/buttonshare.do?link=#{request.url}&title=#{title}'><img src='/images/icon/renren.gif' alt='分享到人人'/> 人人</a>"
       html += " <a target='_blank' href='http://www.kaixin001.com/repaste/share.php?rurl=#{request.url}&rtitle=#{title}&rcontent=#{text}...'  ><img src='/images/icon/kaixin001.gif' alt='分享到开心'/> 开心</a>"
+      html += " <a href='http://v.t.sina.com.cn/share/share.php?url=#{request.url}&title=#{title}' target='_blank'><img src='/images/icon/sina.gif' alt='分享到新浪微博'/> 新浪微博</a>"
+
       html += "</div>"
   end
   def short_title(something,long=22)
