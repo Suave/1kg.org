@@ -18,6 +18,7 @@
 <% @page_title = @title = @activity.title -%>
 
 <% content_for :crumb do -%>
+<p style="display:none">来自多背一公斤的活动： <%= summary(@activity ,60)%>...</p>
   <li>活动
     <ul>
       <li><%= @activity.title %></li>

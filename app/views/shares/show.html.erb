@@ -7,6 +7,12 @@
   <meta name="description" content="来自多背一公斤的分享： <%= summary(@share ,60)%>...">
 <% end %>
 
+
+<% content_for :crumb do -%>
+  <li><%= link_to '分享',shares_url %></li>
+  <p style="display:none">来自多背一公斤的话题： <%= summary(@share ,60)-%>...</p>
+<% end -%>
+  
 <% content_for :sidebar do -%>
   <% if @share.moderated_by?(current_user) -%>
   <div id="admins">
