@@ -12,6 +12,7 @@
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
   <style type="text/css">.school_list_meta{width:160px;}</style>
+  <meta name="description" content="来自多背一公斤的活动： <%= summary(@activity ,60)%>...">
 <%end%>
 
 <% @page_title = @title = @activity.title -%>
@@ -124,9 +125,13 @@
           <div class="clearfix" style="margin-bottom:20px;"></div>
           <span class="span_title">活动介绍</span>
           <div class="clearfix" style="margin-bottom:5px;"></div>
+
           <div id="entry">
             <%= @activity.description_html %>
           </div>
+
+          
+        <%= share_link(summary(@activity ,60))%>
         </div>
   </div>
 

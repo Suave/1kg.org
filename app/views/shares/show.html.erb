@@ -4,6 +4,7 @@
   <style type="text/css">
   .school_list_meta{width:160px;}
   </style>
+  <meta name="description" content="来自多背一公斤的分享： <%= summary(@share ,60)%>...">
 <% end %>
 
 <% content_for :sidebar do -%>
@@ -64,7 +65,7 @@
         <p style="text-align:right;margin:7px 0;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>
-        <p id ="voting" style="text-align:right;margin:7px 0;">
+        <p id ="voting" style="margin:7px 0;">
         <span>已有 <%= @share.votes.count -%> 人推荐这篇分享 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@share) -%>
@@ -76,6 +77,9 @@
             <%= link_to "我要推荐", new_session_path(:to => share_path(@share)) ,:class => "buttonlink" -%>
         <% end -%>
         </p>
+        
+        
+        <%= share_link(summary(@share ,60))%>
       </div>
 </div>
 
