@@ -19,7 +19,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
     @photos = Photo.find(:all, :conditions => ["school_id in (?)", school_ids], :limit => 10, :order => "created_at desc")
     
     @donation = postcard.donations.find(:first, :conditions => ["matched_at is not null and user_id is not null"], :order => "matched_at desc")
-    @total_donation_count = postcard.donations.count(:all, :conditions => ["matched_at is not null"])
+    @total_donation_count = postcard.donations.count(:all, :conditions => ["matched_at is not null and school_id is not null"])
     session[:random_donation] = @donation.id
   end
   
@@ -125,10 +125,12 @@ class Minisite::Postcard::DashboardController < ApplicationController
   
   def donors
     @school = School.find(params[:id])
-    @donations = Donation.paginate :page => params[:page] || 1,
+    postcard = RequirementType.find_by_slug("postcard")
+    @donations = postcard.donations.paginate :page => params[:page] || 1,
                              :conditions => ["school_id = ? and user_id is not null", params[:id]],
                              :order => "matched_at desc",
                              :per_page => 30
+    @auto_donation_count = postcard.donations.count(:all, :conditions => ["school_id = ? and user_id is null", params[:id]])
   end
   
   
