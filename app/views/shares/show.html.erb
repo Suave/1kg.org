@@ -62,7 +62,8 @@
         <div id="entry">
         <%= @share.html %>
         </div>
-        <p style="text-align:right;margin:7px 0;padding-right:5px">
+        <div style="text-align:right">
+        <p style="margin:23px 0 7px;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>
         <p id ="voting" style="margin:7px 0;">
@@ -77,9 +78,9 @@
             <%= link_to "我要推荐", new_session_path(:to => share_path(@share)) ,:class => "buttonlink" -%>
         <% end -%>
         </p>
+        </div>
         
-        
-        <%= share_link(summary(@share ,60))%>
+        <%= share_link(summary(@share ,60),(@page_title.to_s + " - 多背一公斤"))%>
       </div>
 </div>
 
