@@ -9,4 +9,5 @@
 <%= render :partial => 'shares' if @search.kind == 'share' %>
 <%= render :partial => 'groups' if @search.kind == 'group' %>
 <%= render :partial => 'topics' if @search.kind == 'topic' %>
+<%= render :partial => 'users' if @search.kind == 'user' %>
 <%= render :partial => 'all' if @search.kind == 'all' %>
