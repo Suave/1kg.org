@@ -30,6 +30,7 @@
         <%= radio_button_tag :kind, 'share', @search.kind == 'share', :onclick => 'switch_search_to("share");' %>分享
         <%= radio_button_tag :kind, 'group', @search.kind == 'group', :onclick => 'switch_search_to("group");' %>小组
         <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onclick => 'switch_search_to("topic");' %>话题
+        <%= radio_button_tag :kind, 'user', @search.kind == 'user', :onclick => 'switch_search_to("user");' %>用户
       </div>
       
       <p id="advance_common" class="advances" style="<%= 'display:none;' unless @search.need_common? %>">
