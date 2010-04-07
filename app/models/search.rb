@@ -98,6 +98,11 @@ class Search < ActiveRecord::Base
                         :order => 'updated_at DESC')
   end
   
+  def users(page, per_page = 20)
+    User.search(self.q,:page => page,
+                        :per_page => per_page)
+  end
+  
   def records(page, per_page = 20)
     ThinkingSphinx.search(self.q, :page => page, :per_page => per_page)
   end
