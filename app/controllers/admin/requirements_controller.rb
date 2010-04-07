@@ -31,7 +31,7 @@ class Admin::RequirementsController < Admin::BaseController
   def approve
     @requirement = Requirement.find(params[:id])
     @requirement.update_attribute(:validated, true)
-    
+    @requirement.update_attribute(:status, 1)
     redirect_to admin_requirement_type_requirements_url(@requirement.requirement_type)
   end
   

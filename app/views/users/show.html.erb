@@ -17,7 +17,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <% if logged_in? and current_user.admin? -%>
+  <% if false and logged_in? and current_user.admin? -%>
   测试功能：<%= link_to "创建新公益项目", new_requirement_type_url %> | <%= link_to "所有项目", requirement_types_url %>
   <% end -%>
   

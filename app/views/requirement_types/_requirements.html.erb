@@ -1,18 +1,18 @@
 <table>
   <tr>
-    <th>学校名称</th>
-    <th>活跃度</th>
-    <th>申请数量</th>
-    <th>学校大使</th>
+    <th style="width:45%;">学校名称</th>
+    <th style="width:15%;text-align:center">申请数量</th>
+    <th style="width:15%;text-align:center">申请人</th>
+    <th style="width:25%;text-align:center"> 项目状态</th>
   </tr>
   <% requirements.each do |r| -%>
   <tr>
     <td>
       <%= link_to r.school.title, school_path(r.school) %>
     </td>
-    <td><%= karma_star(r.school.karma)-%></td>
-    <td><%= h r.quantity %></td>
-    <td><%= link_to r.school.user.login, user_url(r.school.user) unless r.school.user.nil? %></td>
+    <td style="text-align:center"><%= h r.quantity %></td>
+    <td style="text-align:center"><%= link_to r.applicator.login, user_url(r.applicator) %></td>
+    <td style="text-align:center"><%= ['已完成','进行中','申请中'][r.status.to_i]%>|<%= link_to '查看详情',school_requirement_path(r.school,r)%></td>
   </tr>
   <% end -%>
 </table>

@@ -1,0 +1,10 @@
+<div class="project">
+    <div class="project_image_frame">
+        <img class="project_image" src="<%= project.image.url(:thumb) %>"/>
+    </div>
+    <div class="project_meta">
+        <h5><%= link_to project.title,requirement_type_url(project)%></h5>
+        <%= project.description_html%>
+    </div>
+    <div style="clear:both"></div>
+</div>

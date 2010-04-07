@@ -1,2 +1,6 @@
-<p><label>是否为积分兑换项目</label><%= ext_form.check_box :exchangable %></p>
+<p><label>是否为积分兑换项目</label><%= ext_form.check_box :exchangable%></p>
+<p id="vendor" style="display:none"><label>商家链接</label><br /><%= fckeditor_textarea("project", "vendor_link", :toolbarSet => 'Image', :width => 500,:height =>200) %>
 <p><label>slug</label><%= ext_form.text_field :slug %></p>
+<script type="text/javascript">
+$("#project_exchangable").delayedObserver(0.25, function(element, value) { $("#vendor").toggle() });
+</script>

@@ -9,7 +9,7 @@
       <div class="contents">
         <p><label class="class">申请截至时间：</label><%= @project.apply_end_at.to_date %></p>
         <p><label class="class">开始时间：</label><%= @project.start_at.to_date %></p>
-        <p><label class="class">结束时间：</label><%= @project.end_at.to_date %></p>
+        <p><label class="class">结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
         <%= @project.description_html %>
       </div>
     </div>

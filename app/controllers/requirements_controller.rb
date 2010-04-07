@@ -10,6 +10,7 @@ class RequirementsController < ApplicationController
     @project = RequirementType.find params[:requirement_type_id]
     @apply = @project.requirements.build(params[:apply])
     @school = School.find params[:apply][:school_id]
+    @apply.status = 2
     @apply.save!
     flash[:notice] = "申请已提交，等待管理员审核"
     redirect_to requirement_type_url(@project)

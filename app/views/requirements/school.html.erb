@@ -2,7 +2,8 @@
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
-  <span class="remark"><%= link_to "&raquo; 回到积分行动首页",donations_url%></span>
+  <span class="remark"><%= link_to "&raquo; 回到#{@school.title}",school_url(@school)%></span><br/>
+  <span class="remark"><%= link_to "&raquo; 回到#{@school.title}",school_url(@school)%></span>
 <% end %>
 
 <h1><%= @page_title %></h1>

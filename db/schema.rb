@@ -448,6 +448,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.string   "image_file_name"
     # 是否可用积分兑换
+    t.boolean  "must",             :default => false
     t.boolean  "exchangable",             :default => false
     t.datetime  "validated_at"
     t.integer   "validated_by_id"
