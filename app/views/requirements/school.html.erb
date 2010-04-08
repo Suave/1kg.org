@@ -1,20 +1,20 @@
-<% @page_title = "#{@school.title} #{@requirement.requirement_type.title} 项目" -%>
+<% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
 
 <% content_for :sidebar do -%>
-  <div class="cleanfix" style="clear:both;height:20px"></div> 
-  <span class="remark"><%= link_to "&raquo; 回到#{@school.title}",school_url(@school)%></span><br/>
-  <span class="remark"><%= link_to "&raquo; 回到#{@school.title}",school_url(@school)%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  <span class="span_title2">受益学校</span>
+  <%= render :partial => "/shared/school", :object => @requirement.school %>
+  <br/>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title2">项目来源</span>
+  <%= render :partial => "/shared/project", :object => @requirement.requirement_type %>
+  
 <% end %>
 
-<h1><%= @page_title %></h1>
+<h1><%= @requirement.requirement_type.title %></h1>
+<h6 style="color:#666"><%= @requirement.school.title %></h6>
 
-<div class="newbox">
-  <div  style="float:left">
-    <span class="span_title">项目介绍</span>
-    <div class="cleanfix"></div>
-    <%= @requirement.requirement_type.description_html %>
-  </div>
-</div>
+<div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="cleanfix" style="clear:both;height:3px"></div>
 
@@ -30,7 +30,7 @@
   <%= @requirement.apply_plan %>
 </div>
 
-<div class="cleanfix" style="clear:both;height:3px"></div>
+<div class="cleanfix" style="clear:both;height:5px"></div>
 
 <div class="newbox">
   <span class="span_title">执行报告</span>

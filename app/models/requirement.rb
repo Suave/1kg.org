@@ -25,9 +25,15 @@ class Requirement < ActiveRecord::Base
   belongs_to :applicator, :class_name => "User", :foreign_key => "applicator_id"
   has_many :donations, :foreign_key => "buck_id", :dependent => :destroy
   
-  validates_presence_of :type_id, :school_id
-  validates_numericality_of :quantity
-  validates_acceptance_of :agree_feedback_terms
+  validates_presence_of :type_id, :school_id,:message => "必须选择一所学校"
+  validates_presence_of :apply_reason,:message => "必须填写申请理由"
+  validates_presence_of :apply_plan,:message => "必须填写实施计划"
+  validates_presence_of :applicator_telephone,:message => "请留下您的电话或手机号码"
+  validates_numericality_of :quantity,:message => "必须填写申请数量"
+  validates_acceptance_of :agree_feedback_terms,:message => "只有承诺反馈要求，才能申请项目"
+  
+  
+  
   
   named_scope :confirmed, :conditions => ["validated = ?", true]
   named_scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]

@@ -1,31 +1,8 @@
 <% @page_title = @title = "公益项目" %>
 
-<% content_for :sidebar do -%>
-  <p>&raquo; <%= link_to "创建公益项目", new_requirement_type_url %></p>
-<% end -%>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>已发布的公益项目</h3>
-      <div class="contents">
-        <% @validated_projects.each do |p| -%>
-          <p><%= link_to p.title, requirement_type_url(p, :school_id => params[:school_id]) %></p>
-        <% end -%>
+<div class="newbox">
+      <span class="span_title">可参与的公益项目</span>
+      <div style="clear:both;height:20px">
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>未验证的项目</h3>
-      <div class="contents">
-        <% @pending_projects.each do |p| %>
-          <p><%= link_to p.title, requirement_type_url(p) %></p>
-        <% end -%>
-      </div>
-    </div>
-  </div>
+        <%= render :partial =>"/shared/project" ,:collection => @validated_projects%>
 </div>
