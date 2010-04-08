@@ -1,13 +1,13 @@
 <% content_for :heads do -%>
   <style type="text/css">.school_list_meta{width:160px;}</style>
-  <meta name="description" content="来自多背一公斤的话题： <%= summary(@topic ,60)%>...">
+  <meta name="description" content="来自多背一公斤的话题： <%= summary(@topic ,60)-%>...">
 <%end%>
 
 
 <% @page_title = h(@topic.title) -%>
 
 <% content_for :crumb do -%>
-
+  <p style="display:none">来自多背一公斤的话题： <%= summary(@topic ,60)-%>...</p>
   <% if @topic.board.talkable.class == CityBoard -%>
     <li><%= link_to "#{@topic.board.talkable.geo.name}同城", board_url(@topic.board) %></li>
   <% elsif @topic.board.talkable.class == PublicBoard -%>
@@ -78,7 +78,7 @@
             <% end -%>
           </p>
        
-        <%= share_link(summary(@topic ,60))%>
+        <%= share_link(summary(@topic ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
   </div>
 

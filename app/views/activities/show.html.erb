@@ -17,6 +17,7 @@
 <% @page_title = @title = @activity.title -%>
 
 <% content_for :crumb do -%>
+<p style="display:none">来自多背一公斤的活动： <%= summary(@activity ,60)%>...</p>
   <li>活动
     <ul>
       <li><%= @activity.title %></li>
@@ -120,9 +121,7 @@
               <a href="#" onclick="javascript:$('#detail').hide();$('#summary').show();return false">(显示摘要)</a>
             </div>
           </div>
-          
-        <%= share_link(summary(@activity ,60))%>
-
+          <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
   </div>
   

@@ -15,6 +15,7 @@ class SchoolsController < ApplicationController
       :include => [:user, :board],
       :order => "last_replied_at desc",
       :limit => 6)
+        @projects =  RequirementType.validated[0..3]                                   
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]

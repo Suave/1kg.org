@@ -17,11 +17,11 @@
       <div class="contents">
         <p><%= image_tag(@type.image.url(:thumb)) %></p>
         <p>开始时间:<%= @type.start_at %><br />
-          结束时间:<%= @type.end_at %><br />
-          申请结束时间：<%= @type.apply_end_at %></p>
+           结束时间:<%= @type.end_at %><br />
+           申请结束时间：<%= @type.apply_end_at %>
+        </p>
         <p>项目介绍：<%= @type.description_html %></p>
-        <p>商家链接：<%= @type.vendor_link %></p>
-        <p>反馈要求：<br /><%= @type.feedback_require.gsub("\n", '<br />') %></p>
+        <p>反馈要求：<br /><%= @type.feedback_require.gsub("\n", '<br />') unless @type.feedback_require.nil?%></p>
       </div>
     </div>
   </div>

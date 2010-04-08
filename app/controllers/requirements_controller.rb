@@ -1,6 +1,7 @@
 class RequirementsController < ApplicationController
   def new
-    @school = School.find params[:school_id]
+    @schools = current_user.envoy_schools
+    @school = School.find(:first,:conditions => {:id =>params[:school_id]}).nil? ? nil : School.find(params[:school_id])
     @project = RequirementType.find params[:requirement_type_id]
     
     @apply = Requirement.new
@@ -9,11 +10,14 @@ class RequirementsController < ApplicationController
   def create
     @project = RequirementType.find params[:requirement_type_id]
     @apply = @project.requirements.build(params[:apply])
-    @school = School.find params[:apply][:school_id]
+    @schools = current_user.envoy_schools
+    #@school = School.find params[:apply][:school_id]
+    @apply.status = 2
     @apply.save!
     flash[:notice] = "申请已提交，等待管理员审核"
     redirect_to requirement_type_url(@project)
   end
+  
   
   def show
     @requirement = Requirement.find(params[:id])

@@ -1,4 +1,4 @@
-<% @page_title = @title = @project.title %>
+<% @page_title = @project.title %>
 
 <% content_for :sidebar do -%>
 <div class="box">
@@ -12,71 +12,53 @@
   </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
+      
+  <% unless @other.nil?%>
+  <div class="newbox">
       <h3>其他项目</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <% @others.each do |p| -%>
-          <p><%= link_to h(p.title), requirement_type_url(p) %></p>
-        <% end -%>
-      </div>
-      <span class="remark">&raquo; <%= link_to "所有项目", requirement_types_url %></span>
-    </div>
+      
+        <%= render :partial => "/shared/project", :collection => @others %>
+      
+        <span class="remark">&raquo; <%= link_to "所有项目", requirement_types_url %></span>
   </div>
-</div>
+  <%end%>
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>项目介绍</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <%= @project.description_html %>
-        
-        <p style="font:14px bold;">
-          <% if @project.validated? %> 
-            <% if params[:school_id].nil? %>
-              <%= link_to "如何申请？", "#" %>
-            <% else -%>
-              <%= link_to "申请项目", new_requirement_type_requirement_url(@project, :school_id => params[:school_id]) %>
-            <% end -%>
-          <% else -%>
-            "未通过审核，不能申请"
-          <% end -%>
-        </p>
+<div class="newbox">
+      <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
+            <%= link_to image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:160px;width:160px;")%>
       </div>
-    </div>
-  </div>
+      <div style="float:right;margin:4px 0 0"><%= link_to "立即申请",new_requirement_type_requirement_url(@project, :school_id => params[:school_id]),:class => "buttonjoin2"%></div>
+      <div id="activitiesInfo">
+        <span class="span_title"><%= @project.title %></span>
+        <p><label>申请截至时间：</label><%= @project.apply_end_at.to_date %></p>
+        <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
+        <p><label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
+        <p><%=  "只有学校大使才可以申请" if @project.must%></p>
+      </div>
+</div>
+<div class="cleanfix" style="height:10px;clear:both"></div>
+<div class="newbox">
+      <span class="span_title">项目介绍</span>
+      <%= @project.description_html %>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>申请成功的学校</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <%= render :partial => "requirements", :object => @project.requirements.confirmed %>
-        <div style="clear:both;"></div>
-      </div>
+
+
+
+<div class="cleanfix" style="height:3px;clear:both"></div>
+<div class="newbox">
+    <h3>参与的学校</h3>
+    
+    <p class="postNew"></p>
+    <div class="contents">
+      <%= render :partial => "requirements", :object => @project.requirements %>
+      <div style="clear:both;"></div>
     </div>
-  </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>提交申请的学校</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <%= render :partial => "requirements", :object => @project.requirements.unconfirmed %>
-        <div style="clear:both;"></div>
-      </div>
-    </div>
-  </div>
-</div>
 
+<% if false%>
 <%= render :partial => "/comments/comments", :object => @comments %>
 <%= render :partial => "/comments/form", :locals => {:commentable => @project} %>
+<% end%>
