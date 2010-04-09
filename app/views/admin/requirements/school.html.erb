@@ -1,0 +1,49 @@
+<% @page_title = "#{@type.title} 的 #{@requirement.school.title} Buck" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <h4>> <%= link_to "返回项目首页", admin_requirement_type_requirements_url(@requirement.requirement_type) %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+<div class="newbox">
+  <h1><%= @requirement.requirement_type.title %></h1>
+
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  <p>项目申请人：<%= link_to @requirement.applicator.login ,user_url(@requirement.applicator)%></p>
+  <p>目标学校：<%= link_to @requirement.school.title,school_url(@requirement.school) %></p>
+  <p>项目状态：
+    <%= ['已完成','通过','申请中'][@requirement.status.to_i] %>
+    <% if @requirement.validated.nil? || !@requirement.validated %>
+      <%= link_to "批准申请", approve_admin_requirement_type_requirement_url(@requirement.requirement_type, @requirement), :method => 'put'  %>
+    <% else %>
+      <%= link_to "取消批准", reject_admin_requirement_type_requirement_url(@requirement.requirement_type, @requirement), :method => 'put'  %>
+    <% end %>
+  </p>
+  <%unless @requirement.status == 2 %>
+  <p>项目开始日期： <%=  @requirement.requirement_type.start_at.to_date %></p>
+  <p>项目结束日期： <%=  @requirement.requirement_type.end_at.nil? ? '未要求' : @requirement.requirement_type.end_at.to_date %></p>
+  <% end%>
+  <div class="cleanfix" style="clear:both;height:3px"></div>
+</div>
+
+<div class="newbox">
+  <span class="span_title">申请原因</span>
+  <div class="cleanfix" style="height:3px"></div>
+  <%= @requirement.apply_reason %>
+</div>
+
+<div class="newbox">
+  <span class="span_title">执行计划</span>
+  <div class="cleanfix" style="height:3px"></div>
+  <%= @requirement.apply_plan %>
+</div>
+
+<div class="cleanfix" style="clear:both;height:5px"></div>
+
+
+<div class="newbox">
+  <span class="span_title">执行报告</span>
+  <div class="cleanfix" style="height:3px"></div>
+  <%= @requirement.feedback %>
+  <%= '还没有填写' if @requirement.feedback.nil? %>
+</div>
