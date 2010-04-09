@@ -18,7 +18,7 @@
   <p>目标学校：<%= link_to @requirement.school.title,school_url(@requirement.school) %></p>
   <p>项目状态：
     <% if @requirement.status == 0%> <span>已完成</span>
-    <%else%><%= @requirement.status ==2  ? '<span>申请中</span>' :  "申请通过 ( 于#{@requirement.validated_at.to_date} )" %>
+    <%else%><%= @requirement.status ==2  ? '<span>申请中</span>' :  "申请通过" %>
     <%end%>
   </p>
   <%unless @requirement.status == 2 %>
