@@ -30,6 +30,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.with_options :controller => "sessions" do |session|
     session.login 'login', :action => "new"
+    session.ajax_login 'ajax_login', :action => "ajax_login"
     session.logout 'logout', :action => "destroy"
     session.forget_password 'forget_password', :action => 'forget_password'
     session.reset_password 'reset_password', :action => 'reset_password'
@@ -120,6 +121,14 @@ ActionController::Routing::Routes.draw do |map|
     share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
+  map.resources :posts do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
+  end
+  
+  map.resources :comments do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
+  end
+
   map.resources :bulletins do |bulletin|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
@@ -140,6 +149,7 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+  map.resources :games
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements

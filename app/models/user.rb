@@ -22,6 +22,7 @@
 #  shares_count              :integer(4)
 #  posts_count               :integer(4)
 #  ip                        :string(255)
+#  email_notify              :boolean(1)      default(TRUE)
 #
 
 require 'digest/sha1'
@@ -111,7 +112,6 @@ class User < ActiveRecord::Base
                            :source => :group,
                            :order => "memberships.created_at desc"
   
-  has_many :stuffs, :dependent => :destroy
   has_many :donations, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :photos, :dependent => :destroy

@@ -175,13 +175,14 @@ class Activity < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.description_html)
+    self.update_attribute(:clean_html, sanitize(self.description_html, true)) if self.clean_html.blank?
+    self.clean_html
   end
   
   private
   def format_content
     begin
-      self.clean_html = sanitize(self.description_html||'')
+      self.clean_html = sanitize(self.description_html||'', true)
     rescue
       self.clean_html = self.description_html
     end

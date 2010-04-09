@@ -352,4 +352,5 @@ module ApplicationHelper
     session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
     photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
   end
+
 end

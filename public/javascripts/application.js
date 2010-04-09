@@ -128,4 +128,7 @@ function photo_edit_key_down(e, id)
   return true;
 }
 
+function reply_comment(e) {
+  $(e).closest("li").next().toggle();
+}
 /* 结束 */

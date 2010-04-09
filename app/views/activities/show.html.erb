@@ -1,6 +1,5 @@
 <% content_for :heads do -%>
   <%if @photos%>
-
     <%= javascript_include_tag 'jquery.prettyPhoto' %>
     <%= stylesheet_link_tag 'prettyPhoto' %>
     <script type="text/javascript" charset="utf-8">
@@ -68,23 +67,6 @@
       </div>
       <div class="cleanfix" style="height:20px"></div>
   </div>
-  
-  <div class="newbox">
-      <div style="float:right;">
-        <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
-        <p class="content_gray" style="display:none;" id="upload_tip">
-        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
-        </p>
-      </div>
-      <span class="span_title">活动相册</span>
-      <div class="contents clearfix" style="padding-top:16px;">
-      <div id="upload_container"></div>
-      <div class="clearfix" id="photos">
-      <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
-      </div>     
-      </div>  
-      <div class="cleanfix" style="height:20px"></div>
-  </div>
 <% end -%>
 
   <div class="newbox" id="activityInfo">
@@ -111,7 +93,6 @@
             <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
           
-
           <div id="activitiesInfo">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
@@ -134,6 +115,23 @@
           
         <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
+  </div>
+  
+  <div class="newbox">
+      <div style="float:right;">
+        <%= upload_button('upload_container', photo_upload_path_with_session('activity',@activity.id)) %>
+        <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:activity_id => @activity.id) %> 上传.
+        </p>
+      </div>
+      <span class="span_title">活动相册</span>
+      <div class="contents clearfix" style="padding-top:16px;">
+      <div id="upload_container"></div>
+      <div class="clearfix" id="photos">
+      <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
+      </div>     
+      </div>  
+      <div class="cleanfix" style="height:20px"></div>
   </div>
 
   <%= render :partial => "/comments/comments", :object => @comments %>

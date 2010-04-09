@@ -16,7 +16,6 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   def password
     return set_message_and_redirect_to_index("请输入爱心密码, 点击提交按钮") if params[:password].blank?
     @donation = @requirement_type.donations.find_by_code(params[:password])
-
     if @donation.blank?
       return set_message_and_redirect_to_index("您的密码不正确")
     elsif @donation.matched?
@@ -34,8 +33,7 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   def comment    
     @donation = @requirement_type.donations.find_by_code params[:token]
     @requirements = @requirement_type.requirements.find :all, :include => [:school], :conditions => ["matched_count < quantity"]
-    
-    if params[:requirement].blank?
+   if params[:requirement].blank?
       flash[:notice] = "请选择一所学校"
       render :action => "write_comment"
       return
