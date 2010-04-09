@@ -3,7 +3,7 @@ class RequirementTypesController < ApplicationController
   
   def index
     @validated_projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc"
-    @pending_projects = RequirementType.non_exchangable.not_validated.find :all, :order => "created_at desc"
+    #@pending_projects = RequirementType.non_exchangable.not_validated.find :all, :order => "created_at desc"
   end
   
   def new
