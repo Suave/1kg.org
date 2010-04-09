@@ -181,11 +181,13 @@
       <div class="sidebar_inter">
         <%= render :partial => "/shared/requirement", :collection => @school.requirements %>
         <div style="clear:both;height:5px"></div>
+        <% if logged_in? && @moderators.include?(current_user)-%>
         <div id="project_info">
           <p>你是学校大使可以为这所学校 
             <%= link_to "申请项目", requirement_types_url(:school_id => @school),:class => "adminbutton" %>
           </p>
         </div>
+        <%end%>
       </div>
     </div>
     
