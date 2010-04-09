@@ -60,20 +60,24 @@ class Admin::RequirementsController < Admin::BaseController
   
   def show
     @requirement = Requirement.find(params[:id])
+    if @requirement.status
+      render :template => "/admin/requirements/school"
+    else
     @donations = @requirement.donations.find :all, :include => [:user, :school]
-    
-    respond_to do |format|
-      format.html
-      format.csv do
-        csv_string = FasterCSV.generate do |csv|
-          @donations.each do |donation|
-            csv << donation.code
+      
+      respond_to do |format|
+        format.html
+        format.csv do
+          csv_string = FasterCSV.generate do |csv|
+            @donations.each do |donation|
+              csv << donation.code
+            end
           end
+          
+          send_data csv_string,
+                    :type => 'text/csv; charset=iso-8859-1; header=present',
+                    :disposition => "attachment; filename=passwords.csv"
         end
-        
-        send_data csv_string,
-                  :type => 'text/csv; charset=iso-8859-1; header=present',
-                  :disposition => "attachment; filename=passwords.csv"
       end
     end
   end
