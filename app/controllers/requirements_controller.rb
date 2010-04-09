@@ -33,11 +33,10 @@ class RequirementsController < ApplicationController
   end
   
   def edit
-    @school = School.find_by_id(params[:school_id])
-    @requirement = @school.requirements.find(params[:id])
-    
+    @requirement = Requirement.find(params[:id])
+    @school = @requirement.school
     respond_to do |want|
-      if @school && User.moderators_of(@school).include?(current_user) && !current_user.school_moderator?
+      if (@requirement.applicator == current_user) && current_user.school_moderator?
         want.html
       else
         flash[:notice] = "对不起，您没有权限更新此项目的反馈报告"
@@ -47,11 +46,10 @@ class RequirementsController < ApplicationController
   end
   
   def update
-    @school = School.find_by_id(params[:school_id])
-    @requirement = @school.requirements.find(params[:id])
-    
+    @requirement = Requirement.find(params[:id])
+    @school = @requirement.school
     respond_to do |want|
-      if @school && User.moderators_of(@school).include?(current_user) && 
+      if User.moderators_of(@school).include?(current_user) && 
         !current_user.school_moderator? && @requirement.update_attributes(:feedback => params[:requirement][:feedback])
         want.html { redirect_to school_requirement_path(@school, @requirement)}
       else
