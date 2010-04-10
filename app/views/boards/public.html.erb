@@ -1,10 +1,7 @@
 <% @page_title = @title = "#{@public_board.title}" -%>
 
 <% content_for :crumb do -%>
-<li><%= link_to "站务&专题讨论区", public_issue_boards_url %></li>
-<ul>
   <li><%= @public_board.title %></li>
-</ul>
 <% end -%>
 
 <% content_for :sidebar do -%>

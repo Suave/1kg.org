@@ -1,13 +1,6 @@
-<%
-if @board.talkable.class == CityBoard
-  @page_title = "#{@board.talkable.geo.name}同城话题"
-end
-%>
 
 <% content_for :sidebar do -%>
-  <% if @board.talkable.class == CityBoard -%>
-    <p>&raquo; <%= link_to "返回#{@board.talkable.geo.name}同城", board_url(@board) %></p>
-  <% elsif @board.talkable.class == SchoolBoard -%>
+  <% if @board.talkable.class == SchoolBoard -%>
     <p>&raquo; <%= link_to "返回#{@board.talkable.school.title}", school_url(@board.talkable.school) %></p>
   <% end -%>
 <% end -%>

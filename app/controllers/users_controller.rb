@@ -109,23 +109,6 @@ class UsersController < ApplicationController
     
     
     
-    elsif params[:for] == 'move'
-      @user.geo = nil
-      @user.save!
-      flash[:notice] = "请选择您现在的居住城市"
-      redirect_to my_city_url
-      
-      
-      
-    elsif params[:for] == 'live'
-      @geo = Geo.find(params[:geo])
-      @user.geo = @geo unless @geo.blank?
-      @user.save!
-      flash[:notice] = "您已经入住#{@geo.name}"
-      redirect_to my_city_url
-    
-    
-    
     elsif params[:for] == 'profile'
       if @user.profile
         @user.profile.update_attributes!(params[:profile])
