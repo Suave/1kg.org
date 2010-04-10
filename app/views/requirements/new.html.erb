@@ -33,9 +33,9 @@
         </p>
         <p><label class="label">受益学校 </label>
         <%= f.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%>
-        <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a>
+        <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @apply, :school_id %>
         <br/>
-        <span id="why" style="display:none;color:#666;margin:0 70px">如果你要的学校没有出现在下拉菜单里，请从该学校的页面来进入此公益项目来申请。 </span>
+        <span id="why" style="display:none;color:#666;margin:0 70px">如果下拉菜单里没有你要找的学校，请从该学校的页面来进入此公益项目来申请。 </span>
         </p>
                                               
         <p><label class="label">申请人电话</label><%= f.text_field :applicator_telephone %><%= error_message_on @apply, :applicator_telephone %></p>
