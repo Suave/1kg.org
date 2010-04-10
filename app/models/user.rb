@@ -53,6 +53,13 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles, :uniq => true
 
+  define_index do
+    # fields
+    indexes login
+    indexes email
+    indexes profile.bio, :as => :bio
+  end
+  
   # This method returns true if the user is assigned the role with one of the
   # role titles given as parameters. False otherwise.
   def has_role?(*roles_identifiers)
