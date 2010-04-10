@@ -203,8 +203,6 @@ module ApplicationHelper
       link_to talkable.school.title, board_path(topic.board)
     elsif talkable.class == PublicBoard
       link_to talkable.title, board_path(topic.board)
-    elsif talkable.class == CityBoard
-      link_to talkable.geo.name, board_path(topic.board)
     else
       link_to talkable.group.title, group_path(talkable.group)
     end

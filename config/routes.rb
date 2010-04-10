@@ -4,17 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
-  map.resources :requirements, :member => {}
-  
+  map.resources :requirements, :member => {}  
 
   map.public_look "/public", :controller => "misc", :action => "public_look"
-  map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
-  map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
-  map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
-  map.city   "city/:slug", :controller => "geos", :action => "city"
-  map.cities "/cities", :controller => "misc", :action => "cities"
-  map.my_city "/my_city", :controller => "misc", :action => "my_city"
-  
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
@@ -109,9 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :boards, :member =>     { :schools => :get }, 
-                         :collection => { :public_issue => :get} do |board|
-                           
+  map.resources :boards, :member => { :schools => :get } do |board|
     board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end
