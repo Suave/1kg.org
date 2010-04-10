@@ -2,33 +2,12 @@
 
 <% content_for :sidebar do -%>
 
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-      <p class="postNew"></p>
-      <div class="contents">
+<span class="remark"><%= link_to "&raquo; 回到#{@project.title}项目",requirement_type_url(@project)%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<div class="newbox">
         <p>申请前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。如果与网站上的不一致，请先 "更新学校信息"。</p>
-      </div>
-    </div>
-  </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>项目介绍</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <p><label class="class">申请截至时间：</label><%= @project.apply_end_at.to_date %></p>
-        <p><label class="class">开始时间：</label><%= @project.start_at.to_date %></p>
-        <p><label class="class">结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
-        <%= @project.description_html %>
-      </div>
-    </div>
-  </div>
-</div>
 
 <% end -%>
 
@@ -52,7 +31,13 @@
           <%= f.hidden_field :applicator_id, {:value => current_user.id} %>
           <%= h current_user.login %>
         </p>
-        <p><label class="label">受益学校 </label><%= f.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%> </p>
+        <p><label class="label">受益学校 </label>
+        <%= f.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%>
+        <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a>
+        <br/>
+        <span id="why" style="display:none;color:#666;margin:0 70px">如果你要的学校没有出现在下拉菜单里，请从该学校的页面来进入此公益项目来申请。 </span>
+        </p>
+                                              
         <p><label class="label">申请人电话</label><%= f.text_field :applicator_telephone %><%= error_message_on @apply, :applicator_telephone %></p>
         <p><label class="label">申请数量</label><%= f.text_field :quantity %><%= error_message_on @apply, :quantity %></p>
         <p><label class="label">申请理由</label><%= f.text_area :apply_reason, :cols => 80, :rows => 10 %><br/><label class="label">&nbsp;</label> <%= error_message_on @apply, :apply_reason %></p>

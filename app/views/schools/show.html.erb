@@ -175,23 +175,6 @@
     </div>
     <% end -%>  
 
-  <% unless @school.requirements.empty? && !(logged_in? && @moderators.include?(current_user)) %>
-     <div class="school_sidebar">
-      <h3 class="label_lei">公益项目</h3>
-      <div class="sidebar_inter">
-        <%= render :partial => "/shared/requirement", :collection => @school.requirements %>
-        <div style="clear:both;height:5px"></div>
-        <% if logged_in? && @moderators.include?(current_user)-%>
-        <div id="project_info">
-          <p>你是学校大使可以为这所学校 
-            <%= link_to "申请项目", requirement_types_url(:school_id => @school),:class => "adminbutton" %>
-          </p>
-        </div>
-        <%end%>
-      </div>
-    </div>
-  <%end%>  
-    
   <div class="school_sidebar">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
@@ -213,6 +196,23 @@
       <div class="clearfix"></div>
   </div>
   
+ 
+ 
+     <div class="school_sidebar">
+      <h3 class="label_lei">公益项目</h3>
+      <div class="sidebar_inter">
+        <%= '目前学校还没有公益项目' if @requirements.empty? %>
+        <%= render :partial => "/shared/requirement", :collection => @requirements %>
+        <div style="clear:both;height:5px"></div>
+        <div id="project_info">
+          <p>去看看<%= '还' unless @requirements.empty? %>有什么 
+            <%= link_to "公益项目", requirement_types_url(:school_id => @school),:class => "adminbutton" %>
+            可以申请。
+          </p>
+        </div>
+      </div>
+    </div>
+    
   
   <%if false%>    
   <div class="school_sidebar">

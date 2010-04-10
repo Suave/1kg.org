@@ -1,10 +1,16 @@
 class RequirementsController < ApplicationController
+  before_filter :login_required, :except => [:show]
+  
   def new
-    @schools = current_user.envoy_schools
-    @school = School.find(:first,:conditions => {:id =>params[:school_id]}).nil? ? nil : School.find(params[:school_id])
     @project = RequirementType.find params[:requirement_type_id]
-    
+    if @project.must && !current_user.envoy?
+      flash[:notice] = "此项目只有学校大使才可以申请。" + " <a href='http://www.1kg.org/misc/school-moderator-guide'>什么是学校大使？</a>"
+      redirect_to requirement_type_url(@project)
+    end
     @apply = Requirement.new
+    @schools = @project.must ? current_user.envoy_schools : (current_user.envoy_schools + current_user.visited_schools).uniq
+    @school = School.find(:first,:conditions => {:id =>params[:school_id]}).nil? ? nil : School.find(params[:school_id])
+    
   end
   
   def create
@@ -13,9 +19,15 @@ class RequirementsController < ApplicationController
     @schools = current_user.envoy_schools
     #@school = School.find params[:apply][:school_id]
     @apply.status = 2
+    if @project.must && !User.moderators_of(@apply.school).include?(current_user)
+      flash[:notice] = "你不是#{@apply.school.title}的学校大使,不能申请这个项目。"
+      render :action => "new" 
+    else
+      
     @apply.save!
     flash[:notice] = "申请已提交，等待管理员审核"
     redirect_to requirement_type_url(@project)
+    end
   end
   
   
