@@ -16,7 +16,7 @@ class RequirementsController < ApplicationController
   def create
     @project = RequirementType.find params[:requirement_type_id]
     @apply = @project.requirements.build(params[:apply])
-    @schools = current_user.envoy_schools
+    @schools = @project.must ? current_user.envoy_schools : (current_user.envoy_schools + current_user.visited_schools).uniq
     #@school = School.find params[:apply][:school_id]
     @apply.status = 2
     if @project.must && !User.moderators_of(@apply.school).include?(current_user)

@@ -1,5 +1,5 @@
 class RequirementTypesController < ApplicationController
-  before_filter :login_required, :except => [:index]
+  before_filter :login_required, :except => [:index,:show]
   
   def index
     @validated_projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc"
