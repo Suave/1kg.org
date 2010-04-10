@@ -36,7 +36,6 @@
       <div class="boxOuter">
         <div class="boxInner">
           <h3><%=  "#{@city.name}居民的分享"%></h3>
-          <span class="postNew"><%= link_for_new_share %></span>
           <div class="contents">
             <%= render :partial => "/shares/shares", :object => @shares %>
           </div>
@@ -59,7 +58,6 @@
       <div class="boxOuter">
         <div class="boxInner">
           <h3>在<%= @city.name %>的小组</h3>
-          <span class="postNew"><%= link_for_new_group %></span>
           <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
         </div>
       </div>
@@ -86,8 +84,6 @@
 
 <div class="newbox" id="cityActivities">
       <span class="span_title"><%= "#{@city.name}最近的活动"%></span>
-      <span class="postNew"><%= link_for_new_activity %></span>
       <div class="cleanfix" style="clear:both;height:10px"></div>
-      <%#= render :partial => "/activities/activity_list" %>
       <%= render :partial => "/shared/activity", :collection => @activities %>
 </div>
