@@ -1,5 +1,4 @@
 class MiscController < ApplicationController
-  #include RubyAes
   before_filter :login_required, :only => :my_city
   
   def index
@@ -53,26 +52,10 @@ class MiscController < ApplicationController
     @wannas = Visited.latestwanna
     render :action => "index"
   end
-  
-  def cities
-    unless params[:id].blank?
-      @geo = Geo.find(params[:id])
-      @cities = @geo.children
-    else
-      @cities = Geo.roots
-    end
     
-  end
-  
   def show_page
     #for static page
     @page = Page.find_by_slug(params[:slug]) or raise ActiveRecord::RecordNotFound
   end
-
-  def custom_search
-    @body_class = 'white'
-  end
-  
-  private
 
 end
