@@ -108,9 +108,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :boards, :member =>     { :schools => :get }, 
-                         :collection => { :public_issue => :get} do |board|
-                           
+  map.resources :boards, :member => { :schools => :get } do |board|
     board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end

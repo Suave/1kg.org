@@ -11,10 +11,7 @@
   <% if @topic.board.talkable.class == CityBoard -%>
     <li><%= link_to "#{@topic.board.talkable.geo.name}同城", board_url(@topic.board) %></li>
   <% elsif @topic.board.talkable.class == PublicBoard -%>
-    <li><%= link_to "站务&专题讨论区", public_issue_boards_url %></li>
-    <ul>
     <li><%= link_to @topic.board.talkable.title, board_url(@topic.board) %></li>
-    </ul>
   <% end -%>
 
   <ul><li><%= @topic.title %></li></ul>
