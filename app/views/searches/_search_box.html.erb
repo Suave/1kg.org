@@ -1,4 +1,4 @@
-<% @kind = kind rescue '' %>
+<% @kind = kind rescue 'all' %>
 <% search_titles = {:activity => '活动',:school => '学校', :group => '小组',:topic => '话题',:all => '站内'}%>
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
@@ -17,21 +17,12 @@
   <div class="cleanfix" style="height:2px"></div>
     <span "gary_span"><%= @kind.empty? ? '站内' : search_titles[@kind.to_sym]%>搜索</span>
     <% form_tag '/search', :method => 'get' do %>
-      <input type="text" name="q" style="width:220px" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
+      <input type="text" name="q" style="width:164px" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
       <input type="submit" value="搜索" class="form-submit" onclick="clear_search_box();" />
-      
+      <%= select_tag "kind", options_for_select([['全部','all'],['学校','school'],['活动','activity'],['分享','share'],['小组','group'],['话题','topic'],['用户','user']],:selected => @kind)%>
       <p style="clear:both;width:280px;*margin:2px 0;font-size:12px;line-height:18px"><%= link_to_function '高级选项','',:class => "more",:name => "#advance_box"%></p>
       <div style="clear:both"></div>
       <div id="advance_box" style="<%= 'display:none;' unless @search.advanced? %>">
-      <div class="small"  style="margin:4px 0;">
-        <%= radio_button_tag :kind, 'all', @search.kind == 'all', :onclick => 'switch_search_to("all");' %>全部
-        <%= radio_button_tag :kind, 'school', @search.kind == 'school', :onclick => 'switch_search_to("school");' %>学校
-        <%= radio_button_tag :kind, 'activity', @search.kind == 'activity', :onclick => 'switch_search_to("activity");' %>活动
-        <%= radio_button_tag :kind, 'share', @search.kind == 'share', :onclick => 'switch_search_to("share");' %>分享
-        <%= radio_button_tag :kind, 'group', @search.kind == 'group', :onclick => 'switch_search_to("group");' %>小组
-        <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onclick => 'switch_search_to("topic");' %>话题
-        <%= radio_button_tag :kind, 'user', @search.kind == 'user', :onclick => 'switch_search_to("user");' %>用户
-      </div>
       
       <p id="advance_common" class="advances" style="<%= 'display:none;' unless @search.need_common? %>">
         <%= label_tag '标题' %> <%= text_field_tag :title, @search.title %><br />
@@ -58,5 +49,7 @@
       </p>
       </div>
     <% end %>
+    <script type="text/javascript">
+  $('#kind').delayedObserver(0.25, function(element, value) {switch_search_to(value)})</script>
   <div class="cleanfix" style="height:10px"></div>
 </div>
