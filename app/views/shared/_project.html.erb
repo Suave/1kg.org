@@ -3,7 +3,7 @@
         <img class="project_image" src="<%= project.image.url(:thumb) %>"/>
     </div>
     <div class="project_meta">
-        <h5><%= link_to project.title,requirement_type_url(project)%></h5>
+        <h5><%= link_to project.title,requirement_type_url(project,:school_id => params[:school_id])%></h5>
         <%= project.description_html%>
     </div>
     <div style="clear:both"></div>

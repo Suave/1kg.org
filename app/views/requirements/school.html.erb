@@ -17,9 +17,7 @@
   <p>项目申请人：<%= link_to @requirement.applicator.login ,user_url(@requirement.applicator)%></p>
   <p>目标学校：<%= link_to @requirement.school.title,school_url(@requirement.school) %></p>
   <p>项目状态：
-    <% if @requirement.status == 0%> <span>已完成</span>
-    <%else%><%= @requirement.status ==2  ? '<span>申请中</span>' :  "申请通过" %>
-    <%end%>
+   <%= ['已完成','进行中','申请中'][@requirement.status.to_i] %>
   </p>
   <%unless @requirement.status == 2 %>
   <p>项目开始日期： <%=  @requirement.requirement_type.start_at.to_date %></p>
