@@ -8,13 +8,9 @@
 <% content_for :subtitle do -%>
   <% if logged_in? && current_user.geo == @city -%>
   <div class="subtitle">
-    <%= link_to "我不住#{@city.name}了", user_url(current_user.id, :for => "move"), :method => :put %>
+    <%= link_to "我不住#{@city.name}了", setting_url(:type => "account") %>
   </div>
   <% end -%>
-  
-  <div class="subtitle">
-    城市管理员：<%= User.moderators_of(@city).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
-  </div>
 <% end -%>
 
 
@@ -27,10 +23,8 @@
 
 
 <% content_for :sidebar do -%>
-  <%#= render :partial => 'school_box' %>
   
   <% if @city.children.blank? -%>
-    <%#= render :partial => 'city_box' %>
     
     <div class="box">
       <div class="boxOuter">
@@ -70,7 +64,6 @@
   <% end %>
   
   <%= render :partial => "school_box", :locals => {:provinces => @cities, :schools => @schools} %>
-  <%= render :partial => "city_search" %>
 <% end -%>
 
 <div class="box">

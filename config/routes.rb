@@ -7,7 +7,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requirements, :member => {}  
 
   map.public_look "/public", :controller => "misc", :action => "public_look"
-  map.my_city "/my_city", :controller => "misc", :action => "my_city" 
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
