@@ -8,13 +8,8 @@
 
 <% content_for :crumb do -%>
   <p style="display:none">来自多背一公斤的话题： <%= summary(@topic ,60)-%>...</p>
-  <% if @topic.board.talkable.class == CityBoard -%>
-    <li><%= link_to "#{@topic.board.talkable.geo.name}同城", board_url(@topic.board) %></li>
-  <% elsif @topic.board.talkable.class == PublicBoard -%>
-    <li><%= link_to "站务&专题讨论区", public_issue_boards_url %></li>
-    <ul>
+  <% if @topic.board.talkable.class == PublicBoard -%>
     <li><%= link_to @topic.board.talkable.title, board_url(@topic.board) %></li>
-    </ul>
   <% end -%>
 
   <ul><li><%= @topic.title %></li></ul>
@@ -29,10 +24,6 @@
         <% elsif @topic.board.talkable.class == SchoolBoard -%>  
           <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.school.title}", school_url(@topic.board.talkable.school) %></p>
           <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.school.title}讨论区", board_url(@topic.board_id) %></p>
-        <% elsif @topic.board.talkable.class == CityBoard -%>
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.geo.name}同城", board_url(@topic.board_id) %></p>
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.geo.name}同城讨论区", board_topics_url(@topic.board_id) %></p>
-        
         <% else -%>
           <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
         <% end -%>
