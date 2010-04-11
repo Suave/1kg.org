@@ -4,7 +4,7 @@
     </div>
     <div class="project_meta">
         <h5><%= link_to project.title,requirement_type_url(project,:school_id => params[:school_id])%></h5>
-        <%= project.description_html%>
+        <%= project.description_html.gsub('</br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..50)%>...
     </div>
     <div style="clear:both"></div>
 </div>
