@@ -171,27 +171,6 @@ module ApplicationHelper
     end
   end
   
-  def link_for_new_school
-    link_to image_tag("submit_school.png"), new_school_url
-  end
-  
-  def link_for_new_activity
-    link_to image_tag("submit_activity.png"), new_activity_url
-  end
-  
-  def link_for_new_share
-    link_to image_tag("submit_share.png"), new_share_url
-  end
-  
-  def link_for_new_topic(board)
-    link_to image_tag("submit_topic.png"), new_board_topic_url(board)
-  end
-  
-  def link_for_new_group
-    link_to image_tag("submit_group.png"), new_group_url
-  end
-  
-  
   def link_for_activity(activity, show_sticky = true)
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
   end
