@@ -15,7 +15,7 @@ class SchoolsController < ApplicationController
       :include => [:user, :board],
       :order => "last_replied_at desc",
       :limit => 6)
-        @projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc"
+        @projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc",:limit => 2
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
