@@ -1,17 +1,16 @@
 <% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
 
-<% content_for :sidebar do -%>
-  <div class="cleanfix" style="clear:both;height:20px"></div>
-  <span class="span_title2">目标学校</span>
-  <%= render :partial => "/shared/school", :object => @requirement.school %>
-  <br/>
-  <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title2">项目来源</span>
+<h1><%= @requirement.requirement_type.title %></h1>
+  <div style="clear:both;"></div>
   <%= render :partial => "/shared/project", :object => @requirement.requirement_type %>
+  <%= render :partial => "/shared/school", :object => @requirement.school %>
+
   
-<% end %>
+  
+  
+
 <div class="newbox">
-  <h1><%= @requirement.requirement_type.title %></h1>
+  
 
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <p>项目申请人：<%= link_to @requirement.applicator.login ,user_url(@requirement.applicator)%></p>
