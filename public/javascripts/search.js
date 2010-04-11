@@ -33,14 +33,19 @@ function switch_search_to(kind)
     if(search_box_can_clear()) {
       $("#query-box").val('搜索学校,活动,话题...');
     }
-  }
+  } else if(kind == 'user') {
+	  if(search_box_can_clear()) {
+	    $("#query-box").val('搜索用户昵称,简介...');
+	  }
+	}
 }
 
 function search_box_can_clear()
 {
   var val = $("#query-box").val();
   if(val == '活动标题,城市,介绍...' || val == '学校名称,地址,城市,需求...' || val == '攻略标题,学校名称,城市...' 
-      || val == '' || val == '小组名称,描述...' || val == "话题标题,正文,回帖..." || val == "搜索学校,活动,话题...") {
+      || val == '' || val == '小组名称,描述...' || val == "话题标题,正文,回帖..." || val == "搜索学校,活动,话题..." ||
+			val == '搜索用户昵称,简介...') {
     return true;
   }
   return false;
@@ -59,7 +64,9 @@ function search_box_blur()
       $("#query-box").val('小组名称,描述...');
     } else if($("#kind_topic").attr('checked') == true) {
       $("#query-box").val('话题标题,正文,回帖...');
-    } else {
+    } else if($("#kind_user").attr('checked') == true) {
+	    $("#query-box").val('搜索用户昵称,简介...');
+	  } else {
       $("#query-box").val('搜索学校,活动,话题...');
       $("#kind_all").attr('checked', true)
     }

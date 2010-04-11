@@ -37,5 +37,13 @@
     <%= render :partial => '/topics/topics', :object => @objects['Topic'].compact %>
   </div>
   <% end %>
+  
+  <% if @objects['User'] %>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title">用户</span>
+  <div class="contents">
+    <%= render :partial => "/shared/user_list", :locals => {:users => @objects['User'].compact} %>
+  </div>
+  <% end %>
   <div class="remark"><%= customize_paginate(@records) %></div>
 </div>
