@@ -4,8 +4,15 @@
   <style type="text/css">
   .school_list_meta{width:160px;}
   </style>
+  <meta name="description" content="来自多背一公斤的分享： <%= summary(@share ,60)%>...">
 <% end %>
 
+
+<% content_for :crumb do -%>
+  <li><%= link_to '分享',shares_url %></li>
+  <p style="display:none">来自多背一公斤的话题： <%= summary(@share ,60)-%>...</p>
+<% end -%>
+  
 <% content_for :sidebar do -%>
   <% if @share.moderated_by?(current_user) -%>
   <div id="admins">
@@ -57,19 +64,19 @@
         </div>
       </div>
         
-      
       <div>
         <div id="entry">
         <%= @share.html %>
         </div>
-        <p style="text-align:right;margin:7px 0;padding-right:5px">
+        <div style="text-align:right">
+        <p style="margin:23px 0 7px;padding-right:5px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>
-        <p id ="voting" style="text-align:right;margin:7px 0;">
+        <p id ="voting" style="margin:7px 0;">
         <span>已有 <%= @share.votes.count -%> 人推荐这篇分享 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@share) -%>
-                        您已推荐了
+            您已推荐了
           <% else -%>
             <%= link_to '我要推荐', vote_share_path(@share), :method => 'post', :class => 'buttonlink' %>
           <% end -%>
@@ -77,6 +84,9 @@
             <%= link_to "我要推荐", new_session_path(:to => share_path(@share)) ,:class => "buttonlink" -%>
         <% end -%>
         </p>
+        </div>
+        
+        <%= share_link(summary(@share ,60),(@page_title.to_s + " - 多背一公斤"))%>
       </div>
 </div>
 

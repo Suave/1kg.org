@@ -17,10 +17,10 @@
 #  deleted_at                :datetime
 #  avatar                    :string(255)
 #  geo_id                    :integer(4)
-#  topics_count              :integer(4)
-#  posts_count               :integer(4)
 #  guides_count              :integer(4)
+#  topics_count              :integer(4)
 #  shares_count              :integer(4)
+#  posts_count               :integer(4)
 #  ip                        :string(255)
 #
 
@@ -53,6 +53,13 @@ class User < ActiveRecord::Base
   
   has_and_belongs_to_many :roles, :uniq => true
 
+  define_index do
+    # fields
+    indexes login
+    indexes email
+    indexes profile.bio, :as => :bio
+  end
+  
   # This method returns true if the user is assigned the role with one of the
   # role titles given as parameters. False otherwise.
   def has_role?(*roles_identifiers)
@@ -105,6 +112,7 @@ class User < ActiveRecord::Base
                            :order => "memberships.created_at desc"
   
   has_many :stuffs, :dependent => :destroy
+  has_many :donations, :dependent => :destroy
   has_many :votes, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   

@@ -1,20 +1,23 @@
 <% @page_title = "编辑分享" %>
 
-<% content_for :fullsize do -%>
-<div class="box" id="sharePostNew">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h2><%= @page_title %></h2>
+<% content_for :sidebar do -%>
+  <% @page = Page.find_by_slug('share-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">分享指南</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<%end%>
+
+<div class="newbox" >
+      <span class="span_title">写分享</span>
+      <div class="clearfix" style="height:10px"></div>
       <% form_for :share, :url => share_url(@share), :html => {:method => :put} do |f| -%>
-        <%= render :partial => "form", :object => f %>
-        
-        <p class="submit clearfix">
-          <span class="btnWrap"><%= submit_tag "发 布" %></span> 
-          <span><%= link_to "取 消", root_url %></span>
+        <%= render :partial => "form", :object => f %>        
+        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "更 新" %></span>
+        <span><%= link_to "取 消", root_url %></span>　带<span class="require">*</span>号的是必填项
         </p>
       <% end -%>
-    </div>
-  </div>
 </div>
-
-<% end -%>

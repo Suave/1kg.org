@@ -1,6 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
-  #map.connect '/data_migration', :controller => 'misc', :action => 'migration'
   map.root :controller => "misc", :action => "index"
+
+  # 用于公益积分
+  map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
+  map.resources :requirements, :member => {}
+  
+
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
   map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
@@ -14,10 +20,7 @@ ActionController::Routing::Routes.draw do |map|
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
   map.topics "/topics/total",:controller => "topics", :action => "total"
-  #market
-  #map.market "/market",:controller => "market",:action => "index"
 
-  #map.resources :users
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
     user.activate 'activate/:activation_code', :action => "activate"
@@ -81,6 +84,7 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
+    school.resources :requirements
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
                                                  :action => "show_date", 
@@ -144,6 +148,17 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+
+  map.resources :requirement_types, :as => 'projects' do |project|
+    project.resources :requirements
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  end
+  
+  # map.with_options :controller => "mall" do |mall|
+  #   mall.mall_index '/mall', :action => "index"
+  #   mall.mall_category '/mall/category/:tag', :action => "category"
+  #   mall.mall_detail '/mall/good/:id', :action => "show"
+  # end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -157,9 +172,16 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
-    admin.resources :stuff_types do |type|
-      type.resources :bucks, :controller => "stuff_bucks"
+    admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
+      type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
+    admin.resources :vendors # 公益商品供应商，包括积分兑换商家
+    #admin.resources :products # 公益商品供应商提供的商品
+    # for AJXY 的商城管理后台
+    #admin.resources :goods, :member => {:recommend => :put}, 
+    #                        :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
+    #  good.resources :photos, :controller => "good_photos"
+    #end 
     admin.resources :bulletins
   end
 

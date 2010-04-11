@@ -164,7 +164,7 @@ class UsersController < ApplicationController
   def show
     get_user_record(@user)
     # postcard
-    @stuffs = @user.stuffs
+    @donations = @user.donations
     @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)

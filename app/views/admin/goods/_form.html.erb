@@ -1,0 +1,35 @@
+<p><label class="label">名称</label>
+  <%= form.text_field :title, :size => 40, :class => "formText" %>
+  <%= error_message_on @good, :title %>
+</p>
+
+<p><label class="label">编号</label>
+  <%= form.text_field :serial, :size => 10, :class => "formText" %>
+</p>
+
+<p><label class="label">价格</label>
+  <%= form.text_field :price, :size => 10, :class => "formText" %> 元
+</p>
+
+<p><label class="label">材料</label>
+  <%= form.text_field :material, :size => 25, :class => "formText" %>
+</p>
+
+<p><label class="label">尺寸</label>
+  <%= form.text_field :standard, :size => 25, :class => "formText" %>
+</p>
+
+<p><label class="label">颜色</label>
+  <%= form.text_field :color, :size => 25, :class => "formText" %>
+</p>
+
+<p><label class="label">淘宝链接</label>
+  <%= form.text_field :sale_url, :size => 60, :class => "formText" %>
+</p>
+
+<p><label class="label">Tag</label>
+  <%= form.text_field :tag_list, :size => 40, :class => "formText" %> (空格分割)</p>
+
+<p><label class="label">描述</label>
+  <%= fckeditor_textarea("good", "body", :toolbarSet => 'Simple', :width => '90%', :height => '800px') %>
+</p>

@@ -39,5 +39,5 @@ body{background:#fff}
 .obp{margin:0}
 .need_tag{margin:0 2px;}
 
-#moderators_info{padding:6px 10px;background:#f3f3f3;margin-top:4px;border:1px #d3d3d3 solid }
-#moderators_info p{font-size:13px;color:#888;padding:0 5px;margin:5px 0}
+#moderators_info,#donations_info{padding:6px 10px;background:#f3f3f3;margin-top:4px;border:1px #d3d3d3 solid }
+#moderators_info p,#donations_info p{font-size:13px;color:#888;padding:0 5px;margin:5px 0}

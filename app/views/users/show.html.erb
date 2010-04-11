@@ -17,6 +17,10 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
+  <% if logged_in? and current_user.admin? -%>
+  测试功能：<%= link_to "创建新公益项目", new_requirement_type_url %> | <%= link_to "所有项目", requirement_types_url %>
+  <% end -%>
+  
   <% if logged_in? -%>
       <div id="admins"><%= "你是管理员，" if current_user.admin? -%>
       <%= "#{@user.login}是你的友邻，" if current_user.neighbors.include?(@user)%>
@@ -56,15 +60,13 @@
   </div>
   <%end%>
   <div class="clearfix" style="height:10px;clear:both"></div>
-  
-  <%unless @stuffs.empty?%>
+  <%unless @donations.empty?%>
   <div class="newbox">
         <span class="span_title"><%= h @user.login %>的公益贺卡</span>
-        <div class="clearfix" style="height:5px;clear:both"></div>
         <div class="contents">
-          <p><strong>买过<%= @stuffs.count %>张，分别捐给：</strong></p>
+          <p><strong>买过<%= @donations.count %>张，分别捐给：</strong></p>
           <table>
-            <% @stuffs.each do |s| -%>
+            <% @donations.each do |s| -%>
             <% next if s.school.nil? %>
             <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
             <% end -%>

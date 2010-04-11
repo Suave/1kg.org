@@ -497,7 +497,7 @@ var DateTimeShortcuts = {
         // Recalculate the clockbox position
         // is it left-to-right or right-to-left layout ?
         if (getStyle(document.body,'direction')!='rtl') {
-            cal_box.style.left = findPosX(cal_link) + 17 + 'px';
+            cal_box.style.left = findPosX(cal_link) - 10 + 'px';
         }
         else {
             // since style's width is in em, it'd be tough to calculate
@@ -506,7 +506,7 @@ var DateTimeShortcuts = {
             //       (it returns as it was left aligned), needs to be fixed.
             cal_box.style.left = findPosX(cal_link) - 180 + 'px';
         }
-        cal_box.style.top = findPosY(cal_link) - 75 + 'px';
+        cal_box.style.top = findPosY(cal_link) + 20 + 'px';
     
         cal_box.style.display = 'block';
         addEvent(window, 'click', function() { DateTimeShortcuts.dismissCalendar(num); return true; });

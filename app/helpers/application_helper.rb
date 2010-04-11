@@ -171,27 +171,6 @@ module ApplicationHelper
     end
   end
   
-  def link_for_new_school
-    link_to image_tag("submit_school.png"), new_school_url
-  end
-  
-  def link_for_new_activity
-    link_to image_tag("submit_activity.png"), new_activity_url
-  end
-  
-  def link_for_new_share
-    link_to image_tag("submit_share.png"), new_share_url
-  end
-  
-  def link_for_new_topic(board)
-    link_to image_tag("submit_topic.png"), new_board_topic_url(board)
-  end
-  
-  def link_for_new_group
-    link_to image_tag("submit_group.png"), new_group_url
-  end
-  
-  
   def link_for_activity(activity, show_sticky = true)
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
   end
@@ -233,7 +212,7 @@ module ApplicationHelper
   end
   
   def plain_text(text,replacement="")
-    text.gsub!(/<[^>]*>/, '')
+    text = text.gsub(/<[^>]*>/, '')
     text.gsub!("&nbsp;","");
     text.gsub!("\r\n","");
     text
@@ -248,6 +227,16 @@ module ApplicationHelper
     html = (article.clean_html?? article.clean_html : article.body_html).mb_chars.slice(start..close).to_s.lstrip
   end
   
+  def share_link(text,title)
+    
+      html = "<div class='share_link'> 分享这个页面到 "
+      html += " <a target='_blank' href='http://www.douban.com/recommend/?url=#{request.url}&title=#{title}'><img src='/images/icon/douban.gif' alt='分享到豆瓣'/> 豆瓣</a>"
+      html += " <a target='_blank' href='http://share.renren.com/share/buttonshare.do?link=#{request.url}&title=#{title}'><img src='/images/icon/renren.gif' alt='分享到人人'/> 人人</a>"
+      html += " <a target='_blank' href='http://www.kaixin001.com/repaste/share.php?rurl=#{request.url}&rtitle=#{title}&rcontent=#{text}...'  ><img src='/images/icon/kaixin001.gif' alt='分享到开心'/> 开心</a>"
+      html += " <a href='http://v.t.sina.com.cn/share/share.php?url=#{request.url}&title=#{title}' target='_blank'><img src='/images/icon/sina.gif' alt='分享到新浪微博'/> 新浪微博</a>"
+
+      html += "</div>"
+  end
   def short_title(something,long=22)
     something.title.mb_chars.slice(0..long).to_s.lstrip + (something.title.mb_chars[long].nil?? "" : "...")
   end

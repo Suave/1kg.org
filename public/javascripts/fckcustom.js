@@ -68,3 +68,7 @@ FCKConfig.ToolbarSets["OneLine"] = [
 	['Image','Smiley'],
 	['Source']
 ] ;
+FCKConfig.ToolbarSets["Image"] = [
+	['Image'],
+	['Source']
+] ;

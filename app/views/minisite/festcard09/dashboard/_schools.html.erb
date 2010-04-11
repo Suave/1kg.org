@@ -4,9 +4,9 @@
     <th>学校</th>
     <th style="width:130px;">已捐赠(册)</th>
   </tr>
-  <% bucks.each do |b| -%>
+  <% requirements.each do |b| -%>
   <tr>
-    <td><%= radio_button "buck", "id", b.id %></td>
+    <td><%= radio_button "requirement", "id", b.id %></td>
     <td>
       <%= link_to b.school.title, school_url(b.school), :target => "_blank" %> 有 
       <% unless b.school.class_amount.blank?%><%= h b.school.class_amount %>个班，<% end -%>

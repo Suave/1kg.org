@@ -8,6 +8,7 @@ class SearchesController < ApplicationController
     search_share if @search.kind == 'share'
     search_group if @search.kind == 'group'
     search_topic if @search.kind == 'topic'
+    search_user if @search.kind == 'user'
     
     if @search.kind == 'all'
       @records = @search.records(@page)
@@ -34,6 +35,10 @@ class SearchesController < ApplicationController
   
   def search_topic
     @topics = @search.topics(@page)
+  end
+  
+  def search_user
+    @users = @search.users(@page)
   end
   
   def search_school
