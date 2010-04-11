@@ -1364,6 +1364,8 @@ a.progressCancel:hover {
 .swfupload {
 	cursor:pointer;position:relative;top:5px
 }
+#advance_box p{font-size:12px;line-height:30px}
+
 .goods_list{width:320px;padding:10px 0;float:left}
 .goods_photo_frame{float:left;display:block;width:86px;height:86px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
 .goods_meta{float:left;width:100%;}
