@@ -1,4 +1,5 @@
 <% @kind = kind rescue 'all' %>
+<% @advanced = advanced rescue nil %>
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
   <%= javascript_include_tag "search" %>
@@ -9,20 +10,21 @@
       function () {$($(this).attr('name')).show();$(this).attr('style','background-image:url(/images/less.gif)')},
       function () {$($(this).attr('name')).hide();$(this).attr('style','background-image:url(/images/more.gif)')}
     );
-  <%unless @kind.empty? %>$(<%="'#advance_#{@kind}'"-%>).show()<% end %>
+  <%unless @kind.nil? %>$(<%="'#advance_#{@kind}'"-%>).show()<% end %>
   });</script>
 <% end %>
 <div id="admins">
   <div class="cleanfix" style="height:2px"></div>
-    <span "gary_span">内容搜索</span>
+    <span "gary_span">搜索</span>
     <% form_tag '/search', :method => 'get' do %>
       <input type="text" name="q" style="width:140px" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
       <input type="submit" value="搜索" style="width:50px" class="form-submit" onclick="clear_search_box();" />
       <%= select_tag "kind", options_for_select([['全部','all'],['学校','school'],['活动','activity'],['分享','share'],['小组','group'],['话题','topic'],['用户','user']],:selected => @kind)%>
 
-      <div style="clear:both;height:15px"></div>
-      <div id="advance_box" style="<%= 'display:none;' unless  @advanced.nil?  %>">
-
+      <div style="clear:both;height:0px"></div>
+      <p style="font-size:12px;text-align:right;margin-right:14px;color:#666"><%= link_to "高级搜索", search_url if @advanced.nil?%></p>
+      <div id="advance_box" style="<%= 'display:none;' if @advanced.nil?  %>">
+      <div style="clear:both;height:20px"></div>
       
       <p id="advance_common" class="advances" style="<%= 'display:none;' unless @search.need_common? %>">
         <%= label_tag '标题' %> <%= text_field_tag :title, @search.title %><br />
