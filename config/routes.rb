@@ -149,7 +149,7 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
-  map.resources :games
+  map.resources :games, :collection => {:category => :get}
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements
