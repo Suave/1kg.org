@@ -1,0 +1,18 @@
+<%= javascript_include_tag 'swfupload' %>
+<%= javascript_include_tag 'mce_handlers' %>
+<fieldset>
+  <legend>上传新图片</legend>
+  <div>
+    <%= upload_button('upload_container', photo_upload_path_with_session) %>
+  </div>
+</fieldset>
+<fieldset>
+  <legend>可用图片</legend>
+  <div id="upload_container"></div>
+  <div id="photos" class="clearfix">  
+    <% @photos.each do |p| %>
+    <p style="float:left; padding: 10px;margin:0;width: 62px; height:62px;"><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title, :border => '0', :width => '62'), '#', :onclick => "ImageDialog.ts_insert_image('#{p.public_filename(:medium)}');" %>
+    </p>
+    <% end -%>
+  </div>
+</fieldset>

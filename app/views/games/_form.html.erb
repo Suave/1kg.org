@@ -18,12 +18,12 @@
 
 <p>
   <label class="label">游戏类型<span style="color:red;">＊</span></label>
-  <%= form.select :category, ['需要秀秀提供', '分类1', '分类2', '分类3'] %> <%= error_message_on @game, :category %>
+  <%= form.select :category, Game::CATEGORIES %> <%= error_message_on @game, :category %>
 </p>
 
 <p>
   <label class="label">游戏介绍<span style="color:red;">＊</span></label>
-  <%= fckeditor_textarea("game", "content", :toolbarSet => 'OneLine',:width => '640px',:height => '480px') %><%= error_message_on @game, :content %>
+  <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %><%= error_message_on @game, :content %>
 </p>
 
 <p>
