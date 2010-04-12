@@ -1,5 +1,6 @@
 class GamesController < ApplicationController
   before_filter :login_required, :only => [:new, :create, :edit, :update]
+  before_filter :check_category, :only => [:category, :new]
   
   uses_tiny_mce :options => { :theme => 'advanced',
   :browsers => %w{msie gecko safari},   
@@ -37,16 +38,16 @@ class GamesController < ApplicationController
   end
   
   def new
-    @game = Game.new(:category => params[:category])
+    @game = Game.new(:category => @category)
   end
   
   def create
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
-    
+
     respond_to do |want|
       if @game.save
-        want.html { redirect_to games_path }
+        want.html { redirect_to  @game }
       else
         want.html { render 'new' }
       end
