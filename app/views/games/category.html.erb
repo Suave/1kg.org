@@ -1,11 +1,26 @@
+<% @page_title = @category -%>
+
+<% content_for :crumb do -%>
+<li>游戏</li>
+<li><%= @category %></li>
+<% end -%>
 
 <% content_for :sidebar do -%>
-<span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
+  <%= render :partial => '/searches/search_box' %>
+
+  <div class="newbox">
+    <span class="span_title">热门游戏</span>
+    <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+      </div>    
+    </div>
+  </div>
 <% end -%>
 
 <div class="newbox">
-  <span class="span_title">最新游戏</span>
-  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category}/new",:class => "buttonjoin" %></div>
+  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", new_category_game_path(@category),:class => "buttonjoin" %></div>
+  <span class="span_title"><%= @category %></span>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "games", :object => @games %>
+  <p class="remark"><%= will_paginate @games %></p>
 </div>

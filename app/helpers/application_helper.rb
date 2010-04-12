@@ -325,9 +325,13 @@ module ApplicationHelper
     html
   end
   
-  def photo_upload_path_with_session(category,id)
+  def photo_upload_path_with_session(category=nil,id=nil)
     session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
-    photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
+    if category
+      photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
+    else
+      photos_path(session_key => cookies[session_key])
+    end
   end
 
 end

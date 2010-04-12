@@ -1,22 +1,34 @@
 class GamesController < ApplicationController
   before_filter :login_required, :only => [:new, :create, :edit, :update]
   before_filter :check_category, :except => [:index,:show]
-  @@categories = {
-    :music => '音乐课',
-    :art => '美术课',
-    :science => '环境科普教育',
-    :language => '语言类活动',
-    :health => '心理卫生健康课',
-    :sprit =>'心灵教育',
-    :sports =>'健身活动',
-    :reading =>'读书活动',
-    :safety =>'法律安全知识',
-    :computer =>'科技教育'}
+  
+  uses_tiny_mce :options => { :theme => 'advanced',
+  :browsers => %w{msie gecko safari},   
+  :theme_advanced_layout_manager => "SimpleLayout",
+  :theme_advanced_statusbar_location => "bottom",
+  :theme_advanced_toolbar_location => "top",
+  :theme_advanced_toolbar_align => "left",
+  :theme_advanced_resizing => true,
+  :relative_urls => false,
+  :convert_urls => false,
+  :cleanup => true,
+  :cleanup_on_startup => true,  
+  :convert_fonts_to_spans => true,
+  :theme_advanced_resize_horizontal => false,
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,emotions"],
+  :theme_advanced_buttons2 => [],
+  :language => :en,
+  :plugins => %w{contextmenu advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
   
   def index
-    
-    @categories = @@categories.to_a
-    @games = Game.paginate(:page => params[:page], :per_page => 20, :order => 'updated_at DESC')
+    @games = {}
+    Game::CATEGORIES.each do |category|
+      @games[category] = Game.category(category).limit(5)
+    end
+  end
+  
+  def category
+    @games = Game.category(@category).paginate(:page => params[:page], :per_page => 20)
   end
   
   def show
@@ -25,12 +37,7 @@ class GamesController < ApplicationController
   end
   
   def new
-    @game = Game.new
-  end
-  
-  def category
-    
-    @games = Game.find(:all,:conditions => {:category => @category})
+    @game = Game.new(:category => params[:category])
   end
   
   def create
@@ -67,13 +74,11 @@ class GamesController < ApplicationController
   private
   
   def check_category
-    if params[:tag] && @@categories.keys.include?(params[:tag].to_sym)
-      @category = params[:tag]
-      @title = @@categories[params[:tag].to_sym]
+    if params[:id] && Game::CATEGORIES.include?(params[:id])
+      @category = params[:id]
     else
       render_404
     end
-    
   end
   
 end

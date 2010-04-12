@@ -139,27 +139,16 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
-  map.resources :games do |games|
-      games.with_options :controller => 'games' do |dash|
-        dash.category '/:tag',:action => "category"
-        dash.category '/:tag/new',:action => "new"
-        dash.category '/:tag/create',:action => "create",:method => "post"
-    end
+  map.resources :games
+  map.with_options :controller => 'games' do |games|
+    games.category_games    '/games/category/:id',     :action => "category"
+    games.new_category_game '/games/category/:id/new', :action => "new"
   end
-  
-
-
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
   end
-  
-  # map.with_options :controller => "mall" do |mall|
-  #   mall.mall_index '/mall', :action => "index"
-  #   mall.mall_category '/mall/category/:tag', :action => "category"
-  #   mall.mall_detail '/mall/good/:id', :action => "show"
-  # end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -177,12 +166,6 @@ ActionController::Routing::Routes.draw do |map|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
-    #admin.resources :products # 公益商品供应商提供的商品
-    # for AJXY 的商城管理后台
-    #admin.resources :goods, :member => {:recommend => :put}, 
-    #                        :collection => {:sale => :get, :sending => :post, :successful => :get} do |good|  
-    #  good.resources :photos, :controller => "good_photos"
-    #end 
     admin.resources :bulletins
   end
 
