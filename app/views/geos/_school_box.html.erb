@@ -2,7 +2,6 @@
   <div class="boxOuter">
     <div id="schools" class="boxInner">
       <h3><%= @city.nil? ? '所有学校' : "#{@city.name}的学校" %></h3>
-      <span class="postNew"><%= link_for_new_school %></span>
       <%= render :partial => '/geos/schools', :object => @schools %>
     </div>
   </div>

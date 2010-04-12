@@ -5,15 +5,15 @@
 </p>
 
 <p>
-  <label class="label">游戏主题图<span style="color:red;">＊</span></label>
+  <label class="label">主题图<span style="color:red;">＊</span></label>
   <%= form.file_field :photo %>
 </p>
 
 <p>
   <label class="label">游戏信息<span style="color:red;">＊</span></label>
-  <%= form.select :level, ['请选择游戏适合年级', '学前班', '1-3年级', '4-6年级', '7-9年级'] %> <%= error_message_on @game, :level %>
-  <%= form.select :length, ['请选择游戏时间', '<20', '20-60', '60-90', '>90'] %> <%= error_message_on @game, :length %>
-  <%= form.select :size, ['请选择游戏人数', '1-5人', '5-10人', '10-20人', '20人以上'] %> <%= error_message_on @game, :size %>
+  <%= form.select :level, [['适合年级',''], '学前班', '1-3年级', '4-6年级', '7-9年级'] %> <%= error_message_on @game, :level %>
+  <%= form.select :length, [['游戏时间',''], '<20', '20-60', '60-90', '>90'] %> <%= error_message_on @game, :length %>
+  <%= form.select :size, [['游戏人数',''], '1-5人', '5-10人', '10-20人', '20人以上'] %> <%= error_message_on @game, :size %>
 </p>
 
 <p>
