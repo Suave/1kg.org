@@ -64,7 +64,7 @@
         </div>
       </div>
         
-      <div id="entry">
+        <div id="entry">
         <%= @share.html %>
         </div>
         <div style="text-align:right">
@@ -86,7 +86,6 @@
         </div>
         
         <%= share_link(summary(@share ,60),(@page_title.to_s + " - 多背一公斤"))%>
-      </div>
 </div>
 
 <%= render :partial => "/comments/comments", :object => @comments %>

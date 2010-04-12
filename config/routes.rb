@@ -139,7 +139,16 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
-  map.resources :games
+  map.resources :games do |games|
+      games.with_options :controller => 'games' do |dash|
+        dash.category '/:tag',:action => "category"
+        dash.category '/:tag/new',:action => "new"
+        dash.category '/:tag/create',:action => "create",:method => "post"
+    end
+  end
+  
+
+
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements

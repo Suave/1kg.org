@@ -5,7 +5,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <% @page = Page.find_by_slug('share-guide') -%>
+  <% @page = Page.find_by_slug('games-guide') -%>
   <%if @page%>
   <div class="newbox">
      <span class="span_title">创作指南</span>
@@ -18,7 +18,8 @@
 <div class="newbox" >
   <span class="span_title">创作游戏</span>
   <div class="clearfix" style="height:10px"></div>
-  <% form_for :game, :url => games_path, :html => {:multipart => true}  do |f| -%>
+
+  <% form_for :game, :url => (games_path + "/category/#{@category}/create"), :html => {:multipart => true}  do |f| -%>
     <%= render :partial => "form", :object => f %>        
     <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
       <span ><%= link_to "取 消", root_url %></span>　带<span class="require">*</span>号的是必填项
