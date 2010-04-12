@@ -45,13 +45,15 @@ class GamesController < ApplicationController
   def category
     
     @games = Game.find(:all,:conditions => {:category => @category})
+
   end
   
   def create
     check_category
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
-    respond_to do |want|
+
+  respond_to do |want|
       if @game.save
         want.html { redirect_to  @game }
       else

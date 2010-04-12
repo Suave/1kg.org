@@ -149,12 +149,14 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+
   
   map.resources :games
   map.with_options :controller => 'games' do |games|
     games.category_games    '/games/category/:tag',     :action => "category"
     games.new_category_game '/games/category/:tag/new', :action => "new"
   end
+
 
 
   map.resources :requirement_types, :as => 'projects' do |project|
