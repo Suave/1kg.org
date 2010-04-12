@@ -13,4 +13,11 @@ class Game < ActiveRecord::Base
   belongs_to :user
   
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "150x150>" }
+  
+  named_scope :category, lambda {|category| {:conditions => {:category => category}}}
+  named_scope :limit,    lambda {|limit| {:limit => limit}}
+  
+  CATEGORIES = ['音乐课', '美工课', '环境科普教育', '语言类活动', 
+    '心理卫生健康课', '心灵教育', '健身活动', '读书活动',
+    '法律安全知识', '科技教育']
 end

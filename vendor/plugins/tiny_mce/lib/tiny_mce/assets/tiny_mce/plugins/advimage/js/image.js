@@ -436,6 +436,12 @@ var ImageDialog = {
 			tinyMCEPopup.dom.setHTML('prev', '<img id="previewImg" src="' + u + '" border="0" onload="ImageDialog.updateImageData(this);" onerror="ImageDialog.resetImageData();" />');
 		else
 			tinyMCEPopup.dom.setHTML('prev', '<img id="previewImg" src="' + u + '" border="0" onload="ImageDialog.updateImageData(this, 1);" />');
+	},
+	
+	ts_insert_image: function(url){
+	 var formObj = document.forms[0]; formObj.src.value = url;
+	 formObj.alt.value = '';
+	 this.insertAndClose();
 	}
 };
 

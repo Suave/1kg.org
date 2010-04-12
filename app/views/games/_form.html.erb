@@ -2,6 +2,7 @@
 <p>
   <label class="label">游戏名称<span style="color:red;">＊</span></label>
   <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @game, :name %>
+  <%= form.hidden_field :category %>
 </p>
 
 <p>
@@ -18,7 +19,7 @@
 
 <p>
   <label class="label">游戏介绍<span style="color:red;">＊</span></label>
-  <%= fckeditor_textarea("game", "content", :toolbarSet => 'OneLine',:width => '640px',:height => '480px') %><%= error_message_on @game, :content %>
+  <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %><%= error_message_on @game, :content %>
 </p>
 
 <p>

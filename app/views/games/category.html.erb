@@ -1,4 +1,5 @@
 
+
 <% content_for :sidebar do -%>
 <span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
 <% end -%>
@@ -9,3 +10,10 @@
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/shared/game", :collection => @games %>
 </div>
+
+<% @page_title = @category -%>
+
+<% content_for :crumb do -%>
+<li>游戏</li>
+<li><%= @category %></li>
+<% end -%>

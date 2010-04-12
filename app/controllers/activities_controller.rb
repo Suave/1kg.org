@@ -18,7 +18,7 @@ class ActivitiesController < ApplicationController
   :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,forecolor,backcolor,|,link,unlink,|,image,emotions,|,code"],
   :theme_advanced_buttons2 => ["tablecontrols"],
   :theme_advanced_buttons3 => [],
-  :language => :en,
+  :language => :zh,
   :plugins => %w{contextmenu paste table fullscreen} }, :only => [:new, :create, :edit, :update]
   
 
