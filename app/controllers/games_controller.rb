@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_filter :login_required, :only => [:new, :create, :edit, :update]
-  before_filter :check_category, :except => [:index,:show]
+  before_filter :check_category, :except => [:index,:show,:edit,:update]
+  
   @@categories = {
     :music => '音乐课',
     :art => '美术课',
@@ -49,6 +50,7 @@ class GamesController < ApplicationController
   
   def edit
     @game = Game.find(params[:id])
+    
   end
   
   def update
@@ -56,7 +58,7 @@ class GamesController < ApplicationController
     @game.user_id = current_user.id
     
     respond_to do |want|
-      if @game.update_attributes(params[:game])
+      if @game.update_attributes!(params[:game])
         want.html {redirect_to @game}
       else
         want.html {render 'edit'}
@@ -71,6 +73,7 @@ class GamesController < ApplicationController
       @category = params[:tag]
       @title = @@categories[params[:tag].to_sym]
     else
+      
       render_404
     end
     

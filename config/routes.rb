@@ -149,12 +149,11 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+  
+  map.connect '/games/category/:tag', :controller => 'games', :action => 'category',:conditions => {:method => :get}
+  map.connect '/games/category/:tag/new', :controller => 'games', :action => 'new',:conditions => {:method => :get}
+  map.connect '/games/category/:tag/create', :controller => 'games', :action => 'create',:conditions => {:method => :post}
   map.resources :games do |games|
-      games.with_options :controller => 'games' do |dash|
-        dash.category '/:tag',:action => "category"
-        dash.category '/:tag/new',:action => "new"
-        dash.category '/:tag/create',:action => "create",:method => "post"
-    end
   end
   
 
