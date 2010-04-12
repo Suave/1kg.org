@@ -4,14 +4,20 @@
 <li>游戏</li>
 <% end -%>
 
+<% content_for :fullsize do -%>
+ <%= render :partial => 'category' ,:collection => @categories%>
+
+<% end %>
+
+
+
 <% content_for :sidebar do -%>
   <%= render :partial => '/searches/search_box' %>
 <% end -%>
 
 <div class="newbox">
-  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", new_game_path,:class => "buttonjoin" %></div>
+  
   <span class="span_title">最新游戏</span>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "games", :object => @games %>
-  <p class="remark">&raquo; <%= link_to "更多游戏", '#' %></p>
 </div>
