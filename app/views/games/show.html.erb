@@ -51,7 +51,6 @@
       <p>游戏人数: <%= @game.size %></p>
       <p>游戏时间: <%= @game.length %></p>
       <p>适合年龄: <%= @game.level %></p>
-      <p>游戏类型: <%= @game.category %></p>
       <p>当前版本: <%= @game.version %></p>
       <p>最后修订: <%= link_to @game.user.login, @game.user %> 于 <%= @game.updated_at.to_date %></p>      
       <p>游戏标签: <% @game.tags.each do |tag| %>
