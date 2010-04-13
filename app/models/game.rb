@@ -12,7 +12,7 @@ class Game < ActiveRecord::Base
 
   
   belongs_to :user
-  
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   has_attached_file :photo, :styles => { :medium => "300x300>", :thumb => "150x150>" }
   
   named_scope :category, lambda {|category| {:conditions => {:category => category}}}

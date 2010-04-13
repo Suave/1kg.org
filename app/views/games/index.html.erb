@@ -8,9 +8,7 @@
  <%= render :partial => 'category' ,:collection => @categories%>
 
 <% end %>
-
-
-
+<% if false%>
 <% content_for :sidebar do -%>
   <%= render :partial => '/searches/search_box' %>
 <% end -%>
@@ -23,4 +21,8 @@
   <%= render :partial => "games", :object => games %>
   <p class="remark">&raquo; <%= link_to "更多此类游戏", '#' %></p>
 </div>
+
 <% end %>
+
+<% end %>
+

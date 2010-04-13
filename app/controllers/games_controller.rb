@@ -22,6 +22,7 @@ class GamesController < ApplicationController
   
   def index
     @games = {}
+    @categories = Game::CATEGORIES
     Game::CATEGORIES.each do |category|
       @games[category] = Game.category(category).limit(5)
     end
@@ -38,12 +39,20 @@ class GamesController < ApplicationController
   
   def new
     @game = Game.new(:category => @category)
+
+  end
+  
+  def category
+    
+    @games = Game.find(:all,:conditions => {:category => @category})
+
   end
   
   def create
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
     respond_to do |want|
+
       if @game.save
         want.html { redirect_to  @game }
       else
@@ -54,6 +63,7 @@ class GamesController < ApplicationController
   
   def edit
     @game = Game.find(params[:id])
+    
   end
   
   def update
@@ -61,7 +71,7 @@ class GamesController < ApplicationController
     @game.user_id = current_user.id
     
     respond_to do |want|
-      if @game.update_attributes(params[:game])
+      if @game.update_attributes!(params[:game])
         want.html {redirect_to @game}
       else
         want.html {render 'edit'}
@@ -72,9 +82,10 @@ class GamesController < ApplicationController
   private
   
   def check_category
-    if params[:id] && Game::CATEGORIES.include?(params[:id])
-      @category = params[:id]
+    if params[:tag] && Game::CATEGORIES.include?(params[:tag])
+      @category = params[:tag]
     else
+      
       render_404
     end
   end

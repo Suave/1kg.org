@@ -1,3 +1,7 @@
 <div class="game">
-  
+    <div class="game_image_frame">
+        <img class="game_image" src="<%= game.photo.url(:thumb) %>"/>
+    </div>
+        <h5><%= link_to game.name, game_path(game)%></h5>
+    <div style="clear:both"></div>
 </div>
