@@ -1377,7 +1377,7 @@ a.progressCancel:hover {
 .share_link a{margin-left:5px;}
 
 .reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
-.game{width:280px;height:80px;padding:5px;background:#f3f3f3;margin:0 20px 5px 0;float:left}
+.game{width:290px;height:80px;padding:5px;margin:0 0px 20px 10px;float:left}
 .game_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden;margin-right:5px}
 .game_image{width:72px;height:72px;}
 .game_meta{margin-top:6px;color:#999}
