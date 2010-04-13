@@ -21,7 +21,7 @@
 <% @games.each do |category, games| %>
 <div class="newbox">
   <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", new_game_path(:category => category),:class => "buttonjoin" %></div>
-  <span class="span_title"><%= link_to category, category_games_path(:category => category) %></span>
+  <span class="span_title"><%= link_to category, category_games_path(category) %></span>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "games", :object => games %>
   <p class="remark">&raquo; <%= link_to "更多此类游戏", '#' %></p>

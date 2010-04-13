@@ -609,7 +609,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  :size
     t.text    :content
     t.integer :version
-    
+    t.integer :comments_count,   :default => 0
     t.timestamps
   end
   
