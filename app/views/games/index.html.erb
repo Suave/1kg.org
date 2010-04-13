@@ -20,7 +20,11 @@
 
 <% @games.each do |category, games| %>
 <div class="newbox">
+<<<<<<< HEAD:app/views/games/index.html.erb
   <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", new_category_game_path(category),:class => "buttonjoin" %></div>
+=======
+  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", new_game_path(:category => category),:class => "buttonjoin" %></div>
+>>>>>>> a66ae117c71426f0fc4f1f913dd24f531f89540f:app/views/games/index.html.erb
   <span class="span_title"><%= link_to category, category_games_path(category) %></span>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "games", :object => games %>

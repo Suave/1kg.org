@@ -134,13 +134,16 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put,
                                       :members => :get
                                     },
-                          :collection => {:all => :get,
+                            :collection => {:all => :get,
                             :participated => :get,
                             :submitted => :get}
   
   map.resources :photos
   
-  map.resources :games
+  map.resources :games  do |game|
+    game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
+  end
+  
   map.with_options :controller => 'games' do |games|
     games.category_games    '/games/category/:tag',     :action => "category"
     games.new_category_game '/games/category/:tag/new', :action => "new"

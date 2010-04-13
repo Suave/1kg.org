@@ -34,6 +34,7 @@ class GamesController < ApplicationController
   
   def show
     @game = Game.find(params[:id])
+    @comments = @game.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
     @game.revert_to(params[:version]) if params[:version]
   end
   
