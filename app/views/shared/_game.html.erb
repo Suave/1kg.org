@@ -1,7 +1,8 @@
-<div class="game">
+<div class="game" style="<%= cycle('border-right:1px solid #ddd','')%>">
     <div class="game_image_frame">
         <img class="game_image" src="<%= game.photo.url(:thumb) %>"/>
     </div>
         <h5><%= link_to game.name, game_path(game)%></h5>
+        <div class="game_meta"><%= game.level %><br/><%= game.size %><br/><%= game.length %>分钟</div>
     <div style="clear:both"></div>
 </div>

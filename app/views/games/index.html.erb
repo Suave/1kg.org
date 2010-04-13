@@ -5,6 +5,11 @@
 <% end -%>
 
 <% content_for :fullsize do -%>
+<div class="newbox">
+  <h1>游戏库</h1>
+  <div style="float:right;padding:15px;width:200px;height:45px;background: #494;color:#fff;font-size:16px;text-align:center;margin-right:20px">创造和补充游戏内容<br/>把游戏带给孩子们</div>
+  <div style="color:#666;width:420px;font-size:15px;line-height:24px">为了更好的开阔孩子们的视野，分享知识，同学们根据孩子们的需求创作了系列游戏，孩子们将在与你游戏中获取知识和快乐。快快加入我们的创作和传播队伍吧。</div>
+</div>
  <%= render :partial => 'category' ,:collection => @categories%>
 
 <% end %>
