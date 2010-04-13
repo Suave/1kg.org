@@ -1,16 +1,18 @@
 
+
 <% content_for :sidebar do -%>
 <span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
 <% end -%>
 
 <div class="newbox">
-  <span class="span_title">最新游戏</span>
+  <span class="span_title">所有游戏</span>
   <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category}/new",:class => "buttonjoin" %></div>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/shared/game", :collection => @games %>
+  <%= "#{@category} 还没有游戏 " if @games.empty? %>
 </div>
 
-<% @page_title = @category -%>
+<% @page_title = @title =@category -%>
 
 <% content_for :crumb do -%>
 <li>游戏</li>
