@@ -49,7 +49,6 @@ class GamesController < ApplicationController
   end
   
   def create
-    check_category
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
 

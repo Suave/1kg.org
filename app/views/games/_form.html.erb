@@ -18,8 +18,8 @@
 </p>
 
 <p>
-  <label class="label">游戏介绍<span style="color:red;">＊</span></label>
-  <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %><%= error_message_on @game, :content %>
+  <label class="label">游戏介绍<span style="color:red;">＊</span></label><%= error_message_on @game, :content %>
+  <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %>
 </p>
 
 <p>
