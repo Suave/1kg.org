@@ -55,7 +55,7 @@
     <div style="clear:both;height:10px"></div>
     <div id="version_history" style="text-align:right;display:none">
       <% @game.versions.reverse.each do |v| %>
-        <p><%= link_to v.comment, game_path(@game, :version => v.version) %>  <%= link_to v.user.login, v.user %> 修改于 <%= v.created_at.to_date %>:
+        <p><%=  link_to (v.comment.nil?? v.comment : '未说明' ), game_path(@game, :version => v.version) %>  <%= link_to v.user.login, v.user %> 修改于 <%= v.created_at.to_date %>:
         </p>
       <% end %>
     </div>
