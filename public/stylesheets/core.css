@@ -1370,3 +1370,7 @@ a.progressCancel:hover {
 .game_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden;margin-right:10px}
 .game_image{width:72px;height:72px;}
 .game_meta{margin-top:6px;color:#999}
+.game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
+
+.reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
+
