@@ -9,6 +9,9 @@
 <% content_for :sidebar do -%>
 <span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
 <% end -%>
+<% @page_title = @title = @category.name -%>
+<div style="color:#666;width:480px;font-size:14px;line-height:24px"><%= @category.description_html %></div>
+
 
 <div class="newbox">
   <span class="span_title">所有游戏</span>
@@ -18,4 +21,3 @@
   <%= "#{@category.name} 还没有游戏 " if @games.empty? %>
 </div>
 
-<% @page_title = @title = @category.name -%>
