@@ -1,7 +1,5 @@
-
-  <div style="margin:0 0 20px 20px">      
-        <ol class="clearfix" >
-          <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
+  <div style="margin:0 0 20px 20px;">      
+        <ol>
           <% replys.each_with_index do |comment,index| -%>
           <li class="reply_post">
             <div class="avatar"><%= avatar_for comment.user, "large" %></div>

@@ -41,13 +41,11 @@ class Message < ActiveRecord::Base
   end
 
 	private
-
 	def prepare_copies
 		return if to.blank?
-
 		to.each do |recipient|
-			recipient = User.find(recipient)
-			message_copies.build(:recipient_id => recipient.id, :unread => true) 
+		  recipient = User.find(recipient)
+	          message_copies.build(:recipient_id => recipient.id, :unread => true) 
 		end
 	end
 

@@ -1373,4 +1373,5 @@ a.progressCancel:hover {
 .game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
 
 .reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
+.reply {margin-bottom:10px}
 
