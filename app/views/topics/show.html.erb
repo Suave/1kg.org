@@ -104,9 +104,11 @@
               <%= p.html %>
             </div>
             
-              <li class="reply" style="display:none;">
+            <div style="clear:both;height:15px"></div>
+            
+            <div class="reply" style="display:none;">
               <%= render :partial => "/comments/form", :locals => {:commentable => p,:cancal => true} %>
-              </li>
+            </div>
             
             <%= render :partial => "/comments/replys", :object => p.comments.paginate(:page => 1, :per_page => 100) %>
           </li>

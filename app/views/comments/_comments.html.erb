@@ -1,8 +1,8 @@
 <% unless comments.blank? -%>
   <div class="newbox" id="topicCommentsList">
         <span class="span_title">回复</span>
-        <div class="cleanfix" style="height:10px"></div>
-        <ol class="clearfix">
+        <div style="clear:both;height:10px"></div>
+        <ol>
           <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
           <% comments.each_with_index do |comment,index| -%>
           <li>
@@ -18,10 +18,11 @@
               </p>
               <%= comment.body_html %>
             </div>
+            <div style="clear:both;height:15px"></div>
             <% if comment.repliable?  %>
-              <li class="reply" style="display:none;">
+              <div class="reply" >
               <%= render :partial => "/comments/form", :locals => {:commentable => comment,:cancal => true} %>
-              </li>
+              </div>
             <% end %>
             <%= render :partial => "/comments/replys", :object => comment.comments.paginate(:page => 1, :per_page => 100) unless comment.comments.blank?%>
           </li>
