@@ -166,6 +166,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
+    admin.resources :game_categories
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end

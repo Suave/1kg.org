@@ -1,5 +1,4 @@
 <% @page_title = "#{h @game.name}" -%>
-<% @title = h @game.name %>
 
 <% content_for :crumb do -%>
 <li><%= link_to '游戏', games_path %></li>
@@ -7,7 +6,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <span class="remark"><%= link_to " &raquo; 回到#{@game.category}类游戏",category_games_path(@game.category) %></span>
+  <span class="remark"><%= link_to " &raquo; 回到#{@game.game_category.name}类游戏",category_games_path(@game.game_category.slug) %></span>
   <div style="clear:both;height:10px"></div>
   <% if logged_in? && current_user == @game.user %>
   <div id="admins">
@@ -30,8 +29,11 @@
     <div class="clearfix"></div>
   </div>
 
-
 <% end -%>
+
+<span class="span_title" style="font-size:20px"><%= h @game.name %></span>
+<span style="font-weight:bold"> <%= link_to "[#{@game.game_category.name}]",category_games_path(@game.game_category.slug) %></span>
+
 <div class="newbox" id="activityInfo">
   <div class="contents">
     <div style="width:120px;float:right;text-align:right">
@@ -43,7 +45,6 @@
     </div>   
         
     <div id="activitiesInfo">
-      <p>游戏类别: <%= link_to @game.category,category_games_path(@game.category) %></p>
       <p>游戏人数: <%= @game.size %></p>
       <p>游戏时间: <%= @game.length %>分钟</p>
       <p>适合年龄: <%= @game.level %></p>
@@ -51,9 +52,10 @@
       <p>游戏标签: <% @game.tags.each do |tag| %>
         <%= link_to h(tag.name), tag_path(:tag => tag.name) %>
       <% end %>
+      <%= '无' unless @game.tags.empty?%>
       </p>        
     </div>
-    
+    <div style="clear:both;height:10px"></div>
     <div class="entry">
       <span class="span_title">游戏介绍</span>
       <%= @game.content %>

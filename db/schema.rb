@@ -600,10 +600,12 @@ ActiveRecord::Schema.define(:version => 0) do
   end
   
   create_table :games, :force => true do |t|
+    t.integer :game_category_id
+    t.integer :user_id
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.string  :category
+    t.string  :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length
@@ -620,12 +622,20 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.string  :category
+    t.string  :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length
     t.string  :size
     t.text    :content
+    t.integer  :comments_count,   :default => 0
     t.timestamps
+  end
+  
+    create_table :game_categories, :force => true do |t|
+    t.string  :photo_file_name
+    t.string  :name
+    t.string  :slug
+    t.text    :description_html
   end
 end

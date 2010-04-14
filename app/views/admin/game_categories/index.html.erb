@@ -1,0 +1,26 @@
+<% @page_title = @title = "所有游戏类型" -%>
+
+
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+
+<table style="width:300px;float:left">
+  <tr>
+    <th style="width:60%;">名称</th>
+
+    <th style="width:40%;">操作</th>
+  </tr>
+  <% @categories.each do |category|%>
+    <tr>
+    <td><%= category.name %></td>
+    <td><%= link_to '修改', edit_admin_game_category_url(category) %> | <%= link_to '删除', admin_game_category_url(category) ,:method => :delete,:confirm => "会删除此分类的所有游戏,确认删除么？"%></td>
+  </tr>
+  <% end -%>
+</table>
+<div style="float:left;font-size:13px;font-weight:bold;margin-left:20px"><%= link_to "新建", new_admin_game_category_url() %></div>
+
+<div style="clear:both;height:20px"></div>
