@@ -1,4 +1,9 @@
 
+<% content_for :crumb do -%>
+<li>游戏</li>
+<li><%= @category.name %></li>
+<% end -%>
+
 
 <% content_for :sidebar do -%>
 <div style="margin-left:20px">
@@ -6,11 +11,12 @@
   <%= render :partial => "category_list"%>
 </div>
 <% end -%>
+
 <% @page_title = @title = @category.name -%>
 <div style="color:#666;width:480px;font-size:14px;line-height:24px;margin-bottom:20px"><%= @category.description_html %></div>
 
 <div class="newbox">
-<div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category.slug}/new",:class => "buttonjoin" %></div>
+  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category.slug}/new",:class => "buttonjoin" %></div>
   <span class="span_title">所有游戏</span>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/shared/game", :collection => @games %>
@@ -18,8 +24,4 @@
 </div>
 
 
-
-<% content_for :crumb do -%>
-<li>游戏</li>
-<li><%= @category.name %></li>
-<% end -%>
+<div style="clear:both;height:20px"></div>
