@@ -1,7 +1,10 @@
 
 
 <% content_for :sidebar do -%>
-<span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
+<div style="margin-left:20px">
+  <span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
+  <%= render :partial => "category_list"%>
+</div>
 <% end -%>
 <% @page_title = @title = @category.name -%>
 <div style="color:#666;width:480px;font-size:14px;line-height:24px;margin-bottom:20px"><%= @category.description_html %></div>
