@@ -18,4 +18,7 @@ class Game < ActiveRecord::Base
   named_scope :limit,    lambda {|limit| {:limit => limit}}
   
 
+  def clean_html
+    self.content
+  end
 end

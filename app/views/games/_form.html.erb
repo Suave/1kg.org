@@ -6,7 +6,7 @@
 </p>
 
 <p>
-  <label class="label">主题图<span style="color:red;">＊</span></label>
+  <label class="label">游戏主题图</label>
   <%= form.file_field :photo %>
 </p>
 <p>
@@ -27,10 +27,12 @@
   <span>（以空格分隔不同标签）</span>
 </p>
 
-<% unless @game.new_record? %>
+<% if !@game.new_record? %>
 <p>
   <label class="label" >修订说明</label>
   <%= form.text_field :comment, :size => 40, :class => "formText" %>
   <span>（说明这次改动的内容）</span>
 </p>
+<% else %>
+<%= form.text_field :comment, :size => 40, :class => "formText",:style => "display:none",:value => '初始版本' %>
 <% end %>

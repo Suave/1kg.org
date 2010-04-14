@@ -1,12 +1,13 @@
 <% @page_title = "#{h @game.name}" -%>
 
 <% content_for :crumb do -%>
+<p style="display:none"><%= summary(@game ,60)%>...</p>
 <li><%= link_to '游戏', games_path %></li>
 <li><%= @game.name %></li>
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <span class="remark"><%= link_to " &raquo; 回到#{@game.game_category.name}类游戏",category_games_path(@game.game_category.slug) %></span>
+  
   <div style="clear:both;height:10px"></div>
   <% if logged_in? && current_user == @game.user %>
   <div id="admins">
@@ -16,18 +17,7 @@
     </p>
   </div>
   <% end %>
-  
-  <div class="newbox">
-    <span class="span_title2">修订记录</span>
-    <div class="clearfix" style="height:5px"></div>
-    <div class="contents">
-      <% @game.versions.reverse.each do |v| %>
-        <p><%= link_to v.user.login, v.user %> 修订于 <%= v.created_at.to_date %>:
-        <%= link_to v.comment, game_path(@game, :version => v.version) %></p>
-      <% end %>
-    </div>
-    <div class="clearfix"></div>
-  </div>
+  <span class="remark"><%= link_to " &raquo; 回到#{@game.game_category.name}类游戏",category_games_path(@game.game_category.slug) %></span>
 
 <% end -%>
 
@@ -59,6 +49,19 @@
     <div class="entry">
       <span class="span_title">游戏介绍</span>
       <%= @game.content %>
+      
+      
+    <span class="more" name="#version_history">查看版本记录</span>
+    <div style="clear:both;height:10px"></div>
+    <div id="version_history" style="text-align:right;display:none">
+      <% @game.versions.reverse.each do |v| %>
+        <p><%=  link_to (v.comment.nil?? v.comment : '未说明' ), game_path(@game, :version => v.version) %>  <%= link_to v.user.login, v.user %> 修改于 <%= v.created_at.to_date %>:
+        </p>
+      <% end %>
+    </div>
+
+      
+      <%= share_link(summary(@game ,60),(@page_title.to_s + " - 多背一公斤"))%>
 
     </div>
   </div>
@@ -66,3 +69,12 @@
 
   <%= render :partial => "/comments/comments", :object => @comments %>
   <%= render :partial => "/comments/form", :locals => {:commentable => @game} %>
+  
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    $(".more").toggle(
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
+  });   
+</script>
