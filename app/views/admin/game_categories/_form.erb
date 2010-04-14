@@ -1,0 +1,6 @@
+<p><label class="label">名称</label><%= form.text_field :name, :size => 10 %></p>
+<p><label class="label">路径</label><%= form.text_field :slug, :size => 10 %></p>
+<p><label class="label">主题图</label><%= form.file_field :photo %></p>
+<p><label class="label">介绍</label>
+  <%= form.text_area :description_html, :cols => 50, :rows => 6 %>
+</p>

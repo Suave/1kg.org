@@ -22,15 +22,12 @@ class GamesController < ApplicationController
   
   def index
     @games = {}
-    @categories = Game::CATEGORIES
-    Game::CATEGORIES.each do |category|
-      @games[category] = Game.category(category).limit(5)
-    end
+    @categories = GameCategory.all
+    
   end
   
   def category
-    @category = params[:category]
-    @games = Game.category(@category).paginate(:page => params[:page], :per_page => 20)
+    @games = find_by_slug
   end
   
   def show
@@ -40,12 +37,12 @@ class GamesController < ApplicationController
   end
   
   def new
-    @game = Game.new(:category => @category)
+    @game = Game.new(:game_category_id => @category.id)
   end
   
   def category
     
-    @games = Game.find(:all,:conditions => {:category => @category})
+    @games = @category.games
 
   end
   
@@ -83,11 +80,9 @@ class GamesController < ApplicationController
   private
   
   def check_category
-    if params[:tag] && Game::CATEGORIES.include?(params[:tag])
-      @category = params[:tag]
-     
+    if params[:tag] && GameCategory.all.map(&:slug).include?(params[:tag])
+      @category = GameCategory.find_by_slug(params[:tag])
     else
-      
       render_404
     end
     

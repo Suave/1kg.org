@@ -6,7 +6,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <span class="remark"><%= link_to " &raquo; 回到#{@game.category}类游戏",category_games_path(@game.category) %></span>
+  <span class="remark"><%= link_to " &raquo; 回到#{@game.game_category.name}类游戏",category_games_path(@game.game_category.slug) %></span>
   <div style="clear:both;height:10px"></div>
   <% if logged_in? && current_user == @game.user %>
   <div id="admins">
@@ -31,7 +31,8 @@
 
 <% end -%>
 
-<span class="span_title" style="font-size:20px"><%= h @game.name %></span> <span style="font-weight:bold"> <%= link_to "[#{@game.category}]",category_games_path(@game.category) %></span>
+<span class="span_title" style="font-size:20px"><%= h @game.name %></span>
+<span style="font-weight:bold"> <%= link_to "[#{@game.game_category.name}]",category_games_path(@game.game_category.slug) %></span>
 
 <div class="newbox" id="activityInfo">
   <div class="contents">

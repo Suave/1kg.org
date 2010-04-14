@@ -6,15 +6,15 @@
 
 <div class="newbox">
   <span class="span_title">所有游戏</span>
-  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category}/new",:class => "buttonjoin" %></div>
+  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category.slug}/new",:class => "buttonjoin" %></div>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/shared/game", :collection => @games %>
-  <%= "#{@category} 还没有游戏 " if @games.empty? %>
+  <%= "#{@category.name} 还没有游戏 " if @games.empty? %>
 </div>
 
-<% @page_title = @title =@category -%>
+<% @page_title = @title = @category.name -%>
 
 <% content_for :crumb do -%>
 <li>游戏</li>
-<li><%= @category %></li>
+<li><%= @category.name %></li>
 <% end -%>

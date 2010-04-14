@@ -2,14 +2,13 @@
 <p>
   <label class="label">游戏名称<span style="color:red;">＊</span></label>
   <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @game, :name %>
-  <%= form.hidden_field :category %>
+  <%= form.hidden_field :game_category_id %>
 </p>
 
 <p>
   <label class="label">主题图<span style="color:red;">＊</span></label>
   <%= form.file_field :photo %>
 </p>
-<%= error_message_on @game, :category %>
 <p>
   <label class="label">游戏信息<span style="color:red;">＊</span></label>
   <%= form.select :level, [['适合年级',''], '学前班', '1-3年级', '4-6年级', '7-9年级'] %> <%= error_message_on @game, :level %>
