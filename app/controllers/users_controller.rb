@@ -106,19 +106,6 @@ class UsersController < ApplicationController
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "avatar")
     
-        
-    elsif params[:for] == 'move'
-      @user.geo = nil
-      @user.save!
-      flash[:notice] = "请选择您现在的居住城市"
-      redirect_to my_city_url  
-      
-    elsif params[:for] == 'live'
-      @geo = Geo.find(params[:geo])
-      @user.geo = @geo unless @geo.blank?
-      @user.save!
-      flash[:notice] = "您已经入住#{@geo.name}"
-      redirect_to my_city_url
     
     elsif params[:for] == 'profile'
       if @user.profile

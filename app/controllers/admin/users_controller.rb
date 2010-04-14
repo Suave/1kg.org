@@ -8,11 +8,6 @@ class Admin::UsersController < Admin::BaseController
     elsif params[:type] == "school"
       @type = "school"
       render :action => "school"
-    
-    elsif params[:type] == "city"
-      @type = "city"
-      @geo_roots = Geo.roots
-      render :action => "city"
       
     else
       @type = "admin"
@@ -30,10 +25,6 @@ class Admin::UsersController < Admin::BaseController
       @type = "school"
       render :action => "school"
         
-    elsif params[:type] == "city"
-      @geo = Geo.find(params[:geo])
-      render :template => "admin/geos/edit"
-      
     elsif params[:type] == "public"
       @public_board = PublicBoard.find(params[:board])
       render :template => "/admin/boards/edit_public"
@@ -51,25 +42,12 @@ class Admin::UsersController < Admin::BaseController
       @user.roles << Role.find_by_identifier("roles.schools.moderator")
       flash[:notice] = "设置 #{@user.login} 为学校管理员"
       redirect_to admin_users_path(:type => "school")
-            
-    elsif params[:add] == "city"
-      geo = Geo.find(params[:geo]) unless params[:geo].blank?
-      
-      if @user && geo
-        @user.roles << Role.find_by_identifier("roles.geo.moderator.#{geo.id}")
-        flash[:notice] = "设置成功"
-      else
-        flash[:notice] = "系统错误"
-      end
-      redirect_to edit_admin_geo_url(geo)
-      
+                  
     elsif params[:add] == "public"
       board = Board.find(params[:board])
       @user.roles << Role.find_by_identifier("roles.board.moderator.#{board.id}")
       flash[:notice] = "设置成功"
       redirect_to edit_admin_board_url(board, :type => "public")
-      
-    elsif params[:add] == "love_ambas"
       
     elsif params[:remove] == "public"
       board = Board.find(params[:board])
@@ -77,13 +55,6 @@ class Admin::UsersController < Admin::BaseController
       flash[:notice] = "设置成功"
       redirect_to edit_admin_board_url(board, :type => "public")
       
-    elsif params[:remove] == "city"
-      geo   = Geo.find(params[:geo]) unless params[:geo].blank?
-      
-      @user.roles.delete(Role.find_by_identifier("roles.geo.moderator.#{geo.id}"))
-      flash[:notice] = "设置成功"
-      redirect_to edit_admin_geo_url(geo)
-
     elsif params[:remove] == "schools"
       @user.roles.delete(Role.find_by_identifier("roles.schools.moderator"))
       flash[:notice] = "取消了 #{@user.login} 学校管理员权限"
