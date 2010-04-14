@@ -23,7 +23,6 @@ class SchoolsController < ApplicationController
                                                        :order => "created_at desc, start_at desc",
                                                        :limit => 5,
                                                        :include => [:main_photo, :school])
-        # 显示最新用户动态
       }
       format.json {
         @schools = School.validated
@@ -255,6 +254,7 @@ class SchoolsController < ApplicationController
       
     @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
   end
+
 
   # 改版学校页面
   def show

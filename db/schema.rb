@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "type_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
+    t.integer  "comments_count"
     t.datetime "deleted_at"
   end
 
@@ -182,6 +183,7 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false
     t.integer  "user_id",             :null => false
+    t.integer  "comments_count"
     t.text     "body_html"
     t.text     "clean_html"
     t.datetime "created_at"
@@ -594,5 +596,45 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer   "user_id"
     t.datetime  "created_at"
     t.datetime  "udpated_at"
+  end
+  
+  create_table :games, :force => true do |t|
+    t.integer :game_category_id
+    t.integer :user_id
+    t.integer :user_id
+    t.string  :photo_file_name
+    t.string  :comment    
+    t.integer  :game_category_id
+    t.string  :name
+    t.string  :level
+    t.string  :length
+    t.string  :size
+    t.text    :content
+    t.integer :version
+    t.integer :comments_count,   :default => 0
+    t.timestamps
+  end
+  
+  create_table :game_versions, :force => true do |t|
+    t.integer :game_id
+    t.integer :version
+    t.integer :user_id
+    t.string  :photo_file_name
+    t.string  :comment    
+    t.integer  :game_category_id
+    t.string  :name
+    t.string  :level
+    t.string  :length
+    t.string  :size
+    t.text    :content
+    t.integer  :comments_count,   :default => 0
+    t.timestamps
+  end
+  
+    create_table :game_categories, :force => true do |t|
+    t.string  :photo_file_name
+    t.string  :name
+    t.string  :slug
+    t.text    :description_html
   end
 end

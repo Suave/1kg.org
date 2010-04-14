@@ -92,7 +92,6 @@
     <div class="clearfix"></div>
     </div>
     <%end%>
-
   <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
   <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
 
@@ -175,7 +174,6 @@
     </div>
     <% end -%>  
 
-  <%if false%>
     <div class="school_sidebar">
       <h3 class="label_lei">正在进行的项目</h3>
       <div class="sidebar_inter">
@@ -187,7 +185,8 @@
         <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
       </div>
     </div>
-    
+
+  <%if false%>
   <div class="school_sidebar">
     <div class="sidebar_inter">
       <div id="donations_info">  

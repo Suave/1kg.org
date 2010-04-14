@@ -26,6 +26,7 @@
 #  sticky               :boolean(1)
 #  participations_count :integer(4)      default(0)
 #  clean_html           :text
+#  main_photo_id        :integer(4)
 #
 
 activity1:

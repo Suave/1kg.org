@@ -1,0 +1,15 @@
+<% @page_title = "修改游戏类型" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="setting">
+  <div class="block">
+    <% form_for :game_category, :url => admin_game_category_url(@game_category),:html => {:method => 'put'} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p><label>&nbsp;</label><%= submit_tag "更新" %> 或 <%= link_to "取消", admin_game_categories_url() %></p>
+    <% end -%>
+  </div>
+</div>

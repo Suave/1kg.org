@@ -22,6 +22,7 @@
 #  shares_count              :integer(4)
 #  posts_count               :integer(4)
 #  ip                        :string(255)
+#  email_notify              :boolean(1)      default(TRUE)
 #
 
 quentin:

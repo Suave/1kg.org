@@ -3,7 +3,6 @@
   <meta name="description" content="来自多背一公斤的话题： <%= summary(@topic ,60)-%>...">
 <%end%>
 
-
 <% @page_title = h(@topic.title) -%>
 
 <% content_for :crumb do -%>
@@ -56,8 +55,6 @@
 <% end -%>
 
   <div class="newbox" id="topicSingle">
-        
-
         <div class="metadata" style="border-bottom:1px #ccc solid;padding-bottom:4px">
             <h2 style="font-size:20px;font-weight:bold;padding-bottom:4px"><%= @topic.title %></h2>
             <span class="gary_span"><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></span>
@@ -85,9 +82,7 @@
   </div>
 
 <% unless @posts.blank? -%>
-  <div class="box" id="topicCommentsList">
-    <div class="boxOuter">
-      <div class="boxInner">
+  <div class="newbox" id="topicCommentsList">
         <h3>回复</h3>
         <ol class="clearfix">
           <% @posts.each do |p| -%>
@@ -96,29 +91,35 @@
             <div class="content">
               <p class="meta">
                 <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
+                
+                <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' %>
                 <% if p.editable_by current_user -%>
-                  (<%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
+                    | <%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
                   <% if p.deleted_at.blank? -%>
                     | <%= link_to "删除", board_topic_post_url(@board, @topic, p), :method => :delete, :confirm => "确定要删除么?" %>
                   <% end -%>
-                  )
                 <% end -%>
               </p>
               <%= p.html %>
             </div>
+            
+            <div style="clear:both;height:15px"></div>
+            
+            <div class="reply" style="display:none;">
+              <%= render :partial => "/comments/form", :locals => {:commentable => p,:cancal => true} %>
+            </div>
+            
+            <%= render :partial => "/comments/replys", :object => p.comments.paginate(:page => 1, :per_page => 100) %>
           </li>
+          
           <% end -%>
         </ol>
-      </div>
-    </div>
   </div>
 <% end %>
 
 
-  <div class="box" id="topicCommentForm">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h3>回帖</h3>
+  <div class="newbox" id="topicCommentForm">
+        <h3 id="reply">回帖</h3>
         <% if logged_in? -%>
         
           <% if @topic.block? -%>
@@ -142,9 +143,7 @@
           <% end -%>
         <% else -%>
 
-          <div class="contents"><%= link_to "登录", login_url(:to => CGI.escape(request.request_uri)) %>以后可以回复话题</div>
+          <div class="contents"><%= link_to "登录", ajax_login_url(:iframe => true, :width => 550, :height => 480, :alt => "登录"), :rel => 'prettyPhoto[iframes]' %>以后可以回复话题</div>
 
         <% end -%>
-      </div>
-    </div>
   </div>

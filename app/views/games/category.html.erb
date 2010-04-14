@@ -1,0 +1,27 @@
+
+<% content_for :crumb do -%>
+<li>游戏</li>
+<li><%= @category.name %></li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+<div style="margin-left:20px">
+  <span class="remark"><%= link_to "&raquo; 回到游戏库首页",games_url%></span>
+  <%= render :partial => "category_list"%>
+</div>
+<% end -%>
+
+<% @page_title = @title = @category.name -%>
+<div style="color:#666;width:480px;font-size:14px;line-height:24px;margin-bottom:20px"><%= @category.description_html %></div>
+
+<div class="newbox">
+  <div style="float:right;position:relative;top:5px"><%= link_to "创作游戏", "/games/category/#{@category.slug}/new",:class => "buttonjoin" %></div>
+  <span class="span_title">所有游戏</span>
+  <div class="clearfix" style="height:10px"></div>
+  <%= render :partial => "/shared/game", :collection => @games %>
+  <%= "目前还没有游戏，你可以#{link_to "创作第一个游戏", "/games/category/#{@category.slug}/new"}。" if @games.empty? %>
+</div>
+
+
+<div style="clear:both;height:20px"></div>

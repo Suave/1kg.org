@@ -39,19 +39,24 @@
  <%end%>
 </p>
   
-<p>
- <label>活动时间<span class="require">*</span></label>
- <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
- 至<span class="require">*</span></label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" />
-   <% if !(error_message_on @activity, :start_at).empty? ||!(error_message_on @activity, :end_at).empty?%><span style='color:red'>请把活动时间填写完整</span>　
-   <% elsif !(error_message_on @activity, :time).empty?%>
-   <%= error_message_on @activity, :time %>
-   <% end %>
+     <p>
+      <label>活动时间<span class="require">*</span></label>
+      <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
+      至<span class="require">*</span></label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" />
+        <% if !(error_message_on @activity, :start_at).empty? ||!(error_message_on @activity, :end_at).empty?%><span style='color:red'>请把活动时间填写完整</span>　
+        <% elsif !(error_message_on @activity, :time).empty?%>
+        <%= error_message_on @activity, :time %>
+        <% end %>
+     </p>
+      <p>
+      <label>报名截止</label>　<input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
+      </p>
+
+  
+  
+<p><label >活动介绍<span class="require">*</span></label> <%= error_message_on @activity, :description_html %>
+<br/>
+<%= form.text_area :description_html, :style => 'width:630px;height:400px;', :class => "mceEditor" %>
 </p>
- <p>
- <label>报名截止</label>　<input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
- </p>
- 
-　<p><label >活动介绍<span class="require">*</span></label> <%= error_message_on @activity, :description_html %><br/><%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '640px', :height => '400px') %></p>
-　<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
-</div> 
+</div>
+<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>

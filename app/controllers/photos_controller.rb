@@ -1,7 +1,15 @@
 class PhotosController < ApplicationController
-  before_filter :login_required, :except => [:show, :gallery]
+  before_filter :login_required, :except => [:show, :gallery, :index]
   session :cookie_only => false, :only => %w(create) 
   skip_before_filter :verify_authenticity_token
+  
+  def index
+    @photos = current_user.photos.paginate(:page => params[:page], :per_page => 5, :order => 'created_at DESC')
+    
+    respond_to do |wants|
+      wants.html {render :layout => false}
+    end
+  end
   
   def new
     @photo = Photo.new(:school_id => params[:school_id], :activity_id => params[:activity_id])
@@ -15,16 +23,23 @@ class PhotosController < ApplicationController
     @photo.save!
     flash[:notice] = "照片上传成功!"
     
-    if params[:Filedata]
-      render(:text => @photo.id)
-    else
-      redirect_to @photo.school || @photo.activity
+    respond_to do |wants|
+      if params[:Filedata]
+        wants.html {render(:text => @photo.id)}
+      else
+        wants.html {redirect_to @photo.school || @photo.activity}
+      end
     end
   end
   
   def gallery
     @photo = Photo.find(params[:id])
     render :partial => '/schools/gallery_photo', :object => @photo, :layout => false
+  end
+  
+  def mce
+    @photo = Photo.find(params[:id])
+    render :layout => false
   end
   
   def update

@@ -108,7 +108,7 @@ class School < ActiveRecord::Base
     has basic(:has_library), :as => :has_library
     has basic(:has_internet), :as => :has_internet
   end
-
+  
   attr_accessor :city, :city_unit, :town, :town_unit, :village
   
   def validate_on_create
@@ -145,6 +145,7 @@ class School < ActiveRecord::Base
   # 用于导入博客学校
   class << self
     include SchoolImport
+
     def categories
       %w(小学 中学 四川灾区板房学校)
     end

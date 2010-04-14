@@ -1,0 +1,20 @@
+<%= javascript_include_tag 'jQuery/jquery.min' %>
+<%= javascript_include_tag 'jQuery/jrails' %>
+
+<h3>请登录</h3>
+
+<% remote_form_for :session, :url => session_path do |form| -%>
+  <%= hidden_field_tag :to, params[:to] if params[:to] %>
+  <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+      
+  <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
+      
+  <p class="rememberMe"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label></p>
+      
+  <p class="submit">
+    <%= submit_tag '登 录' %>
+    <%= link_to "忘记密码了？点击这里找回", forget_password_path %>
+  </p>
+<% end -%>
+      
+<p class="login">&raquo; 我还不是会员，<%= link_to "1秒钟注册帐号", signup_url %></p>

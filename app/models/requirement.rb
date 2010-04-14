@@ -15,6 +15,8 @@
 #  hidden        :boolean(1)
 #
 
+# Requirement 对应学校大使为某一个学校申请的物资需求，如200本书，300跟铅笔等等
+
 class Requirement < ActiveRecord::Base
   set_table_name "stuff_bucks"
   

@@ -20,6 +20,7 @@ class Post < ActiveRecord::Base
   belongs_to :topic, :counter_cache => 'posts_count'
   delegate :board, :to => :topic, :allow_nil => true
   belongs_to :user
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   
   acts_as_paranoid
   
