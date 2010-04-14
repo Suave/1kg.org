@@ -604,7 +604,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.string  :game_category_id
+    t.integer  :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length
@@ -621,7 +621,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.string  :game_category_id
+    t.integer  :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length
