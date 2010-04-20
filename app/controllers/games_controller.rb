@@ -15,9 +15,9 @@ class GamesController < ApplicationController
   :cleanup_on_startup => true,  
   :convert_fonts_to_spans => true,
   :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,emotions"],
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,|,code,"],
   :theme_advanced_buttons2 => [],
-  :language => :en,
+  :language => :zh,
   :plugins => %w{contextmenu advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
   
   def index
