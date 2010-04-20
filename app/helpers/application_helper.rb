@@ -182,8 +182,6 @@ module ApplicationHelper
       link_to talkable.school.title, board_path(topic.board)
     elsif talkable.class == PublicBoard
       link_to talkable.title, board_path(topic.board)
-    elsif talkable.class == CityBoard
-      link_to talkable.geo.name, board_path(topic.board)
     else
       link_to talkable.group.title, group_path(talkable.group)
     end
@@ -327,8 +325,13 @@ module ApplicationHelper
     html
   end
   
-  def photo_upload_path_with_session(category,id)
+  def photo_upload_path_with_session(category=nil,id=nil)
     session_key = ActionController::Base.session_options[:key] || '_1kg_org_session'
-    photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
+    if category
+      photos_path("photo[#{category}_id]" => id, session_key => cookies[session_key])
+    else
+      photos_path(session_key => cookies[session_key])
+    end
   end
+
 end

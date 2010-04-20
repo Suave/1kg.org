@@ -25,7 +25,7 @@
     <div class="boxInner">
       <h3>有问题? 找朋友?</h3>
       <div class="contents">
-        <% if @city.city_board -%>
+        <% if @city -%>
         <p>&raquo; <%= link_to "去#{@city.name}同城看看", geo_url(@city) %>, 那有 <%= @city.users.size %> 位用户, 没准可以帮你</p>
         <% end -%>
       </div>

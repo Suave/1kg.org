@@ -37,7 +37,7 @@ class UsersController < ApplicationController
           @user.update_attribute(:ip, request.remote_ip)
           cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
           self.current_user = @user
-          flash[:notice] = "注册完成, 补充一下你的个人信息吧"
+          flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
           #redirect_to "/setting"
           redirect_back_or_default CGI.unescape(params[:to] || '/setting')
           #render :action => "wait_activation"
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !self.current_user.active?
       self.current_user.activate!
-      flash[:notice] = "注册完成，补充一下你的个人信息吧"
+      flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
       redirect_back_or_default CGI.unescape(params[:to] || '/setting')
     else
       flash[:notice] = "激活码不正确，请联系 feedback@1kg.org"
@@ -98,32 +98,13 @@ class UsersController < ApplicationController
       flash[:notice] = "密码修改成功"
       redirect_to setting_url(:type => 'account')
     
-    
+  
       
     elsif params[:for] == 'avatar'
       avatar_convert(:user, :avatar)
       @user.update_attributes!(params[:user])
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "avatar")
-    
-    
-    
-    
-    elsif params[:for] == 'move'
-      @user.geo = nil
-      @user.save!
-      flash[:notice] = "请选择您现在的居住城市"
-      redirect_to my_city_url
-      
-      
-      
-    elsif params[:for] == 'live'
-      @geo = Geo.find(params[:geo])
-      @user.geo = @geo unless @geo.blank?
-      @user.save!
-      flash[:notice] = "您已经入住#{@geo.name}"
-      redirect_to my_city_url
-    
     
     
     elsif params[:for] == 'profile'

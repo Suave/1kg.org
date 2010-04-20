@@ -380,6 +380,56 @@ body.home #navWrap {
   font-size: 1.2em;
 }
 
+#nav a.signin {
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+  -moz-border-radius-bottomleft:4px;
+  -moz-border-radius-bottomright:4px;
+  -moz-border-radius-topleft:4px;
+  -moz-border-radius-topright:4px;
+  background:#569701 none repeat scroll 0 0;
+  color:#FFFFFF;
+  font-weight:bold;
+  padding:4px 6px 6px;
+  text-decoration:none;
+}
+
+#nav a.signin.menu-open {
+  background-color: #8FC848;
+}
+
+a.signin span {
+  background-image:url(/images/toggle_down_light.png);
+  background-position:100% 50%;
+  background-repeat:no-repeat;
+  padding:4px 16px 6px 0;
+}
+
+a.signin.menu-open span {
+  background-image:url(/images/toggle_up_dark.png);
+}
+
+#nav #signin_menu {
+  -moz-border-radius-bottomleft:5px;
+  -moz-border-radius-bottomright:5px;
+  -moz-border-radius-topleft:5px;
+  background-color:#8FC848;
+  border:1px none transparent;
+  color:#FFFFFF;
+  display:none;
+  font-size:11px;
+  margin-right:53px;
+  margin-top:5px;
+  padding:12px;
+  position:absolute;
+  right:0;
+  text-align:center;
+  top:24.5px;
+  width:210px;
+  z-index:100;
+}
+
 #topicnav{color:#569701;cursor:pointer;display:block;}
 #topicnav img{-padding-top:5px}
 
@@ -824,7 +874,6 @@ h3.title {
 #activitiesPostNew form,
 #topicPostNew form,
 #sharePostNew form,
-
 #topicCommentForm {
   width:600px
   padding:10px}
@@ -975,9 +1024,7 @@ h3.title {
 }
 
 /* =topicCommentsList */
-#topicCommentsList ol {
-  padding: 0 10px 10px;
-}
+
 #topicCommentsList ol li {
   float: left;
   width: 100%;
@@ -1168,8 +1215,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .topic .school_list_photo{width:80px;margin-right:10px}
 
 .stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
- 
- 
+  
 .photo_frame{float:left;height:118px;width:120px;margin:0 0 5px 5px;text-align:center;overflow:hidden}
 .photo{height:80px;}
 .photo_meta{}
@@ -1188,29 +1234,32 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .record{margin-bottom:1em;height:54px;width:270px;float:left}
 #records .record{margin-right:10px;width:300px}
  
- 
 .newbox{padding-left:10px;margin-bottom:20px}
 .span_title{font-size:17px;font-weight:bold;color:#555}
 .span_title2{font-size:15px;font-weight:bold;color:#555}
  
 #admins{padding:7px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 #search_box{padding:6px 10px;margin-top:4px;}
+
 .advances{padding-left:5px}
- 
+
 .share{clear:both;margin:12px 0 18px;}
+
 .share img{margin-top:4px}
 .sharetitle,.topictitle{font-size:13px;}
  
 .tabs_month{margin:10px 10px 0}
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
- 
+
 .entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
 .channel{margin-right:0;position:relative;top:-36px;text-align:right}
 .channel a{color:#666}
 .entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
+.envoy_badge{position:relative;top:2px}
 .channel a:hover,.entrance_link:hover{color:#E98523}
 
 .counter{"times new roman",serif;font-style:italic;font-size:16px}
+
 /* 用于照片上传 */
 /* -- Table Styles ------------------------------- */
 .progressWrapper {
@@ -1323,3 +1372,13 @@ a.progressCancel:hover {
 .share_link{text-align:right;color:#666;border-top:1px solid #ddd;padding:5px;margin-top:8px}
 .share_link img{position:relative;top:3px;}
 .share_link a{margin-left:5px;}
+
+.game{width:295px;height:80px;padding:5px;-padding-left:10px;margin:0px 0px 20px 5px;float:left}
+.game_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden;margin-right:10px}
+.game_image{width:72px;height:72px;}
+.game_meta{margin-top:6px;color:#999}
+.game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
+
+.reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
+.reply {margin-bottom:10px}
+

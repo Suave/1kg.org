@@ -9,7 +9,7 @@
           <%= @cities.collect {|c| "<li>#{link_to c.name, geo_url(c)}</li>"} %>
         </ul>
       </div>
-      <p class="remark">&raquo; <%= link_to "重新搜索", my_city_url %></p>
+      <p class="remark">&raquo; <%= link_to "重新搜索", schools_url %></p>
     </div>
   </div>
 </div>

@@ -9,17 +9,6 @@
 #  deleted_at       :datetime
 #
 
-# == Schema Information
-#
-# Table name: school_boards
-#
-#  id               :integer(4)      not null, primary key
-#  school_id        :integer(4)      not null
-#  description      :text
-#  description_html :text
-#  deleted_at       :datetime
-#
-
 class SchoolBoard < ActiveRecord::Base
   include BodyFormat
   

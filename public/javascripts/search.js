@@ -1,4 +1,3 @@
-
 function switch_search_to(kind)
 {$(".advances").hide();
   if(kind == 'school')

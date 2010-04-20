@@ -4,17 +4,9 @@ ActionController::Routing::Routes.draw do |map|
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
-  map.resources :requirements, :member => {}
-  
+  map.resources :requirements, :member => {}  
 
   map.public_look "/public", :controller => "misc", :action => "public_look"
-  map.custom_search "/cse",  :controller => "misc", :action => "custom_search"
-  map.warmfund    "/warmfund", :controller => "misc", :action => "warmfund"
-  map.warmfund    "/warmfund_container", :controller => "misc", :action => "warmfund_container"
-  map.city   "city/:slug", :controller => "geos", :action => "city"
-  map.cities "/cities", :controller => "misc", :action => "cities"
-  map.my_city "/my_city", :controller => "misc", :action => "my_city"
-  
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
@@ -30,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.with_options :controller => "sessions" do |session|
     session.login 'login', :action => "new"
+    session.ajax_login 'ajax_login', :action => "ajax_login"
     session.logout 'logout', :action => "destroy"
     session.forget_password 'forget_password', :action => 'forget_password'
     session.reset_password 'reset_password', :action => 'reset_password'
@@ -108,9 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :boards, :member =>     { :schools => :get }, 
-                         :collection => { :public_issue => :get} do |board|
-                           
+  map.resources :boards, :member => { :schools => :get } do |board|
     board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end
@@ -120,6 +111,14 @@ ActionController::Routing::Routes.draw do |map|
     share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
+  map.resources :posts do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
+  end
+  
+  map.resources :comments do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
+  end
+
   map.resources :bulletins do |bulletin|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
@@ -135,11 +134,23 @@ ActionController::Routing::Routes.draw do |map|
                                       :send_invitation => :put,
                                       :members => :get
                                     },
-                          :collection => {:all => :get,
+                            :collection => {:all => :get,
                             :participated => :get,
                             :submitted => :get}
   
   map.resources :photos
+
+  
+  map.resources :games  do |game|
+    game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
+  end
+  
+  map.with_options :controller => 'games' do |games|
+    games.category_games    '/games/category/:tag',     :action => "category"
+    games.new_category_game '/games/category/:tag/new', :action => "new"
+  end
+
+
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements
@@ -164,6 +175,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
     admin.resources :pages
     admin.resources :groups
+    admin.resources :game_categories
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end

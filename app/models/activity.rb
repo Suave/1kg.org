@@ -56,16 +56,7 @@ class Activity < ActiveRecord::Base
     geo_id = (city.class == Geo) ? city.id : city
     {:conditions => ["arrival_id = ? or departure_id = ?", geo_id, geo_id] }
   }
-  
-  # named_scope :from_the_city, lambda { |city| 
-  #  geo_id = (city.class == Geo) ? city.id : city
-  #  {:conditions => ["departure_id = ? and arrival_id <> ?", geo_id, geo_id]}
-  #}
-  
-  #named_scope :on_the_fly, lambda { |city|
-  #  {:conditions => ["departure_id = 0 and arrival_id = 0"]}
-  #}
-  
+    
   named_scope :at, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
     {:conditions => ["(departure_id=? or arrival_id=? or departure_id=0 or arrival_id=0)", geo_id, geo_id]}
@@ -174,13 +165,14 @@ class Activity < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.description_html)
+    self.update_attribute(:clean_html, sanitize(self.description_html, true)) if self.clean_html.blank?
+    self.clean_html
   end
   
   private
   def format_content
     begin
-      self.clean_html = sanitize(self.description_html||'')
+      self.clean_html = sanitize(self.description_html||'', true)
     rescue
       self.clean_html = self.description_html
     end
