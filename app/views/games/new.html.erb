@@ -1,7 +1,7 @@
-<% @page_title = "创作游戏" %>
+<% @page_title = "创作课程" %>
 
 <% content_for :crumb do -%>
-<li>创作游戏</li>
+<li>创作课程</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
@@ -16,7 +16,7 @@
 <%end%>
 
 <div class="newbox" >
-  <span class="span_title">创作游戏</span>
+  <span class="span_title">创作课程</span>
   <div class="clearfix" style="height:10px"></div>
   <% form_for :game, :url => (games_path), :html => {:multipart => true}  do |f| -%>
     <%= render :partial => "form", :object => f %>        
