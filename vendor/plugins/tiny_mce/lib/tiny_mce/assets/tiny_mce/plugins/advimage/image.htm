@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
 	<title>{#advimage_dlg.dialog_title}</title>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="../../utils/mctabs.js"></script>
@@ -18,7 +19,6 @@
 			  <li id="dynamic_select_tab"  class="current"><span><a href="javascript:mcTabs.displayTab('dynamic_select_tab','dynamic_select_panel');" onmousedown="return false;">上传图片</a></span></li>
 			  <li id="general_tab"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');" onmousedown="return false;">使用网络图片</a></span></li>
 				<li id="appearance_tab"><span><a href="javascript:mcTabs.displayTab('appearance_tab','appearance_panel');" onmousedown="return false;">图片外观</a></span></li>
-				<li id="advanced_tab"><span><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onmousedown="return false;">高级选项</a></span></li>
 			</ul>
 		</div>
 
@@ -92,10 +92,7 @@
 							<td rowspan="6" valign="top">
 								<div class="alignPreview">
 									<img id="alignSampleImg" src="img/sample.gif" alt="{#advimage_dlg.example_img}" />
-									Lorem ipsum, Dolor sit amet, consectetuer adipiscing loreum ipsum edipiscing elit, sed diam
-									nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.Loreum ipsum
-									edipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-									erat volutpat.
+                  一些图片描述信息
 								</div>
 							</td>
 						</tr>
@@ -152,7 +149,7 @@
 				</fieldset>
 			</div>
 
-			<div id="advanced_panel" class="panel">
+			<div id="advanced_panel" class="panel" style="display:none;">
 				<fieldset>
 					<legend>{#advimage_dlg.swap_image}</legend>
 
