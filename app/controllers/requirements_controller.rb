@@ -61,11 +61,10 @@ class RequirementsController < ApplicationController
     @requirement = Requirement.find(params[:id])
     @school = @requirement.school
     respond_to do |want|
-      if  (@requirement.applicator == current_user) || current_user.admin?
-        want.html { redirect_to school_requirement_path(@school, @requirement)}
+      if @requirement.update_attributes!(params[:requirement])
+        want.html {redirect_to school_requirement_path(@school, @requirement)}
       else
-        flash[:notice] = "对不起，您没有权限更新此项目的反馈报告"
-        want.html { redirect_to school_requirement_path(@school, @requirement)}
+        want.html {render 'edit'}
       end
     end
   end
