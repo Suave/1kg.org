@@ -104,7 +104,7 @@ class Search < ActiveRecord::Base
   end
   
   def records(page, per_page = 20)
-    ThinkingSphinx.search(self.q, :page => page, :per_page => per_page)
+    ThinkingSphinx.search(self.q, :page => page, :per_page => per_page, :match_mode => :phrase)
   end
   
   def advanced?
