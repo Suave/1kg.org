@@ -1,68 +1,51 @@
-<% @page_title = @title = "为#{h @school.title}申请#{h @project.title}" %>
+<% @page_title = @title = "申请项目:#{h @project.title}" %>
 
 <% content_for :sidebar do -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>项目介绍</h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <p><label class="class">申请截至时间：</label><%= @project.apply_end_at.to_date %></p>
-        <p><label class="class">开始时间：</label><%= @project.start_at.to_date %></p>
-        <p><label class="class">结束时间：</label><%= @project.end_at.to_date %></p>
-        <%= @project.description_html %>
-      </div>
-    </div>
-  </div>
+
+<span class="remark"><%= link_to "&raquo; 回到#{@project.title}项目",requirement_type_url(@project)%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<div class="newbox">
+        <p>申请前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。如果与网站上的不一致，请先 "更新学校信息"。</p>
 </div>
+
 
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-      <p class="postNew"></p>
-      <div class="contents">
-        <p>申请前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。如果与网站上的不一致，请先<%= link_to "更新学校信息", edit_school_url(@school) %>。</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <% form_for :apply, :url => requirement_type_requirements_url(@project) do |f| -%>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>项目反馈要求</h3>
-      <p class="postNew"></p>
-      <div class="contents">
+
+<div class="newbox">
+      <span class="span_title">此项目的反馈要求</span>
+      <div class="contents" style="padding-left:10px">
         <p><%= @project.feedback_require.gsub("\n", '<br />') %></p>
         <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈 <%= error_message_on @apply, :agree_feedback_terms %></p>
       </div>
-    </div>
-  </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>填写申请表</h3>
+<div class="newbox">
+
+      <span class="span_title">填写申请表</span>
       <p class="postNew"></p>
       <div class="contents">
-        <%= f.hidden_field :school_id, {:value => @school.id} %>
         <p><label class="label">申请人</label>
           <%= f.hidden_field :applicator_id, {:value => current_user.id} %>
           <%= h current_user.login %>
         </p>
-        <p><label class="label">申请者电话</label><%= f.text_field :applicator_telephone %></p>
+        <p><label class="label">受益学校 </label>
+        <%= f.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%>
+        <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @apply, :school_id %>
+        <br/>
+        <span id="why" style="display:none;color:#666;margin:0 70px">如果下拉菜单里没有你要找的学校，请从该学校的页面来进入此公益项目来申请。 </span>
+        </p>
+                                              
+        <p><label class="label">申请人电话</label><%= f.text_field :applicator_telephone %><%= error_message_on @apply, :applicator_telephone %></p>
         <p><label class="label">申请数量</label><%= f.text_field :quantity %><%= error_message_on @apply, :quantity %></p>
-        <p><label class="label">申请理由</label><%= f.text_area :apply_reason, :cols => 80, :rows => 10 %></p>
-        <p><label class="label">实施计划</label><%= f.text_area :apply_plan, :cols => 80, :rows => 10 %></p>
+        <p><label class="label">申请理由</label><%= f.text_area :apply_reason, :cols => 80, :rows => 10 %><br/><label class="label">&nbsp;</label> <%= error_message_on @apply, :apply_reason %></p>
+        <p><label class="label">实施计划</label><%= f.text_area :apply_plan, :cols => 80, :rows => 10 %><br/><label class="label">&nbsp;</label> <%= error_message_on @apply, :apply_plan%></p>
         <p><label class="label">&nbsp;</label>(含物资到达后的分配、使用方案，如有资金申请，请写明预算。)</p>
-        <p><label class="label">&nbsp;</label><%= submit_tag "申 请" %></p>
+        <p><label class="label">&nbsp;</label><%= submit_tag "申 请" %>  <%= link_to "取 消 ", requirement_type_url(@project),:style => "width:100px"%></p>
       </div>
-    </div>
-  </div>
+    
 </div>
+
 <% end -%>

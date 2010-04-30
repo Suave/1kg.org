@@ -174,35 +174,7 @@
     </div>
     <% end -%>  
 
-    <div class="school_sidebar">
-      <h3 class="label_lei">正在进行的项目</h3>
-      <div class="sidebar_inter">
-        <ul>
-          <% @school.requirements.each do |r| %>
-            <li><%= link_to r.requirement_type.title, school_requirement_path(@school, r) %></li>
-          <% end %>
-        </ul>
-        <%= link_to "申请项目", requirement_types_url(:school_id => @school) %>
-      </div>
-    </div>
-
-  <%if false%>
   <div class="school_sidebar">
-    <div class="sidebar_inter">
-      <div id="donations_info">  
-      <% if  @donation %>
-      <p>这所学校正在参加积分换图书行动！</p>
-      <p style="text-align:right"> <%= link_to '查看详情',"/donations"%> </p>
-      <%else%>
-      <p>为这所学校申请参加积分换图书行动！</p>
-      <p style="text-align:right">现在就 <%= link_to '提出申请',"http://www.1kg.org/activities/100945"%> </p>
-      <%end%>
-      </div>
-    </div>
-  </div>
-  <%end%>
-  
-  <div class="school_sidebar" id="cityLatestMembers">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
           <% unless @moderators.blank? %>
@@ -222,6 +194,39 @@
       </div>
       <div class="clearfix"></div>
   </div>
+  
+  
+     <div class="school_sidebar">
+      <h3 class="label_lei">公益项目</h3>
+      <div class="sidebar_inter">
+        <%= '目前学校还没有公益项目' if @requirements.empty? %>
+        <%= render :partial => "/shared/requirement", :collection => @requirements %>
+        <div style="clear:both;height:5px"></div>
+        <div id="project_info">
+          <p>去看看<%= '还' unless @requirements.empty? %>有什么 
+            <%= link_to "公益项目", requirement_types_url(:school_id => @school),:class => "adminbutton" %>
+            可以申请。
+          </p>
+        </div>
+      </div>
+    </div>
+    
+  
+  <%if false%>    
+  <div class="school_sidebar">
+    <div class="sidebar_inter">
+      <div id="donations_info">  
+      <% if  @donation %>
+      <p>这所学校正在参加积分换图书行动！</p>
+      <p style="text-align:right"> <%= link_to '查看详情',"/donations"%> </p>
+      <%else%>
+      <p>为这所学校申请参加积分换图书行动！</p>
+      <p style="text-align:right">现在就 <%= link_to '提出申请',"http://www.1kg.org/activities/100945"%> </p>
+      <%end%>
+      </div>
+    </div>
+  </div>
+  <%end%>
   
   <div class="school_sidebar">
     <h3 class="label_lei">地理位置</h3>

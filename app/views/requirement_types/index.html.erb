@@ -1,31 +1,30 @@
 <% @page_title = @title = "公益项目" %>
 
-<% content_for :sidebar do -%>
-  <p>&raquo; <%= link_to "创建公益项目", new_requirement_type_url %></p>
-<% end -%>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>已发布的公益项目</h3>
-      <div class="contents">
-        <% @validated_projects.each do |p| -%>
-          <p><%= link_to p.title, requirement_type_url(p, :school_id => params[:school_id]) %></p>
-        <% end -%>
+<div class="newbox">
+      <span class="span_title">可参与的公益项目</span>
+      <div style="clear:both;height:20px">
       </div>
-    </div>
-  </div>
-</div>
-
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>未验证的项目</h3>
-      <div class="contents">
-        <% @pending_projects.each do |p| %>
-          <p><%= link_to p.title, requirement_type_url(p) %></p>
-        <% end -%>
+      
+      <%  @validated_projects.each do |@project| %>
+      <div style="margin-bottom:20px;padding:10px;background:#f0f0f0">
+        <div style="height:120px;width:120px;overflow:hidden;text-align:center;float:left;margin-right:15px">
+              <%= link_to image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:120px;width:120px;"),requirement_type_url(@project)%>
+        </div>
+        <div style="float:left;width:460px;color:#444">
+          <div style="float:right;text-align:right;margin:4px 0;">
+            <%= @project.must ? '[只有学校大使可申请]': ''%>
+          </div>
+          <span class="span_title"><%= @project.title %></span>
+          <p style="margin:6px">
+          <%= @project.description_html.gsub('<\br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..140) %> <%= "..." if @project.description_html.gsub(/<.*?>/, '').mb_chars[200] %>
+          </p>
+        </div>
+        <div style="float:right;text-align:right;margin-right:10px">
+            <%= link_to '&raquo; 查看详情',requirement_type_url(@project)%>
+          </div>
+        <div style="clear:both;height:0px"></div>
       </div>
-    </div>
-  </div>
+      <div style="clear:both;height:0px"></div>
+      <%end%>
+
 </div>

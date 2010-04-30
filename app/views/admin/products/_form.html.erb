@@ -10,7 +10,7 @@
   <%= form.text_field :serial, :size => 40, :class => "formText"  %>
 </p>
 
-<p><label class="label">公益物资</label>
+<p><label class="label">公益物资/公益项目</label>
   <%= form.select :stuff_type_id, StuffType.all.collect{|t| [t.title, t.id]} %>
 </p>
 

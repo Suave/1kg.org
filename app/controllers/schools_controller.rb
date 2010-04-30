@@ -15,6 +15,7 @@ class SchoolsController < ApplicationController
       :include => [:user, :board],
       :order => "last_replied_at desc",
       :limit => 6)
+        @projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc",:limit => 2
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
@@ -259,6 +260,9 @@ class SchoolsController < ApplicationController
   # 改版学校页面
   def show
     @school = School.find(params[:id])
+    if @school.nil? or @school.deleted?
+      render_404 and return
+    end
     @school.hit!
     @traffic = @school.traffic
     @need = @school.need
@@ -267,11 +271,7 @@ class SchoolsController < ApplicationController
     @finder  = @school.finder
     @basic = @school.basic
     @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
-    
-    if @school.nil? or @school.deleted?
-      render_404 and return
-    end
-    
+   
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
@@ -283,6 +283,7 @@ class SchoolsController < ApplicationController
     @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
+    @requirements = @school.requirements.find(:all,:limit => 3,:conditions => ["applicator_id is not null"])
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
     unless @board.blank?
       @board = @board.board
