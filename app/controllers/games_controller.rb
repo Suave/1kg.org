@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :login_required, :only => [:new, :create, :edit, :update]
+  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy]
   before_filter :check_category, :only => [:category, :new]
   
   uses_tiny_mce :options => { :theme => 'advanced',
@@ -75,6 +75,15 @@ class GamesController < ApplicationController
       else
         want.html {render 'edit'}
       end
+    end
+  end
+  
+  def destroy
+    @game = current_user.games.find(params[:id])
+    @game.destroy
+
+    respond_to do |want|
+      want.html {redirect_to games_path}
     end
   end
   

@@ -13,7 +13,8 @@
   <div id="admins">
     <p>
       你是课程的创建者，你可以:<br/>
-      <%= link_to "管理版本", edit_game_path(@game),:class => "adminbutton"%> <%= link_to "删除课程", '#',:class => "adminbutton"%>
+      <%= link_to "管理版本", edit_game_path(@game),:class => "adminbutton"%>
+      <%= link_to "删除课程", game_path(@game), :class => "adminbutton", :method => 'delete', :confirm => '确定要删除吗？' %>
     </p>
   </div>
   <% end %>
@@ -55,8 +56,7 @@
     <div style="clear:both;height:10px"></div>
     <div id="version_history" style="text-align:right;display:none">
       <% @game.versions.reverse.each do |v| %>
-        <p><%=  link_to (v.comment.nil?? v.comment : '未说明' ), game_path(@game, :version => v.version) %>  <%= link_to v.user.login, v.user %> 修改于 <%= v.created_at.to_date %>:
-        </p>
+        <p><a href="<%= game_path(@game, :version => v.version) %>"><%= v.user.login %> 修改于 <%= v.created_at.to_date %>:<%= (v.comment.blank? ? '未说明' : v.comment ) %></a></p>
       <% end %>
     </div>
 
