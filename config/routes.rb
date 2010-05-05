@@ -141,7 +141,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :photos
 
   
-  map.resources :games  do |game|
+  map.resources :games, :member => {:versions => :get, :revert => :put}  do |game|
     game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
   end
   

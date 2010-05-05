@@ -13,7 +13,7 @@
   <div id="admins">
     <p>
       你是课程的创建者，你可以:<br/>
-      <%= link_to "管理版本", edit_game_path(@game),:class => "adminbutton"%>
+      <%= link_to "管理版本", versions_game_path(@game),:class => "adminbutton"%>
       <%= link_to "删除课程", game_path(@game), :class => "adminbutton", :method => 'delete', :confirm => '确定要删除吗？' %>
     </p>
   </div>

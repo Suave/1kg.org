@@ -19,7 +19,7 @@
   <span class="span_title">编辑课程</span>
   <div class="clearfix" style="height:10px"></div>
   <% form_for @game, :html => {:multipart => true} do |f| -%>
-    <%= render :partial => "form", :object => f %>        
+    <%= render :partial => "form", :object => f %> 
     <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "更 新" %></span>
       <span ><%= link_to "取 消", game_url(@game) %></span>　带<span class="require">*</span>号的是必填项
     </p>
