@@ -39,4 +39,9 @@ class RequirementType < ActiveRecord::Base
   def validated?
     validated_at.blank? ? false : true
   end
+  
+  def apply_end?
+    (apply_end_at < Time.now ) ? true : false
+  end
+  
 end
