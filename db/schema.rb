@@ -632,10 +632,18 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamps
   end
   
-    create_table :game_categories, :force => true do |t|
+  create_table :game_categories, :force => true do |t|
     t.string  :photo_file_name
     t.string  :name
     t.string  :slug
     t.text    :description_html
+  end
+  
+  create_table :emails do |t|
+    t.string   :from
+    t.string   :to
+    t.integer  :last_send_attempt, :default => 0
+    t.text     :mail
+    t.datetime :created_on
   end
 end
