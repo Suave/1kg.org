@@ -71,7 +71,7 @@ search_desc:"Find",
 replace_desc:"Find/Replace"
 },
 advimage:{
-image_desc:"Insert/edit image"
+image_desc:"插入/编辑图片"
 },
 advlink:{
 link_desc:"Insert/edit link"
@@ -128,7 +128,7 @@ fullscreen:{
 desc:"Toggle fullscreen mode"
 },
 media:{
-desc:"Insert / edit embedded media",
+desc:"插入/编辑视频 PPT",
 edit:"Edit embedded media"
 },
 fullpage:{
