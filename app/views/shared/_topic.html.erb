@@ -11,6 +11,6 @@
     <% if topic.posts_count == 0%>
     <small style="color:#999"> <%= link_to topic.user.login, user_url(topic.user) %> 写于 <%= topic.created_at.to_date %> </small>
     <% else %>
-    <small style="color:#999"> 共 <%= topic.posts_count %> 篇回复　 <%= link_to User.find(topic.last_replied_at).login, user_url(User.find(topic.last_replied_at)) %>  最后回复于 <%= topic.last_replied_at.to_date %> </small>
+    <small style="color:#999"> 共 <%= topic.posts_count %> 篇回复　 <%= link_to User.find(topic.last_replied_by_id).login, user_url(User.find(topic.last_replied_at)) %>  最后回复于 <%= topic.last_replied_at.to_date %> </small>
     <%end%>
 </div>
