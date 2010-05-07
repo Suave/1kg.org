@@ -5,3 +5,6 @@
 # Disallow: /
 User-agent: Yahoo! Slurp
 Disallow: /
+User-agent: msnbot
+Disallow: /
+
