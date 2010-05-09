@@ -46,7 +46,9 @@
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>
     </div>
+    
     <div class="clearfix"></div>
+    <span style="color:#999">学校信息最后更新: <%= @school.last_modified_at.to_date%></spam>
   </div>
 
   <div class="school_box">
