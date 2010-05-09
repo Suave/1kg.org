@@ -12,6 +12,8 @@ class ReceivedController < ApplicationController
 
   def show
 		@copy = current_messages.find(params[:id])
+		@prev = current_messages.find(:first, :conditions => ['id > ?', @copy.id], :order => 'id')
+		@next = current_messages.find(:first, :conditions => ['id < ?', @copy.id], :order => 'id DESC')
 		@copy.toggle!(:unread) if @copy.unread
   end
 	

@@ -18,6 +18,10 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h2><%= h @copy.subject %></h2>
+      <p class="remark">
+        <%= link_to '&laquo;新一封', user_received_path(current_user, @prev) unless @prev.nil?  %>
+        <%= link_to '旧一封&raquo;', user_received_path(current_user, @next) unless @next.nil? %>
+      </p>
       <div class="contents">
         <p class="tipText"><strong>来自: </strong>
           <% unless @copy.author.nil? -%>
