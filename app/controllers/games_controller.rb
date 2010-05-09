@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :login_required, :only => [:new, :create, :edit, :update]
+  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :revert]
   before_filter :check_category, :only => [:category, :new]
   
   uses_tiny_mce :options => { :theme => 'advanced',
@@ -15,10 +15,10 @@ class GamesController < ApplicationController
   :cleanup_on_startup => true,  
   :convert_fonts_to_spans => true,
   :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,emotions"],
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,media,|,code"],
   :theme_advanced_buttons2 => [],
-  :language => :en,
-  :plugins => %w{contextmenu advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
+  :language => :zh,
+  :plugins => %w{contextmenu media advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
   
   def index
     @games = {}
@@ -56,6 +56,7 @@ class GamesController < ApplicationController
       if @game.save
         want.html { redirect_to  @game }
       else
+        @category = GameCategory.find_by_id(@game.game_category_id)
         want.html { render 'new' }
       end
     end
@@ -76,6 +77,30 @@ class GamesController < ApplicationController
       else
         want.html {render 'edit'}
       end
+    end
+  end
+  
+  def versions
+    @game = Game.find(params[:id])
+  end
+  
+  def revert
+    @game = current_user.games.find(params[:id])
+    @game.revert_to(params[:version])
+    @game.comment = "管理员回滚到版本#{params[:version]}"
+    @game.save(false)
+    
+    respond_to do |want|
+      want.html {redirect_to game_path(@game)}
+    end
+  end
+  
+  def destroy
+    @game = current_user.games.find(params[:id])
+    @game.destroy
+
+    respond_to do |want|
+      want.html {redirect_to games_path}
     end
   end
   

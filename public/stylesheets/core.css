@@ -1376,7 +1376,7 @@ a.progressCancel:hover {
 .share_link img{position:relative;top:3px;}
 .share_link a{margin-left:5px;}
 
-.game{width:295px;height:80px;padding:5px;margin:0 0px 20px 5px;float:left}
+.game{width:295px;height:80px;padding:5px;-padding-left:10px;margin:0px 0px 20px 5px;float:left}
 .game_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden;margin-right:10px}
 .game_image{width:72px;height:72px;}
 .game_meta{margin-top:6px;color:#999}

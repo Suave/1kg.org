@@ -20,7 +20,7 @@
             </div>
             <div style="clear:both;height:15px"></div>
             <% if comment.repliable?  %>
-              <div class="reply" >
+              <div class="reply" style="display:none">
               <%= render :partial => "/comments/form", :locals => {:commentable => comment,:cancal => true} %>
               </div>
             <% end %>

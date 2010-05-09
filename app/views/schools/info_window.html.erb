@@ -18,13 +18,7 @@
       无
     <% end -%>
   </p>
-
-  <% if @school.geo.city_board -%>
-    <p>
       &raquo; <%= link_to "查看学校信息", school_url(@school) %><br />
-      &raquo; <%= link_to "前往#{@school.geo.name}同城", geo_url(@school.geo) %>
-    </p>
-  <% end -%>
 </div>
 
 <%= link_to image_tag(@school.photos.first.public_filename(:medium)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>

@@ -52,7 +52,7 @@ class Search < ActiveRecord::Base
     attributes[:has_library] = true unless self.has_library.blank?
     attributes[:has_pc] = true unless self.has_pc.blank?
     
-    School.search(self.q, :conditions => conditions, :with => attributes, :page => page, :per_page => per_page, :include => [:basic, :user])
+    School.search(self.q, :conditions => conditions, :with => attributes, :page => page, :per_page => per_page, :include => [:basic, :user], :match_mode => :extended)
   end
   
   def activities(page, per_page = 20)
@@ -69,7 +69,7 @@ class Search < ActiveRecord::Base
     Activity.search(self.q, :conditions => conditions, 
                         :with => attributes, :page => page, 
                         :per_page => per_page,
-                        :order => 'start_at DESC')
+                        :order => 'start_at DESC', :match_mode => :extended)
   end
   
   def shares(page, per_page = 20)
@@ -84,27 +84,27 @@ class Search < ActiveRecord::Base
     Share.search(self.q, :conditions => conditions, 
                         :page => page, 
                         :per_page => per_page,
-                        :order => 'updated_at DESC')
+                        :order => 'updated_at DESC', :match_mode => :extended)
   end
   
   def groups(page, per_page = 20)
     Group.search(self.q,:page => page, 
-                        :per_page => per_page)
+                        :per_page => per_page, :match_mode => :extended)
   end
   
   def topics(page, per_page = 20)
     Topic.search(self.q,:page => page,
                         :per_page => per_page,
-                        :order => 'updated_at DESC')
+                        :order => 'updated_at DESC', :match_mode => :extended)
   end
   
   def users(page, per_page = 20)
     User.search(self.q,:page => page,
-                        :per_page => per_page)
+                        :per_page => per_page, :match_mode => :extended)
   end
   
   def records(page, per_page = 20)
-    ThinkingSphinx.search(self.q, :page => page, :per_page => per_page)
+    ThinkingSphinx.search(self.q, :page => page, :per_page => per_page, :match_mode => :extended)
   end
   
   def advanced?

@@ -1,23 +1,23 @@
 <% @game.comment = '' %>
 <p>
-  <label class="label">游戏名称<span style="color:red;">＊</span></label>
+  <label class="label">课程名称<span style="color:red;">＊</span></label>
   <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @game, :name %>
   <%= form.hidden_field :game_category_id %>
 </p>
 
 <p>
-  <label class="label">游戏主题图</label>
+  <label class="label">课程主题图</label>
   <%= form.file_field :photo %>
 </p>
 <p>
-  <label class="label">游戏信息<span style="color:red;">＊</span></label>
+  <label class="label">课程信息<span style="color:red;">＊</span></label>
   <%= form.select :level, [['适合年级',''], '学前班', '1-3年级', '4-6年级', '7-9年级'] %> <%= error_message_on @game, :level %>
-  <%= form.select :length, [['游戏时间',''], '<20', '20-60', '60-90', '>90'] %> <%= error_message_on @game, :length %>
-  <%= form.select :size, [['游戏人数',''], '1-5人', '5-10人', '10-20人', '20人以上'] %> <%= error_message_on @game, :size %>
+  <%= form.select :length, [['课程时间',''], '<20', '20-60', '60-90', '>90'] %> <%= error_message_on @game, :length %>
+  <%= form.select :size, [['课程人数',''], '1-5人', '5-10人', '10-20人', '20人以上'] %> <%= error_message_on @game, :size %>
 </p>
 
 <p>
-  <label class="label">游戏介绍<span style="color:red;">＊</span></label><%= error_message_on @game, :content %>
+  <label class="label">课程介绍<span style="color:red;">＊</span></label><%= error_message_on @game, :content %>
   <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %>
 </p>
 
