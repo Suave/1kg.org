@@ -15,21 +15,14 @@ class GamesController < ApplicationController
   :cleanup_on_startup => true,  
   :convert_fonts_to_spans => true,
   :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,media,|,code"],
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,|,code,"],
   :theme_advanced_buttons2 => [],
   :language => :zh,
-  :plugins => %w{contextmenu media advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
+  :plugins => %w{contextmenu advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
   
   def index
     @games = {}
     @categories = GameCategory.all
-    
-  end
-  
-  def category
-
-    @games = @category.games
-
   end
   
   def show
@@ -43,16 +36,15 @@ class GamesController < ApplicationController
   end
   
   def category
-    
     @games = @category.games
-
   end
   
   def create
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
-    respond_to do |want|
+    params[:game]["references_attributes"].reject! {|r| r[:name].blank? || r[:link].blank?}
 
+    respond_to do |want|
       if @game.save
         want.html { redirect_to  @game }
       else
@@ -64,17 +56,18 @@ class GamesController < ApplicationController
   
   def edit
     @game = Game.find(params[:id])
-    
   end
   
   def update
     @game = Game.find(params[:id])
     @game.user_id = current_user.id
+    params[:game]["references_attributes"].reject! {|r| r[:name].blank? || r[:link].blank?}    
     
     respond_to do |want|
-      if @game.update_attributes!(params[:game])
+      if @game.update_attributes(params[:game])
         want.html {redirect_to @game}
       else
+        raise @game.errors.full_messages.to_s
         want.html {render 'edit'}
       end
     end

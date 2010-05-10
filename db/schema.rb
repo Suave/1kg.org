@@ -646,4 +646,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     :mail
     t.datetime :created_on
   end
+  
+  create_table :references do |t|
+    t.integer  :game_id
+    t.string   :name
+    t.string   :link
+  end
 end
