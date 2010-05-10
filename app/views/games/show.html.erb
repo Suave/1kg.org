@@ -50,7 +50,12 @@
     <div class="entry">
       <span class="span_title">课程介绍</span>
       <%= @game.content %>
-      
+      <span class="span_title">参考资料</span>
+      <ol>
+        <% @game.references.each do |r| %>
+          <li><%= r.name %>:<%= link_to r.link, r.link %></li>
+        <% end %>
+      </ol>
       
     <span class="more" name="#version_history">查看版本记录</span>
     <div style="clear:both;height:10px"></div>
