@@ -42,14 +42,9 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(params[:game])
     @game.user_id = current_user.id
-<<<<<<< HEAD:app/controllers/games_controller.rb
-    respond_to do |want|
-
-=======
     params[:game]["references_attributes"].reject! {|r| r[:name].blank? || r[:link].blank?}
 
     respond_to do |want|
->>>>>>> 96e8a04... 游戏库增加参考资料:app/controllers/games_controller.rb
       if @game.save
         want.html { redirect_to  @game }
       else
