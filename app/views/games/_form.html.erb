@@ -21,6 +21,29 @@
   <%= form.text_area :content, :style => 'width:630px;height:400px;', :class => "mceEditor" %>
 </p>
 
+<fieldset>
+  <legend>参考资料</legend>
+  <div id="references">
+    <%= render :partial => 'reference', :collection => @game.references %>
+    <div id="reference">
+      <p>
+        <label class="label" >名称</label>
+        <%= text_field_tag "game[references_attributes][][name]", '', :class => "formText" %>
+      </p>
+
+      <p>
+        <label class="label" >链接</label>
+        <%= text_field_tag "game[references_attributes][][link]", '', :size => 80, :class => "formText" %>
+      </p>
+    </div>
+  </div>
+  <p>
+    <label class="label" >&nbsp;</label>
+    <%= link_to_function '添加另一个', '$("#references").append($("#reference").html());' %>
+  </p>
+</fieldset>  
+
+
 <p>
   <label class="label" >附加标签</label>
   <%= form.text_field :tag_list, :size => 40, :class => "formText" %>
