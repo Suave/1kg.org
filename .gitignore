@@ -33,6 +33,8 @@ public/pictures/**/*
 public/good_photos
 public/good_photos/*
 public/good_photos/**/*
+public/javascripts/*.cache.js
+public/stylesheets/*.cache.css
 public/system
 public/schools.json
 public/images/calendar_date_select/

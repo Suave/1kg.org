@@ -56,7 +56,7 @@
   
 <p><label >活动介绍<span class="require">*</span></label> <%= error_message_on @activity, :description_html %>
 <br/>
-<%= fckeditor_textarea("activity", "description_html", :toolbarSet => 'OneLine', :width => '640px', :height => '400px') %>
+  <%= form.text_area :description_html, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
 </p>
 </div>
 <script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
