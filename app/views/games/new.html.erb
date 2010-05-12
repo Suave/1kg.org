@@ -1,7 +1,7 @@
-<% @page_title = "创作游戏" %>
+<% @page_title = "创作课程" %>
 
 <% content_for :crumb do -%>
-<li>创作游戏</li>
+<li>创作课程</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
@@ -16,13 +16,13 @@
 <%end%>
 
 <div class="newbox" >
-  <span class="span_title">创作游戏</span>
+  <span class="span_title">创作课程</span>
   <div class="clearfix" style="height:10px"></div>
   <% form_for :game, :url => games_path, :html => {:multipart => true}  do |f| -%>
 
     <%= render :partial => "form", :object => f %>        
     <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
-      <span ><%= link_to "取 消", category_games_path() %></span>　带<span class="require">*</span>号的是必填项
+      <span ><%= link_to "取 消", category_games_path(@category.slug) %></span>　带<span class="require">*</span>号的是必填项
     </p>
   <% end -%>
 </div>

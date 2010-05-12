@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_filter :login_required, :only => [:new, :create, :edit, :update]
+  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy, :revert]
   before_filter :check_category, :only => [:category, :new]
   
   uses_tiny_mce :options => { :theme => 'advanced',
@@ -48,6 +48,7 @@ class GamesController < ApplicationController
       if @game.save
         want.html { redirect_to  @game }
       else
+        @category = GameCategory.find_by_id(@game.game_category_id)
         want.html { render 'new' }
       end
     end
@@ -69,6 +70,30 @@ class GamesController < ApplicationController
         raise @game.errors.full_messages.to_s
         want.html {render 'edit'}
       end
+    end
+  end
+  
+  def versions
+    @game = Game.find(params[:id])
+  end
+  
+  def revert
+    @game = current_user.games.find(params[:id])
+    @game.revert_to(params[:version])
+    @game.comment = "管理员回滚到版本#{params[:version]}"
+    @game.save(false)
+    
+    respond_to do |want|
+      want.html {redirect_to game_path(@game)}
+    end
+  end
+  
+  def destroy
+    @game = current_user.games.find(params[:id])
+    @game.destroy
+
+    respond_to do |want|
+      want.html {redirect_to games_path}
     end
   end
   

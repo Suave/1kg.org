@@ -204,7 +204,7 @@ class ActivitiesController < ApplicationController
     else
       invited_user_ids = params[:invite].collect {|k,v| v.to_i}
       message = Message.new(:subject => "#{current_user.login}邀请您参加#{@activity.title}",
-                            :content => "<p>#{current_user.login}(#{user_url(current_user)})邀请您加入#{@activity.title}(#{activity_url(@activity)})</p><p>快去看看吧</p><p>多背一公斤团队</p>"
+                            :content => "<p>#{current_user.login}(#{user_url(current_user)})邀请您加入#{@activity.title}(#{activity_url(@activity)})</p><p><br/>快去看看吧!</p><p><br/>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = invited_user_ids

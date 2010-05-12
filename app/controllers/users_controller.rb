@@ -106,6 +106,7 @@ class UsersController < ApplicationController
       flash[:notice] = "头像修改成功"
       redirect_to setting_url(:type => "avatar")
     
+
     elsif params[:for] == 'profile'
       if @user.profile
         @user.profile.update_attributes!(params[:profile])

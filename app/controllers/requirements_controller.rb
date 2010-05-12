@@ -3,6 +3,10 @@ class RequirementsController < ApplicationController
   
   def new
     @project = RequirementType.find params[:requirement_type_id]
+    if @project.apply_end?
+      flash[:notice] = "此项目的申请已经截止"
+      redirect_to requirement_type_url(@project)
+    end
     if @project.must && !current_user.envoy?
       flash[:notice] = "此项目只有学校大使才可以申请。" + " <a href='http://www.1kg.org/misc/school-moderator-guide'>什么是学校大使？</a>"
       redirect_to requirement_type_url(@project)
@@ -48,7 +52,7 @@ class RequirementsController < ApplicationController
     @requirement = Requirement.find(params[:id])
     @school = @requirement.school
     respond_to do |want|
-      if (@requirement.applicator == current_user) && current_user.admin?
+      if (@requirement.applicator == current_user) || current_user.admin?
         want.html
       else
         flash[:notice] = "对不起，您没有权限更新此项目的反馈报告"
@@ -61,11 +65,10 @@ class RequirementsController < ApplicationController
     @requirement = Requirement.find(params[:id])
     @school = @requirement.school
     respond_to do |want|
-      if  (@requirement.applicator == current_user) && current_user.admin?
-        want.html { redirect_to school_requirement_path(@school, @requirement)}
+      if @requirement.update_attributes!(params[:requirement])
+        want.html {redirect_to school_requirement_path(@school, @requirement)}
       else
-        flash[:notice] = "对不起，您没有权限更新此项目的反馈报告"
-        want.html { redirect_to school_requirement_path(@school, @requirement)}
+        want.html {render 'edit'}
       end
     end
   end

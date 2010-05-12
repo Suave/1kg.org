@@ -17,12 +17,16 @@
             <%= image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:160px;width:160px;") %>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
-        <%= link_to "立即申请",new_requirement_type_requirement_url(@project, :school_id => params[:school_id]),:class => "buttonjoin2"%>
-        <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.must%></p>  
+        <%if @project.apply_end? -%>
+          <p style="color:#666;margin:6px 0">项目申请已结束</p>
+        <%else%>
+          <%= link_to "立即申请",new_requirement_type_requirement_url(@project, :school_id => params[:school_id]),:class => "buttonjoin2"%>
+          <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.must%></p>
+        <% end %>
       </div>
       <div id="activitiesInfo">
         <span class="span_title"><%= @project.title %></span>
-        <p><label>申请截至时间：</label><%= @project.apply_end_at.to_date %></p>
+        <p><label>申请截止时间：</label><%= @project.apply_end_at.to_date %></p>
         <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
         <p><label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
       </div>

@@ -46,7 +46,9 @@
         <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
       </div>
     </div>
+    
     <div class="clearfix"></div>
+    <span style="color:#999">学校信息最后更新: <%= @school.last_modified_at.to_date%></spam>
   </div>
 
   <div class="school_box">
@@ -174,7 +176,8 @@
     </div>
     <% end -%>  
 
- <div class="school_sidebar">
+
+  <div class="school_sidebar">
       <h3 class="label_lei">学校大使</h3>
       <div class="sidebar_inter">
           <% unless @moderators.blank? %>
@@ -195,7 +198,7 @@
       <div class="clearfix"></div>
   </div>
   
- 
+
      <div class="school_sidebar">
       <h3 class="label_lei">公益项目</h3>
       <div class="sidebar_inter">

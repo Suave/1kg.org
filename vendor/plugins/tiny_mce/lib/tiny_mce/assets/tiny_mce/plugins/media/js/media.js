@@ -311,6 +311,11 @@ function getType(v) {
 		f.src.value = 'http://www.youtube.com/v/' + v.match(/v=(.*)(.*)/)[0].split('=')[1];
 		return 'flash';
 	}
+	
+	if (v.match(/static\.slidesharecdn\.com\/(.*)"/)) {
+		f.src.value = "http:\/\/static.slidesharecdn.com\/" + v.match(/static\.slidesharecdn\.com\/(.*?)"/)[1]
+		return 'flash';
+	}
 
 	// Google video
 	if (v.indexOf('http://video.google.com/videoplay?docid=') == 0) {

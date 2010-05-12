@@ -443,6 +443,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "start_at"
     t.datetime "end_at"
     t.text     "description_html"
+    t.text     "condition_html"
+    t.text     "support_html"
     t.text     "vendor_link"
     t.text     "feedback_require"
     t.integer  "requirements_count",      :default => 0
