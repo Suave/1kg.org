@@ -33,9 +33,11 @@
 </div>
 
 <div class="cleanfix" style="height:10px;clear:both"></div>
-<div class="newbox">
-      <span class="span_title">项目介绍</span>
-      <%= @project.description_html %>
+<div class="newbox" style="color:#666">
+      <p><span class="span_title2">项目背景</span><br/><%= @project.description_html %></p>
+      <p><span class="span_title2">征集要求</span><br/><%= @project.condition_html %></p>
+      <p><span class="span_title2">参与学校或志愿者可获得的支持</span><br/><%= @project.support_html %></p>
+      <p><span class="span_title2">反馈要求</span><br/><%= @project.feedback_require %><br/><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%></p>
 </div>
 
 <div class="cleanfix" style="height:3px;clear:both"></div>

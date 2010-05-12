@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.datetime "feedback_at"
     t.text     "description_html"
     t.text     "condition_html"
     t.text     "support_html"
