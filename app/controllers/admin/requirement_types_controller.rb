@@ -5,7 +5,7 @@ class Admin::RequirementTypesController < Admin::BaseController
   end
   
   def new
-    @project = RequirementType.new(:feedback_require => "1. 需要上传快递\n2. 需要上传物资签\n3. 需要上传项目照片\n4. 需要写项目执行报告")
+    @project = RequirementType.new(:feedback_require => "")
   end
   
   def create
