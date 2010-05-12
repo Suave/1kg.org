@@ -15,15 +15,15 @@ class ActivitiesController < ApplicationController
   :cleanup_on_startup => true,  
   :convert_fonts_to_spans => true,
   :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,forecolor,backcolor,|,link,unlink,|,image,emotions,|,code"],
-  :theme_advanced_buttons2 => ["tablecontrols"],
-  :theme_advanced_buttons3 => [],
-  :language => :en,
-  :plugins => %w{contextmenu paste table fullscreen} }, :only => [:new, :create, :edit, :update]
+  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,media,|,code"],
+  :theme_advanced_buttons2 => [],
+  :language => :zh,
+  :plugins => %w{contextmenu media advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
   
 
   def index
     @activities_hash = {:all => Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])}
+    @activities = @activities_hash[:all]
     @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
     @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
     @activities_hash[:teach] = Activity.recent_by_category("支教")
@@ -34,6 +34,11 @@ class ActivitiesController < ApplicationController
     @photos = Photo.with_activity.find(:all,:limit => 10,:group => "activity_id",:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
     @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
+    
+    respond_to do |wants|
+      wants.html
+      wants.atom
+    end
   end
   
   def category
