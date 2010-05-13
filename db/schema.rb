@@ -428,8 +428,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    t.text     "problem"
+    t.text     "budget"
     t.text     "feedback"
-    
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.boolean  "validated",    :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
