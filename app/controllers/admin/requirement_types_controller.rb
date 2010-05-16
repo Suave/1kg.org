@@ -54,7 +54,7 @@ class Admin::RequirementTypesController < Admin::BaseController
     feedback_require = ""
     feedback_require << "照片要求： #{params[:project].values_at("need_list","need_list_photo","invoice_photo","project_photo",'letter_photo').compact.join('、')}"
     feedback_require << "<br/> 项目进展记录要求： #{params[:project]['frequency']}"
-    feedback_require << "<br/> 其他要求： #{[params[:project]['post_letter'],params[:project]["report"]].join('、')}"
+    feedback_require << "<br/> 其他要求： #{[params[:project]['post_letter'],params[:project]["report"]].compact.join('、')}"
     params[:project].delete_if {|a| ["need_list","need_list_photo","invoice_photo","project_photo","frequency","letter_photo","post_letter","report"].include?(a[0])}
     feedback_require
   end
