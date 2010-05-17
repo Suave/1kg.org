@@ -125,6 +125,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :search
   
+  map.resources :blogs
+  
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
@@ -167,12 +169,14 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :game_categories
+    admin.resources :blogs
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
   end
+  
 
   # 公益产品
   map.namespace :minisite do |site|
