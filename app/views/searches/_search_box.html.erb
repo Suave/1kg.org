@@ -2,7 +2,6 @@
 <% @advanced = advanced rescue nil %>
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
-  <%= javascript_include_tag "search" %>
   <script type="text/javascript">
   $(document).ready(function(){
   search_box_blur();

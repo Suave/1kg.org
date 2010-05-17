@@ -18,44 +18,18 @@
     <%= yield :heads %>
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
-		<div id="header">
+		<div id="header" style="height:75px">
 			<div class="wrapper">
-        <h1 id="logo" class="span-15">
+        <h1 id="logo" class="span-15" style="top:20px;left:10px">
           <a href="/"><span><!-- for logo --></span>多背一公斤</a>
         </h1>
+	<div>博客</div>
+      </div>
+      <div style="text-align:right;padding:2px 20px">
+	<%= link_to "去多背一公斤",root_url%>
       </div>
     </div>
-    
-<div id="navWrap">
-  <div id="nav">
-    <ul>
-      <li class="home"><%= link_to "首页", root_url %></li>
-      <li class="home"><%= link_to "学校", schools_url %></li>
-      <li class="home"><%= link_to "活动", activities_url %></li>
-      <li class="home"><%= link_to "小组", groups_url %></li>
-      <li class="home"><a href="/misc/community-guide" target="_blank">帮助</a></li>
-    </ul>
-    <p style="float:right">
-    <% if logged_in? -%>
-    欢迎, <%= current_user.login %>(<%= link_to "帐号设置", setting_url %>|<%= link_to "我的1KG", user_url(current_user) %>) | <%= inbox_link("消息") %> | <%= link_to "退出", logout_url %>
-    <% else -%>
-    <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %> | <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
-   <% end -%>
-    </p>
-  </div>
-  
-  <div id="breadcrumb">
-    <h3>你在这里:</h3>
-    <ul>
-      <li><a href="/">首页</a>
-        <ul>
-          <%= yield :crumb %>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-	
+      
 <div class="wrapper">
 	<div id="content">
 	  <div id="content-layout" class="clearfix">

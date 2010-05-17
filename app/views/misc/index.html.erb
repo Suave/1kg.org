@@ -1,6 +1,4 @@
 <% content_for :heads do -%>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
   <style type="text/css">
   .hot{float:left}
   .hot img{height:68px;}
@@ -41,9 +39,7 @@
         <div class="cleanfix"></div>
   </div>
   <script type="text/javascript">
-        $(document).ready(function(){
-          jQuery("#record_tabs").tabs();
-        });
+          jQuery("#record_tabs").tabs()
       </script>
 </div>
 

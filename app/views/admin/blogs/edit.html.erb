@@ -1,0 +1,5 @@
+<% @title = @page_title = "编辑博客" -%>
+  <% form_for :blog, :url => admin_blog_url(@blog),:html => {:method => 'put'} do |f| %>
+      <%= render :partial => "form", :object => f %>
+      <p><label class="label">　</label><%= submit_tag "修 改" %> 或 <%= link_to "返回", admin_blogs_url %></p>
+  <% end %>

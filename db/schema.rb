@@ -428,8 +428,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    t.text     "problem"
+    t.text     "budget"
     t.text     "feedback"
-    
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.boolean  "validated",    :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
@@ -442,6 +445,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.datetime "feedback_at"
     t.text     "description_html"
     t.text     "condition_html"
     t.text     "support_html"
@@ -653,5 +657,13 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  :game_id
     t.string   :name
     t.string   :link
+  end
+  
+  create_table :blogs do |t|
+    t.integer  :user_id
+    t.string   :title
+    t.string   :category
+    t.text     :body_html
+    t.datetime :created_at
   end
 end

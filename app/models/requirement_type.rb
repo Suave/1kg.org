@@ -37,6 +37,10 @@ class RequirementType < ActiveRecord::Base
     self.creator_id = User.current_user.id
   end
   
+  def clean_html
+    description_html
+  end
+  
   def validated?
     validated_at.blank? ? false : true
   end

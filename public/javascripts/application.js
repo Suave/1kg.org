@@ -78,6 +78,9 @@ function schoolClickFn(latlng, id, level)
 }
 
 /* 根据用户选择的需求更新需求文本框 */
+
+
+/* 根据反馈要求跟信要求文本框 */
 function update_needs(tag)
 {
   needs = []
@@ -88,6 +91,7 @@ function update_needs(tag)
   });
   $("#"+tag+"_needs").val(needs.join(' '));
 }
+
 
 /* 以下代码用于编辑图片标题 */
 //显示，隐藏编辑框

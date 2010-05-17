@@ -42,8 +42,8 @@ module SchoolsHelper
   end
   
   def needs_check_box(form, tag, options, value)
-    # 对秀秀和多背一公斤显示文本框模式
-    if current_user.id == 31 || current_user.id == 1
+    # 对多背一公斤显示文本框模式
+    if current_user.id == 1
       form.text_field tag, :size => 60
     else
       options.map do |option|
