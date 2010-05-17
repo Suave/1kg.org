@@ -11,9 +11,8 @@
     <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie7-up.css" media="screen, projection" />
     <![endif]-->
     <%= stylesheet_link_tag "core", "temp", "calendar", "screen", :cache => "all.cache" %>
-    <%= javascript_include_tag 'fckeditor/fckeditor', 'jQuery/jquery.min', 'jQuery/jrails',
-              'calendar.js', 'application.js', "search", 'jQuery/jquery.ui.core.min',
-              'jQuery/jquery.ui.tabs.min', :cache => 'all.cache' %>
+    <%= javascript_include_tag 'fckeditor/fckeditor', 'jquery', 'jrails', 'jquery-ui', 
+              'calendar.js', 'application.js', "search", :cache => 'all.cache' %>
     <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
   </head>

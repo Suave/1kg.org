@@ -49,13 +49,17 @@ class TopicsController < ApplicationController
   
   
   def show
-    if @topic.deleted?
-      flash[:notice] = "您查看的帖子已删除"
-      redirect_to root_url
-    else
-      @posts = @topic.posts.available
-      @post  = Post.new
-      @others  = @topic.board.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
+    respond_to do |wants|
+      if @topic.deleted?
+        flash[:notice] = "您查看的帖子已删除"
+        wants.html {redirect_to root_url}
+      else
+        @posts = @topic.posts.available
+        @post  = Post.new
+        @others  = @topic.board.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
+        wants.html
+        wants.atom
+      end
     end
   end
   
