@@ -1,9 +1,11 @@
 class BlogsController < ApplicationController
   def index
-    render :layout => 'blogs'
+    @blogs = Blog.all  
   end
   
   def show
-    render :layout => 'blogs'
+    @blog = Blog.find(params[:id])
   end
 end
+
+
