@@ -652,4 +652,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   :name
     t.string   :link
   end
+  
+  create_table :blogs do |t|
+    t.integer  :user_id
+    t.string   :title
+    t.string   :category
+    t.text     :body_html
+    t.datetime :created_at
+  end
 end

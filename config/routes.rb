@@ -125,6 +125,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :search
   
+  map.resources :blogs
+  
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
@@ -176,6 +178,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :game_categories
+    admin.resources :blogs
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
@@ -188,6 +191,7 @@ ActionController::Routing::Routes.draw do |map|
     #end 
     admin.resources :bulletins
   end
+  
 
   # 公益产品
   map.namespace :minisite do |site|

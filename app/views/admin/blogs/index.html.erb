@@ -1,0 +1,17 @@
+<% @title = @page_title = "博客管理" -%>
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+
+  <div style="float:right;position:relative;top:-40px;left:-10px"><%= link_to "写新博客", new_admin_blog_url,:class => "buttonjoin" %></div>
+  
+  <div class="new_box">  
+    <% @blogs.each do |blog| -%>
+      <div class="blog_list">
+        <%= link_to blog.title, edit_admin_blog_url(blog),:style => "font-size:14px;font-weight:bold"%> <%= link_to "[删除]", admin_blog_url(blog),:confirm => "确定删除这篇博客", :method => :delete,:style => "color:#666"%><br/>
+        <span class="gary_span"><%= "分类：#{blog.category}" %>  作者：<%= link_to blog.user.login,user_url(blog.user)%> 发布时间：<%= blog.created_at.to_date%></span>
+      </div>  
+    <% end %>
+  </div>
