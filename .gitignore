@@ -45,3 +45,4 @@ public/stylesheets/calendar_date_select/
 public/system/**/*
 .DS_Store
 coverage/*
+statistic/*
