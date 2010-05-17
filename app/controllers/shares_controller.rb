@@ -65,6 +65,11 @@ class SharesController < ApplicationController
     @voters = @share.votes.map(&:user)
     @comments = @share.comments.available.paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
+    
+    respond_to do |wants|
+      wants.html
+      wants.atom
+    end
   end
   
   private

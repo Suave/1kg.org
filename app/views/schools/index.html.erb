@@ -28,6 +28,7 @@
 
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
+<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新学校话题'} %>
 
 <% end -%>
 
@@ -112,7 +113,6 @@
 </div>
 
 <div class="clearfix" style="clear:both;"> </div>
-
 <div class="newbox">
       <div class="clearfix"></div>
       <span class="span_title">可为学校申请的项目</span>
@@ -122,7 +122,6 @@
       </div>
      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目", requirement_types_url %></div><%end%>
 </div>
-
 
 <div class="newbox">
       <div class="clearfix"></div>

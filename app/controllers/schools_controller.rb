@@ -38,6 +38,12 @@ class SchoolsController < ApplicationController
         end
         render :json => @schools_json
       }
+      format.atom {
+        @topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
+          :include => [:user, :board],
+          :order => "last_replied_at desc",
+          :limit => 10)
+      }
     end
     
   end

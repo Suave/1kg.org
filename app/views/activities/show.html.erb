@@ -67,6 +67,8 @@
       </div>
       <div class="cleanfix" style="height:20px"></div>
   </div>
+  
+  <%= render :partial => '/shared/atom', :locals => {:name => '订阅此活动回复'} %>
 <% end -%>
 
   <div class="newbox" id="activityInfo">
@@ -109,11 +111,18 @@
           <div class="clearfix" style="margin-bottom:5px;"></div>
 
           <div id="entry">
-            <%= @activity.description_html %>
+            <div id="summary">
+            <% short = (@activity.description_html).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..418) %> 
+            <%= short[418].nil? ? @activity.description_html  : (short + "...") %>
+            <% unless short[418].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#detail').show();return false">(显示全文)</a><% end%>
+            </div>
+            
+            <div id="detail" style="display:none">
+              <%= (@activity.description_html) %>
+              <a href="#" onclick="javascript:$('#detail').hide();$('#summary').show();return false">(显示摘要)</a>
+            </div>
           </div>
-
-          
-        <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
+          <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
   </div>
   

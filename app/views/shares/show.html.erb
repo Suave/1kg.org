@@ -47,6 +47,8 @@
   <% end %>
   
   <%= render :partial => '/shared/voters', :object => @voters %>
+  
+  <%= render :partial => '/shared/atom', :locals => {:name => '订阅此分享回复'} %>
 <% end -%>
 
 <div class="newbox shareEntry">

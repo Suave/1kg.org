@@ -14,6 +14,11 @@ class GroupsController < ApplicationController
       @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
       @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
     end
+    
+    respond_to do |wants|
+      wants.html
+      wants.atom
+    end
   end
   
   def all
