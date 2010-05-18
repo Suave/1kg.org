@@ -3,6 +3,8 @@ class TopicsController < ApplicationController
   before_filter :find_board,     :except => [:edit,:total]
   before_filter :find_topic,     :except => [:index, :create,:total]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
+  
   def index
     @topics = @board.topics.paginate(:page => params[:page] || 1, :per_page => 20)
   end

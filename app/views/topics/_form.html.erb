@@ -1,4 +1,6 @@
 <p><label class="label">标题</label><%= form.text_field :title, :size => 20, :class => "formText" %></p>
 <div><label class="label"><%= avatar_for current_user, "large" %></label>
-  <p><%= fckeditor_textarea :topic, :body_html, :toolbarSet => 'OneLine', :width => '90%', :height => '400px' %></p>
+  <p>
+    <%= form.text_area :body_html, :style => 'width:840px;height:480px;', :class => "mceEditor" %>
+  </p>
 </div>
