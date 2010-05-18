@@ -28,6 +28,7 @@
 
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
+<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新学校话题'} %>
 
 <% end -%>
 
@@ -110,10 +111,15 @@
       <div class="clearfix" style="clear:both;"> </div>
       <div><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
 </div>
+<<<<<<< HEAD:app/views/schools/index.html.erb
 
 <div class="clearfix" style="clear:both;"> </div>
 
 
+=======
+
+<div class="clearfix" style="clear:both;"> </div>
+>>>>>>> 80fef215d9aca46ad8af47c9dd780f3943f9f57b:app/views/schools/index.html.erb
 <div class="newbox">
       <div class="clearfix"></div>
       <span class="span_title">可为学校申请的项目</span>
@@ -123,7 +129,11 @@
       </div>
      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目", requirement_types_url %></div><%end%>
 </div>
+<<<<<<< HEAD:app/views/schools/index.html.erb
 
+=======
+
+>>>>>>> 80fef215d9aca46ad8af47c9dd780f3943f9f57b:app/views/schools/index.html.erb
 <div class="newbox">
       <div class="clearfix"></div>
       <span class="span_title">学校话题</span>
