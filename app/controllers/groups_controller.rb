@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :all]
   before_filter :find_group, :except => [:index, :create, :all]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_topic, :new, :create, :edit, :update]
   
   def index
     @groups = Group.find :all, :order => "created_at desc", :limit => 8
