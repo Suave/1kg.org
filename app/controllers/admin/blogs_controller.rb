@@ -20,10 +20,6 @@ class Admin::BlogsController < Admin::BaseController
   end
   
   def update
-    @blog = Blog.find(params[:id])
-    @blog.update_attributes!(params[:blog])
-    flash[:notice] = "博客修改成功"
-    redirect_to admin_blogs_url()
   end
   
   def destroy

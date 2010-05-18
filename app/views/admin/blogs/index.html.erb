@@ -10,9 +10,7 @@
   <div class="new_box">  
     <% @blogs.each do |blog| -%>
       <div class="blog_list">
-        <%= link_to blog.title, edit_admin_blog_url(blog),:style => "font-size:14px;font-weight:bold"%>
-        <%= link_to "[编辑]", edit_admin_blog_url(blog),:style => "color:#666"%>
-        <%= link_to "[删除]", admin_blog_url(blog),:confirm => "确定删除这篇博客", :method => :delete,:style => "color:#666"%><br/>
+        <%= link_to blog.title, edit_admin_blog_url(blog),:style => "font-size:14px;font-weight:bold"%> <%= link_to "[删除]", admin_blog_url(blog),:confirm => "确定删除这篇博客", :method => :delete,:style => "color:#666"%><br/>
         <span class="gary_span"><%= "分类：#{blog.category}" %>  作者：<%= link_to blog.user.login,user_url(blog.user)%> 发布时间：<%= blog.created_at.to_date%></span>
       </div>  
     <% end %>

@@ -8,8 +8,5 @@ class Blog < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   validates_presence_of :title, :message => "请填写标题"
   validates_presence_of :title, :message => "请填写分类"
-  
-  def self.categories
-    Blog.find(:all,:select => :category).map(&:category).uniq
-  end
+attr_accessible :title, :body_html,:category, :user_id
 end
