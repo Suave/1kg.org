@@ -3,4 +3,4 @@
 <p><label class="label">上传小组标志</label> <%= file_column_field 'group', 'avatar', :size => 20 %>
   <span class="tip">支持 GIF, JPG, PNG 格式, 尺寸不小于 72X72</span>
   </p>
-<p><label class="label">小组介绍</label><%= fckeditor_textarea("group", "body_html", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %></p>
+<p><label class="label">小组介绍</label><%= form.text_area :body_html, :style => 'width:540px;height:400px;', :class => "mceEditor" %></p>

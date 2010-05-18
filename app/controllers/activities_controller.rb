@@ -2,23 +2,7 @@ class ActivitiesController < ApplicationController
   before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school]
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
   
-  uses_tiny_mce :options => { :theme => 'advanced',
-  :browsers => %w{msie gecko safari},   
-  :theme_advanced_layout_manager => "SimpleLayout",
-  :theme_advanced_statusbar_location => "bottom",
-  :theme_advanced_toolbar_location => "top",
-  :theme_advanced_toolbar_align => "left",
-  :theme_advanced_resizing => true,
-  :relative_urls => false,
-  :convert_urls => false,
-  :cleanup => true,
-  :cleanup_on_startup => true,  
-  :convert_fonts_to_spans => true,
-  :theme_advanced_resize_horizontal => false,
-  :theme_advanced_buttons1 => ["undo,redo,|,cut,copy,paste,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,link,unlink,|,image,media,|,code"],
-  :theme_advanced_buttons2 => [],
-  :language => :zh,
-  :plugins => %w{contextmenu media advimage paste fullscreen} }, :only => [:new, :create, :edit, :update]
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
 
   def index

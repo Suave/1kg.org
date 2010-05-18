@@ -2,6 +2,8 @@ class SharesController < ApplicationController
   before_filter :login_required, :except => [:show, :index]
   before_filter :find_share, :except => [:create, :index]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
+  
   def index
     @shares = Share.paginate :page => params[:page] || 1,
                                        :order => "last_replied_at desc",
