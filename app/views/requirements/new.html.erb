@@ -11,7 +11,8 @@
 <div class="newbox">
       <span class="span_title">一 确认此项目的反馈要求</span>
       <div class="contents" style="padding-left:10px">
-        <p><%= @project.feedback_require.gsub("\n", '<br />') %></p>
+        <p><%= @project.feedback_require.gsub("\n", '<br />') %>
+        <br/><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%></p>
         <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈 <%= error_message_on @apply, :agree_feedback_terms %></p>
       </div>
 </div>
