@@ -414,7 +414,6 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "stuff_bucks", :force => true do |t|
     t.integer  "type_id",                          :null => false
     t.integer  "school_id",                        :null => false
-    t.integer  "quantity",                         :null => false
     t.integer  "matched_count", :default => 0
     t.datetime "created_at"
     t.string   "status"
@@ -436,6 +435,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "validated",    :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.datetime "last_modified_at"
+    t.integer  "comments_count",   :default => 0
   end
 
   create_table "stuff_types", :force => true do |t|
