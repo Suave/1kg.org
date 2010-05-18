@@ -24,6 +24,8 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/sphinx #{deploy_to}/current/db/sphinx"
     run "rm -rf #{deploy_to}/current/public/docs/festcard09.rar && ln -s #{deploy_to}/shared/festcard09.rar #{deploy_to}/current/public/docs/festcard09.rar"
     run "cd #{current_path} && RAILS_ENV=#{env} rake schools:to_json"
+    run "cd #{deploy_to}/current && rm -rf public/stylesheets/*.cache.css"
+    run "cd #{deploy_to}/current && rm -rf public/javascripts/*.cache.js"
   end
   
   desc "Deploy to dev server"

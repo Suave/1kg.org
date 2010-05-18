@@ -4,7 +4,7 @@ class MiscController < ApplicationController
     @page_title = "首页"
     @school_count = School.validated.size
     @activity_count = Activity.ongoing.size
-    logged_in?? public_look : render(:action => "welcome")
+    logged_in? ? public_look : render(:action => "welcome")
   end
   
   def public_look
@@ -18,7 +18,10 @@ class MiscController < ApplicationController
     @bulletins = Bulletin.recent
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
-    render :action => "index"
+    respond_to do |wants|
+      wants.html{render :action => "index"}
+      wants.atom{ render :action => "index"}
+    end
   end
     
   def show_page

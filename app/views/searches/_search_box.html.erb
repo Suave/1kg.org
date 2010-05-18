@@ -2,7 +2,6 @@
 <% search_titles = {:activity => '活动',:school => '学校', :group => '小组',:topic => '话题',:all => '站内'}%>
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
-  <%= javascript_include_tag "search" %>
   <script type="text/javascript">
   $(document).ready(function(){
   search_box_blur();

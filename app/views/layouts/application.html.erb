@@ -4,24 +4,17 @@
     <title><%= @page_title.to_s + " - 多背一公斤" %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-    <link type="text/css" rel="stylesheet" href="/stylesheets/screen.css" media="screen, projection" />
     <!--[if lt IE 7]>
     <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie6-below.css" media="screen, projection"
     <![endif]-->
     <!--[if gte IE 7]>
     <link type="text/css" rel="stylesheet" href="/stylesheets/patches/win-ie7-up.css" media="screen, projection" />
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="/stylesheets/temp.css" media="screen, projection" />
-    <%= stylesheet_link_tag 'core'%>
-    <%= javascript_include_tag 'fckeditor/fckeditor' %>
-    <%= javascript_include_tag 'jQuery/jquery.min' %>
-    <%= javascript_include_tag 'jQuery/jrails' %>
-    <%= javascript_include_tag 'calendar.js' %>
-    <%= javascript_include_tag 'application.js' %>
+    <%= stylesheet_link_tag "core", "temp", "calendar", "screen", :cache => "all.cache" %>
+    <%= javascript_include_tag 'fckeditor/fckeditor', 'jquery', 'jrails', 'jquery-ui', 
+              'calendar.js', 'application.js', "search", :cache => 'all.cache' %>
     <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
-   
-    <link type="text/css" rel="stylesheet" href="/stylesheets/calendar.css" />
   </head>
   <body id="org-1kg" class="<%= @body_class.to_s %>">
 		<div id="header">

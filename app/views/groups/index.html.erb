@@ -34,6 +34,8 @@
       <p class="remark">&raquo; <%= link_to "所有小组", all_groups_url %></p>
 </div>
 
+<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新话题'} %>
+
 <% end -%>
 
 <div class="newbox">
