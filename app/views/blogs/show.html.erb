@@ -1,8 +1,0 @@
-<% @page_title = "博客" -%>
-
-    <h1><%= @blog.title%></h1>
-      <div id="entry">
-          <%= @blog.body_html%>
-      </div>
-    <span class="gary_span"><%= "分类：#{@blog.category}" %>  作者：<%= link_to @blog.user.login,user_url(@blog.user)%> 发布时间：<%= @blog.created_at.to_date%></span>
-      
