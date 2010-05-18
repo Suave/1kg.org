@@ -26,6 +26,7 @@ class Requirement < ActiveRecord::Base
   belongs_to :school
   belongs_to :applicator, :class_name => "User", :foreign_key => "applicator_id"
   has_many :donations, :foreign_key => "buck_id", :dependent => :destroy
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   
   validates_presence_of :type_id, :school_id,:message => "必须选择一所学校"
   validates_presence_of :apply_reason,:message => "必须填写申请理由"

@@ -10,6 +10,12 @@ class RequirementTypesController < ApplicationController
     @project = RequirementType.new(:feedback_require => "")
   end
   
+  
+  def update
+    @project = RequirementType.find params[:id]
+    @project.update_attributes!(params[:project].merge({:last_modified_at => Time.now}))
+  end
+  
   def create
     @project = RequirementType.new(params[:project])
     @project.slug = ''
