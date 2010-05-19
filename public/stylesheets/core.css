@@ -1382,3 +1382,4 @@ a.progressCancel:hover {
 .reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
 .reply {margin-bottom:10px}
 
+#show_feed{background-color:#D0FFB0;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66; }

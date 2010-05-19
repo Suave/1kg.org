@@ -132,3 +132,6 @@ function reply_comment(e) {
   $(e).parent().parent().next().next(".reply").toggle();
 }
 /* 结束 */
+function show_feed() {
+  $("#show_feed").toggle();
+}

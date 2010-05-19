@@ -28,23 +28,21 @@
       </div>
       <p class="remark">&raquo; <%= link_to "所有小组", all_groups_url %></p>
 </div>
-
-<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新话题'} %>
-
 <% end -%>
 
 <div class="newbox">
     <div style="float:right;position:relative;top:5px"><%= link_to "建立小组", new_group_url,:class => "buttonjoin" %></div>
-    <span class="span_title">小组话题</span>
-    
-      <div id="tabs">
+    <span class="span_title">小组话题</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
+    <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新话题'} %>
+      <div id="tabs" >
         <ul class="tab">
+          <li class="tabs_more"><a href="#all">最新话题</a></li>
           <% if logged_in? -%>
             <li class="tabs_more"><a href="#my">我参加的小组</a></li>
             <li class="tabs_more"><a href="#submitted">我发起的话题</a></li>
             <li class="tabs_more"><a href="#participated">我参与的话题</a></li>
           <% end -%>
-          <li class="tabs_more"><a href="#all">最新话题</a></li>
+          
         </ul>
         <div class="clearfix" style="height:10px"></div>
         <div class="panel setting">

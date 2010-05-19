@@ -1,9 +1,8 @@
-<div class="newbox">
-  <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title"><%= name %></span>
-  <div class="cleanfix" style="clear:both;height:10px"></div>
-
+<div id="show_feed" style="display:none">
   <link rel="alternate" href="<%= url_for(:format => :atom) %>" type="application/atom+xml" title="atom">
-  <a href="<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><%= image_tag(image_path("rss.png")) %> RSS订阅</a><br />
-  <a href="http://fusion.google.com/add?feedurl=<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="/images/google.gif"></a><br>
+  <span><%= name %>： </span>
+  <a href="#" style="float:right" onclick="javascript:show_feed();return false;">关闭</a>
+  <a href="<%= url_for(:host => 'www.1kg.org', :format => :atom) %>" style="position:relative;top:3px"><%= image_tag(image_path("atom.gif")) %></a> 
+  <a href="http://fusion.google.com/add?feedurl=<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><img alt="google reader" src="/images/google.gif" style="position:relative;top:3px"></a><br>
+  
 </div>

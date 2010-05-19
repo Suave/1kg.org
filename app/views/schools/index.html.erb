@@ -26,8 +26,6 @@
 
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
-<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新学校话题'} %>
-
 <% end -%>
 
 <div class="newbox" >
@@ -123,7 +121,8 @@
 
 <div class="newbox">
       <div class="clearfix"></div>
-      <span class="span_title">学校话题</span>
+      <span class="span_title">学校话题</span>  <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
+      <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新学校话题'} %>
       <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
         <%= render :partial => '/shared/topic', :collection => @recent_school_comments %>
