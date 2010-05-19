@@ -4,7 +4,18 @@ class MiscController < ApplicationController
     @page_title = "首页"
     @school_count = School.validated.size
     @activity_count = Activity.ongoing.size
-    logged_in? ? public_look : render(:action => "welcome")
+    
+    if logged_in? 
+      public_look 
+    else
+      respond_to do |wants|
+        wants.html{ render(:action => "welcome")}
+        wants.atom do
+          @recent_shares = Share.recent_shares
+          render :action => "index"
+        end
+      end
+    end
   end
   
   def public_look
