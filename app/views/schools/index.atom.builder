@@ -4,7 +4,7 @@ atom_feed do |feed|
 
   for topic in @topics
     feed.entry(topic, :url => school_url(topic.board.talkable.school)) do |entry|
-      entry.title(topic.title)
+      entry.title(topic.title + ' (来自:1kg.org)')
       entry.content(topic.body_html, :type => 'html')
 
       entry.author do |author|

@@ -4,7 +4,7 @@ atom_feed do |feed|
 
   for topic in @recent_topics_in_all_groups
     feed.entry(topic, :url => board_topic_url(topic.board, topic)) do |entry|
-      entry.title(topic.title)
+      entry.title(topic.title + ' (来自:1kg.org)')
       entry.content(topic.body_html, :type => 'html')
 
       entry.author do |author|
