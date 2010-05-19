@@ -1,5 +1,7 @@
 class Admin::RequirementTypesController < Admin::BaseController
   before_filter :find_project, :except => [:index, :new, :create]
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
+  
   def index
     @projects = RequirementType.find :all, :include => :creator 
   end
