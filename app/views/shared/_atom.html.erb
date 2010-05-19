@@ -1,11 +1,9 @@
 <div class="newbox">
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">使用阅读器订阅此页面</span>
+  <span class="span_title"><%= name %></span>
   <div class="cleanfix" style="clear:both;height:10px"></div>
 
   <link rel="alternate" href="<%= url_for(:format => :atom) %>" type="application/atom+xml" title="atom">
-  <a href="<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><%= image_tag(image_path("rss.png")) %><%= name %></a><br>
-  <a href="http://www.zhuaxia.com/add_channel.php?url=<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="抓虾" src="/images/zhuaxia.gif"></a><br>
+  <a href="<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><%= image_tag(image_path("rss.png")) %> RSS订阅</a><br />
   <a href="http://fusion.google.com/add?feedurl=<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="google reader" src="/images/google.gif"></a><br>
-  <a href="http://www.xianguo.com/subscribe.php?url=<%= url_for(:host => 'www.1kg.org', :format => :atom) %>"><img vspace="2" border="0" style="margin-bottom: 3px;" alt="鲜果" src="/images/xianguo.gif"></a>
 </div>

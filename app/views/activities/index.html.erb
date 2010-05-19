@@ -1,7 +1,5 @@
 <% @page_title = "活动" -%>
 <% content_for :heads do -%>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
 <% end %>
@@ -21,8 +19,6 @@
   <%= render :text => @page.body %>
 </div>
 <%end%>
-
-<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
 
 <div class="newbox">
   <span class="span_title">我参与的活动</span> 
@@ -71,6 +67,9 @@
       </div>
 </div>
 <% end -%>
+
+<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
+
 <% end -%>
 
 <div class="newbox">

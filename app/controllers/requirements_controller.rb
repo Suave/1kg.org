@@ -1,6 +1,8 @@
 class RequirementsController < ApplicationController
   before_filter :login_required, :except => [:show]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:edit, :update]
+  
   def new
     @project = RequirementType.find params[:requirement_type_id]
     if @project.apply_end?

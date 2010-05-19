@@ -33,7 +33,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 </p>
 
 <p>
-<%= fckeditor_textarea("share", "body_html", :toolbarSet => 'OneLine',:width => '640px',:height => '480px') %>
+  <%= form.text_area :body_html, :style => 'width:640px;height:480px;', :class => "mceEditor" %>
 </p>
 
 <p><label class="label" >附加标签</label>

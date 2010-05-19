@@ -1,10 +1,5 @@
 <% @page_title = @title = @city.name %>
 
-<% content_for :heads do -%>
-  <%= javascript_include_tag 'jQuery/jquery.ui.core.min' %>
-  <%= javascript_include_tag 'jQuery/jquery.ui.tabs.min' %>
-<% end %>
-
 <% content_for :subtitle do -%>
   <% if logged_in? && current_user.geo == @city -%>
   <div class="subtitle">
