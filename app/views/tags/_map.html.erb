@@ -3,11 +3,11 @@
 
   <script type="text/javascript" src="<%= tag_path(@tag, :format => :json) %>"></script>
   
-  <%= javascript_include_tag 'Clusterer2' %>
+  <%= javascript_include_tag 'markerclusterer_packed' %>
 
   <script type="text/javascript">
     var map;
-  
+
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map_div"));
@@ -24,18 +24,20 @@
         icons[2].image = "/images/meta.png";
       
         var markers = [];
-        var clusterer = new Clusterer( map );
-      
+        
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
           var marker = new GMarker(point, {icon: icons[schools[i].t]});
 
           GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
-
-          clusterer.AddMarker( marker, "<a href='/schools/" + schools[i].i + "' target='_blank'>" + schools[i].n + "</a>")
+          
+          markers.push(marker);
         }
+
+        var markerCluster = new MarkerClusterer(map, markers);
       }
     }
+
     window.onload = initialize;
   </script>
 <% end %>
