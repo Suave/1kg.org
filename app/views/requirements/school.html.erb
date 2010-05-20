@@ -15,9 +15,7 @@
   <div class="project_image_frame">
         <img class="project_image" src="<%= @requirement.requirement_type.image.url(:thumb) %>"/>
   </div>
-  <div style="position:relative;left:-20px;top:30px">
-  <%= main_photo_thumb(@requirement.school) -%>
-  </div>
+  <%= main_photo_thumb(@requirement.school,style="position:relative;left:-20px;top:30px;") -%>
   <%= image_tag "pp.png" ,:style => "position:relative;left:40px;top:-14px"%>
   
 </div>
@@ -45,17 +43,14 @@
             <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
             <li class="tabs_more"><%= link_to '项目反馈', "#report" %></li>
         </ul>
-        <div class="cleanfix" style="clear:both;height:10px"></div>
         <div id="detail">
-          
-          
-          <div class="newbox">
+          <div class="project_info">
             <div class="title_line"><span class="span_title2">执行计划</span></div>
             <%= @requirement.apply_plan %>
           </div>
           
           <% unless @requirement.problem.nil? or @requirement.problem.empty?%>
-          <div class="newbox">
+          <div class="project_info">
             <div class="title_line"><span class="span_title2">可能遇到的问题与解决方案</span></div>
             <%= @requirement.problem %>
           </div>
@@ -63,7 +58,7 @@
           
           
           <% unless @requirement.budget.nil? or @requirement.budget.empty?%>
-          <div class="newbox">
+          <div class="project_info">
             <div class="title_line"><span class="span_title2">资金预算</span></div>
             <%= @requirement.budget %>
           </div>
@@ -74,15 +69,19 @@
         <div id="report">
                 
       <% if @requirement.status != 2%>
-      <div class="newbox">
-        <div class="title_line"><span class="span_title">执行报告</span></div>
-        <%= @requirement.feedback %>
-        <%= '还没有填写' if @requirement.feedback.nil? %>
-        <% if logged_in? && @requirement.applicator == current_user -%>
-        <div><br/>你是项目申请者，可以 <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "adminbutton"%>
+        <div class="project_info">
+          <div class="title_line"><span class="span_title2">执行报告</span></div>
+          <%= @requirement.feedback %>
+          <%= '还没有填写' if @requirement.feedback.nil? %>
+          <% if logged_in? && @requirement.applicator == current_user -%>
+          <div><br/>你是项目申请者，可以 <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "adminbutton"%>
+          </div>
+          <% end -%>
         </div>
-        <% end -%>
-      </div>
+      <% else %>
+        <div class="project_info">
+          申请未通过。
+        </div>
       <%end%>
         </div>
 </div>
