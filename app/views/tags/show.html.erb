@@ -1,16 +1,17 @@
 <% @page_title = @title = "标签：#{@tag}" %>
 
 <% unless @schools.empty? %>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>需要<%= @tag %>的学校</h3>
-      <div class="contents">
-        <%= render :partial => '/schools/schools', :object => @schools %>
-        <%= customize_paginate(@schools, :param_name => 'school_page') %>
-      </div>
-    </div>
+<div class="newbox">
+  <span class="span_title">需要<%= @tag %>的学校</span>
+  <div class="clearfix" style="height:10px"></div>
+  <div class="contents">
+    <%= render :partial => '/tags/map' %>
+    <% if false %>
+    <%= render :partial => '/schools/schools', :object => @schools %>
+    <%= customize_paginate(@schools, :param_name => 'school_page') %>
+    <% end %>
   </div>
+  <div class="clearfix" style="height:10px;clear:both"> </div>
 </div>
 <% end %>
 
