@@ -31,8 +31,7 @@ class RequirementTypesController < ApplicationController
     
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
-    
-    @others = RequirementType.non_exchangable.validated.find(:all, :limit => 5)
+    @others = RequirementType.non_exchangable.validated.find(:all, :limit => 4)
     @others.delete(@project)
   end
   
