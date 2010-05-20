@@ -70,7 +70,6 @@ class SharesController < ApplicationController
     
     respond_to do |wants|
       wants.html
-      wants.atom
     end
   end
   

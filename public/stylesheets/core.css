@@ -1383,6 +1383,10 @@ a.progressCancel:hover {
 .game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
 
 .reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
+
 .reply {margin-bottom:10px}
 
-.blog_list{border-bottom:1px solid #ccc;padding:5px}
+
+.title_line {border-bottom: 1px solid #e0e0e0;margin-top:10px}
+
+#show_feed{background-color:#D0FFB0;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66; }

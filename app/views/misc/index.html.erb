@@ -43,8 +43,6 @@
       </script>
 </div>
 
-<%= render :partial => '/shared/atom', :locals => {:name => '订阅最新分享'} %>
-
 <% end -%>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>           
@@ -96,7 +94,8 @@
 
 <div class="newbox">
       <div style="float:right"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
-      <span class="span_title">热门分享</span> 
+      <span class="span_title">热门分享</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
+      <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新分享'} %>
       <div class="cleanfix" style="height:10px"></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @recent_shares %>

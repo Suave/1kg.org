@@ -1,5 +1,0 @@
-<% @title = @page_title = "创建新博客" -%>
-  <% form_for :blog, :url => admin_blogs_url do |f| %>
-      <%= render :partial => "form", :object => f %>
-      <p><label class="label">　</label><%= submit_tag "发 布" %> 或 <%= link_to "返回", admin_blogs_url %></p>
-  <% end %>

@@ -13,9 +13,9 @@ module BodyFormat
         "<a href=\"#{url}\">#{url}</a>"
       }
 
-      html.gsub!("\r\n", '<br />')
-      html.gsub!("\r", '<br />')
-      html.gsub!("\n", '<br />')
+      html.gsub!("\r\n", '<br/>')
+      html.gsub!("\r", '<br/>')
+      html.gsub!("\n", '<br/>')
     end
     
     begin

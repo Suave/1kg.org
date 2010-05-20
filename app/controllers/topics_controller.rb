@@ -60,7 +60,6 @@ class TopicsController < ApplicationController
         @post  = Post.new
         @others  = @topic.board.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
         wants.html
-        wants.atom
       end
     end
   end

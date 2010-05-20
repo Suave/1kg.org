@@ -5,7 +5,11 @@ ActionController::Routing::Routes.draw do |map|
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
-
+ 
+  map.resources :requirements do |requirement|
+    requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
+  end
+  
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
@@ -77,7 +81,10 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :requirements
+    school.resources :requirements do |requirement|
+      requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
+    end
+    
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
                                                  :action => "show_date", 
@@ -125,8 +132,6 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resource :search
   
-  map.resources :blogs
-  
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
@@ -169,14 +174,12 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :game_categories
-    admin.resources :blogs
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
   end
-  
 
   # 公益产品
   map.namespace :minisite do |site|

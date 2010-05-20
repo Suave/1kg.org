@@ -30,7 +30,6 @@ class GroupsController < ApplicationController
                              :per_page => 49
   end
   
-  
   def new
     
   end
