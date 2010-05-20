@@ -1,8 +1,7 @@
-<% @page_title = @title = "标签：#{@tag}" %>
+<% @page_title = @title = %(需要"#{@tag}"的学校) %>
 
 <% unless @schools.empty? %>
 <div class="newbox">
-  <span class="span_title">需要<%= @tag %>的学校</span>
   <div class="clearfix" style="height:10px"></div>
   <div class="contents">
     <%= render :partial => '/tags/map' %>
