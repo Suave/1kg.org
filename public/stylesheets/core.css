@@ -1386,7 +1386,9 @@ a.progressCancel:hover {
 
 .reply {margin-bottom:10px}
 
-
-.title_line {border-bottom: 1px solid #e0e0e0;margin-top:10px}
+.title_line {border-bottom: 1px solid #c0c0c0;margin:20px 0 10px;padding-bottom:4px;}
+.title_line .span_title2{color:#444}
 
 #show_feed{background-color:#D0FFB0;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66; }
+
+
