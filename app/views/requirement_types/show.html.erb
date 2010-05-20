@@ -51,12 +51,16 @@
       </div>
 </div>
 
-<div class="cleanfix" style="height:10px;clear:both"></div>
+<div class="cleanfix" style="height:20px;clear:both"></div>
 <div class="newbox" style="color:#666">
       <div class="title_line"><span class="span_title2">项目背景</span></div><%= @project.description_html %>
+      <div class="cleanfix" style="height:20px;clear:both"></div>
       <div class="title_line"><span class="span_title2">征集要求</span></div><%= @project.condition_html.gsub("\r\n", '<br/>') %>
+      <div class="cleanfix" style="height:20px;clear:both"></div>
       <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div><%= @project.support_html.gsub("\r\n", '<br/>') %>
+      <div class="cleanfix" style="height:20px;clear:both"></div>
       <div class="title_line"><span class="span_title2">反馈要求</span></div><%= "#{@project.feedback_require}<br/>" %><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%>
+      <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>
 <%= share_link(summary(@project ,60),(@page_title.to_s + " - 多背一公斤"))%>
 <div class="cleanfix" style="height:20px;clear:both"></div>
