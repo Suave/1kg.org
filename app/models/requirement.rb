@@ -34,6 +34,14 @@ class Requirement < ActiveRecord::Base
   validates_presence_of :applicator_telephone,:message => "请留下您的电话或手机号码"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺反馈要求，才能申请项目"
     
+  def validate
+    if self.applicator and (start_at.nil? or end_at.nil?)
+            errors.add(:time,"时间填写不正确")
+    end
+    
+  end
+  
+    
   named_scope :confirmed, :conditions => ["validated = ?", true]
   named_scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]
   named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]

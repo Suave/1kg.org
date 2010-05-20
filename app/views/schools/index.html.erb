@@ -5,7 +5,8 @@
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <style type="text/css">
   .school_list_meta{width:190px;-width:180px}
-  .school_list{width:310px}</style>
+  .school_list{width:310px}
+  .project{margin-right:20px;-margin-right:30px;}</style>
 <% end %>
 <% content_for :crumb do -%>
 <li>学校</li>
@@ -117,7 +118,7 @@
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
       </div>
-     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目", requirement_types_url %></div><%end%>
+     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
 </div>
 
 <div class="newbox">
