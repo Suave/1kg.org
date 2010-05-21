@@ -24,7 +24,7 @@
         icons[2].image = "/images/meta.png";
       
         var markers = [];
-        
+ 
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
           var marker = new GMarker(point, {icon: icons[schools[i].t]});
@@ -34,7 +34,7 @@
           markers.push(marker);
         }
 
-        var markerCluster = new MarkerClusterer(map, markers);
+        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 7});
       }
     }
 
