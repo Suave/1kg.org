@@ -27,7 +27,11 @@ class PhotosController < ApplicationController
       if params[:Filedata]
         wants.html {render(:text => @photo.id)}
       else
-        wants.html {redirect_to @photo.school || @photo.activity}
+        if @photo.school || @photo.activity
+          wants.html {redirect_to @photo.school || @photo.activity}
+        else
+          wants.html {redirect_to "/javascripts/tiny_mce/plugins/advimage/image.htm"}
+        end
       end
     end
   end
