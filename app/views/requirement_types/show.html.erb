@@ -1,13 +1,52 @@
 <% @page_title = @project.title %>
+<% content_for :heads do -%>
+  <style type="text/css">.school_list_photo{width:80px;height:60px;margin-top:4px}
+         .school_list_photo img{width:80px;height:60px}
+         .school_list_meta{width:170px;padding:4px 0}
+  </style>
+<% end %>
 
-<% content_for :sidebar do -%>      
-  <div class="cleanfix" style="clear:both;height:10px"></div>
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",requirement_types_url%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+
+
+    <span class="span_title2">参与的学校</span>
+    <div style="margin:6px 0">
+      <%= render :partial => "requirement", :collection => @project.requirements %>
+    </div>
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @others.empty?%>
   <div>
-      <span class="span_title">其他项目</span>
+      <span class="span_title2">其他项目</span>
+      <div style="margin:6px 0">
         <%= render :partial => "/shared/project", :collection => @others %>
+      </div>
+  </div>
+  <%end%>
+<%end%>
+
+
+<% if false -%>      
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  <span class="remark"><%= link_to "&raquo; 回到公益项目首页",requirement_types_url%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  
+  <div>
+    <span class="span_title2">参与的学校</span>
+    <div style="margin:6px 0">
+      <%= render :partial => "requirement", :collection => @project.requirements %>
+      <div style="clear:both;"></div>
+    </div>
+  </div>
+  
+  <% unless @others.empty?%>
+  <div>
+      <span class="span_title2">其他项目</span>
+      <div style="margin:6px 0">
+        <%= render :partial => "/shared/project", :collection => @others %>
+      </div>
   </div>
   <%end%>
 <% end -%>
@@ -32,25 +71,28 @@
       </div>
 </div>
 
-<div class="cleanfix" style="height:10px;clear:both"></div>
-<div class="newbox">
-      <span class="span_title">项目介绍</span>
-      <%= @project.description_html %>
+<div class="cleanfix" style="height:20px;clear:both"></div>
+<div class="newbox" style="color:#666">
+      <div class="project_info">
+        <div class="title_line"><span class="span_title2">项目背景</span></div>
+        <%= @project.description_html %>
+      </div>
+      <div class="project_info">
+        <div class="title_line"><span class="span_title2">征集要求</span></div>
+        <%= @project.condition_html.gsub("\r\n", '<br/>') %>
+      </div>
+      <div class="project_info">  
+        <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div>
+        <%= @project.support_html.gsub("\r\n", '<br/>') %>
+      </div>
+      <div class="project_info">
+        <div class="title_line"><span class="span_title2">反馈要求</span></div>
+        <%= "#{@project.feedback_require}<br/>" %><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%>
+      </div>
+        
 </div>
-
-<div class="cleanfix" style="height:3px;clear:both"></div>
-<div class="newbox">
-    <h3>参与的学校</h3>
-    
-    <p class="postNew"></p>
-    <div class="contents">
-      <%= render :partial => "requirements", :object => @project.requirements %>
-      <div style="clear:both;"></div>
-    </div>
-</div>
+<%= share_link(summary(@project ,60),(@page_title.to_s + " - 多背一公斤"))%>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
-<% if false%>
 <%= render :partial => "/comments/comments", :object => @comments %>
 <%= render :partial => "/comments/form", :locals => {:commentable => @project} %>
-<% end%>

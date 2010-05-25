@@ -1,5 +1,6 @@
 class Admin::RequirementsController < Admin::BaseController
   before_filter :find_requirement_type
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]  
   
   def index
     @requirements = @type.requirements.find :all, :order => "created_at desc"

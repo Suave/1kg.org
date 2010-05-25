@@ -12,7 +12,6 @@
       <div class="contents">
       <% form_for :project, :url => admin_requirement_types_url, :html => {:multipart => true} do |f| -%>
         <%= render :partial => "/requirement_types/form", :object => f %>
-        <%= render :partial => "ext_form", :object => f %>
         <p><label></label><%= submit_tag "创建" %></p>
       <% end -%>
       </div>

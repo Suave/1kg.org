@@ -6,6 +6,8 @@
 #  slug             :string(255)     not null
 #  title            :string(255)     not null
 #  description_html :text
+#  support_html     :text
+#  condition_html   :text
 #  created_at       :datetime
 #  updated_at       :datetime
 #
@@ -23,7 +25,6 @@ class RequirementType < ActiveRecord::Base
   
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "150x150>" }
   
-  #validates_presence_of :slug, :message => "不能为空"
   validates_presence_of :title, :message => "不能为空"
   
   named_scope :exchangable, :conditions => {:exchangable => true}
@@ -34,6 +35,10 @@ class RequirementType < ActiveRecord::Base
   
   def before_create
     self.creator_id = User.current_user.id
+  end
+  
+  def clean_html
+    description_html
   end
   
   def validated?
