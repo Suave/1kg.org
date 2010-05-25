@@ -4,7 +4,7 @@
     <%= upload_button('upload_container', photo_upload_path_with_session) if false%>
       <p><label class="label">选择照片</label> <%= file_field :photo, :uploaded_data %></p>
       <span style="margin-left:80px;color:#666">建议图片宽度不要大于580像素，文件大小不超过500kb。</span>
-      <p style="margin-left:50px"><%= submit_tag "上 传";:style => 100px %></p>
+      <p style="margin-left:50px"><%= submit_tag "上 传";:style => "100px" %></p>
   </div>
 </fieldset>
 <fieldset>
