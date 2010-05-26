@@ -1,8 +1,7 @@
-<div class="box">
-  <div class="boxOuter">
-    <div id="schools" class="boxInner">
-      <h3><%= @city.nil? ? '所有学校' : "#{@city.name}的学校" %></h3>
-      <%= render :partial => '/geos/schools', :object => @schools %>
-    </div>
+<div class="newbox">
+  <div class="clearfix" style="height:10px"></div>
+  <div class="contents">
+    <h3><%= @city.nil? ? '所有学校' : "#{@city.name}的学校" %></h3>
+    <%= render :partial => '/geos/schools', :object => @schools %>
   </div>
 </div>

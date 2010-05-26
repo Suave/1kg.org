@@ -18,8 +18,7 @@ class TagsController < ApplicationController
     respond_to do |wants|
       wants.html do
         # 需要优化
-        @schools = @school_needs.map(&:school).paginate(:per_page => 10, :page => params[:school_page], :conditions => ['deleted_at = ?', nil])
-        @shares = Share.find_tagged_with(params[:tag]).paginate(:per_page => 10, :page => params[:share_page])
+        @schools = @school_needs.map(&:school).paginate(:per_page => 20, :page => params[:page], :conditions => ['deleted_at = ?', nil])
         @map_center = Geo::DEFAULT_CENTER
       end
       

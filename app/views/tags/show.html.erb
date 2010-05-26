@@ -1,5 +1,9 @@
 <% @page_title = @title = %(需要"#{@tag}"的学校) %>
 
+<% content_for :sidebar do -%>  
+  <%= render :partial => "schools", :locals => {:schools => @schools} %>
+<% end -%>
+
 <% unless @schools.empty? %>
 <div class="newbox">
   <div class="clearfix" style="height:10px"></div>
@@ -11,19 +15,5 @@
     <% end %>
   </div>
   <div class="clearfix" style="height:10px;clear:both"> </div>
-</div>
-<% end %>
-
-<% unless @shares.empty? %>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3><%= @tag %>相关的分享</h3>
-      <div class="contents">
-        <%= render :partial => '/schools/shares', :object => @shares, :locals => {:with_head => true} %>
-        <%= customize_paginate(@shares, :param_name => 'share_page') %>
-      </div>
-    </div>
-  </div>
 </div>
 <% end %>
