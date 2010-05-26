@@ -1,6 +1,6 @@
 <div class="newbox">
   <div class="clearfix" style="height:10px"></div>
-  <div class="contents">
+  <div id="schools" class="contents">
     <h3><%= @city.nil? ? '所有学校' : "#{@city.name}的学校" %></h3>
     <%= render :partial => '/geos/schools', :object => @schools %>
   </div>
