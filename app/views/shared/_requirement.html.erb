@@ -3,7 +3,7 @@
         <img class="project_image" src="<%= requirement.requirement_type.image.url(:thumb) %>"/>
     </div>
     <div>
-        <h5><%= link_to requirement.requirement_type.title, school_requirement_path(requirement.school, requirement)%></h5>
+        <h5><%= link_to short_title(requirement.requirement_type,10), school_requirement_path(requirement.school, requirement)%></h5>
         <span><%= ['已完成','进行中','申请中'][requirement.status.to_i]%></span>
     </div>
     <div style="clear:both"></div>

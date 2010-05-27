@@ -24,6 +24,7 @@
       <p style="font-size:12px;text-align:right;margin-right:14px;color:#666"><%= link_to "高级搜索", search_url if @advanced.nil?%></p>
       <div id="advance_box" style="<%= 'display:none;' if @advanced.nil?  %>">
       <div style="clear:both;height:20px"></div>
+
       
       <p id="advance_common" class="advances" style="<%= 'display:none;' unless @search.need_common? %>">
         <%= label_tag '标题' %> <%= text_field_tag :title, @search.title %><br />
