@@ -29,13 +29,14 @@
       map.addOverlay(bigmarker);
     }
   };
-  window.onload = function(){initializeBig(); bigmarker.disableDragging();}
+  function edit_position(){bigmarker.remove();map.addOverlay(greenmarker);$('#drag').hide();$('#sure').show(); }
+  
+  window.onload = function(){initializeBig(); bigmarker.disableDragging();<%= "edit_position();" if @edit%>}
+ 
  
 </script>
 
 <div id="map_div" style="width: 500px; height: 380px;"></div>
-<% if !current_user.blank? && @school.edited_by(current_user)%><p class="content_lei" ><span id="drag">你是学校大使，可以点击 <a class="adminbutton" onclick="bigmarker.remove();map.addOverlay(greenmarker);$('#drag').hide();$('#sure').show(); return false;" href="#">更正位置</a> 。</span><span id="sure" style="display:none"> 拖拽绿色地标到正确位置， <a class="adminbutton" onclick="location.reload(); return false;" href="#">修改完了</a>。</spam></p><%end%>
-<style type="text/css">.adminbutton{background:url(/images/adminbutton.gif) no-repeat;
-color:#fff;padding:1px 6px 3px;-padding:3px 6px 1px;width:60px;font-size:13px;text-decoration:none}
-.adminbutton:hover{background-position:0 -21px;color:#fff;} .content_lei{font-size:14px;color:#444;padding:0 5px;margin:10px 0 0}
+<% if @edit%><p class="content_lei" ><span>拖动标记修改学校位置,修改之后刷新页面即可生效</spam></p><%end%>
+<style type="text/css">.content_lei{font-size:14px;color:#444;padding:0 5px;margin:10px 0 0}
 </style>

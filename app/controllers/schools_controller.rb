@@ -226,7 +226,7 @@ class SchoolsController < ApplicationController
   def large_map
     @school = School.find(params[:id])
     @map_center = [@school.basic.latitude, @school.basic.longitude, 7]
-    
+    @edit = params[:edit]
     respond_to do |format|
       format.html {render :layout => false}
     end
