@@ -22,9 +22,9 @@
   <% if !current_user.blank? && @school.edited_by(current_user)%>
     <%= link_to "位置不对？", large_map_school_url(:iframe => true, :width => 550, :height => 480,:edit => true) , :rel => 'prettyPhoto[edit]', :description => nil,:style => "float:right;" %>
   <% elsif !current_user.blank?%>
-    <%= link_to "位置不对？","#", :confirm => "只有这所学校大使才能修改地址，你可以留言告知大使修改或申请成为大使。",:style => "float:right;"%>
+    <%= link_to "位置不对？","#", :confirm => "只有这所学校的大使才能修改地址，你可以留言告知大使修改或申请成为大使。",:style => "float:right;"%>
   <% else %>
-    <%= link_to "位置不对？","#", :confirm => "只有这所学校大使才能修改地址，如果您是学校大使，请在右上角点击登录。",:style => "float:right;"%>
+    <%= link_to "位置不对？","#", :confirm => "只有这所学校的大使才能修改地址，如果您是学校大使，请在右上角点击登录。",:style => "float:right;"%>
   <% end %>
   <%= link_to "查看大图", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
 </div>
