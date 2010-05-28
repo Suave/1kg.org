@@ -72,7 +72,7 @@
 
 <div class="newbox">
       <div id="activity_tabs">
-        <div style="float:right;position:relative;top:5px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
+        <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
         <span class="span_title" style="margin-right:8px">最近的活动</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
         <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
         <ul class="tab" >
