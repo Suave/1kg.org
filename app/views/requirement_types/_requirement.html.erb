@@ -1,0 +1,9 @@
+  <div class="school_list">
+    <%= main_photo_thumb(requirement.school) -%>       
+    <div class="school_list_meta" style="width:170px">
+      <span><%= link_to requirement.applicator.login, user_url(requirement.applicator) %> 在 <%= requirement.created_at.to_date%> <br/>
+      为 <%= link_to h(requirement.school.title), school_path(requirement.school)%> 提出 <%= link_to '申请',school_requirement_path(requirement.school,requirement)%></span><br/>
+      <span class="gary_span">项目状态：<%= ['已完成','进行中','申请中'][requirement.status.to_i]%><span>
+    </div>
+    <div class="clearfix"></div>
+  </div>

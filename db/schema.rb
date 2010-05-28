@@ -414,9 +414,9 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "stuff_bucks", :force => true do |t|
     t.integer  "type_id",                          :null => false
     t.integer  "school_id",                        :null => false
-    t.integer  "quantity",                         :null => false
     t.integer  "matched_count", :default => 0
     t.datetime "created_at"
+    t.integer  "quantity",                         :null => false
     t.string   "status"
     t.text     "notes_html"
     t.text     "for_team_tip"
@@ -428,11 +428,16 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "applicator_telephone"
     t.text     "apply_reason"
     t.text     "apply_plan"
+    t.text     "problem"
+    t.text     "budget"
     t.text     "feedback"
-    
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.boolean  "validated",    :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.datetime "last_modified_at"
+    t.integer  "comments_count",   :default => 0
   end
 
   create_table "stuff_types", :force => true do |t|
@@ -442,7 +447,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.datetime "feedback_at"
     t.text     "description_html"
+    t.text     "condition_html",          :default => ""
+    t.text     "support_html",            :default => ""
     t.text     "vendor_link"
     t.text     "feedback_require"
     t.integer  "requirements_count",      :default => 0

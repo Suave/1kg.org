@@ -9,7 +9,7 @@ var ImageDialog = {
 	},
 
 	init : function(ed) {
-		var f = document.forms[0], nl = f.elements, ed = tinyMCEPopup.editor, dom = ed.dom, n = ed.selection.getNode();
+		var f = document.getElementById("imageform"), nl = f.elements, ed = tinyMCEPopup.editor, dom = ed.dom, n = ed.selection.getNode();
 
 		tinyMCEPopup.resizeToInnerSize();
 		this.fillClassList('class_list');
@@ -89,7 +89,7 @@ var ImageDialog = {
 	},
 
 	insert : function(file, title) {
-		var ed = tinyMCEPopup.editor, t = this, f = document.forms[0];
+		var ed = tinyMCEPopup.editor, t = this, f = document.getElementById("imageform");
 
 		if (f.src.value === '') {
 			if (ed.selection.getNode().nodeName == 'IMG') {
@@ -116,7 +116,7 @@ var ImageDialog = {
 	},
 
 	insertAndClose : function() {
-		var ed = tinyMCEPopup.editor, f = document.forms[0], nl = f.elements, v, args = {}, el;
+		var ed = tinyMCEPopup.editor, f = document.getElementById("imageform"), nl = f.elements, v, args = {}, el;
 
 		tinyMCEPopup.restoreSelection();
 
@@ -241,7 +241,7 @@ var ImageDialog = {
 	},
 
 	setSwapImage : function(st) {
-		var f = document.forms[0];
+		var f = document.getElementById("imageform");
 
 		f.onmousemovecheck.checked = st;
 		setBrowserDisabled('overbrowser', !st);
@@ -299,13 +299,13 @@ var ImageDialog = {
 	},
 
 	resetImageData : function() {
-		var f = document.forms[0];
+		var f = document.getElementById("imageform");
 
 		f.elements.width.value = f.elements.height.value = '';
 	},
 
 	updateImageData : function(img, st) {
-		var f = document.forms[0];
+		var f = document.getElementById("imageform");
 
 		if (!st) {
 			f.elements.width.value = img.width;
@@ -316,7 +316,7 @@ var ImageDialog = {
 	},
 
 	changeAppearance : function() {
-		var ed = tinyMCEPopup.editor, f = document.forms[0], img = document.getElementById('alignSampleImg');
+		var ed = tinyMCEPopup.editor, f = document.getElementById("imageform"), img = document.getElementById('alignSampleImg');
 
 		if (img) {
 			if (ed.getParam('inline_styles')) {
@@ -331,7 +331,7 @@ var ImageDialog = {
 	},
 
 	changeHeight : function() {
-		var f = document.forms[0], tp, t = this;
+		var f = document.getElementById("imageform"), tp, t = this;
 
 		if (!f.constrain.checked || !t.preloadImg) {
 			return;
@@ -345,7 +345,7 @@ var ImageDialog = {
 	},
 
 	changeWidth : function() {
-		var f = document.forms[0], tp, t = this;
+		var f = document.getElementById("imageform"), tp, t = this;
 
 		if (!f.constrain.checked || !t.preloadImg) {
 			return;
@@ -359,7 +359,7 @@ var ImageDialog = {
 	},
 
 	updateStyle : function(ty) {
-		var dom = tinyMCEPopup.dom, st, v, f = document.forms[0], img = dom.create('img', {style : dom.get('style').value});
+		var dom = tinyMCEPopup.dom, st, v, f = document.getElementById("imageform"), img = dom.create('img', {style : dom.get('style').value});
 
 		if (tinyMCEPopup.editor.settings.inline_styles) {
 			// Handle align
@@ -439,7 +439,7 @@ var ImageDialog = {
 	},
 	
 	ts_insert_image: function(url){
-	 var formObj = document.forms[0]; formObj.src.value = url;
+	 var formObj = document.getElementById("imageform"); formObj.src.value = url;
 	 formObj.alt.value = '';
 	 this.insertAndClose();
 	}

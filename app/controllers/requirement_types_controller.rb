@@ -9,7 +9,13 @@ class RequirementTypesController < ApplicationController
   end
   
   def new
-    @project = RequirementType.new(:feedback_require => "1. 需要上传快递\n2. 需要上传物资签\n3. 需要上传项目照片\n4. 需要写项目执行报告")
+    @project = RequirementType.new(:feedback_require => "")
+  end
+  
+  
+  def update
+    @project = RequirementType.find params[:id]
+    @project.update_attributes!(params[:project].merge({:last_modified_at => Time.now}))
   end
   
   def create
@@ -25,8 +31,7 @@ class RequirementTypesController < ApplicationController
     
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
-    
-    @others = RequirementType.non_exchangable.validated.find(:all, :limit => 5)
+    @others = RequirementType.non_exchangable.validated.find(:all, :limit => 4)
     @others.delete(@project)
   end
   

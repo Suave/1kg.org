@@ -9,6 +9,7 @@
 
 
 <% content_for :crumb do -%>
+  <p style="display:none"><%= summary(@share ,60)%></p>
   <li><%= link_to '分享',shares_url %></li>
   <p style="display:none">来自多背一公斤的话题： <%= summary(@share ,60)-%>...</p>
 <% end -%>
