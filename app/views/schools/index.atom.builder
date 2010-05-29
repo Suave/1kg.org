@@ -3,7 +3,7 @@ atom_feed do |feed|
   feed.updated(@topics.first.created_at)
 
   for topic in @topics
-    feed.entry(topic, :url => school_url(topic.board.talkable.school)) do |entry|
+    feed.entry(topic, :url => board_topic_url(topic.board_id, topic.id)) do |entry|
       entry.title(topic.title + ' (来自:1kg.org)')
       entry.content(topic.body_html, :type => 'html')
 

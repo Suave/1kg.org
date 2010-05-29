@@ -15,6 +15,10 @@ class GroupsController < ApplicationController
       @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
       @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
     end
+    @atom_topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "GroupBoard"],
+          :include => [:user, :board],
+          :order => "topics.created_at desc",
+          :limit => 10)
     
     respond_to do |wants|
       wants.html

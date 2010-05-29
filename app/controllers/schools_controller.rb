@@ -41,7 +41,7 @@ class SchoolsController < ApplicationController
       format.atom {
         @topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
           :include => [:user, :board],
-          :order => "last_replied_at desc",
+          :order => "topics.created_at desc",
           :limit => 10)
       }
     end

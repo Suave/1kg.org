@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
+  map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"

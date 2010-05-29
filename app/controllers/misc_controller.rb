@@ -4,16 +4,11 @@ class MiscController < ApplicationController
     @page_title = "首页"
     @school_count = School.validated.size
     @activity_count = Activity.ongoing.size
-    
     if logged_in? 
       public_look 
     else
       respond_to do |wants|
         wants.html{ render(:action => "welcome")}
-        wants.atom do
-          @recent_shares = Share.recent_shares
-          render :action => "index"
-        end
       end
     end
   end
@@ -29,9 +24,10 @@ class MiscController < ApplicationController
     @bulletins = Bulletin.recent
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
+    @atom_shares = Share.find(:all,:limit => 10,:order => "created_at desc")
     respond_to do |wants|
       wants.html{render :action => "index"}
-      wants.atom{ render :action => "index"}
+      wants.atom{render :action => "index"}
     end
   end
     
