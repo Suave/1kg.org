@@ -31,7 +31,15 @@ class CommentsController < ApplicationController
       else
         flash[:notice] = "留言内容不能为空"
       end
-      format.html {redirect_to commentable_path(@commentable)}
+      
+      if @comment.commentable_type == "Comment"
+        format.html {redirect_to commentable_path(@commentable.commentable)}
+      elsif @comment.commentable_type == "Post"
+        format.html {redirect_to board_topic_url(@commentable.topic.board_id, @commentable.topic)}
+      else
+        format.html {redirect_to commentable_path(@commentable)}
+      end
+      
     end
   end
   
@@ -41,7 +49,14 @@ class CommentsController < ApplicationController
     
     respond_to do |format|
       flash[:notice] = "留言已删除"
-      format.html {redirect_to commentable_path(@commentable)}
+      if @comment.commentable_type == "Comment"
+        format.html {redirect_to commentable_path(@commentable.commentable)}
+      elsif @comment.commentable_type == "Post"
+        format.html {redirect_to board_topic_url(@commentable.topic.board_id, @commentable.topic)}
+      else
+        format.html {redirect_to commentable_path(@commentable)}
+      end
+      
     end
   end
   
