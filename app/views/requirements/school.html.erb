@@ -1,5 +1,7 @@
 <% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
-
+<% content_for :heads do -%>
+<%= javascript_include_tag "jquery.timeago.js" %>
+<% end %>
 
 <% content_for :sidebar do -%>
 <div class="cleanfix" style="clear:both;height:20px"></div> 
@@ -38,7 +40,7 @@
           
 
 <div id="projects_tabs">
-        <div style="float:right;position:relative;top:5px">最后更新： <%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></div>
+        <div style="float:right;position:relative;top:5px">最后更新： <attr id="last_time"></attr></div>
         <ul class="tab" >
             <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
             <li class="tabs_more"><%= link_to '项目反馈', "#report" %></li>
@@ -98,3 +100,8 @@
 <%= render :partial => "/comments/form", :locals => {:commentable => @requirement,:cancel => true} %>
 
 <div class="cleanfix" style="clear:both;height:5px"></div>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"))
+  })
+</script>
