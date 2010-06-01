@@ -24,19 +24,19 @@
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
-        var icons = new Array
-        icons[0] = new GIcon(G_DEFAULT_ICON);
-        icons[0].image = "/images/invalid.png";
-        icons[1] = new GIcon(G_DEFAULT_ICON);
-        icons[1].image = "/images/valid.png";
-        icons[2] = new GIcon(G_DEFAULT_ICON);
-        icons[2].image = "/images/meta.png";
-      
+        
+        school_icon = new GIcon();
+        school_icon.image = "/images/m0.png";
+        school_icon.shadow = null;
+        school_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = null;
+        school_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6); 
         var markers = [];
  
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
-          var marker = new GMarker(point, {icon: icons[schools[i].t]});
+          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
 
           GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
           
