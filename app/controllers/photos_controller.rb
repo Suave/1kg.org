@@ -30,7 +30,7 @@ class PhotosController < ApplicationController
         if @photo.school || @photo.activity
           wants.html {redirect_to @photo.school || @photo.activity}
         else
-          wants.html {redirect_to "/javascripts/tiny_mce/plugins/advimage/image.htm"}
+          wants.html {render 'insert', :layout => false}
         end
       end
     end

@@ -24,12 +24,26 @@
     <form method="post" enctype="multipart/form-data" action="/photos" id="imageform">
 		<div class="panel_wrapper">
 		  <div id="dynamic_select_panel" class="panel current" style='overflow:auto'>
-		    正在读取...<br />
-        <img src='/images/loading.gif'>
+		    <fieldset>
+          <legend>上传新图片</legend>
+          <div>
+              <p><label class="label">选择照片</label> <input type="file" size="30" name="photo[uploaded_data]" id="photo_uploaded_data"></p>
+              <span style="margin-left: 50px; color: rgb(102, 102, 102);">建议图片宽度不要大于580像素，同时文件大小不能超过2MB。</span>
+              <p style="margin-left: 50px;"><input type="submit" value="上 传" style="width: 100px;" name="commit"></p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>可用图片</legend>
+          <div id="exist_photos" class="clearfix">
+            <img src='/images/loading.gif'>正在读取...<br />
+          </div>
+        </fieldset>
+          
         <script type="text/javascript" charset="utf-8">
         $(function(){
           $.ajax({url: "/photos", success:function(data){
-            $("#dynamic_select_panel").html(data);
+            $("#exist_photos").html(data);
           }});
         });
         </script>
