@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type">
+	<title>{#advimage_dlg.dialog_title}</title>
+	<script type="text/javascript" src="/javascripts/tiny_mce/tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.js"></script>
+	<script type="text/javascript" src="/javascripts/tiny_mce/plugins/advimage/js/image.js"></script>
+	<link href="css/advimage.css" rel="stylesheet" type="text/css" />
+</head>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    var ed = tinyMCEPopup.editor, v, el; //, f = document.getElementById("imageform"), nl = f.elements, v, args = {}, 
+
+		tinyMCEPopup.restoreSelection();
+
+		// Fixes crash in Safari
+		if (tinymce.isWebKit)
+			ed.getWin().focus();
+
+		if (!ed.settings.inline_styles) {
+			args = {
+				border : 0,
+				align : 'left'
+			};
+		} else {
+			// Remove deprecated values
+			args = {
+				vspace : '',
+				hspace : '',
+				border : '',
+				align : ''
+			};
+		}
+
+		tinymce.extend(args, {
+			src : '<%= @photo.public_filename(:medium) %>'
+		});
+
+		args.onmouseover = args.onmouseout = '';
+
+		el = ed.selection.getNode();
+
+		if (el && el.nodeName == 'IMG') {
+			ed.dom.setAttribs(el, args);
+		} else {
+			ed.execCommand('mceInsertContent', false, '<img id="__mce_tmp" />', {skip_undo : 1});
+			ed.dom.setAttribs('__mce_tmp', args);
+			ed.dom.setAttrib('__mce_tmp', 'id', '');
+			ed.undoManager.add();
+		}
+    
+    tinyMCEPopup.close();
+  })
+</script>

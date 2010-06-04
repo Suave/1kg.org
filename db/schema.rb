@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.integer  "activity_id"
     t.integer  "school_id"
+    t.integer  "requirement_id"
   end
 
   create_table "posts", :force => true do |t|

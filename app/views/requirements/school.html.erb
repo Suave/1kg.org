@@ -1,6 +1,8 @@
 <% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
 <% content_for :heads do -%>
 <%= javascript_include_tag "jquery.timeago.js" %>
+<%= javascript_include_tag 'swfupload' %>
+<%= javascript_include_tag 'handlers' %>
 <% end %>
 
 <% content_for :sidebar do -%>
@@ -43,7 +45,7 @@
         <div style="float:right;position:relative;top:5px">最后更新： <attr id="last_time"></attr></div>
         <ul class="tab" >
             <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
-            <li class="tabs_more"><%= link_to '项目反馈', "#report" %></li>
+            <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li
         </ul>
         <div id="detail">
           <div class="project_info">
@@ -70,29 +72,59 @@
         </div>
         <div id="report">
                 
-      <% if @requirement.status != 2%>
+      <% if @requirement.status != "2"%>
         <div class="project_info">
           <div class="title_line"><span class="span_title2">反馈要求</span></div>
           <%= "#{@requirement.requirement_type.feedback_require}<br/>" %><%= "需要在 #{@requirement.requirement_type.feedback_at.to_date} 之前完成反馈" unless @requirement.requirement_type.feedback_at.nil?%>
         </div>
         <div class="project_info">
+            <% if logged_in? && @requirement.applicator == current_user -%>
+            <div style="float:right"><%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink"%></div>
+            <%end%>
           <div class="title_line"><span class="span_title2">执行报告</span></div>
-          <%= @requirement.feedback %>
-          <%= '还没有填写' if @requirement.feedback.nil? %>
-          <% if logged_in? && @requirement.applicator == current_user -%>
-          <div><br/>你是项目申请者，可以 <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "adminbutton"%>
-          </div>
+          <% if @requirement.feedback.nil? %>
+            <% if logged_in? && @requirement.applicator == current_user -%>
+              你是项目申请人，如果你的项目有进展，请 <%= link_to "填写报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink"%> 告诉大家项目的执行情况吧。
+            <% else %>
+              <p>申请人还没有填写</p>
+            <% end %>
+          <% else %>
+            <%= @requirement.feedback %>
           <% end -%>
         </div>
+        <div class="project_info">
+          <% if logged_in? && @requirement.applicator == current_user -%>
+            <div style="float:right;text-align:right;position:relative;top:-4px">
+            <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
+            <p style="display:none;" id="upload_tip">
+            上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @requirement.id) %> 上传.
+            </p>
+            </div>
+          <%end%>
+          <div class="title_line"><span class="span_title2">照片反馈</span></div>
+            <div id="upload_container"></div>
+            <div class="clearfix" id="photos">
+              
+              <% if logged_in? && @requirement.applicator == current_user -%>
+              <p>请按照反馈照片要求，来编辑照片的标题。</p>
+              <%end%>
+              
+              <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
+              <%= "还没有照片" if @photos.nil? %>
+            </div>     
+        </div>
+              
+      
       <% else %>
         <div class="project_info">
-          申请未通过。
+        <p>项目还在申请中，如果申请成功后会显示反馈要求和反馈报告。</p>
         </div>
       <%end%>
         </div>
 </div>
 <script type="text/javascript">
   jQuery("#projects_tabs").tabs();
+  
 </script>
 
 
@@ -102,6 +134,9 @@
 <div class="cleanfix" style="clear:both;height:5px"></div>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-  $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"))
+  $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"));
+  <%if @requirement.status == "0"%>
+         $('#report_link').click()
+  <%end%>
   })
 </script>
