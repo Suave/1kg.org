@@ -34,6 +34,7 @@ a:hover, a:active {
 h4, h5, h6 {
   font-size: 1em;
   font-weight: bold;
+  margin-bottom:2px;
 }
 
 
