@@ -135,7 +135,7 @@
 <script type="text/javascript">
 jQuery(document).ready(function () {
   $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"));
-  <%if true %>
+  <%if @requirement.status == "0"%>
          $('#report_link').click()
   <%end%>
   })
