@@ -1,0 +1,73 @@
+<% @page_title = @title = @donation_activity.title -%>
+
+<% content_for :crumb do -%>
+  <li>活动
+    <ul>
+      <li><%= @donation_activity.title %></li>
+    </ul>
+  </li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+    <% if @donation_activity.user_id == current_user.id -%>
+    <div id="admins">
+        你是<%= '活动发起人' %>，可以使用以下功能：<br/>
+       <%= link_to "编辑活动", edit_donation_activity_path(@activity.id),:class => "adminbutton" %>
+       <%= link_to "删除活动", donation_activity_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
+    </div>
+    <% end -%>
+
+    <div class="newbox">
+      <span class="span_title">参与捐赠的用户</span> <span class="gary_span">有 12 人参加</span>
+        <div class="cleanfix" style="height:10px"></div>
+        <%= render :partial => "/shared/user_list", :locals => {:users => []} %>
+        <div class="cleanfix" style="height:20px"></div>
+    </div>
+  
+  <% if @donation_activity.school%>
+  <div class="newbox">
+    <span class="span_title">相关学校</span>
+    <div class="cleanfix" style="height:10px"></div>
+    <%= render :partial => "/shared/school", :collection => [@donation_activity.school] %>
+  </div>
+  <%end%>
+<% end -%>
+
+  <div class="newbox" id="activityInfo">
+        <div class="contents">
+          
+          <div style="width:120px;float:right;text-align:right">
+            <% if @donation_activity.end_at < Date.today %>
+              <span class="gary_span">此活动已结束</span>
+            <% end -%>
+          </div>
+          
+          <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
+            <%= link_to image_tag(@donation_activity.image.url(:medium), :alt => '活动主题图'), @donation_activity.image.url(:medium), :class => "activity_main" %>
+          </div>   
+          
+          <div id="activitiesInfo">
+            <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
+            <p>结束日期：  <%= @activity.end_at.to_date %></p>
+            <p>相关学校： <%= link_to @activity.school.title, school_path(@activity.school) %></p> 
+          </div>
+          
+          <div class="clearfix" style="margin-bottom:20px;"></div>
+          <span class="span_title">活动介绍</span>
+          <div class="clearfix" style="margin-bottom:5px;"></div>
+
+          <div id="entry">
+            <div id="summary">
+              <%= simple_format(@activity.description) %> 
+            </div>
+            
+            <span class="span_title">活动计划</span>            
+            <div id="detail">
+              <%= simple_format(@activity.plan) %>
+            </div>
+          </div>
+          <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
+        </div>
+  </div>
+
+  <%#= render :partial => "/comments/comments", :object => @comments %>

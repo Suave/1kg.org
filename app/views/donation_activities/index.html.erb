@@ -1,0 +1,12 @@
+<% @donation_activities.each do |activity| %>
+  <div class="activity_list">
+    <div class="project_image_frame">
+        <img class="project_image" src="<%= activity.image.url(:medium) %>"/>
+    </div>
+           
+    <div class="activity_list_meta">
+    <h5><%= link_to activity.title, activity_path(activity)%></h5>
+    <span class="gary_span">截止时间： <%= "#{activity.end_at.to_date}" %></span><br/>
+    <span class="gary_span">相关学校: <%= link_to activity.school.title, school_url(activity.school)%></span><br/>
+  </div>
+<% end %>

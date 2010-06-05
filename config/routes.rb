@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
+  
+  map.resources :donation_activities
  
   map.resources :requirements do |requirement|
     requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}

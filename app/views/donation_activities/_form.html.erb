@@ -1,0 +1,62 @@
+<div style="clear:both"></div>
+<div>
+  <p><label>名称<span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:180px" %> <%= error_message_on @activity, :title %>
+  </p>
+  
+  <p>
+    <label >主题图</label>
+  　 <%= form.file_field :image %> 
+  </p>
+
+  <p>
+    <label >相关学校</label>
+  　 <%= form.collection_select :school_id, current_user.envoy_schools, :id, :title %> 
+  </p>
+  
+  <p>
+    <label>捐赠物资名称<span class="require">*</span></label>
+    <%= form.text_field :goods_name, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :goods_name %>
+  </p>
+  
+  <p>
+    <label>需要物资数量<span class="require">*</span></label>
+    <%= form.text_field :number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :number %>
+  </p>
+  
+  <p>
+    <label>截止时间<span class="require">*</span></label>
+    <input id="donation_activity_end_at" name="donation_activity[end_at]" type="text" value="<%= Date.today %>" class="vDateField" />
+    <%= error_message_on @activity, :end_at %>
+  </p>
+
+  <p><label >发起原因<span class="require">*</span></label><%= error_message_on @activity, :description %>
+    <br/>
+    <%= form.text_area :description %>
+  </p>
+  
+  <p><label >活动计划<span class="require">*</span></label><%= error_message_on @activity, :plan %>
+    <br/>
+    <%= form.text_area :plan %>
+  </p>
+  
+  <p>
+    <label>物资接收地址<span class="require">*</span></label>
+    <%= form.text_field :address, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :address %>
+  </p>
+  
+  <p>
+    <label>物资接收人<span class="require">*</span></label>
+    <%= form.text_field :receiver, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :receiver %>
+  </p>
+  
+  <p>
+    <label>物资接收地邮编<span class="require">*</span></label>
+    <%= form.text_field :zipcode, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :zipcode %>
+  </p>
+  
+  <p>
+    <label>物资接收人电话<span class="require">*</span></label>
+    <%= form.text_field :phone_number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :phone_number %>
+  </p>
+</div>
+<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
