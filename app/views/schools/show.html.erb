@@ -217,7 +217,7 @@
         <%= '目前还没有人为此学校发起团捐' if @donation_activities.empty? %>
         <%= render :partial => "/shared/donation_activity", :collection => @donation_activities %>
         <div style="clear:both;height:5px"></div>
-        <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator? %>
+        <% if logged_in? && @moderators.include?(current_user) %>
         <div id="project_info">
           <p>
             您是学校大使，为此学校
