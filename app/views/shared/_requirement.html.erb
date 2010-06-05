@@ -5,7 +5,7 @@
     <div>
         <h5><%= link_to short_title(requirement.requirement_type,10), school_requirement_path(requirement.school, requirement)%></h5>
         <% if logged_in? && requirement.applicator == current_user -%>
-          <span<%= link_to "填写反馈", edit_school_requirement_url(requirement.school, requirement) ,:class => "adminbutton"%>
+          <span><%= link_to "填写反馈", edit_school_requirement_url(requirement.school, requirement) ,:class => "adminbutton"%>
           </span>
         <% else %>
           <span><%= ['已完成','进行中','申请中'][requirement.status.to_i]%></span>
