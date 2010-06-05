@@ -38,6 +38,32 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "main_photo_id"
     t.boolean  "sticky",           :default => false
   end
+  
+  create_table "donation_activities", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "school_id"
+    t.boolean  "done",             :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    
+    t.string   "title",                               :null => false
+    t.datetime "end_at"
+    
+    t.string   "goods_name"
+    t.integer  "number"
+    
+    t.string   "address"
+    t.string   "zipcode"
+    t.string   "receiver"
+    t.string   "phone_number"
+    
+    t.text     "description"
+    t.text     "plan"
+    
+    t.string   "image_file_name"
+    t.boolean  "sticky",           :default => false
+  end
 
   create_table "activity_boards", :force => true do |t|
     t.integer "activity_id",      :null => false

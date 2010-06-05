@@ -269,6 +269,7 @@ class SchoolsController < ApplicationController
     if @school.nil? or @school.deleted?
       render_404 and return
     end
+    
     @school.hit!
     @traffic = @school.traffic
     @need = @school.need
@@ -290,7 +291,9 @@ class SchoolsController < ApplicationController
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @requirements = @school.requirements.find(:all,:limit => 3,:conditions => ["applicator_id is not null"])
+    @donation_activities = @school.donation_activities.find(:all,:limit => 3)
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
+    
     unless @board.blank?
       @board = @board.board
       @topics = @board.latest_topics
