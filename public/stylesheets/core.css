@@ -1187,6 +1187,8 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_image{width:72px;height:72px;}
 .project_image_big{width:120px;height:120px}
 .project_info{margin-bottom:30px}
+.project_status{padding:1px 6px;font-size:13px;color:#fff;float:right;margin-top:12px;font-weight:bold}
+.project_status:hover{color:#fff}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
  
