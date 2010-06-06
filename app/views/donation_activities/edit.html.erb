@@ -1,0 +1,28 @@
+<% @page_title = "编辑团捐" -%>
+
+<% content_for :crumb do -%>
+<li>编辑团捐</li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<% @page = Page.find_by_slug('donation-activity-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">团捐编辑指南</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<% end -%>
+
+
+<div class="newbox" id="activitiesPostNew">
+  <span class="span_title">编辑团捐</span>
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for @donation_activity, :html => {:multipart => true} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "更 新" %></span>
+      <span><%= link_to "取 消 ", activities_url,:style => "width:100px"%></span> 带<span class="require">*</span>号的是必填项
+    </p>
+  <% end -%>
+</div>
