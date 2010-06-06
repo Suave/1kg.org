@@ -10,6 +10,16 @@
 
 <br/><span class="remark"><%= link_to "&raquo;  回到#{@requirement.requirement_type.title}",requirement_type_url(@requirement.requirement_type)%></span>
 <br/><span class="remark"><%= link_to "&raquo;  回到#{@requirement.school.title}",school_url(@requirement.school)%></span>
+
+
+  <div class="newbox">
+      <div style="float:right;"><%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}",:class => "buttonlink" %></div>
+      <span class="span_title">项目分享</span>
+      <div class="contents">
+        <%= render :partial => "/shared/share", :collection => @shares %>
+      </div>
+      <div class="cleanfix" style="height:20px"></div>
+  </div>
 <% end -%>
 
 

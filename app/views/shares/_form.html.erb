@@ -32,6 +32,13 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 <%end%>
 </p>
 
+<%unless @requirment.nil?%>
+<p><label class="label">相关项目</label>
+  <%="#{@requirment.requirment_type.title} [#{@requirment.school.title}]%>
+  <input style="display:none" type="text" name="share[requirment_id]" value="<%=@requirment.id%>"/>
+</p>
+<%end%>
+
 <p>
   <%= form.text_area :body_html, :style => 'width:640px;height:480px;', :class => "mceEditor" %>
 </p>
