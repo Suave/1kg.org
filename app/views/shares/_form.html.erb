@@ -32,10 +32,10 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 <%end%>
 </p>
 
-<%unless @requirment.nil?%>
-<p><label class="label">相关项目</label>
-  <%="#{@requirment.requirment_type.title} [#{@requirment.school.title}]%>
-  <input style="display:none" type="text" name="share[requirment_id]" value="<%=@requirment.id%>"/>
+<%unless @requirement.nil?%>
+<p><label class="label">相关项目　</label>
+  <%="#{@requirement.requirement_type.title} [#{@requirement.school.title}]"%>
+  <input style="display:none" type="text" name="share[requirement_id]" value="<%=@requirement.id%>"/>
 </p>
 <%end%>
 
