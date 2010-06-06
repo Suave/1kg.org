@@ -47,11 +47,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     
-    t.string   "title",                               :null => false
     t.datetime "end_at"
     
     t.string   "goods_name"
-    t.integer  "number"
+    t.integer  "number",           :default => 0
+    t.integer  "goal_number"
     
     t.string   "address"
     t.string   "zipcode"

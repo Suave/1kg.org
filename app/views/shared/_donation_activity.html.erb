@@ -1,10 +1,21 @@
-<div class="requirement">
+<div class=<%= (defined? detail) ? "donantion_detail" : "activity_list"%>
     <div class="project_image_frame">
-        <img class="project_image" src="<%= donation_activity.image.url(:medium) %>"/>
+        <img class="project_image" src="<%= donation_activity.image.url %>"/>
     </div>
-    <div>
-        <h5><%= link_to donation_activity.goods_name, donation_activity %></h5>
-        <span><%= [donation_activity.number] %></span>
+    
+    <div style="float:left;margin-left:10px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
+    <h5 style="font-size:13px"><%= link_to donation_activity.title, donation_activity %></h5>
+    <span class="gary_span"><%= donation_activity.end_at.to_date %>截止捐赠</span>
+    <br/>
+    <div style="float:right;margin-top:12px"><%= link_to "立即捐赠", donation_activity ,:class => "buttonjoin2"%></div>
+    <p style="margin:0">还差 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= [donation_activity.still_need] %></span> 件</p>
     </div>
+          
     <div style="clear:both"></div>
+    <% if (defined? detail) %>
+    <div class="project_info">
+            <div class="title_line"><span class="gary_span">发起人的物资使用计划</span></div>
+            <%= donation_activity.plan %>
+          </div>
+    <% end %>
 </div>

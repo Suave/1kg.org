@@ -1,8 +1,5 @@
 <div style="clear:both"></div>
 <div>
-  <p><label>名称<span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:180px" %> <%= error_message_on @activity, :title %>
-  </p>
-  
   <p>
     <label >主题图</label>
   　 <%= form.file_field :image %> 
@@ -20,7 +17,7 @@
   
   <p>
     <label>需要物资数量<span class="require">*</span></label>
-    <%= form.text_field :number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :number %>
+    <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :number %>
   </p>
   
   <p>
