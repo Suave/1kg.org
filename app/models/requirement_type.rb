@@ -18,7 +18,7 @@ class RequirementType < ActiveRecord::Base
   
   attr_accessor :upload_shipping_receipt, :upload_stuff_receipt, :upload_photos, :write_process_flow
   
-  has_many :requirements, :foreign_key => "type_id", :dependent => :destroy,:order => "created_at desc"
+  has_many :requirements, :foreign_key => "type_id", :dependent => :destroy,:order => "status asc,created_at desc"
   has_many :donations, :foreign_key => "type_id", :dependent => :destroy
   belongs_to :creator, :class_name => "User", :foreign_key => "creator_id"
   has_many :comments, :as => 'commentable', :dependent => :destroy
