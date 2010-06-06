@@ -16,6 +16,7 @@ class SharesController < ApplicationController
   def new
     @school = School.find_by_id(params[:school])
     @activity = Activity.find_by_id(params[:activity])
+    @requirement = Activity.find_by_id(params[:requirement])
     @school = @activity.school if @activity&&@activity.school
     @geo = @school.geo unless @school.nil?
   end
