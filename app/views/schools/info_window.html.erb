@@ -1,26 +1,25 @@
 <div id='map_popup'>
-<h3><%= link_to h(@school.title), @school, :target => "_blank" %></h3>
-<hr />
+  <h3><%= link_to h(@school.title), @school, :target => "_blank" %></h3>
+  <hr />
 
-<div id="summary">
-  <p>
-    位置：
-    <% if @school.geo.parent %>
-      <%= h @school.geo.parent.name %>
-    <% end %>
-    <%= h @school.geo.name %>
-    <%= h @school.basic.address %>
-    <br />
-    紧急需求：
-    <% if @need -%>
-      <%= h @need.urgency %>
-    <% else -%>
-      无
-    <% end -%>
-  </p>
-      &raquo; <%= link_to "查看学校信息", school_url(@school) %><br />
-</div>
+  <div id="summary">
+    <p>
+      位置：
+      <% if @school.geo.parent %>
+        <%= h @school.geo.parent.name %>
+      <% end %>
+      <%= h @school.geo.name %>
+      <%= h @school.basic.address %>
+      <br />
+      需求：
+      <% if @need -%>
+        <%= needlist(@school)%>
+      <% else -%>
+        无
+      <% end -%>
+    </p>
+    &raquo; <%= link_to "查看学校信息", school_url(@school) %><br />
+  </div>
 
-<%= link_to image_tag(@school.photos.first.public_filename(:medium)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>
+  <%= link_to image_tag(@school.photos.first.public_filename(:medium)), photo_url(@school.photos.first), :target => "_blank" unless @school.photos.empty?  %>
 </div>
-<div class="clear"></div>

@@ -1,5 +1,5 @@
-<% @kind = kind rescue '' %>
-<% search_titles = {:activity => '活动',:school => '学校', :group => '小组',:topic => '话题',:all => '站内'}%>
+<% @kind = kind rescue 'all' %>
+<% @advanced = advanced rescue nil %>
 <% @search ||= Search.new('kind' => @kind) %>
 <% content_for :heads do %>
   <script type="text/javascript">
@@ -9,12 +9,12 @@
       function () {$($(this).attr('name')).show();$(this).attr('style','background-image:url(/images/less.gif)')},
       function () {$($(this).attr('name')).hide();$(this).attr('style','background-image:url(/images/more.gif)')}
     );
-  <%unless @kind.empty? %>$(<%="'#advance_#{@kind}'"-%>).show()<% end %>
+  <%unless @kind.nil? %>$(<%="'#advance_#{@kind}'"-%>).show()<% end %>
   });</script>
 <% end %>
 <div id="admins">
   <div class="cleanfix" style="height:2px"></div>
-    <span "gary_span"><%= @kind.empty? ? '站内' : search_titles[@kind.to_sym]%>搜索</span>
+    <span "gary_span">搜索</span>
     <% form_tag '/search', :method => 'get' do %>
       <input type="text" name="q" style="width:214px" class="form-text" value="<%= @search.q %>" onclick="clear_search_box();" id='query-box' onblur="search_box_blur();" />
       <input type="submit" value="搜索" class="form-submit" onclick="clear_search_box();" />
@@ -31,7 +31,7 @@
         <%= radio_button_tag :kind, 'topic', @search.kind == 'topic', :onclick => 'switch_search_to("topic");' %>话题
         <%= radio_button_tag :kind, 'user', @search.kind == 'user', :onclick => 'switch_search_to("user");' %>用户
       </div>
-      
+            
       <p id="advance_common" class="advances" style="<%= 'display:none;' unless @search.need_common? %>">
         <%= label_tag '标题' %> <%= text_field_tag :title, @search.title %><br />
         <%= label_tag '城市' %> <%= text_field_tag :city, @search.city %><br/>
@@ -57,5 +57,7 @@
       </p>
       </div>
     <% end %>
+    <script type="text/javascript">
+  $('#kind').delayedObserver(0.25, function(element, value) {switch_search_to(value)})</script>
   <div class="cleanfix" style="height:10px"></div>
 </div>

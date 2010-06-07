@@ -1,22 +1,13 @@
 <% content_for :tail do -%>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 
-  <% # 如果提供城市，则只显示此城市的学校 %>
-  <% if @city %>
-    <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
-  <% elsif @search %>
-    <script type="text/javascript">
-      var schools = <%= @json.to_json %>;
-    </script>
-  <% else %>
-    <script type="text/javascript" src="/schools.json"></script>
-  <% end %>
+  <script type="text/javascript" src="<%= tag_path(@tag, :format => :json) %>"></script>
   
   <%= javascript_include_tag 'markerclusterer_packed' %>
 
   <script type="text/javascript">
     var map;
-  
+
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("map_div"));
@@ -24,7 +15,6 @@
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
-        
         school_icon = new GIcon();
         school_icon.image = "/images/m0.png";
         school_icon.shadow = null;
@@ -44,13 +34,9 @@
         }
 
         var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 7});
-      
-        <% if @school %>
-          schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
-        <% end %>
-        //var markerCluster = new MarkerClusterer(map, markers);
       }
     }
+
     window.onload = initialize;
   </script>
 <% end %>

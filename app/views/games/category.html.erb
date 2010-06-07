@@ -1,3 +1,9 @@
+<% @page_title = @category -%>
+
+<% content_for :crumb do -%>
+<li>游戏</li>
+<li><%= @category.name %></li>
+<% end -%>
 
 <% content_for :crumb do -%>
 <li>课程</li>
@@ -23,5 +29,5 @@
   <%= "目前还没有课程，你可以#{link_to "创作第一个课程", "/games/category/#{@category.slug}/new"}。" if @games.empty? %>
 </div>
 
-
 <div style="clear:both;height:20px"></div>
+
