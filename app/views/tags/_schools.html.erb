@@ -1,0 +1,12 @@
+<div class="newbox">
+  <div class="clearfix" style="height:10px"></div>
+  <div class="contents">
+    <h3>需要<%= @tag %>的学校</h3>
+    <ul>
+    <% schools.each do |school| -%>
+      <li><%= link_to h(school.title), school_url(school), :target => "_blank"%></li>
+    <% end -%>
+    </uL>
+    <%= will_paginate schools %>
+  </div>
+</div>
