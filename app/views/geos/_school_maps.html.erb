@@ -12,7 +12,7 @@
     <script type="text/javascript" src="/schools.json"></script>
   <% end %>
   
-  <%= javascript_include_tag 'Clusterer2' %>
+  <%= javascript_include_tag 'markerclusterer_packed' %>
 
   <script type="text/javascript">
     var map;
@@ -24,26 +24,26 @@
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
-        var icons = new Array
-        icons[0] = new GIcon(G_DEFAULT_ICON);
-        icons[0].image = "/images/invalid.png";
-        icons[1] = new GIcon(G_DEFAULT_ICON);
-        icons[1].image = "/images/valid.png";
-        icons[2] = new GIcon(G_DEFAULT_ICON);
-        icons[2].image = "/images/meta.png";
-      
+        
+        school_icon = new GIcon();
+        school_icon.image = "/images/m0.png";
+        school_icon.shadow = null;
+        school_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = null;
+        school_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6); 
         var markers = [];
-        var clusterer = new Clusterer( map );
-      
+ 
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
-          var marker = new GMarker(point, {icon: icons[schools[i].t]});
+          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
 
           GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
-
-          //clusterer.AddMarker( marker, schools[i].n)
-          clusterer.AddMarker( marker, "<a href='/schools/" + schools[i].i + "' target='_blank'>" + schools[i].n + "</a>")
+          
+          markers.push(marker);
         }
+
+        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 7});
       
         <% if @school %>
           schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
