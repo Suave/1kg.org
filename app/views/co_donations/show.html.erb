@@ -5,11 +5,11 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-    <% if @donation_activity.user_id == current_user.id -%>
+    <% if @co_donation.user_id == current_user.id -%>
     <div id="admins">
         你是<%= '活动发起人' %>，可以使用以下功能：<br/>
-       <%= link_to "编辑活动", edit_donation_activity_path(@activity.id),:class => "adminbutton" %>
-       <%= link_to "删除活动", donation_activity_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
+       <%= link_to "编辑活动", edit_co_donation_path(@activity.id),:class => "adminbutton" %>
+       <%= link_to "删除活动", co_donation_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
     </div>
     <% end -%>
 
@@ -20,11 +20,11 @@
         <div class="cleanfix" style="height:20px"></div>
     </div>
   
-  <% if @donation_activity.school%>
+  <% if @co_donation.school%>
   <div class="newbox">
     <span class="span_title">相关学校</span>
     <div class="cleanfix" style="height:10px"></div>
-    <%= render :partial => "/shared/school", :collection => [@donation_activity.school] %>
+    <%= render :partial => "/shared/school", :collection => [@co_donation.school] %>
   </div>
   <%end%>
 <% end -%>
@@ -33,13 +33,13 @@
         <div class="contents">
           
           <div style="width:120px;float:right;text-align:right">
-            <% if @donation_activity.end_at < Date.today %>
+            <% if @co_donation.end_at < Date.today %>
               <span class="gary_span">此活动已结束</span>
             <% end -%>
           </div>
           
           <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= link_to image_tag(@donation_activity.image.url(:medium), :alt => '活动主题图'), @donation_activity.image.url(:medium), :class => "activity_main" %>
+            <%= link_to image_tag(@co_donation.image.url(:medium), :alt => '活动主题图'), @co_donation.image.url(:medium), :class => "activity_main" %>
           </div>   
           
           <div id="activitiesInfo">

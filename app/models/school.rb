@@ -64,7 +64,7 @@ class School < ActiveRecord::Base
                           :source => :user, 
                           :conditions => "status = #{Visited.status('wanna')}"
 
-  has_many :donation_activities
+  has_many :co_donations
   
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
   

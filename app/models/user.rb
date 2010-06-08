@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
   has_many :votes, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :games, :dependent => :destroy
-  has_many :donation_activities
+  has_many :co_donations
   
   before_save :encrypt_password
   

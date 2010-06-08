@@ -1,4 +1,4 @@
-class DonationActivity < ActiveRecord::Base
+class CoDonation < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   

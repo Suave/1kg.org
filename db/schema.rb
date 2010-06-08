@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "sticky",           :default => false
   end
   
-  create_table "donation_activities", :force => true do |t|
+  create_table "co_donations", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "school_id"
     t.boolean  "done",             :default => false
