@@ -1,4 +1,4 @@
-<% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
+<% @page_title = "#{@requirement.school.title}申请#{@requirement.requirement_type.title} 详情" -%>
 <% content_for :heads do -%>
 <%= javascript_include_tag "jquery.timeago.js" %>
 <%= javascript_include_tag 'swfupload' %>
@@ -17,13 +17,13 @@
 
 
 
-<%= main_photo_thumb(@requirement.school,style="position:relative;left:-20px;top:30px;") -%>
+<%= main_photo_thumb(@requirement.school) -%>
 
-<div style="float:left;width:520px;margin-bottom:20px">
+<div style="float:left;width:516px;margin-left:10px">
   <div style="font-size:16px;font-weight:bold"><%= link_to @requirement.school.title,school_url(@requirement.school) %> 申请 <%= link_to @requirement.requirement_type.title,requirement_type_url(@requirement.requirement_type)%> 详情</div>
   <%= @requirement.apply_reason %>
 </div>
-<div style="clear:both;height:10px"></div>
+<div style="clear:both;height:20px"></div>
           
 
 <div id="projects_tabs">
@@ -70,39 +70,40 @@
         <% if @requirement.status != "2"%>
         
         <div class="project_info">
-          <% if logged_in? && @requirement.applicator == current_user -%>
-            <div style="float:right;text-align:right;position:relative;top:-4px">
-            <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
-            <p style="display:none;" id="upload_tip">
-            上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @requirement.id) %> 上传.
-            </p>
-            </div>
-          <%end%>
           <div class="title_line"><h5>照片</h5></div>
-            <div id="upload_container"></div>
+            
             <div class="clearfix" id="photos">
-              
-              <% if logged_in? && @requirement.applicator == current_user -%>
-              <p>请按照反馈照片要求，来编辑照片的标题。</p>
+              <div id="upload_container"></div>
+              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+              <%if @photos.empty? %>
+                暂无照片
+              <%else%>
+              <p style="text-align:right;clear:both">
+                共有<%= @photos.size %>张照片
+              <% if logged_in? && @requirement.applicator == current_user -%> | 
+              <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
               <%end%>
-              
-              <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
-              <%= "还没有照片" if @photos.nil? %>
+              </p>
+              <div style="display:none;" id="upload_tip">
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @requirement.id) %> 上传.
+              </div>
+                
+                
+              <%end%>
             </div>     
         </div>
         
         <div class="project_info">
-          <div style="float:right;"><%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}",:class => "buttonlink" %></div>
-            <div class="title_line"><h5>项目分享</h5></div>
+            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}",:class => "buttonlink" %></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
+            <%= "暂无分享" if @photos.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
 
         <div class="project_info">
             <% if logged_in? && @requirement.applicator == current_user -%>
-            <div style="float:right"><%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink"%></div>
             <%end%>
-          <div class="title_line"><h5>执行报告</h5></div>
+          <div class="title_line"><span>执行报告</span> <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink" if logged_in? && @requirement.applicator == current_user%></div>
           <% if @requirement.feedback.nil? %>
             <% if logged_in? && @requirement.applicator == current_user -%>
               你是项目申请人，如果你的项目有进展，请 <%= link_to "填写报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink"%> 告诉大家项目的执行情况吧。
