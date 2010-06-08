@@ -22,18 +22,18 @@
   
   <p>
     <label>截止时间<span class="require">*</span></label>
-    <input id="donation_activity_end_at" name="donation_activity[end_at]" type="text" value="<%= Date.today %>" class="vDateField" />
+    <input id="co_donation_end_at" name="co_donation[end_at]" type="text" value="<%= Date.today %>" class="vDateField" />
     <%= error_message_on @activity, :end_at %>
   </p>
 
   <p><label >发起原因<span class="require">*</span></label><%= error_message_on @activity, :description %>
     <br/>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, :cols => 50, :rows => 6  %>
   </p>
   
   <p><label >活动计划<span class="require">*</span></label><%= error_message_on @activity, :plan %>
     <br/>
-    <%= form.text_area :plan %>
+    <%= form.text_area :plan, :cols => 50, :rows => 6  %>
   </p>
   
   <p>

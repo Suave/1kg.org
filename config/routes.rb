@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
   
-  map.resources :donation_activities
+  map.resources :co_donations
  
   map.resources :requirements do |requirement|
     requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}

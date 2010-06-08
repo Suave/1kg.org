@@ -1,7 +1,7 @@
-<% @page_title = "编辑团捐" -%>
+<% @page_title = "发起新团捐" -%>
 
 <% content_for :crumb do -%>
-<li>编辑团捐</li>
+<li>发起新团捐</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
@@ -17,11 +17,11 @@
 
 
 <div class="newbox" id="activitiesPostNew">
-  <span class="span_title">编辑团捐</span>
+  <span class="span_title">发起新团捐</span>
   <div class="clearfix" style="height:10px"></div>
-  <% form_for @donation_activity, :html => {:multipart => true} do |f| -%>
+  <% form_for :co_donation, :url => co_donations_path, :html => {:multipart => true} do |f| -%>
     <%= render :partial => "form", :object => f %>
-    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "更 新" %></span>
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
       <span><%= link_to "取 消 ", activities_url,:style => "width:100px"%></span> 带<span class="require">*</span>号的是必填项
     </p>
   <% end -%>

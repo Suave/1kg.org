@@ -217,14 +217,14 @@
     <div class="school_sidebar">
       <h3 class="label_lei">团捐</h3>
       <div class="sidebar_inter">
-        <%= '目前还没有人为此学校发起团捐' if @donation_activities.empty? %>
-        <%= render :partial => "/shared/donation_activity", :collection => @donation_activities %>
+        <%= '目前还没有人为此学校发起团捐' if @co_donations.empty? %>
+        <%= render :partial => "/shared/co_donation", :collection => @co_donations %>
         <div style="clear:both;height:5px"></div>
         <% if logged_in? && @moderators.include?(current_user) %>
         <div id="project_info">
           <p>
             您是学校大使，为此学校
-            <%= link_to "发起团捐", new_donation_activity_path(:school_id => @school), :class => "adminbutton" %>
+            <%= link_to "发起团捐", new_co_donation_path(:school_id => @school), :class => "adminbutton" %>
           </p>
         </div>
         <% end %>
