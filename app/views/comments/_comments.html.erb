@@ -1,7 +1,8 @@
-<% unless comments.blank? -%>
-  <div class="newbox" id="topicCommentsList">
+
+  <div id="topicCommentsList">
         <div style="background-color:#eee;padding:2px 6px 3px"><span class="span_title2">留言版</span></div>
         <div style="clear:both;height:10px"></div>
+        <% unless comments.blank? -%>
         <ol>
           <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
           <% comments.each_with_index do |comment,index| -%>
@@ -29,5 +30,5 @@
           <% end -%>
         </ol>
         <%= customize_paginate comments%>
+        <% end %>
   </div>
-<% end %>
