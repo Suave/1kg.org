@@ -34,11 +34,7 @@ schools = @school_guide.new_record? ? current_user.visited_schools : @school_gui
   <p><span>没有您想要的学校?　可以到<a href="/geos" tabindex="-1"> 地图页面 </a>，找到您去过学校，在该学校页面里点击“我去过”。</span></p>
   <p><span>如果地图里没有您去过学校，可能是您帮助大家发现了未收录的学校， 请 <a href="/schools/new" tabindex="-1">提交学校</a>  收录这所学校。</span></p>
   </div>
-  <div class="formbox" >  
-    <h3>攻略正文</h3>
-    <%= error_message_on @school_guide, :content %>
-    <%= fckeditor_textarea("school_guide", "content", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
-    </p>
+  <div class="formbox" >
   </div>
   <div class="formbox" >
     <h3>个人资料</h3>

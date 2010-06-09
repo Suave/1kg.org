@@ -31,5 +31,5 @@
   <%= form.text_field :tag_list, :size => 40, :class => "formText" %> (空格分割)</p>
 
 <p><label class="label">描述</label>
-  <%= fckeditor_textarea("good", "body", :toolbarSet => 'Simple', :width => '90%', :height => '800px') %>
+  <%= form.text_area :body, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
 </p>

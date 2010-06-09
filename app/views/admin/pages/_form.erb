@@ -12,5 +12,5 @@
 </p>
 <div>
   <label class="label"><%= avatar_for current_user, "large" %> <span></span></label>
-  <%= fckeditor_textarea("page", "body", :toolbarSet => 'Simple', :width => '80%', :height => '400px') %>
+  <%= form.text_area : body, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
 </div>

@@ -7,7 +7,7 @@
 </p>
 
 <p><label class="label"><%= avatar_for current_user, "large" %></label>
-<%= fckeditor_textarea("bulletin", "body", :toolbarSet => 'OneLine', :width => '90%', :height => '400px') %>
+<%= form.text_area :body, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
 </p>
 
 <p><label class="label">标签</label>
