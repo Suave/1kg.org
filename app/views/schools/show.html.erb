@@ -48,7 +48,7 @@
     </div>
     
     <div class="clearfix"></div>
-    <span style="color:#999">学校信息最后更新: <%= @school.last_modified_at.to_date%></spam>
+    <span style="color:#999">学校信息最后更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></spam>
   </div>
 
   <div class="school_box">
