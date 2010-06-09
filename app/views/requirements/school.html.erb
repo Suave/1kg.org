@@ -103,7 +103,7 @@
         </div>
         
         <div class="project_info">
-            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}",:class => "buttonlink" if logged_in? && @requirement.applicator == current_user%></div>
+            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}" %></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
             <%= "暂无分享" if @photos.empty? %>
             <div class="cleanfix" style="height:20px"></div>
