@@ -2,6 +2,8 @@ class CoDonation < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   
+  has_many :sub_donations
+  
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
   
   validates_presence_of :school_id, :goods_name, :number, :end_at, 

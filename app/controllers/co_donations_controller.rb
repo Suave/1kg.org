@@ -24,6 +24,7 @@ class CoDonationsController < ApplicationController
   
   def show
     @activity = @co_donation = CoDonation.find(params[:id])
+    @sub_donation = SubDonation.new
   end
   
   def edit
