@@ -1115,6 +1115,7 @@ h3.title {
 
 .ui-tabs-hide { display: none; }
 .ui-tabs-panel { width: 100%;}
+.ui-tabs-panel td{ padding:9px 6px}
 .subtitle {float:left; margin:17px; 0 0 1em;}
 
 .share_by_widget li {color:#999; float:left; margin:10px 15px 5px 0; list-style-type:none;}
@@ -1176,6 +1177,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
  
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+<<<<<<< HEAD:public/stylesheets/core.css
  
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
@@ -1190,6 +1192,20 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_status:hover{color:#fff}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
+=======
+ 
+.activity-guide{display:none}
+.activity-guide p{margin:6px 0; font-size:12px; color:#666}
+.activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
+
+.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
+.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
+.project_image{width:72px;height:72px;}
+.project_image_big{width:120px;height:120px}
+.project_info{margin-bottom:30px}
+.project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
+.requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
+>>>>>>> 373593e7c83b2bbcba2ad22eab145f9308b61daf:public/stylesheets/core.css
  
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
@@ -1367,6 +1383,8 @@ a.progressCancel:hover {
 .swfupload {
 	cursor:pointer;position:relative;top:5px
 }
+#advance_box p{font-size:12px;line-height:30px}
+
 .goods_list{width:320px;padding:10px 0;float:left}
 .goods_photo_frame{float:left;display:block;width:86px;height:86px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
 .goods_meta{float:left;width:100%;}

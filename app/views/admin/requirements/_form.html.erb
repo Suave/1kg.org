@@ -3,4 +3,4 @@
 <p><label>状态</label><%= form.text_field :status ,:size => 1 %> ("0"=> 完成，"1"=> 正在接受捐赠，"2"候选)</p>
 <p><label>&nbsp;</label><%= form.check_box :hidden %> 隐藏起来，不在网站上显示</p>
 <p><label>&nbsp;</label><%= form.check_box :for_team %> 团队认领，声明：<%= form.text_field :for_team_tip, :size => 20 %></p>
-<p><label>备注</label><%= fckeditor_textarea("requirement", "notes_html", :toolbarSet => 'Simple', :width => '90%', :height => '400px') %></p>
+<p><label>备注</label><%= form.text_area :notes_html, :style => 'width:480px;height:320px;', :class => "mceEditor" %></p>

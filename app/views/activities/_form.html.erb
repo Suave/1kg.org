@@ -39,6 +39,7 @@
  <%end%>
 </p>
   
+
      <p>
       <label>活动时间<span class="require">*</span></label>
       <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
@@ -60,3 +61,4 @@
 </p>
 </div>
 <script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
+

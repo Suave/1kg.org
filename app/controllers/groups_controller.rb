@@ -7,13 +7,14 @@ class GroupsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_topic, :new, :create, :edit, :update]
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 12
-    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 15
+    @groups = Group.find :all, :order => "created_at desc", :limit => 8
+    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 20
     if logged_in?
-      @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 12)
+      @my_recommends = (Group.find(:all,:conditions=>{:geo_id=>current_user.geo_id}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...4]+Group.find(:all,:limit=>8,:conditions=>{:geo_id=>0}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...8])[0,8]
+      @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 8)
       @recent_topics = current_user.recent_joined_groups_topics
-      @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 15)
-      @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 15)
+      @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 20)
+      @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 20)
     end
     @atom_topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "GroupBoard"],
           :include => [:user, :board],
@@ -32,7 +33,6 @@ class GroupsController < ApplicationController
                              :order => "created_at desc", 
                              :per_page => 49
   end
-  
   
   def new
     

@@ -12,10 +12,30 @@ class TagsController < ApplicationController
   
   def show
     @tag = params[:tag]
-    @school_needs = SchoolNeed.find_tagged_with(params[:tag])
-    # 需要优化
-    @schools = @school_needs.map(&:school).paginate(:per_page => 10, :page => params[:school_page], :conditions => ['deleted_at = ?', nil])
-    @shares = Share.find_tagged_with(params[:tag]).paginate(:per_page => 10, :page => params[:share_page])
+    @school_needs = SchoolNeed.find_tagged_with(params[:tag], :include => [:school => [:basic]])
+    
+    
+    respond_to do |wants|
+      wants.html do
+        # 需要优化
+        @schools = @school_needs.map(&:school).paginate(:per_page => 20, :page => params[:page], :conditions => ['deleted_at = ?', nil])
+        @map_center = Geo::DEFAULT_CENTER
+      end
+      
+      wants.json do
+        @schools = @school_needs.map(&:school).compact
+        @schools_json = []
+        @schools.each do |school|
+          @schools_json << {:i => school.id,
+                           :t => school.icon_type,
+                           :n => school.title,
+                           :a => school.basic.latitude,
+                           :o => school.basic.longitude
+                          }
+        end
+        render :json => "var schools =" + @schools_json.to_json
+      end
+    end
   end
   
   def needs

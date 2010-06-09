@@ -2,7 +2,7 @@ class Game < ActiveRecord::Base
   acts_as_taggable
   acts_as_versioned
   Game::Version.belongs_to :user
-  
+
   validates_presence_of :name, :message => "请填写名称"
   validates_presence_of :level, :message => "请选择适合年级"
   validates_presence_of :length, :message => "请选择时间长度"
@@ -19,6 +19,7 @@ class Game < ActiveRecord::Base
   named_scope :category, lambda {|category| {:conditions => {:category => category}}}
   named_scope :limit,    lambda {|limit| {:limit => limit}}
   
+
   def clean_html
     self.content
   end
