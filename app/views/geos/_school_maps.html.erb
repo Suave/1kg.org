@@ -43,7 +43,7 @@
           markers.push(marker);
         }
 
-        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 7});
+        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 8});
       
         <% if @school %>
           schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)

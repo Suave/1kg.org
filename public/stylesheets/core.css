@@ -1191,7 +1191,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_status:hover{color:#fff}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
- 
+
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
@@ -1367,6 +1367,7 @@ a.progressCancel:hover {
 /* -- SWFUpload Object Styles ------------------------------- */
 .swfupload {
 	cursor:pointer;position:relative;top:5px
+<<<<<<< HEAD:public/stylesheets/core.css
 }
 #advance_box p{font-size:12px;line-height:30px}
 
@@ -1396,3 +1397,32 @@ a.progressCancel:hover {
 .title_line .span_title2{color:#444}
 
 .donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f0f0f0;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
+=======
+}
+#advance_box p{font-size:12px;line-height:30px}
+
+.goods_list{width:320px;padding:10px 0;float:left}
+.goods_photo_frame{float:left;display:block;width:86px;height:86px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
+.goods_meta{float:left;width:100%;}
+.goods_description{float:left;width:220px;height:82px}
+
+.right_span{float:right;}
+.share_link{text-align:right;color:#666;border-top:1px solid #ddd;padding:5px;margin-top:8px}
+.share_link img{position:relative;top:3px;}
+.share_link a{margin-left:5px;}
+
+.game{width:295px;height:80px;padding:5px;-padding-left:10px;margin:0px 0px 20px 5px;float:left}
+.game_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden;margin-right:10px}
+.game_image{width:72px;height:72px;}
+.game_meta{margin-top:6px;color:#999}
+.game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
+
+.reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
+
+.reply {margin-bottom:10px}
+
+#show_feed{background-color:#d9ffb3;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66;margin-top:4px }
+
+.title_line {border-bottom: 1px solid #c0c0c0;margin:10px 0 10px;padding-bottom:3px;font-weight:bold}
+.title_line .span_title2{color:#444}
+>>>>>>> 87cab9b2cfa8221d8fe4308ad5f5c140a8552550:public/stylesheets/core.css
