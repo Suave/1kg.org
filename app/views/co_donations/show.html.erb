@@ -14,9 +14,9 @@
     <% end -%>
 
     <div class="newbox">
-      <span class="span_title">参与捐赠的用户</span> <span class="gary_span">有 12 人参加</span>
+      <span class="span_title">参与捐赠的用户</span> <span class="gary_span">有<%= @co_donation.sub_donations.size %> 人参加</span>
         <div class="cleanfix" style="height:10px"></div>
-        <%= render :partial => "/shared/user_list", :locals => {:users => []} %>
+        <%= render :partial => "/shared/sub_donation", :collection => @co_donation.sub_donations.compact %>
         <div class="cleanfix" style="height:20px"></div>
     </div>
   
@@ -46,6 +46,8 @@
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>结束日期：  <%= @activity.end_at.to_date %></p>
             <p>相关学校： <%= link_to @activity.school.title, school_path(@activity.school) %></p> 
+            <p>需要捐赠的物资： <%= @activity.goods_name %></p>
+            <p>已筹集： <%= @activity.sub_donations.verified.sum(:quantity) %></p>
           </div>
           
           <div class="clearfix" style="margin-bottom:20px;"></div>
@@ -60,6 +62,16 @@
             <span class="span_title">活动计划</span>            
             <div id="detail">
               <%= simple_format(@activity.plan) %>
+            </div>
+            
+            <a name="donation"></a>
+            <span class="span_title">我要捐赠</span>            
+            <div id="detail">
+              <% form_for [@activity, @sub_donation] do |f| %>
+                <%= f.label :quantity, '数量' %>
+                <%= f.text_field :quantity %>
+                <%= f.submit '立即捐赠' %>
+              <% end %>
             </div>
           </div>
           <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>

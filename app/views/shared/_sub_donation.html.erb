@@ -1,0 +1,10 @@
+<div class="record">
+  <div style="float:left">
+    <%= avatar_for(sub_donation.user, "large") %>
+  </div>
+  <div style="margin-left:56px;">
+    <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> 在<%= l(sub_donation.created_at.to_date) %> 捐赠了 <%= sub_donation.quantity %>件<br />
+      (<%= sub_donation.verified ? '已确认' : '待确认' %>)
+    </p>  
+  </div>
+</div>
