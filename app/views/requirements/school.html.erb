@@ -27,7 +27,7 @@
           
 
 <div id="projects_tabs">
-  <div style="float:right;position:relative;top:5px">最后更新： <attr id="last_time" style="color:#e98523;font-weight:bold"><%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></attr></div>
+  <div style="float:right;position:relative;top:5px"><img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <attr id="last_time" style="color:#e98523;font-weight:bold"><%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></attr></div>
     <ul class="tab" >
       <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
       <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li>
@@ -75,13 +75,12 @@
             <div class="clearfix" id="photos">
               <div id="upload_container"></div>
               <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
-              <%if @photos.empty? %>
-                暂无照片
-              <%else%>
+              <%= "暂无照片" if @photos.empty? %>
+                
               <p style="text-align:right;clear:both">
-                共有<%= @photos.size %>张照片
+                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
               <% if logged_in? && @requirement.applicator == current_user -%> | 
-              <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
+                <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
               <%end%>
               </p>
               <div style="display:none;" id="upload_tip">
@@ -89,7 +88,7 @@
               </div>
                 
                 
-              <%end%>
+              
             </div>     
         </div>
         
