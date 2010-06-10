@@ -1,11 +1,11 @@
-<% @page_title = "发起新团捐" -%>
+<% @page_title = @title = "发起新团捐" -%>
 
 <% content_for :crumb do -%>
 <li>发起新团捐</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
-<% @page = Page.find_by_slug('donation-activity-guide') -%>
+<% @page = Page.find_by_slug('co-donation-guide') -%>
   <%if @page%>
   <div class="newbox">
      <span class="span_title">团捐编辑指南</span>
@@ -17,7 +17,6 @@
 
 
 <div class="newbox" id="activitiesPostNew">
-  <span class="span_title">发起新团捐</span>
   <div class="clearfix" style="height:10px"></div>
   <% form_for :co_donation, :url => co_donations_path, :html => {:multipart => true} do |f| -%>
     <%= render :partial => "form", :object => f %>

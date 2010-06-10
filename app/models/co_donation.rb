@@ -2,6 +2,8 @@ class CoDonation < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   
+  attr_accessor :agree_feedback_terms
+  
   has_many :sub_donations
   
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }

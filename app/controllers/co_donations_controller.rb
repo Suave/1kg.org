@@ -8,10 +8,12 @@ class CoDonationsController < ApplicationController
   def new
     @co_donation = CoDonation.new
     @co_donation.school_id = params[:school_id]
+    @schools = current_user.envoy_schools
   end
   
   def create
     @co_donation = current_user.co_donations.build(params[:co_donation])
+    @schools = current_user.envoy_schools
     
     respond_to do |wants|
       if @co_donation.save
