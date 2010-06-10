@@ -5,6 +5,7 @@ class CoDonation < ActiveRecord::Base
   attr_accessor :agree_feedback_terms
   
   has_many :sub_donations
+  has_many :comments, :as => 'commentable', :dependent => :destroy
   
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
   
@@ -25,6 +26,10 @@ class CoDonation < ActiveRecord::Base
   
   def clean_html
     self.description
+  end
+  
+  def end?
+    self.end_at < Time.now
   end
   
 end

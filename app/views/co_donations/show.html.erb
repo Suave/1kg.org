@@ -1,4 +1,12 @@
-
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+  <script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    });
+  </script>
+<%end%>
 
 <% content_for :crumb do -%>
   
@@ -9,6 +17,8 @@
     <div id="admins">
         你是<%= '活动发起人' %>，可以使用以下功能：<br/>
        <%= link_to "编辑活动", edit_co_donation_path(@activity.id),:class => "adminbutton" %>
+       <%= link_to "审核捐赠", co_donation_sub_donations_path(@activity),:class => "adminbutton" %>
+       <%= link_to "撰写反馈", feedback_co_donation_path(@activity),:class => "adminbutton" %>       
        <%= link_to "删除活动", co_donation_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
     </div>
     <% end -%>
@@ -64,18 +74,46 @@
               <%= simple_format(@activity.plan) %>
             </div>
             
-            <a name="donation"></a>
-            <span class="span_title">我要捐赠</span>            
-            <div id="detail">
-              <% form_for [@activity, @sub_donation] do |f| %>
-                <%= f.label :quantity, '数量' %>
-                <%= f.text_field :quantity %>
-                <%= f.submit '立即捐赠' %>
-              <% end %>
-            </div>
+            <% if @co_donation.end? %>
+              <span class="span_title">反馈报告</span>            
+              <div id="detail">
+                <div class="caution" >项目已结束，下面是发起人的反馈报告：</div>
+                <%= @activity.feedback %>
+              </div>
+            <% else %>
+              <a name="donation"></a>
+              <span class="span_title">我要捐赠</span>            
+              <div id="detail">
+                <% form_for [@activity, @sub_donation] do |f| %>
+                  <%= f.label :quantity, '数量' %>
+                  <%= f.text_field :quantity %>
+                  <%= f.submit '立即捐赠' %>
+                <% end %>
+              </div>
+            <% end %>
           </div>
           <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
   </div>
-
-  <%#= render :partial => "/comments/comments", :object => @comments %>
+  
+  <div class="newbox">
+      <span class="span_title">活动相册</span>
+      <div class="contents clearfix" style="padding-top:16px;">
+      <div class="clearfix" id="photos">
+        <% @co_donation.sub_donations.each do |s| %>
+        <% next if s.image_file_name.blank? %>
+        <dl class="obp">
+          <dt><%= link_to image_tag(image_path(s.image.url(:thumb))), s.image.url(:medium), 
+                :rel => "prettyPhoto[gallery]", :title => "捐赠人：#{s.user.login}" %></dt>
+          <dd>
+            <span id="photo_title_<%= s.id %>">捐赠人：<%= s.user.login %></span>
+          </dd>
+        </dl>
+        <% end %>
+      </div>     
+      </div>  
+      <div class="cleanfix" style="height:20px"></div>
+  </div>
+  
+  <%= render :partial => "/comments/comments", :object => @comments %>
+  <%= render :partial => "/comments/form", :locals => {:commentable => @activity} %>

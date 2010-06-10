@@ -1,0 +1,24 @@
+<% @sub_donations.each do |sub_donation| %>
+  <p>
+    <div style="float:left">
+      <%= avatar_for(sub_donation.user, "large") %>
+    </div>
+    <div style="margin-left:56px;">
+      <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> 在<%= l(sub_donation.created_at.to_date) %> 捐赠了 <%= sub_donation.quantity %>件
+        <% if sub_donation.verified %>
+          <%= link_to '取消确认', cancel_co_donation_sub_donation_path(@co_donation, sub_donation), :method => 'put' %>
+        <% else %>
+          <%= link_to '确认', verify_co_donation_sub_donation_path(@co_donation, sub_donation), :method => 'put' %>
+        <% end %>
+      </p>
+      <p>
+        <% if sub_donation.image_file_name.blank? %>
+          捐赠人尚未上传证明图片
+        <% else %>
+          <%= link_to image_tag(sub_donation.image.url(:thumb)), image_tag(sub_donation.image.url(:medium)) %>
+        <% end %>
+      </p>
+    </div>
+    <div style="clear:both;"></div>
+  </p>
+<% end %>
