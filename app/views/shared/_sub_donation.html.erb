@@ -5,6 +5,9 @@
   <div style="margin-left:56px;">
     <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> 在<%= l(sub_donation.created_at.to_date) %> 捐赠了 <%= sub_donation.quantity %>件<br />
       (<%= sub_donation.verified ? '已确认' : '待确认' %>)
+      <% if logged_in? && !sub_donation.verified && sub_donation.user_id == current_user.id && sub_donation.image_file_name.nil? %>
+        <%= link_to '上传捐赠证明', edit_co_donation_sub_donation_path(sub_donation.co_donation, sub_donation) %>
+      <% end %>
     </p>  
   </div>
 </div>

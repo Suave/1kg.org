@@ -1,6 +1,8 @@
 class CoDonationsController < ApplicationController
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
+  
   def index
     @co_donations = CoDonation.all(:limit => 10)
   end
@@ -25,9 +27,15 @@ class CoDonationsController < ApplicationController
   def show
     @activity = @co_donation = CoDonation.find(params[:id])
     @sub_donation = SubDonation.new
+    @comments = @co_donation.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
+    @comment = Comment.new
   end
   
   def edit
+    @activity = @co_donation = current_user.co_donations.find(params[:id])
+  end
+  
+  def feedback
     @activity = @co_donation = current_user.co_donations.find(params[:id])
   end
   
