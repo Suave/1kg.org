@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "co_donation_id"
     t.integer "user_id"
     t.integer "quantity"
-    
+    t.string  "state"
     t.boolean  "verified", :default => false
     t.string  "image_file_name"
     

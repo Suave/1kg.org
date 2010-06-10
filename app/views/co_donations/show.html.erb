@@ -1,3 +1,5 @@
+<% @page_title = @title = @co_donation.title%>
+
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
@@ -13,13 +15,15 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-    <% if @co_donation.user_id == current_user.id -%>
+    
+    <% if logged_in? && (y@co_donation.user_id == current_user.id) -%>
+    
     <div id="admins">
         你是<%= '活动发起人' %>，可以使用以下功能：<br/>
-       <%= link_to "编辑活动", edit_co_donation_path(@activity.id),:class => "adminbutton" %>
-       <%= link_to "审核捐赠", co_donation_sub_donations_path(@activity),:class => "adminbutton" %>
-       <%= link_to "撰写反馈", feedback_co_donation_path(@activity),:class => "adminbutton" %>       
-       <%= link_to "删除活动", co_donation_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
+       <%= link_to "编辑活动", edit_co_donation_path(@co_donation.id),:class => "adminbutton" %>
+       <%= link_to "审核捐赠", co_donation_sub_donations_path(@co_donation),:class => "adminbutton" %>
+       <%= link_to "撰写反馈", feedback_co_donation_path(@co_donation),:class => "adminbutton" %>       
+       <%= link_to "删除活动", co_donation_path(@co_donation.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
     </div>
     <% end -%>
 
@@ -29,91 +33,33 @@
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.sub_donations.compact %>
         <div class="cleanfix" style="height:20px"></div>
     </div>
-  
-  <% if @co_donation.school%>
-  <div class="newbox">
-    <span class="span_title">相关学校</span>
-    <div class="cleanfix" style="height:10px"></div>
-    <%= render :partial => "/shared/school", :collection => [@co_donation.school] %>
-  </div>
-  <%end%>
+
 <% end -%>
 
-  <div class="newbox" id="activityInfo">
-        <div class="contents">
-          
-          <div style="width:120px;float:right;text-align:right">
-            <% if @co_donation.end_at < Date.today %>
-              <span class="gary_span">此活动已结束</span>
-            <% end -%>
-          </div>
-          
-          <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= link_to image_tag(@co_donation.image.url(:medium), :alt => '活动主题图'), @co_donation.image.url(:medium), :class => "activity_main" %>
-          </div>   
-          
-          <div id="activitiesInfo">
-            <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
-            <p>结束日期：  <%= @activity.end_at.to_date %></p>
-            <p>相关学校： <%= link_to @activity.school.title, school_path(@activity.school) %></p> 
-            <p>需要捐赠的物资： <%= @activity.goods_name %></p>
-            <p>已筹集： <%= @activity.sub_donations.verified.sum(:quantity) %></p>
-          </div>
-          
-          <div class="clearfix" style="margin-bottom:20px;"></div>
-          <span class="span_title">活动介绍</span>
-          <div class="clearfix" style="margin-bottom:5px;"></div>
-
-          <div id="entry">
-            <div id="summary">
-              <%= simple_format(@activity.description) %> 
-            </div>
-            
-            <span class="span_title">活动计划</span>            
-            <div id="detail">
-              <%= simple_format(@activity.plan) %>
-            </div>
-            
-            <% if @co_donation.end? %>
-              <span class="span_title">反馈报告</span>            
-              <div id="detail">
-                <div class="caution" >项目已结束，下面是发起人的反馈报告：</div>
-                <%= @activity.feedback %>
-              </div>
-            <% else %>
-              <a name="donation"></a>
-              <span class="span_title">我要捐赠</span>            
-              <div id="detail">
-                <% form_for [@activity, @sub_donation] do |f| %>
-                  <%= f.label :quantity, '数量' %>
-                  <%= f.text_field :quantity %>
-                  <%= f.submit '立即捐赠' %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-          <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
-        </div>
-  </div>
+<div style="margin-top:-10px; margin-bottom:10px"> <%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> 在 <%= @co_donation.created_at.to_date %> 发起</div>  
+<div>
+  <%= main_photo_thumb(@co_donation.school) -%>
   
-  <div class="newbox">
-      <span class="span_title">活动相册</span>
-      <div class="contents clearfix" style="padding-top:16px;">
-      <div class="clearfix" id="photos">
-        <% @co_donation.sub_donations.each do |s| %>
-        <% next if s.image_file_name.blank? %>
-        <dl class="obp">
-          <dt><%= link_to image_tag(image_path(s.image.url(:thumb))), s.image.url(:medium), 
-                :rel => "prettyPhoto[gallery]", :title => "捐赠人：#{s.user.login}" %></dt>
-          <dd>
-            <span id="photo_title_<%= s.id %>">捐赠人：<%= s.user.login %></span>
-          </dd>
-        </dl>
-        <% end %>
-      </div>     
-      </div>  
-      <div class="cleanfix" style="height:20px"></div>
+  <div style="float:left;width:500px;margin-left:10px">
+    <div style="font-size:14px;font-weight:bold;margin-bottom:4px"><%= " #{@co_donation.school.title}需要#{@co_donation.goods_name}"%></div>
+    
+    <div id="summary" style="height:60px">
+      <% short = (@co_donation.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
+      <%= short[120].nil? ? @co_donation.description  : (short + "...") %>
+      <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
+    </div>
+      
+     <div id="reason_detail" style="display:none">
+      <%= (@co_donation.description) %>
+      <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
+    </div>  
   </div>
-  
+</div>
+<div style="clear:both;height:20px"></div>  
+<div class="project_info">
+  <div class="title_line"><h5>捐赠物资的使用计划</h5></div>
+  <%= "#{@co_donation.plan}<br/>" %>
+</div>
+<div style="clear:both;height:20px"></div>  
   <%= render :partial => "/comments/comments", :object => @comments %>
-  <%= render :partial => "/comments/form", :locals => {:commentable => @activity} %>
+  <%= render :partial => "/comments/form", :locals => {:commentable => @co_donation} %>

@@ -33,6 +33,8 @@ class SubDonationsController < ApplicationController
     @sub_donation = @co_donation.sub_donations.find(params[:id])
   end
   
+  
+  
   def verify
     @sub_donation = @co_donation.sub_donations.find(params[:id])
     
@@ -79,4 +81,5 @@ class SubDonationsController < ApplicationController
   def set_co_donation
     @co_donation = CoDonation.find(params[:co_donation_id])
   end
+
 end

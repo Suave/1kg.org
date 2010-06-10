@@ -10,7 +10,9 @@ class CoDonation < ActiveRecord::Base
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
   
   validates_presence_of :school_id, :goods_name, :number, :end_at, 
-      :description, :plan, :address, :receiver, :zipcode, :phone_number
+      :description, :plan, :address, :receiver, :zipcode, :phone_number,:message => "此项是必填项"
+  
+  validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
     
   def still_need
     if (self.goal_number > self.number)
