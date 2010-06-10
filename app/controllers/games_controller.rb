@@ -89,7 +89,6 @@ class GamesController < ApplicationController
     else
       render_404
     end
-    
   end
   
 end

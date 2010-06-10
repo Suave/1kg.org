@@ -45,6 +45,8 @@ class RequirementsController < ApplicationController
       if @school
         @comments = @requirement.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
         @comment = Comment.new
+        @photos = @requirement.photos
+        @shares = @requirement.shares
         want.html { render 'school'}
       else
         want.html

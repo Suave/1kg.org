@@ -10,7 +10,6 @@
 <div id="for_vendor" style="display:none">
   <p><label>商家链接</label><br /><%= form.text_area :vendor_link, :style => 'width:540px;height:200px;', :class => "mceEditor" %></p>
 </div>
-
 <script type="text/javascript">
 $("#project_exchangable").delayedObserver(0.25, function(element, value) { $("#for_vendor").toggle();$(".for_project").toggle() });
 </script>

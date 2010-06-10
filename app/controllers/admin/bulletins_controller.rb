@@ -1,4 +1,7 @@
 class Admin::BulletinsController < Admin::BaseController
+  
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
+  
   def index
     @bulletins = Bulletin.find :all, :order => "id desc", :include => :user
   end

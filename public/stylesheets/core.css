@@ -34,6 +34,7 @@ a:hover, a:active {
 h4, h5, h6 {
   font-size: 1em;
   font-weight: bold;
+  margin-bottom:2px;
 }
 
 
@@ -1088,9 +1089,9 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
-.obp {float:left; width:115px; margin:12px; height: 130px;}
+.obp {float:left; width:115px; margin:12px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
-.obp dd {margin:0; overflow:hidden; text-align:center;}
+.obp dd {margin:0; overflow:hidden; text-align:center;height:40px}
 .obp dd span {display:block;}
 
 .sbtn {border:1px solid black; background:orange; padding:2px;}
@@ -1114,6 +1115,7 @@ h3.title {
 
 .ui-tabs-hide { display: none; }
 .ui-tabs-panel { width: 100%;}
+.ui-tabs-panel td{ padding:9px 6px}
 .subtitle {float:left; margin:17px; 0 0 1em;}
 
 .share_by_widget li {color:#999; float:left; margin:10px 15px 5px 0; list-style-type:none;}
@@ -1175,6 +1177,22 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
  
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+<<<<<<< HEAD:public/stylesheets/core.css
+ 
+.activity-guide{display:none}
+.activity-guide p{margin:6px 0; font-size:12px; color:#666}
+.activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
+
+.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
+.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
+.project_image{width:72px;height:72px;}
+.project_image_big{width:120px;height:120px}
+.project_info{margin-bottom:30px}
+.project_status{padding:1px 6px;font-size:13px;color:#fff;float:right;margin-top:12px;font-weight:bold}
+.project_status:hover{color:#fff}
+.project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
+.requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
+=======
  
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
@@ -1364,6 +1382,8 @@ a.progressCancel:hover {
 .swfupload {
 	cursor:pointer;position:relative;top:5px
 }
+#advance_box p{font-size:12px;line-height:30px}
+
 .goods_list{width:320px;padding:10px 0;float:left}
 .goods_photo_frame{float:left;display:block;width:86px;height:86px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
 .goods_meta{float:left;width:100%;}
@@ -1386,7 +1406,11 @@ a.progressCancel:hover {
 
 #show_feed{background-color:#d9ffb3;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66;margin-top:4px }
 
-.title_line {border-bottom: 1px solid #c0c0c0;margin:10px 0 10px;padding-bottom:3px;font-weight:bold}
+.title_line {border-bottom: 1px solid #c0c0c0;margin:10px 0 10px;padding-bottom:3px;}
 .title_line .span_title2{color:#444}
+.title_line span{font-weight:bold}
 
 .donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f0f0f0;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
+
+
+

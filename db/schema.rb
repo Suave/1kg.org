@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.integer  "activity_id"
     t.integer  "school_id"
+    t.integer  "requirement_id"
   end
 
   create_table "posts", :force => true do |t|
@@ -428,6 +429,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "clean_html"
     t.integer  "activity_id"
     t.integer  "school_id"
+    t.integer  "requirement_id"
     t.integer  "user_id",                                     :null => false
     t.integer  "hits",                     :default => 0,     :null => false
     t.integer  "comments_count",           :default => 0,     :null => false
