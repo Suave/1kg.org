@@ -1176,7 +1176,12 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .school_list_meta h5{margin:2px 0}
  
 .school_frame{width:100%;padding:10px}
+<<<<<<< HEAD:public/stylesheets/core.css
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+=======
+.school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+<<<<<<< HEAD:public/stylesheets/core.css
+>>>>>>> d83dbf50bea9900a9c92feafd8e78d82de7f4d70:public/stylesheets/core.css
  
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
@@ -1191,7 +1196,24 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_status:hover{color:#fff}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
+<<<<<<< HEAD:public/stylesheets/core.css
 
+=======
+=======
+ 
+.activity-guide{display:none}
+.activity-guide p{margin:6px 0; font-size:12px; color:#666}
+.activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
+
+.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
+.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
+.project_image{width:72px;height:72px;}
+.project_image_big{width:120px;height:120px}
+.project_info{margin-bottom:30px}
+.project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
+.requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
+ 
+>>>>>>> d83dbf50bea9900a9c92feafd8e78d82de7f4d70:public/stylesheets/core.css
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}

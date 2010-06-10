@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "goods_name"
     t.integer  "number",           :default => 0
     t.integer  "goal_number"
+    t.integer  "comments_count",   :default => 0
     
     t.string   "address"
     t.string   "zipcode"
@@ -60,9 +61,23 @@ ActiveRecord::Schema.define(:version => 0) do
     
     t.text     "description"
     t.text     "plan"
+    t.text     "feedback"
     
     t.string   "image_file_name"
     t.boolean  "sticky",           :default => false
+    
+    t.timestamps
+  end
+  
+  create_table "sub_donations", :force => true do |t|
+    t.integer "co_donation_id"
+    t.integer "user_id"
+    t.integer "quantity"
+    t.string  "state"
+    t.boolean  "verified", :default => false
+    t.string  "image_file_name"
+    
+    t.timestamps
   end
 
   create_table "activity_boards", :force => true do |t|
