@@ -70,7 +70,7 @@
       <% end%>
       
       <div class="project_info">
-        <div class="title_line"><h5>反馈要求</span></div>
+        <div class="title_line"><h5>反馈要求</h5></div>
         <%= "#{@requirement.requirement_type.feedback_require}<br/>" %><%= "需要在 #{@requirement.requirement_type.feedback_at.to_date} 之前完成反馈" unless @requirement.requirement_type.feedback_at.nil?%>
       </div>
     </div>
