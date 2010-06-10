@@ -1,4 +1,4 @@
-<% form_for [@co_donation, @sub_donation], :html => {:multi_part => true} do |f| %>
+<% form_for [@co_donation, @sub_donation], :html => {:multipart => true} do |f| %>
   <%= f.label :image, '捐赠证明图片' %>
   <%= f.file_field :image %>
   <%= f.submit '上传' %>
