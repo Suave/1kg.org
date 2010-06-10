@@ -26,8 +26,6 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-
-
     <% if @activity.edited_by current_user -%>
     <div id="admins">
         你是<%= current_user.admin? ? '网站管理员' :'活动发起人' %>，可以使用以下功能：<br/>

@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "goods_name"
     t.integer  "number",           :default => 0
     t.integer  "goal_number"
+    t.integer  "comments_count",   :default => 0
     
     t.string   "address"
     t.string   "zipcode"
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 0) do
     
     t.text     "description"
     t.text     "plan"
+    t.text     "feedback"
     
     t.string   "image_file_name"
     t.boolean  "sticky",           :default => false
