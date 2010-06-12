@@ -27,6 +27,10 @@ class SubDonation < ActiveRecord::Base
     self.co_donation.update_number!
   end
   
+  def after_destroy(school)
+   self.co_donation.update_number!
+  end
+  
   #使用state_machine做捐赠的状态转换
   state_machine :state, :initial => :ordered do
     

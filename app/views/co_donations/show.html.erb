@@ -27,6 +27,7 @@
     
     <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
     <div class="cleanfix" style="height:20px"></div>
+    <% unless @co_donation.records.empty?%>
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
         <div class="cleanfix" style="height:10px"></div>
@@ -34,7 +35,7 @@
         <p style="text-align:right;padding:0 15px">已捐赠数量 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
         <div class="cleanfix" style="height:20px"></div>
     </div>
-
+    <% end -%>
 <% end -%>
 
 <div style="margin-top:-10px; margin-bottom:10px"> <%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> 在 <%= @co_donation.created_at.to_date %> 发起</div>  
