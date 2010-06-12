@@ -1,9 +1,7 @@
 <% form_for [@co_donation, @sub_donation], :html => {:multipart => true} do |f| %>
-<<<<<<< HEAD:app/views/sub_donations/edit.html.erb
+
   <p style="margin:3px 0;">捐赠证明图片</p>
-=======
-  <%= f.label :image, '捐赠证明图片' %>
->>>>>>> 42acdd211897545171a362a1377358911bfebd6d:app/views/sub_donations/edit.html.erb
+
   <%= f.file_field :image %>
   <%= f.submit '上传' %>
 <% end %>

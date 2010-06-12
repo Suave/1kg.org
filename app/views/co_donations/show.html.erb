@@ -1,8 +1,6 @@
-<<<<<<< HEAD:app/views/co_donations/show.html.erb
+
 <% @page_title = @title = @co_donation.title%>
 
-=======
->>>>>>> 42acdd211897545171a362a1377358911bfebd6d:app/views/co_donations/show.html.erb
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
@@ -23,17 +21,10 @@
     
     <div id="admins">
         你是<%= '活动发起人' %>，可以使用以下功能：<br/>
-<<<<<<< HEAD:app/views/co_donations/show.html.erb
        <%= link_to "编辑活动", edit_co_donation_path(@co_donation.id),:class => "adminbutton" %>
        <%= link_to "审核捐赠", co_donation_sub_donations_path(@co_donation),:class => "adminbutton" %>
        <%= link_to "撰写反馈", feedback_co_donation_path(@co_donation),:class => "adminbutton" %>       
        <%= link_to "删除活动", co_donation_path(@co_donation.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
-=======
-       <%= link_to "编辑活动", edit_co_donation_path(@activity.id),:class => "adminbutton" %>
-       <%= link_to "审核捐赠", co_donation_sub_donations_path(@activity),:class => "adminbutton" %>
-       <%= link_to "撰写反馈", feedback_co_donation_path(@activity),:class => "adminbutton" %>       
-       <%= link_to "删除活动", co_donation_path(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
->>>>>>> 42acdd211897545171a362a1377358911bfebd6d:app/views/co_donations/show.html.erb
     </div>
     <% end -%>
     
