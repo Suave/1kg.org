@@ -20,9 +20,9 @@ class SubDonationsController < ApplicationController
     
     respond_to do |wants|
       if @sub_donation.save
-        flash[:notice] = "为保证捐赠的有效性，请在7日内上传此捐赠的相关证明图片"
         wants.html { redirect_to co_donation_path(@co_donation)}
       else
+        flash[:notice] = "捐赠数量修改错误"
         wants.html {redirect_to @co_donation}
       end
     end
