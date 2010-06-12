@@ -23,21 +23,17 @@
     
     <% if logged_in? && (y@co_donation.user_id == current_user.id) -%>
     
-    <div id="admins">
-        你是<%= '活动发起人' %>，可以使用以下功能：<br/>
-       <%= link_to "编辑活动", edit_co_donation_path(@co_donation.id),:class => "adminbutton" %>
-       <%= link_to "审核捐赠", co_donation_sub_donations_path(@co_donation),:class => "adminbutton" %>
-       <%= link_to "撰写反馈", feedback_co_donation_path(@co_donation),:class => "adminbutton" %>       
-       <%= link_to "删除活动", co_donation_path(@co_donation.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
-    </div>
     <% end -%>
+
     <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
     <div class="cleanfix" style="height:20px"></div>
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
         <div class="cleanfix" style="height:10px"></div>
-        <%= render :partial => "/shared/sub_donation", :collection => @co_donation.sub_donations.compact %>
-        <p style="text-align:right;padding:0 10px">总计已捐赠 <span class="donantion_number" style="font-size:28px"><%= @co_donation.number %></span></p>
+
+        <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
+        <p style="text-align:right;padding:0 15px">已捐赠数量 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
+
         <div class="cleanfix" style="height:20px"></div>
     </div>
 
@@ -72,7 +68,9 @@
 </div>
 <div style="clear:both;height:20px"></div>  
 <%= render :partial => "state" %>
-<div style="clear:both;height:20px"></div>  
+
+<div style="clear:both;height:26px"></div>  
+
 <div class="project_info" style="display:none">
   <div class="title_line"><h5>捐赠物资的使用计划</h5></div>
   <%= "#{@co_donation.plan}<br/>" %>
