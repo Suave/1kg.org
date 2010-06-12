@@ -40,7 +40,18 @@
     
   <% end %>
 </div>
-<div id="donation_receiver"></div>
+<% if @state != 'ordered'%><span class="more" name="#donation_receiver">查看捐赠接收人信息</span><%end%>
+<div id="donation_receiver" class="caution" <%= "style='display:none'" if @state != 'ordered' %>>
+  <div><h6 style="color:#a84300">以下是捐赠接收人信息，请在捐赠邮寄或快递时仔细填写，确保没有错误。<h6>
+  </div>
+  
+  <p>
+  地址：<%= @co_donation.address%>
+  </p>
+  <p>姓名：<%= @co_donation.receiver%>　　邮编：<%= @co_donation.zipcode%>　　电话：<%= @co_donation.phone_number%>
+  </p>
+  
+</div>
 
 
 <script type="text/javascript">
