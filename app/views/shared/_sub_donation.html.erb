@@ -1,11 +1,20 @@
-<div class="record">
+<div class="record" <%= "style='height:100px'" if logged_in? && sub_donation.user == current_user%>>
   <div style="float:left">
     <%= avatar_for(sub_donation.user, "large") %>
   </div>
   <div style="margin-left:56px;padding:4px 6px">
-    <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> <span class="gary_span">在<%= l(sub_donation.created_at.to_date) %>捐赠<span><br />
-      <span style="float:right;font-size:18px;" class="donantion_number">+<span style="font-size:24px;"><%= sub_donation.quantity %></span></span>
-      <%= {"ordered" => "未证明","proved" => "已上传证明","refused" => "捐赠失败","received" => "捐赠成功","missed" => "捐赠丢失"}[sub_donation.state] %>
-    </p>  
+   <%= link_to sub_donation.user.login, user_url(sub_donation.user) %>
+    <span class="gary_span" style="float:right"><%= {"ordered" => "未证明","proved" => "已上传证明","refused" => "捐赠无效","received" => "捐赠已完成","missed" => "物流失败"}[sub_donation.state] %></span><br/>
+    <span style="float:right;font-size:18px;color:<%= {'ordered'=>'#FFA070','proved'=>'#e98523','received'=>'#EF6A0B','missed'=>'#aaa','refused'=>'#aaa'}[sub_donation.state]%>" class="donation_number">+<span style="font-size:24px;"><%= sub_donation.quantity %></span></span>
+    <div style="margin:10px 0 10px"><%= link_to "查看捐赠证明",sub_donation.image.url,:class => "donation_prove",:rel => "prettyPhoto[gallery]",:description => "#{sub_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless sub_donation.state == "ordered" %>　</div>
   </div>
+  
+    <% if logged_in? && sub_donation.user == current_user%>
+    <div style="background-color:#ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc">
+      <% form_for [@co_donation, sub_donation],:url => admin_state_co_donation_sub_donation_path(sub_donation.co_donation,sub_donation), :html => {:method => :put,:multipart => true} do |f| %>
+        <%= select 'sub_donation',:action,[['证明照片，等待捐赠中','wait'],['已经收到物资,捐赠成功',"receive"],['没有收到物资，物流失败','miss'],['证明照片不合要求，捐赠失效','refuse']],{:selected => {'proved'=>'wait','received'=>"receive",'missed'=>'miss','refused'=>'refuse'}[sub_donation.state]}%>
+        <%= f.submit '确定'%>
+      <% end %>
+    </div>
+    <% end %>
 </div>

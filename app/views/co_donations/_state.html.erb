@@ -35,9 +35,21 @@
     </div>
     
   <% elsif @state == "proved"%>
-    <span class="span_title">你完成捐赠<%= @exist_donation.quantity %>件　</span><br/>
-    <span class="gary_span" style="font-size:13px">感谢你的捐赠，请关注团捐发起人的接收情况，和物资使用反馈。</span>
-    
+    <span class="span_title">你捐赠了<%= @exist_donation.quantity %>件　</span><br/>
+    <span class="gary_span" style="font-size:13px">感谢你的捐赠，请关注团捐发起人对接收情况的确认，和对物资使用反馈。</span>
+    <br/><%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" %>
+  <% elsif @state == "missed"%>
+    <span class="span_title">由于某些原因，接收人没有收到你的捐赠</span><br/>
+    <span class="gary_span" style="font-size:13px">你可以联系接收人和你使用的物流公司或邮局去了解详情。<br/>不论如何,仍然感谢你的捐赠! :)</span>
+    <br/><%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" %>
+  <% elsif @state == "refused"%>
+    <span class="span_title">你的捐赠失效了</span><br/>
+    <span class="gary_span" style="font-size:13px">失败的原因可能两点：1.你没有在指定的日期内上传证明照片<br/>2.你上传的证明照片明显不符合要求　</span>
+    <br/><%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless @exist_donation.image.nil?%>
+  <% elsif @state == "received"%>
+    <span class="span_title">你的捐赠成功了</span><br/>
+    <span class="gary_span" style="font-size:13px">接收人收到了你的捐赠，谢谢你对<%= @co_donation.school.title%>的帮助。</span>
+    <br/><%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" %>
   <% end %>
 </div>
 <% if @state != 'ordered'%><span class="more" name="#donation_receiver">查看捐赠接收人信息</span><%end%>
@@ -45,9 +57,7 @@
   <div><h6 style="color:#a84300">以下是捐赠接收人信息，请在捐赠邮寄或快递时仔细填写，确保没有错误。<h6>
   </div>
   
-  <p>
-  地址：<%= @co_donation.address%>
-  </p>
+  <p>地址：<%= @co_donation.address%></p>
   <p>姓名：<%= @co_donation.receiver%>　　邮编：<%= @co_donation.zipcode%>　　电话：<%= @co_donation.phone_number%>
   </p>
   

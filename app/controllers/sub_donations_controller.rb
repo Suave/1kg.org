@@ -4,7 +4,6 @@ class SubDonationsController < ApplicationController
   
   def index
     @sub_donations = @co_donation.sub_donations.paginate(:per_page => 20, :page => params[:page], :order => "updated_at DESC")
-    
     respond_to do |wants|
       if current_user.id == @co_donation.user_id
         wants.html
@@ -58,9 +57,11 @@ class SubDonationsController < ApplicationController
   end
   
   def admin_state
-    begin
-      eval('')
-    end
+      @sub_donation = @co_donation.sub_donations.find(params[:id])
+      if ['miss','receive','refuse','wait'].include?(params[:sub_donation][:action])
+        eval("@sub_donation.#{params[:sub_donation][:action]}")
+      end
+    redirect_to @co_donation
   end
   
   def destroy
