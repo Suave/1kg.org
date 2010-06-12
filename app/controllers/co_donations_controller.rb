@@ -54,10 +54,10 @@ class CoDonationsController < ApplicationController
     @schools = current_user.envoy_schools
     respond_to do |wants|
       if @co_donation.update_attributes(params[:co_donation])
-        render_404
-        #wants.html {redirect_to co_donation_url(@co_donation)}
+        flash[:notice] = "捐赠数量修改成功"
+        wants.html {redirect_to co_donation_url(@co_donation)}
       else
-        wants.html {render 'edit'}
+        wants.html {redirect_to co_donation_url(@co_donation)}
       end
     end  
   end

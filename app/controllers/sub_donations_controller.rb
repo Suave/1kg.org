@@ -48,9 +48,11 @@ class SubDonationsController < ApplicationController
     
     respond_to do |wants|
       if @sub_donation.update_attributes(params[:sub_donation])
+        flash[:notice] = "捐赠数量修改成功"
         wants.html { redirect_to @co_donation}
       else
-        wants.html {render 'edit'}
+        flash[:notice] = "捐赠数量修改错误"
+        wants.html { redirect_to @co_donation}
       end
     end
   end

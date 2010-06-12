@@ -2,12 +2,10 @@
   <div style="float:left">
     <%= avatar_for(sub_donation.user, "large") %>
   </div>
-  <div style="margin-left:56px;">
-    <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> 在<%= l(sub_donation.created_at.to_date) %> 捐赠了 <%= sub_donation.quantity %>件<br />
-      (<%= sub_donation.verified ? '已确认' : '待确认' %>)
-      <% if logged_in? && !sub_donation.verified && sub_donation.user_id == current_user.id && sub_donation.image_file_name.nil? %>
-        <%= link_to '上传捐赠证明', edit_co_donation_sub_donation_path(sub_donation.co_donation, sub_donation) %>
-      <% end %>
+  <div style="margin-left:56px;padding:4px 6px">
+    <p style="margin:0"><%= link_to sub_donation.user.login, user_url(sub_donation.user) %> <span class="gary_span">在<%= l(sub_donation.created_at.to_date) %>捐赠<span><br />
+      <span style="float:right;font-size:18px;" class="donantion_number">+<span style="font-size:24px;"><%= sub_donation.quantity %></span></span>
+      <%= {"ordered" => "未证明","proved" => "已上传证明","refused" => "捐赠失败","received" => "捐赠成功","missed" => "捐赠丢失"}[sub_donation.state] %>
     </p>  
   </div>
 </div>

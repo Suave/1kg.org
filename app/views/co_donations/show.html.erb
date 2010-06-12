@@ -6,6 +6,10 @@
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
+    $(".more").toggle(
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
     });
   </script>
@@ -27,12 +31,13 @@
        <%= link_to "删除活动", co_donation_path(@co_donation.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
     </div>
     <% end -%>
-      
+    <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
     <div class="cleanfix" style="height:20px"></div>
     <div class="newbox">
-      <span class="span_title">参与捐赠的用户</span> <span class="gary_span">有<%= @co_donation.sub_donations.size %> 人参加</span>
+      <span class="span_title2">捐赠记录</span>
         <div class="cleanfix" style="height:10px"></div>
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.sub_donations.compact %>
+        <p style="text-align:right;padding:0 10px">总计已捐赠 <span class="donantion_number" style="font-size:28px"><%= @co_donation.number %></span></p>
         <div class="cleanfix" style="height:20px"></div>
     </div>
 
@@ -58,8 +63,9 @@
     <div id="donation_counter">
       <p style="margin:0"><%= '还' unless @co_donation.number == 0 %>需要 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= @co_donation.still_need %></span> 件</p>
       <%= progressbar @co_donation.matched_percent, :generate_css => true %>
+      <h6><%=  "#{@co_donation.number}/#{@co_donation.goal_number}" %></h6>
       <span class="gary_span">
-        <%=  "#{@co_donation.number} / #{@co_donation.goal_number}" %>
+      <%= @co_donation.end_at.to_date %>截止
       </span>
     </div>
     
@@ -67,7 +73,7 @@
 <div style="clear:both;height:20px"></div>  
 <%= render :partial => "state" %>
 <div style="clear:both;height:20px"></div>  
-<div class="project_info">
+<div class="project_info" style="display:none">
   <div class="title_line"><h5>捐赠物资的使用计划</h5></div>
   <%= "#{@co_donation.plan}<br/>" %>
 </div>
