@@ -78,6 +78,12 @@ class SubDonationsController < ApplicationController
   end
   
   private
+  
+   
+  def update_co_donation
+    @co_donation.update_number!    
+  end
+  
   def set_co_donation
     @co_donation = CoDonation.find(params[:co_donation_id])
   end

@@ -1150,6 +1150,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
  
+ 
+.surebutton{border:1px solid #ccc;padding:2px 8px;background:#999;color:#fff;font-size:14px;cursor:pointer;}
+.surebutton:hover{background-color:#e98523;border-color:#ffaa66;color:#fff}
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
@@ -1177,23 +1180,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
  
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
-<<<<<<< HEAD:public/stylesheets/core.css
- 
-.activity-guide{display:none}
-.activity-guide p{margin:6px 0; font-size:12px; color:#666}
-.activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
 
-.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
-.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
-.project_image{width:72px;height:72px;}
-.project_image_big{width:120px;height:120px}
-.project_info{margin-bottom:30px}
-.project_status{padding:1px 6px;font-size:13px;color:#fff;float:right;margin-top:12px;font-weight:bold}
-.project_status:hover{color:#fff}
-.project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
-.requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
-=======
- 
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
 .activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
@@ -1246,7 +1233,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .zone a{font-size:14px;margin-top:6px;}
  
 .white {background-color: white;}
-.gary_span{color:#999}
+.gary_span{color:#888}
  
 .summary{color:#666;margin:3px 0 1px}
  
@@ -1411,6 +1398,6 @@ a.progressCancel:hover {
 .title_line span{font-weight:bold}
 
 .donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f0f0f0;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
-
-
-
+#donation_counter{border-left:2px dotted #999;text-align:center;padding:10px 10px;height:80px}
+#donation_state{text-align:right;padding:5px 20px 0 0;border-top:2px dotted #999;}
+#donation_quantity{width:40px;font-size:16px;text-align:right}

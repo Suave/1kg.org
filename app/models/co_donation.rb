@@ -13,7 +13,7 @@ class CoDonation < ActiveRecord::Base
       :description, :plan, :address, :receiver, :zipcode, :phone_number,:message => "此项是必填项"
   
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
-    
+  
   def still_need
     if (self.goal_number > self.number)
       self.goal_number - self.number
@@ -32,6 +32,15 @@ class CoDonation < ActiveRecord::Base
   
   def end?
     self.end_at < Time.now
+  end
+  
+  def matched_percent
+    (self.number.to_f*100/self.goal_number).to_i
+  end
+    
+  def update_number!
+    self.number = (self.sub_donations.nil?? 0 : self.sub_donations.map(&:quantity).sum)
+    self.save
   end
   
 end

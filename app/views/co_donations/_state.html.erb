@@ -1,0 +1,38 @@
+
+<div id="donation_state">
+  <% if @state.nil? %>
+    <% form_for [@co_donation, @sub_donation] do |f| %>
+        <span class="span_title2">我要捐赠</span>
+        <%= f.text_field :quantity,:id => "donation_quantity"%><span class="span_title2"> 件</span>
+        <%= f.submit '确定',:class => "surebutton" %><br/>
+        <%= error_message_on @sub_donation, :quantity %>
+    <% end %>
+  <% elsif @state == "ordered"%>
+    <div id="select_todo">
+      <span class="span_title2">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">更改数量？</a><br/>
+      
+      <span class="gary_span">请在<%= (@exist_donation.created_at + 1.week).to_date %>前，将物资邮寄或快递给接收人。
+      <br/>并上传一张能够证明捐赠以发出的单据照片，以确认捐赠。<br/>
+      
+      <div style="margin:10px"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">确认捐赠</a><br/>
+      </div>
+    </div>
+     
+    <div id="change_quantity" style="display:none">
+    <% form_for [@co_donation, @exist_donation] do |f| %>
+        <span class="span_title2">修改数量</span>
+        <%= f.text_field :quantity,:id => "donation_quantity"%> <span class="span_title2">件</span>
+        <%= f.submit '修改数量',:class => "surebutton" %>
+        <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">取消</a><br/>
+    <% end %>
+    </div>
+    
+    <div id="prove_photo" style="display:none">
+    <% form_for [@co_donation, @exist_donation], :html => {:multipart => true} do |f| %>
+      <p style="margin:3px 0;">上传捐赠证明的照片</p>
+      <%= f.file_field :image,:size => 8,:style => "width:200px" %>
+      <%= f.submit '确定',:class => "surebutton" %>
+    <% end %>
+    </div>
+  <% end %>
+</div>
