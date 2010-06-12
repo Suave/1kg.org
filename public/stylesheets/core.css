@@ -1150,6 +1150,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonstatus:hover,.buttonstatus2:hover{background-position:0 -48px;color:#fff;}
  
+ 
+.surebutton{border:1px solid #ccc;padding:2px 8px;background:#999;color:#fff;font-size:14px;cursor:pointer;}
+.surebutton:hover{background-color:#e98523;border-color:#ffaa66;color:#fff}
 .buttonjoin{background:url(/images/buttonbig.gif) no-repeat;
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
 .buttonjoin2{background:url(/images/buttonbig.gif) no-repeat;
@@ -1177,6 +1180,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
  
 .school_frame{width:100%;padding:10px}
 <<<<<<< HEAD:public/stylesheets/core.css
+<<<<<<< HEAD:public/stylesheets/core.css
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
 =======
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
@@ -1201,6 +1205,10 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 =======
 =======
  
+=======
+.school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+
+>>>>>>> 7ca4b3a276e4422e8de501248c30cbee7b310fcd:public/stylesheets/core.css
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
 .activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
@@ -1254,7 +1262,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .zone a{font-size:14px;margin-top:6px;}
  
 .white {background-color: white;}
-.gary_span{color:#999}
+.gary_span{color:#888}
  
 .summary{color:#666;margin:3px 0 1px}
  
@@ -1419,3 +1427,7 @@ a.progressCancel:hover {
 .title_line span{font-weight:bold}
 
 .donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f0f0f0;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
+#donation_counter{border-left:2px dotted #999;text-align:center;padding:10px 10px;height:80px}
+#donation_state{text-align:right;padding:5px 20px 0 0;border-top:2px dotted #999;}
+#donation_quantity{width:40px;font-size:16px;text-align:right}
+

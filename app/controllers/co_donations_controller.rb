@@ -44,7 +44,7 @@ class CoDonationsController < ApplicationController
   
   def update
     @co_donation = current_user.co_donations.find(params[:id])
-    
+    @schools = current_user.envoy_schools
     respond_to do |wants|
       if @co_donation.update_attributes(params[:co_donation])
         wants.html {redirect_to co_donation_url(@co_donation)}
@@ -85,8 +85,8 @@ class CoDonationsController < ApplicationController
   #检测用户的捐赠状态
   def get_state
     if logged_in?
-      record = @co_donation.sub_donations.find(:last,:conditions => {:user_id => current_user.id})
-      @state = (record.nil?? nil : record.state)
+      @exist_donation = @co_donation.sub_donations.find(:last,:conditions => {:user_id => current_user.id})
+      @state = (@exist_donation.nil?? nil : @exist_donation.state)
     else
       @state = nil
     end

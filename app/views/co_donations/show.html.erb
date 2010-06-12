@@ -26,7 +26,22 @@
        <%= link_to "删除活动", co_donation_path(@co_donation.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
     </div>
     <% end -%>
+    
 
+      
+    <div id="donation_counter">
+      <p style="margin:0"><%= '还' unless @co_donation.number == 0 %>需要 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= @co_donation.still_need %></span> 件</p>
+      <%= progressbar @co_donation.matched_percent, :generate_css => true %>
+      <span class="gary_span">
+        <% if @co_donation.number == 0 %>
+          还没有人捐赠
+        <% elsif @co_donation.number >= @co_donation.goal_number%>
+        <% else %>
+        <% end %>
+      </span>
+    </div>
+      
+    <div class="cleanfix" style="height:20px"></div>
     <div class="newbox">
       <span class="span_title">参与捐赠的用户</span> <span class="gary_span">有<%= @co_donation.sub_donations.size %> 人参加</span>
         <div class="cleanfix" style="height:10px"></div>
@@ -40,21 +55,21 @@
 <div>
   <%= main_photo_thumb(@co_donation.school) -%>
   
-  <div style="float:left;width:500px;margin-left:10px">
-    <div style="font-size:14px;font-weight:bold;margin-bottom:4px"><%= " #{@co_donation.school.title}需要#{@co_donation.goods_name}"%></div>
-    
+  <div style="float:left;width:340px;margin-left:10px;padding-right:20px">
+    <div style="font-size:14px;font-weight:bold;margin-bottom:4px"><%= " #{@co_donation.school.title}需要#{@co_donation.goods_name}"%></div>    
     <div id="summary" style="height:60px">
       <% short = (@co_donation.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
       <%= short[120].nil? ? @co_donation.description  : (short + "...") %>
       <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
     </div>
-      
      <div id="reason_detail" style="display:none">
       <%= (@co_donation.description) %>
       <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
     </div>  
   </div>
 </div>
+<div style="clear:both;height:20px"></div>  
+<%= render :partial => "state" %>
 <div style="clear:both;height:20px"></div>  
 <div class="project_info">
   <div class="title_line"><h5>捐赠物资的使用计划</h5></div>
