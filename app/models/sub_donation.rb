@@ -5,11 +5,10 @@ class SubDonation < ActiveRecord::Base
   belongs_to :user
   
   has_attached_file :image, :styles => {:medium => "580x580>", :thumb => "150x150>" }
-  
   validates_presence_of :co_donation_id, :user_id, :quantity
 
   def validate
-      unless quantity > 0
+      if quantity.nil? || !(quantity > 0)
         errors.add(:quantity,"数量填写不正确")
       end
   end

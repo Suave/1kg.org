@@ -42,6 +42,7 @@ class CoDonationsController < ApplicationController
   end
   
   def feedback
+    @activity = @co_donation = current_user.co_donations.find(params[:id])
   end
   
   def feedback
@@ -53,17 +54,12 @@ class CoDonationsController < ApplicationController
     @schools = current_user.envoy_schools
     respond_to do |wants|
       if @co_donation.update_attributes(params[:co_donation])
-        wants.html {redirect_to co_donation_url(@co_donation)}
+        render_404
+        #wants.html {redirect_to co_donation_url(@co_donation)}
       else
         wants.html {render 'edit'}
       end
     end  
-  end
-  
-  def admin_state
-    begin
-      eval('')
-    end
   end
   
   def destroy
