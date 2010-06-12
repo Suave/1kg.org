@@ -6,6 +6,8 @@ class CoDonationsController < ApplicationController
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
+  
   def index
     @co_donations = CoDonation.all(:limit => 10)
   end
@@ -40,6 +42,10 @@ class CoDonationsController < ApplicationController
   end
   
   def feedback
+  end
+  
+  def feedback
+    @activity = @co_donation = current_user.co_donations.find(params[:id])
   end
   
   def update

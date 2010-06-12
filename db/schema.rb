@@ -73,7 +73,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "co_donation_id"
     t.integer "user_id"
     t.integer "quantity"
+<<<<<<< HEAD:db/schema.rb
     t.string  "state"
+=======
+    
+>>>>>>> 42acdd211897545171a362a1377358911bfebd6d:db/schema.rb
     t.boolean  "verified", :default => false
     t.string  "image_file_name"
     

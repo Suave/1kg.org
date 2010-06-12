@@ -33,8 +33,7 @@ class SubDonationsController < ApplicationController
     @sub_donation = @co_donation.sub_donations.find(params[:id])
   end
   
-  
-  
+
   def verify
     @sub_donation = @co_donation.sub_donations.find(params[:id])
     
@@ -78,7 +77,6 @@ class SubDonationsController < ApplicationController
   end
   
   private
-  
    
   def update_co_donation
     @co_donation.update_number!    

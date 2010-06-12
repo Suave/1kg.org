@@ -3,7 +3,7 @@ class CoDonation < ActiveRecord::Base
   belongs_to :user
   
   attr_accessor :agree_feedback_terms
-  
+
   has_many :sub_donations
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
