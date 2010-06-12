@@ -9,10 +9,8 @@
   <% elsif @state == "ordered"%>
     <div id="select_todo">
       <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">更改数量？</a><br/>
-      
       <span class="gary_span" style="font-size:13px">请在<%= (@exist_donation.created_at + 1.week).to_date %>前，将物资邮寄或快递给接收人。
-      <br/>并拍一张邮寄或快递的单据照片，以证明你的捐赠已经发出。<br/>
-      
+      <br/>并拍一张邮寄或快递的单据照片，以证明你的捐赠已经发出。<br/></span>
       <div style="margin:4px"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">上传照片</a><br/>
       </div>
     </div>
@@ -29,11 +27,22 @@
     </div>
     
     <div id="prove_photo" style="display:none">
-    <% form_for [@co_donation, @exist_donation], :html => {:multipart => true} do |f| %>
+    <% form_for [@co_donation, @exist_donation],:url => prove_co_donation_sub_donation_path(@exist_donation.co_donation,@exist_donation), :html => {:method => :put,:multipart => true} do |f| %>
       <span class="span_title2">上传捐赠证明的照片</span><br/>
       <div style="margin:5px 0"><%= f.file_field :image,:size => 14 %></div>
       <%= f.submit '确定',:class => "surebutton" %> <%= f.submit '取消',:class => "surebutton",:onclick => "javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false;" %>
     <% end %>
     </div>
+    
+  <% elsif @state == "proved"%>
+    <span class="span_title">你完成捐赠<%= @exist_donation.quantity %>件　</span><br/>
+    <span class="gary_span" style="font-size:13px">感谢你的捐赠，请关注团捐发起人的接收情况，和物资使用反馈。</span>
+    
   <% end %>
 </div>
+<div id="donation_receiver"></div>
+
+
+<script type="text/javascript">
+<%= "$('#select_todo').toggle();$('#prove_photo').toggle()" if params[:error] == "prove"%>
+</script>
