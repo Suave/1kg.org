@@ -33,52 +33,37 @@ class SubDonationsController < ApplicationController
     @sub_donation = @co_donation.sub_donations.find(params[:id])
   end
   
-  
-  
-  def verify
-    @sub_donation = @co_donation.sub_donations.find(params[:id])
-    
-    respond_to do |wants|
-      if current_user.id == @co_donation.user_id
-        flash[:notice] = '操作已成功'
-        @sub_donation.update_attribute(:verified, true)
-        wants.html {redirect_to co_donation_sub_donations_path(@co_donation)}
-      else
-        flash[:notice] = '对不起，您没有足够的权限查看此页面'
-        wants.html {redirect_to @co_donation}
-      end
-    end
-  end
-  
-  def cancel
-    @sub_donation = @co_donation.sub_donations.find(params[:id])    
-    
-    respond_to do |wants|
-      if current_user.id == @co_donation.user_id
-        flash[:notice] = '操作已成功'
-        @sub_donation.update_attribute(:verified, false)        
-        wants.html {redirect_to co_donation_sub_donations_path(@co_donation)}
-      else
-        flash[:notice] = '对不起，您没有足够的权限查看此页面'
-        wants.html {redirect_to @co_donation}
-      end
-    end
-  end
-  
   def update
     @sub_donation = @co_donation.sub_donations.find(params[:id])
     
     respond_to do |wants|
       if @sub_donation.update_attributes(params[:sub_donation])
+        flash[:notice] = "a"
         wants.html { redirect_to @co_donation}
       else
+        flash[:notice] = "b"
         wants.html {render 'edit'}
       end
     end
   end
   
-  private
+  def admin_state
+    begin
+      eval('')
+    end
+  end
   
+  def destroy
+    @sub_donation = @co_donation.sub_donations.find(params[:id])
+    @sub_donation.destroy
+    
+    respond_to do |wants|
+      flash[:notice] = "你的捐赠已经取消"
+      wants.html { redirect_to @co_donation}
+    end  
+  end
+  
+  private
    
   def update_co_donation
     @co_donation.update_number!    
