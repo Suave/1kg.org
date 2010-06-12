@@ -4,8 +4,7 @@ class CoDonation < ActiveRecord::Base
   
   attr_accessor :agree_feedback_terms
 
-  has_many :sub_donations,:order => "id desc"
-
+  has_many :sub_donations,:order => "created_at desc"
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
