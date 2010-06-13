@@ -24,15 +24,17 @@
     <% if logged_in? && (y@co_donation.user_id == current_user.id) -%>
     
     <% end -%>
-    
+
     <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
     <div class="cleanfix" style="height:20px"></div>
     <% unless @co_donation.records.empty?%>
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
         <div class="cleanfix" style="height:10px"></div>
+
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
         <p style="text-align:right;padding:0 15px">已捐赠数量 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
+
         <div class="cleanfix" style="height:20px"></div>
     </div>
     <% end -%>
@@ -42,7 +44,7 @@
 <div>
   <%= main_photo_thumb(@co_donation.school) -%>
   
-  <div style="float:left;width:360px;margin-left:10px;padding-right:20px">
+  <div style="float:left;width:340px;padding-left:20px;padding-right:20px">
     <div style="font-size:14px;font-weight:bold;margin-bottom:4px"><%= " #{@co_donation.school.title}需要#{@co_donation.goods_name}"%></div>    
     <div id="summary" style="height:60px">
       <% short = (@co_donation.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
@@ -65,9 +67,11 @@
     </div>
     
 </div>
-<div style="clear:both;height:20px"></div>  
+<div style="clear:both;height:30px"></div>  
 <%= render :partial => "state" %>
+
 <div style="clear:both;height:26px"></div>  
+
 <div class="project_info" style="display:none">
   <div class="title_line"><h5>捐赠物资的使用计划</h5></div>
   <%= "#{@co_donation.plan}<br/>" %>
