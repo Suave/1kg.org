@@ -32,7 +32,6 @@ class SubDonationsController < ApplicationController
     @sub_donation = @co_donation.sub_donations.find(params[:id])
     respond_to do |wants|
       if @sub_donation.update_attributes(params[:sub_donation]) && !@sub_donation.image_file_name.nil?
-        flash[:notice] = "捐赠证明上传成功"
         @sub_donation.prove
         wants.html { redirect_to @co_donation}
       else
@@ -47,7 +46,6 @@ class SubDonationsController < ApplicationController
     
     respond_to do |wants|
       if @sub_donation.update_attributes(params[:sub_donation])
-        flash[:notice] = "捐赠数量修改成功"
         wants.html { redirect_to @co_donation}
       else
         flash[:notice] = "捐赠数量修改错误"

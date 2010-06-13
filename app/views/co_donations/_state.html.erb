@@ -9,7 +9,7 @@
   <% elsif @state == "ordered"%>
     <div id="select_todo">
       <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">更改数量？</a><br/>
-      <span class="gary_span" style="font-size:13px">目前你的捐赠转态是"未证明",请在<%= (@exist_donation.created_at + 1.week).to_date %>前，<br/>将物资邮寄或快递给接收人,并拍一张邮寄或快递的单据照片上传到这里，
+      <span class="gary_span" style="font-size:13px">目前你的捐赠状态是"未证明",请在<%= (@exist_donation.created_at + 1.week).to_date %>前，<br/>将物资邮寄或快递给接收人,并拍一张邮寄或快递的单据照片上传到网站上，
       <br/>以证明你的捐赠已经发出。<br/></span>
       <div style="margin:4px"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">上传照片</a><br/>
       </div>

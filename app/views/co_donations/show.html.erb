@@ -44,7 +44,7 @@
 <div>
   <%= main_photo_thumb(@co_donation.school) -%>
   
-  <div style="float:left;width:360px;margin-left:10px;padding-right:20px">
+  <div style="float:left;width:340px;padding-left:20px;padding-right:20px">
     <div style="font-size:14px;font-weight:bold;margin-bottom:4px"><%= " #{@co_donation.school.title}需要#{@co_donation.goods_name}"%></div>    
     <div id="summary" style="height:60px">
       <% short = (@co_donation.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
@@ -67,7 +67,7 @@
     </div>
     
 </div>
-<div style="clear:both;height:20px"></div>  
+<div style="clear:both;height:30px"></div>  
 <%= render :partial => "state" %>
 
 <div style="clear:both;height:26px"></div>  
