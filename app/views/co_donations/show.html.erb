@@ -20,24 +20,28 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-    
-    <% if logged_in? && (y@co_donation.user_id == current_user.id) -%>
-    
-    <% end -%>
-
     <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
     <div class="cleanfix" style="height:20px"></div>
-    <% unless @co_donation.records.empty?%>
+    <% if logged_in? && (@co_donation.user == current_user)%>
+      <div id="admins">
+        <div style="padding:6px 8px">
+          你是团捐发起人，需要做两件事情：<br/>
+          1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。<br/>
+          2. 当确认物资收到之后，报告物资的抵达使用情况。<%= link_to "编辑报告",feedback_co_donation_url(@co_donation),:class => "adminbutton" %>
+        </div>
+      </div>
+    <%end%>
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
         <div class="cleanfix" style="height:10px"></div>
-
+        <% 还没有获得捐赠 if @co_donation.records.empty?%>
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
+        <% unless @co_donation.records.empty?%>
         <p style="text-align:right;padding:0 15px">已捐赠数量 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
-
+        <% end -%>
         <div class="cleanfix" style="height:20px"></div>
     </div>
-    <% end -%>
+    
 <% end -%>
 
 <div style="margin-top:-10px; margin-bottom:10px"> <%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> 在 <%= @co_donation.created_at.to_date %> 发起</div>  
