@@ -5,6 +5,9 @@
     <script type="text/javascript" charset="utf-8">
       jQuery(document).ready(function(){
       jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+      $("#toggle_image").toggle(
+        function(){$(this).text("隐藏图片？");$("#hide_image img").toggle();return false;},
+        function(){$(this).text("显示图片？");$("#hide_image img").toggle();return false;});
       });
     </script>
   <% end %>
@@ -111,8 +114,8 @@
 
           <div id="entry">
             <% if @activity.description_html.match '<img ' %>
-              <div id="show_image" style="background-color:#eee;padding:4px">
-                <span class="gary_span">为了便于阅读，我们隐藏了活动介绍中的图片，<a href="#" onclick="javascript:$('#hide_image img').show();$('#show_image').hide();return false">显示它们？</a></span>
+              <div style="background-color:#eee;padding:4px">
+                <span class="gary_span">为了便于阅读，我们隐藏了活动介绍中的图片，<a href="#"  id="toggle_image">显示图片？</a></span>
               </div>
             <% end %>
             <div id="hide_image">
