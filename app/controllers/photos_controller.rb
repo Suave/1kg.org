@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
   end
   
   def new
-    @photo = Photo.new(:school_id => params[:school_id], :activity_id => params[:activity_id])
+    @photo = Photo.new(:requirement_id => params[:requirement_id],:school_id => params[:school_id], :activity_id => params[:activity_id])
   end
   
   def create
@@ -27,8 +27,8 @@ class PhotosController < ApplicationController
       if params[:Filedata]
         wants.html {render(:text => @photo.id)}
       else
-        if @photo.school || @photo.activity
-          wants.html {redirect_to @photo.school || @photo.activity}
+        if @photo.school || @photo.activity || @photo.requirement
+          wants.html {redirect_to @photo.school || @photo.activity || @photo.requirement}
         else
           wants.html {render 'insert', :layout => false}
         end
@@ -62,6 +62,8 @@ class PhotosController < ApplicationController
         redirect_to school_url(@photo.school_id)
       elsif !@photo.activity_id.blank?
         redirect_to activity_url(@photo.activity_id)
+      elsif !@photo.requirement_id.blank?
+        redirect_to school_requirement_path(@photo.requirement.school_id, @photo.requirement_id)
       else
         redirect_to user_url(@photo.user_id)
       end

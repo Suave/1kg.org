@@ -1,92 +1,140 @@
-<% @page_title = "#{@requirement.requirement_type.title} -#{@school.title} " -%>
-
+<% @page_title = "#{@requirement.school.title}的#{@requirement.requirement_type.title}" -%>
+<% content_for :heads do -%>
+<%= javascript_include_tag "jquery.timeago.js" %>
+<%= javascript_include_tag 'swfupload' %>
+<%= javascript_include_tag 'handlers' %>
+<% end %>
 
 <% content_for :sidebar do -%>
 <div class="cleanfix" style="clear:both;height:20px"></div> 
 
 <br/><span class="remark"><%= link_to "&raquo;  回到#{@requirement.requirement_type.title}",requirement_type_url(@requirement.requirement_type)%></span>
 <br/><span class="remark"><%= link_to "&raquo;  回到#{@requirement.school.title}",school_url(@requirement.school)%></span>
+
+  <div class="cleanfix" style="height:20px"></div>
 <% end -%>
 
+<%= main_photo_thumb(@requirement.school) -%>
 
-<div style="font-size:16px;font-weight:bold"><%= link_to @requirement.school.title,school_url(@requirement.school) %> 申请 <%= link_to @requirement.requirement_type.title,requirement_type_url(@requirement.requirement_type)%> 详情</div>
-
-<div style="float:left;width:200px;padding-top:18px">
-  <div class="project_image_frame">
-        <img class="project_image" src="<%= @requirement.requirement_type.image.url(:thumb) %>"/>
-  </div>
-  <%= main_photo_thumb(@requirement.school,style="position:relative;left:-20px;top:30px;") -%>
-  <%= image_tag "pp.png" ,:style => "position:relative;left:40px;top:-14px"%>
+<div style="float:left;width:516px;margin-left:10px">
+  <div style="font-size:16px;font-weight:bold"><%= link_to @requirement.school.title,school_url(@requirement.school) %> 的 <%= link_to @requirement.requirement_type.title,requirement_type_url(@requirement.requirement_type)%></div>
   
+  <div id="entry">
+    <div id="summary">
+    <% short = (@requirement.apply_reason).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
+    <%= short[120].nil? ? @requirement.apply_reason  : (short + "...") %>
+    <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
+    </div>
+    
+    <div id="reason_detail" style="display:none">
+      <%= (@requirement.apply_reason) %>
+      <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
+    </div>
+  </div>
 </div>
-
-<div style="float:left">
-  <p>项目申请人：<%= link_to @requirement.applicator.login ,user_url(@requirement.applicator)%> <%= "[电话： #{@requirement.applicator_telephone}]" if !current_user.nil? && current_user.admin?%></p>
-  <p>项目状态：
-   <%= ['已完成','进行中','申请中'][@requirement.status.to_i] %>
-  </p>
-  <%unless @requirement.status == 2 %>
-  <p>项目开始日期： <%=  @requirement.requirement_type.start_at.to_date %></p>
-  <p>项目结束日期： <%=  @requirement.requirement_type.end_at.nil? ? '未要求' : @requirement.requirement_type.end_at.to_date %></p>
-  <% end%>
-</div>
-<div style="clear:both;height:10px"></div>
-<div class="newbox">
-      <span class="span_title2">申请原因</span><br/>
-      <%= @requirement.apply_reason %>
-</div>
+<div style="clear:both;height:20px"></div>
           
 
 <div id="projects_tabs">
-        <div style="float:right;position:relative;top:5px">最后更新： <%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></div>
-        <ul class="tab" >
-            <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
-            <li class="tabs_more"><%= link_to '项目反馈', "#report" %></li>
-        </ul>
-        <div id="detail">
-          <div class="project_info">
-            <div class="title_line"><span class="span_title2">执行计划</span></div>
-            <%= @requirement.apply_plan %>
-          </div>
+  <div style="float:right;position:relative;top:5px"><img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <attr id="last_time" style="color:#e98523;font-weight:bold"><%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></attr></div>
+    <ul class="tab" >
+      <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
+      <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li>
+    </ul>
+    
+    <div id="detail">
+      <p>项目申请人：<%= link_to @requirement.applicator.login ,user_url(@requirement.applicator)%> <%= "[电话： #{@requirement.applicator_telephone}]" if !current_user.nil? && current_user.admin?%></p>
+      <p>　项目状态：<%= ['已完成','进行中','申请中'][@requirement.status.to_i] %>
+      </p>
+      <%unless @requirement.status == 2 %>
+        <p>　　执行期： <%=  @requirement.requirement_type.start_at.to_date %> 至 <%=  @requirement.requirement_type.end_at.nil? ? '未要求' : @requirement.requirement_type.end_at.to_date %></p>
+        <p>　申请日期： <%=  @requirement.requirement_type.created_at.to_date %></p>
+      <% end%>
+      <div class="project_info">
+        <div class="title_line"><h5>执行计划</h5></div>
+        <%= @requirement.apply_plan %>
+      </div>
           
-          <% unless @requirement.problem.nil? or @requirement.problem.empty?%>
-          <div class="project_info">
-            <div class="title_line"><span class="span_title2">可能遇到的问题与解决方案</span></div>
-            <%= @requirement.problem %>
-          </div>
-          <% end%>
-          
-          
-          <% unless @requirement.budget.nil? or @requirement.budget.empty?%>
-          <div class="project_info">
-            <div class="title_line"><span class="span_title2">资金预算</span></div>
-            <%= @requirement.budget %>
-          </div>
-          <% end%>
-          
-          
-        </div>
-        <div id="report">
-                
-      <% if @requirement.status != 2%>
+      <% unless @requirement.problem.nil? or @requirement.problem.empty?%>
         <div class="project_info">
-          <div class="title_line"><span class="span_title2">执行报告</span></div>
-          <%= @requirement.feedback %>
-          <%= '还没有填写' if @requirement.feedback.nil? %>
-          <% if logged_in? && @requirement.applicator == current_user -%>
-          <div><br/>你是项目申请者，可以 <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "adminbutton"%>
-          </div>
+        <div class="title_line"><h5>可能遇到的问题与解决方案</h5></div>
+        <%= @requirement.problem %>
+        </div>
+      <% end%>
+          
+      <% unless @requirement.budget.nil? or @requirement.budget.empty?%>
+        <div class="project_info">
+        <div class="title_line"><h5>资金预算</h5></div>
+          <%= @requirement.budget %>
+        </div>
+      <% end%>
+      
+      <div class="project_info">
+        <div class="title_line"><h5>反馈要求</h5></div>
+        <%= "#{@requirement.requirement_type.feedback_require}<br/>" %><%= "需要在 #{@requirement.requirement_type.feedback_at.to_date} 之前完成反馈" unless @requirement.requirement_type.feedback_at.nil?%>
+      </div>
+    </div>
+          
+        <div id="report">      
+        <% if @requirement.status != "2"%>
+        
+        <div class="project_info">
+          <div class="title_line"><span>照片</span></div>
+            
+            <div class="clearfix" id="photos">
+              <div id="upload_container"></div>
+              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+              <%= "暂无照片" if @photos.empty? %>
+                
+              <p style="text-align:right;clear:both">
+                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+              </p>
+              
+              <% if logged_in? && @requirement.applicator == current_user -%>
+                <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@requirement.id)) %>
+              <%end%>
+              <div style="display:none;" id="upload_tip">
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @requirement.id) %> 上传.
+              </div>
+                
+                
+              
+            </div>     
+        </div>
+        
+        <div class="project_info">
+            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}" %></div>
+            <%= render :partial => "/shared/share", :collection => @shares %>
+            <%= "暂无分享" if @shares.empty? %>
+            <div class="cleanfix" style="height:20px"></div>
+        </div>
+
+        <div class="project_info">
+            <% if logged_in? && @requirement.applicator == current_user -%>
+            <%end%>
+          <div class="title_line"><span>执行报告</span> <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink" if logged_in? && @requirement.applicator == current_user%></div>
+          <% if @requirement.feedback.nil? %>
+            <% if logged_in? && @requirement.applicator == current_user -%>
+              你是项目申请人，如果你的项目有进展，请 <%= link_to "填写报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink"%> 告诉大家项目的执行情况吧。
+            <% else %>
+              <p>申请人还没有填写</p>
+            <% end %>
+          <% else %>
+            <%= @requirement.feedback %>
           <% end -%>
         </div>
+              
+      
       <% else %>
         <div class="project_info">
-          申请未通过。
+        <p>项目还在申请中。</p>
         </div>
       <%end%>
         </div>
 </div>
 <script type="text/javascript">
   jQuery("#projects_tabs").tabs();
+  
 </script>
 
 
@@ -94,3 +142,11 @@
 <%= render :partial => "/comments/form", :locals => {:commentable => @requirement,:cancel => true} %>
 
 <div class="cleanfix" style="clear:both;height:5px"></div>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"));
+  <%if @requirement.status == "0"%>
+         $('#report_link').click()
+  <%end%>
+  })
+</script>
