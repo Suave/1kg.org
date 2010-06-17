@@ -7,16 +7,219 @@
 
 
 
-<div class="newbox" id="activityInfo">
+<div class="newbox">
     <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
       <%= image_tag(@team.image.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
     </div>
 
-    <div id="activitiesInfo">
-      <span class="span_title"><%= @project.title %></span>
-      <p><label>申请截止时间：</label><%= @project.apply_end_at.to_date %></p>        <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
-      <p><label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
+    <div id="module_meta">
+      <span class="span_title"><%= @team.name %></span>　<span>创建人：<%= link_to @team.user.login,@team.user%></span>
+      <p><%= @team.description %></p>
     </div>
-        
-      <%= @team.description %>
 </div>
+
+
+<div class="clearfix" style="height:20px;clear:both"></div>
+<div class="newbox">  
+  <div class="title_line"><span class="span_title2">团队活动</span></div>
+  <div class="activity_list"> 
+    <div class='activity_photo_frame'><div class='activity_list_photo'><a href="http://www.1kg.org/activities/101095"><img alt="捐书活动 献出你的爱 让更多的孩子得到温暖" src="http://www.1kg.org/photos/0108/3859/88e99c877d4d4937c65cc332_square.jpg?1276434355" /></a></div></div>       
+    <div class="activity_list_meta"> 
+    <h5><a href="/activities/101095">捐书活动 献出你的爱 让更多的孩子得到温暖</a></h5> 
+    <span class="gary_span">2010-06-13 至 2010-07-13</span><br/> 
+    
+      
+        
+        <span class="gary_span">珠海 => 成都</span><br/> 
+        
+      
+      <span class="gary_span">1 人参加　 0 条留言</span> 
+    
+    </div> 
+  </div>  <div class="activity_list"> 
+    <div class='activity_photo_frame'><div class='activity_list_photo'><a href="http://www.1kg.org/activities/101092"><img alt="一起申请爱达迅助学行动 (Aide et Action)&quot;暑期公益教育行&quot;小额基金资助项目" src="http://www.1kg.org/photos/0108/3553/122_32709_92fc43edf49ab42_square.jpg?1276279761" /></a></div></div>       
+    <div class="activity_list_meta"> 
+    <h5><a href="/activities/101092">一起申请爱达迅助学行动 (Aide et Ac...</a></h5> 
+    <span class="gary_span">2010-06-12 至 2010-06-20</span><br/> 
+    
+      
+        
+        <span class="gary_span">不限 => 贺州</span><br/> 
+        
+      
+      <span class="gary_span">2 人参加　 2 条留言</span> 
+    
+    </div> 
+  </div>
+  <div class="remark"><a href="http://www.1kg.org/activities/ongoing" target="_blank">&raquo; 查看更多</a>　<a href="http://www.1kg.org/activities/over">&raquo; 以往活动回顾</a></div> 
+</div>
+
+<div class="newbox">
+  <div class="title_line"><span class="span_title2">团队话题</span></div>
+  <table>
+    <tr> 
+      <th style="width:35%;">话题</th> 
+      <th style="width:20%;">小组</th> 
+      <th style="width:15%">作者</th> 
+      <th style="width:7%;">回复</th> 
+      <th style="width:23%;">最后回复</th> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004993/topics/1002624">大家快来为游戏库的游戏内容进行分类吧！</a></td> 
+      <td><a href="/groups/295">1KG全职工作</a></td> 
+      <td>秀秀</td> 
+      <td>2</td> 
+      <td><a href="http://localhost/boards/1004993/topics/1002624#1009891" class="link">05-30 by 快乐小陶子</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004993/topics/1002488">秀秀在2010年的主要工作</a></td> 
+      <td><a href="/groups/295">1KG全职工作</a></td> 
+      <td>秀秀</td> 
+      <td>18</td> 
+      <td><a href="http://localhost/boards/1004993/topics/1002488#1009889" class="link">05-30 by 快乐小陶子</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004950/topics/1002691">报道帖子</a></td> 
+      <td><a href="/groups/275">登封小队</a></td> 
+      <td>秋风吹落叶</td> 
+      <td>1</td> 
+      <td><a href="http://localhost/boards/1004950/topics/1002691#1009886" class="link">05-30 by imphiker</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004545/topics/1002800">新建了一个QQ群【112746898】多背一公斤-上海，欢迎加入</a></td> 
+      <td><a href="/groups/95">上海</a></td> 
+      <td>帆帆</td> 
+      <td>2</td> 
+      <td><a href="http://localhost/boards/1004545/topics/1002800#1009885" class="link">05-30 by 帆帆</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1005002/topics/1002780">健康常识 - 4</a></td> 
+      <td><a href="/groups/300">学与教天地 (雪糕英语速成）</a></td> 
+      <td>GiGi</td> 
+      <td>1</td> 
+      <td><a href="http://localhost/boards/1005002/topics/1002780#1009884" class="link">05-29 by Grace Zhao</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004545/topics/1002804">6.7月份想去多背1KG，不知各位前辈有什么建议吗？</a></td> 
+      <td><a href="/groups/95">上海</a></td> 
+      <td>韩蓉</td> 
+      <td>1</td> 
+      <td><a href="http://localhost/boards/1004545/topics/1002804#1009882" class="link">05-29 by Dan『无谱青年』</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004545/topics/1002803">新人报道</a></td> 
+      <td><a href="/groups/95">上海</a></td> 
+      <td>韩蓉</td> 
+      <td>1</td> 
+      <td><a href="http://localhost/boards/1004545/topics/1002803#1009881" class="link">05-29 by Dan『无谱青年』</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1005012/topics/1002801">新人报道</a></td> 
+      <td><a href="/groups/306">大珠三角联盟</a></td> 
+      <td>Jerry</td> 
+      <td>0</td> 
+      <td><a href="http://localhost/boards/1005012/topics/1002801" class="link">05-28 by Jerry</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004536/topics/799">多背1kgmsn  QQ群 新人请加新Q群</a></td> 
+      <td><a href="/groups/86">北京</a></td> 
+      <td>邂逅莫扎特</td> 
+      <td>12</td> 
+      <td><a href="http://localhost/boards/1004536/topics/799#1009876" class="link">05-26 by 安马</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004551/topics/1003">组建宁波地区的团队</a></td> 
+      <td><a href="/groups/101">宁波</a></td> 
+      <td>reson</td> 
+      <td>19</td> 
+      <td><a href="http://localhost/boards/1004551/topics/1003#1009875" class="link">05-26 by reson</a></td> 
+    </tr> 
+      <tr> 
+      <td><a href="http://localhost/boards/1004990/topics/1002607">是否能开个赞助商通道？</a></td> 
+      <td><a href="/groups/292">一公斤网站用户体验</a></td> 
+      <td>老赵</td> 
+      <td>10</td> 
+      <td><a href="http://localhost/boards/1004990/topics/1002607#1009872" class="link">05-26 by 广西贺州驿站</a></td> 
+    </tr> 
+    </table>
+</div>
+
+<div class="clearfix" style="height:40px;clear:both"></div>
+
+
+
+
+<% content_for :sidebar do -%>
+    <div class="newbox"> 
+      <span class="span_title">关注者</span> <span class="gary_span">共 13 人</span> 
+        <div class="cleanfix" style="height:10px"></div> 
+        <div class="contents clearfix"> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/11166"><img alt="七小辉" class="avatar" src="http://www.1kg.org/user/avatar/11166/large/icon.gif?1273980294" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/11166">七小辉</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/3635"><img alt="七月" class="avatar" src="http://www.1kg.org/user/avatar/3635/large/icon.gif?1272256046" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/3635">七月</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/9271"><img alt="星星" class="avatar" src="http://www.1kg.org/user/avatar/9271/large/icon.gif?1253882026" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/9271">星星</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/30"><img alt="綠茶" class="avatar" src="http://www.1kg.org/user/avatar/30/large/icon.gif?1264971024" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/30">綠茶</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/831"><img alt="雨竹" class="avatar" src="http://www.1kg.org/user/avatar/831/large/icon.gif?1253882031" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/831">雨竹</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/1020615"><img alt="红~" class="avatar" src="http://www.1kg.org/user/avatar/1020615/large/icon.gif?1261404771" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/1020615">红~</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/4"><img alt="小V" class="avatar" src="http://www.1kg.org/user/avatar/4/large/icon.gif?1269479748" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/4">小V</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/9398"><img alt="痴痴" class="avatar" src="http://www.1kg.org/user/avatar/9398/large/icon.gif?1268649084" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/9398">痴痴</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/1013087"><img alt="放飞梦想" class="avatar" src="http://www.1kg.org/user/avatar/1013087/large/icon.gif?1270819242" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/1013087">放飞梦想</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/3096"><img alt="瞳瞳盒儿" class="avatar" src="http://www.1kg.org/user/avatar/3096/large/icon.gif?1253882033" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/3096">瞳瞳盒儿</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/1027522"><img alt="helen" class="avatar" src="http://www.1kg.org/user/avatar/1027522/large/icon.gif?1276335770" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/1027522">helen</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/126"><img alt="小小老师" class="avatar" src="http://www.1kg.org/user/avatar/126/large/icon.gif?1253882022" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/126">小小老师</a></dd> 
+  </dl> 
+  
+  <dl class="obu"> 
+    <dt><a href="http://www.1kg.org/users/1027588"><img alt="吃我煮的鱼" class="avatar" src="http://www.1kg.org/user/avatar/1027588/large/icon.gif?1276433683" /></a></dt> 
+    <dd><a href="http://www.1kg.org/users/1027588">吃我煮的鱼</a></dd> 
+  </dl> 
+  </div> 
+        <div class="cleanfix" style="height:20px"></div> 
+    </div> 
+<% end %>
