@@ -1,0 +1,17 @@
+<% @page_title = "创建团队申请" %>
+
+<% content_for :crumb do -%>
+<li>创建团队申请</li>
+<% end -%>
+
+<div class="newbox" >
+  <span class="span_title">创建团队申请</span>
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :team, :url => teams_path, :html => {:multipart => true}  do |form| -%>
+
+    <%= render :partial => "form", :object => form %>        
+    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
+      <span ><%= link_to "取 消", teams_path() %></span>　带<span class="require">*</span>号的是必填项
+    </p>
+  <% end -%>
+</div>

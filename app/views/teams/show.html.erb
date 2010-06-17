@@ -1,0 +1,22 @@
+<% @page_title = "#{h @team.name}" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to '团队', teams_path %></li>
+<li><%= @team.name %></li>
+<% end -%>
+
+
+
+<div class="newbox" id="activityInfo">
+    <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
+      <%= image_tag(@team.image.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
+    </div>
+
+    <div id="activitiesInfo">
+      <span class="span_title"><%= @project.title %></span>
+      <p><label>申请截止时间：</label><%= @project.apply_end_at.to_date %></p>        <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
+      <p><label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
+    </div>
+        
+      <%= @team.description %>
+</div>

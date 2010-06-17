@@ -53,6 +53,17 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "zipcode"
   end
 
+  create_table "teams", :force => true do |t|
+    t.string    "name"
+    t.integer   "user_id"
+    t.datetime  "created_at"
+    t.string    "image_file_name"
+    t.text      "description"
+    t.boolean   "validated",     :default => false
+    t.datetime  "validated_at"
+    t.integer   "validated_by_id"
+  end
+  
   create_table "boards", :force => true do |t|
     t.integer  "talkable_id",                        :null => false
     t.string   "talkable_type",                      :null => false

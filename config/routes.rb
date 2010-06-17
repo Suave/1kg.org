@@ -156,6 +156,8 @@ ActionController::Routing::Routes.draw do |map|
     games.category_games    '/games/category/:tag',     :action => "category"
     games.new_category_game '/games/category/:tag/new', :action => "new"
   end
+  
+  map.resources :teams
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements
@@ -182,7 +184,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :bulletins
   end
 
-  # 公益产品
+  # 专题页面
   map.namespace :minisite do |site|
     site.namespace :postcard do |postcard|
       postcard.with_options :controller => "dashboard" do |dash|
