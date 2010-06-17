@@ -12,6 +12,12 @@ class CoDonation < ActiveRecord::Base
   validates_presence_of :school_id, :goods_name, :number, :end_at, 
       :description, :plan, :address, :receiver, :zipcode, :phone_number,:message => "此项是必填项"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
+  
+  def validate
+      if end_at > ((created_at.nil?? Time.now : created_at) + 3.month)
+        errors.add(:end_at,"捐赠截止时间必须在三个月内")
+      end
+  end
    
   def still_need
     if (self.goal_number > self.number)

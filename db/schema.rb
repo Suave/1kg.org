@@ -66,6 +66,11 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "image_file_name"
     t.boolean  "sticky",           :default => false
     
+    t.boolean  "validated",           :default => false
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    
+    
     t.timestamps
   end
   
