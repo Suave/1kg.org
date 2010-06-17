@@ -13,6 +13,7 @@
           <li><%= link_to "公益小组", admin_groups_path %></li>
           <li><%= link_to "静态页面管理", admin_pages_path %></li>
           <li><%= link_to "游戏分类", admin_game_categories_path %></li>
+          <li><%= link_to "团捐管理", admin_co_donations_path %>(<%= CoDonation.not_validated.size%>)</li>
           <li><%= link_to "数据统计", :controller => "/admin/misc", :action => "statistics" %></li>
         </ul>
       </div>

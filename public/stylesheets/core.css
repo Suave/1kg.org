@@ -1397,7 +1397,7 @@ a.progressCancel:hover {
 .title_line .span_title2{color:#444}
 .title_line span{font-weight:bold}
 
-.donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f0f0f0;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
+.donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f3f3f3;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
 #donation_counter{float:left;text-align:right;width:180px;border-left:2px dotted #aaa;text-align:center;padding:0 0 0 20px;height:100px}
 #donation_counter .progressbar{width:180px;}
 #donation_active{text-align:right;padding:10px 20px 30px;border-top:4px solid #d9d9d9;background-color:#e9e9e9;}

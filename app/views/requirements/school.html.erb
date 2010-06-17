@@ -123,8 +123,7 @@
             <%= @requirement.feedback %>
           <% end -%>
         </div>
-              
-      
+        
       <% else %>
         <div class="project_info">
         <p>项目还在申请中。</p>
@@ -133,10 +132,8 @@
         </div>
 </div>
 <script type="text/javascript">
-  jQuery("#projects_tabs").tabs();
-  
+  jQuery("#projects_tabs").tabs();  
 </script>
-
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 <%= render :partial => "/comments/form", :locals => {:commentable => @requirement,:cancel => true} %>

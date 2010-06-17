@@ -7,7 +7,7 @@ class CoDonationsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
   def index
-    @co_donations = CoDonation.all(:limit => 10)
+    @co_donations = CoDonation.validated.all(:limit => 10)
   end
   
   def new
@@ -66,7 +66,7 @@ class CoDonationsController < ApplicationController
   
   private
   def set_co_donation
-    @co_donation = CoDonation.find(params[:id])
+    @co_donation = CoDonation.validated.find(params[:id])
   end
   
   def need_permission
