@@ -1,0 +1,14 @@
+<p>
+  <label class="label">团队名称<span style="color:red;">＊</span></label>
+  <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @team, :name %>
+</p>
+
+<p>
+  <label class="label">团队标志(Logo)</label>
+  <%= form.file_field :image %>
+</p>
+
+<p>
+  <label class="label">团队介绍<span style="color:red;">＊</span></label><%= error_message_on @team, :content %>
+  <%= form.text_area :"description", :style => 'width:320px;height:160px;'  %>
+</p>
