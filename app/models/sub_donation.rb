@@ -27,7 +27,7 @@ class SubDonation < ActiveRecord::Base
     self.co_donation.update_number!
   end
   
-  def after_destroy(school)
+  def after_destroy
    self.co_donation.update_number!
   end
   

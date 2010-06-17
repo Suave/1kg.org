@@ -13,7 +13,7 @@
       <span>物资名称<span class="require">*</span></span>
       <%= form.text_field :goods_name, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goods_name %>
       <span>目标数量<span class="require">*</span></span>
-      <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :number %>
+      <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goal_number %>
     </p>
     
     <p>
@@ -27,14 +27,14 @@
 <div>
   <span class="span_title2">二 发起原因&物资使用计划</span>
   <div class="contents" style="padding-left:10px">    
-  <p><h6>需求背景：<span class="require">*</span></h6><%= error_message_on @co_donation, :description %>
-      <span class="gary_span">学校对于所缺物资具体情况。</span>
+  <p><h6>学校故事：<span class="require">*</span></h6><%= error_message_on @co_donation, :description %>
+      <span class="gary_span">说明学校需求的具体情况，你发起捐赠的原因是什么？</span>
       <br/>
     <%= form.text_area :description, :cols => 80, :rows => 5  %>
   </p>
   
-  <p><h6>物资使用计划：<span class="require">*</span></h6><%= error_message_on @co_donation, :plan %>
-      <span class="gary_span">收到捐来的物资后，你将如何使用？</span>
+  <p><h6>反馈计划：<span class="require">*</span></h6><%= error_message_on @co_donation, :plan %>
+      <span class="gary_span">你计划在捐赠结束后如何反馈？频率怎样？反馈的形式和内容？</span>
       <br/>
     <%= form.text_area :plan, :cols => 80, :rows => 5  %>
   </p>
