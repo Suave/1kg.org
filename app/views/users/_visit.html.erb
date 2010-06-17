@@ -1,3 +1,4 @@
+<% if visit.status != 3 || visit.wanna_at > Time.now %>
   <div class="school_list">
     <%= main_photo_thumb(visit.school) -%>      
     <div class="school_list_meta">
@@ -12,3 +13,4 @@
     </div>
     <div class="clearfix"></div>
    </div>
+<% end %>
