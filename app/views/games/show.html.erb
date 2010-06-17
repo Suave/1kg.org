@@ -25,7 +25,7 @@
 <span class="span_title" style="font-size:20px"><%= h @game.name %></span>
 <span style="font-weight:bold"> <%= link_to "[#{@game.game_category.name}]",category_games_path(@game.game_category.slug) %></span>
 
-<div class="newbox" id="activityInfo">
+<div class="newbox" >
   <div class="contents">
     <div style="width:120px;float:right;text-align:right">
       <%= link_to "我要补充", edit_game_path(@game),:class => "buttonjoin2"%> 
@@ -35,7 +35,7 @@
       <%= image_tag(@game.photo.url(:game_image), :alt => '课程主题图',:class => "activity_main") %>
     </div>   
         
-    <div id="activitiesInfo">
+    <div id="module_meta">
       <p>课程人数: <%= @game.size %></p>
       <p>课程时间: <%= @game.length %>分钟</p>
       <p>适合年龄: <%= @game.level %></p>

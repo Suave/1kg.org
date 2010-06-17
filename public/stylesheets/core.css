@@ -863,8 +863,6 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-#activitiesInfo {margin-left:180px;width:300px
-}
 
 h3.title {
   font-size: 2em;
@@ -1397,6 +1395,7 @@ a.progressCancel:hover {
 .title_line .span_title2{color:#444}
 .title_line span{font-weight:bold}
 
+
 .donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f3f3f3;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
 #donation_counter{float:left;text-align:right;width:180px;border-left:2px dotted #aaa;text-align:center;padding:0 0 0 20px;height:100px}
 #donation_counter .progressbar{width:180px;}
@@ -1406,3 +1405,5 @@ a.progressCancel:hover {
 #donation_receiver p{margin:6px}
 .donation_number{font-style:italic;font-family:cursive;position:relative;top:2px}
 .donation_note{width:330px;margin-top:4px;margin-left:260px;text-align:left;padding:5px 10px;background-color:#f6f6f6}
+#module_meta {margin-left:180px;width:300px}
+

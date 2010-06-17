@@ -63,7 +63,7 @@
           <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.must%></p>
         <% end %>
       </div>
-      <div id="activitiesInfo">
+      <div id="module_meta">
         <span class="span_title"><%= @project.title %></span>
         <p><label>申请截止时间：</label><%= @project.apply_end_at.to_date %></p>
         <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
