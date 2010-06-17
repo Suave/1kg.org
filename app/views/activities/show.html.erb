@@ -69,7 +69,7 @@
   </div>
 <% end -%>
 
-  <div class="newbox" id="activityInfo">
+  <div class="newbox" >
         <div class="contents">
           
           <div style="width:120px;float:right;text-align:right">
@@ -93,7 +93,7 @@
             <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
           
-          <div id="activitiesInfo">
+          <div id="module_meta">
             <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
             <p>开始日期: <%= @activity.start_at.to_date %>  结束日期：  <%= @activity.end_at.to_date %></p>

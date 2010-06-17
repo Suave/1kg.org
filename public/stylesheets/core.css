@@ -863,8 +863,6 @@ table .lastPost {
 /* =活动
  * -------------------------------------------------------------------------- */
 /* =activitiesInfo */
-#activitiesInfo {margin-left:180px;width:300px
-}
 
 h3.title {
   font-size: 2em;
@@ -1407,3 +1405,6 @@ a.progressCancel:hover {
 .title_line {border-bottom: 1px solid #c0c0c0;margin:10px 0 10px;padding-bottom:3px;}
 .title_line .span_title2{color:#444}
 .title_line span{font-weight:bold}
+
+#module_meta {margin-left:180px;width:300px
+}
