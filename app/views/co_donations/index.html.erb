@@ -1,3 +1,12 @@
 <div style="padding:60px;text-align:center;font-size:36px;color:#999;background-color:#f0f0f0">团捐的介绍</div>
 
 <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
+
+
+<% content_for :sidebar do -%>
+  <% if logged_in? && current_user.envoy? %>
+    <%= link_to '发起新的团捐', new_co_donation_url%>
+  <% else %>
+    发起团捐的功能目前只对学校大使开放，如果你是学校大使请用学校大使身份登录。
+  <%end%>  
+<% end -%>

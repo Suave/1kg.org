@@ -7,7 +7,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requirements, :member => {}  
   
   map.resources :co_donations, :member => {:feedback => :get} do |c|
-    c.resources :sub_donations, :member => {:verify => :put, :cancel => :put}
+    c.resources :sub_donations, :member => {:prove => :put,
+                                            :admin_state => :put}
     c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
   end
  
@@ -180,11 +181,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :groups
     admin.resources :game_categories
+    admin.resources :co_donations,:member => {:validate => :put, :cancel => :put}
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
+    
   end
 
   # 公益产品

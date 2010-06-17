@@ -70,7 +70,7 @@
       <% end%>
       
       <div class="project_info">
-        <div class="title_line"><h5>反馈要求</span></div>
+        <div class="title_line"><h5>反馈要求</h5></div>
         <%= "#{@requirement.requirement_type.feedback_require}<br/>" %><%= "需要在 #{@requirement.requirement_type.feedback_at.to_date} 之前完成反馈" unless @requirement.requirement_type.feedback_at.nil?%>
       </div>
     </div>
@@ -105,7 +105,7 @@
         <div class="project_info">
             <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}" %></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
-            <%= "暂无分享" if @photos.empty? %>
+            <%= "暂无分享" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
 
@@ -123,8 +123,7 @@
             <%= @requirement.feedback %>
           <% end -%>
         </div>
-              
-      
+        
       <% else %>
         <div class="project_info">
         <p>项目还在申请中。</p>
@@ -133,10 +132,8 @@
         </div>
 </div>
 <script type="text/javascript">
-  jQuery("#projects_tabs").tabs();
-  
+  jQuery("#projects_tabs").tabs();  
 </script>
-
 
 <%= render :partial => "/comments/comments", :object => @comments %>
 <%= render :partial => "/comments/form", :locals => {:commentable => @requirement,:cancel => true} %>

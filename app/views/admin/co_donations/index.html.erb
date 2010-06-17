@@ -1,0 +1,43 @@
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理后台", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<table>
+  <tbody>
+      <tr>
+        <th>团捐</th>
+        <th>发起人</th>
+        <th>发起日期</th>
+        <th>操作</th>
+        <th width="14%">详细</th>
+      </tr>
+    <% @co_donations.each_with_index do |d,n|%>
+      <tr>
+        <td><%= link_to "为#{d.school.title}捐赠#{d.goods_name}",co_donation_path(d)%></td>
+        <td><%= link_to "#{d.user.login}",user_path(d.user)%></td>
+        <td><%= d.created_at.to_date %></td>
+        <td><%if  d.validated?%><span style="color:#3333cc">已验证</span> <span style="font-weight:bold"><%= link_to "取消验证",cancel_admin_co_donation_path(d),:method => :put%></span><%else%><span style="color:#999">未验证</span> <span style="font-weight:bold"><%= link_to "通过验证",validate_admin_co_donation_path(d),:method => :put%></span><%end%></td>
+        <td><a class="more" href="#" onclick="javascript:$('.co_donation_n').hide();$('#co_donation_<%= n %>').toggle();return false;"> 查看详情</a></td>
+        
+      </tr>
+      <tr>
+        <td  class="co_donation_n" colspan="5"  id='<%= "co_donation_#{n}" %>' style="display:none">
+          <p>捐赠目标: <%= "#{d.goods_name} #{d.goal_number}件"%></p>
+          <p><h5>学校故事</h5>
+          <%= d.description %>
+          </p>      
+          <p><h5>反馈计划</h5>
+          </p>
+          <p><h5>接收人：</h5>
+              地址：<%= d.address%><br/>
+
+          姓名：<%= d.receiver%>　　邮编：<%= d.zipcode%>　　电话：<%= d.phone_number%>
+          </p>
+        </td>
+      </tr>
+    <%end%>
+    <tr><td></td></tr>
+  </tbody>
+</table>
+            

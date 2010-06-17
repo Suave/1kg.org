@@ -1,59 +1,85 @@
 <div style="clear:both"></div>
 <div>
-  <p>
-    <label >主题图</label>
-  　 <%= form.file_field :image %> 
-  </p>
-
-  <p>
-    <label >相关学校</label>
-  　 <%= form.collection_select :school_id, current_user.envoy_schools, :id, :title %> 
-  </p>
-  
-  <p>
-    <label>捐赠物资名称<span class="require">*</span></label>
-    <%= form.text_field :goods_name, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :goods_name %>
-  </p>
-  
-  <p>
-    <label>需要物资数量<span class="require">*</span></label>
-    <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :number %>
-  </p>
-  
-  <p>
-    <label>截止时间<span class="require">*</span></label>
-    <input id="co_donation_end_at" name="co_donation[end_at]" type="text" value="<%= Date.today %>" class="vDateField" />
-    <%= error_message_on @activity, :end_at %>
-  </p>
-
-  <p><label >发起原因<span class="require">*</span></label><%= error_message_on @activity, :description %>
-    <br/>
-    <%= form.text_area :description, :cols => 50, :rows => 6  %>
-  </p>
-  
-  <p><label >活动计划<span class="require">*</span></label><%= error_message_on @activity, :plan %>
-    <br/>
-    <%= form.text_area :plan, :cols => 50, :rows => 6  %>
-  </p>
-  
-  <p>
-    <label>物资接收地址<span class="require">*</span></label>
-    <%= form.text_field :address, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :address %>
-  </p>
-  
-  <p>
-    <label>物资接收人<span class="require">*</span></label>
-    <%= form.text_field :receiver, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :receiver %>
-  </p>
-  
-  <p>
-    <label>物资接收地邮编<span class="require">*</span></label>
-    <%= form.text_field :zipcode, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :zipcode %>
-  </p>
-  
-  <p>
-    <label>物资接收人电话<span class="require">*</span></label>
-    <%= form.text_field :phone_number, :size => 30, :class => "formText",:style => "width:180px" %><%= error_message_on @activity, :phone_number %>
-  </p>
+  <span class="span_title2">一 团捐基本信息</span>
+  <div class="contents" style="padding-left:10px">    
+    <p><span>为哪所学校团捐?<span class="require">*</span></span>
+    <%= form.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%>
+    <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @apply, :school_id %><%= error_message_on @co_donation, :school_id %>
+    </p>
+    <div id="why" style="display:none;" class="caution">如果下拉菜单里没有你要找的学校，说明你并不是那所学校的学校大使，只有学校大使才可以为学校发起团捐。<%= link_to "如何成为学校大使？" ,"/misc/school-moderator-guide"  %></div>
+    <div id="school_info" class="caution" style="display:none">发起团捐前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。<br/>如果与网站上的<a id="school_link"> 学校信息 </a>不一致，请先 "更新学校信息"。</div>
+    
+    <p>
+      <span>物资名称<span class="require">*</span></span>
+      <%= form.text_field :goods_name, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goods_name %>
+      <span>目标数量<span class="require">*</span></span>
+      <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goal_number %>
+    </p>
+    
+    <p>
+      <label>截止时间<span class="require">*</span></label>
+       <%= form.text_field :end_at,{:class=> "vDateField"} %>(最长时间不能超过3个月)
+      <%= error_message_on @co_donation, :end_at %>
+    </p>
+  </div>
 </div>
-<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
+<br/>
+<div>
+  <span class="span_title2">二 发起原因&物资使用计划</span>
+  <div class="contents" style="padding-left:10px">    
+  <p><h6>学校故事：<span class="require">*</span></h6><%= error_message_on @co_donation, :description %>
+      <span class="gary_span">说明学校需求的具体情况，你发起捐赠的原因是什么？</span>
+      <br/>
+    <%= form.text_area :description, :cols => 80, :rows => 5  %>
+  </p>
+  
+  <p><h6>反馈计划：<span class="require">*</span></h6><%= error_message_on @co_donation, :plan %>
+      <span class="gary_span">你计划在捐赠结束后如何反馈？频率怎样？反馈的形式和内容？</span>
+      <br/>
+    <%= form.text_area :plan, :cols => 80, :rows => 5  %>
+  </p>
+    
+  </div>
+</div>
+<br/>  
+<div>
+  <span class="span_title2">三 接收物资的必要信息</span>
+  <br/><span class="gary_span">为了确保捐赠人的物资能够顺利邮寄或快递，请仔细填写以下信息。</span>
+  <div class="contents" style="padding-left:10px">    
+  <p>
+    <label>接收地址<span class="require">*</span></label>
+    <%= form.text_field :address, :size => 30, :class => "formText",:style => "width:240px" %><%= error_message_on @co_donation, :address %>
+    <span>邮编<span class="require">*</span></span>
+    <%= form.text_field :zipcode, :size => 7, :class => "formText",:style => "width:80px" %><%= error_message_on @co_donation, :zipcode %>
+  </p>
+  
+  <p>
+    <label>接收人姓名<span class="require">*</span></label>
+    <%= form.text_field :receiver, :size => 30, :class => "formText",:style => "width:80px" %><%= error_message_on @co_donation, :receiver %>
+    <label>联系电话<span class="require">*</span></label>
+    <%= form.text_field :phone_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :phone_number %>
+  </p>
+    
+  </div>
+</div>  
+  
+
+
+<div>
+  <span class="span_title2">四 做为团捐发起人的责任</span>
+  <p>做为团捐的发起人，你有责任对收到捐赠者的捐赠进行确认，在团捐成功后，你也需要填写反馈报告，告知大家你对捐赠物资的使用情况。</p>
+  <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求对团捐进行管理和反馈<span class="require">*</span> <%= error_message_on @co_donation, :agree_feedback_terms %></p>
+  </div>
+</div>  
+
+
+  
+    <p style="display:none">
+    <label >主题图</label>
+  　 <%= form.file_field :image %> <%= error_message_on @co_donation, :image %>(找一张能代表捐赠物资的图片吧)
+    </p>        
+  
+  <script type="text/javascript" charset="utf-8">
+  $(document).ready(DateTimeShortcuts.init);
+  $('#co_donation_school_id').delayedObserver(0.25, function(element, value){$("#school_info").hide();$("#school_link").attr("href",("/schools/" + value));if (value != ''){$("#school_info").show()} })
+  </script>

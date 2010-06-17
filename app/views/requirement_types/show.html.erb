@@ -53,7 +53,7 @@
 
 <div class="newbox">
       <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:160px;width:160px;") %>
+            <%= image_tag(@project.image(:thumb), :alt => @project.title,:style => "width:160px;") %>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
         <%if @project.apply_end? -%>
