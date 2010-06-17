@@ -286,7 +286,7 @@ class SchoolsController < ApplicationController
     
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
     @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
-    @wannas = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 3},:order => "wanna_at ASC",:include => [:user])
+    @wannas = Visited.find(:all,:conditions => ['school_id = ? and status = ? and wanna_at > ?', @school.id, 3, Time.now], :order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @requirements = @school.requirements.find(:all,:limit => 3,:conditions => ["applicator_id is not null"])
