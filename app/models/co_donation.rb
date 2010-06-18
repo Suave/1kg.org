@@ -6,7 +6,8 @@ class CoDonation < ActiveRecord::Base
 
   has_many :sub_donations,:order => "created_at desc"
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  
+  has_many :photos, :order => "id desc", :dependent => :destroy
+    
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
   
   validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:message => "此项是必填项"

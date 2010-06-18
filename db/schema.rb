@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
+    t.integer  "co_donation_id"
   end
 
   create_table "posts", :force => true do |t|

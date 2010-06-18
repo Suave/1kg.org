@@ -22,9 +22,9 @@
   <span class="span_title">团捐反馈</span>
   <div class="clearfix" style="height:10px"></div>
   <% form_for @co_donation, :html => {:multipart => true} do |f| -%>
-    <p><label >反馈报告<span class="require">*</span></label><%= error_message_on @activity, :description %>
+    <p><label >反馈正文<span class="require">*</span></label><%= error_message_on @activity, :description %>
       <br/>
-      <%= f.text_area :feedback, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
+      <%= f.text_area :feedback, :style => 'width:480px;height:240px;' %>
     </p>
     
     <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "提 交" %></span>
