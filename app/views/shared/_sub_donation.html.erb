@@ -1,4 +1,4 @@
-<div class="record" <%= "style='height:100px'" if logged_in? && @co_donation.user == current_user%>>
+<div class="record" <%= "style='height:86px'" if logged_in? && @co_donation.user == current_user && sub_donation.state != "ordered"%>>
   <div style="float:left">
     <%= avatar_for(sub_donation.user, "large") %>
   </div>

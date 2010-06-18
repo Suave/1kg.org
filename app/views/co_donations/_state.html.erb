@@ -1,25 +1,27 @@
   <div id="donation_state" style="<%= 'text-align:right;padding:10px 15px 10px' unless @state.nil? %>">
   
   <% if @state == "ordered"%>
-    <div id="select_todo">
-      <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">更改数量？</a><br/>
+    <div>
+      <div id="change_quantity" style="display:none">
+      <% form_for [@co_donation, @exist_donation] do |f| %>
+        <div style="margin:4px"><span class="span_title2">修改数量</span>
+          <%= f.text_field :quantity,:id => "donation_quantity"%> <span class="span_title2">件</span>
+          <br/><%= link_to "取消捐赠?", co_donation_sub_donation_path(@exist_donation.co_donation,@exist_donation), :confirm => "确定要取消这次捐赠?", :method => :delete %>
+        </div>
+          <%= f.submit '确定',:class => "surebutton" %>
+          <%= f.submit '取消',:class => "surebutton",:onclick => "javascript:$('#change_number').toggle();$('#change_quantity').toggle();return false;" %>
+      <% end %>
+      </div>
+      
+      <div  id="change_number">
+        <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#change_number').toggle();$('#change_quantity').toggle();return false">更改数量？</a>
+      </div>
       <div class="donation_note">
         <span class="gary_span" style="font-size:13px">目前你的捐赠状态是"未证明"，请在<span style="color:#A84300"><%= (@exist_donation.created_at + 1.week).to_date %></span>前，将物资邮寄或快递给接收人，并拍一张邮寄或快递的单据照片上传，
         证明你的捐赠已经发出。<br/>你也可以把你物资照片上传到项目反馈的相册里，这样大家就知道你的捐赠是什么样子</span>
       </div>
-      <div style="margin:6px"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">上传照片</a><br/>
+      <div style="margin:6px" id="select_todo"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">上传照片</a><br/>
       </div>
-    </div>
-     
-    <div id="change_quantity" style="display:none">
-    <% form_for [@co_donation, @exist_donation] do |f| %>
-      <div style="margin:4px"><span class="span_title2">修改数量</span>
-        <%= f.text_field :quantity,:id => "donation_quantity"%> <span class="span_title2">件</span><br/>
-         <%= link_to "取消捐赠?", co_donation_sub_donation_path(@exist_donation.co_donation,@exist_donation), :confirm => "确定要取消这次捐赠?", :method => :delete %>
-      </div>
-        <%= f.submit '确定',:class => "surebutton" %>
-        <%= f.submit '取消',:class => "surebutton",:onclick => "javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false;" %>
-    <% end %>
     </div>
     
     <div id="prove_photo" style="display:none">
@@ -43,9 +45,9 @@
       <%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" %>
     </div>
   <% elsif @state == "refused"%>
-    <span class="span_title">你的捐赠失效了</span><br/>
+    <span class="span_title">你的捐赠无效了</span><br/>
     <div class="donation_note">
-      <span class="gary_span" style="font-size:13px">失败的原因可能两点：<br/>1.你没有在指定的日期内上传证明照片<br/>2.组织者认为你的捐赠证明不符合要求　</span>
+      <span class="gary_span" style="font-size:13px">捐赠无效的原因可能两点：<br/>1.你没有在指定的日期内上传证明照片<br/>2.组织者认为你的捐赠证明不符合要求　</span>
     </div>
     <%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless @exist_donation.image.nil?%>
   <% elsif @state == "received"%>

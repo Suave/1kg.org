@@ -49,11 +49,16 @@ class CoDonation < ActiveRecord::Base
   end
   
   def matched_percent
-    (self.number.to_f*100/self.goal_number).to_i
+    self.done ? 100 : (self.number.to_f*100/self.goal_number).to_i
   end
     
   def update_number!
     self.number = (self.sub_donations.nil?? 0 : self.sub_donations.find(:all,:conditions => ["state in (?)",["ordered","received","proved"]]).map(&:quantity).sum)
+    if self.number >= self.goal_number
+      self.done = true
+    else
+      self.done = false
+    end
     self.save
   end
   

@@ -57,7 +57,7 @@
 
   
   <div id="donation_meta">
-    <p><label>发起人：</label><%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(<%= @co_donation.end_at.to_date %>)</span></p>
+    <p><label>发起人：</label><%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(在<%= @co_donation.end_at.to_date %>)</span></p>
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
     <p><label>目标：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"> <%= @co_donation.goal_number %></span> 件</p>
     <p><label>已捐赠：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"><%= @co_donation.number %></span> 件</p>
@@ -67,10 +67,13 @@
     <div id="donation_counter">
       <br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
-    <p style="position:relative;top:-28px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
-    
-      <% if [nil,"canceled",'missed','received','proved'].include?(@state) %>
-        <div>
+    <p style="position:relative;top:-29px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
+      
+      <% if @co_donation.done%>
+        <h5>捐赠目标已经达成</h5>
+      <% elsif @co_donation.end_at < Date.today%>
+        <h5>捐赠已经截止</h5>
+      <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>
           <a href="#" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
           <div id="input_number" style="display:none">
           <% form_for [@co_donation, @sub_donation] do |f| %>
@@ -80,7 +83,7 @@
               <%= error_message_on @sub_donation, :quantity %>
           <% end %>
           </div>
-        </div>
+        
       <% end %>
     </div>
 </div>
