@@ -21,6 +21,7 @@
 <%end%>
 
 <% content_for :crumb do -%>
+<p style="display:none">来自多背一公斤的捐赠活动： <%= summary(@co_donation ,60)%>...</p>
     <li><%= link_to "团捐", co_donations_url %></li>
 <% end -%>
 
@@ -42,7 +43,7 @@
         <% "还没有获得捐赠" if @co_donation.records.empty?%>
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
         <% unless @co_donation.records.empty?%>
-        <p style="text-align:right;padding:0 15px">已捐赠数量总计 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
+        <p style="text-align:right;padding:0 15px">捐赠数量总计 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
         <% end -%>
         <div class="cleanfix" style="height:20px"></div>
     </div>
@@ -68,7 +69,7 @@
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
     <p style="position:relative;top:-28px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
     
-      <% if @state.nil? %>
+      <% if [nil,"canceled",'missed','received','proved'].include?(@state) %>
         <div>
           <a href="#" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
           <div id="input_number" style="display:none">
@@ -116,19 +117,16 @@
     <div id="report">
       
       <div class="project_info">
-          <div class="title_line"><span>照片</span><% if logged_in? && @co_donation.user == current_user -%>
-                <%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %>
-              <%end%></div>
+          <div class="title_line"><span>照片</span>　<%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %></div>
             
             <div class="clearfix" id="photos">
               <div id="upload_container"></div>
               <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
               <%= "暂无照片" if @photos.empty? %>
-                
-              <p style="text-align:right;clear:both">
-                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
-            </p>
               
+              <div style="text-align:right;clear:both">
+                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+              </div>
               
               <div style="display:none;" id="upload_tip">
               上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:co_donation_id => @co_donation.id) %> 上传.
@@ -148,9 +146,8 @@
             <%= @co_donation.feedback %>
           <% end -%>
         </div>
-        
-        
     </div>
+    <%= share_link(summary(@co_donation ,60),(@page_title.to_s + " - 多背一公斤"))%>
 </div>
 
 <div style="clear:both;height:20px"></div>  

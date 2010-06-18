@@ -86,7 +86,7 @@ class CoDonationsController < ApplicationController
   #检测用户的捐赠状态
   def get_state
     if logged_in?
-      @exist_donation = @co_donation.sub_donations.find(:last,:conditions => {:user_id => current_user.id})
+      @exist_donation = @co_donation.sub_donations.find(:first,:conditions => {:user_id => current_user.id},:order => "created_at desc")
       @state = (@exist_donation.nil?? nil : @exist_donation.state)
     else
       @state = nil

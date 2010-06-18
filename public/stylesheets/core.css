@@ -1410,6 +1410,7 @@ a.progressCancel:hover {
 .donation_note{margin-top:4px;text-align:left;padding:5px 10px;background-color:#eee}
 #donation_meta{float:left;width:250px;padding-left:20px;padding-right:20px}
 #donation_meta p{margin:6px 0}
+.donation_admin{background: url('/images/turn.gif') no-repeat #ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc;clear:both}
 
 #module_meta {margin-left:180px;width:300px}
 
