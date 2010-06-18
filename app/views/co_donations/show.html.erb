@@ -10,7 +10,7 @@
 
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
-    $("#projects_tabs").tabs();
+    $("#donations_tabs").tabs();
     $(".more").toggle(
       function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
       function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
@@ -34,8 +34,7 @@
         </div>
   <% end %>
   
-    <%= render :partial => "state" %>
-    <div class="cleanfix" style="height:20px"></div>
+  <%= render :partial => "state" %>
     
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
@@ -56,19 +55,22 @@
     </div>
 
   
-  <div style="float:left;width:250px;padding-left:20px;padding-right:20px">
+  <div id="donation_meta">
     <p><label>发起人：</label><%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(<%= @co_donation.end_at.to_date %>)</span></p>
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
+    <p><label>目标：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"> <%= @co_donation.goal_number %></span> 件</p>
+    <p><label>已捐赠：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"><%= @co_donation.number %></span> 件</p>
     <p><label>截止日期：</label><%= @co_donation.end_at.to_date %></p>
   </div>
   
     <div id="donation_counter">
-      <p style="margin:0 0 5px;text-align:right"><%= '还' unless @co_donation.number == 0 %>需要 <span style="font-size:24px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= @co_donation.still_need %></span> 件<br/>
-      <span class="gary_span"><%=  "已捐赠：#{@co_donation.number }　" unless (@co_donation.number == 0)%><%= "目标数量：#{@co_donation.goal_number}" %> </span></p>
-      <%= progressbar @co_donation.matched_percent, :generate_css => true%><br/>
+      <br/>
+      <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
+    <p style="position:relative;top:-28px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
+    
       <% if @state.nil? %>
-        <div style="margin:12px">
-          <a href="#" style="background-color:#cc4020;font-size:16px;border: 2px solid #ee6040;font-weight:bold;padding:3px 9px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
+        <div>
+          <a href="#" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
           <div id="input_number" style="display:none">
           <% form_for [@co_donation, @sub_donation] do |f| %>
               <span class="span_title2">捐赠</span>
@@ -93,7 +95,7 @@
 
 <div class="cleanfix" style="height:20px"></div>
 
-<div id="projects_tabs">
+<div id="donations_tabs">
     <ul class="tab" >
       <li class="tabs_more"><%= link_to '捐赠背景', "#detail" %></li>
       <li class="tabs_more"><%= link_to '捐赠反馈', "#report",:id => "report_link" %></li>
