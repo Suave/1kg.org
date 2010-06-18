@@ -14,7 +14,7 @@
   <% if logged_in? && (@co_donation.user == current_user)&& (sub_donation.state != 'ordered') %>
     <div style="background-color:#ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc">
       <% form_for [@co_donation, sub_donation],:url => admin_state_co_donation_sub_donation_path(sub_donation.co_donation,sub_donation), :html => {:method => :put,:multipart => true} do |f| %>
-        <%= select 'sub_donation',:action,[['证明照片，等待捐赠中','wait'],['已经收到物资,捐赠成功',"receive"],['没有收到物资，物流失败','miss'],['证明照片不合要求，捐赠失效','refuse']],{:selected => {'proved'=>'wait','received'=>"receive",'missed'=>'miss','refused'=>'refuse'}[sub_donation.state]}%>
+        <%= select 'sub_donation',:action,[['证明照片通过，等待接收物资','wait'],['已经收到物资,捐赠成功',"receive"],['没有收到物资，物流失败','miss'],['证明照片不合要求，捐赠失效','refuse']],{:selected => {'proved'=>'wait','received'=>"receive",'missed'=>'miss','refused'=>'refuse'}[sub_donation.state]}%>
         <%= f.submit '确定'%>
       <% end %>
     </div>
