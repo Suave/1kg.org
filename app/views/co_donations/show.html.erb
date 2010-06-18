@@ -17,12 +17,21 @@
 <%end%>
 
 <% content_for :crumb do -%>
-  
+    <li><%= link_to "团捐", co_donations_url %></li>
 <% end -%>
 
 <% content_for :sidebar do -%>
-    <span class="remark"><%= link_to "&raquo; 回到团捐首页",co_donations_url%></span>
-    <div class="cleanfix" style="height:20px"></div>
+
+  <% if logged_in? && (@co_donation.user == current_user)%>
+        <div id="admins">
+          <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
+          <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
+          <br/>2. 当确认物资收到之后，填写反馈报告，让大家知道物资被有效的利用。<%= link_to "编辑报告",feedback_co_donation_url(@co_donation),:class => "adminbutton" %></p>
+        </div>
+  <% end %>
+  
+    <%= render :partial => "state" %>
+    <div class="cleanfix" style="height:40px"></div>
     
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
@@ -57,7 +66,7 @@
     </div>
 </div>
 
-<%= render :partial => "state" %>
+
 <div class="cleanfix" style="height:20px"></div>
 
 <div id="projects_tabs">
