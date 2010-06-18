@@ -188,7 +188,7 @@ class UsersController < ApplicationController
   
   def visited
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:include => [:school])
-    @wannas = Visited.find(:all,:conditions => {:user_id => @user,:status => 3},:include => [:school])
+    @wannas = Visited.find(:all,:conditions => ['user_id = ? and status = ? and visited_at > ?', @user.id, 3, Time.now], :include => [:school])
     @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:include => [:school])
   end
   
