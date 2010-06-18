@@ -22,7 +22,7 @@ class CoDonationsController < ApplicationController
     
     respond_to do |wants|
       if @co_donation.save
-        wants.html {redirect_to school_url(@co_donation.school)}
+        wants.html {redirect_to @co_donation}
       else
         wants.html {render 'new'}
       end
@@ -41,13 +41,9 @@ class CoDonationsController < ApplicationController
   end
   
   def feedback
-    @activity = @co_donation = current_user.co_donations.find(params[:id])
+    @co_donation = current_user.co_donations.find(params[:id])
   end
-  
-  def feedback
-    @activity = @co_donation = current_user.co_donations.find(params[:id])
-  end
-  
+   
   def update
     @co_donation = current_user.co_donations.find(params[:id])
     @schools = current_user.envoy_schools
