@@ -1,18 +1,9 @@
 <div id="donation_active">
   
-  
-  <% if logged_in? && (@co_donation.user == current_user)%>
-        <div style="text-align:left;font-size:13px;border-bottom:1px solid #aaa;margin-bottom:20px">
-          <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
-          <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
-          <br/>2. 当确认物资收到之后，填写反馈报告，让大家知道物资被有效的利用。<%= link_to "编辑报告",feedback_co_donation_url(@co_donation),:class => "adminbutton" %></p>
-        </div>
-  <% end %>
-  
   <div id="donation_state" >
   <% if @state.nil? %>
     <div style="margin:4px">
-      <a href="#" style="background-color:#cc4020;border: 1px solid #ee6040; font-size:16px;font-weight:bold;padding:4px 10px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
+      <p style="text-align:center"><a href="#" style="background-color:#cc4020;border: 1px solid #ee6040; font-size:18px;font-weight:bold;padding:4px 14px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a></p>
       <div id="input_number" style="display:none">
       <% form_for [@co_donation, @sub_donation] do |f| %>
           <span class="span_title2">要捐赠</span>
@@ -78,19 +69,21 @@
     <%= link_to "查看你的捐赠证明　",@exist_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{@exist_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" %>
   <% end %>
 
-  <% if @state != 'ordered'%><p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p><%end%>
-  <div id="donation_receiver" class="caution" <%= "style='display:none'" if @state != 'ordered' %>>
-    <div><h6 style="color:#a84300">以下是捐赠接收人信息，请在邮寄或快递物资时仔细填写，确保没有错误。<h6>
-    </div>
-    
-    <p>地址：<%= @co_donation.address%></p>
-  
-    <p>姓名：<%= @co_donation.receiver%>　　邮编：<%= @co_donation.zipcode%>　　电话：<%= @co_donation.phone_number%>
-    </p>
-  </div>
   </div>
 </div>
 
+  <p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p>
+  <div id="donation_receiver" class="caution" style=" <%= 'display:none' unless @state == 'ordered'%>">
+    <div><h6 style="color:#a84300">捐赠接收人信息</h6>
+                                            <p><span class="gary_span">请在邮寄或快递物资时仔细填写</span></p>
+    </div>
+    
+    <p>地址：<%= @co_donation.address%></p>
+    <p>姓名：<%= @co_donation.receiver%></p>
+    <p>邮编：<%= @co_donation.zipcode%></p>
+    <p>电话：<%= @co_donation.phone_number%></p>
+    </p>
+  </div>
 
 <script type="text/javascript">
 <%= "$('#select_todo').toggle();$('#prove_photo').toggle()" if params[:error] == "prove"%>
