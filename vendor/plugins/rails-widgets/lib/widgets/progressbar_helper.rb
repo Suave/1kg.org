@@ -29,8 +29,12 @@ module Widgets
           percentage = 0
         else
           percentage = options[:adjust] ? (value * 100 / total) : value
-        end 
-        css_class = "progressbar_color_#{index.modulo(10)}"
+        end
+        if options[:custom_css] == true
+          css_class = "progressbar_color_custom"
+        else
+          css_class = "progressbar_color_#{index.modulo(10)}"
+        end
         html << "<div style='width: #{percentage}%;' class='#{css_class}'></div>"
       end 
       html << "</div>" 

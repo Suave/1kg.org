@@ -1,6 +1,4 @@
-<div id="donation_active">
-  
-  <div id="donation_state" >
+  <div id="donation_state" style="<%= 'text-align:right;padding:10px 15px 10px' unless @state.nil? %>">
   
   <% if @state == "ordered"%>
     <div id="select_todo">
@@ -59,7 +57,9 @@
   <% end %>
 
   </div>
-</div>
+<% unless @state.nil? %>
+<div class="cleanfix" style="height:20px"></div> 
+<% end %>
 <script type="text/javascript">
 <%= "$('#select_todo').toggle();$('#prove_photo').toggle()" if params[:error] == "prove"%>
 </script>
