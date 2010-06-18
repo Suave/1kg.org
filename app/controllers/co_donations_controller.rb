@@ -31,12 +31,17 @@ class CoDonationsController < ApplicationController
   
   def show
     @sub_donation = SubDonation.new
+    @photos = @co_donation.photos.find(:all,:limit => 5)
     @comments = @co_donation.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
   end
   
   def edit
     @schools = current_user.envoy_schools
+  end
+  
+  def feedback
+    @activity = @co_donation = current_user.co_donations.find(params[:id])
   end
   
   def feedback

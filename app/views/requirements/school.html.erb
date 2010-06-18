@@ -110,8 +110,6 @@
         </div>
 
         <div class="project_info">
-            <% if logged_in? && @requirement.applicator == current_user -%>
-            <%end%>
           <div class="title_line"><span>执行报告</span> <%= link_to "更新报告", edit_school_requirement_url(@school, @requirement) ,:class => "buttonlink" if logged_in? && @requirement.applicator == current_user%></div>
           <% if @requirement.feedback.nil? %>
             <% if logged_in? && @requirement.applicator == current_user -%>

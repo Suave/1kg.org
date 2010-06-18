@@ -1,9 +1,13 @@
 
 <% @page_title = @title = @co_donation.title%>
 
+
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
+
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
     $("#projects_tabs").tabs();
@@ -26,7 +30,7 @@
         <div id="admins">
           <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
           <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
-          <br/>2. 当确认物资收到之后，填写反馈报告，让大家知道物资被有效的利用。<%= link_to "编辑报告",feedback_co_donation_url(@co_donation),:class => "adminbutton" %></p>
+          <br/>2. 当确认物资收到之后，填写反馈报告，上传反馈照片，让大家知道物资被有效的利用。</p>
         </div>
   <% end %>
   
@@ -71,8 +75,8 @@
 
 <div id="projects_tabs">
     <ul class="tab" >
-      <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
-      <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li>
+      <li class="tabs_more"><%= link_to '捐赠背景', "#detail" %></li>
+      <li class="tabs_more"><%= link_to '捐赠反馈', "#report",:id => "report_link" %></li>
     </ul>
     
     <div id="detail">
@@ -82,13 +86,48 @@
       </div>
       
       <div class="project_info">
-        <div class="title_line"><h5>执行计划</h5></div>
+        <div class="title_line"><h5>反馈计划</h5></div>
         <%= @co_donation.plan %>
       </div>
     </div>
           
-    <div id="report">      
+    <div id="report">
       
+      <div class="project_info">
+          <div class="title_line"><span>照片</span><% if logged_in? && @co_donation.user == current_user -%>
+                <%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %>
+              <%end%></div>
+            
+            <div class="clearfix" id="photos">
+              <div id="upload_container"></div>
+              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+              <%= "暂无照片" if @photos.empty? %>
+                
+              <p style="text-align:right;clear:both">
+                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+            </p>
+              
+              
+              <div style="display:none;" id="upload_tip">
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:co_donation_id => @co_donation.id) %> 上传.
+              </div>  
+            </div>
+        </div>
+        
+        <div class="project_info">
+          <div class="title_line"><span>反馈报告</span> <%= link_to "更新反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink" if @co_donation.feedback && logged_in? && @co_donation.user == current_user%></div>
+          <% if @co_donation.feedback.nil? %>
+            <% if logged_in? && @co_donation.user == current_user -%>
+              如果捐赠有了进展，就<%= link_to "填写反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink"%> 告诉大家吧。
+            <% else %>
+              <p>发起人还没有填写</p>
+            <% end %>
+          <% else %>
+            <%= @co_donation.feedback %>
+          <% end -%>
+        </div>
+        
+        
     </div>
 </div>
 
