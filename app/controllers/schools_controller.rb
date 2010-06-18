@@ -291,7 +291,7 @@ class SchoolsController < ApplicationController
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @requirements = @school.requirements.find(:all,:limit => 3,:conditions => ["applicator_id is not null"])
-    @co_donations = @school.co_donations.find(:all,:limit => 3)
+    @co_donations = @school.co_donations.validated.find(:all,:limit => 3)
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
     
     unless @board.blank?
