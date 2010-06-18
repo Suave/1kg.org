@@ -35,7 +35,7 @@
   <% end %>
   
     <%= render :partial => "state" %>
-    <div class="cleanfix" style="height:40px"></div>
+    <div class="cleanfix" style="height:20px"></div>
     
     <div class="newbox">
       <span class="span_title2">捐赠记录</span>
@@ -56,7 +56,7 @@
     </div>
 
   
-  <div style="float:left;width:260px;padding-left:20px;padding-right:20px">
+  <div style="float:left;width:250px;padding-left:20px;padding-right:20px">
     <p><label>发起人：</label><%= avatar_for @co_donation.user, 'small' %> <%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(<%= @co_donation.end_at.to_date %>)</span></p>
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
     <p><label>截止日期：</label><%= @co_donation.end_at.to_date %></p>
@@ -64,11 +64,31 @@
   
     <div id="donation_counter">
       <p style="margin:0 0 5px;text-align:right"><%= '还' unless @co_donation.number == 0 %>需要 <span style="font-size:24px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= @co_donation.still_need %></span> 件<br/>
-      <span class="gary_span"><%=  "已捐赠：#{@co_donation.number }<br/>" unless (@co_donation.number == 0)%><%= "目标数量：#{@co_donation.goal_number}" %> </span></p>
+      <span class="gary_span"><%=  "已捐赠：#{@co_donation.number }　" unless (@co_donation.number == 0)%><%= "目标数量：#{@co_donation.goal_number}" %> </span></p>
       <%= progressbar @co_donation.matched_percent, :generate_css => true%><br/>
-      
+      <% if @state.nil? %>
+        <div style="margin:12px">
+          <a href="#" style="background-color:#cc4020;font-size:16px;border: 2px solid #ee6040;font-weight:bold;padding:3px 9px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
+          <div id="input_number" style="display:none">
+          <% form_for [@co_donation, @sub_donation] do |f| %>
+              <span class="span_title2">捐赠</span>
+              <%= f.text_field :quantity,:id => "donation_quantity"%><span class="span_title2">件</span>
+              <%= f.submit '确定',:class => "surebutton" %><br/>
+              <%= error_message_on @sub_donation, :quantity %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
     </div>
 </div>
+<p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p>
+  <div id="donation_receiver" class="caution" style=" <%= 'display:none' unless @state == 'ordered'%>">
+    <h6 style="color:#a84300">捐赠接收人信息</h6>
+      <span class="gary_span">请在邮寄或快递物资时仔细填写</span>
+    <p>地址：<%= @co_donation.address%></p>
+    <p>姓名：<%= @co_donation.receiver%>　邮编：<%= @co_donation.zipcode%>　电话：<%= @co_donation.phone_number%></p>
+    </p>
+  </div>
 
 
 <div class="cleanfix" style="height:20px"></div>

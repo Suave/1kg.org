@@ -1,19 +1,8 @@
 <div id="donation_active">
   
   <div id="donation_state" >
-  <% if @state.nil? %>
-    <div style="margin:4px">
-      <p style="text-align:center"><a href="#" style="background-color:#cc4020;border: 1px solid #ee6040; font-size:18px;font-weight:bold;padding:4px 14px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a></p>
-      <div id="input_number" style="display:none">
-      <% form_for [@co_donation, @sub_donation] do |f| %>
-          <span class="span_title2">要捐赠</span>
-          <%= f.text_field :quantity,:id => "donation_quantity"%><span class="span_title2"> 件</span>
-          <%= f.submit '确定',:class => "surebutton" %><br/>
-          <%= error_message_on @sub_donation, :quantity %>
-      <% end %>
-      </div>
-    </div>
-  <% elsif @state == "ordered"%>
+  
+  <% if @state == "ordered"%>
     <div id="select_todo">
       <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#select_todo').toggle();$('#change_quantity').toggle();return false">更改数量？</a><br/>
       <div class="donation_note">
@@ -71,20 +60,6 @@
 
   </div>
 </div>
-
-  <p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p>
-  <div id="donation_receiver" class="caution" style=" <%= 'display:none' unless @state == 'ordered'%>">
-    <div><h6 style="color:#a84300">捐赠接收人信息</h6>
-                                            <p><span class="gary_span">请在邮寄或快递物资时仔细填写</span></p>
-    </div>
-    
-    <p>地址：<%= @co_donation.address%></p>
-    <p>姓名：<%= @co_donation.receiver%></p>
-    <p>邮编：<%= @co_donation.zipcode%></p>
-    <p>电话：<%= @co_donation.phone_number%></p>
-    </p>
-  </div>
-
 <script type="text/javascript">
 <%= "$('#select_todo').toggle();$('#prove_photo').toggle()" if params[:error] == "prove"%>
 </script>

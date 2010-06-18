@@ -21,6 +21,12 @@
        <%= form.text_field :end_at,{:class=> "vDateField"} %>(最长时间不能超过3个月)
       <%= error_message_on @co_donation, :end_at %>
     </p>
+    
+    <p >
+    <label >主题图</label>
+  　 <%= form.file_field :image %> <%= error_message_on @co_donation, :image %>(找一张能代表捐赠物资的图片吧)
+    </p>        
+    
   </div>
 </div>
 <br/>
@@ -74,11 +80,7 @@
 
 
   
-    <p style="display:none">
-    <label >主题图</label>
-  　 <%= form.file_field :image %> <%= error_message_on @co_donation, :image %>(找一张能代表捐赠物资的图片吧)
-    </p>        
-  
+    
   <script type="text/javascript" charset="utf-8">
   $(document).ready(DateTimeShortcuts.init);
   $('#co_donation_school_id').delayedObserver(0.25, function(element, value){$("#school_info").hide();$("#school_link").attr("href",("/schools/" + value));if (value != ''){$("#school_info").show()} })
