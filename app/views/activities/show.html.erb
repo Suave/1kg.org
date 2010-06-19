@@ -5,12 +5,15 @@
     <script type="text/javascript" charset="utf-8">
       jQuery(document).ready(function(){
       jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+      $("#toggle_image").toggle(
+        function(){$(this).text("隐藏图片？");$("#hide_image img").toggle();return false;},
+        function(){$(this).text("显示图片？");$("#hide_image img").toggle();return false;});
       });
     </script>
   <% end %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
-  <style type="text/css">.school_list_meta{width:160px;}</style>
+  <style type="text/css">.school_list_meta{width:160px;}#hide_image img{display:none}</style>
   <meta name="description" content="来自多背一公斤的活动： <%= summary(@activity ,60)%>...">
 <%end%>
 
@@ -110,15 +113,13 @@
           <div class="clearfix" style="margin-bottom:5px;"></div>
 
           <div id="entry">
-            <div id="summary">
-            <% short = (@activity.description_html).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..418) %> 
-            <%= short[418].nil? ? @activity.description_html  : (short + "...") %>
-            <% unless short[418].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#detail').show();return false">(显示全文)</a><% end%>
-            </div>
-            
-            <div id="detail" style="display:none">
-              <%= (@activity.description_html) %>
-              <a href="#" onclick="javascript:$('#detail').hide();$('#summary').show();return false">(显示摘要)</a>
+            <% if @activity.description_html.match '<img ' %>
+              <div style="background-color:#eee;padding:4px">
+                <span class="gary_span">为了便于阅读，我们隐藏了活动介绍中的图片，<a href="#"  id="toggle_image">显示图片？</a></span>
+              </div>
+            <% end %>
+            <div id="hide_image">
+            <%= (@activity.description_html) %>
             </div>
           </div>
           <%= share_link(summary(@activity ,60),(@page_title.to_s + " - 多背一公斤"))%>
