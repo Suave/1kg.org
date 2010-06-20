@@ -1087,6 +1087,11 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
+.user{float:left;width:70px}
+.user dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
+
+
 .obp {float:left; width:115px; margin:12px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px}
@@ -1406,5 +1411,6 @@ a.progressCancel:hover {
 .title_line .span_title2{color:#444}
 .title_line span{font-weight:bold}
 
-#module_meta {margin-left:180px;width:300px
-}
+#module_meta {margin-left:180px;width:300px}
+
+#SWFUpload_0{position:relative;top:7px}
