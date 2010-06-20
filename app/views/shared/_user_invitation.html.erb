@@ -1,5 +1,5 @@
 <% users.each do |c| -%>
-<dl class="obu">
+<dl class="user">
   <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
   <dd><%= link_to c.login, user_url(c) %><br /> <%= check_box_tag "invite[#{c.id}]", c.id %></dd>
 </dl>

@@ -26,10 +26,10 @@
       <%= f.text_field :title, :size => 16, :class => "formText" %>
       </div>
     </div>
-      <p><label class="label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
-      <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %></p>
+      <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %><label class="small_label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
+      <p><label class="label">学校简介</label><%= b.text_area  :intro, :cols => 75, :rows => 6 %></p>
     </fieldset>
-
+     
     <fieldset>
     <legend>学校联系人</legend>
     <% f.fields_for :contact_attributes, @school.contact do |c| -%>

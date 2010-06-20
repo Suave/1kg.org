@@ -307,6 +307,7 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "school_basics", :force => true do |t|
     t.integer  "school_id"
+    t.text     "intro"
     t.string   "address"
     t.integer  "zipcode"
     t.string   "master"

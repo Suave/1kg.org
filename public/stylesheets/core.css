@@ -1087,6 +1087,11 @@ h3.title {
 .obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
+.user{float:left;width:70px}
+.user dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
+
+
 .obp {float:left; width:115px; margin:12px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px}
@@ -1413,4 +1418,6 @@ a.progressCancel:hover {
 .donation_admin{background: url('/images/turn.gif') no-repeat #ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc;clear:both;}
 
 #module_meta {margin-left:180px;width:300px}
+
+#SWFUpload_0{position:relative;top:7px}
 
