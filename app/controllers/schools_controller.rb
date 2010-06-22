@@ -280,6 +280,7 @@ class SchoolsController < ApplicationController
     @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
    
     @followers = @school.interestings
+    @subscribers = @school.fellowers
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
@@ -395,6 +396,7 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
+      Fellowing.create!(:fellower_id => current_user.id, :fellowable_id => @school.id, :fellowable_type => 'School')
     else
       flash[:notice] = "你已经选去过或想去这所学校了"
     end

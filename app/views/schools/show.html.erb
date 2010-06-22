@@ -309,4 +309,13 @@
     </div>
   </div>
   <% end %>
+  
+  <% unless @subscribers.blank? %>
+  <div class="school_sidebar">
+    <h3 class="label_lei">订阅学校动态的用户</h3>
+    <div class="sidebar_inter">
+    <%= render :partial => "/shared/user_list", :locals => {:users => @subscribers} %>
+    </div>
+  </div>
+  <% end %>
 <% end -%>

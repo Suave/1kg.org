@@ -721,4 +721,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   :name
     t.string   :link
   end
+  
+  create_table :fellowings do |t|
+    t.integer :fellower_id
+    t.integer :fellowable_id
+    t.string  :fellowable_type
+  end
 end
