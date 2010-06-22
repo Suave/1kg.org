@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 0) do
     
     t.text     "description"
     t.text     "plan"
+    t.text     "goods_requirements"
     t.text     "feedback"
     
     t.string   "image_file_name"
