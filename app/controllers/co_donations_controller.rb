@@ -22,7 +22,8 @@ class CoDonationsController < ApplicationController
     
     respond_to do |wants|
       if @co_donation.save
-        wants.html {redirect_to @co_donation}
+        flash[:notice] = "你的团捐已经发出，我们会尽快审核你的申请，申请成功后会发送站内信通知你。" 
+        wants.html {redirect_to co_donations_url}
       else
         wants.html {render 'new'}
       end

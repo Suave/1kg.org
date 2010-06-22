@@ -108,12 +108,17 @@
     <div id="detail">
       <div class="project_info">
         <div class="title_line"><h5>学校故事</h5></div>
-        <%= @co_donation.description %>
+        <%= @co_donation.description unless @co_donation.description.nil? %>
+      </div>
+      
+      <div class="project_info">
+        <div class="title_line"><h5>物资要求</h5></div>
+        <%= @co_donation.goods_requirements unless @co_donation.goods_requirements.nil?%>
       </div>
       
       <div class="project_info">
         <div class="title_line"><h5>反馈计划</h5></div>
-        <%= @co_donation.plan %>
+        <%= @co_donation.plan unless @co_donation.plan.nil? %>
       </div>
     </div>
           

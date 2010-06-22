@@ -1,13 +1,13 @@
 <div style="clear:both"></div>
 <div>
-  <span class="span_title2">一 团捐基本信息</span>
+  <span class="span_title2">一 基本信息</span>
   <div class="contents" style="padding-left:10px">    
     <p><span>为哪所学校团捐?<span class="require">*</span></span>
     <%= form.select :school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666"%>
     <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @apply, :school_id %><%= error_message_on @co_donation, :school_id %>
     </p>
     <div id="why" style="display:none;" class="caution">如果下拉菜单里没有你要找的学校，说明你并不是那所学校的学校大使，只有学校大使才可以为学校发起团捐。<%= link_to "如何成为学校大使？" ,"/misc/school-moderator-guide"  %></div>
-    <div id="school_info" class="caution" style="display:none">发起团捐前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。<br/>如果与网站上的<a id="school_link"> 学校信息 </a>不一致，请先 "更新学校信息"。</div>
+    <div id="school_info" class="caution" style="display:none">发起团捐前请先与学校取得联系，确认学校邮寄地址、联系人、还有具体的需求情况。<br/>如果与网站上的<a id="school_link"> 学校信息 </a>不一致，请先 "更新学校信息"。</div>
     
     <p>
       <span>物资名称<span class="require">*</span></span>
@@ -38,7 +38,11 @@
       <br/>
     <%= form.text_area :description, :cols => 80, :rows => 5  %>
   </p>
-  
+  <p><h6>物资要求：<span class="require">*</span></h6><%= error_message_on @co_donation, :goods_requirements %>
+      <span class="gary_span">说对捐赠物资有什么具体要求和注意事项？</span>
+      <br/>
+    <%= form.text_area :goods_requirements, :cols => 80, :rows => 5  %>
+  </p>  
   <p><h6>反馈计划：<span class="require">*</span></h6><%= error_message_on @co_donation, :plan %>
       <span class="gary_span">你计划在捐赠结束后如何反馈？频率怎样？反馈的形式和内容？</span>
       <br/>
@@ -73,7 +77,7 @@
 
 <div>
   <span class="span_title2">四 做为团捐发起人的责任</span>
-  <p>做为团捐的发起人，你有责任对收到捐赠者的捐赠进行确认，在团捐成功后，你也需要填写反馈报告，告知大家你对捐赠物资的使用情况。</p>
+  <p>团捐发起人有责任对收到捐赠者的捐赠进行确认，在团捐成功后需要尽快填写反馈报告，告知参与者捐赠物资的使用情况。</p>
   <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求对团捐进行管理和反馈<span class="require">*</span> <%= error_message_on @co_donation, :agree_feedback_terms %></p>
   </div>
 </div>  

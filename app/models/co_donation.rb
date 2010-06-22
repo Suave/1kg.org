@@ -10,7 +10,7 @@ class CoDonation < ActiveRecord::Base
     
   has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
   
-  validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:message => "此项是必填项"
+  validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:goods_requirements,:message=> "此项是必填项"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
@@ -19,7 +19,7 @@ class CoDonation < ActiveRecord::Base
   
   
   def validate
-      if end_at > ((created_at.nil?? Time.now : created_at) + 3.month)
+      if end_at && (end_at > ((created_at.nil?? Time.now : created_at) + 3.month))
         errors.add(:end_at,"捐赠截止时间必须在三个月内")
       end
   end
