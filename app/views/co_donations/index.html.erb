@@ -14,7 +14,7 @@
 <% content_for :crumb do -%>
     <li><%= link_to "团捐", co_donations_url %></li>
 <% end -%>
-<div style="padding:10px;margin-bottom:10px;"><%= image_tag "/images/co_donations.png"%></div>
+<div style="padding:10px;margin-bottom:10px;"><%= image_tag "/images/co_donations#{params[:image]}.png"%></div>
 
 <div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div>
 
