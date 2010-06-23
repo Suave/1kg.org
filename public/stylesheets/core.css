@@ -1185,8 +1185,8 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
 .project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
-.project_image{width:72px;height:72px;}
-.project_image_big{width:120px;height:120px}
+.project_image{height:72px;}
+.project_image_big{width:120px;}
 .project_info{margin-bottom:30px}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
