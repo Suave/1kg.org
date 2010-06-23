@@ -27,7 +27,7 @@
 
 <% content_for :sidebar do -%>
 
-  <% if logged_in? && (@co_donation.user == current_user)%>
+  <% if logged_in? && (@co_donation.user == current_user) && false%>
         <div id="admins">
           <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
           <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
@@ -101,8 +101,8 @@
 
 <div id="donations_tabs">
     <ul class="tab" >
-      <li class="tabs_more"><%= link_to '捐赠背景', "#detail" %></li>
-      <li class="tabs_more"><%= link_to '捐赠反馈', "#report",:id => "report_link" %></li>
+      <li class="tabs_more"><%= link_to '团捐详情', "#detail" %></li>
+      <li class="tabs_more"><%= link_to '团捐反馈', "#report",:id => "report_link" %></li>
     </ul>
     
     <div id="detail">
