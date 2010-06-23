@@ -148,6 +148,7 @@ class UsersController < ApplicationController
     @donations = @user.donations
     @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
+    @fellowings = @user.fellowings.schools.map(&:fellowable)
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
