@@ -8,6 +8,8 @@ class CoDonationsController < ApplicationController
   
   def index
     @co_donations = CoDonation.validated.all(:limit => 10)
+    @sub_donations = logged_in? ? current_user.sub_donations : nil
+    @recent = SubDonation.recent
   end
   
   def new

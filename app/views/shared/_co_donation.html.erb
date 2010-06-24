@@ -7,7 +7,7 @@
     <h5 style="font-size:13px"><%= link_to co_donation.title, co_donation %></h5>
     <span class="gary_span"><%= co_donation.end_at.to_date %>截止捐赠</span>
     <br/>
-    <div style="float:right;margin-top:12px"><%= link_to "立即捐赠", co_donation_path(co_donation) + '#donation' ,:class => "buttonjoin2"%></div>
+    <div style="float:right;margin-top:12px"><%= link_to "查看详情", co_donation_path(co_donation) + '#donation' ,:class => "buttonjoin2"%></div>
     <p style="margin:0">还差 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= [co_donation.still_need] %></span> 件</p>
     </div>
           

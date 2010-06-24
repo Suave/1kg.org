@@ -1,12 +1,56 @@
-<div style="padding:60px;text-align:center;font-size:36px;color:#999;background-color:#f0f0f0">团捐的介绍</div>
+<% @page_title = @title = "物资团捐"%>
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+  
+  <script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    });
+  </script>
+<%end%>
 
+
+<% content_for :crumb do -%>
+    <li><%= link_to "团捐", co_donations_url %></li>
+<% end -%>
+<div style="margin-bottom:10px;"><%= image_tag "/images/co_donations#{params[:image]}.png"%></div>
+
+<div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div>
+
+<span class="span_title" style="margin-right:8px">进行中</span>
+<div class="clearfix" style="clear:both;height:10px"></div>
 <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
+<div class="clearfix" style="clear:both;height:20px"></div>
 
 
 <% content_for :sidebar do -%>
-  <% if logged_in? && current_user.envoy? %>
-    <%= link_to '发起新的团捐', new_co_donation_url%>
-  <% else %>
-    发起团捐的功能目前只对学校大使开放，如果你是学校大使请用学校大使身份登录。
-  <%end%>  
+  
+    <% @recent.each do |sub_donation| %>
+      <div style="float:left">
+        <%= avatar_for(sub_donation.user, "large") %>
+      </div>
+      <div style="margin-left:56px;padding:4px 6px;">
+        <span class="gary_span"><%= sub_donation.user.login %></span><br/>
+        <%= link_to sub_donation.description,sub_donation.co_donation%><br/>
+        <span class="gary_span"><%= sub_donation.creat_at｜date%></span>
+      </div>
+    <% end %>
+  
+  
+  <div class="clearfix" style="margin:10px 0 10px"><span class="span_title" style="margin-right:8px">我参与的团捐</span></div>
+  <% if logged_in?%>
+    <%= "你还没有参与过团捐" if @sub_donations.empty? %>
+    <% @sub_donations.each do |sub_donation|%>
+      <div class="record">
+      <span class="gary_span" style="float:right"><%= link_to "查看捐赠证明",sub_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{sub_donation.user.login} 为#{sub_donation.co_donation.school.title}捐赠#{sub_donation.co_donation.goods_name}的证明" unless sub_donation.state == "ordered" %></span>
+      <h6><%= link_to sub_donation.co_donation.title,sub_donation.co_donation%></h6>
+      <span style="float:right;color:#fff;padding:1px 6px;position:relative;top:8px;font-size:13px;font-weight:bold;background-color:<%= {'ordered'=>'#FFA070','proved'=>'#e98523','received'=>'#EF6A0B','missed'=>'#aaa','refused'=>'#aaa'}[sub_donation.state]%>"><%= {"ordered" => "未寄出","proved" => "已寄出","refused" => "捐赠无效","received" => "捐赠已收到","missed" => "物流失败"}[sub_donation.state] %></span>
+      捐赠 <span style="font-size:24px;color:<%= {'ordered'=>'#FFA070','proved'=>'#e98523','received'=>'#EF6A0B','missed'=>'#aaa','refused'=>'#aaa'}[sub_donation.state]%>" class="donation_number"><%= sub_donation.quantity %></span> 件
+      </div>
+    <% end %>
+  <%else%>
+    请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
+  <% end %>
+
 <% end -%>
