@@ -26,9 +26,19 @@
 
 <% content_for :sidebar do -%>
   
+    <% @recent.each do |sub_donation| %>
+      <div style="float:left">
+        <%= avatar_for(sub_donation.user, "large") %>
+      </div>
+      <div style="margin-left:56px;padding:4px 6px;">
+        <%= sub_donation.user.login %><br/>
+        <%= link_to sub_donation.description,sub_donation.co_donation%>
+      </div>
+    <% end %>
+  
+  
+  
   <div class="clearfix" style="margin:10px 0 10px"><span class="span_title" style="margin-right:8px">我参与的团捐</span></div>
-
-
   <% if logged_in?%>
     <%= "你还没有参与过团捐" if @sub_donations.empty? %>
     <% @sub_donations.each do |sub_donation|%>
