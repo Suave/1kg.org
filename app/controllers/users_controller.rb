@@ -152,6 +152,9 @@ class UsersController < ApplicationController
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
+    
+    # 目前只支持学校动态
+    @feed_items = FeedItem.find(:all, :conditions => ['owner_type = ? and owner_id in (?) and user_id <> ?', 'School', @user.fellowings.schools.map(&:fellowable_id), @user.id], :order => 'created_at DESC', :limit => 10)
   end
   
   def shares

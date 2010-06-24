@@ -44,6 +44,7 @@ class Share < ActiveRecord::Base
   
   before_save  :format_content
   after_create :initial_last_replied
+  after_create :create_feed
   
   named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
                               :limit => 8,
@@ -100,5 +101,10 @@ class Share < ActiveRecord::Base
   
   def format_content
     self.clean_html = sanitize(self.body_html)
+  end
+  
+  def create_feed
+    self.school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}写了一篇关于#{self.school.title}的分享：#{self.title}), :user_id => self.user.id, :category => 'share',
+                :item_id => self.id, :item_type => 'Share') if self.school
   end
 end

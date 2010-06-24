@@ -1,0 +1,42 @@
+<div class="newbox">
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <span class="span_title"><%= h user.login %>的动态</span>
+  <div class="panel setting">
+    <div id='shares'>
+      <% feed_items.each do |item| %>
+        <div style="clear:both;margin-bottom:1em;min-height:50px">
+          <div style="float:left">
+            <%= avatar_for(item.user, "large") %>
+          </div>
+          
+          <div style="margin-left:60px;">
+            <% if item.category == "share" %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>写了一篇关于<%= link_to h(item.owner.title), item.owner %>的分享： <%= link_to h(item.item.title), share_url(item.item) %>
+              </div>
+              <div style="color:#999; text-align:right">
+                <%= item.item.hits %> 浏览/<%= item.item.comments_count %> 回复
+              </div>
+            <% elsif item.category == 'photo' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>为<%= link_to h(item.owner.title), item.owner %>上传了一张新照片<br />
+                <%= link_to image_tag(item.item.public_filename(:thumb)), item.item.public_filename(:medium) %>
+              </div>
+            <% elsif item.category == 'topic' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>发表了一篇关于<%= link_to h(item.owner.title), item.owner %>的新帖子：<%= link_to h(item.item.title), board_topic_url(item.item.board, item.item) %>
+              </div>
+            <% elsif item.category == 'activity' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>为<%= link_to h(item.owner.title), item.owner %>发起了一个新活动：<%= link_to h(item.item.title), activity_url(item.item) %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      
+      <div class="cleanfix" style="clear:both;"></div> 
+      <div class="remark"><%= link_to "&raquo; 查看全部", shares_user_url(user) %></div>
+    </div>
+  </div>
+</div>
