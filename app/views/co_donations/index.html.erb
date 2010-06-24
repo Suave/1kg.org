@@ -26,19 +26,22 @@
 
 <% content_for :sidebar do -%>
   
+  <div class="clearfix" style="margin:10px 0 10px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
     <% @recent.each do |sub_donation| %>
+    <div style="padding-bottom:5px;border-bottom:1px solid #ccc;">
       <div style="float:left">
         <%= avatar_for(sub_donation.user, "large") %>
       </div>
       <div style="margin-left:56px;padding:4px 6px;">
         <span class="gary_span"><%= sub_donation.user.login %></span><br/>
         <%= link_to sub_donation.description,sub_donation.co_donation%><br/>
-        <span class="gary_span"><%= sub_donation.creat_at｜date%></span>
+        <span class="gary_span"><%= sub_donation.created_at.to_date%></span>
       </div>
+     </div>
     <% end %>
   
   
-  <div class="clearfix" style="margin:10px 0 10px"><span class="span_title" style="margin-right:8px">我参与的团捐</span></div>
+  <div class="clearfix" style="margin:20px 0 10px"><span class="span_title2" style="margin-right:8px">我参与的团捐</span></div>
   <% if logged_in?%>
     <%= "你还没有参与过团捐" if @sub_donations.empty? %>
     <% @sub_donations.each do |sub_donation|%>
