@@ -13,7 +13,7 @@
                 <%= "##{index+1+((page)*15)}" %>
                 <%= link_to comment.user.login, user_url(comment.user) %>写于 <%= comment.created_at.to_date %>
                 <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' if comment.repliable? %>
-                <% if comment.editable_by?(current_user) -%>
+                <% if logged_in? && comment.editable_by?(current_user) -%>
                   | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
                 <% end -%>
               </p>
