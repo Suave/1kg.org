@@ -18,7 +18,7 @@
 
 <div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div>
 
-<span class="span_title" style="margin-right:8px">正在接受捐赠</span>
+<span class="span_title" style="margin-right:8px">进行中</span>
 <div class="clearfix" style="clear:both;height:10px"></div>
 <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
 <div class="clearfix" style="clear:both;height:20px"></div>
@@ -26,9 +26,19 @@
 
 <% content_for :sidebar do -%>
   
+    <% @recent.each do |sub_donation| %>
+      <div style="float:left">
+        <%= avatar_for(sub_donation.user, "large") %>
+      </div>
+      <div style="margin-left:56px;padding:4px 6px;">
+        <span class="gary_span"><%= sub_donation.user.login %></span><br/>
+        <%= link_to sub_donation.description,sub_donation.co_donation%><br/>
+        <span class="gary_span"><%= sub_donation.creat_at｜date%></span>
+      </div>
+    <% end %>
+  
+  
   <div class="clearfix" style="margin:10px 0 10px"><span class="span_title" style="margin-right:8px">我参与的团捐</span></div>
-
-
   <% if logged_in?%>
     <%= "你还没有参与过团捐" if @sub_donations.empty? %>
     <% @sub_donations.each do |sub_donation|%>

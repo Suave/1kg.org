@@ -10,8 +10,13 @@ class SubDonation < ActiveRecord::Base
   validates_presence_of :co_donation_id, :user_id, :quantity
   
   named_scope :by_state, lambda { |state|
-    {:conditions => {:state => state} }
-  }
+    {:conditions => {:state => state} }}
+  
+  named_scope :recent,:limit => 5,:order => "created_at desc"
+  
+  def description
+    "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"
+  end
   
   
   def validate
