@@ -1410,13 +1410,13 @@ a.progressCancel:hover {
 .title_line h5{font-weight:bold;font-size:14px}
 
 
-.donantion_detail{float:left;width:288px;height:188px;padding:10px;background-color:#f3f3f3;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
-#donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:0 0 0 20px;height:120px}
+.donantion_detail{float:left;width:300px;height:188px;padding: 0 20px 10px 0;}
+#donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:10px 0 0 20px;height:120px}
 #donation_counter .progressbar{width:185px;}
 #donation_quantity{width:50px;font-size:16px;text-align:right}
 #donation_receiver{text-align:center;font-size:13px;padding:6px 0 0;margin:30px 0 0;}
 #donation_receiver p{margin:6px}
-.donation_number{font-style:italic;font-family:cursive;position:relative;top:2px}
+.donation_number{position:relative;top:2px}
 .donation_note{margin-top:4px;text-align:left;padding:5px 10px;background-color:#eee}
 #donation_meta{float:left;width:250px;padding-left:20px;padding-right:20px}
 #donation_meta p{margin:6px 0}

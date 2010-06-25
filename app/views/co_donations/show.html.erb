@@ -67,7 +67,7 @@
     <div id="donation_counter">
       <br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
-    <p style="position:relative;top:-29px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
+    <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
       <% if @co_donation.done%>
         <h5>捐赠目标已经达成</h5>
