@@ -20,7 +20,9 @@
 
 <span class="span_title" style="margin-right:8px">进行中</span>
 <div class="clearfix" style="clear:both;height:10px"></div>
+<div style="width:640px">
 <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
+</div>
 <div class="clearfix" style="clear:both;height:20px"></div>
 <% unless @group.nil?%>
   <span class="span_title" style="margin-right:8px">团捐讨论组</span>

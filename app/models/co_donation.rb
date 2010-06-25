@@ -8,7 +8,7 @@ class CoDonation < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
     
-  has_attached_file :image, :styles => {:medium => "300x300>", :thumb => "150x150>" }
+  has_attached_file :image, :styles => {:co_donation_topic => "300x300>", :co_donation_avatar => "150x150>" }
   
   validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:goods_requirements,:message=> "此项是必填项"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
