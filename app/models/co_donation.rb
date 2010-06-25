@@ -58,7 +58,7 @@ class CoDonation < ActiveRecord::Base
   end
     
   def update_number!
-    self.number = (self.sub_donations.nil?? 0 : self.sub_donations.find(:all,:conditions => ["state in (?)",["ordered","received","proved"]]).map(&:quantity).sum)
+    self.number = (self.sub_donations.empty? ? 0 : self.sub_donations.find(:all,:conditions => ["state in (?)",["ordered","received","proved"]]).map(&:quantity).sum)
     if self.number >= self.goal_number
       self.done = true
     else
