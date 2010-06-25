@@ -3,7 +3,7 @@
     <%= avatar_for(sub_donation.user, "large") %>
   </div>
   <div style="margin-left:56px;padding:4px 6px;">
-  <div style="float:right"><%= link_to "查看捐赠证明",sub_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{sub_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless sub_donation.state == "ordered" %></div>
+  <div style="float:right"><%= link_to "查看捐赠证明",sub_donation.image.url,:rel => "prettyPhoto[gallery]",:description => "#{sub_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless sub_donation.image_file_name.nil? %></div>
   <%= link_to sub_donation.user.login, user_url(sub_donation.user) %>
     
     <br/><div style="float:right;font-size:18px;color:<%= {'ordered'=>'#FFA070','proved'=>'#e98523','received'=>'#EF6A0B','missed'=>'#aaa','refused'=>'#aaa'}[sub_donation.state]%>" class="donation_number">+<span style="font-size:22px;"><%= sub_donation.quantity %></span></div>

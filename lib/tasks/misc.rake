@@ -5,10 +5,15 @@ namespace :misc do
     '/usr/ruby /home/jill/mysql_backup/mysql_tools.rb backup'
   end
   
+  desc "判定一周内没有上传证明的捐赠无效"
+  task :check_sub_donation do
+    SubDonation.all.map{|s| s.refuse if s.state == "ordered" && s.created_at < 8.days.ago}
+  end
+  
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|
-      if a.end_at < (Time.now - 1.day)
+      if a.end_at < 1.day.ago
         done = true
         a.update_attribute(:done,done)
         $stdout.putc('.')
