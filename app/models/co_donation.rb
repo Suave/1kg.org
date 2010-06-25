@@ -20,9 +20,7 @@ class CoDonation < ActiveRecord::Base
   
   
   def validate
-    if end_at && created_at && ( end_at > (created_at + 3.month) ) ||  ( end_at < (created_at - 1.day))
-      errors.add(:end_at,"捐赠截止时间不符合要求")
-    elsif end_at && (end_at >  3.month.from_now) || (end_at <  1.day.ago )
+    if end_at && current.nil? && (end_at >  3.month.from_now) || (end_at <  1.day.ago )
       errors.add(:end_at,"捐赠截止时间不符合要求")
     end
       
