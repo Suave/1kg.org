@@ -22,24 +22,34 @@
 <div class="clearfix" style="clear:both;height:10px"></div>
 <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
 <div class="clearfix" style="clear:both;height:20px"></div>
+<% unless @group.nil?%>
+  <span class="span_title" style="margin-right:8px">团捐讨论组</span>
+  <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
+  <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+  <div class="clearfix" style="clear:both;height:20px"></div>  
+<% end %>
+
+
+
 
 
 <% content_for :sidebar do -%>
   
-  <div class="clearfix" style="margin:10px 0 10px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
+  <% unless @recent.empty?%>
+    <div class="clearfix" style="margin:10px 0 10px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
     <% @recent.each do |sub_donation| %>
-    <div style="padding-bottom:5px;border-bottom:1px solid #ccc;">
+    <div class="donation_lastest">
       <div style="float:left">
         <%= avatar_for(sub_donation.user, "large") %>
       </div>
-      <div style="margin-left:56px;padding:4px 6px;">
+      <div style="margin-left:56px;">
         <span class="gary_span"><%= sub_donation.user.login %></span><br/>
         <%= link_to sub_donation.description,sub_donation.co_donation%><br/>
         <span class="gary_span"><%= sub_donation.created_at.to_date%></span>
       </div>
      </div>
     <% end %>
-  
+  <% end %>
   
   <div class="clearfix" style="margin:20px 0 10px"><span class="span_title2" style="margin-right:8px">我参与的团捐</span></div>
   <% if logged_in?%>
