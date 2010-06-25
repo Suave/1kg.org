@@ -16,7 +16,7 @@
 <% end -%>
 <div style="margin-bottom:10px;"><%= image_tag "/images/co_donations#{params[:image]}.png"%></div>
 
-<div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div>
+<% if logged_in? && current_user.envoy?%><div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div><%end%>
 
 <span class="span_title" style="margin-right:8px">进行中</span>
 <div class="clearfix" style="clear:both;height:10px"></div>
@@ -36,7 +36,7 @@
 <% content_for :sidebar do -%>
   
   <% unless @recent.empty?%>
-    <div class="clearfix" style="margin:10px 0 10px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
+    <div class="clearfix" style="margin:10px 0 5px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
     <% @recent.each do |sub_donation| %>
     <div class="donation_lastest">
       <div style="float:left">

@@ -7,7 +7,7 @@ class CoDonationsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
   def index
-    @co_donations = CoDonation.validated.all(:limit => 10)
+    @co_donations = CoDonation.validated.ongoing.all(:limit => 10)
     @sub_donations = logged_in? ? current_user.sub_donations : nil
     @group = Group.find_by_slug('co_donation')
     @board = @group.discussion.board

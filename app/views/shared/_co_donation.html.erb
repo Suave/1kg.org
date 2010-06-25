@@ -1,24 +1,21 @@
-<div class=<%= (defined? detail) ? "donantion_detail" : "activity_list"%>
+<div class=<%= (defined? detail) ? "donantion_detail" : "activity_list"%>>
     <div class="project_image_frame">
         <img class="project_image" src="<%= co_donation.image.url %>"/>
     </div>
-    
     <div style="float:left;margin-left:10px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
     <h5 style="font-size:13px"><%= link_to co_donation.title, co_donation %></h5>
     <span class="gary_span"><%= co_donation.end_at.to_date %>截止捐赠</span>
     <br/>
-    <div style="float:right;margin-top:12px"><%= link_to "查看详情", co_donation_path(co_donation) + '#donation' ,:class => "buttonjoin2"%></div>
     <% if co_donation.done%>
-      <p style="margin:20px 0 0"><h6>达成目标 <%= [co_donation.number] %> 件</h6></p>
+      <h5>达成目标</h5>
     <% else %>
-      <p style="margin:0">还差 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= [co_donation.still_need] %></span> 件</p>
+      <h5>还需要 <%= co_donation.still_need%> 件</h5>
     <% end %>
+    <%= progressbar co_donation.matched_percent, :generate_css => true %><span><%= co_donation.number%>/<%= co_donation.goal_number%></span><br/>
     </div>
-          
-    <div style="clear:both"></div>
     <% if (defined? detail) %>
-    <div class="project_info">
-            <div class="title_line"><span class="gary_span">学校故事</span></div>
+    <div class="project_info" style="clear:both;padding-top:4px">
+            <h6><span class="gary_span">学校故事</span></h6>
             <%= summary(co_donation,68) %>...
           </div>
     <% end %>

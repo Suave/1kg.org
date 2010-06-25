@@ -14,12 +14,13 @@ class CoDonation < ActiveRecord::Base
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
-  named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"  
+  named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
+  named_scope :ongoing, :conditions => ["end_at > ?",(Date.today - 1.day)], :order => "created_at desc"  
   acts_as_paranoid
   
   
   def validate
-    if end_at && (end_at > ((created_at.nil?? Time.now : created_at) + 3.month) || end_at < Date.today )
+    if end_at && (end_at > ((created_at.nil?? Time.now : created_at) + 3.month) || end_at < (Date.today - 1.day))
       errors.add(:end_at,"捐赠截止时间不符合要求")
     end
       
