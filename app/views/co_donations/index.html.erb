@@ -14,7 +14,7 @@
 <% content_for :crumb do -%>
     <li><%= link_to "团捐", co_donations_url %></li>
 <% end -%>
-<div style="margin-bottom:10px;"><%= image_tag "/images/co_donations"%></div>
+<div style="margin-bottom:10px;"><%= image_tag "/images/co_donations.png"%></div>
 
 <% if logged_in? && current_user.envoy?%><div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div><%end%>
 
