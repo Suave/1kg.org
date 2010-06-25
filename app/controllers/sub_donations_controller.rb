@@ -21,7 +21,7 @@ class SubDonationsController < ApplicationController
     respond_to do |wants|
       if @sub_donation.save
          
-        message = Message.new(:subject => "你为#{@co_donation.school.title}认捐了#{@sub_donation.quantity}件#{@co_donation.goods_name}",
+        message = Message.new(:subject => "你为#{@co_donation.school.title}认捐了#{@sub_donation.quantity}件#{@co_donation.goods_name}，请继续跟进",
                                 :content => "<p>你好，#{@sub_donation.user.login}:</p><br/><p>你认捐了的团捐“#{@co_donation.title}”，请在一周内，将捐赠物资邮寄或快递给接收人，并在网站上上可以传证明物资已发出的单据照片。<br/><br/>证明照片在团捐页面上传，并且在上传照片前你可以修改捐赠数量和取消捐赠。<br/>地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"
                                 )
         message.author_id = 0

@@ -38,11 +38,11 @@
   <% unless @recent.empty?%>
     <div class="clearfix" style="margin:10px 0 10px"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
     <% @recent.each do |sub_donation| %>
-    <div style="padding-bottom:5px;border-bottom:1px solid #ccc;">
+    <div class="donation_lastest">
       <div style="float:left">
         <%= avatar_for(sub_donation.user, "large") %>
       </div>
-      <div style="margin-left:56px;padding:4px 6px;">
+      <div style="margin-left:56px;">
         <span class="gary_span"><%= sub_donation.user.login %></span><br/>
         <%= link_to sub_donation.description,sub_donation.co_donation%><br/>
         <span class="gary_span"><%= sub_donation.created_at.to_date%></span>

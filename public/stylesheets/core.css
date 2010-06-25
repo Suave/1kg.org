@@ -1398,7 +1398,7 @@ a.progressCancel:hover {
 .title_line h5{font-weight:bold;font-size:14px}
 
 
-.donantion_detail{float:left;width:288px;height:200px;padding:10px;background-color:#f3f3f3;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
+.donantion_detail{float:left;width:288px;height:188px;padding:10px;background-color:#f3f3f3;border:1px solid #d0d0d0;margin:10px 10px 10px 0}
 #donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:0 0 0 20px;height:120px}
 #donation_counter .progressbar{width:185px;}
 #donation_quantity{width:50px;font-size:16px;text-align:right}
@@ -1409,5 +1409,6 @@ a.progressCancel:hover {
 #donation_meta{float:left;width:250px;padding-left:20px;padding-right:20px}
 #donation_meta p{margin:6px 0}
 .donation_admin{background: url('/images/turn.gif') no-repeat #ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc;clear:both;}
+.donation_lastest{padding:5px 0;border-bottom:1px solid #ccc;}
 
 #module_meta {margin-left:180px;width:300px}

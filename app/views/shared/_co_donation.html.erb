@@ -8,14 +8,18 @@
     <span class="gary_span"><%= co_donation.end_at.to_date %>截止捐赠</span>
     <br/>
     <div style="float:right;margin-top:12px"><%= link_to "查看详情", co_donation_path(co_donation) + '#donation' ,:class => "buttonjoin2"%></div>
-    <p style="margin:0">还差 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= [co_donation.still_need] %></span> 件</p>
+    <% if co_donation.done%>
+      <p style="margin:20px 0 0"><h6>达成目标 <%= [co_donation.number] %> 件</h6></p>
+    <% else %>
+      <p style="margin:0">还差 <span style="font-size:28px;font-style:italic;font-family:cursive;position:relative;top:2px"><%= [co_donation.still_need] %></span> 件</p>
+    <% end %>
     </div>
           
     <div style="clear:both"></div>
     <% if (defined? detail) %>
     <div class="project_info">
             <div class="title_line"><span class="gary_span">学校故事</span></div>
-            <%= co_donation.description %>
+            <%= summary(co_donation,68) %>...
           </div>
     <% end %>
 </div>
