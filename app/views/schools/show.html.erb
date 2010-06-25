@@ -164,14 +164,14 @@
       <% else -%>
         <%= link_to "通过验证", validate_school_url(@school, :t => 'add'), :method => :put ,:class => "adminbutton"%>
       <% end -%>  
-        <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+        <%= link_to "更新信息", edit_school_url(@school) ,:class => "adminbutton"%>
         <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
         <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>
     <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator?-%>
     <div id="admins">你是学校大使，可以使用以下功能：<br/>
-      <%= link_to "编辑学校", edit_school_url(@school) ,:class => "adminbutton"%>
+      <%= link_to "更新信息", edit_school_url(@school) ,:class => "adminbutton"%>
       <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>  
