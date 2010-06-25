@@ -12,7 +12,7 @@ class SubDonation < ActiveRecord::Base
   named_scope :by_state, lambda { |state|
     {:conditions => {:state => state} }}
   
-  named_scope :recent,:limit => 4,:order => "created_at desc"
+  named_scope :recent,:limit => 8,:order => "created_at desc"
   
   def description
     "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"

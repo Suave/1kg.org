@@ -4,7 +4,7 @@
     </div>
     <div style="float:left;margin-left:10px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
     <h5 style="font-size:13px"><%= link_to co_donation.title, co_donation %></h5>
-    <span class="gary_span"><%= co_donation.end_at.to_date %>截止捐赠</span>
+    <span class="gary_span"><%= date_for_short co_donation.end_at %>截止</span>
     <br/>
     <% if co_donation.done%>
       <h5>达成目标</h5>

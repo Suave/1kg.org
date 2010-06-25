@@ -28,6 +28,10 @@
     <% form_for [@co_donation, @exist_donation],:url => prove_co_donation_sub_donation_path(@exist_donation.co_donation,@exist_donation), :html => {:method => :put,:multipart => true} do |f| %>
       <span class="span_title2">上传捐赠证明的照片</span><br/>
       <div style="margin:5px 0"><%= f.file_field :image,:size => 14 %></div>
+      <div style="margin:5px 0">预计到达日期 <%= f.text_field :expected_at,{:class=> "vDateField"} %></div>
+      <script type="text/javascript" charset="utf-8">
+      $(document).ready(DateTimeShortcuts.init);
+      </script>
       <%= f.submit '确定',:class => "surebutton" %> <%= f.submit '取消',:class => "surebutton",:onclick => "javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false;" %>
     <% end %>
     </div>
