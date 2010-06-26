@@ -66,7 +66,7 @@ class School < ActiveRecord::Base
 
   has_many :co_donations
   
-  delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount, :to => :basic
+  delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
   
   named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
   named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
