@@ -30,6 +30,43 @@
               <div>
                 <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>为<%= link_to h(item.owner.title), item.owner %>发起了一个新活动：<%= link_to h(item.item.title), activity_url(item.item) %>
               </div>
+            <% elsif item.category == 'neighborhood' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 关注了 <%= link_to item.item.neighbor.login, user_url(item.item.neighbor.login) %>
+              </div>
+            <% elsif item.category == 'create_school' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>提交了一所新学校：<%= link_to h(item.item.title), item.item %>
+              </div>
+            <% elsif item.category == 'visit' %>
+              <div>
+                <% visit = item.item %>
+                <%= link_to item.user.login, user_url(item.user) %>
+                <% if visit.status == 1 %>
+                  在<%= l(visit.visited_at.to_date) %>去了
+                <% elsif visit.status == 2 %>
+                  关注了
+                <% else %>
+                  要在<%= l(visit.visited_at.to_date) %>去
+                <% end %>
+                <%= link_to h(visit.school.title), school_path(visit.school)%>
+              </div>
+            <% elsif item.category == 'create_group' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 创建了一个新小组：<%= link_to h(item.item.title), group_path(item.item)%>
+              </div>
+            <% elsif item.category == 'join_group' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 加入了小组： <%= link_to h(item.item.title), group_path(item.item)%>
+              </div>
+            <% elsif item.category == 'quit_group' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 退出了小组：<%= link_to h(item.item.title), group_path(item.item)%>
+              </div>
+            <% elsif item.category == 'create_codonation' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %>为：<%= link_to h(item.item.title), group_path(item.item)%>
+              </div>
             <% end %>
           </div>
         </div>
