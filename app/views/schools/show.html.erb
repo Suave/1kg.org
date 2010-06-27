@@ -43,18 +43,55 @@
       <div class="meta_info">
         <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.karma)-%> <span style="color:#999;font-size:10px">累计活跃度:<%=@school.karma%></span>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
-        <% unless @basic.zipcode.blank? %><p>邮编　<%= h @basic.zipcode %></p><%end-%>        
+        <p><%= "邮编　#{@basic.zipcode}　 " unless @basic.zipcode.blank?%><span style="color:#999">最近更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></span></p>
       </div>
     </div>
     
     <div class="clearfix"></div>
-    <span style="color:#999">学校信息最后更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></spam>
   </div>
 
   <div class="school_box">
-    <a class="more" name='#morecontact'>查看学校联系方式</a>
-    <div id="morecontact" style="display:none">
-    <h3 class="label_lei">联系学校</h3>
+    <%if logged_in? && current_user.school_moderator? && @school.intro.nil?%>
+    <p><span style="color:red">新条目！</span> 学校简介可以使用了，赶快为你管理的学校写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_school_url(@school) ,:class => "adminbutton"%></p>
+                                    
+    <% elsif  @school.intro.nil? %>
+    <%else%>
+      <p class="content_text" style="float:left">学校简介</p>
+        <p style="float:left;width:540px;font-size:15px;">
+      <%= @school.intro %>
+      </p>
+      <div class="clearfix" style="clear:both;height:20px"></div>
+    <% end %>
+    
+    <% if @need && !@need.urgency.blank? -%>
+      <p class="content_text" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
+    <% end -%>
+    <% unless needlist(@school).blank? %>
+    <div style="margin-bottom:-10px">
+      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
+      <p style="float:left;width:540px;font-size:15px;">
+    <%= needlist(@school)%>
+    </p>
+    <div class="clearfix" style="clear:both;height:20px"></div>
+    </div>
+    <%end%>
+    
+      <a class="more" name='#morecontact'>更多学校信息</a>
+    <div id="morecontact" style="display:none;padding:20px 0 20px 60px">
+    
+  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
+
+  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
+  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
+  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
+  
+  <% if @local && @local.ngo_support != 2 -%>
+  <p class="content_text">
+  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
+  </p>
+  <%end%>
+  <br/>
     <% unless @basic.master.blank? %><p class="content_text">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
     <% if @contact && !@contact.name.blank? %>
       <p class="content_text">学校的联系人是 <%= h @contact.name %>
@@ -79,35 +116,7 @@
     <% end -%>
     </div>
   </div>
-    
-  <div class="school_box">
-    <h3 class="label_lei">学校情况</h3>
-    <% if @need && !@need.urgency.blank? -%>
-      <p class="content_text" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
-    <% end -%>
-    <% unless needlist(@school).blank? %>
-    <div style="margin-bottom:-10px">
-      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
-      <p style="float:left;width:540px;font-size:15px;">
-    <%= needlist(@school)%>
-    </p>
-    <div class="clearfix"></div>
-    </div>
-    <%end%>
-  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
-
-  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
-  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
-  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
   
-  <% if @local && @local.ngo_support != 2 -%>
-  <p class="content_text">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
-  </p>
-  <%end%>
-  </div>
-
   <div class="school_box">
     <h3 class="label_lei" >学校相册</h3>
     <div class="contents clearfix" style="padding-top:16px;">
@@ -115,17 +124,11 @@
       <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
       </div>
       <div id="upload_container"></div>
-      <p class="content_text content_gary">
-        <% if @photos.blank? %>
-          学校还没有照片，你可以
-        <%else%>
-          <%unless @photos.size < 6%>查看<%= link_to "更多照片", photos_school_path(@school),:class => "buttonlink" %><%end%>
-          你还有更多的学校照片吗？
-        <% end %>
-        
+      <div class="content_text content_gary" style="text-align:right">
+          学校有<%= @school.photos.size %>张照片 
+          <%unless @photos.size < 6%><%= link_to "查看全部", photos_school_path(@school),:class => "buttonlink" %> | <%end%>
         <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
-        让大家更直观的了解学校情况。
-      </p>
+      </div>
       <p class="content_gray" style="display:none;" id="upload_tip">
         上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
       </p>
@@ -176,6 +179,22 @@
     </div>
     <% end -%>  
 
+<div class="school_sidebar">
+    <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
+    <div class="clear"></div>
+  </div>
+  
+  <div class="school_sidebar">
+    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
+    <div id="moretraffic" style="display:none">
+      <h3 class="label_lei">交通指南</h3>
+      <div class="content_text" style="margin-top:5px">
+      <%=@traffic.description_html %>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <%end%>
+  </div>
 
   <div class="school_sidebar">
       <h3 class="label_lei">学校大使</h3>
@@ -189,7 +208,6 @@
           <a class="more" name='#moderators_info'>什么是学校大使？如何申请？</a>
           <div style="clear:both;height:5px"></div>
           <div id="moderators_info" style="display:none">
-            <!--<p style="color:#444">什么是学校大使？</p>-->
             <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
             <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
           </div>
@@ -197,7 +215,6 @@
       </div>
       <div class="clearfix"></div>
   </div>
-  
 
      <div class="school_sidebar">
       <h3 class="label_lei">公益项目</h3>
@@ -229,42 +246,7 @@
         </div>
         <% end %>
       </div>
-    </div>
-    
-  
-  <%if false%>    
-  <div class="school_sidebar">
-    <div class="sidebar_inter">
-      <div id="donations_info">  
-      <% if  @donation %>
-      <p>这所学校正在参加积分换图书行动！</p>
-      <p style="text-align:right"> <%= link_to '查看详情',"/donations"%> </p>
-      <%else%>
-      <p>为这所学校申请参加积分换图书行动！</p>
-      <p style="text-align:right">现在就 <%= link_to '提出申请',"http://www.1kg.org/activities/100945"%> </p>
-      <%end%>
-      </div>
-    </div>
-  </div>
-  <%end%>
-  
-  <div class="school_sidebar">
-    <h3 class="label_lei">地理位置</h3>
-    <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
-    <div class="clear"></div>
-  </div>
-  
-  <div class="school_sidebar">
-    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
-    <div id="moretraffic" style="display:none">
-      <h3 class="label_lei">交通指南</h3>
-      <div class="content_text" style="margin-top:5px">
-      <%=@traffic.description_html %>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <%end%>
-  </div>
+    </div>  
   
   <div class="school_sidebar">
     <h3 class="label_lei">学校活动</h3>
