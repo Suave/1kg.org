@@ -104,6 +104,9 @@ class GroupsController < ApplicationController
       flash[:notice] = "你是小组创建人, 不能退出该组"
     elsif @group.joined?(current_user)
       @group.members.delete current_user
+      
+      current_user.feed_items.create(:user_id => current_user.id, :category => 'quit_group',
+                  :item_id => @group.id, :item_type => 'Group')
     else
       flash[:notice] = "你没有加入这个小组"
     end

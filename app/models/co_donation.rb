@@ -17,7 +17,6 @@ class CoDonation < ActiveRecord::Base
   named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"  
   acts_as_paranoid
   
-  
   def validate
       if end_at && (end_at > ((created_at.nil?? Time.now : created_at) + 3.month))
         errors.add(:end_at,"捐赠截止时间必须在三个月内")
@@ -61,5 +60,4 @@ class CoDonation < ActiveRecord::Base
     end
     self.save
   end
-  
 end

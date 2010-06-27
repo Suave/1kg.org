@@ -149,6 +149,8 @@ class School < ActiveRecord::Base
   validates_presence_of :title, :message => "必填项"
   validates_presence_of :user_id
   
+  after_create :create_feed
+  
   # 用于导入博客学校
   class << self
     include SchoolImport
@@ -306,5 +308,9 @@ class School < ActiveRecord::Base
                           :order => "schools.validated_at desc",
                           :conditions => ["created_at like ? and validated = ?", "#{year}-#{month}-#{day}%", false] )
     end
+  end
+  
+  def create_feed
+    self.user.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}提交了一所新学校：#{self.title}), :user_id => self.user.id, :category => 'create_school', :item_id => self.id, :item_type => 'School')
   end
 end

@@ -148,13 +148,13 @@ class UsersController < ApplicationController
     @donations = @user.donations
     @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = Visited.find(:all,:conditions => {:user_id => @user},:limit => 4,:order => "created_at desc",:include => [:school])
-    @fellowings = @user.fellowings.schools.map(&:fellowable)
+    @fellowings = @user.fellowings.find(:all, :limit => 10)
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
     
     # 目前只支持学校动态
-    @feed_items = FeedItem.find(:all, :conditions => ['owner_type = ? and owner_id in (?) and user_id <> ?', 'School', @user.fellowings.schools.map(&:fellowable_id), @user.id], :order => 'created_at DESC', :limit => 10)
+    @feed_items = FeedItem.find(:all, :conditions => ['((owner_type = ? and owner_id in (?)) or (user_id in (?))) and user_id <> ?', 'School', @user.fellowings.schools.map(&:fellowable_id), @user.fellowings.users.map(&:fellowable_id), @user.id], :order => 'created_at DESC', :limit => 10)
   end
   
   def shares
