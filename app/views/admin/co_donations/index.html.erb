@@ -1,3 +1,5 @@
+<% @page_title = "团捐审核"%>
+
 <% content_for :sidebar do -%>
   <h4>> <%= link_to "返回管理后台", admin_url %></h4>
   <%= render :partial => "/admin/shared/operation_list" %>
@@ -14,10 +16,14 @@
       </tr>
     <% @co_donations.each_with_index do |d,n|%>
       <tr>
-        <td><%= link_to "为#{d.school.title}捐赠#{d.goods_name}",co_donation_path(d)%></td>
+        <td><%= d.validated? ? (link_to d.title,co_donation_path(d)) : d.title %></td>
         <td><%= link_to "#{d.user.login}",user_path(d.user)%></td>
         <td><%= d.created_at.to_date %></td>
-        <td><%if  d.validated?%><span style="color:#3333cc">已验证</span> <span style="font-weight:bold"><%= link_to "取消验证",cancel_admin_co_donation_path(d),:method => :put%></span><%else%><span style="color:#999">未验证</span> <span style="font-weight:bold"><%= link_to "通过验证",validate_admin_co_donation_path(d),:method => :put%></span><%end%></td>
+        <td>
+          <%if  d.validated?%><span style="color:#3333cc">已验证</span>
+          <span style="font-weight:bold"><%= link_to "取消审核",cancel_admin_co_donation_path(d),:method => :put%></span><%else%><span style="color:#999">未验证</span> <span style="font-weight:bold"><%= link_to "通过审核",validate_admin_co_donation_path(d),:method => :put%></span>
+          <%end%>
+        </td>
         <td><a class="more" href="#" onclick="javascript:$('.co_donation_n').hide();$('#co_donation_<%= n %>').toggle();return false;"> 查看详情</a></td>
         
       </tr>

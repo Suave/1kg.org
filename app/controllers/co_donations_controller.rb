@@ -7,7 +7,11 @@ class CoDonationsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
   def index
-    @co_donations = CoDonation.validated.all(:limit => 10)
+    @co_donations = CoDonation.validated.ongoing.all(:limit => 10)
+    @sub_donations = logged_in? ? current_user.sub_donations : nil
+    @group = Group.find_by_slug('co_donation')
+    @board = @group.discussion.board
+    @recent = SubDonation.recent
   end
   
   def new
@@ -22,7 +26,15 @@ class CoDonationsController < ApplicationController
     
     respond_to do |wants|
       if @co_donation.save
-        flash[:notice] = "你的团捐已经发出，我们会尽快审核你的申请，申请成功后会发送站内信通知你。" 
+        flash[:notice] = "你的团捐已经发出，我们会尽快审核你的申请，申请成功后会发送站内信通知你。"
+        
+        message = Message.new(:subject => "我们会尽快审核你发起的团捐",
+                                :content => "<p>你好，#{@co_donation.user.login}:</p><br/><p>你发起的团捐“#{@co_donation.title}”已经提交了，为了保证团捐的有效，我们会对你的申请进行审核。<br/>通过审核后大家就可以开始捐赠了，同时会有站内信通知你。</p> <br/><p>多背一公斤团队</p>"
+                                )
+        message.author_id = 0
+        message.to = [@co_donation.user]
+        message.save!
+        
         wants.html {redirect_to co_donations_url}
       else
         wants.html {render 'new'}

@@ -22,12 +22,12 @@
 
 <% content_for :crumb do -%>
 <p style="display:none">来自多背一公斤的捐赠活动： <%= summary(@co_donation ,60)%>...</p>
-    <li><%= link_to "团捐", co_donations_url %></li>
+    <li><%= link_to "物资团捐", co_donations_url %></li>
 <% end -%>
 
 <% content_for :sidebar do -%>
 
-  <% if logged_in? && (@co_donation.user == current_user)%>
+  <% if logged_in? && (@co_donation.user == current_user) && false%>
         <div id="admins">
           <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
           <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
@@ -52,7 +52,7 @@
 
 <div class="clearfix">
     <div style="height:120px;width:120px;overflow:hidden;text-align:center;float:left">
-      <%= image_tag(@co_donation.image(:thumb), :alt => @co_donation.title,:style => "width:120px;") %>
+      <%= image_tag(@co_donation.image(:co_donation_topic), :alt => @co_donation.title,:style => "width:120px;") %>
     </div>
 
   
@@ -67,11 +67,11 @@
     <div id="donation_counter">
       <br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
-    <p style="position:relative;top:-29px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
+    <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
       <% if @co_donation.done%>
         <h5>捐赠目标已经达成</h5>
-      <% elsif @co_donation.end_at < Date.today%>
+      <% elsif @co_donation.end_at < (Date.today - 1.day)%>
         <h5>捐赠已经截止</h5>
       <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>
           <a href="#" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
@@ -101,8 +101,8 @@
 
 <div id="donations_tabs">
     <ul class="tab" >
-      <li class="tabs_more"><%= link_to '捐赠背景', "#detail" %></li>
-      <li class="tabs_more"><%= link_to '捐赠反馈', "#report",:id => "report_link" %></li>
+      <li class="tabs_more"><%= link_to '详情', "#detail" %></li>
+      <li class="tabs_more"><%= link_to '反馈', "#report",:id => "report_link" %></li>
     </ul>
     
     <div id="detail">

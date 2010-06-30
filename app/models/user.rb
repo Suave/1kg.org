@@ -69,6 +69,8 @@ class User < ActiveRecord::Base
 
   has_one :profile, :dependent => :destroy 
   
+  
+  has_many :comments, :dependent => :destroy 
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
                                   :order => "created_at desc", 

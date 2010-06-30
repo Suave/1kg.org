@@ -17,7 +17,7 @@
         <span class="span_title">你计划捐赠<%= @exist_donation.quantity %>件</span> <a href="#" onclick="javascript:$('#change_number').toggle();$('#change_quantity').toggle();return false">更改数量？</a>
       </div>
       <div class="donation_note">
-        <span class="gary_span" style="font-size:13px">目前你的捐赠状态是"未证明"，请在<span style="color:#A84300"><%= (@exist_donation.created_at + 1.week).to_date %></span>前，将物资邮寄或快递给接收人，并拍一张邮寄或快递的单据照片上传，
+        <span class="gary_span" style="font-size:13px">目前你的捐赠状态是"未寄出"，请在<span style="color:#A84300"><%= (@exist_donation.created_at + 1.week).to_date %></span>前，将物资邮寄或快递给接收人，并拍一张邮寄或快递的单据照片上传，
         证明你的捐赠已经发出。<br/>你也可以把你物资照片上传到项目反馈的相册里，给大家看看。</span>
       </div>
       <div style="margin:6px" id="select_todo"><a href="#" onclick="javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false" class="surebutton">上传照片</a><br/>
@@ -28,6 +28,10 @@
     <% form_for [@co_donation, @exist_donation],:url => prove_co_donation_sub_donation_path(@exist_donation.co_donation,@exist_donation), :html => {:method => :put,:multipart => true} do |f| %>
       <span class="span_title2">上传捐赠证明的照片</span><br/>
       <div style="margin:5px 0"><%= f.file_field :image,:size => 14 %></div>
+      <div style="margin:5px 0">预计到达日期 <%= f.text_field :expected_at,{:class=> "vDateField"} %></div>
+      <script type="text/javascript" charset="utf-8">
+      $(document).ready(DateTimeShortcuts.init);
+      </script>
       <%= f.submit '确定',:class => "surebutton" %> <%= f.submit '取消',:class => "surebutton",:onclick => "javascript:$('#select_todo').toggle();$('#prove_photo').toggle();return false;" %>
     <% end %>
     </div>

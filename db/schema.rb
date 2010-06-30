@@ -81,7 +81,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer "quantity"
     t.string  "state"
     t.string  "image_file_name"
-    
+    t.datetime  "expected_at"
+    t.datetime  "created_at"
     t.timestamps
   end
 

@@ -10,8 +10,13 @@ class SubDonation < ActiveRecord::Base
   validates_presence_of :co_donation_id, :user_id, :quantity
   
   named_scope :by_state, lambda { |state|
-    {:conditions => {:state => state} }
-  }
+    {:conditions => {:state => state} }}
+  
+  named_scope :recent,:limit => 8,:order => "created_at desc"
+  
+  def description
+    "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"
+  end
   
   
   def validate
@@ -31,7 +36,7 @@ class SubDonation < ActiveRecord::Base
    self.co_donation.update_number!
   end
   
-  #使用state_machine做捐赠的状态转换
+  #使用state_machine做捐赠的状态转换,提供了一证明、拒绝、收到、丢失、等待这5个动作。
   state_machine :state, :initial => :ordered do
     
     event :prove  do  
@@ -44,6 +49,7 @@ class SubDonation < ActiveRecord::Base
     
     event :receive do  
       transition [:proved,:refused,:missed] => :received
+      
     end  
     
     event :miss do  
@@ -53,6 +59,7 @@ class SubDonation < ActiveRecord::Base
     event :wait do  
       transition [:received,:refused,:missed] => :proved
     end
-  end    
+  end
+  
   
 end
