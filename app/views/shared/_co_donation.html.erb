@@ -1,6 +1,6 @@
 <div class=<%= (defined? detail) ? "donantion_detail" : "activity_list"%>>
     <div class="project_image_frame">
-        <img class="project_image" src="<%= co_donation.image.url %>"/>
+        <img class="project_image" src="<%= co_donation.image(:co_donation_avatar) %>"/>
     </div>
     <div style="float:left;margin-left:10px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
     <h5 style="font-size:13px"><%= link_to co_donation.title, co_donation %></h5>

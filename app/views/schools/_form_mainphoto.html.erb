@@ -1,0 +1,30 @@
+
+    <% unless @school.photos.empty? %>    
+    <fieldset>
+      <legend>从学校相册选择</legend>
+      <% @school.photos.each do |p| %>
+      <dl class="obp" style="margin:0">
+        <dt><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title), p.public_filename(:medium), 
+              :rel => "prettyPhoto[gallery]",:title => ''  %>
+        </dt>
+        <dd>
+          <span> <%= f.radio_button(:main_photo_id,p.id )%></span>
+        </dd>
+      </dl>
+      <% end -%>
+    </fieldset>
+    <% end %>
+
+<div style="clear:both;height:20px;"></div>
+
+    <fieldset>
+      <legend>上传学校主照片</legend>
+    <div class="contents">
+      <% f.fields_for :main_photo_attributes, @school.main_photo do |p| -%>
+      <p><label class="label">照片标题</label><%= p.text_field :title, :size => 40, :class => "formText" ,:value =>''%></p>
+          
+      <p><label class="label">上传照片</label><%= p.file_field :uploaded_data %></p>
+      <%= p.hidden_field :school_id ,:value => @school.id%>        
+      <% end -%>
+    </div>
+    </fieldset>

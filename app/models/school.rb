@@ -38,9 +38,10 @@ class School < ActiveRecord::Base
   has_one    :contact, :class_name => "SchoolContact"
   has_one    :local,   :class_name => "SchoolLocal"
   has_one    :finder,  :class_name => "SchoolFinder"
+  belongs_to :main_photo, :class_name => 'Photo'
   has_many   :snapshots, :class_name => "SchoolSnapshot"
   
-  accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
+  accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder, :main_photo
   acts_as_paranoid
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
@@ -49,7 +50,7 @@ class School < ActiveRecord::Base
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
   
-  belongs_to :main_photo, :class_name => 'Photo'
+  
   has_many :donations, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -119,7 +120,7 @@ class School < ActiveRecord::Base
   attr_accessor :city, :city_unit, :town, :town_unit, :village
   
   def validate
-    self.errors.add(:intro, "学校简介超过了150字") if (intro.mb_chars.size > 150)
+    self.errors.add(:intro, "学校简介超过了140字") if (intro && intro.mb_chars.size > 140)
   end
   
   
@@ -150,8 +151,8 @@ class School < ActiveRecord::Base
     snapshot.save
   end
   
-  validates_presence_of :geo_id, :message => "必选项"
-  validates_presence_of :title, :message => "必填项"
+  validates_presence_of :geo_id, :message => ""
+  validates_presence_of :title, :message => ""
   validates_presence_of :user_id
   
   # 用于导入博客学校

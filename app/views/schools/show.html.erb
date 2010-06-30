@@ -50,15 +50,15 @@
     
     <div class="clearfix"></div>
   </div>
-  
-  <div class="school_box">
-    <%if logged_in? && current_user.school_moderator? && @school.intro.nil?%>
-    <p><span style="color:red">新条目！</span> 学校简介可以使用了，赶快为你管理的学校写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_school_url(@school) ,:class => "adminbutton"%></p>
-                                    
-    <% elsif  @school.intro.nil? %>
+
+  <div class="school_box">                             
+    <% if  @school.intro.nil? || @school.intro.empty? %>
+       <%if logged_in? &&  @school.edited_by(current_user) %>
+       <p>　　<span style="color:red">注意！</span> 可以为学校编写学校简介了，赶快为学校写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_school_url(@school) ,:class => "adminbutton"%></p>
+       <%end%>
     <%else%>
       <p class="content_text" style="float:left">学校简介</p>
-        <p style="float:left;width:540px;font-size:15px;">
+        <p style="float:left;width:540px;font-size:14px;">
       <%= @school.intro %>
       </p>
       <div class="clearfix" style="clear:both;height:20px"></div>
@@ -68,9 +68,9 @@
       <p class="content_text" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
     <% end -%>
     <% unless needlist(@school).blank? %>
-    <div style="margin-bottom:-10px">
+    <div style="margin-bottom:-20px">
       <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
-      <p style="float:left;width:540px;font-size:15px;">
+      <p style="float:left;width:540px;">
     <%= needlist(@school)%>
     </p>
     <div class="clearfix" style="clear:both;height:20px"></div>
@@ -193,6 +193,7 @@
       <h3 class="label_lei">交通指南</h3>
       <div class="content_text" style="margin-top:5px">
       <%=@traffic.description_html %>
+      <%= "<p>附近景点： #{@traffic.sight}</p>" %>
       </div>
     </div>
     <div class="clear"></div>
