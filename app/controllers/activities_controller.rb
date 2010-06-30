@@ -196,7 +196,7 @@ class ActivitiesController < ApplicationController
       message.author_id = 0
       message.to = invited_user_ids
       message.save!
-      flash[:notice] = "给#{invited_user_ids.size}位友邻发送了邀请"
+      flash[:notice] = "给#{invited_user_ids.size}位用户发送了邀请"
     end
     
     redirect_to activity_url(@activity)
