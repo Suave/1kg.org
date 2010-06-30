@@ -18,7 +18,6 @@ class CoDonation < ActiveRecord::Base
   named_scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"  
   acts_as_paranoid
   
-  
   def validate
     if end_at && created_at.nil? && (end_at >  3.month.from_now) || (end_at <  1.day.ago )
       errors.add(:end_at,"捐赠截止时间不符合要求")
@@ -66,5 +65,4 @@ class CoDonation < ActiveRecord::Base
     end
     self.save
   end
-  
 end

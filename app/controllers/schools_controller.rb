@@ -408,6 +408,8 @@ class SchoolsController < ApplicationController
     
     visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
     visited.destroy if visited
+    fellowing = current_user.fellowings.find(:first, :conditions => {:fellowable_id => @school.id, :fellowable_type => 'School'})
+    fellowing.destroy if fellowing
     redirect_to school_url(@school)
   end
   
