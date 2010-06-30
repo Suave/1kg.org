@@ -267,20 +267,20 @@ class School < ActiveRecord::Base
     return result.reverse
   end
   
-  include FusionChart
+  #include FusionChart
   # 绘制月活跃度变化图
-  def karma_chart
+  #def karma_chart
     #由于数据不足，先显示过去7天的活跃度变化
-    data = []
-    6.downto(0) do |i|
-      day = Date.today - i.day
-      snapshot = self.snapshots.find_by_created_on(day)
-      karma = snapshot.nil? ? rand(10) : snapshot.karma
-      data << [day.to_s, karma]
-    end
+    #data = []
+    #6.downto(0) do |i|
+    #  day = Date.today - i.day
+    #  snapshot = self.snapshots.find_by_created_on(day)
+    #  karma = snapshot.nil? ? rand(10) : snapshot.karma
+    #  data << [day.to_s, karma]
+    #end
     
-    column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
-  end
+    #column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
+  #end
   
   class << self
     include FusionChart

@@ -1,7 +1,7 @@
 require 'json'
 class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :info_window, :large_map]
-  before_filter :find_school, :except => [:index,:new,:create,:comments,:check]
+  before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:todo]
   before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
   
@@ -62,11 +62,6 @@ class SchoolsController < ApplicationController
       format.html {render :layout => false}
     end
   end
-=begin  
-  def all
-    redirect_to geos_path
-  end
-=end
 
   def comments
     @comments = Topic.latest_updated_with_pagination_in SchoolBoard, params[:page]
@@ -200,7 +195,6 @@ class SchoolsController < ApplicationController
   end
   
   def apply
-    
     @message = current_user.sent_messages.build
   end
   
@@ -302,8 +296,6 @@ class SchoolsController < ApplicationController
   end
   
   def destroy
-    
-    
     respond_to do |format|
       if current_user.school_moderator? || @school.destroyed_by(current_user)
         @school.destroy
@@ -317,7 +309,6 @@ class SchoolsController < ApplicationController
   end
   
   def validate
-    
     if current_user.school_moderator?
       if params[:t] == 'add'
         @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
@@ -336,7 +327,6 @@ class SchoolsController < ApplicationController
   
   def visited
     begin
-      
       if @school.visited?(current_user) == false
         Visited.create!(:user_id => current_user.id,
                         :school_id => @school.id,
@@ -369,7 +359,6 @@ class SchoolsController < ApplicationController
  
   def wanna
     begin
-      
       if @school.visited?(current_user) == false
         Visited.create!(:user_id => current_user.id,
                         :school_id => @school.id,
@@ -393,7 +382,6 @@ class SchoolsController < ApplicationController
   end
   
   def interest
-    
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
     else
@@ -403,7 +391,6 @@ class SchoolsController < ApplicationController
   end
   
   def novisited
-    
     visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
     visited.destroy if visited
     redirect_to school_url(@school)
@@ -418,7 +405,6 @@ class SchoolsController < ApplicationController
   def manage
     @user = User.find params[:user]
     if params[:type] == "add"
-      
       @user.roles << Role.find_by_identifier("roles.school.moderator.#{@school.id}")
       message = Message.new(:subject => "恭喜您成为#{@school.title}的学校大使",
                             :content => "<p>你好，#{@user.login}:</p><br/><p>祝贺您成为#{@school.title}学校大使！</p><p>作为#{@school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><br/><p>现在就进入#{@school.title}（ #{url_for(@school)} ）看看吧。</p><br/><p>多背一公斤团队</p>"
@@ -437,17 +423,14 @@ class SchoolsController < ApplicationController
   end
   
   def setphoto
-    
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
       flash[:notice] = "学校主照片设置成功"
       redirect_to school_url(@school)
-
   end
   
   def check
     @school = School.find_similiar_by_geo_id(params[:title], params[:geo_id])
-    
     respond_to do |format|
       format.html {
         render :text => @school.nil? ? '0' : 
@@ -491,7 +474,6 @@ class SchoolsController < ApplicationController
         else
           redirect_to(edit_school_url(@school, :step => currnet_step))
         end
-        
       rescue
         flash[:notice] = "图片格式有误，请使用 jpg,png,gif 等常见图片格式"
         render :action => "edit"
