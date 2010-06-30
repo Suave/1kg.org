@@ -18,14 +18,13 @@ class SubDonation < ActiveRecord::Base
     "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"
   end
   
+  after_create :create_feed
   
   def validate
       if quantity.nil? || !(quantity > 0)
         errors.add(:quantity,"数量填写不正确")
       end
   end
-  
-  named_scope :verified, :conditions => {:verified => true}
   
   #每次修改捐赠时更新团捐的数据
   def after_save
@@ -62,4 +61,9 @@ class SubDonation < ActiveRecord::Base
   end
   
   
+  private
+  def create_feed
+    self.co_donation.school.feed_items.create(:user_id => self.user_id, :category => 'sub_donation',
+                :item_id => self.id, :item_type => 'SubDonation') if self.co_donation && self.co_donation.school
+  end
 end

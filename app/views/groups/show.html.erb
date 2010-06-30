@@ -52,7 +52,7 @@
       </div>
       <p class="remark">
       <% if @group.joined?(current_user) -%>
-        &raquo; <%= link_to "邀请友邻", invite_group_url(@group) %>
+        &raquo; <%= link_to "邀请好友", invite_group_url(@group) %>
       <% end -%>
       
       <% if @group.managed_by? current_user %>

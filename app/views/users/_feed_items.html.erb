@@ -1,6 +1,6 @@
 <div class="newbox">
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title"><%= h user.login %>的动态</span>
+  <span class="span_title">好友动态</span>
   <div class="panel setting">
     <div id='shares'>
       <% feed_items.each do |item| %>
@@ -65,7 +65,23 @@
               </div>
             <% elsif item.category == 'create_codonation' %>
               <div>
-                <%= link_to item.user.login, user_url(item.user) %>为：<%= link_to h(item.item.title), group_path(item.item)%>
+                <%= link_to item.user.login, user_url(item.user) %>为<%= link_to h(item.item.school.title), school_path(item.item.school) %>发起了一个新团捐：<%= link_to h(item.item.title), group_path(item.item)%>
+              </div>
+            <% elsif item.category == 'join_activity' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 决定参加 <%= link_to h(item.item.title), activity_path(item.item)%>
+              </div>
+            <% elsif item.category == 'quit_activity' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 不参加 <%= link_to h(item.item.title), activity_path(item.item)%> 了
+              </div>
+            <% elsif item.category == 'sub_donation' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 为 <%= link_to h(item.owner.title), school_path(item.owner) %> 捐赠了 <%= link_to "#{item.item.quantity}件#{item.item.co_donation.goods_name}", co_donation_path(item.item)%>
+              </div>
+            <% elsif item.category == 'project' %>
+              <div>
+                <%= link_to item.user.login, user_url(item.user) %> 为 <%= link_to h(item.owner.title), school_path(item.owner) %> 申请了公益项目： <%= link_to item.item.requirement_type.title, requirement_type_path(item.item.requirement_type)%>
               </div>
             <% end %>
           </div>
@@ -73,7 +89,7 @@
       <% end %>
       
       <div class="cleanfix" style="clear:both;"></div> 
-      <div class="remark"><%= link_to "&raquo; 查看全部", shares_user_url(user) %></div>
+      <div class="remark"><%= link_to "&raquo; 查看全部", '#' %></div>
     </div>
   </div>
 </div>
