@@ -78,11 +78,11 @@
             <span class="gary_span">报名已结束 </span>
             <% else -%>
               <% if @activity.joined?(current_user) -%>
-                <%= link_to "不参加了", quit_activity_url(@activity), :method => :put,:class => "buttonjoin" %>
+                <%= link_to "不参加了", quit_activity_path(@activity), :method => :put,:class => "buttonjoin" %>
                 <div class="clearfix" style="height:4px"></div>
                 <span class="gary_span">你参加了这个活动</span>
               <% else -%>
-                <%= link_to "我要参加", join_activity_url(@activity) ,:class => "buttonjoin2" %>
+                <%= link_to "我要参加", join_activity_path(@activity) ,:class => "buttonjoin2" %>
                 <div class="clearfix" style="height:4px"></div>
                 <span class="gary_span">报名截止日期<br/><%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%></span>
               <% end -%>
