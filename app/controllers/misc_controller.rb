@@ -25,6 +25,10 @@ class MiscController < ApplicationController
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
     @atom_shares = Share.find(:all,:limit => 10,:order => "created_at desc")
+    
+    @user = current_user
+    @feed_items = FeedItem.find(:all, :conditions => ['((owner_type = ? and owner_id in (?)) or (user_id in (?))) and user_id <> ?', 'School', @user.fellowings.schools.map(&:fellowable_id), @user.fellowings.users.map(&:fellowable_id), @user.id], :order => 'created_at DESC', :limit => 10)
+    
     respond_to do |wants|
       wants.html{render :action => "index"}
       wants.atom{render :action => "index"}

@@ -8,45 +8,42 @@
 <% end %>
 
 <% content_for :sidebar do -%>
+  <%= render :partial => '/searches/search_box' %>
 
-<%= render :partial => '/searches/search_box' %>
-
-<% unless @bulletins.blank? -%>
-<div class="newbox">
-  <span class="span_title">公告</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <% @bulletins.each do |b| %>
-    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
-  <% end %>
-  <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
-</div>
-<% end -%>
-
-<div id="records" class="newbox">
-  <div id="record_tabs">
-        <span class="span_title" style="margin-right:8px">用户动态</span>
-        <ul class="tab">
-            <li class="tabs_more"><a href="#wannas">要去</a></li>
-            <li class="tabs_more"><a href="#visiteds">去过</a></li>
-        </ul>
-        <div class="clearfix" style="height:10px;clear:both"> </div>
-        <div id="wannas">
-          <%= render :partial => "/shared/record", :collection => @wannas,:locals => {:school => nil} %>
-        </div>
-        <div id="visiteds">
-          <%= render :partial => "/shared/record", :collection => @visits,:locals => {:school => nil} %>
-        </div>
-        <div class="cleanfix"></div>
+  <% unless @bulletins.blank? -%>
+  <div class="newbox">
+    <span class="span_title">公告</span>
+    <div class="cleanfix" style="height:10px"></div>
+    <% @bulletins.each do |b| %>
+      <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
+    <% end %>
+    <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
   </div>
-  <script type="text/javascript">
-          jQuery("#record_tabs").tabs()
-      </script>
-</div>
+  <% end -%>
 
+  <div id="records" class="newbox">
+    <div id="record_tabs">
+          <span class="span_title" style="margin-right:8px">用户动态</span>
+          <ul class="tab">
+              <li class="tabs_more"><a href="#wannas">要去</a></li>
+              <li class="tabs_more"><a href="#visiteds">去过</a></li>
+          </ul>
+          <div class="clearfix" style="height:10px;clear:both"> </div>
+          <div id="wannas">
+            <%= render :partial => "/shared/record", :collection => @wannas,:locals => {:school => nil} %>
+          </div>
+          <div id="visiteds">
+            <%= render :partial => "/shared/record", :collection => @visits,:locals => {:school => nil} %>
+          </div>
+          <div class="cleanfix"></div>
+    </div>
+    <script type="text/javascript">
+            jQuery("#record_tabs").tabs()
+        </script>
+  </div>
 <% end -%>
 
-<div class="cleanfix" style="clear:both;height:20px"></div>           
-
+<div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="hot_box">
   <span class="span_title">新提交学校</span>
@@ -89,6 +86,8 @@
   </div>
   <div  style="clear:both"></div>
 </div> 
+
+<%= render :partial => "/users/feed_items", :object => @feed_items, :locals => {:user => @user} %>
 
 <div class="cleanfix" style="height:30px"></div>
 
