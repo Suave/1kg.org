@@ -1,7 +1,7 @@
 class CoDonationsController < ApplicationController
-  before_filter :set_co_donation, :except => [:new, :create, :index]
+  before_filter :find_co_donation, :except => [:new, :create, :index]
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy]
-  before_filter :need_permission ,:only => [:edit,:destory,:update,:admin_state]
+  before_filter :check_permission ,:only => [:edit,:destory,:update,:admin_state]
   before_filter :get_state, :only => [:show]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
@@ -79,11 +79,11 @@ class CoDonationsController < ApplicationController
   end
   
   private
-  def set_co_donation
+  def find_co_donation
     @co_donation = CoDonation.validated.find(params[:id])
   end
   
-  def need_permission
+  def check_permission
     if @co_donation.user == current_user
     elsif current_user.admin?
     else

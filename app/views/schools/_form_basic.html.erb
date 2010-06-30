@@ -1,33 +1,30 @@
-<% @page_title = "编辑学校信息" -%>
-<% @body_class = "schools" -%>
-
-<% content_for :sidebar do -%>
-<% end -%>
-
-<% content_for :fullsize do -%>
-  <%= render :partial => 'school_steps', :locals => {:step => 'basic'} %>
-  <div style="padding:10px 20px">  
-    <% form_for :school, :url => school_url(@school, :step => 'basic'), :html => {:method => :put, :id => "schoolsPostBasic"} do |f| -%>
-     <fieldset>
-      <legend>学校基本信息</legend>
+    <fieldset>
+     <legend>学校基本信息</legend>
     <div id="school_meta">
       <div class="meta_col" >
-        <label class="meta_label">地区</label><span class="require">*</span><%= error_message_on @school, :geo_id %>
+        <label class="meta_label">地区</label><span class="require">*</span>
           <div style="margin-top:5px;"><%= geo_select "school", "geo",[], @school.geo_id %>
           </div>
         </div>
         <div class="meta_col">
-          <label class="meta_label">地址</label><span class="require">*</span><%= error_message_on @school.basic, :address %><br/>
+          <label class="meta_label">地址</label><span class="require">*</span><br/>
         <% f.fields_for :basic_attributes, @school.basic do |b| -%>
         <%= b.hidden_field :id %>
         <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
         <div class="meta_col">
-        <label class="meta_label">学校名称</label><span class="require">*</span><%= error_message_on @school, :title %><br/>
+        <label class="meta_label">学校名称</label><span class="require">*</span><br/>
         <%= f.text_field :title, :size => 16, :class => "formText" %>
         </div>
       </div>
+      <%= error_message_on @school, :title %>
       <p><label class="label" for="school_school_basic_master">校长</label><%= b.text_field :master, :size => 10, :class => "formText" %><label class="small_label" for="school_school_basic_telephone">学校电话</label><%= b.text_field :telephone, :size => 20, :class => "formText" %><label class="small_label" for="school_school_basic_zipcode">邮编</label><%= b.text_field :zipcode, :size => 10, :class => "formText" %></p>
-      <p><label class="label">学校简介</label> 150字以内 <%= error_message_on @school, :intro %><br/><%= b.text_area  :intro, :cols => 64, :rows => 4 %></p>
+      <p><label class="label">学校简介</label> <span class="gary_span">140字以内 (还剩 <span id="remaining" style="color:#c80;font-weight:bold"></span> 字)</span> <%= error_message_on @school, :intro %><br/><%= b.text_area  :intro, :cols => 64, :rows => 4 %></p>
+      <script type="text/javascript">
+      function updateCount() {
+      document.getElementById("remaining").innerHTML = 140 - document.getElementById("school_basic_attributes_intro").value.length;
+      setTimeout(updateCount, 400);
+       }
+      updateCount();</script>
     </fieldset>
 
     <fieldset>
@@ -43,9 +40,8 @@
     
     <fieldset>
     <legend>学校基本情况</legend>  
-      <p><label class="label">学校规模<span class="require">*</span></label>
-          <%=select 'school[basic_attributes]',:level_amount,[['1',1],['2',2],['3',3],['4',4],['5',5],['6',6]], {:include_blank=>true,:selected => @school.basic.level_amount.to_i}%>
-                       年制
+      <p><label class="label">年级数<span class="require">*</span></label>
+          <%=select 'school[basic_attributes]',:level_amount,[['1',1],['2',2],['3',3],['4',4],['5',5],['6',6]], {:include_blank=>true,:selected => @school.basic ? @school.basic.level_amount.to_i : 1}%>
       <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_class_amount">班级<span class="require">*</span></label><%= b.text_field :class_amount, :size => 10, :class => "formText" %> 个
       <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_teacher_amount">老师<span class="require">*</span></label><%= b.text_field :teacher_amount, :size => 10, :class => "formText" %> 人
       <label style="font-weight:bold;margin:0 15px 0 30px;" for="school_school_basic_student_amount">学生<span class="require">*</span></label><%= b.text_field :student_amount, :size => 10, :class => "formText" %> 人</p>
@@ -74,7 +70,3 @@
     </script>    
     <% end -%>
     
-    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存修改，下一步" %></span>带<span class="require">*</span>号的是必填项</p>
-    <% end -%>
-  </div>
-<% end -%>

@@ -736,26 +736,30 @@ body.signinup p.login {
 /* =学校
  * -------------------------------------------------------------------------- */
 /* =提交学校信息 ----------*/
-.school-steps ol {
-  padding: .3em 1em 1.2em;list-style-type: decimal; list-style-position: inside; margin-left:1.2em;
+#school-steps {width:180px;float:left;color: #b0b0b0;}
+#school-steps ol {
+  padding: .3em 1em 1.2em;list-style-type: decimal; list-style-position: inside;
 }
-.school-steps ol li {
-  float: left;
-  color: #808080;
+#school-steps ol li {
   font-weight: bold;
   font-size: 1.4em;
-  background: url(../images/round-grey.gif) no-repeat left center;
-  margin-right: 24px;
+  background: url(/images/round-grey.gif) no-repeat left center;
+  margin:8px 0;
   padding: 0 0 0 4px;
 }
-.school-steps ol li span {
+
+#school-steps ol li.select_step {cursor:pointer;color:#808080}
+#school-steps ol li.select_step:hover{background: url(/images/round-orange.gif) no-repeat left center;color:#c07000}
+#school-steps ol li span {
   color: #fff;
   margin-right: .5em;
 }
-.school-steps ol li.current {
+#school-steps ol li.current {
   color: #73a800;
   background: url(../images/round-green.gif) no-repeat left center;
 }
+
+#school_form {float:left;width:760px;margin-bottom:40px}
 
 body.schools form p {
   margin: 1.2em 0;
@@ -1198,6 +1202,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.activity_main{width:160px}
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
