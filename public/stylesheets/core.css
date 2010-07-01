@@ -1095,6 +1095,11 @@ h3.title {
 .user dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
 
+.user{float:left;width:70px}
+.user dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
+
+
 .obp {float:left; width:115px; margin:12px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px}
@@ -1193,12 +1198,15 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
 .project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
-.project_image{height:72px;}
+.project_image{width:72px;}
 .project_image_big{width:120px;}
+
+.project_status{padding:1px 4px;color:#fff;font-weight:bold}
+
 .project_info{margin-bottom:30px}
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
- 
+
 .activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
 .activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
@@ -1395,8 +1403,8 @@ a.progressCancel:hover {
 .game_category{padding:15px;border:1px dashed #aaa;width:130px;height:130px;float:left;margin:15px;text-align:center;-margin:12px;}
 
 .reply_post{border-left:1px dashed #ccc;border-bottom:1px dashed #ccc;padding: 0 0 6px 6px}
-.reply {margin-bottom:10px}
 
+.reply {margin-bottom:10px}
 
 #show_feed{background-color:#d9ffb3;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66;margin-top:4px }
 
@@ -1421,3 +1429,6 @@ a.progressCancel:hover {
 .donation_lastest{padding:5px 0;border-bottom:1px solid #ccc;}
 
 #module_meta {margin-left:180px;width:300px}
+
+#SWFUpload_0{position:relative;top:7px}
+

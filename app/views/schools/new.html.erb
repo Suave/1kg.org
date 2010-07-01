@@ -6,6 +6,7 @@
 
 <% @body_class = "schools" -%>
 <% content_for :fullsize do -%>
+
 <%= render :partial => 'school_steps', :locals => {:step => @step,:new => true} %>
 
   <div id="school_form">  
