@@ -1,6 +1,6 @@
 <div class="contents clearfix">
   <% users.each do |c| %>
-  <dl class="obu">
+  <dl class="user">
     <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
     <dd><%= link_to c.login, user_url(c) %></dd>
   </dl>
