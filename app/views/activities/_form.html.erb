@@ -9,7 +9,7 @@
       <% end -%>
     </select>
 　</p>
-  
+  <div class="caution" id="for_co_donation" style="display:none">新的物资团捐功能上线了，可以更方便的管理物资捐赠活动，<%= link_to  '去试试吧',co_donations_url %>。</div>
   <p><label>活动名称<span class="require">*</span> </label><%= form.text_field :title, :size => 30, :class => "formText",:style => "width:180px" %> <%= error_message_on @activity, :title %>
   </p>
   
@@ -39,8 +39,7 @@
  <%end%>
 </p>
   
-
-     <p>
+    <p>
       <label>活动时间<span class="require">*</span></label>
       <input id="activity_start_at" name="activity[start_at]" type="text" value="<%= @activity.start_at.to_date unless @activity.start_at.blank? %>" class="vDateField" />
       至<span class="require">*</span></label><input id="activity_end_at" name="activity[end_at]" type="text" value="<%= @activity.end_at.to_date unless @activity.end_at.blank? %>" class="vDateField" />
@@ -48,7 +47,8 @@
         <% elsif !(error_message_on @activity, :time).empty?%>
         <%= error_message_on @activity, :time %>
         <% end %>
-     </p>
+        <span class="gary_span">活动从开始到结束，时间不能超过三个月</span>
+    </p>
       <p>
       <label>报名截止</label>　<input id="activity_register_over_at" name="activity[register_over_at]" type="text" value="<%= @activity.register_over_at.to_date unless @activity.register_over_at.blank? %>" class="vDateField" /> <%= error_message_on @activity, :register_over_at %>
       </p>
@@ -61,5 +61,8 @@
 <span class="gary_span">注意：为了不影响读者阅读，我们会默认隐藏活动介绍中的图片，读者仍可以通过提示看到它们</span>      
 </p>
 </div>
-<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(DateTimeShortcuts.init);
+$('#activity_category').delayedObserver(0.25, function(element, value) {$("#for_co_donation").hide();if (value == "1") {$("#for_co_donation").show()}});
+</script>
 
