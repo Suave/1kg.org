@@ -90,7 +90,17 @@
   <div  style="clear:both"></div>
 </div> 
 
-<div class="cleanfix" style="height:30px"></div>
+<div class="cleanfix" style="height:20px"></div>
+<div class="newbox">
+  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span>
+  <div style="width:640px;margin-top:10px">
+  <%= render :partial => "/shared/co_donation", :collection => @co_donations%>
+  <div  style="clear:both"></div>
+  <p><span class="gary_span">&raquo; <%= link_to "进入团捐频道", co_donations_url%><span></p>
+  </div>
+</div>
+
+<div class="cleanfix" style="height:20px"></div>
 
 <div class="newbox">
       <div style="float:right"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
