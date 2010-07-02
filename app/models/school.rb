@@ -66,10 +66,12 @@ class School < ActiveRecord::Base
                           :conditions => "status = #{Visited.status('wanna')}"
 
   has_many :co_donations
+<<<<<<< HEAD
   
   has_many :fellowings, :as => "fellowable"
   has_many :fellowers, :through => :fellowings
   has_many :feed_items, :as => "owner"
+
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
 

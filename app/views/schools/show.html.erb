@@ -50,6 +50,7 @@
     
     <div class="clearfix"></div>
   </div>
+ 
 
   <div class="school_box">                             
     <% if  @school.intro.nil? || @school.intro.empty? %>
@@ -127,6 +128,7 @@
       <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
       </div>
       <div id="upload_container"></div>
+
       <div class="content_text content_gary" style="text-align:right">
           学校有<%= @school.photos.size %>张照片 
           <%unless @photos.size < 6%><%= link_to "查看全部", photos_school_path(@school),:class => "buttonlink" %> | <%end%>
