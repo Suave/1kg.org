@@ -10,7 +10,7 @@ class CoDonation < ActiveRecord::Base
     
   has_attached_file :image, :styles => {:co_donation_topic => "300x300>", :co_donation_avatar => "150x150>" }
   
-  validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:goods_requirements,:beneficiary_number,:message=> "此项是必填项"
+  validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:goods_requirements,:message=> "此项是必填项"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
@@ -19,14 +19,21 @@ class CoDonation < ActiveRecord::Base
   acts_as_paranoid
   
   def validate
-    if end_at && created_at.nil? && (end_at >  3.month.from_now) || (end_at <  1.day.ago )
-      errors.add(:end_at,"捐赠截止时间不符合要求")
-    end
-      
     if goal_number && !(goal_number > 0)
       errors.add(:goal_number,"数量填写不正确")
     end
   end
+   
+  def validate_on_create
+    if end_at && ((end_at >  3.month.from_now) || (end_at <  1.day.ago ))
+      errors.add(:end_at,"捐赠截止时间不符合要求")
+    end
+    
+    if beneficiary_number.nil?
+      errors.add(:beneficiary_number,"此项是必填项")
+    end
+  end
+  
    
   def still_need
     if (self.goal_number > self.number)
