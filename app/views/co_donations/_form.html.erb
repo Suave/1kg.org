@@ -18,7 +18,7 @@
     
     <p>
       <label>预计受益人数<span class="require">*</span></label>
-      <%= form.text_field :beneficiary_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :beneficiary_number %>
+      <%= form.text_field :beneficiary_number, :size => 30, :class => "formText",:style => "width:100px",:value => "" %><%= error_message_on @co_donation, :beneficiary_number %>
     </p>
     
     <p>
