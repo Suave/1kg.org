@@ -14,6 +14,8 @@
       <%= form.text_field :goods_name, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goods_name %>
       <span>目标数量<span class="require">*</span></span>
       <%= form.text_field :goal_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :goal_number %>
+      <span>预计受益人数<span class="require">*</span></span>
+      <%= form.text_field :beneficiary_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :beneficiary_number %>
     </p>
     
     <p>
