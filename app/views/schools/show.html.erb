@@ -182,7 +182,7 @@
     </div>
     <% end -%>  
 
-<div class="school_sidebar">
+  <div class="school_sidebar">
     <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
     <div class="clear"></div>
   </div>
@@ -194,23 +194,6 @@
       <div class="content_text" style="margin-top:5px">
       <%=@traffic.description_html %>
       <%= "<p>附近景点： #{@traffic.sight}</p>" %>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <%end%>
-  </div>
-
-  <div class="school_sidebar">
-    <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
-    <div class="clear"></div>
-  </div>
-  
-  <div class="school_sidebar">
-    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
-    <div id="moretraffic" style="display:none">
-      <h3 class="label_lei">交通指南</h3>
-      <div class="content_text" style="margin-top:5px">
-      <%=@traffic.description_html %>
       </div>
     </div>
     <div class="clear"></div>
