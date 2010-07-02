@@ -61,6 +61,7 @@
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
     <p><label>目标：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"> <%= @co_donation.goal_number %></span> 件</p>
     <p><label>已捐赠：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"><%= @co_donation.number %></span> 件</p>
+    <%= "<p><label>受益人数：</label>#{@co_donation.beneficiary_number}</p>" if @co_donation.beneficiary_number %>
     <p><label>截止日期：</label><%= @co_donation.end_at.to_date %></p>
   </div>
   
