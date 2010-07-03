@@ -104,9 +104,19 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "teams", :force => true do |t|
     t.string    "name"
     t.integer   "user_id"
+    t.integer   "geo_id"
     t.datetime  "created_at"
     t.string    "image_file_name"
     t.text      "description"
+    t.string    "website"
+    t.string    "category"
+    t.integer   "member_number"
+    
+    t.string   "applicant_name"
+    t.string   "applicant_phone"
+    t.string   "applicant_email"
+    t.string   "applicant_role"
+    
     t.boolean   "validated",     :default => false
     t.datetime  "validated_at"
     t.integer   "validated_by_id"

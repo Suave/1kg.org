@@ -1,17 +1,30 @@
-<% @page_title = "创建团队申请" %>
+<% @page_title = @title = "创建团队申请" %>
 
 <% content_for :crumb do -%>
 <li>创建团队申请</li>
 <% end -%>
 
-<div class="newbox" >
-  <span class="span_title">创建团队申请</span>
-  <div class="clearfix" style="height:10px"></div>
-  <% form_for :team, :url => teams_path, :html => {:multipart => true}  do |form| -%>
 
-    <%= render :partial => "form", :object => form %>        
-    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
-      <span ><%= link_to "取 消", teams_path() %></span>　带<span class="require">*</span>号的是必填项
+<% content_for :sidebar do -%>
+<% @page = Page.find_by_slug('team-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">公益团队申请指南</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<% end -%>
+
+<div class="newbox" >
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :team, :url => teams_path, :html => {:multipart => true}  do |f| -%>
+
+    <%= render :partial => "form", :object => f %>        
+    <p>
+      <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/}';return false" %>
+      <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
     </p>
   <% end -%>
+  <div class="clearfix" style="height:20px"></div>
 </div>

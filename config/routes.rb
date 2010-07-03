@@ -183,6 +183,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
     admin.resources :game_categories
     admin.resources :co_donations,:member => {:validate => :put, :cancel => :put}
+    admin.resources :teams,:member => {:validate => :put, :cancel => :put}
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end
