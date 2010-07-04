@@ -162,7 +162,13 @@ ActionController::Routing::Routes.draw do |map|
     games.new_category_game '/games/category/:tag/new', :action => "new"
   end
   
-  map.resources :teams
+  map.resources :teams,:member => { :set_leaders => :get,
+                                    :apply => :post,
+                                    :allow => :put,
+                                    :refuse => :delete,
+                                    :search_user => :get,
+                                    :add => :post
+                                  }
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements

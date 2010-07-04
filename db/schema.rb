@@ -192,6 +192,16 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
   end
 
+  create_table "leaderships", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "team_id",   :null => false
+    t.boolean  "validated", :default => false
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    
+    t.datetime "created_at"
+  end
+  
   create_table "message_copies", :force => true do |t|
     t.integer "recipient_id",                   :null => false
     t.integer "message_id",                     :null => false
