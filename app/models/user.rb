@@ -110,6 +110,7 @@ class User < ActiveRecord::Base
 	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
+  has_many :leaderships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
                            :source => :group,
                            :order => "memberships.created_at desc"

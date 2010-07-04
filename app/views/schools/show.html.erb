@@ -44,7 +44,6 @@
         <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.karma)-%> <span style="color:#999;font-size:10px">累计活跃度:<%=@school.karma%></span>
         <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
         <p><%= "邮编　#{@basic.zipcode}　 " unless @basic.zipcode.blank?%><span style="color:#999">最近更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></span></p>
-
       </div>
     </div>
     
@@ -196,23 +195,6 @@
       <div class="content_text" style="margin-top:5px">
       <%=@traffic.description_html %>
       <%= "<p>附近景点： #{@traffic.sight}</p>" %>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <%end%>
-  </div>
-
-  <div class="school_sidebar">
-    <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
-    <div class="clear"></div>
-  </div>
-  
-  <div class="school_sidebar">
-    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
-    <div id="moretraffic" style="display:none">
-      <h3 class="label_lei">交通指南</h3>
-      <div class="content_text" style="margin-top:5px">
-      <%=@traffic.description_html %>
       </div>
     </div>
     <div class="clear"></div>

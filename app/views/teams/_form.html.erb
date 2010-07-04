@@ -1,14 +1,73 @@
-<p>
-  <label class="label">团队名称<span style="color:red;">＊</span></label>
-  <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @team, :name %>
-</p>
+<div class="form_box">
+  <span class="span_title2">一 团队基本信息</span>
+  <div class="contents" style="padding-left:10px">    
+    <p>
+      <label class="label">团队名称<span style="color:red;">＊</span></label>
+      <%= form.text_field :name, :size => 15, :class => "formText" %> <%= error_message_on @team, :name %>
+    </p>
+    
+    <p>
+      <label class="label">团队类型<span style="color:red;">＊</span></label>
+      <%= form.select :category, [['请选择',''], '基金会','NGO','学生社团','志愿者团队','其他'] %> <%= error_message_on @team, :category %>
+    </p>
+    
+    <p>
+      <label class="label">所在位置<span style="color:red;">＊</span></label>
+      <%= geo_select "team", "geo",nil,@team.geo_id %> <%= error_message_on @team, :geo_id%>
+    </p>
+    
+    <p>
+      <label class="label">团队人数　</label>
+      <%= form.text_field :member_number, :size => 10, :class => "formText" %> <%= error_message_on @team, :member_number %>
+    </p>
+    
+    <p>
+      <label class="label">团队网站　</label>
+      <%= form.text_field :website, :size => 10, :class => "formText" %> <%= error_message_on @team, :website %>
+    </p>
+      
+    <p>
+      <label class="label">标志(Logo)</label>
+      <%= form.file_field :image %> <%= error_message_on @team, :image%>
+    </p>
+    
+    <p>
+      <label class="label">团队介绍<span style="color:red;">＊</span></label>
+      <span class="gary_span">团队介绍会显示在团队首页里。</span>  <%= error_message_on @team, :description %><br/>
+      <%= form.text_area :"description", :style => 'width:360px;height:90px;margin-left:70px'  %>
+    </p>
+    
+  </div>
+</div>
 
-<p>
-  <label class="label">团队标志(Logo)</label>
-  <%= form.file_field :image %>
-</p>
+<div class="form_box">
+  <span class="span_title2">二 团队申请人信息</span>
+  <div class="contents" style="padding-left:10px">    
+    <p>
+      <label class="label">真实姓名<span style="color:red;">＊</span></label>
+      <%= form.text_field :applicant_name, :size => 20, :class => "formText" %> <%= error_message_on @team, :applicant_name %>
+    </p>
+    <p>
+      <label class="label">联系电话<span style="color:red;">＊</span></label>
+      <%= form.text_field :applicant_phone, :size => 20, :class => "formText" %> <%= error_message_on @team, :applicant_phone %>
+    </p>
+    <p>
+      <label class="label">电子邮箱<span style="color:red;">＊</span></label>
+      <%= form.text_field :applicant_email, :size => 20, :class => "formText" %> <%= error_message_on @team, :applicant_email %>
+    </p>
+    <p>
+      <label class="label">团队职位<span style="color:red;">＊</span></label>
+      <%= form.text_field :applicant_role, :size => 20, :class => "formText" %> <%= error_message_on @team, :applicant_role %>
+    </p>
+  </div>
+</div>
 
-<p>
-  <label class="label">团队介绍<span style="color:red;">＊</span></label><%= error_message_on @team, :content %>
-  <%= form.text_area :"description", :style => 'width:320px;height:160px;'  %>
-</p>
+<div class="form_box">
+  <span class="span_title2">三 服务条款</span>
+  <div class="contents" style="padding-left:10px">    
+    <p>
+      服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文
+    </p>
+    <p><%= form.check_box :agree_service_terms %> <span class="require">*</span> <%= error_message_on @team, :agree_service_terms %></p>
+  </div>
+</div>

@@ -162,7 +162,13 @@ ActionController::Routing::Routes.draw do |map|
     games.new_category_game '/games/category/:tag/new', :action => "new"
   end
   
-  map.resources :teams
+  map.resources :teams,:member => { :set_leaders => :get,
+                                    :apply => :post,
+                                    :allow => :put,
+                                    :refuse => :delete,
+                                    :search_user => :get,
+                                    :add => :post
+                                  }
 
   map.resources :requirement_types, :as => 'projects' do |project|
     project.resources :requirements
@@ -183,6 +189,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :groups
     admin.resources :game_categories
     admin.resources :co_donations,:member => {:validate => :put, :cancel => :put}
+    admin.resources :teams,:member => {:validate => :put, :cancel => :put}
     admin.resources :requirement_types, :member => {:validate => :put, :cancel => :put} do |type|
       type.resources :requirements, :member => {:approve => :put, :reject => :put}
     end

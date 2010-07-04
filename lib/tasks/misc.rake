@@ -6,13 +6,13 @@ namespace :misc do
   end
   
   desc "判定一周内没有上传证明的捐赠无效"
-  task :check_sub_donation do
+  task :check_sub_donation => :environment do
     SubDonation.all.each do |s|
-      if s.state == "ordered" && s.created_at < 8.days.ago
+      if (s.state == "ordered") && (s.created_at < 7.days.ago)
         s.refuse
         message = Message.new(
           :subject => "你为#{s.co_donation.school.title}捐赠的#{s.quantity}件#{s.co_donation.goods_name}失效了",
-          :content => "<p>由于你没有在一周内按时上传捐赠证明，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"
+          :content => "<p>由于你没有在一周内按时上传捐赠证明，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{s.co_donation.id} </p><br/><p>多背一公斤团队</p>"
           )
         message.author_id = 0
         message.to = [s.user]
