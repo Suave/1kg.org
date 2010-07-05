@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "goods_name"
     t.integer  "number",           :default => 0
     t.integer  "goal_number"
-    t.integer  "beneficiary_number"
+    t.integer  "beneficiary_number",:default => 0
     t.integer  "comments_count",   :default => 0
     
     t.string   "address"
