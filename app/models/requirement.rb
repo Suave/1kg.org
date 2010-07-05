@@ -56,7 +56,7 @@ class Requirement < ActiveRecord::Base
   end
   
   def last_updated_at
-    [self.created_at,self.last_modified_at,(self.shares.empty? ? nil : self.shares.last.created_at)].compact.max
+    [self.created_at,self.last_modified_at,(self.shares.empty? ? nil : self.shares.last.created_at),(self.photos.empty? ? nil : self.photos.last.created_at)].compact.max
   end
   
   def matched_percent_str
