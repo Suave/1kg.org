@@ -17,6 +17,9 @@ class Admin::RequirementTypesController < Admin::BaseController
     @project.validated_at = Time.now
     @project.validated_by_id = current_user.id
     @project.save!
+    
+    
+    
     flash[:notice] = "项目创建成功"
     redirect_to admin_requirement_types_url
   end
