@@ -18,6 +18,11 @@ class CoDonation < ActiveRecord::Base
   named_scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"  
   acts_as_paranoid
   
+  
+  def self.total_beneficiary
+    CoDonation.validated.map(&:beneficiary_number).sum
+  end
+  
   def validate
     if goal_number && !(goal_number > 0)
       errors.add(:goal_number,"数量填写不正确")
