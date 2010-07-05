@@ -42,7 +42,7 @@
         month: "1 个月前",
         months: "%d 个月前",
         year: "1 年前",
-        years: "%d 前"
+        years: "%d 年前"
       }
     },
     inWords: function(distanceMillis) {
