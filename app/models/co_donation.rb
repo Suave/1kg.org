@@ -34,6 +34,9 @@ class CoDonation < ActiveRecord::Base
     end
   end
   
+  def last_updated_at
+    [self.created_at, self.last_modified_at,(self.photos.empty? ? nil : self.photos.last.created_at)].compact.max
+  end
    
   def still_need
     if (self.goal_number > self.number)

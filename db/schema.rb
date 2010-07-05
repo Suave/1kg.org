@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "validated",           :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
-    
-    
+    t.datetime "last_modified_at"
+    t.integer  "last_modified_by_id"
     t.timestamps
   end
   
