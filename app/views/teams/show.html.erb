@@ -11,10 +11,12 @@
 
     <div style="margin-left:170px">
         <span class="span_title"><%= @team.name %></span>
-        <div>所在位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>
-        团队类型： <%= @team.category%>　　　
+        <div style="margin:4px 0">所在位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>
+        团队类型： <%= @team.category%><br/>
+        <%= "团队网站： #{link_to @team.website,@team.website}<br/>" unless @team.website.empty? %>
+        <%= "团队人数： #{@team.member_number} 人" if @team.member_number %>
         </div>
-      <p><%= @team.description %></p>
+        <p><h5>团队介绍</h5><%= @team.description %></p>
     </div>
 </div>
 

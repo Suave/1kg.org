@@ -66,8 +66,9 @@
   <span class="span_title2">三 服务条款</span>
   <div class="contents" style="padding-left:10px">    
     <p>
-      服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文服务条款正文
+    为了使团队信息真实有效，只有真实存在的公益团队才可以申请公益团队，而你做为申请人需要是团队成员。
+    <br/>团队页面需要通过1kg团队的审核才可正式创建，1kg有权力取消不符合上述要求团队的页面。
     </p>
-    <p><%= form.check_box :agree_service_terms %> <span class="require">*</span> <%= error_message_on @team, :agree_service_terms %></p>
+    <p><%= form.check_box :agree_service_terms %> <span class="require">*</span> 我同意 <%= error_message_on @team, :agree_service_terms %></p>
   </div>
 </div>
