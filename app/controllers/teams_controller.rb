@@ -6,6 +6,8 @@ class TeamsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_activity]
   
   def index
+    @teams = Team.all
+    @myteams = current_user.teams if current_user
   end
   
   def show
@@ -13,6 +15,7 @@ class TeamsController < ApplicationController
   end
 
   def new
+    @team = Team.new
   end
   
   def new_activity

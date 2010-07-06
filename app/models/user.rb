@@ -121,6 +121,8 @@ class User < ActiveRecord::Base
   has_many :games, :dependent => :destroy
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
+  has_many :teams, :through => :leaderships, :source => :team
+  
   
   before_save :encrypt_password
   

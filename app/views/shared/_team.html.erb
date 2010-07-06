@@ -1,0 +1,11 @@
+<div class="activity_list">
+    <div style="float:left;background:#ccc;width:56px;height:56px;overflow:hidden">
+        <img src="<%= team.image(:team_icon) %>" style="width:56px;height:56px;"/>
+    </div>
+    <div style="float:left;margin-left:5px;width:84px">
+        <h5 style="font-size:13px"><%= link_to team.name, team %></h5>
+        <div style="margin:2px 0">
+           <%= team.category %>
+        </div>
+    </div>
+</div>

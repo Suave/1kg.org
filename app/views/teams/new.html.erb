@@ -1,7 +1,7 @@
-<% @page_title = @title = "创建团队申请" %>
+<% @page_title = @title = "创建团队页面申请" %>
 
 <% content_for :crumb do -%>
-<li>创建团队申请</li>
+<li>创建团队页面申请</li>
 <% end -%>
 
 
@@ -22,7 +22,7 @@
 
     <%= render :partial => "form", :object => f %>        
     <p>
-      <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/}';return false" %>
+      <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/';return false" %>
       <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
     </p>
   <% end -%>
