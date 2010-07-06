@@ -1,0 +1,24 @@
+<% @page_title = "公益团队" -%>
+<style type="text/css">.activity_list{width:150px;}</style>
+<div class="cleanfix" style="clear:both;height:10px"></div>
+
+
+<% content_for :sidebar do -%>
+  <% if @myteams%>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  <div class="newbox">
+      <span class="span_title" style="margin-right:8px">我的团队</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @myteams} %>
+  </div>
+  <% end %>
+<%end%>
+
+<div class="newbox">
+  <div style="float:right;position:relative;top:2px"><%= link_to "创建团队", new_team_url,:class => "buttonjoin" %></div>
+    <span class="span_title" style="margin-right:8px">全部团队</span>
+    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <%= render :partial => "/shared/team", :collection => @teams %>
+</div>
+
+<div class="cleanfix" style="clear:both;height:30px"></div>

@@ -152,6 +152,8 @@ module ApplicationHelper
       user_avatar_for(object, size)
     elsif object.class == Group
       group_avatar_for(object, size)
+    elsif object.class == Team
+      image_tag object.image(:team_icon),:style => 'width:48px;height:48px;'
     end
   end
   

@@ -3,7 +3,7 @@
   <div class="contents" style="padding-left:10px">    
     <p>
       <label class="label">团队名称<span style="color:red;">＊</span></label>
-      <%= form.text_field :name, :size => 15, :class => "formText" %> <%= error_message_on @team, :name %>
+      <%= form.text_field :name, :size => 21, :class => "formText" %> <%= error_message_on @team, :name %> 12个字以内
     </p>
     
     <p>
@@ -27,8 +27,8 @@
     </p>
       
     <p>
-      <label class="label">标志(Logo)</label>
-      <%= form.file_field :image %> <%= error_message_on @team, :image%>
+      <label class="label">标志(Logo)</label> <span class="gary_span">为了更好的显示效果，建议使用正方形图片<span>
+      <%= form.file_field :image,:style => "margin-left:70px" %> <%= error_message_on @team, :image%>
     </p>
     
     <p>

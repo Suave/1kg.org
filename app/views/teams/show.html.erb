@@ -3,24 +3,24 @@
 <% content_for :crumb do -%>
 <li><%= link_to '团队', teams_path %></li>
 <li><%= @team.name %></li>
-<% end -%>
-
+<% end %>
 <div class="newbox">
     <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
       <%= image_tag(@team.image.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
     </div>
 
-    <div id="module_meta">
-      <span class="span_title"><%= @team.name %></span>
-      <p>团队类型： <%= @team.category%>　　　
-            所在位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %></p>
+    <div style="margin-left:170px">
+        <span class="span_title"><%= @team.name %></span>
+        <div>所在位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>
+        团队类型： <%= @team.category%>　　　
+        </div>
       <p><%= @team.description %></p>
     </div>
 </div>
 
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && !@team.allowed_leaders.include?(current_user)%></span>
+  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.allowed_leaders.include?(current_user)%></span>
   <div class="title_line"><span class="span_title2">团队活动</span></div>
   <%= render :partial => "/shared/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
@@ -38,7 +38,17 @@
 
 
 <% content_for :sidebar do -%>
-<span class="span_title">团队组织者</span><%= link_to "申请加入",apply_team_url(@team),:method => :post,:class => "adminbutton" if current_user && !@team.allowed_leaders.include?(current_user)%>
-<div class="cleanfix" style="height:10px"></div>
+  
+  <% if current_user && @team.leaders.include?(current_user) %>
+    <div id="admins">
+        你是<%= @team.name %>的组织者，可以：<br/>
+       <%= link_to "更新信息", edit_team_url(@team),:class => "adminbutton" %>
+       <%= link_to "组织管理", set_leaders_team_url(@team),:class => "adminbutton"%>
+       <%= link_to "发布活动", new_activity_team_url(@team),:class => "adminbutton"%>
+    </div>
+  <% end %>
+  
+  <span class="span_title">团队组织者</span><%= link_to "申请加入",apply_team_url(@team),:method => :post,:class => "adminbutton" if current_user && !@team.allowed_leaders.include?(current_user)%>
+  <div class="cleanfix" style="height:10px"></div>
   <%= render :partial => "/shared/user_list", :locals => {:users => @team.allowed_leaders} %>
 <% end %>

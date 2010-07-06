@@ -128,8 +128,7 @@ class ActivitiesController < ApplicationController
   end
   
   def destroy
-    @activity = Activity.find(params[:id])
-    
+    @activity = Activity.find(params[:id])    
     respond_to do |format|
       if current_user.admin?
         @activity.destroy
