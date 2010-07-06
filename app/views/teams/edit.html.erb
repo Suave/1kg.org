@@ -1,0 +1,70 @@
+<% @page_title = @title = "编辑团队信息" %>
+
+<% content_for :crumb do -%>
+<li>编辑团队信息</li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+<% @page = Page.find_by_slug('team-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">公益团队指南</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<% end -%>
+
+<div class="newbox" >
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :team, :url => team_url(@team), :html => {:method => :put} do |form| -%>
+
+   <div class="form_box">
+   <div class="contents" style="padding-left:10px">    
+    <p>
+      <label class="label">团队名称　</label>
+      <%= @team.name %> 
+    </p>
+    
+    <p>
+      <label class="label">团队类型　</label>
+      <%= @team.category %> 
+    </p>
+    
+    <p>
+      <label class="label">所在位置<span style="color:red;">＊</span></label>
+      <%= geo_select "team", "geo",nil,@team.geo_id %> <%= error_message_on @team, :geo_id%>
+    </p>
+    
+    <p>
+      <label class="label">团队人数　</label>
+      <%= form.text_field :member_number, :size => 10, :class => "formText" %> <%= error_message_on @team, :member_number %>
+    </p>
+    
+    <p>
+      <label class="label">团队网站　</label>
+      <%= form.text_field :website, :size => 10, :class => "formText" %> <%= error_message_on @team, :website %>
+    </p>
+      
+    <p>
+      <label class="label">标志(Logo)</label> <span class="gary_span">为了更好的显示效果，建议使用正方形图片<span>
+      <%= form.file_field :image,:style => "margin-left:70px" %> <%= error_message_on @team, :image%>
+    </p>
+    
+    <p>
+      <label class="label">团队介绍<span style="color:red;">＊</span></label>
+      <span class="gary_span">团队介绍会显示在团队首页里。</span>  <%= error_message_on @team, :description %><br/>
+      <%= form.text_area :"description", :style => 'width:360px;height:90px;margin-left:70px'  %>
+    </p>
+    
+  </div>
+</div>
+
+    <p>
+      <%= form.submit "保存" ,:class => "surebutton"%> <%= form.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/';return false" %>
+      <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
+    </p>
+  <% end -%>
+  <div class="clearfix" style="height:20px"></div>
+</div>

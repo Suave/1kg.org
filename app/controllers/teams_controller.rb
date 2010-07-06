@@ -11,7 +11,6 @@ class TeamsController < ApplicationController
   end
   
   def show
-    
   end
 
   def new
@@ -47,6 +46,12 @@ class TeamsController < ApplicationController
         want.html { render 'new' }
       end
     end
+  end
+  
+  def update
+    @team.update_attributes!(params[:team])
+    flash[:notice] = "修改成功"
+    redirect_to edit_team_url(@team)
   end
   
   def new_activity
