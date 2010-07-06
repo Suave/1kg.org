@@ -14,13 +14,13 @@
         <th>状态</th>
         <th width="10%">详细</th>
       </tr>
-    <% @teams.each_with_index do |team,n|%>
+      <% @teams.each_with_index do |team,n|%>
       <tr>
         <td><%= team.validated? ? (link_to team.name,team_path(team)) : team.name %></td>
         <td><%= link_to "#{team.user.login}",user_path(team.user)%></td>
         <td><%= team.created_at.to_date %></td>
         <td>
-          <%if  team.validated?%><span style="color:#3333cc">已验证</span>
+          <% if team.validated?%><span style="color:#3333cc">已验证</span>
           <%else%><span style="color:#999">未通过</span> 
           <%end%>
         </td>

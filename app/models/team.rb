@@ -5,6 +5,7 @@ class Team < ActiveRecord::Base
   has_one  :board,:as => :talkable, :dependent => :destroy
   has_many :leaderships, :dependent => :destroy
   has_many :leaders,     :through => :leaderships, :source => :user
+  has_many :activities
   
   
   attr_accessor :agree_service_terms
@@ -27,6 +28,11 @@ class Team < ActiveRecord::Base
   
   def allowed_leaders
     self.leaderships.validated.map{|a| a.user}
+  end
+  
+  #为了和User统一接口
+  def login
+    self.name
   end
 
 

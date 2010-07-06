@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "activities", :force => true do |t|
     t.integer  "user_id",                             :null => false
     t.integer  "school_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
     t.boolean  "done",             :default => false
     t.datetime "created_at"
     t.datetime "updated_at"

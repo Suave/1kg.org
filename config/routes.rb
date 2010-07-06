@@ -167,7 +167,9 @@ ActionController::Routing::Routes.draw do |map|
                                     :allow => :put,
                                     :refuse => :delete,
                                     :search_user => :get,
-                                    :add => :post
+                                    :add => :post,
+                                    :new_activity => :get,
+                                    :create_activity => :post
                                   }
 
   map.resources :requirement_types, :as => 'projects' do |project|

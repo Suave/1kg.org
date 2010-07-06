@@ -35,7 +35,7 @@ class Activity < ActiveRecord::Base
   belongs_to :school
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
-  belongs_to :school
+  belongs_to :team
   
   has_many :participations, :dependent => :destroy
   has_many :participators,  :through => :participations, :source => :user
@@ -51,6 +51,7 @@ class Activity < ActiveRecord::Base
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
+  named_scope :by_team, :conditions => {:by_team => true}, :order => "created_at desc"
   
   named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
@@ -72,6 +73,11 @@ class Activity < ActiveRecord::Base
   validates_presence_of :start_at, :message => "这是必填项"
   validates_presence_of :end_at, :message => "这是必填项"
   validates_presence_of :description_html, :message => "活动介绍是必填项"
+  
+  def organizer
+    self.by_team ? self.team : self.user
+  end
+  
   
   def validate
     begin
