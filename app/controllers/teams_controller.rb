@@ -1,8 +1,9 @@
 class TeamsController < ApplicationController
   before_filter :find_team, :except => [:new, :create, :index]
   before_filter :login_required, :except => [:index,:show]
-  before_filter :check_permission, :only => [:edit,:allow,:refuse,:set_leaders,:searcher_user,:add]
+  before_filter :check_permission, :only => [:edit,:allow,:refuse,:set_leaders,:searcher_user,:add,:new_activity]
   
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_activity]
   
   def index
   end
@@ -12,7 +13,24 @@ class TeamsController < ApplicationController
   end
 
   def new
-    @team = Team.new
+  end
+  
+  def new_activity
+    @activity = Activity.new(:team_id => @team.id,:by_team => true)
+  end
+  
+  def create_activity
+    @activity = Activity.new(params[:activity])
+    @activity.user = current_user
+    @activity.team = @team
+    @activity.by_team = true
+    if @activity.save
+      @activity.participators << current_user
+      flash[:notice] = "活动发布成功，作为活动发起人你会自动“参加“这个活动，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"
+      redirect_to mainphoto_activity_url(@activity)
+    else
+      render "new_activity"
+    end
   end
   
   def create
@@ -26,6 +44,10 @@ class TeamsController < ApplicationController
         want.html { render 'new' }
       end
     end
+  end
+  
+  def new_activity
+    @activity = Activity.new
   end
   
   def apply
