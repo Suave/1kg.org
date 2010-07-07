@@ -7,6 +7,8 @@ class Team < ActiveRecord::Base
   has_many :leaders,     :through => :leaderships, :source => :user
   has_many :activities
   
+  has_many :fellowings, :as => "fellowable"
+  has_many :fellowers, :through => :fellowings
   
   attr_accessor :agree_service_terms
   
@@ -14,14 +16,14 @@ class Team < ActiveRecord::Base
   
   validates_presence_of :name,:description,:user_id,:geo_id,:applicant_name,:applicant_phone,:applicant_email,:applicant_role,:category,:message=> "此项是必填项"
   validates_format_of   :applicant_email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
-  validates_acceptance_of :agree_service_terms,:message => "需要同意团队要求才能申请"
+  validates_acceptance_of :agree_service_terms,:message => "需要同意申请协议才能申请"
   validates_length_of :name, :maximum => 12
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
   named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
   
   before_create :format_website_url
-  after_create :create_discussion,:set_leader
+  after_create :create_discussion,:set_relationship
 
   def appling_leaders
     self.leaderships.not_validated.map{|a| a.user}
@@ -36,12 +38,13 @@ class Team < ActiveRecord::Base
     self.name
   end
 
-
   private
   
-  def set_leader
-    #设置申请人为团队管理员
+  def set_relationship
+    #设置申请人为团队的管理员
     self.user.leaderships.build(:team_id => self.id,:validated => true,:validated_at => Time.now, :validated_by_id => 0).save
+    #设置申请人为团队的关注者
+    self.fellowers << self.user
   end
   
   def format_website_url

@@ -9,8 +9,7 @@ class SubDonation < ActiveRecord::Base
   has_attached_file :image, :styles => {:medium => "580x580>", :thumb => "150x150>" }
   validates_presence_of :co_donation_id, :user_id, :quantity
   
-  named_scope :by_state, lambda { |state|
-    {:conditions => {:state => state} }}
+  named_scope :by_state, lambda { |state| {:conditions => {:state => state} }}
   
   named_scope :recent,:limit => 8,:order => "created_at desc"
   

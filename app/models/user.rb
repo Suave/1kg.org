@@ -96,15 +96,12 @@ class User < ActiveRecord::Base
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 
-																:foreign_key => "author_id", :dependent => :destroy 
-
+											  :foreign_key => "author_id", :dependent => :destroy 
 	has_many :received_messages, 	:class_name => "MessageCopy", 
 															 	:foreign_key => "recipient_id", :dependent => :destroy 
-
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
 														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
-														 		
 	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
@@ -121,8 +118,6 @@ class User < ActiveRecord::Base
   has_many :games, :dependent => :destroy
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
-  has_many :teams, :through => :leaderships, :source => :team
-  
   
   has_many :fellowings, :foreign_key => 'fellower_id'
   has_many :feed_items, :as => 'owner'
@@ -313,6 +308,11 @@ class User < ActiveRecord::Base
   #只包含在小组发起的话题
   def group_topics
     self.topics.find(:all, :conditions => ["boards.talkable_type = ?","GroupBoard"],:include => [:board])
+  end
+  
+  def teams
+    teams_id_list = Fellowing.find(:all,:conditions => {:fellower_id => self.id,:fellowable_type => "Team"}).map(&:fellowable_id)
+    Team.find(:all,:conditions => ["id in (?)",teams_id_list])
   end
   
   def self.archives
