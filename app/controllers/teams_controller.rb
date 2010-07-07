@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_activity]
   
   def index
-    @teams = Team.all
+    @teams = Team.validated.all
     @myteams = current_user.teams if current_user
   end
   

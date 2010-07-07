@@ -50,7 +50,7 @@
     </div>
   <% end %>
   
-  <span class="span_title">团队组织者</span><%= link_to "申请加入",apply_team_url(@team),:method => :post,:class => "adminbutton" if current_user && !@team.allowed_leaders.include?(current_user)%>
+  <span class="span_title">团队组织者</span>
   <div class="cleanfix" style="height:10px"></div>
   <%= render :partial => "/shared/user_list", :locals => {:users => @team.allowed_leaders} %>
 <% end %>
