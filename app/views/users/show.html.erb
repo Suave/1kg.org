@@ -97,7 +97,6 @@
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "shares", :object => @shares, :locals => {:user => @user} %>
-<%= render :partial => "feed_items", :object => @feed_items, :locals => {:user => @user} %>
 
 <script type="text/javascript">
   $(document).ready(function(){
