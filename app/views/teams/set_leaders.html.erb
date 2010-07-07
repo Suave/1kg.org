@@ -8,9 +8,10 @@
 
 <% content_for :sidebar do -%>
 <p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
-
+<div class="cleanfix" style="height:20px;clear:both"></div>
 <div class="newbox">
   <span class="span_title">现有管理员</span>
+  <%= link_to '不做管理员了？',leave_team_url(@team),:method => :delete,:confirm => '您确定不做团队的管理员了么?'%>
   <div class="cleanfix" style="height:10px"></div>
   <% @team.leaders.each do |user| %>
        <dl class="user">
@@ -32,10 +33,28 @@
 
 
 <div class="newbox">
-    <span class="span_title">添加管理员</span>
+<span class="span_title">添加管理员</span>
+      <% unless @fellowers.empty?%>
+      <div style="padding:3px 10px;background:#ddd">从关注者里添加：</div>
+      <% @fellowers.each do |u| %>
+      
+        <dl class="user">
+          <dt>
+            <%= avatar_for(u, "large") %>
+          </dt>
+          <dd>
+            <%= link_to u.login, user_url(u) %><br/>
+            <%= link_to '添加 +',add_team_url(@team,:user_id => u.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
+          </dd>
+        </dl>
+      <% end %>
+    <% end %>
+    
+    <div class="cleanfix" style="height:20px;clear:both"></div>
       <% form_tag search_user_team_path, :method => :get do -%>
-      <div style="padding:3px 10px;background:#eee"><label>输入用户的登录邮箱: </label><%= text_field_tag 'email' %> <%= submit_tag "查 找" %></div>
+      <div style="padding:3px 10px;background:#ddd"><label>直接搜索用户的登录邮箱: </label><%= text_field_tag 'email' %> <%= submit_tag "查 找" %></div>
       <% end -%>
+      
       <% unless @user.nil? %>
       <p><h6>搜索结果：</h6>
         <dl class="user">
@@ -44,14 +63,12 @@
           </dt>
           <dd>
             <%= link_to @user.login, user_url(@user) %><br/>
-            <%= link_to '添加管理员',add_team_url(@team,:user_id => @user.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
+            <%= link_to '添加 +',add_team_url(@team,:user_id => @user.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
           </dd>
-        <dl>
+        </dl>
       </p>
-                
       <% end %>
+      
 </div>
-
-<div class="cleanfix" style="height:20px;clear:both"></div>
 
 <div class="cleanfix" style="height:20px;clear:both"></div>

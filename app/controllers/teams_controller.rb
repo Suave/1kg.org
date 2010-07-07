@@ -78,10 +78,23 @@ class TeamsController < ApplicationController
     end
   end
   
+  def leave
+    if  @team.leaders.size == 1
+      flash[:notice] = "你是目前团队唯一的管理员，就不能退出啦"
+      redirect_to set_leaders_team_url(@team)
+    else
+      current_user.leaderships.find_by_team_id(@team).delete
+      flash[:notice] = "#你现在不是#{@team.name}的管理员了。"
+      redirect_to team_url(@team)
+    end
+  end
+  
   def set_leaders
+    @fellowers = @team.fellowers - @team.leaders
   end
   
   def search_user
+    @fellowers = @team.fellowers - @team.leaders
     @user = User.find_by_email(params[:email])
     render :set_leaders
   end
