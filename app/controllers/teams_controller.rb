@@ -66,6 +66,7 @@ class TeamsController < ApplicationController
       redirect_to set_leaders_team_url(@team)
     else
       @user.leaderships.build(:team_id => @team.id).save
+      @team.followers << @user
       message = Message.new(:subject => "你成为了#{@team.name}的管理员",
                           :content => "<p>你好,#{@user.login}:</p><br/><p>祝贺你成为#{@team.name}的管理员。<br/>成为管理员后，你可以编辑团队的信息，并可以在团队页面以团队的名义发起活动。<br/>快去看看吧 => #{team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
                           )
@@ -84,7 +85,7 @@ class TeamsController < ApplicationController
       redirect_to set_leaders_team_url(@team)
     else
       current_user.leaderships.find_by_team_id(@team).delete
-      flash[:notice] = "#你现在不是#{@team.name}的管理员了。"
+      flash[:notice] = "你现在不是#{@team.name}的管理员了。"
       redirect_to team_url(@team)
     end
   end
