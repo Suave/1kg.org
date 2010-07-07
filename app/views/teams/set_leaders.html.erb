@@ -1,4 +1,4 @@
-<% @page_title = @title = "#{h @team.name}的组织者管理" -%>
+<% @page_title = @title = "#{h @team.name}管理员" -%>
 
 <% content_for :crumb do -%>
 <li><%= link_to '团队', teams_path %></li>
@@ -10,11 +10,11 @@
 <p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
 <% end -%>
 
-<div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队组织者可以以团队名义发起活动、编辑团队信息、添加其他组织者。<br/>　　　在添加后不能直接删除，添加新的组织者时请务必谨慎。</div>
+<div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队的管理员可以以团队名义发起活动、编辑团队信息、添加其他管理员。<br/>　　　在添加后不能直接删除，添加新的管理员时请务必谨慎。</div>
 
 
 <div class="newbox">
-    <span class="span_title">添加组织者</span>
+    <span class="span_title">添加管理员</span>
       <% form_tag search_user_team_path, :method => :get do -%>
       <div style="padding:3px 10px;background:#eee"><label>输入用户的登录邮箱: </label><%= text_field_tag 'email' %> <%= submit_tag "查 找" %></div>
       <% end -%>
@@ -26,7 +26,7 @@
           </dt>
           <dd>
             <%= link_to @user.login, user_url(@user) %><br/>
-            <%= link_to '添加组织者',add_team_url(@team,:user_id => @user.id),:method => :post,:confirm => '您确定要添加他/她为团队组织者么?'%>
+            <%= link_to '添加管理员',add_team_url(@team,:user_id => @user.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
           </dd>
         <dl>
       </p>
@@ -37,7 +37,7 @@
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
 <div class="newbox">
-  <span class="span_title">现有组织者</span>
+  <span class="span_title">现有管理员</span>
   <div class="cleanfix" style="height:10px"></div>
   <% @team.allowed_leaders.each do |user| %>
        <dl class="user">

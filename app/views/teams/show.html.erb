@@ -43,14 +43,11 @@
   
   <% if current_user && @team.leaders.include?(current_user) %>
     <div id="admins">
-        你是<%= @team.name %>的组织者，可以：<br/>
+        你是<%= @team.name %>的管理员，可以：<br/>
        <%= link_to "更新信息", edit_team_url(@team),:class => "adminbutton" %>
        <%= link_to "组织管理", set_leaders_team_url(@team),:class => "adminbutton"%>
        <%= link_to "发布活动", new_activity_team_url(@team),:class => "adminbutton"%>
     </div>
   <% end %>
   
-  <span class="span_title">团队组织者</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <%= render :partial => "/shared/user_list", :locals => {:users => @team.allowed_leaders} %>
 <% end %>

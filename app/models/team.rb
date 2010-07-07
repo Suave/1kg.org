@@ -7,6 +7,8 @@ class Team < ActiveRecord::Base
   has_many :leaders,     :through => :leaderships, :source => :user
   has_many :activities
   
+  has_many :fellowings, :as => "fellowable"
+  has_many :fellowers, :through => :fellowings
   
   attr_accessor :agree_service_terms
   
@@ -21,7 +23,7 @@ class Team < ActiveRecord::Base
   named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
   
   before_create :format_website_url
-  after_create :create_discussion,:set_leader
+  after_create :create_discussion,:set_relationship
 
   def appling_leaders
     self.leaderships.not_validated.map{|a| a.user}
@@ -39,9 +41,11 @@ class Team < ActiveRecord::Base
 
   private
   
-  def set_leader
-    #设置申请人为团队管理员
+  def set_relationship
+    #设置申请人为团队的管理员
     self.user.leaderships.build(:team_id => self.id,:validated => true,:validated_at => Time.now, :validated_by_id => 0).save
+    #设置申请人为团队的关注者
+    self.fellowers << self.user
   end
   
   def format_website_url
