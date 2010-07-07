@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
   end
   
   def show
+    @fellowers = @team.fellowers - @team.leaders
   end
 
   def new
