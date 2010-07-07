@@ -29,7 +29,7 @@
 
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.allowed_leaders.include?(current_user)%></span>
+  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.leaders.include?(current_user)%></span>
   <div class="title_line"><span class="span_title2">团队活动</span></div>
   <%= render :partial => "/shared/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>

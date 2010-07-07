@@ -8,9 +8,27 @@
 
 <% content_for :sidebar do -%>
 <p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
+
+<div class="newbox">
+  <span class="span_title">现有管理员</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <% @team.leaders.each do |user| %>
+       <dl class="user">
+          <dt>
+            <%= avatar_for(user, "large") %>
+          </dt>
+          <dd>
+            <%= link_to user.login, user_url(user) %><br/>
+            
+          </dd>          
+        </dl> 
+    <% end -%>
+</div>
+
+
 <% end -%>
 
-<div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队的管理员可以以团队名义发起活动、编辑团队信息、添加其他管理员。<br/>　　　在添加后不能直接删除，添加新的管理员时请务必谨慎。</div>
+<div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队的管理员可以以团队名义发起活动、编辑团队信息、添加其他管理员。<br/>　　　并且在添加后不能直接删除，添加新的管理员时请务必谨慎。</div>
 
 
 <div class="newbox">
@@ -36,39 +54,4 @@
 
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
-<div class="newbox">
-  <span class="span_title">现有管理员</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <% @team.allowed_leaders.each do |user| %>
-       <dl class="user">
-          <dt>
-            <%= avatar_for(user, "large") %>
-          </dt>
-          <dd>
-            <%= link_to user.login, user_url(user) %><br/>
-            
-          </dd>          
-        </dl> 
-    <% end -%>
-</div>
-
-<div class="cleanfix" style="height:20px;clear:both"></div>
-
-<% unless @team.leaderships.not_validated.empty?%>
-<div class="newbox">
-  <span class="span_title">申请者</span>
-  <div class="cleanfix" style="height:10px"></div>
-  <% @team.leaderships.not_validated.each do |l| %>
-        <dl class="user">
-          <dt>
-            <%= avatar_for(l.user, "large") %>
-          </dt>
-          <dd >
-            <%= link_to l.user.login, user_url(l.user) %><br/>
-            <%= link_to '通过',allow_team_url(@team,:leadership_id => l.id),:method => :put,:confirm => '您确定要通过他/她的申请么?'%> | <%= link_to '拒绝',refuse_team_url(@team,:leadership_id => l.id),:method => :delete,:confirm => '您确定要拒绝他/她的申请么?'%>            
-          </dd>          
-        </dl> 
-    <% end -%>
-</div>
-<%end%>
 <div class="cleanfix" style="height:20px;clear:both"></div>
