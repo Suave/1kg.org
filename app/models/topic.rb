@@ -47,7 +47,8 @@ class Topic < ActiveRecord::Base
   
   before_save :format_content
   before_create :set_last_reply
-
+  after_create :create_feed
+  
   define_index do
     # fields
     indexes title
@@ -113,4 +114,11 @@ class Topic < ActiveRecord::Base
     self.clean_html = sanitize(body_html)
   end
   
+  def create_feed
+    if self.board.talkable_type == 'SchoolBoard'
+      school = self.board.talkable.school
+      school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}发表了一篇关于#{school.title}新话题：#{self.title}), :user_id => self.user.id, :category => 'topic',
+                :item_id => self.id, :item_type => 'Topic') if school
+    end
+  end
 end

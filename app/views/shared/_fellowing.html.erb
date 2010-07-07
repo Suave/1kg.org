@@ -1,0 +1,10 @@
+<% if fellowing.fellowable.is_a?(School) %>
+  <%= render :partial => '/shared/school', :object => fellowing.fellowable %>
+<% elsif fellowing.fellowable.is_a?(User) %>
+  <div class="contents clearfix">
+    <dl class="user">
+      <dt><%= link_to avatar_for(fellowing.fellowable, "large"), user_url(fellowing.fellowable) %></dt>
+      <dd><%= link_to fellowing.fellowable.login, user_url(fellowing.fellowable) %></dd>
+    </dl>
+  </div>
+<% end %>

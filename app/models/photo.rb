@@ -49,6 +49,7 @@ class Photo < ActiveRecord::Base
   attr_accessible :uploaded_data, :title, :description, :description_html, :school_id, :activity_id,:requirement_id,:co_donation_id
   
   before_save :fill_title, :format_content
+  after_create :create_feed
   
   named_scope :with_activity, :conditions => "photos.activity_id is not null"
   named_scope :with_school, :conditions => "photos.school_id is not null"
@@ -82,5 +83,10 @@ class Photo < ActiveRecord::Base
   
   def format_content
     self.description_html = sanitize(description||'', true)
+  end
+  
+  def create_feed
+    self.school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}为#{self.school.title}上传了一张新照片：#{self.title}), :user_id => self.user.id, :category => 'photo',
+                :item_id => self.id, :item_type => 'Photo') if self.school
   end
 end

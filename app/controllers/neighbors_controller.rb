@@ -10,10 +10,10 @@ class NeighborsController < ApplicationController
       @neighborhood.neighbor = neighbor
       @neighborhood.save!
       
-      flash[:notice] = "加#{neighbor.login}为友邻"
+      flash[:notice] = "您已关注了#{neighbor.login}"
       redirect_to user_url(neighbor)
     else
-      flash[:notice] = "你已经加#{neighbor.login}为友邻了"
+      flash[:notice] = "你已关注了#{neighbor.login}"
       redirect_to user_url(neighbor)
     end
     
@@ -25,7 +25,7 @@ class NeighborsController < ApplicationController
     
     @neighborhood = Neighborhood.delete_all(:user_id => myself.id, :neighbor_id => neighbor.id)
     
-    flash[:notice] = "删除友邻#{neighbor.login}"
+    flash[:notice] = "您已取消了对#{neighbor.login}的关注"
     redirect_to user_url(neighbor)
   end
   

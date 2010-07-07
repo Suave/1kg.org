@@ -121,6 +121,9 @@ class User < ActiveRecord::Base
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
+  has_many :fellowings, :foreign_key => 'fellower_id'
+  has_many :feed_items, :as => 'owner'
+  
   before_save :encrypt_password
   
   # prevents a user from submitting a crafted form that bypasses activation

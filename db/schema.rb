@@ -723,4 +723,23 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   :name
     t.string   :link
   end
+  
+  create_table :fellowings do |t|
+    t.integer :fellower_id
+    t.integer :fellowable_id
+    t.string  :fellowable_type
+  end
+  
+  create_table :feed_items do |t|
+    t.string  :owner_id
+    t.string  :owner_type
+    t.text    :content
+    t.string  :category
+    t.integer :item_id
+    t.string :item_type
+    t.integer :user_id
+    
+    t.timestamps
+  end
+
 end
