@@ -48,7 +48,6 @@
 </div> 
 <div class="clearfix" style="height:30px;clear:both"></div>
 
-
 <% content_for :sidebar do -%>
   
   <% if current_user && @team.leaders.include?(current_user) %>
@@ -66,6 +65,5 @@
     <%= render :partial => "/shared/user_list", :locals => {:users => @fellowers} %>
   </div>  
 </div> 
-
   
 <% end %>
