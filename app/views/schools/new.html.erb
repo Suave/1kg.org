@@ -11,7 +11,7 @@
   <div id="school_form">  
     <% form_for :school, :url =>(@school.id.nil? ? schools_url( :step => @step ,:new => true) : school_url(@school, :step => @step,:new => true)), :html => {:method => (@step == 'basic'?  :post : :put), :id => "schoolsPostBasic",:multipart => true} do |f| -%>
     <%= render :partial => "form_#{@step}", :locals => {:f => f}%>     
-    <p ><%= f.submit "下一步" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/schools/#{@school.id}';return false" %></p>
+    <p><%= f.submit "下一步" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/schools/#{@school.id}';return false" %></p>
     <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
     <% end -%>
   </div>

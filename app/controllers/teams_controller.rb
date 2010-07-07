@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_filter :find_team, :except => [:new, :create, :index]
   before_filter :login_required, :except => [:index,:show]
-  before_filter :check_permission, :only => [:edit,:allow,:refuse,:set_leaders,:searcher_user,:add,:new_activity]
+  before_filter :check_permission, :only => [:edit,:set_leaders,:searcher_user,:add,:new_activity]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_activity]
   
@@ -11,6 +11,7 @@ class TeamsController < ApplicationController
   end
   
   def show
+    @fellowers = @team.fellowers - @team.leaders
   end
 
   def new
@@ -58,24 +59,6 @@ class TeamsController < ApplicationController
     @activity = Activity.new
   end
   
-  def apply
-    if  @team.leaders.include?(current_user)
-      flash[:notice] = "你已经申请过了，请等待团队现有管理员的审核，注意查收站内信通知。"
-      redirect_to @team
-    else
-      current_user.leaderships.build(:team_id => @team.id).save
-      message = Message.new(:subject => "#{current_user.login}申请成为#{@team.name}的管理员",
-                          :content => "<p>你好:</p><br/><p>用户#{current_user.login}( #{user_url(current_user)} )申请成为#{@team.name}的管理员。<br/>你可以在这里通过或拒绝他的申请 => #{set_leaders_team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
-                          )
-      message.author_id = 0
-      message.to = @team.allowed_leaders
-      message.save!
-        
-      flash[:notice] = "你的申请已经发出，团队的管理员会收到站内信提醒，尽快审核你的申请。"
-      redirect_to @team
-    end
-  end
-  
   def add
     @user = User.find(params[:user_id])
     if  @team.leaders.include?(@user)
@@ -93,36 +76,6 @@ class TeamsController < ApplicationController
       flash[:notice] = "#{@user.login}成为了团队的管理员。"
       redirect_to set_leaders_team_url(@team)
     end
-  end
-  
-  def allow
-    @leadership = Leadership.find_by_id(params[:leadership_id].to_i)
-    @leadership.update_attributes!(:validated => true,:validated_at => Time.now, :validated_by_id => current_user.id)
-    
-      message = Message.new(:subject => "你成为了#{@team.name}的管理员",
-                          :content => "<p>你好,#{@leadership.user.login}:</p><br/><p>祝贺你成为#{@team.name}的管理员。<br/>成为管理员后，你可以编辑团队的信息，并可以在团队页面以团队的名义发起活动。<br/>快去看看吧 => #{team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
-                          )
-      message.author_id = 0
-      message.to = [@leadership.user]
-      message.save!
-    
-    flash[:notice] = "#{@leadership.user.login}成为了团队管理员。"
-    redirect_to set_leaders_team_url(@team)
-  end
-  
-  def refuse
-    @leadership = Leadership.find_by_id(params[:leadership_id].to_i)
-    @leadership.delete
-    
-    message = Message.new(:subject => "你加入#{@team.name}管理员的申请拒绝了",
-                          :content => "<p>你好,#{@leadership.user.login}:</p><br/><p>你加入#{@team.name}管理员的申请被拒绝了，可能是因为出于更为谨慎的考虑。<br/>不过没关系，去团队页面看看吧 => #{team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
-                          )
-      message.author_id = 0
-      message.to = [@leadership.user]
-      message.save!
-    
-    flash[:notice] = "拒绝了#{@leadership.user.login}的申请。"
-    redirect_to set_leaders_team_url(@team)
   end
   
   def set_leaders
@@ -161,7 +114,7 @@ class TeamsController < ApplicationController
   end
   
   def check_permission
-    unless @team.allowed_leaders.include?(current_user)
+    unless @team.leaders.include?(current_user)
     flash[:notice] = "你没有团队组织权限。"
     redirect_to @team
     end

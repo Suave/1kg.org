@@ -24,13 +24,8 @@ class Team < ActiveRecord::Base
   
   before_create :format_website_url
   after_create :create_discussion,:set_relationship
-
-  def appling_leaders
-    self.leaderships.not_validated.map{|a| a.user}
-  end
   
-  def allowed_leaders
-    self.leaderships.validated.map{|a| a.user}
+  def leader 
   end
   
   #为了和User统一接口

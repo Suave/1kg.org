@@ -163,9 +163,6 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :teams,:member => { :set_leaders => :get,
-                                    :apply => :post,
-                                    :allow => :put,
-                                    :refuse => :delete,
                                     :search_user => :get,
                                     :add => :post,
                                     :new_activity => :get,

@@ -27,6 +27,8 @@ class TopicsController < ApplicationController
       redirect_to school_url(@board.talkable.school_id)
     elsif @board.talkable.class == GroupBoard
       redirect_to group_url(@board.talkable.group_id)
+    elsif @board.talkable.class == Team
+      redirect_to team_url(@board.talkable.id)
     else
       redirect_to board_url(@board)
     end

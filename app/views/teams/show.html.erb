@@ -11,11 +11,12 @@
 
     <div style="margin-left:170px">
         <div style="float:right;text-align:right" >
-        <% unless @team.fellowers.include?(current_user) -%>
+        <% if @team.leaders.include?(current_user) -%>  
+        <% elsif @team.fellowers.include?(current_user) -%>
             <%= link_to "我要关注", fellow_team_url(@team), :method => :post,:class => "buttonjoin2"%>
         <% else %>
             <span class="gary_span"><%= "你已关注这个团队<br/>#{link_to "取消关注?",unfellow_team_url(@team), :method => :delete}" %></span>
-         <% end %>   
+        <% end %>   
         </div>
         <span class="span_title"><%= @team.name %></span>
         <div style="margin:4px 0">位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>
@@ -29,7 +30,7 @@
 
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.allowed_leaders.include?(current_user)%></span>
+  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.leaders.include?(current_user)%></span>
   <div class="title_line"><span class="span_title2">团队活动</span></div>
   <%= render :partial => "/shared/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
@@ -47,24 +48,22 @@
 </div> 
 <div class="clearfix" style="height:30px;clear:both"></div>
 
-
 <% content_for :sidebar do -%>
   
   <% if current_user && @team.leaders.include?(current_user) %>
     <div id="admins">
         你是<%= @team.name %>的管理员，可以：<br/>
        <%= link_to "更新信息", edit_team_url(@team),:class => "adminbutton" %>
-       <%= link_to "组织管理", set_leaders_team_url(@team),:class => "adminbutton"%>
-       <%= link_to "发布活动", new_activity_team_url(@team),:class => "adminbutton"%>
+       <%= link_to "管理成员", set_leaders_team_url(@team),:class => "adminbutton"%>
+       
     </div>
   <% end %>
 <div class="newbox">
   <span class="span_title">关注者</span>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
-    <%= render :partial => "/shared/user_list", :locals => {:users => @team.fellowers} %>
+    <%= render :partial => "/shared/user_list", :locals => {:users => @fellowers} %>
   </div>  
 </div> 
-
   
 <% end %>

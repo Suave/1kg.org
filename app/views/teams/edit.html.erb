@@ -1,7 +1,7 @@
 <% @page_title = @title = "编辑团队信息" %>
 
 <% content_for :crumb do -%>
-<li>编辑团队信息</li>
+  <li>编辑团队信息</li>
 <% end -%>
 
 
@@ -44,12 +44,12 @@
     
     <p>
       <label class="label">团队网站　</label>
-      <%= form.text_field :website, :size => 10, :class => "formText" %> <%= error_message_on @team, :website %>
+      <%= form.text_field :website, :size => 20, :class => "formText" %> <%= error_message_on @team, :website %>
     </p>
       
     <p>
       <label class="label">标志(Logo)</label> <span class="gary_span">为了更好的显示效果，建议使用正方形图片<span>
-      <%= form.file_field :image,:style => "margin-left:70px" %> <%= error_message_on @team, :image%>
+      <br/><%= form.file_field :image,:style => "margin-left:70px" %> <%= error_message_on @team, :image%>
     </p>
     
     <p>
@@ -62,7 +62,7 @@
 </div>
 
     <p>
-      <%= form.submit "保存" ,:class => "surebutton"%> <%= form.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/';return false" %>
+      <%= form.submit "保存" ,:class => "surebutton"%> <%= form.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.location='/teams/#{@team.id}';return false" %>
       <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
     </p>
   <% end -%>
