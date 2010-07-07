@@ -119,7 +119,7 @@ class User < ActiveRecord::Base
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
-  has_many :fellowings, :foreign_key => 'fellower_id'
+  has_many :followings, :foreign_key => 'follower_id'
   has_many :feed_items, :as => 'owner'
   
   before_save :encrypt_password
@@ -311,7 +311,7 @@ class User < ActiveRecord::Base
   end
   
   def teams
-    teams_id_list = Fellowing.find(:all,:conditions => {:fellower_id => self.id,:fellowable_type => "Team"}).map(&:fellowable_id)
+    teams_id_list = Following.find(:all,:conditions => {:follower_id => self.id,:followable_type => "Team"}).map(&:followable_id)
     Team.find(:all,:conditions => ["id in (?)",teams_id_list])
   end
   

@@ -168,8 +168,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :leave => :delete,
                                     :new_activity => :get,
                                     :create_activity => :post,
-                                    :fellow => :post,
-                                    :unfellow => :delete
+                                    :follow => :post,
+                                    :unfollow => :delete
                                   }
 
   map.resources :requirement_types, :as => 'projects' do |project|

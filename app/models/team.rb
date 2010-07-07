@@ -7,8 +7,8 @@ class Team < ActiveRecord::Base
   has_many :leaders,     :through => :leaderships, :source => :user
   has_many :activities
   
-  has_many :fellowings, :as => "fellowable"
-  has_many :fellowers, :through => :fellowings
+  has_many :followings, :as => "followable"
+  has_many :followers, :through => :followings
   
   attr_accessor :agree_service_terms
   
@@ -39,7 +39,7 @@ class Team < ActiveRecord::Base
     #设置申请人为团队的管理员
     self.user.leaderships.build(:team_id => self.id,:validated => true,:validated_at => Time.now, :validated_by_id => 0).save
     #设置申请人为团队的关注者
-    self.fellowers << self.user
+    self.followers << self.user
   end
   
   def format_website_url
