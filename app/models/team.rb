@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
   
   validates_presence_of :name,:description,:user_id,:geo_id,:applicant_name,:applicant_phone,:applicant_email,:applicant_role,:category,:message=> "此项是必填项"
   validates_format_of   :applicant_email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
-  validates_acceptance_of :agree_service_terms,:message => "需要同意团队要求才能申请"
+  validates_acceptance_of :agree_service_terms,:message => "需要同意申请协议才能申请"
   validates_length_of :name, :maximum => 12
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
@@ -37,7 +37,6 @@ class Team < ActiveRecord::Base
   def login
     self.name
   end
-
 
   private
   
