@@ -17,6 +17,11 @@ class BoardsController < ApplicationController
       @group_board = @board.talkable
       @group = @group_board.group   
       render :action => "group"
+    
+    elsif @board.talkable.class == Team
+      @team = @board.talkable
+      render :action => "team"  
+      
     end
   end
 end
