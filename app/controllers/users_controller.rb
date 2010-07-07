@@ -151,6 +151,9 @@ class UsersController < ApplicationController
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
+    
+    # 目前只支持学校动态
+    #@feed_items = FeedItem.find(:all, :conditions => ['((owner_type = ? and owner_id in (?)) or (user_id in (?))) and user_id <> ?', 'School', @user.fellowings.schools.map(&:fellowable_id), @user.fellowings.users.map(&:fellowable_id), @user.id], :order => 'created_at DESC', :limit => 10)
   end
   
   def shares
@@ -159,7 +162,9 @@ class UsersController < ApplicationController
 
 
   def friends
-    @neighbors = @user.neighbors.paginate :page => params[:page] || 1, :per_page => 36
+    @fellowings = @user.neighbors.paginate(:page => params[:page] || 1, :per_page => 36)
+    # 关注此用户的人
+    @fellowers = Neighborhood.paginate(:page => params[:page] || 1, :per_page => 36, :limit => 8, :conditions => {:neighbor_id => @user.id}, :include => [:user])
   end
   
   def participated_activities
@@ -206,9 +211,11 @@ class UsersController < ApplicationController
     @submitted    = @user.submitted_activities.find(:all, :limit => 6,:include => [:main_photo, :departure])
     @participated = @user.participated_activities.find(:all, :limit => 6, :include => [:main_photo, :departure])
     
-    #user's submitted schools
-    #@schools = user.submitted_schools.find :all, :limit => 5
-    @neighbors = user.neighbors.find :all, :limit => 8                                     
+    # 用户关注的人
+    @fellowings = user.neighbors.find :all, :limit => 8
+    # 关注此用户的人
+    @fellowers = Neighborhood.find(:all, :limit => 8, :conditions => {:neighbor_id => @user.id}, :include => [:user]).map(&:user)
+    
     @groups = user.joined_groups.find :all, :limit => 8
   end
   

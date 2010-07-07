@@ -43,13 +43,12 @@ class Requirement < ActiveRecord::Base
     
   end
   
-    
   named_scope :confirmed, :conditions => ["validated = ?", true]
   named_scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]
   named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
-  #after_create :generate_stuffs
+  after_create :create_feed
   
   def matched_percent
     (matched_count.to_f*100/quantity).to_i
@@ -62,22 +61,10 @@ class Requirement < ActiveRecord::Base
   def matched_percent_str
     matched_percent.to_s + "%"
   end
-=begin  
+  
   private
-  def generate_stuffs
-    count = 0
-    while count < self.quantity
-      code = UUID.create_random.to_s.gsub("-", "").unpack('axaxaxaxaxaxaxax').join('')
-      if exist_stuff = Stuff.find_by_code(code)
-        next
-      else
-        stuff = Stuff.new(:code => code)
-        stuff.buck = self
-        stuff.type = self.type
-        stuff.save!
-        count += 1
-      end
-    end
+  def create_feed
+    self.school.feed_items.create(:user_id => self.applicator_id, :category => 'project',
+                :item_id => self.id, :item_type => 'Requirement') if self.school
   end
-=end
 end

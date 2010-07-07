@@ -79,11 +79,11 @@
       </div>
       <div class="project_info">
         <div class="title_line"><span class="span_title2">征集要求</span></div>
-        <%= @project.condition_html.gsub("\r\n", '<br/>') %>
+        <%= simple_format(@project.condition_html) %>
       </div>
       <div class="project_info">  
         <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div>
-        <%= @project.support_html.gsub("\r\n", '<br/>') %>
+        <%= simple_format(@project.support_html) %>
       </div>
       <div class="project_info">
         <div class="title_line"><span class="span_title2">反馈要求</span></div>
