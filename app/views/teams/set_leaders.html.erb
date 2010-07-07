@@ -34,9 +34,10 @@
 
 <div class="newbox">
 <span class="span_title">添加管理员</span>
-      <% unless @fellowers.empty?%>
+      <% unless @followers.empty?%>
       <div style="padding:3px 10px;background:#ddd">从关注者里添加：</div>
-      <% @fellowers.each do |u| %>
+      <div class="cleanfix" style="height:10px;clear:both"></div>
+      <% @followers.each do |u| %>
       
         <dl class="user">
           <dt>

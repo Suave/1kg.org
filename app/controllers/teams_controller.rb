@@ -11,7 +11,7 @@ class TeamsController < ApplicationController
   end
   
   def show
-    @fellowers = @team.fellowers - @team.leaders
+    @followers = @team.followers - @team.leaders
   end
 
   def new
@@ -65,7 +65,7 @@ class TeamsController < ApplicationController
       flash[:notice] = "他已经是团队的管理员了"
       redirect_to set_leaders_team_url(@team)
     else
-      @user.leaderships.build(:team_id => @team.id,:validated => true,:validated_at => Time.now, :validated_by_id => current_user.id).save
+      @user.leaderships.build(:team_id => @team.id).save
       message = Message.new(:subject => "你成为了#{@team.name}的管理员",
                           :content => "<p>你好,#{@user.login}:</p><br/><p>祝贺你成为#{@team.name}的管理员。<br/>成为管理员后，你可以编辑团队的信息，并可以在团队页面以团队的名义发起活动。<br/>快去看看吧 => #{team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
                           )
@@ -90,19 +90,19 @@ class TeamsController < ApplicationController
   end
   
   def set_leaders
-    @fellowers = @team.fellowers - @team.leaders
+    @followers = @team.followers - @team.leaders
   end
   
   def search_user
-    @fellowers = @team.fellowers - @team.leaders
+    @followers = @team.followers - @team.leaders
     @user = User.find_by_email(params[:email])
     render :set_leaders
   end
   
-  def fellow
+  def follow
     #关注团队
-    unless @team.fellowers.include?(current_user)
-      @team.fellowers << current_user
+    unless @team.followers.include?(current_user)
+      @team.followers << current_user
       flash[:notice] = "关注成功"
       redirect_to team_url(@team)  
     else
@@ -110,9 +110,9 @@ class TeamsController < ApplicationController
     end
   end
   
-  def unfellow
-    if @team.fellowers.include?(current_user)
-      @team.fellowers.delete(current_user)
+  def unfollow
+    if @team.followers.include?(current_user)
+      @team.followers.delete(current_user)
       flash[:notice] = "已经取消"
       redirect_to team_url(@team)  
     else
