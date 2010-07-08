@@ -14,6 +14,8 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "activities", :force => true do |t|
     t.integer  "user_id",                             :null => false
     t.integer  "school_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
     t.boolean  "done",             :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -104,9 +106,19 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "teams", :force => true do |t|
     t.string    "name"
     t.integer   "user_id"
+    t.integer   "geo_id"
     t.datetime  "created_at"
     t.string    "image_file_name"
     t.text      "description"
+    t.string    "website"
+    t.string    "category"
+    t.integer   "member_number"
+    
+    t.string   "applicant_name"
+    t.string   "applicant_phone"
+    t.string   "applicant_email"
+    t.string   "applicant_role"
+    
     t.boolean   "validated",     :default => false
     t.datetime  "validated_at"
     t.integer   "validated_by_id"
@@ -182,6 +194,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
   end
 
+  create_table "leaderships", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "team_id",   :null => false
+    t.datetime "created_at"
+  end
+  
   create_table "message_copies", :force => true do |t|
     t.integer "recipient_id",                   :null => false
     t.integer "message_id",                     :null => false
@@ -723,4 +741,23 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   :name
     t.string   :link
   end
+  
+  create_table :followings do |t|
+    t.integer :follower_id
+    t.integer :followable_id
+    t.string  :followable_type
+  end
+  
+  create_table :feed_items do |t|
+    t.string  :owner_id
+    t.string  :owner_type
+    t.text    :content
+    t.string  :category
+    t.integer :item_id
+    t.string :item_type
+    t.integer :user_id
+    
+    t.timestamps
+  end
+
 end

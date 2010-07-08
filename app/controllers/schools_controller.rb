@@ -275,6 +275,7 @@ class SchoolsController < ApplicationController
     @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
    
     @followers = @school.interestings
+    @subscribers = @school.followers
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
@@ -384,6 +385,7 @@ class SchoolsController < ApplicationController
   def interest
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
+      Following.create!(:follower_id => current_user.id, :followable_id => @school.id, :followable_type => 'School')
     else
       flash[:notice] = "你已经选去过或想去这所学校了"
     end
@@ -393,6 +395,8 @@ class SchoolsController < ApplicationController
   def novisited
     visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
     visited.destroy if visited
+    following = current_user.followings.find(:first, :conditions => {:followable_id => @school.id, :followable_type => 'School'})
+    following.destroy if following
     redirect_to school_url(@school)
   end
   

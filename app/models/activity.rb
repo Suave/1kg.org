@@ -35,7 +35,7 @@ class Activity < ActiveRecord::Base
   belongs_to :school
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
   belongs_to :arrival, :class_name => "Geo", :foreign_key => "arrival_id"
-  belongs_to :school
+  belongs_to :team
   
   has_many :participations, :dependent => :destroy
   has_many :participators,  :through => :participations, :source => :user
@@ -51,6 +51,7 @@ class Activity < ActiveRecord::Base
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
+  named_scope :by_team, :conditions => {:by_team => true}, :order => "created_at desc"
   
   named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
@@ -73,6 +74,11 @@ class Activity < ActiveRecord::Base
   validates_presence_of :end_at, :message => "这是必填项"
   validates_presence_of :description_html, :message => "活动介绍是必填项"
   
+  def organizer
+    self.by_team ? self.team : self.user
+  end
+  
+  
   def validate
     begin
       if (Activity.find(id).start_at > Time.now) and ((Activity.find(id).start_at != start_at) or (Activity.find(id).end_at != end_at))
@@ -92,6 +98,7 @@ class Activity < ActiveRecord::Base
   acts_as_paranoid
   
   before_save :format_content
+  after_create :create_feed
   
   define_index do
     # fields
@@ -176,5 +183,10 @@ class Activity < ActiveRecord::Base
     rescue
       self.clean_html = self.description_html
     end
+  end
+  
+  def create_feed
+    self.school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}为#{self.school.title}发起了一个新活动：#{self.title}), :user_id => self.user.id, :category => 'activity',
+                :item_id => self.id, :item_type => 'Activity') if self.school
   end
 end

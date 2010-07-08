@@ -10,6 +10,16 @@
 <% content_for :sidebar do -%>
 <%= render :partial => '/searches/search_box', :locals => {:kind => 'activity'} %>
 
+
+<%if @teams%>
+<div class="newbox">
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+<span class="span_title">公益团队</span>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  
+</div>
+<%end%>
+
 <% @page = Page.find_by_slug('special_sidebar') -%>
 <%if @page%>
 <div class="newbox">

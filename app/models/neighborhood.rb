@@ -13,6 +13,8 @@ class Neighborhood < ActiveRecord::Base
   belongs_to :neighbor, :class_name => "User", :foreign_key => "neighbor_id"
   
   after_create :send_message_notification
+  after_create :create_following
+  before_destroy :destroy_following
   
   private
   def send_message_notification
@@ -29,4 +31,14 @@ class Neighborhood < ActiveRecord::Base
     msg.save!
   end
   
+  def create_following
+    Following.create!(:follower_id => user.id, :followable_id => neighbor.id, :followable_type => 'User')
+    self.user.feed_items.create(:content => %(#{self.user.login} 关注了#{self.neighbor.login}), :user_id => self.user.id, :category => 'neighborhood',
+                :item_id => self.id, :item_type => 'Neighborhood') if self.neighbor
+  end
+  
+  def destroy_following
+    following = user.followings.find(:first, :conditions => {:followable_id => neighbor.id, :followable_type => 'User'})
+    following.destroy if following
+  end
 end
