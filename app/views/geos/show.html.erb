@@ -1,7 +1,7 @@
 <% @page_title = "按城市查找" -%>
 
 <% content_for :sidebar do -%>
-  <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
+  <div id="geobox"><%= render :partial => "city_box" %></div>
   <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
 <% end -%>
 
