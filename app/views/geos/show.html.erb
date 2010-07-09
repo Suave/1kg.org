@@ -1,77 +1,32 @@
-<% @page_title = @title = @city.name %>
-
-<% content_for :subtitle do -%>
-  <% if logged_in? && current_user.geo == @city -%>
-  <div class="subtitle">
-    <%= link_to "我不住#{@city.name}了", setting_url(:type => "account") %>
-  </div>
-  <% end -%>
-<% end -%>
-
-
-<% content_for :crumb do -%>
-  <li><%= link_to "全国", geos_url %></li>
-  <ul>
-    <li><%= @city.name %></li>
-  </ul>
-<% end -%>
-
+<% @page_title = "按城市查找" -%>
 
 <% content_for :sidebar do -%>
-  
-  <% if @city.children.blank? -%>
-    
-    <div class="box">
-      <div class="boxOuter">
-        <div class="boxInner">
-          <h3><%=  "#{@city.name}居民的分享"%></h3>
-          <div class="contents">
-            <%= render :partial => "/shares/shares", :object => @shares %>
-          </div>
-          <p class="remark">&raquo; <%= link_to "更多#{@city.name}居民的分享", shares_geo_url(@city) %></p>
-        </div>
-      </div>
-    </div>
+  <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
+  <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
+<% end -%>
 
-    <div class="box" id="cityLatestMembers">
-      <div class="boxOuter">
-        <div class="boxInner">
-          <h3>居民</h3>
-          <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
-        </div>
-        <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_geo_url(@city) %></p>
-      </div>
-    </div>
-    
-    <div class="box" id="cityLatestMembers">
-      <div class="boxOuter">
-        <div class="boxInner">
-          <h3>在<%= @city.name %>的小组</h3>
-          <div class="contents clearfix"><%= render :partial => "/groups/groups", :object => @groups %></div>
-        </div>
-      </div>
-    </div>
-    
-  <% else %>
-    <div id="geobox"><%= render :partial => 'geo_box', :locals => {:geos => @cities} %></div>
-  <% end %>
-  
-  <%= render :partial => "school_box", :locals => {:provinces => @cities, :schools => @schools} %>
+<% content_for :crumb do -%>
+  <li>目的地查询</li>
+  <ul>
+    <li><%= @province ?  @province.name : "全国"%></li>
+  </ul>
 <% end -%>
 
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3><%= "#{@city.name}周边的学校" %></h3>
+      <h2><%= @province ?  @province.name : "全国"%></h2>
       <div class="contents">
-        <%= render :partial => 'school_maps', :locals => {:city => @city} %>
+        <%= render :partial => 'school_maps' %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="newbox" id="cityActivities">
-      <span class="span_title"><%= "#{@city.name}最近的活动"%></span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>
-      <%= render :partial => "/shared/activity", :collection => @activities %>
+<div class="newbox">
+  <div class="clearfix" style="height:10px"></div>
+  <div id="schools" class="contents">
+    <h3>来自Google的学校</h3>
+    <div id="searchControl"></div>
+  </div>
 </div>
