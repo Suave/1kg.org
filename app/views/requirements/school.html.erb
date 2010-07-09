@@ -36,7 +36,9 @@
           
 
 <div id="projects_tabs">
-  <div style="float:right;position:relative;top:5px"><img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <attr id="last_time" style="color:#e98523;font-weight:bold"><%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %></attr></div>
+  <div style="float:right;position:relative;top:5px">
+    <img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @requirement.last_updated_at.to_date %></span>
+  </div>
     <ul class="tab" >
       <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
       <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li>
@@ -139,7 +141,7 @@
 <div class="cleanfix" style="clear:both;height:5px"></div>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-  $("#last_time").text(jQuery.timeago("<%= @requirement.last_modified_at.nil?? @requirement.created_at.to_date : @requirement.last_modified_at.to_date %>"));
+  $("#last_time").text(jQuery.timeago("<%= @requirement.last_updated_at %>"));
   <%if @requirement.status == "0"%>
          $('#report_link').click()
   <%end%>

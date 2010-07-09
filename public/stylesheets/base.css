@@ -115,16 +115,3 @@ div.commentsList div.block div.content {margin-left:70px;}
 div.commentsList div.block div.avatar {float:left; margin-right:10px; text-align:right; width:50px;}
 div.commentsList div.block div.border {height:1px; clear:both; border-bottom:1px dashed #999; margin-bottom:20px;}
 div.commentsList .meta {color:#999;}
-
-/* --- for school submit form --- */
-div.school-steps {border-bottom:3px solid #E77302;margin-bottom:10px;background:#F2F2F2;font-size:12px;text-align:left;line-height:29px;}
-div.school-steps ul {list-style-type: none;display:block;float:none;}
-div.school-steps ul li {height:29px;float:left;background-image:url(/images/step_arrow.gif);background-repeat:no-repeat;color:white;font-size:14px;font-weight:bold;line-height:29px}
-div.school-steps ul li.first {background-position:0 0;padding-right:30px;padding-left:8px}
-div.school-steps ul li.first-current {background-position:0 -150px;padding-right:30px;font-size:16px;padding-left:8px}
-div.school-steps ul li.middle {background-position:0 -50px;margin-left:-20px;padding-right:30px;padding-left:22px}
-div.school-steps ul li.middle-current {background-position:0 -200px;margin-left:-20px;padding-right:30px;padding-left:22px;font-size:16px;}
-div.school-steps ul li.last {background-position:0 -100px;margin-left:-20px;padding-left:22px;position:relative;}
-div.school-steps ul li.last span.hook {position:absolute;top:0;right:-20px;width:20px;height:29px;display:block;background:url(/images/step_arrow.gif) no-repeat right -100px;}
-div.school-steps ul li.last-current {background-position:0 -250px;margin-left:-20px;padding-left:22px;position:relative;font-size:16px;}
-div.school-steps ul li.last-current span.hook {position:absolute;top:0;right:-20px;width:20px;height:29px;display:block;background:url(/images/step_arrow.gif) no-repeat right -250px;}

@@ -38,9 +38,10 @@ class School < ActiveRecord::Base
   has_one    :contact, :class_name => "SchoolContact"
   has_one    :local,   :class_name => "SchoolLocal"
   has_one    :finder,  :class_name => "SchoolFinder"
+  belongs_to :main_photo, :class_name => 'Photo'
   has_many   :snapshots, :class_name => "SchoolSnapshot"
   
-  accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder
+  accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder, :main_photo
   acts_as_paranoid
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
@@ -49,7 +50,7 @@ class School < ActiveRecord::Base
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
   
-  belongs_to :main_photo, :class_name => 'Photo'
+  
   has_many :donations, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -65,6 +66,10 @@ class School < ActiveRecord::Base
                           :conditions => "status = #{Visited.status('wanna')}"
 
   has_many :co_donations
+  
+  has_many :followings, :as => "followable"
+  has_many :followers, :through => :followings
+  has_many :feed_items, :as => "owner"
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
 
@@ -114,6 +119,11 @@ class School < ActiveRecord::Base
   
   attr_accessor :city, :city_unit, :town, :town_unit, :village
   
+  def validate
+    self.errors.add(:intro, "学校简介超过了140字") if (intro && intro.mb_chars.size > 140)
+  end
+  
+  
   def validate_on_create
     school = School.find_similiar_by_geo_id(self.title, self.geo_id)
     self.errors.add(:title, "我们发现#{self.geo.name}已经有了一所<a href='/schools/#{school.id}'>#{school.title}（点击访问）</a>，如果您确认这所学校和您要提交的学校不是同一所，请和我们的管理员联系。") if school
@@ -141,9 +151,11 @@ class School < ActiveRecord::Base
     snapshot.save
   end
   
-  validates_presence_of :geo_id, :message => "必选项"
-  validates_presence_of :title, :message => "必填项"
+  validates_presence_of :geo_id, :message => ""
+  validates_presence_of :title, :message => ""
   validates_presence_of :user_id
+  
+  after_create :create_feed
   
   # 用于导入博客学校
   class << self
@@ -262,20 +274,20 @@ class School < ActiveRecord::Base
     return result.reverse
   end
   
-  include FusionChart
+  #include FusionChart
   # 绘制月活跃度变化图
-  def karma_chart
+  #def karma_chart
     #由于数据不足，先显示过去7天的活跃度变化
-    data = []
-    6.downto(0) do |i|
-      day = Date.today - i.day
-      snapshot = self.snapshots.find_by_created_on(day)
-      karma = snapshot.nil? ? rand(10) : snapshot.karma
-      data << [day.to_s, karma]
-    end
+    #data = []
+    #6.downto(0) do |i|
+    #  day = Date.today - i.day
+    #  snapshot = self.snapshots.find_by_created_on(day)
+    #  karma = snapshot.nil? ? rand(10) : snapshot.karma
+    #  data << [day.to_s, karma]
+    #end
     
-    column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
-  end
+    #column_2d_chart("过去一周活跃度变化", data, '时间', 'Karma')
+  #end
   
   class << self
     include FusionChart
@@ -302,5 +314,9 @@ class School < ActiveRecord::Base
                           :order => "schools.validated_at desc",
                           :conditions => ["created_at like ? and validated = ?", "#{year}-#{month}-#{day}%", false] )
     end
+  end
+  
+  def create_feed
+    self.user.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}提交了一所新学校：#{self.title}), :user_id => self.user.id, :category => 'create_school', :item_id => self.id, :item_type => 'School')
   end
 end

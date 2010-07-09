@@ -1,7 +1,8 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:lei]
-  
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map]
+  before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:todo]
+  before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
   
   include ApplicationHelper
@@ -49,7 +50,7 @@ class SchoolsController < ApplicationController
   end
   
   def info_window
-    @school = School.find(params[:id])
+    
     @traffic = @school.traffic
     @need = @school.need
     @local   = @school.local
@@ -61,11 +62,6 @@ class SchoolsController < ApplicationController
       format.html {render :layout => false}
     end
   end
-=begin  
-  def all
-    redirect_to geos_path
-  end
-=end
 
   def comments
     @comments = Topic.latest_updated_with_pagination_in SchoolBoard, params[:page]
@@ -99,9 +95,6 @@ class SchoolsController < ApplicationController
     end
   end
   
-  def archives
-  end
-  
   # 给出指定日期的所有学校
   def show_date
     @date = "#{params[:year]}年#{params[:month]}月"
@@ -118,8 +111,13 @@ class SchoolsController < ApplicationController
   end
   
   def new
-    @school = School.new
-    @step = 'basic'
+    %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = 'basic'
+    if @step == 'basic'
+      @school = School.new
+    else
+      @school = School.validated.find(params[:id])
+    end
+    
   end
   
   def create
@@ -130,10 +128,10 @@ class SchoolsController < ApplicationController
     @school.validated_by_id = current_user.id
     respond_to do |format|
       if @school.save
-        flash[:notice] = "学校提交成功！请继续填写学校交通信息.."
-        format.html{redirect_to edit_school_url(@school, :step => 'traffic')}
+        flash[:notice] = "学校已经提交成功！ 请继续填写其它相关信息.."
+        format.html{redirect_to new_school_url(:step => 'traffic',:id => @school.id,:new=> true)}
       else
-        flash[:notice] = "请检查所有必填项是否填好"
+        flash[:notice] = "请检查所有必填项是否填写正确"
         @step = 'basic'
         format.html{render :action => "new"}
       end
@@ -141,9 +139,9 @@ class SchoolsController < ApplicationController
   end
   
   def edit
-    @school = School.find(params[:id])
+    
     %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
-    render :action => "edit_#{@step}"
+    render :action => "edit"
   end
   
 
@@ -151,16 +149,26 @@ class SchoolsController < ApplicationController
     @school = School.find params[:id]
     respond_to do |format|
       format.html do
-        if params[:step] == 'basic'
-          update_info "basic", "traffic", "学校基本信息修改成功！"
-        elsif params[:step] == 'traffic'
-          update_info "traffic", "need", "学校交通信息修改成功！"
-        elsif params[:step] == 'need'
-          update_info "need", "other", "学校需求信息修改成功！"
-        elsif params[:step] == 'other'
-          update_info "other", "mainphoto", "收集人信息修改成功！"
-        elsif params[:step] == 'mainphoto'
-          update_info "mainphoto", "done", "学校信息修改完成！"
+        if params[:new] == 'true'
+          if params[:step] == 'basic'
+            update_info "basic", "traffic", "学校信息提交成功！"
+          elsif params[:step] == 'traffic'
+            update_info "traffic", "need", "学校交通信息提交成功！"
+          elsif params[:step] == 'need'
+            update_info "need", "other", "学校需求信息提交成功！"
+          elsif params[:step] == 'other'
+            update_info "other", "mainphoto", "收集人信息提交成功！"
+          elsif params[:step] == 'mainphoto'
+            update_main_photo('mainphoto', 'done', "所有学校信息已经完成，谢谢你的提交，作为提交人你自动成为了这所学校的学校大使。<a href='/misc/school-moderator-guide'> 什么是学校大使？ </a>")
+          end
+        else
+          %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
+          if @step == 'mainphoto'
+            update_main_photo(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
+          else
+            update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
+          end
+          
         end
         if params[:moderator] == 'add'
           user = User.find params[:uid]
@@ -179,7 +187,7 @@ class SchoolsController < ApplicationController
   
   # 标记学校 marker 是正确位置，记录下标记时间和标记人
   def marked
-    @school = School.find(params[:id])
+    
     @school.basic.update_attributes!( :marked_at => Time.now,
                                       :marked_by_id => current_user.id )
     flash[:notice] = "已经记录您的标记"
@@ -187,12 +195,11 @@ class SchoolsController < ApplicationController
   end
   
   def apply
-    @school = School.find(params[:id])
     @message = current_user.sent_messages.build
   end
   
   def sent_apply
-    @school = School.find(params[:id])
+    
     @message = current_user.sent_messages.build(params[:message])
     if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
@@ -224,7 +231,7 @@ class SchoolsController < ApplicationController
   end
   
   def large_map
-    @school = School.find(params[:id])
+    
     @map_center = [@school.basic.latitude, @school.basic.longitude, 7]
     @edit = params[:edit]
     respond_to do |format|
@@ -233,7 +240,6 @@ class SchoolsController < ApplicationController
   end
   
   def photos
-    @school = School.find(params[:id])
     
     if @school.nil? or @school.deleted?
       render_404 and return
@@ -243,17 +249,6 @@ class SchoolsController < ApplicationController
   end
 
   def shares
-    @school = School.find(params[:id])
-    
-    if @school.nil? or @school.deleted?
-      render_404 and return
-    end
-      
-    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
-  end
-
-  def shares
-    @school = School.find(params[:id])
     
     if @school.nil? or @school.deleted?
       render_404 and return
@@ -265,7 +260,7 @@ class SchoolsController < ApplicationController
 
   # 改版学校页面
   def show
-    @school = School.find(params[:id])
+    
     if @school.nil? or @school.deleted?
       render_404 and return
     end
@@ -280,6 +275,7 @@ class SchoolsController < ApplicationController
     @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
    
     @followers = @school.interestings
+    @subscribers = @school.followers
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
@@ -301,8 +297,6 @@ class SchoolsController < ApplicationController
   end
   
   def destroy
-    @school = School.find(params[:id])
-    
     respond_to do |format|
       if current_user.school_moderator? || @school.destroyed_by(current_user)
         @school.destroy
@@ -316,7 +310,6 @@ class SchoolsController < ApplicationController
   end
   
   def validate
-    @school = School.find(params[:id])
     if current_user.school_moderator?
       if params[:t] == 'add'
         @school.update_attributes!(:validated => true, :validated_at => Time.now, :validated_by_id => current_user.id )
@@ -335,7 +328,6 @@ class SchoolsController < ApplicationController
   
   def visited
     begin
-      @school = School.find(params[:id])
       if @school.visited?(current_user) == false
         Visited.create!(:user_id => current_user.id,
                         :school_id => @school.id,
@@ -368,7 +360,6 @@ class SchoolsController < ApplicationController
  
   def wanna
     begin
-      @school = School.find(params[:id])
       if @school.visited?(current_user) == false
         Visited.create!(:user_id => current_user.id,
                         :school_id => @school.id,
@@ -392,9 +383,9 @@ class SchoolsController < ApplicationController
   end
   
   def interest
-    @school = School.find(params[:id])
     unless @school.visited?(current_user)
       Visited.create!(:user_id => current_user.id, :school_id => @school.id, :status => Visited.status('interesting'))
+      Following.create!(:follower_id => current_user.id, :followable_id => @school.id, :followable_type => 'School')
     else
       flash[:notice] = "你已经选去过或想去这所学校了"
     end
@@ -402,92 +393,48 @@ class SchoolsController < ApplicationController
   end
   
   def novisited
-    @school = School.find(params[:id])
     visited = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id])
     visited.destroy if visited
+    following = current_user.followings.find(:first, :conditions => {:followable_id => @school.id, :followable_type => 'School'})
+    following.destroy if following
     redirect_to school_url(@school)
   end
   
   # 学校管理员列表
   def moderator
-    @school = School.find params[:id]
-    if (User.moderators_of(@school) + User.school_moderators).uniq.include?(current_user)
-      @moderators = User.moderators_of @school
-      @candidates = @school.visitors - @moderators
-    else
-      flash[:notice] = "你没有添加大使的权限"
-      redirect_to school_url(@school)
-    end
+    @moderators = User.moderators_of @school
+    @candidates = @school.visitors - @moderators
   end
   
   def manage
-    school = School.find params[:id]
-    user = User.find params[:user]
-    
+    @user = User.find params[:user]
     if params[:type] == "add"
-      
-      user.roles << Role.find_by_identifier("roles.school.moderator.#{school.id}")
-      message = Message.new(:subject => "恭喜您成为#{school.title}的学校大使",
-                            :content => "<p>你好，#{user.login}:</p><br/><p>祝贺您成为#{school.title}学校大使！</p><p>作为#{school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><br/><p>现在就进入#{school.title}（ #{url_for(school)} ）看看吧。</p><br/><p>多背一公斤团队</p>"
+      @user.roles << Role.find_by_identifier("roles.school.moderator.#{@school.id}")
+      message = Message.new(:subject => "恭喜您成为#{@school.title}的学校大使",
+                            :content => "<p>你好，#{@user.login}:</p><br/><p>祝贺您成为#{@school.title}学校大使！</p><p>作为#{@school.title}的学校大使，您可以：</p><p> - 编辑、更新学校信息；</p><p> - 添加其他去过学校的用户为学校大使；</p><p> - 为学校申请1KG.org项目，解决学校的需求问题等；</p><p> - 提高学校活跃度，吸引更多的用户关注学校，为学校获取更多的资源。</p><br/><p>现在就进入#{@school.title}（ #{url_for(@school)} ）看看吧。</p><br/><p>多背一公斤团队</p>"
                             )
       message.author_id = 0
-      message.to = [user.id]
+      message.to = [@user.id]
       message.save!
-      flash[:notice] = "已将 #{user.login} 设置为 #{school.title} 的学校大使"
-      redirect_to moderator_school_url(school)
+      flash[:notice] = "已将 #{@user.login} 设置为 #{@school.title} 的学校大使"
+      redirect_to moderator_school_url(@school)
 
     elsif params[:type] == "remove"
-      user.roles.delete(Role.find_by_identifier("roles.school.moderator.#{school.id}"))
-      flash[:notice] = "已经取消 #{user.login} 的学校大使身份"
-      redirect_to moderator_school_url(school)
+      @user.roles.delete(Role.find_by_identifier("roles.school.moderator.#{@school.id}"))
+      flash[:notice] = "已经取消 #{@user.login} 的学校大使身份"
+      redirect_to moderator_school_url(@school)
     end
   end
   
   def setphoto
-    @school = School.find(params[:id])
-    if current_user && @school.edited_by(current_user)
       @school.main_photo = Photo.find_by_id(params[:p].to_i)
       @school.save
       flash[:notice] = "学校主照片设置成功"
       redirect_to school_url(@school)
-    else
-      flash[:notice] = "只有学校大使才可以设置学校主照片"
-      redirect_to school_url(@school)
-    end
-  end
-  
-  def mainphoto_create
-    @school = School.find(params[:id])
-    @photo = Photo.new(params[:photo])
-    @photo.school_id = @school.id
-    @photos = @school.photos
-    @photo.user = current_user
-    logger.info("PHOTO: #{@photo.inspect}")
-    if @photo.filename.nil?
-      flash[:notice] = "请选择要上传的照片"
-      render :action => "edit_mainphoto"
-    else
-      begin
-      @photo.save!
-        if current_user && @school.edited_by(current_user)
-          @school.main_photo = @photo
-          @school.save
-          flash[:notice] = "学校主照片设置成功"
-          redirect_to school_url(@school)
-        else
-          flash[:notice] = "你没有设置此学校主照片的权限"
-          redirect_to school_url(@school)
-        end
-      rescue
-        flash[:notice] = "图片格式有误，请使用 jpg,png,gif 等常见图片格式"
-        render :action => "edit_mainphoto"
-      end
-    end
   end
   
   def check
     @school = School.find_similiar_by_geo_id(params[:title], params[:geo_id])
-    
     respond_to do |format|
       format.html {
         render :text => @school.nil? ? '0' : 
@@ -498,15 +445,65 @@ class SchoolsController < ApplicationController
   
   private
   
+  def find_school
+    @school = School.validated.find(params[:id])
+  end
+  
+  def check_permission
+    if @school.edited_by(current_user)
+    else
+      flash[:notice] = "你没有权限进行此操作"
+      redirect_to school_url(@school)
+    end
+  end
+  
+  def update_main_photo(current_step, next_step, msg)
+    @photo = current_user.photos.build(params[:school][:main_photo_attributes])
+    @photo.school_id = @school.id
+    logger.info("PHOTO: #{@photo.inspect}")
+    if @photo.filename.nil?
+      @photo = Photo.find_by_id params[:school][:main_photo_id]
+      @school.main_photo = @photo 
+      @school.save
+      flash[:notice] = msg
+      next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
+    else
+      begin
+      @photo.save!
+        @school.main_photo = @photo
+        @school.save
+        flash[:notice] = msg
+        if next_step
+          next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(new_school_url(@school, :step => next_step))
+        else
+          redirect_to(edit_school_url(@school, :step => currnet_step))
+        end
+      rescue
+        flash[:notice] = "图片格式有误，请使用 jpg,png,gif 等常见图片格式"
+        render :action => "edit"
+      end
+    end
+  end
+  
   def update_info(current_step, next_step, msg)
     begin
       @school.update_attributes!(params[:school])
       flash[:notice] = msg
-      next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(edit_school_url(@school, :step => next_step))
+        if next_step
+          next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(new_school_url(:step => next_step,:id => @school.id,:new => true))
+        else
+          redirect_to(edit_school_url(@school, :step => current_step))
+        end
       
     rescue ActiveRecord::RecordInvalid
-      flash[:notice] = '请检查所有必填项是否填好'
-      render :action => "edit_#{current_step}"
+      flash[:notice] = '请检查所有必填项是否填写正确'
+      if next_step
+        @step = current_step
+        render :action => "new"
+      else
+        @step = current_step
+        render :action => "edit"
+      end
     end
   end
   

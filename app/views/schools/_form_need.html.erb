@@ -1,13 +1,3 @@
-<% @page_title = "编辑学校信息" -%>
-<% @body_class = "schools" -%>
-
-<% content_for :sidebar do -%>
-<% end -%>
-
-<% content_for :fullsize do -%>
-  <%= render :partial => 'school_steps', :locals => {:step => 'need'} %>
-  <div style="padding:10px 20px">
-    <% form_for :school, :url => school_url(@school.id, :step => 'need'), :html => {:method => :put} do |f| -%>
     <%= f.hidden_field :id %>
     
     <% f.fields_for :need_attributes, @school.need do |n| -%>
@@ -69,7 +59,4 @@
     </p>
     
     <% end -%>
-    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "保存，下一步" %></span></p>
-    <% end -%>
-  </div>
-<% end -%>
+    

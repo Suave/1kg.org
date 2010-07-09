@@ -15,7 +15,8 @@ body{background:#fff}
 .stars{position:relative;top:2px}
 .photo_small img{width:47px;margin-top:3px}
 
-.school_box{padding:0 10px 10px;margin-bottom:14px}
+.school_box{padding:0 10px 10px;margin-bottom:14px;}
+.school_box p {font-size:14px}
 .school_sidebar{padding:2px 10px;margin-bottom:8px}
 .sidebar_inter{padding:8px 0}
 

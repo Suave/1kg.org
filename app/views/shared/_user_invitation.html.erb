@@ -4,4 +4,4 @@
   <dd><%= link_to c.login, user_url(c) %><br /> <%= check_box_tag "invite[#{c.id}]", c.id %></dd>
 </dl>
 <% end -%>
-<p class="clear center"><a href="javascript:void(0);" onclick="CheckAll(true)">选择全部友邻</a> / <a href="javascript:void(0);" onclick="CheckAll(false)">取消选择</a> <%= submit_tag "发送邀请" %></p>
+<p class="clear center"><a href="javascript:void(0);" onclick="CheckAll(true)">选择全部好友</a> / <a href="javascript:void(0);" onclick="CheckAll(false)">取消选择</a> <%= submit_tag "发送邀请" %></p>

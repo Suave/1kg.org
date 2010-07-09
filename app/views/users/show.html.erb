@@ -21,14 +21,14 @@
   
   <% if logged_in? -%>
       <div id="admins"><%= "你是管理员，" if current_user.admin? -%>
-      <%= "#{@user.login}是你的友邻，" if current_user.neighbors.include?(@user)%>
+      <%= "#{@user.login}关注了你，" if current_user.neighbors.include?(@user)%>
       <%= @user == current_user ?  "这是你自己的空间。" :"你可以对#{@user.login}使用以下功能："   -%><br/>      
         <% unless @user == current_user -%>
        <%= link_to "发站内信", new_user_sent_url(@user) ,:class => "adminbutton"%>
         <% if @user.neighbor_addable_by?(current_user) -%>
-          <%= link_to "加为友邻", user_neighbors_url(@user, :my => current_user), :method => :post ,:class => "adminbutton"%>
+          <%= link_to "关注此用户", user_neighbors_url(@user, :my => current_user), :method => :post ,:class => "adminbutton"%>
         <% elsif @user.neighbor_removeable_by?(current_user) -%>
-          <%= link_to "取消友邻", user_neighbor_url(@user, current_user), :confirm => "确定取消和#{@user.login}的友邻关系吗？", :method => :delete,:class => "adminbutton" %></span>
+          <%= link_to "取消关注", user_neighbor_url(@user, current_user), :confirm => "确定取消对#{@user.login}的关注吗？", :method => :delete,:class => "adminbutton" %></span>
         <% end -%>
         <%= link_to '封锁用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？',:class => "adminbutton" if current_user.admin?%>
       <% end -%>      
@@ -54,9 +54,11 @@
         <div class="clearfix" style="height:10px"></div>
         <div class="contents">
           <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
+          <div class="clearfix"></div>
         </div>
   </div>
   <%end%>
+  
   <div class="clearfix" style="height:10px;clear:both"></div>
 
   <%unless @donations.empty?%>
@@ -76,11 +78,18 @@
   <%end%>
   <div class="clearfix" style="height:10px;clear:both"></div>
   <div class="newbox">
-        <span class="span_title2"><%= h @user.login %>的友邻</span> <%= link_to "查看全部", friends_user_url(@user) %>
-        <div class="clearfix" style="height:12px"></div>
-        <%= render :partial => "/shared/user_list", :locals => {:users => @neighbors} %>
-        
+    <span class="span_title2"><%= h @user.login %>关注的用户</span> <%= link_to "查看全部", friends_user_url(@user) %>
+    <div class="clearfix" style="height:12px"></div>
+    <%= render :partial => "/shared/user_list", :locals => {:users => @followings} %>
   </div>
+  
+  <div class="clearfix" style="height:10px;clear:both"></div>
+  <div class="newbox">
+    <span class="span_title2">关注<%= h @user.login %>的用户</span> <%= link_to "查看全部", friends_user_url(@user) %>
+    <div class="clearfix" style="height:12px"></div>
+    <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
+  </div>
+  
   <%= render :partial => "groups", :locals => {:user => @user, :groups => @groups } %>
 
 <% end -%>

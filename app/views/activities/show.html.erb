@@ -32,7 +32,7 @@
     <% if @activity.edited_by current_user -%>
     <div id="admins">
         你是<%= current_user.admin? ? '网站管理员' :'活动发起人' %>，可以使用以下功能：<br/>
-       <%= link_to "邀请友邻", invite_activity_url(@activity),:class => "adminbutton"%>
+       <%= link_to "邀请用户", invite_activity_url(@activity),:class => "adminbutton"%>
        <%= link_to "编辑活动", edit_activity_url(@activity.id),:class => "adminbutton" %>
        <%= link_to "删除活动", activity_url(@activity.id), :confirm => "确定要删除这个活动?", :method => :delete,:class => "adminbutton" %>
        <% if nil && (@activity.sticky_by? current_user) -%>
@@ -41,7 +41,7 @@
     </div>
     <% elsif current_user%>
     <div id="admins">
-               你可以 <%= link_to "邀请友邻", invite_activity_url(@activity),:class => "adminbutton"%> 来参加这个活动。
+               你可以 <%= link_to "邀请好友", invite_activity_url(@activity),:class => "adminbutton"%> 来参加这个活动。
     </div>
     <% end -%>
 
@@ -71,18 +71,17 @@
 <% end -%>
 
   <div class="newbox" >
-        <div class="contents">
-          
+        <div class="contents">        
           <div style="width:120px;float:right;text-align:right">
             <% if @activity.join_closed? %>
             <span class="gary_span">报名已结束 </span>
             <% else -%>
               <% if @activity.joined?(current_user) -%>
-                <%= link_to "不参加了", quit_activity_url(@activity), :method => :put,:class => "buttonjoin" %>
+                <%= link_to "不参加了", quit_activity_path(@activity), :method => :put,:class => "buttonjoin" %>
                 <div class="clearfix" style="height:4px"></div>
                 <span class="gary_span">你参加了这个活动</span>
               <% else -%>
-                <%= link_to "我要参加", join_activity_url(@activity) ,:class => "buttonjoin2" %>
+                <%= link_to "我要参加", join_activity_path(@activity) ,:class => "buttonjoin2" %>
                 <div class="clearfix" style="height:4px"></div>
                 <span class="gary_span">报名截止日期<br/><%= @activity.register_over_at.nil?? @activity.end_at.to_date : @activity.register_over_at.to_date%></span>
               <% end -%>
@@ -90,12 +89,12 @@
           </div>
           
           <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= link_to image_tag(@activity.main_photo.public_filename(:cube), :alt => '活动主题图'), @activity.main_photo.public_filename(:medium),:class => "activity_main" if @activity.main_photo%>
+            <%= link_to image_tag(@activity.main_photo.public_filename(:small), :alt => '活动主题图',:class => "activity_main"), @activity.main_photo.public_filename(:medium) if @activity.main_photo%>
             <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
           
           <div id="module_meta">
-            <p>发起人: <%= avatar_for @activity.user, 'small' %> <%= link_to @activity.user.login, user_url(@activity.user.id) %> 在 <%= @activity.created_at.to_date %></p>
+            <p>发起人: <%= avatar_for @activity.organizer, 'small' %> <%= link_to @activity.organizer.login, @activity.organizer %> <%= "[团队]" if @activity.by_team%>　在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
             <p>开始日期: <%= @activity.start_at.to_date %>  结束日期：  <%= @activity.end_at.to_date %></p>
             <p>出发地: <%= link_to @activity.departure_id==0 ? "不限" : @activity.departure.name,"/geos/#{@activity.departure_id?? @activity.departure.id : ''}" %> =>

@@ -1,0 +1,16 @@
+<% @page_title = "编辑学校信息" -%>
+<% @body_class = "schools" -%>
+
+
+<% content_for :fullsize do -%>
+<%= render :partial => 'school_steps', :locals => {:step => @step} %>
+
+  <div id="school_form">  
+    <% form_for :school, :url => school_url(@school, :step => @step), :html => {:method => :put, :id => "schoolsPostBasic",:multipart => true} do |f| -%>
+    <%= render :partial => "form_#{@step}", :locals => {:f => f}%>     
+    <p ><%= f.submit "保存" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/schools/#{@school.id}';return false" %></p>
+    <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
+    <% end -%>
+  </div>
+
+<% end -%>

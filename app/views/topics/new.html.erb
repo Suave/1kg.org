@@ -1,18 +1,9 @@
-<% @page_title = "写新话题" -%>
+<% @page_title = @title = "写新话题" -%>
 
 <% content_for :sidebar do -%>
 <% end -%>
 
-<% content_for :fullsize do -%>
-  <div class="box" id="topicPostNew">
-    <div class="boxOuter">
-      <div class="boxInner">
-        <h2>写新话题</h2>
-        <% form_for @topic, :url => board_topics_url(@board) do |f| -%>
-        <%= render :partial => "/topics/form", :object => f %>
-        <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span> <span class="btnWrap"><%= link_to "取消", board_url(@board) %></span></p>
-        <% end -%>
-      </div>
-    </div>
-  </div>
-<% end -%>
+  <% form_for @topic, :url => board_topics_url(@board) do |f| -%>
+  <%= render :partial => "/topics/form", :object => f %>
+  <p style="margin-left:70px"><%= f.submit "发布" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{((@board.talkable.class == Team) ? team_path(@board.talkable) : board_path(@board) )}';return false" %></p>
+  <% end -%>

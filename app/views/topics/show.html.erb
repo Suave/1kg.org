@@ -116,10 +116,11 @@
           
           <% else -%>
             <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
-            
               <div class="contents">只有小组成员可以回复话题，现在就<%= link_to "加入小组", join_group_url(@topic.board.talkable.group, :to => CGI.escape(request.request_uri)), :class => "buttonlink" %>。
               </div>
-            
+            <% elsif @board.talkable.class == Team && ! @board.talkable.followers.include?(current_user)-%>
+              <div class="contents">只有团队的关注者可以回复话题，现在就<%= link_to "关注团队", follow_team_url(@board.talkable), :method => :post, :class => "buttonlink" %>。
+              </div>
             <% else -%>
             
               <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>

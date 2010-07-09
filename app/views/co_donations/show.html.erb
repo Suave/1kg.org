@@ -1,9 +1,8 @@
-
 <% @page_title = @title = @co_donation.title%>
-
 
 <% content_for :heads do -%>
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= javascript_include_tag "jquery.timeago.js" %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
@@ -15,6 +14,7 @@
       function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
       function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
     );
+    $("#last_time").text(jQuery.timeago("<%= @co_donation.last_updated_at %>"));
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
     });
   </script>
@@ -57,10 +57,11 @@
 
   
   <div id="donation_meta">
-    <p><label>发起人：</label><%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(在<%= @co_donation.end_at.to_date %>)</span></p>
+    <p><label>发起人：</label><%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(在<%= @co_donation.created_at.to_date %>)</span></p>
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
     <p><label>目标：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"> <%= @co_donation.goal_number %></span> 件</p>
     <p><label>已捐赠：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"><%= @co_donation.number %></span> 件</p>
+    <%= "<p><label>受益人数：</label>#{@co_donation.beneficiary_number}</p>" if @co_donation.beneficiary_number %>
     <p><label>截止日期：</label><%= @co_donation.end_at.to_date %></p>
   </div>
   
@@ -87,8 +88,8 @@
       <% end %>
     </div>
 </div>
-<p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p>
-  <div id="donation_receiver" class="caution" style=" <%= 'display:none' unless @state == 'ordered'%>">
+    <p><span class="more" name="#donation_receiver">查看捐赠接收人信息</span></p>
+    <div id="donation_receiver" class="caution" style=" <%= 'display:none' unless @state == 'ordered'%>">
     <h6 style="color:#a84300">捐赠接收人信息</h6>
       <span class="gary_span">请在邮寄或快递物资时仔细填写</span>
     <p>地址：<%= @co_donation.address%></p>
@@ -97,9 +98,12 @@
   </div>
 
 
-<div class="cleanfix" style="height:20px"></div>
+<div class="cleanfix" style="height:30px"></div>
 
 <div id="donations_tabs">
+  <div style="float:right;position:relative;top:5px">
+    <img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @co_donation.last_updated_at.to_date %></span>
+  </div>
     <ul class="tab" >
       <li class="tabs_more"><%= link_to '详情', "#detail" %></li>
       <li class="tabs_more"><%= link_to '反馈', "#report",:id => "report_link" %></li>

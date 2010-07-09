@@ -6,8 +6,8 @@ class ActivitiesController < ApplicationController
   
 
   def index
-    @activities_hash = {:all => Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])}
-    @activities = @activities_hash[:all]
+    @activities_hash = {}
+    @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
     @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
     @activities_hash[:teach] = Activity.recent_by_category("支教")
@@ -128,8 +128,7 @@ class ActivitiesController < ApplicationController
   end
   
   def destroy
-    @activity = Activity.find(params[:id])
-    
+    @activity = Activity.find(params[:id])    
     respond_to do |format|
       if current_user.admin?
         @activity.destroy
@@ -146,6 +145,10 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "你已经参加这个活动了, 不用重复点击"
     else
       @activity.participators << current_user
+      
+      # 生成动态
+      current_user.feed_items.create(:user_id => current_user.id, :category => 'join_activity',
+                  :item_id => @activity.id, :item_type => 'Activity')
     end
     redirect_to activity_url(@activity)
   end
@@ -153,6 +156,8 @@ class ActivitiesController < ApplicationController
   def quit
     if @activity.joined?(current_user)
       @activity.participators.delete current_user
+      current_user.feed_items.create(:user_id => current_user.id, :category => 'quit_activity',
+                  :item_id => @activity.id, :item_type => 'Activity')
     else
       flash[:notice] = "你没有参加过这个活动"
     end
@@ -196,7 +201,7 @@ class ActivitiesController < ApplicationController
       message.author_id = 0
       message.to = invited_user_ids
       message.save!
-      flash[:notice] = "给#{invited_user_ids.size}位友邻发送了邀请"
+      flash[:notice] = "给#{invited_user_ids.size}位用户发送了邀请"
     end
     
     redirect_to activity_url(@activity)

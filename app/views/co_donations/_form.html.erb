@@ -1,5 +1,5 @@
 <div style="clear:both"></div>
-<div>
+<div class="form_box">
   <span class="span_title2">一 基本信息</span>
   <div class="contents" style="padding-left:10px">    
     <p><span>为哪所学校团捐?<span class="require">*</span></span>
@@ -17,6 +17,11 @@
     </p>
     
     <p>
+      <label>预计受益人数<span class="require">*</span></label>
+      <%= form.text_field :beneficiary_number, :size => 30, :class => "formText",:style => "width:100px" %><%= error_message_on @co_donation, :beneficiary_number %>
+    </p>
+    
+    <p>
       <label>截止时间<span class="require">*</span></label>
        <%= form.text_field :end_at,{:class=> "vDateField"} %>(最长时间不能超过3个月)
       <%= error_message_on @co_donation, :end_at %>
@@ -29,8 +34,7 @@
     
   </div>
 </div>
-<br/>
-<div>
+<div class="form_box">
   <span class="span_title2">二 详情</span>
   <div class="contents" style="padding-left:10px">    
   <p><h6>学校故事：<span class="require">*</span></h6><%= error_message_on @co_donation, :description %>
@@ -51,8 +55,8 @@
     
   </div>
 </div>
-<br/>  
-<div>
+      
+<div class="form_box">
   <span class="span_title2">三 接收地址</span>
   <br/><span class="gary_span">为了确保捐赠人的物资能够顺利邮寄或快递，请仔细填写以下信息。</span>
   <div class="contents" style="padding-left:10px">    
@@ -73,7 +77,7 @@
   </div>
 </div>  
   
-<div>
+<div class="form_box">
   <span class="span_title2">四 责任承诺</span>
   <p>团捐发起人有责任对收到捐赠者的捐赠进行确认，在团捐成功后需要尽快填写反馈报告，告知参与者捐赠物资的使用情况。</p>
   <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求对团捐进行管理和反馈<span class="require">*</span> <%= error_message_on @co_donation, :agree_feedback_terms %></p>
@@ -81,8 +85,6 @@
 </div>  
 
 
-  
-    
   <script type="text/javascript" charset="utf-8">
   $(document).ready(DateTimeShortcuts.init);
   $('#co_donation_school_id').delayedObserver(0.25, function(element, value){$("#school_info").hide();$("#school_link").attr("href",("/schools/" + value));if (value != ''){$("#school_info").show()} })

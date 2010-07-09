@@ -23,7 +23,7 @@
       <h3>个人资料</h3>
       <% form_for :profile, :url => user_path(:id => @user, :for => 'profile'), :html => {:method => 'put'} do |f| %>
         <%= render :partial => "profile_form", :object => f %>
-        <p><label>隐私设置</label><%= f.select :privacy, {"对所有人保密" => 0, "仅对友邻公开" => 1} %></p>
+        <p><label>隐私设置</label><%= f.select :privacy, {"对所有人保密" => 0, "仅对好友公开" => 1} %></p>
         <p><label>&nbsp;</label><%= submit_tag "保 存" %></p>
       <% end -%>
     </div>

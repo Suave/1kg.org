@@ -20,11 +20,13 @@ class MiscController < ApplicationController
     @new_schools = School.find(:all,:limit => 4,:order => "created_at desc")
     @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => {:created_at => 1.month.ago..Time.now})
     @recent_shares = Share.recent_shares
+    @co_donations = CoDonation.validated.ongoing.all(:limit => 2)
     # 网站公告
     @bulletins = Bulletin.recent
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
     @atom_shares = Share.find(:all,:limit => 10,:order => "created_at desc")
+    
     respond_to do |wants|
       wants.html{render :action => "index"}
       wants.atom{render :action => "index"}

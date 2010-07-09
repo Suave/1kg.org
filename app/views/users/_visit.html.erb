@@ -1,4 +1,4 @@
-<% if visit.status != 3 || visit.wanna_at > Time.now %>
+<% if visit.status != 3 || (visit.wanna_at && visit.wanna_at > Time.now) %>
   <div class="school_list">
     <%= main_photo_thumb(visit.school) -%>      
     <div class="school_list_meta">
