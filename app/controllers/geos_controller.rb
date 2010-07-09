@@ -24,22 +24,8 @@ class GeosController < ApplicationController
     @map_center = @province ? [@province.latitude,@province.longitude,7] : Geo::DEFAULT_CENTER
     @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
     
-    if !@city.children.blank?
-      @cities = @city.children
-      render :action => "cities"
-    else
-      @schools = School.near_to(@city).paginate(:page => params[:page] || 1, :per_page => 10)
-      @citizens = @city.users.find(:all, :limit => 6)
-      @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-      
-      @activities = Activity.ongoing.for_the_city(@city).find :all, :order => "created_at desc", :limit => 10
-      
-      @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
-                                 :order => "last_replied_at desc",
-                                 :limit => 6)
-                                 
-      @groups = @city.groups.find :all, :limit => 9
-    end
+    @schools = School.near_to(@city).paginate(:page => params[:page] || 1, :per_page => 10)
+    @activities = Activity.ongoing.for_the_city(@city).find :all, :order => "created_at desc", :limit => 10
     
     respond_to do |format|
       if !params[:page].blank?
