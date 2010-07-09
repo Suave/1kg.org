@@ -7,31 +7,6 @@ require 'gmap'
 include GMap
 
 namespace :schools do
-  # desc "生成学校需求的Tag"
-  # task :generate_need_tags => :environment do
-  #   # generate content
-  #   School.available.each do |school|
-  #     need = school.need
-  #     if need
-  #       need.tags.clear
-  #       tag_list = [need.urgency, need.book, need.stationary, need.sport, need.cloth, need.accessory, need.course, need.teacher].join(',')
-  #       tag_list.gsub!(/,/, ' ')
-  #       tag_list.gsub!(/，/, ' ')
-  #       tag_list.gsub!(/、/, ' ')
-  #       tag_list.gsub!(/。/, ' ')
-  #       tag_list.gsub!(/：/, ' ')
-  #       tag_list.gsub!(/；/, ' ')
-  #       need.tag_list = tag_list
-  #       need.save(false)
-  #     end
-  #     
-  #     $stdout.putc('.')
-  #     $stdout.flush
-  #   end
-  #   puts ''
-  #   puts "Successful."
-  # end
-  
   desc "删除失效的大使权限"
   task :role_delete => :environment do
     roles = Role.all.map{|r| r if r.identifier =~ /^roles.school.moderator./}.compact
@@ -135,37 +110,6 @@ namespace :schools do
     puts ''
     puts "#{School.count} schools updated."
   end
-  
-  # desc "import meta schools from db/schools.csv"
-  # task :import => :environment do
-  #   file = File.open("#{RAILS_ROOT}/db/schools.csv", 'r')
-  #   file.each_line do |line|
-  #     attributes = line.split(',')
-  #     
-  #     address = attributes[1]
-  #     city = ''
-  #     if address.include?('省') || address.include?('自治区') || address.include?('特别行政区')
-  #       city = address.gsub!(/省(.*?)$/, '')
-  #       city = address.gsub!(/自治区(.*?)$/, '')
-  #       city = address.gsub!(/特别行政区(.*?)$/, '')
-  #     else
-  #       city = address.gsub!(/市(.*?)$/, '')
-  #     end
-  #     geo = Geo.find_by_name(city) || Geo.first
-  #     
-  #     school = School.new(:title => attributes[4], :meta => true, :validated => false, :geo_id => geo)
-  #     school.basic = SchoolBasic.new(:address => attributes[1], 
-  #                                     :zipcode => attributes[6], 
-  #                                     :master => attributes[3], 
-  #                                     :telephone => attributes[2])
-  #     
-  #     if school.save
-  #       puts school.id 
-  #     else
-  #       puts school.errors.full_messages
-  #     end
-  #   end
-  # end
 
   desc "generate a json file used for google map"
   task :to_json => :environment do
@@ -190,54 +134,6 @@ namespace :schools do
     file.write schools_json.to_json
     file.close
   end
-  
-  # desc "check if school's discussion exist"
-  # task :discussion_check => :environment do
-  #   schools = School.find(:all)
-  #   schools.each do |s|
-  #     puts "#{s.title}(#{s.id}) has not discussion" unless s.discussion
-  #     puts "#{s.discussion.id} has not board" unless s.discussion.board
-  #   end
-  # 
-  # end
-  
-  # desc "initial school validated_at column"
-  # task :initial_validated_at => :environment do
-  #   puts "-- begin initial schools' validated_at column"
-  #   schools = School.validated.find :all
-  #   schools.each do |s|
-  #     s.update_attributes!(:validated_at => s.created_at)
-  #   end
-  #   puts "-- finish fullfill the validated_at column for validated schools"
-  # end
-  
-  # desc "check school's moderator, create if not exist"
-  # task :check_moderator => :environment do
-  #   schools = School.find :all
-  #   schools.each do |school|
-  #     role = Role.find_by_identifier("roles.school.moderator.#{school.id}")
-  #     if role.nil?
-  #       puts school.title
-  #       Role.create(:identifier => "roles.school.moderator.#{school.id}")
-  #     end
-  #   end
-  # end
-  
-  # desc "将提交者作为学校爱心大使"
-  # task :set_submitor_as_school_lover => :environment do
-  #   schools = School.all
-  #   schools.each do |s|
-  #     submitor = s.user
-  #     role = Role.find_by_identifier("roles.school.moderator.#{s.id}")
-  #     if role.nil?
-  #       puts "#{s.id} - #{s.title} 没有爱心大使权限"
-  #       next
-  #     else
-  #       submitor.roles << role unless submitor.roles.include?(role)
-  #       puts "设置 #{submitor.login} 为 #{s.title} 的爱心大使"
-  #     end
-  #   end
-  # end
     
   namespace :coordinates do
     desc "generate coordinates for all schools"
@@ -264,6 +160,20 @@ namespace :geo do
         geo.save(false)
         puts geo.name + ':' + geo.longitude + ',' + geo.latitude
       end
+    end
+  end
+end
+
+namespace :following do
+  desc "generate coordinates for all geos"
+  task :generate => :environment do
+    Neighborhood.all.each do |n|
+      Following.create(:follower_id => n.user_id, :followable_id => n.neighbor_id, :followable_type => 'User') unless Following.find(:first, :conditions => ['follower_id = ? and followable_id = ? and followable_type = ?', n.user_id, n.neighbor_id, 'User'])
+    end
+    
+    Visited.all.each do |v|
+      next unless v.status == 2
+      Following.create(:follower_id => v.user_id, :followable_id => v.school_id, :followable_type => 'School') unless Following.find(:first, :conditions => ['follower_id = ? and followable_id = ? and followable_type = ?', v.user_id, v.school_id, 'School'])
     end
   end
 end
