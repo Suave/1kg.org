@@ -19,27 +19,20 @@ class GeosController < ApplicationController
   end
   
   def show
-    @city = Geo.find(params[:id])
-    @school = School.find_by_id(params[:school_id]) # option
-    @map_center = [@city.latitude, @city.longitude, 9]
+    @city = @province = params[:id] ? Geo.find( params[:id]) : nil
+    @cities  = Geo.roots
+    @map_center = @province ? [@province.latitude,@province.longitude,7] : Geo::DEFAULT_CENTER
+    @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
     
-    #setup_destination_stuff(@city)
+    @schools = School.near_to(@city).paginate(:page => params[:page] || 1, :per_page => 10)
+    @activities = Activity.ongoing.for_the_city(@city).find :all, :order => "created_at desc", :limit => 10
     
-    if !@city.children.blank?
-      @cities = @city.children
-      render :action => "cities"
-    else
-      @schools = School.near_to(@city).paginate(:page => params[:page] || 1, :per_page => 10)
-      @citizens = @city.users.find(:all, :limit => 6)
-      @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-      
-      @activities = Activity.ongoing.for_the_city(@city).find :all, :order => "created_at desc", :limit => 10
-      
-      @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
-                                 :order => "last_replied_at desc",
-                                 :limit => 6)
-                                 
-      @groups = @city.groups.find :all, :limit => 9
+    respond_to do |format|
+      if !params[:page].blank?
+        format.html {render :action => 'schools', :layout => false}
+      else
+        format.html
+      end
     end
   end
   

@@ -1,7 +1,6 @@
 <% @page_title = "按城市查找" -%>
 
 <% content_for :sidebar do -%>
-  <%= render :partial => "/schools/submit" %>
   <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
   <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
 <% end -%>
@@ -24,7 +23,15 @@
   </div>
 </div>
 
-<%if @province %>
+<div class="newbox">
+  <div class="clearfix" style="height:10px"></div>
+  <div id="schools" class="contents">
+    <h3>来自Google的学校</h3>
+    <div id="searchControl"></div>
+  </div>
+</div>
+
+<!-- <%if @province %>
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function()
   {
@@ -36,4 +43,4 @@
     });
   })
 </script>
-<%end%>
+<%end%> -->
