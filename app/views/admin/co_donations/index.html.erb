@@ -6,7 +6,7 @@
 <% end -%>
 
 
-<p style="text-align:right">累计受益人数： <%= CoDonation.total_beneficiary%></p>
+<p style="text-align:right">累计受益人数： 暂不显示</p>
 
 <table>
   <tbody>
@@ -14,8 +14,8 @@
         <th>团捐</th>
         <th>发起人</th>
         <th>发起日期</th>
-        <th>操作</th>
-        <th width="14%">详细</th>
+        <th>状态</th>
+        <th>详细</th>
       </tr>
     <% @co_donations.each_with_index do |d,n|%>
       <tr>
@@ -24,15 +24,15 @@
         <td><%= d.created_at.to_date %></td>
         <td>
           <%if  d.validated?%><span style="color:#3333cc">已验证</span>
-          <span style="font-weight:bold"><%= link_to "取消审核",cancel_admin_co_donation_path(d),:method => :put%></span><%else%><span style="color:#999">未验证</span> <span style="font-weight:bold"><%= link_to "通过审核",validate_admin_co_donation_path(d),:method => :put%></span>
+          <%else%><span style="color:#999">未验证</span>
           <%end%>
         </td>
-        <td><a class="more" href="#" onclick="javascript:$('.co_donation_n').hide();$('#co_donation_<%= n %>').toggle();return false;"> 查看详情</a></td>
+        <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;">查看</a></td>
         
       </tr>
       <tr>
-        <td  class="co_donation_n" colspan="5"  id='<%= "co_donation_#{n}" %>' style="display:none">
-          <p>捐赠目标: <%= "#{d.goods_name} #{d.goal_number}件"%></p>
+        <td  class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
+          捐赠目标: <%= "#{d.goods_name} #{d.goal_number}件"%>
           <p>受益人数: <%= "#{d.beneficiary_number}人"%></p>
           <p><h5>学校故事</h5>
           <%= d.description %>
@@ -45,9 +45,11 @@
           </p>
           <p><h5>接收人：</h5>
               地址：<%= d.address%><br/>
-
           姓名：<%= d.receiver%>　　邮编：<%= d.zipcode%>　　电话：<%= d.phone_number%>
           </p>
+          <div style="float:right">
+            <div style="float:right"><%=  d.validated? ? (link_to "取消审核",cancel_admin_co_donation_path(d),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_co_donation_path(d),:class => "adminbutton",:method => :put)%></div>
+          </div>
         </td>
       </tr>
     <%end%>
