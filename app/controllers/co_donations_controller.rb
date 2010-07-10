@@ -57,18 +57,17 @@ class CoDonationsController < ApplicationController
     @co_donation = current_user.co_donations.find(params[:id])
   end
    
+  
   def update
-    @co_donation = current_user.co_donations.find(params[:id])
-    @schools = current_user.envoy_schools
     respond_to do |wants|
       if @co_donation.update_attributes(params[:co_donation])
-        flash[:notice] = "捐赠数量修改成功"
+        flash[:notice] = "团捐信息修改成功"
         wants.html {redirect_to co_donation_url(@co_donation)}
       else
-        wants.html {redirect_to co_donation_url(@co_donation)}
+        wants.html {render 'edit'}
       end
     end  
-  end
+  end 
   
   def destroy
     @co_donation.destroy

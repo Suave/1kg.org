@@ -54,6 +54,11 @@ class CoDonation < ActiveRecord::Base
     self.sub_donations.by_state("received") + self.sub_donations.by_state("proved") + self.sub_donations.by_state("ordered") + self.sub_donations.by_state("missed") + self.sub_donations.by_state("refused")
   end
   
+  def edit
+    
+  end
+
+  
   def title
     "为#{self.school.title}捐赠#{self.goods_name}"
   end

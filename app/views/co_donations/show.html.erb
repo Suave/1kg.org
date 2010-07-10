@@ -58,7 +58,7 @@
   
   <div id="donation_meta">
     <p><label>发起人：</label><%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(在<%= @co_donation.created_at.to_date %>)</span></p>
-    <p><label>受益人数：</label><%= @co_donation.beneficiary_number%></p>
+    <p><label>受益人数：</label><%= @co_donation.beneficiary_number%> 人</p>
     <p><label>受益学校：</label> <%= link_to @co_donation.school.title, school_url(@co_donation.school.id) %></p>
     <p><label>目标：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"> <%= @co_donation.goal_number %></span> 件</p>
     <p><label>已捐赠：</label><span class="donation_number" style="color:#EF6A0B;font-size:20px;line-height:15px"><%= @co_donation.number %></span> 件</p>
@@ -72,7 +72,7 @@
     <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
       <% if @co_donation.done%>
-        <h5>捐赠目标已经达成</h5>
+        <h5>捐赠目标已经达成！</h5>
       <% elsif @co_donation.end_at < (Date.today - 1.day)%>
         <h5>捐赠已经截止</h5>
       <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>

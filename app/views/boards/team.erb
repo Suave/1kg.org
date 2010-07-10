@@ -4,8 +4,6 @@
   <h4>> <%= link_to "回到#{@team.name}", team_url(@team) %></h4>
 <% end -%>
 
-
-
 <h2 class="title"><%= @page_title %></h2>
 <div class="moderators">
   版主：<%= User.moderators_of(@board).collect {|u| link_to(u.login, user_url(u.id))}.join(", ") %>
@@ -20,7 +18,6 @@
         <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
         <%= customize_paginate @topics %>
       </div>
-      
     </div>
   </div>
 </div>
