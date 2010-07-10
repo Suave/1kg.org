@@ -37,7 +37,7 @@ class Team < ActiveRecord::Base
   
   def set_relationship
     #设置申请人为团队的管理员
-    self.user.leaderships.build(:team_id => self.id,:validated => true,:validated_at => Time.now, :validated_by_id => 0).save
+    self.user.leaderships.build(:team_id => self.id).save
     #设置申请人为团队的关注者
     self.followers << self.user
   end
