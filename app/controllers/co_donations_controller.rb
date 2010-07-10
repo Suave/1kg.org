@@ -70,8 +70,7 @@ class CoDonationsController < ApplicationController
   end 
   
   def destroy
-    @co_donation.destroy
-    
+    @co_donation.destroy    
     respond_to do |wants|
       wants.html {redirect_to school_url(@co_donation.school)}
     end  
