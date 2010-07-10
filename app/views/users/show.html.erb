@@ -85,7 +85,7 @@
   
   <div class="clearfix" style="height:10px;clear:both"></div>
   <div class="newbox">
-    <span class="span_title2">谁在关注<%= h @user.login %>../span> <%= link_to "查看全部", friends_user_url(@user) %>
+    <span class="span_title2">谁在关注<%= h @user.login %>...</span> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
   </div>
