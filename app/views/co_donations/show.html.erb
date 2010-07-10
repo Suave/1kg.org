@@ -21,7 +21,7 @@
 <%end%>
 
 <% content_for :crumb do -%>
-<p style="display:none">来自多背一公斤的捐赠活动： <%= summary(@co_donation ,60)%>...</p>
+<p style="display:none">来自多背一公斤的物资团捐： <%= summary(@co_donation ,60)%>...</p>
     <li><%= link_to "物资团捐", co_donations_url %></li>
 <% end -%>
 
@@ -48,6 +48,26 @@
         <div class="cleanfix" style="height:20px"></div>
     </div>
     
+    <div class="newbox">
+      <span style="float:right"><%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %></span>
+      <span class="span_title2">相册</span>　
+      <div class="cleanfix" style="height:10px"></div>
+      <div class="clearfix" id="photos">
+        <div id="upload_container"></div>
+        <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+        <%= "暂无照片" if @photos.empty? %>
+        
+        <div style="text-align:right;clear:both">
+          <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+        </div>
+        
+        <div style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:co_donation_id => @co_donation.id) %> 上传.
+        </div>  
+      </div>
+    </div>
+
+
 <% end -%>
 
 <div class="clearfix">
@@ -67,7 +87,7 @@
   </div>
   
     <div id="donation_counter">
-      <br/>
+      <div style="text-align:right"><%= link_to "修改团捐信息?",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%></div><br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
     <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
@@ -128,25 +148,7 @@
     </div>
           
     <div id="report">
-      
-      <div class="project_info">
-          <div class="title_line"><span>照片</span>　<%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %></div>
-            
-            <div class="clearfix" id="photos">
-              <div id="upload_container"></div>
-              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
-              <%= "暂无照片" if @photos.empty? %>
-              
-              <div style="text-align:right;clear:both">
-                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
-              </div>
-              
-              <div style="display:none;" id="upload_tip">
-              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:co_donation_id => @co_donation.id) %> 上传.
-              </div>  
-            </div>
-        </div>
-        
+          
         <div class="project_info">
           <div class="title_line"><span>反馈报告</span> <%= link_to "更新反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink" if @co_donation.feedback && logged_in? && @co_donation.user == current_user%></div>
           <% if @co_donation.feedback.nil? %>
