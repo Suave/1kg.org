@@ -1,0 +1,63 @@
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/kuailebox.css" media="screen, projection" />
+
+<% end -%>
+
+<% @page_title = "“爱音乐”音乐教室"  -%>
+
+<% content_for :crumb do -%>
+<li>“爱音乐”音乐教室</li>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<img src="/images/musicclassroom/banner.jpg" alt="快乐盒子" style="margin:10px;" />
+<div class="lcolumn">
+   
+  <div class="newbox" style="font-size:13px">
+      <div class="title_line"><h5>活动介绍</h5></div>
+     
+     <p>“爱音乐”音乐教室活动由广州电信公司提供资金支持，通过<a href="http://www.1kg.org">多背一公斤</a>平台为少数民族地区的乡村学校建立音乐教室，主要配备电脑、互联网 接入、数码相机和音乐器具。</p>
+     <br/>
+     <p>孩子们可以在音乐教室里进行简单的音乐学习，并通过数码相机来收集自己民族的歌曲、戏曲、舞蹈等，以视频、相片、文字记录的形 式在 1kg.org的音乐教室专题页面进行呈现和传播。</p>
+     <br/>
+
+   
+  </div>
+  
+  <div class="newbox">
+      <div class="title_line"><h5>相册</h5></div>
+        <%= render :partial => "/shared/photo", :collection => @photos %>
+      <div class="clearfix" style="clear:both;height:20px"></div>
+  </div>
+  
+  <div class="newbox">
+    <div class="title_line"><h5>小组讨论</h5></div>
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+  </div>
+  
+</div>
+
+<div class="rcolumn">
+  
+  <div class="newbox">
+    <div class="title_line"><h5>如何参与？</h5></div>
+    <p style="text-align:center;font-size:13px">参与“爱音乐”音乐教室公益项目，<br/>就能为你的学校建立音乐教室！<br/><br/>
+    <a href="＃" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" class="surebutton">申请参与</a>
+    </p>
+  </div>
+
+  <div class="newbox">
+    <div class="title_line"><h5>参与学校</h5></div>
+     <%= render :partial => "/requirement_types/requirement", :collection => @project.requirements %>
+  </div>
+  
+</div>
+
+<div id="misc" >
+  <%= link_to image_tag("kuailebox/1kglogo.gif"), root_url %>
+</div>
+<h1></h1>
+<% end -%>
