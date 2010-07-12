@@ -81,10 +81,10 @@ class Activity < ActiveRecord::Base
   
   def validate
     begin
-      if (Activity.find(id).start_at > Time.now) and ((Activity.find(id).start_at != start_at) or (Activity.find(id).end_at != end_at))
+      if (Activity.find(id).start_at < Time.now) and ((Activity.find(id).start_at != start_at) or (Activity.find(id).end_at != end_at))
         errors.add(:time,"已经不能修改活动时间")
       end
-      rescue  
+    rescue  
         if start_at && end_at 
           unless  ((Time.now - 1.day)<= start_at)&&(start_at <= end_at)&&(end_at <= start_at + 3.month )
         errors.add(:time,"日期填写不正确　")
