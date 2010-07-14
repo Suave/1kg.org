@@ -128,7 +128,7 @@ class TeamsController < ApplicationController
   end
   
   def check_permission
-    unless @team.leaders.include?(current_user)
+    unless @team.leaders.include?(current_user) || current_user.admin?
     flash[:notice] = "你没有团队组织权限。"
     redirect_to @team
     end
