@@ -7,7 +7,7 @@ class TeamsController < ApplicationController
   
   def index
     @teams = Team.validated.all
-    @myteams = current_user.teams if current_user
+    @myteams = Team.validated.find(:all,:conditions => {:user_id => current_user.id}) if current_user
   end
   
   def show
@@ -49,10 +49,18 @@ class TeamsController < ApplicationController
     end
   end
   
+  def edit
+  end
+  
   def update
-    @team.update_attributes!(params[:team])
-    flash[:notice] = "修改成功"
-    redirect_to edit_team_url(@team)
+    respond_to do |wants|
+      if @team.update_attributes(params[:team])
+        flash[:notice] = "团队信息修改成功"
+        wants.html {redirect_to team_url(@team)}
+      else
+        wants.html {render 'edit'}
+      end
+    end
   end
   
   def new_activity
@@ -128,7 +136,7 @@ class TeamsController < ApplicationController
   end
   
   def check_permission
-    unless @team.leaders.include?(current_user)
+    unless @team.leaders.include?(current_user) || current_user.admin?
     flash[:notice] = "你没有团队组织权限。"
     redirect_to @team
     end
