@@ -102,3 +102,5 @@ iframe{width:588px;margin-top:10px}
 ol.required {list-style-type: decimal; margin-left:30px;font-size:13px;}
 ol.required li {margin:10px 0;}
 #writeguide{width:320px;float:right}
+#apply_mcr{background:url('/images/musicclassroom/button.png');display:block;width:174px;height:37px}
+#apply_mcr:hover{background-position:0 -37px;}
