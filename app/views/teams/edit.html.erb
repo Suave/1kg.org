@@ -18,7 +18,7 @@
 
 <div class="newbox" >
   <div class="clearfix" style="height:10px"></div>
-  <% form_for :team, :url => team_url(@team), :html => {:method => :put} do |form| -%>
+  <% form_for :team, :url => team_url(@team), :html => {:method => :put,:multipart => true} do |form| -%>
 
    <div class="form_box">
    <div class="contents" style="padding-left:10px">    
