@@ -24,6 +24,7 @@ class Topic < ActiveRecord::Base
   include BodyFormat
   
   acts_as_paranoid
+  acts_as_voteable
   
   belongs_to :board, :counter_cache => 'topics_count'
   belongs_to :user
