@@ -20,8 +20,6 @@
   <div class="clearfix" style="height:10px"></div>
   <% form_for :co_donation, :url => co_donations_path, :html => {:multipart => true} do |f| -%>
     <%= render :partial => "form", :object => f %>
-    <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
-      <span><%= link_to "取 消 ", activities_url,:style => "width:100px"%></span> 带<span class="require">*</span>号的是必填项
-    </p>
+    <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/co_donations/';return false" %>
   <% end -%>
 </div>

@@ -24,7 +24,7 @@
           <%else%><span style="color:#999">未通过</span> 
           <%end%>
         </td>
-        <td><a class="more" href="#" onclick="javascript:$('.detail_n').hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>
+        <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>
         
       </tr>
       <tr>

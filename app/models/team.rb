@@ -10,9 +10,9 @@ class Team < ActiveRecord::Base
   has_many :followings, :as => "followable"
   has_many :followers, :through => :followings
   
-  attr_accessor :agree_service_terms
-  
   has_attached_file :image, :styles => { :team_icon => "64x64",:team_logo => "160x160>"}
+  
+  attr_accessor :agree_service_terms
   
   validates_presence_of :name,:description,:user_id,:geo_id,:applicant_name,:applicant_phone,:applicant_email,:applicant_role,:category,:message=> "此项是必填项"
   validates_format_of   :applicant_email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
@@ -25,8 +25,7 @@ class Team < ActiveRecord::Base
   before_create :format_website_url
   after_create :create_discussion,:set_relationship
   
-  def leader 
-  end
+  acts_as_paranoid
   
   #为了和User统一接口
   def login
@@ -37,7 +36,7 @@ class Team < ActiveRecord::Base
   
   def set_relationship
     #设置申请人为团队的管理员
-    self.user.leaderships.build(:team_id => self.id,:validated => true,:validated_at => Time.now, :validated_by_id => 0).save
+    self.user.leaderships.build(:team_id => self.id).save
     #设置申请人为团队的关注者
     self.followers << self.user
   end
