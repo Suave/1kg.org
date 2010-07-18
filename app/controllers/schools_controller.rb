@@ -11,7 +11,7 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {
         @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
-        #@recent_schools = School.recent_upload.validated.include([:user, :geo])
+        @shares = Share.recent_shares_with_school
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
       :order => "last_replied_at desc",
