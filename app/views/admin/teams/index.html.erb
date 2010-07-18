@@ -29,6 +29,7 @@
       </tr>
       <tr>
         <td  class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
+          <div style="float:right"><%= avatar_for team, 'large' %> </div>
           <h5>基本信息</h5>
           <p>
             类型： <%= team.category%>　　　
@@ -48,6 +49,16 @@
           <p>
           <%= team.description %>
           </p>
+          
+          <% if team.validated? %>
+          <h5>团队管理员</h5>
+          共<%= team.leaders.size%>人
+          <p>
+          <% team.leaders.each do |leader| %>
+            <%= link_to leader.login,leader%>
+          <% end %>
+          </p>
+          <%end%>
           <div style="float:right"><%=  team.validated? ? (link_to "取消审核",cancel_admin_team_path(team),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_team_path(team),:class => "adminbutton",:method => :put)%></div>
         </td>
       </tr>
