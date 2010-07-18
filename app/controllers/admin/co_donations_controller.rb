@@ -1,6 +1,6 @@
 class Admin::CoDonationsController < Admin::BaseController
   def index
-    @co_donations = CoDonation.not_validated + CoDonation.validated
+    @co_donations = CoDonation.find(:all,:order => "created_at desc")
   end
   
   def validate
