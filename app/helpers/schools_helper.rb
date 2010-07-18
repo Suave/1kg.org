@@ -58,15 +58,15 @@ module SchoolsHelper
     #要加上活跃度评星算法
     if karma == nil
       count = 0
-    elsif karma < 10
+    elsif karma < 5
       count = 0
-    elsif karma < 30
+    elsif karma < 10
       count = 1
-    elsif karma < 60
+    elsif karma < 20
       count = 2
-    elsif karma < 150
+    elsif karma < 40
       count = 3
-    elsif karma < 300
+    elsif karma < 80
       count = 4
     else
       count = 5
