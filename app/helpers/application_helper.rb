@@ -153,7 +153,7 @@ module ApplicationHelper
     elsif object.class == Group
       group_avatar_for(object, size)
     elsif object.class == Team
-      size_list = {'small' => '16','large' => '48'}
+      size_list = {'small' => '16px','large' => '48px'}
       image_tag object.image(:team_icon),:style => "width:#{size_list[size]};height:#{size_list[size]}"
     end
   end
