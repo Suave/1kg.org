@@ -49,6 +49,18 @@ class Share < ActiveRecord::Base
   named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
                               :limit => 8,
                               :include => [:user, :tags]
+                              
+  named_scope :recent_shares_with_activity, :order => "created_at desc, comments_count desc",
+                              :limit => 6,
+                              :conditions => "activity_id is not null",
+                              :include => [:user]
+                            
+  named_scope :recent_shares_with_school, :order => "created_at desc, comments_count desc",
+                              :limit => 6,
+                              :conditions => "activity_id is not null",
+                              :include => [:user]
+                            
+  
 
   define_index do
     # fields
