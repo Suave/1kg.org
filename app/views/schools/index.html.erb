@@ -121,17 +121,15 @@
      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
 </div>
 
-
 <div class="newbox">
   <span class="span_title">学校分享</span>
   <div class="cleanfix" style="height:10px"></div>
   <div class="contents">
     <%= render :partial => "/shared/share", :collection => @shares %>
   </div>
-  <div class="remark"><%= link_to "&raquo; 更多活动分享", shares_url %></div>
+  <div class="remark"><%= link_to "&raquo; 更多学校分享", total_shares_schools_url %></div>
   <div class="cleanfix" style="height:20px"></div>
 </div>
-
 
 <div class="newbox">
       <div class="clearfix"></div>
