@@ -11,11 +11,11 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {
         @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
-        @shares = Share.with_school.find(:all,:limit => 6)
+        @shares = Share.with_school.find(:all,:limit => 4)
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
       :order => "last_replied_at desc",
-      :limit => 6)
+      :limit => 4)
         @projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc",:limit => 2
         
         # 显示需求标签云
