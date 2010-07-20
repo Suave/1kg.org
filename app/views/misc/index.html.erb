@@ -21,6 +21,13 @@
   </div>
   <% end -%>
 
+  <div class="newbox">
+    <span class="span_title">公益团队</span>
+    <div class="cleanfix" style="height:10px"></div>
+      <%= render :partial => "/shared/team", :collection => @teams %>
+    <p class="remark"><%= link_to "&raquo;  查看全部", teams_url %></p>
+  </div>
+
   <div id="records" class="newbox">
     <div id="record_tabs">
           <span class="span_title" style="margin-right:8px">用户动态</span>

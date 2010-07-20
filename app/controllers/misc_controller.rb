@@ -22,7 +22,7 @@ class MiscController < ApplicationController
     @recent_shares = Share.recent_shares
     @recent_votes = Vote.recent_votes
     @co_donations = CoDonation.validated.ongoing.all(:limit => 2)
-    # 网站公告
+    @teams = Team.validated.find(:all,:order => "created_at desc",:limit => 6)
     @bulletins = Bulletin.recent
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
