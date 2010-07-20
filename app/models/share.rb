@@ -50,14 +50,12 @@ class Share < ActiveRecord::Base
                               :limit => 8,
                               :include => [:user, :tags]
                               
-  named_scope :recent_shares_with_activity, :order => "created_at desc, comments_count desc",
-                              :limit => 6,
+  named_scope :with_activity, :order => "created_at desc, comments_count desc",
                               :conditions => "activity_id is not null",
                               :include => [:user]
                             
-  named_scope :recent_shares_with_school, :order => "created_at desc, comments_count desc",
-                              :limit => 6,
-                              :conditions => "activity_id is not null",
+  named_scope :with_school, :order => "created_at desc, comments_count desc",
+                              :conditions => "school_id is not null",
                               :include => [:user]
                             
   

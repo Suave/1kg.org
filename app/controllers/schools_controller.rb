@@ -1,7 +1,7 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map]
-  before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:todo]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares]
+  before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:total_shares]
   before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
   
@@ -11,7 +11,7 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {
         @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
-        @shares = Share.recent_shares_with_school
+        @shares = Share.with_school.find(:all,:limit => 6)
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
       :order => "last_replied_at desc",
@@ -61,6 +61,11 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {render :layout => false}
     end
+  end
+  
+  def total_shares
+    @shares = Share.with_school.paginate(:page => params[:page], :per_page => 20)
+    @title = @page_title = "所有学校分享"
   end
 
   def comments
@@ -144,7 +149,6 @@ class SchoolsController < ApplicationController
     render :action => "edit"
   end
   
-
   def update
     @school = School.find params[:id]
     respond_to do |format|
