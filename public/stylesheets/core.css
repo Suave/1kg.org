@@ -1093,9 +1093,10 @@ h3.title {
 .obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
 .user{float:left;width:70px}
-.user dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.team{float:left;width:84px;margin:2px}
+.user dt,.team dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
-
+.team dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
 .obp {float:left; width:115px; margin:12px;}
 .obp dt {height:85px; margin:0; overflow:hidden; text-align:center;}
