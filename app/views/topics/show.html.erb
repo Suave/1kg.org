@@ -28,8 +28,15 @@
         <% end -%>
   </div>
   
+  <div class="newbox">
+  <div class="cleanfix" style="height:20px"></div>
+      <span class="span_title">推荐此话题的用户</span>
+      <div class="clearfix" style="height:10px"></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
+  </div>
+  
   <% unless @others.empty?%>
-  <div class="cleanfix" style="height:30px"></div>
+  <div class="cleanfix" style="height:20px"></div>
   <div class="newbox">
     <span class="span_title">
       <% if @topic.board.talkable.class == GroupBoard -%>小组的<% elsif @topic.board.talkable.class == SchoolBoard -%>学校的<% end %>其他话题</span>
@@ -67,7 +74,7 @@
             <% end -%>
           </p>
           <p id ="voting" style="margin:7px 0;">
-            <span>已有 <%= @topic.votes.count -%> 人推荐这篇分享 </span>
+            <span>已有 <%= @topic.votes.count -%> 人推荐这个话题 </span>
             <% if logged_in? -%>
               <% if current_user.voted?(@topic) -%>
                 您已推荐了
