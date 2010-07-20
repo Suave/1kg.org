@@ -4,7 +4,7 @@
     <div class="school_list_meta">
       <h5><%= link_to h(school.title), school_path(school)%></h5>
       <span class="gary_span">活跃度</span>
-      <%= karma_star(school.karma)-%>
+      <%= karma_star(school.last_month_karma)-%>
       <% unless envoys.nil? %><br/><span class="gary_span">学校大使:<% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></span><%end-%>
     </div>
     <div class="clearfix"></div>
