@@ -126,6 +126,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean   "validated",     :default => false
     t.datetime  "validated_at"
     t.integer   "validated_by_id"
+    t.datetime  "deleted_at"
   end
   
   create_table "boards", :force => true do |t|

@@ -109,8 +109,8 @@
       <div><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
 </div>
 
-
 <div class="clearfix" style="clear:both;"> </div>
+
 <div class="newbox">
       <div class="clearfix"></div>
       <span class="span_title">可为学校申请的项目</span>
@@ -119,6 +119,16 @@
         <%= render :partial => '/shared/project', :collection => @projects %>
       </div>
      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
+</div>
+
+<div class="newbox">
+  <span class="span_title">学校分享</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <div class="contents">
+    <%= render :partial => "/shared/share", :collection => @shares %>
+  </div>
+  <div class="remark"><%= link_to "&raquo; 更多学校分享", total_shares_schools_url %></div>
+  <div class="cleanfix" style="height:20px"></div>
 </div>
 
 <div class="newbox">

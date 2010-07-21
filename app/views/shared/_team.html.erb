@@ -1,11 +1,4 @@
-<div class="activity_list">
-    <div style="float:left;width:56px;height:56px;overflow:hidden">
-            <%= link_to image_tag(object.image(:team_icon),:style => 'width:56px;height:56px;'),team%>
-    </div>
-    <div style="float:left;margin-left:5px;width:84px">
-        <h5 style="font-size:13px"><%= link_to team.name, team %></h5>
-        <div style="margin:2px 0">
-           <%= team.category %>
-        </div>
-    </div>
-</div>
+  <dl class="team">
+    <dt><%= link_to avatar_for(team, "large"), team %></dt>
+    <dd><h6><%= link_to team.login, team %></h6><%= team.category %></dd>
+  </dl>

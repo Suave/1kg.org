@@ -32,6 +32,7 @@
       </tr>
       <tr>
         <td  class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
+          <div style="float:right"><%= image_tag(d.image(:co_donation_topic),:style => "height:48px") %> </div>
           捐赠目标: <%= "#{d.goods_name} #{d.goal_number}件"%>
           <p>受益人数: <%= "#{d.beneficiary_number}人"%></p>
           <p><h5>学校故事</h5>

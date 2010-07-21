@@ -1,19 +1,23 @@
 <div class="share">
   <div style="float:left">
-    <%= avatar_for(vote.user, "large") %>
+    <%= avatar_for(vote.voteable.user, "large") %>
   </div>
   <div style="margin-left:60px;">
   <div class="sharetitle">
-    <%= link_to vote.user.login, user_url(vote.user) %> 推荐了
+    <%= link_to vote.voteable.user.login, user_url(vote.voteable.user) %>
+    
     <% if vote.voteable.is_a?(Share) %>
-      分享：<%= link_to vote.voteable.title, share_path(vote.voteable) %>
+    的分享
+      <%= link_to vote.voteable.title, share_path(vote.voteable) %>
     <% elsif vote.voteable.is_a?(Topic) %>
-      话题：<%= link_to vote.voteable.title, board_topic_path(vote.voteable.board, vote.voteable) %>
+    的话题
+      <%= link_to vote.voteable.title, board_topic_path(vote.voteable.board, vote.voteable) %>
     <% end %>
+    
   </div>
     <div class="summary">“<%= summary(vote.voteable,40) %>……”</div>
     <small style="color:#999">
-      <%= vote.voteable.votes.count %> 推荐
+      来自 <%= link_to vote.user.login, user_url(vote.user) %> 的推荐　 
     </small>
   </div>
 </div>
