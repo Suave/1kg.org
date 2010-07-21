@@ -2,7 +2,7 @@
   <div style="float:left">
     <%= avatar_for(share.user, "large") %>
   </div>
-  <div style="margin-left:60px;">
+  <div style="margin-left:60px;width:580px">
   <div class="sharetitle"><%= link_to share.user.login, user_url(share.user) %> 写的 <%= link_to h(share.title), share_url(share) %></div>
     <div class="summary">“<%= summary(share,40) %>……”</div>
     <small style="color:#999">

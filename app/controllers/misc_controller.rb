@@ -21,7 +21,7 @@ class MiscController < ApplicationController
     @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => {:created_at => 1.month.ago..Time.now})
     @recent_votes = Vote.recent_votes
     @co_donations = CoDonation.validated.ongoing.all(:limit => 2)
-    # 网站公告
+    @teams = Team.validated.find(:all,:order => "created_at desc",:limit => 6)
     @bulletins = Bulletin.recent
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
