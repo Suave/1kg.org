@@ -52,6 +52,11 @@ class Activity < ActiveRecord::Base
   named_scope :ongoing,  :conditions => ["activities.end_at > ?", Time.now - 1.day]
   named_scope :over,     :conditions => ["activities.end_at < ?", Time.now - 1.day]
   named_scope :by_team, :conditions => {:by_team => true}, :order => "created_at desc"
+  named_scope :category, lambda {|c| {:conditions => ["activities.category = ?  and activities.created_at > ?", categories.index(c), Time.now - 1.month], :order => "created_at desc", :limit => 8, :include => [:main_photo,:departure, :arrival]}}
+  
+  def self.recent_by_category(category)
+    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["activities.category = ?  and activities.created_at > ?", categories.index(category), Time.now - 1.month], :include => [:main_photo]
+  end
   
   named_scope :for_the_city, lambda { |city|
     geo_id = (city.class == Geo) ? city.id : city
@@ -117,10 +122,6 @@ class Activity < ActiveRecord::Base
   
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
-  end
-  
-  def self.recent_by_category(category)
-    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["activities.category = ?  and activities.created_at > ?", categories.index(category), Time.now - 1.month], :include => [:main_photo]
   end
   
   
