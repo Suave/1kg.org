@@ -41,6 +41,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "sticky",           :default => false
   end
   
+  add_index "activities", ["created_at"], :name => "index_activities_on_created_at"
+  add_index "activities", ["start_at"], :name => "index_activities_on_start_at"
+  add_index "activities", ["end_at"], :name => "index_activities_on_end_at"
+    
   create_table "co_donations", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "school_id"
@@ -154,6 +158,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "comments_count"
     t.datetime "deleted_at"
   end
+  
+  add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
+  add_index "comments", ["deleted_at"], :name => "index_comments_on_deleted_at"
 
   create_table "counties", :force => true do |t|
     t.integer "geo_id"
@@ -231,7 +238,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
   end
-
+  
   create_table "participations", :force => true do |t|
     t.integer  "user_id"
     t.integer  "activity_id"
@@ -258,6 +265,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "requirement_id"
     t.integer  "co_donation_id"
   end
+  
+  add_index "photos", ["created_at"], :name => "index_photos_on_created_at"
+  add_index "photos", ["deleted_at"], :name => "index_photos_on_deleted_at"  
+  add_index "photos", ["activity_id"], :name => "index_photos_on_activity_id"  
 
   create_table "posts", :force => true do |t|
     t.integer  "topic_id",            :null => false

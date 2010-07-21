@@ -65,19 +65,6 @@
   <div class="cleanfix" style="clear:both;"></div>    
 </div>
 
-<%if false%>
-<div class="newbox">
-      <span class="span_title">最新活动留言</span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>
-      <% @comments.each do |comment| -%>
-      <%= comment.body_html %>
-      <p class="comment_author"><%= link_to comment.user.login, user_url(comment.user) %> 写于：<br/><%=link_to comment.commentable.title,activity_url(comment.commentable)%></p>
-      <%end-%>
-      <div class="contents clearfix">
-      </div>
-</div>
-<% end -%>
-
 <% end -%>
 
 <div class="newbox">

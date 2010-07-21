@@ -48,9 +48,9 @@ class Activity < ActiveRecord::Base
   
   acts_as_taggable
   
-  named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
-  named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
-  named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
+  named_scope :available, :conditions => "activities.deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
+  named_scope :ongoing,  :conditions => ["activities.end_at > ?", Time.now - 1.day]
+  named_scope :over,     :conditions => ["activities.end_at < ?", Time.now - 1.day]
   named_scope :by_team, :conditions => {:by_team => true}, :order => "created_at desc"
   
   named_scope :for_the_city, lambda { |city|
@@ -120,7 +120,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.recent_by_category(category)
-    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
+    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["activities.category = ?  and activities.created_at > ?", categories.index(category), Time.now - 1.month], :include => [:main_photo]
   end
   
   
