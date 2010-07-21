@@ -17,7 +17,9 @@
   </div>
     <div class="summary">“<%= summary(vote.voteable,40) %>……”</div>
     <small style="color:#999">
-      来自 <%= link_to vote.user.login, user_url(vote.user) %> 的推荐　 
+      <% voters = vote.voteable.voted_by %>
+      <% first_voter = voters.pop %>
+      来自 <%= voters.map{ |user| link_to "#{user.login}、", user_url(user)} %><%= link_to first_voter.login,user_url(first_voter)%><%= "... " if voters[1]%> 的推荐　 
     </small>
   </div>
 </div>
