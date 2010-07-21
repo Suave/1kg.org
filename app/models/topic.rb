@@ -103,6 +103,10 @@ class Topic < ActiveRecord::Base
   def html
     self.clean_html ||= sanitize(body_html)
   end
+
+  def voted_by
+    self.votes[0..3].map(&:user).reverse
+  end
   
   private
   

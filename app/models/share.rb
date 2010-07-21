@@ -103,6 +103,10 @@ class Share < ActiveRecord::Base
     self.save(false) if self.clean_html_changed?
     self.clean_html
   end
+
+  def voted_by
+    self.votes.map(&:user).reverse
+  end
   
   private
   def initial_last_replied
