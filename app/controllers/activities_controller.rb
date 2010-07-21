@@ -6,17 +6,11 @@ class ActivitiesController < ApplicationController
   
   def index
     @activities_hash = {}
-    @activities = @activities_hash[:all] = Activity.available.ongoing.find(:all,:limit => 8, :order => "created_at desc", :conditions => ['created_at > ?', Time.now - 1.month], :include => [:main_photo,:departure, :arrival])
-    @activities_hash[:travel] = Activity.category("公益旅游")
-    @activities_hash[:donation] = Activity.category("物资募捐")
-    @activities_hash[:teach] = Activity.category("支教")
-    @activities_hash[:city] = Activity.category("同城活动")
-    @activities_hash[:online] = Activity.category("网上活动")
-    @activities_hash[:other] = Activity.category("其他")
-    @activities_total = Activity.count(:conditions => ["end_at < ?",Time.now])
+    @activities = Activity.available.ongoing.find(:all,:limit => 60, :order => "created_at desc", :conditions => ['created_at > ?', Time.now - 1.month], :include => [:main_photo,:departure, :arrival])
+    @activities_hash = @activities.group_by(&:category)
     
     @photos = Photo.with_activity.find(:all, :conditions => ['photos.created_at > ?', Time.now - 1.month],
-                :limit => 10, :order => "photos.created_at desc")
+                :limit => 10, :order => "photos.created_at desc", :include => [:activity])
   
     @participated = current_user.participated_activities.find(:all, :limit => 4) if logged_in?
 
