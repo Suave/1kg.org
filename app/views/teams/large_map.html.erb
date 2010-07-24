@@ -1,6 +1,7 @@
 <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 <%= javascript_include_tag 'jquery','application.js' %>
-<h4><%= @team.name %>的位置和服务学校</h4>
+<h4>团队服务地图</h4>
+<span style="color:#888;font-size:12px"><%= @team.name %>和其服务学校所在的位置</span>
 
   <script type="text/javascript">
     var schools = <%= @json.to_json %>;
