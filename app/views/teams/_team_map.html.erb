@@ -12,13 +12,14 @@
         map = new GMap2(document.getElementById("team_map"));
         map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
         
-        school_icon = new GIcon();
-        school_icon.image = "/images/m0.png";
-        school_icon.shadow = null;
-        school_icon.iconSize = new GSize(16, 20);
-        school_icon.shadowSize = null;
-        school_icon.iconAnchor = new GPoint(8,10 );
-        school_icon.infoWindowAnchor = new GPoint(8, 6); 
+        school_icon = new GIcon(); team_icon = new GIcon();
+        school_icon.image = "/images/m0.png"; team_icon.image = "/images/team.png";
+        school_icon.shadow = team_icon.shadow =null;
+        school_icon.iconSize = team_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = team_icon.shadowSize =null;
+        school_icon.iconAnchor = team_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6);
+        
         var markers = [];
  
         for (var i = 0; i < schools.length; ++i) {
@@ -30,7 +31,7 @@
         }
         
         var point = new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>);
-        marker = new GMarker(point,{title: "<%= @team.name %>"});
+        marker = new GMarker(point,{icon: team_icon, title: "<%= @team.name %>"});
         map.addOverlay(marker);
         
       }
