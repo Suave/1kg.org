@@ -98,7 +98,7 @@
 <div class="cleanfix" style="height:20px"></div>
 <div class="newbox">
   <div style="float:right"><span class="gary_span">&raquo; <%= link_to "进入团捐频道", co_donations_url%></span></div>
-  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span  
+  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span>
   <div class="cleanfix" style="height:20px"></div>
   <%= render :partial => "/shared/co_donation", :collection => @co_donations%>
   <div  style="clear:both"></div>
@@ -110,7 +110,7 @@
   <span class="span_title">最新推荐</span>
   <div class="cleanfix" style="height:10px"></div>
   <div class="contents">
-    <%= render :partial => "/shared/vote", :collection => @recent_votes %>
+    <%= render :partial => "/shared/vote", :collection => @voteds %>
   </div>
   <div class="cleanfix" style="height:20px"></div>
 </div>

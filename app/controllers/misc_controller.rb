@@ -19,7 +19,7 @@ class MiscController < ApplicationController
     @activity_count = Activity.ongoing.size
     @new_schools = School.find(:all,:limit => 4,:order => "created_at desc")
     @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => {:created_at => 1.month.ago..Time.now})
-    @recent_votes = Vote.recent_votes
+    @voteds = Vote.find(:all,:order => "created_at desc",:limit => 30).map(&:voteable).uniq[0..10]
     @co_donations = CoDonation.validated.ongoing.all(:limit => 2)
     @teams = Team.validated.find(:all,:order => "created_at desc",:limit => 6)
     @bulletins = Bulletin.recent

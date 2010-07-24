@@ -1,23 +1,25 @@
 <div class="share">
   <div style="float:left">
-    <%= avatar_for(vote.voteable.user, "large") %>
+    <%= avatar_for(vote.user, "large") %>
   </div>
   <div style="margin-left:60px;">
   <div class="sharetitle">
-    <%= link_to vote.voteable.user.login, user_url(vote.voteable.user) %>
+    <%= link_to vote.user.login, user_url(vote.user) %>
     
-    <% if vote.voteable.is_a?(Share) %>
+    <% if vote.is_a?(Share) %>
     的分享
-      <%= link_to vote.voteable.title, share_path(vote.voteable) %>
-    <% elsif vote.voteable.is_a?(Topic) %>
+      <%= link_to vote.title, share_path(vote) %>
+    <% elsif vote.is_a?(Topic) %>
     的话题
-      <%= link_to vote.voteable.title, board_topic_path(vote.voteable.board, vote.voteable) %>
+      <%= link_to vote.title, board_topic_path(vote.board, vote) %>
     <% end %>
     
   </div>
-    <div class="summary">“<%= summary(vote.voteable,40) %>……”</div>
+    <div class="summary">“<%= summary(vote,40) %>……”</div>
     <small style="color:#999">
-      来自 <%= link_to vote.user.login, user_url(vote.user) %> 的推荐　 
+      <% voters = vote.voted_by %>
+      <% first_voter = voters.pop %>
+      来自 <%= voters.map{ |user| link_to "#{user.login}、", user_url(user)} %><%= link_to first_voter.login,user_url(first_voter)%> <%= "...等#{vote.votes.count}人" if voters[1]%>的推荐　 
     </small>
   </div>
 </div>
