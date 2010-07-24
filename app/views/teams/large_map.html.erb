@@ -1,0 +1,64 @@
+<script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+<%= javascript_include_tag 'jquery','application.js' %>
+<h4><%= @team.name %>的位置和服务学校</h4>
+
+  <script type="text/javascript">
+    var schools = <%= @json.to_json %>;
+  </script>
+<script type="text/javascript">
+  var map;
+  function initializeBig() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("map_div"));
+      map.setCenter(new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>), <%= @team.zoom_level%>);
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GMapTypeControl());
+      map.addControl(new GScaleControl());
+      var point = new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>);
+      var green = new GIcon(G_DEFAULT_ICON, "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/marker_green.png");
+      bigmarker = new GMarker(point);
+      greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
+      
+      <% if current_user && @team.leaders.include?(current_user)%>
+      GEvent.addListener(greenmarker, "dragend", function() {
+        jQuery.ajax({
+          type: 'PUT',
+          url: '<%= team_path(@team) %>',
+          data: 'longitude=' + greenmarker.getPoint().lng() + '&latitude=' + greenmarker.getPoint().lat() + '&zoom_level=' + map.getZoom(),
+          dataType: "script"
+        });
+      });
+      <% end %>
+
+      map.addOverlay(bigmarker);
+      
+      
+        school_icon = new GIcon();
+        school_icon.image = "/images/m0.png";
+        school_icon.shadow = null;
+        school_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = null;
+        school_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6); 
+        var markers = [];
+ 
+        for (var i = 0; i < schools.length; ++i) {
+          var point = new GLatLng(schools[i].a, schools[i].o)
+          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
+          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i)); 
+          markers.push(marker);
+          map.addOverlay(marker);
+        }  
+      
+      
+    }
+  };
+  function edit_position(){bigmarker.remove();map.addOverlay(greenmarker);$('#drag').hide();$('#sure').show(); }
+  
+  window.onload = function(){initializeBig(); bigmarker.disableDragging();<%= "edit_position();" if @edit%>}
+ 
+ 
+</script>
+
+<div id="map_div" style="width: 530px; height: 350px;"></div>
+<% if @edit%><p style="font-size:14px;color:#444;padding:0 5px;margin:10px 0 0"><span>拖动标记修改团队位置,并可以改变地图缩放级别，刷新此页面修改生效</span></p><%end%>

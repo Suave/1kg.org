@@ -1,9 +1,21 @@
 <% @page_title = "#{h @team.name}" -%>
 
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+<%end%>
+
 <% content_for :crumb do -%>
 <li><%= link_to '团队', teams_path %></li>
 <li><%= @team.name %></li>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+</script>
+
 <div class="newbox">
     <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
       <%= image_tag(@team.image.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
@@ -24,7 +36,11 @@
         <%= "网站： #{link_to @team.website,@team.website}<br/>" unless @team.website.empty? %>
         <%= "人数： #{@team.member_number} 人" if @team.member_number %>
         </div>
-        <p><h5>团队介绍</h5><%= @team.description %></p>
+        <p>
+            <h5>团队介绍</h5>
+        <div class="toggle"><%= summary(@team,110) %><%= "..." if @team.description[110] %> <%= link_to "[更多]",'#',:onclick => "javascript:$('.toggle').toggle();return false"%></div>
+        <div class="toggle" style="display:none"><%= @team.description %> <%= link_to "[收起]",'#',:onclick => "javascript:$('.toggle').toggle();return false"%></div>
+        </p>
     </div>
 </div>
 
@@ -58,6 +74,11 @@
        
     </div>
   <% end %>
+  
+  <div class="newbox">
+    <%= render :partial => "team_map" %>
+  </div>
+<div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
   <span class="span_title">关注者</span>
   <div class="cleanfix" style="height:5px"></div>
@@ -65,5 +86,5 @@
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
   </div>  
 </div> 
-  
+
 <% end %>

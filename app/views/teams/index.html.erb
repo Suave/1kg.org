@@ -1,7 +1,5 @@
 <% @page_title = "公益团队" -%>
-<style type="text/css">.activity_list{width:150px;}</style>
 <div class="cleanfix" style="clear:both;height:10px"></div>
-
 
 <% content_for :sidebar do -%>
   <% if @myteams%>
@@ -19,6 +17,37 @@
     <span class="span_title" style="margin-right:8px">全部团队</span>
     <div class="cleanfix" style="clear:both;height:10px"></div>
     <%= render :partial => "/shared/team", :collection => @teams %>
+</div>
+
+<div class="cleanfix" style="clear:both;height:20px"></div>
+
+<div class="newbox">
+    <span class="span_title" style="margin-right:8px">团队活动</span>
+    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <%= render :partial => "/shared/activity", :collection => @activities%>
+</div>
+<div class="cleanfix" style="clear:both;height:20px"></div>
+<div class="newbox">
+  <span class="span_title" style="margin-right:8px">团队话题</span>
+  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <table>
+    <tr>
+      <th style="width:35%;">话题</th>
+      <th style="width:20%;">团队</th>
+      <th style="width:15%">作者</th>
+      <th style="width:7%;">回复</th>
+      <th style="width:23%;">最后回复</th>
+    </tr>
+    <% @topics.each do |t| -%>
+    <tr>
+      <td><%= link_to t.title, board_topic_url(t.board, t) %></td>
+      <td><%= link_to t.board.talkable.name,t.board.talkable %></td>
+      <td><%= t.user.login %></td>
+      <td><%= t.posts_count %></td>
+      <td><%= link_to "#{ date_for_short t.last_replied_datetime} by #{t.last_replied_user.login}", board_topic_url(t.board, t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>
+    </tr>
+    <% end -%>
+  </table>
 </div>
 
 <div class="cleanfix" style="clear:both;height:30px"></div>
