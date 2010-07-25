@@ -53,6 +53,13 @@
 </div>
 
 <div class="newbox">
+  <div class="title_line"><span class="span_title2">团队相册</span></div>
+   <%= render :partial => "/shared/photo", :collection => @photos %>
+  <div class="cleanfix" style="height:20px;clear:both"></div>
+</div>
+
+
+<div class="newbox">
   <% if @team.followers.include?(current_user)%>
   <span style="float:right"><%= link_to "写新话题", new_board_topic_url(@team.board),:class => "buttonlink" %></span>
   <% end %>

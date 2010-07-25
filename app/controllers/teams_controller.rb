@@ -14,6 +14,7 @@ class TeamsController < ApplicationController
   def show
     @followers = @team.followers - @team.leaders
     @schools = @team.helped_schools
+    @photos = Photo.find(:all,:include => [:activity],:conditions => ["activities.team_id = ?",@team.id]) #使用性能较好的写法
     @map_center = [@team.latitude, @team.longitude, (@team.zoom_level - 1)]
     @json = []
     @schools.compact.each do |school|
