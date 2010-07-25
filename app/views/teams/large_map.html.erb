@@ -1,8 +1,6 @@
 <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 <%= javascript_include_tag 'jquery','application.js' %>
 <h4>团队服务地图</h4>
-<span style="color:#888;font-size:12px"><%= @team.name %>和其服务学校所在的位置</span>
-
   <script type="text/javascript">
     var schools = <%= @json.to_json %>;
   </script>
@@ -11,14 +9,23 @@
   function initializeBig() {
     if (GBrowserIsCompatible()) {
       map = new GMap2(document.getElementById("map_div"));
-      map.setCenter(new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>), <%= @team.zoom_level%>);
+      map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
       map.addControl(new GLargeMapControl());
       map.addControl(new GMapTypeControl());
       map.addControl(new GScaleControl());
-      var point = new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>);
-      var green = new GIcon(G_DEFAULT_ICON, "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/marker_green.png");
-      bigmarker = new GMarker(point);
-      greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
+      
+      school_icon = new GIcon(); team_icon = new GIcon();
+        school_icon.image = "/images/m0.png"; team_icon.image = "/images/team.png";
+        school_icon.shadow = team_icon.shadow =null;
+        school_icon.iconSize = team_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = team_icon.shadowSize =null;
+        school_icon.iconAnchor = team_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6);
+        
+      
+      var point = new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>);
+      bigmarker = new GMarker(point,{icon:team_icon});
+      greenmarker = new GMarker(point, {icon:team_icon,draggable: 'true'});
       
       <% if current_user && @team.leaders.include?(current_user)%>
       GEvent.addListener(greenmarker, "dragend", function() {
@@ -34,13 +41,6 @@
       map.addOverlay(bigmarker);
       
       
-        school_icon = new GIcon();
-        school_icon.image = "/images/m0.png";
-        school_icon.shadow = null;
-        school_icon.iconSize = new GSize(16, 20);
-        school_icon.shadowSize = null;
-        school_icon.iconAnchor = new GPoint(8,10 );
-        school_icon.infoWindowAnchor = new GPoint(8, 6); 
         var markers = [];
  
         for (var i = 0; i < schools.length; ++i) {
@@ -62,4 +62,5 @@
 </script>
 
 <div id="map_div" style="width: 530px; height: 350px;"></div>
-<% if @edit%><p style="font-size:14px;color:#444;padding:0 5px;margin:10px 0 0"><span>拖动绿色标记修改团队位置,并可以改变地图缩放级别，刷新此页面修改生效</span></p><%end%>
+<p style="color:#888;font-size:13px;margin:6px"><%= image_tag('/images/team.png') %> > 团队位置　 <%= image_tag('/images/m0.png') %> > 受助学校</p>
+<% if @edit%><p style="font-size:14px;color:#444;padding:0 5px;margin:6px"><span>拖动团队图标修改团队位置,并可以改变地图缩放级别，刷新此页面修改生效</span></p><%end%>
