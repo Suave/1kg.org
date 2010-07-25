@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
     @followers = @team.followers - @team.leaders
     @schools = @team.helped_schools
     @photos = Photo.find(:all,:include => [:activity],:conditions => ["activities.team_id = ?",@team.id]) #使用性能较好的写法
-    @map_center = [@team.latitude, @team.longitude, (@team.zoom_level - 1)]
+    @map_center = @team.latitude?? [@team.latitude, @team.longitude, (@team.zoom_level - 1)] : [@team.geo.latitude, @team.geo.longitude, 6]
     @json = []
     @schools.compact.each do |school|
       next if school.basic.blank?
@@ -32,6 +32,7 @@ class TeamsController < ApplicationController
     @edit = params[:edit]
     @schools = @team.helped_schools
     @json = []
+    @map_center = @team.latitude?? [@team.latitude, @team.longitude, @team.zoom_level] : [@team.geo.latitude, @team.geo.longitude, 7]
     @schools.compact.each do |school|
       next if school.basic.blank?
       @json << {:i => school.id,

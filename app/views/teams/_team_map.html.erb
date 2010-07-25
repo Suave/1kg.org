@@ -30,7 +30,7 @@
           map.addOverlay(marker);
         }
         
-        var point = new GLatLng(<%= @team.latitude.to_f %>, <%= @team.longitude.to_f %>);
+        var point = new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>);
         marker = new GMarker(point,{icon: team_icon, title: "<%= @team.name %>"});
         map.addOverlay(marker);
         
