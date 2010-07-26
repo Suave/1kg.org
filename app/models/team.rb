@@ -27,11 +27,19 @@ class Team < ActiveRecord::Base
   
   acts_as_paranoid
   
+  def clean_html
+    self.description
+  end
+  
   #为了和User统一接口
   def login
     self.name
   end
 
+  def helped_schools
+    self.activities.map(&:school).compact
+  end
+  
   private
   
   def set_relationship
