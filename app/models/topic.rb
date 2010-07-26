@@ -105,7 +105,7 @@ class Topic < ActiveRecord::Base
   end
 
   def voted_by
-    self.votes[0..3].map(&:user)
+    self.votes[0..2].map(&:user)
   end
   
   private
