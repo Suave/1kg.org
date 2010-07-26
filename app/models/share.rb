@@ -105,7 +105,7 @@ class Share < ActiveRecord::Base
   end
 
   def voted_by
-    self.votes.map(&:user).reverse
+    self.votes[0..3].map(&:user)
   end
   
   private
