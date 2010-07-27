@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
   
   def index
     @teams = Team.validated.all
-    @activities = Activity.ongoing.find(:all,:conditions => "team_id is not null",:limit => 10)
+    @activities = Activity.ongoing.find(:all,:conditions => "team_id is not null",:limit => 10,:order => "created_at desc")
     @topics =  Topic.find(:all,:limit => 10, :conditions => ["boards.talkable_type = ?","Team"],:include => [:board],:order => "last_replied_at desc")
     @myteams = Team.validated.find(:all,:conditions => {:user_id => current_user.id}) if current_user
   end
