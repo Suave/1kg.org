@@ -1,6 +1,6 @@
 class CoDonationsController < ApplicationController
   before_filter :find_co_donation, :except => [:new, :create, :index]
-  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy]
+  before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy,:send_invitation,:invite]
   before_filter :check_permission ,:only => [:edit,:destory,:update,:admin_state]
   before_filter :get_state, :only => [:show]
   
@@ -74,6 +74,26 @@ class CoDonationsController < ApplicationController
     respond_to do |wants|
       wants.html {redirect_to school_url(@co_donation.school)}
     end  
+  end
+  
+  def send_invitation
+    if params[:invite].blank?
+      flash[:notice] = "请选择邀请对象"
+    else
+      invited_user_ids = params[:invite].collect {|k,v| v.to_i}
+      message = Message.new(:subject => "#{current_user.login}邀请您参加#{@co_donation.title}",
+                            :content => "<p>#{current_user.login}( http://www.1kg.org/users/#{current_user.id} ) 邀请您参加物资团捐：<br/> #{@co_donation.title}( http://www.1kg.org/co_donation/#{@co_donation.id} )</p><p><br/>快去看看吧!</p><p><br/>多背一公斤团队</p>"
+                            )
+      message.author_id = 0
+      message.to = invited_user_ids
+      message.save!
+      flash[:notice] = "给#{invited_user_ids.size}位用户发送了邀请"
+    end
+    redirect_to @co_donation
+  end
+  
+  def invite
+    @friends = current_user.neighbors
   end
   
   private
