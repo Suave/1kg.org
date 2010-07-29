@@ -27,6 +27,7 @@
 
 <% content_for :sidebar do -%>
 
+
   <%= render :partial => "state" %>
     
     <div class="newbox">
@@ -78,8 +79,15 @@
     <p><label>截止日期：</label><%= @co_donation.end_at.to_date %></p>
   </div>
   
+    <% if current_user && (@co_donation.user == current_user) -%>
+    <div style="float:right">
+       <%= link_to "邀请朋友",edit_co_donation_url(@co_donation),:class => "adminbutton" %>
+       <%= link_to "修改信息",edit_co_donation_url(@co_donation),:class => "adminbutton" %>
+    </div>
+    <% end -%>
+    
+  
     <div id="donation_counter">
-      <div style="text-align:right"><%= link_to "邀请朋友？ ",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%>　 <%= link_to "修改团捐信息?",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%></div><br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
     <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
