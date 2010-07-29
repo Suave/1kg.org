@@ -27,14 +27,6 @@
 
 <% content_for :sidebar do -%>
 
-  <% if logged_in? && (@co_donation.user == current_user) && false%>
-        <div id="admins">
-          <p><%= (current_user.login)%>，你是团捐发起人，需要做到：</p>
-          <p>1. 管理捐赠记录，确认物资的接收情况，以及捐赠证明是否真实有效。
-          <br/>2. 当确认物资收到之后，填写反馈报告，上传反馈照片，让大家知道物资被有效的利用。</p>
-        </div>
-  <% end %>
-  
   <%= render :partial => "state" %>
     
     <div class="newbox">
@@ -87,7 +79,7 @@
   </div>
   
     <div id="donation_counter">
-      <div style="text-align:right"><%= link_to "修改团捐信息?",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%></div><br/>
+      <div style="text-align:right"><%= link_to "邀请朋友？ ",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%>　 <%= link_to "修改团捐信息?",edit_co_donation_url(@co_donation) if current_user && @co_donation.user == current_user%></div><br/>
       <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
     <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
       
@@ -162,7 +154,7 @@
           <% end -%>
         </div>
     </div>
-    <%= share_link(summary(@co_donation ,60),(@page_title.to_s + " - 多背一公斤"))%>
+    <%= render :partial => "/shared/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 </div>
 
 <div style="clear:both;height:20px"></div>  

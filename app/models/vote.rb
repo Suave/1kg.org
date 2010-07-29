@@ -15,6 +15,7 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :voteable, :polymorphic => true
 
+  default_scope :order => "created_at desc"
   named_scope :recent_votes, :order => "created_at desc",
                               :limit => 8,
                               :group => [:voteable_id], #严格讲，这里可能会出现分享和话题是同一个id而被忽视的情况，但是概率较底
