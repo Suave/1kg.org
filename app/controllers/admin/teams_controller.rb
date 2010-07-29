@@ -1,6 +1,6 @@
 class Admin::TeamsController < Admin::BaseController
   def index
-    @teams = Team.not_validated + Team.validated
+    @teams = Team.find(:all,:order => "created_at desc")
   end
   
   def validate

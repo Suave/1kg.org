@@ -1,13 +1,13 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school]
-  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school]
+  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
 
   def index
     @activities_hash = {}
-    @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
+    @activities = @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
     @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
     @activities_hash[:teach] = Activity.recent_by_category("支教")
@@ -18,6 +18,7 @@ class ActivitiesController < ApplicationController
     @photos = Photo.with_activity.find(:all,:limit => 10,:group => "activity_id",:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
     @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
+    @shares = Share.with_activity.find(:all,:limit => 6)
     
     respond_to do |wants|
       wants.html
@@ -44,6 +45,11 @@ class ActivitiesController < ApplicationController
     @activities = Activity.ongoing.find(:all,:conditions => "School_id is not null",:include => [:main_photo, :departure, :arrival]).paginate(:page => params[:page] || 1,
                                   :order => "created_at desc, start_at desc",
                                   :per_page => 14)
+  end
+  
+  def total_shares
+    @shares = Share.with_activity.paginate(:page => params[:page], :per_page => 20)
+    @title = @page_title = "所有活动分享"
   end
   
   def ongoing

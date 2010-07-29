@@ -49,6 +49,16 @@ class Share < ActiveRecord::Base
   named_scope :recent_shares, :order => "last_replied_at desc, comments_count desc",
                               :limit => 8,
                               :include => [:user, :tags]
+                              
+  named_scope :with_activity, :order => "created_at desc, comments_count desc",
+                              :conditions => "activity_id is not null",
+                              :include => [:user]
+                            
+  named_scope :with_school, :order => "created_at desc, comments_count desc",
+                              :conditions => "school_id is not null",
+                              :include => [:user]
+                            
+  
 
   define_index do
     # fields
@@ -92,6 +102,10 @@ class Share < ActiveRecord::Base
     self.clean_html ||= sanitize(self.body_html)
     self.save(false) if self.clean_html_changed?
     self.clean_html
+  end
+
+  def voted_by
+    self.votes[0..2].map(&:user)
   end
   
   private

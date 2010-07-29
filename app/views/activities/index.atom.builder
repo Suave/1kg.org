@@ -6,7 +6,6 @@ atom_feed do |feed|
     feed.entry(activity) do |entry|
       entry.title(activity.title + ' (来自:1kg.org)')
       entry.content(activity.description_html, :type => 'html')
-
       entry.author do |author|
         author.name(activity.user.login)
       end

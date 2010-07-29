@@ -1,0 +1,50 @@
+<% content_for :tail do -%>
+  <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    var schools = <%= @json.to_json %>;
+  </script>
+  
+  <script type="text/javascript">
+    var map;
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("team_map"));
+        map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
+        
+        school_icon = new GIcon(); team_icon = new GIcon();
+        school_icon.image = "/images/m0.png"; team_icon.image = "/images/team.png";
+        school_icon.shadow = team_icon.shadow =null;
+        school_icon.iconSize = team_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = team_icon.shadowSize =null;
+        school_icon.iconAnchor = team_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6);
+        
+        var markers = [];
+ 
+        for (var i = 0; i < schools.length; ++i) {
+          var point = new GLatLng(schools[i].a, schools[i].o)
+          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
+          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i)); 
+          markers.push(marker);
+          map.addOverlay(marker);
+        }
+        
+        var point = new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>);
+        marker = new GMarker(point,{icon: team_icon, title: "<%= @team.name %>"});
+        map.addOverlay(marker);
+        
+      }
+    }
+    window.onload = initialize;
+  </script>
+<% end %>
+
+<span class="span_title">团队地图</span>
+<div id="team_map" style="background-color:#ddd;border:1px #ccc solid;width: 278px; height: 178px; margin:10px 0 2px;"></div>
+<div id="map_info">
+  <% if current_user && @team.leaders.include?(current_user)%>
+    <%= link_to "修改团队地图?", large_map_team_url(:iframe => true, :width => 550, :height => 480,:edit => true) , :rel => 'prettyPhoto[edit]', :description => nil,:style => "float:right;" %>
+  <% end %>
+    <%= link_to "查看大图", large_map_team_url(:iframe => true, :width => 550, :height => 480), :rel => 'prettyPhoto[iframes]', :description => nil %>
+</div>

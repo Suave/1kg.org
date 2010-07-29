@@ -24,6 +24,7 @@ class Topic < ActiveRecord::Base
   include BodyFormat
   
   acts_as_paranoid
+  acts_as_voteable
   
   belongs_to :board, :counter_cache => 'topics_count'
   belongs_to :user
@@ -101,6 +102,10 @@ class Topic < ActiveRecord::Base
   
   def html
     self.clean_html ||= sanitize(body_html)
+  end
+
+  def voted_by
+    self.votes[0..2].map(&:user)
   end
   
   private

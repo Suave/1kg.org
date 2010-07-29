@@ -4,6 +4,15 @@ namespace :misc do
   task :backup do
     '/usr/ruby /home/jill/mysql_backup/mysql_tools.rb backup'
   end
+ 
+  desc "为没有坐标的团队设定初始位置"
+  task :set_team_position  => :environment do
+    Team.find(:all,:conditions => {:latitude => nil}).each do |t|
+      t.latitude,t.longitude = t.geo.latitude,t.geo.longitude
+      t.save
+    end
+  end
+
   
   desc "判定一周内没有上传证明的捐赠无效"
   task :check_sub_donation => :environment do

@@ -21,6 +21,13 @@
   </div>
   <% end -%>
 
+  <div class="newbox">
+    <span class="span_title">公益团队</span>
+    <div class="cleanfix" style="height:10px"></div>
+      <%= render :partial => "/shared/team", :collection => @teams %>
+    <p class="remark"><%= link_to "&raquo;  查看全部", teams_url %></p>
+  </div>
+
   <div id="records" class="newbox">
     <div id="record_tabs">
           <span class="span_title" style="margin-right:8px">用户动态</span>
@@ -91,23 +98,19 @@
 <div class="cleanfix" style="height:20px"></div>
 <div class="newbox">
   <div style="float:right"><span class="gary_span">&raquo; <%= link_to "进入团捐频道", co_donations_url%></span></div>
-  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span  
+  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span>
   <div class="cleanfix" style="height:20px"></div>
   <%= render :partial => "/shared/co_donation", :collection => @co_donations%>
   <div  style="clear:both"></div>
 </div>
 
-
 <div class="cleanfix" style="height:20px"></div>
 
 <div class="newbox">
-      <div style="float:right"><%= link_to "写篇分享", new_share_url,:class => "buttonjoin" %></div>
-      <span class="span_title">热门分享</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
-      <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新分享'} %>
-      <div class="cleanfix" style="height:10px"></div>
-      <div class="contents">
-        <%= render :partial => "/shared/share", :collection => @recent_shares %>
-      </div>
-      <div class="remark"><%= link_to "&raquo; 更多分享", shares_url %></div>
-      <div class="cleanfix" style="height:20px"></div>
+  <span class="span_title">最新推荐</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <div class="contents">
+    <%= render :partial => "/shared/vote", :collection => @voteds %>
+  </div>
+  <div class="cleanfix" style="height:20px"></div>
 </div>

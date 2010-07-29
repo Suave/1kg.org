@@ -1,6 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
   map.root :controller => "misc", :action => "index"
-
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
@@ -83,7 +82,8 @@ ActionController::Routing::Routes.draw do |map|
                                            :archives => :get, 
                                            :cits => :get,
                                            :check => :get,
-                                           :todo => :get,
+                                           #:todo => :get,
+                                           :total_shares => :get,
                                            :comments => :get
                                           } do |school|
     school.resources :visits
@@ -109,13 +109,17 @@ ActionController::Routing::Routes.draw do |map|
                                           :invite => :get,
                                           :send_invitation => :put
                                         },
-                             :collection => {:with_school => :get,:category => :get,:ongoing => :get, :over => :get} do |activity|
+                             :collection => {:with_school => :get,
+                                             :category => :get,
+                                             :ongoing => :get,
+                                             :over => :get,
+                                             :total_shares => :get} do |activity|
     activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 
 
   map.resources :boards, :member => { :schools => :get } do |board|
-    board.resources :topics, :member => { :stick => :put, :close => :put} do |topic|
+    board.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} do |topic|
       topic.resources :posts
     end
   end
@@ -169,7 +173,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :new_activity => :get,
                                     :create_activity => :post,
                                     :follow => :post,
-                                    :unfollow => :delete
+                                    :unfollow => :delete,
+                                    :large_map => :get
                                   }
 
   map.resources :requirement_types, :as => 'projects' do |project|

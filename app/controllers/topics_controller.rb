@@ -51,6 +51,22 @@ class TopicsController < ApplicationController
     redirect_to board_url(@board)
   end
   
+  def vote
+    respond_to do |format|
+      if @topic.nil?
+        flash[:notice] = '对不起，帖子不存在'
+        format.html {redirect_to root_path}
+      elsif current_user.voted?(@topic)
+        flash[:notice] = '对不起，您已经投过票了'
+        format.html {redirect_to board_topic_path(@topic.board, @topic)}
+      else
+        vote = @topic.votes.build(:vote => true, :user_id => current_user.id)
+        vote.save(false)
+        flash[:notice] = '推荐成功'
+        format.html {redirect_to board_topic_path(@topic.board, @topic)}
+      end
+    end
+  end
   
   def show
     respond_to do |wants|

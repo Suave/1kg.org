@@ -28,8 +28,15 @@
         <% end -%>
   </div>
   
+  <div class="newbox">
+  <div class="cleanfix" style="height:20px"></div>
+      <span class="span_title">推荐此话题的用户</span>
+      <div class="clearfix" style="height:10px"></div>
+      <%= render :partial => "/shared/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
+  </div>
+  
   <% unless @others.empty?%>
-  <div class="cleanfix" style="height:30px"></div>
+  <div class="cleanfix" style="height:20px"></div>
   <div class="newbox">
     <span class="span_title">
       <% if @topic.board.talkable.class == GroupBoard -%>小组的<% elsif @topic.board.talkable.class == SchoolBoard -%>学校的<% end %>其他话题</span>
@@ -57,14 +64,27 @@
             <% end -%>
         </div>
         <div id="entry">
-          
           <%= @topic.html %>
+        </div>
+        
+        <div style="text-align:right">
           <p style="color:gray; text-align:right;">
             <% if @topic.last_modified_user -%>
               本帖由 <%= @topic.last_modified_user.login %> 最后修改于 <%= @topic.last_modified_at.to_date %>
             <% end -%>
           </p>
-       
+          <p id ="voting" style="margin:7px 0;">
+            <span>已有 <%= @topic.votes.count -%> 人推荐这个话题 </span>
+            <% if logged_in? -%>
+              <% if current_user.voted?(@topic) -%>
+                您已推荐了
+              <% else -%>
+                <%= link_to '我要推荐', vote_board_topic_path(@topic.board, @topic), :method => 'post', :class => 'buttonlink' %>
+              <% end -%>
+            <% else -%>
+              <%= link_to "我要推荐", new_session_path(:to => board_topic_path(@topic.board, @topic)) ,:class => "buttonlink" -%>
+            <% end -%>
+          </p>
         <%= share_link(summary(@topic ,60),(@page_title.to_s + " - 多背一公斤"))%>
         </div>
   </div>
