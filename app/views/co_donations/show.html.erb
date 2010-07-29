@@ -154,7 +154,7 @@
           <% end -%>
         </div>
     </div>
-    <%= share_link(summary(@co_donation ,60),(@page_title.to_s + " - 多背一公斤"))%>
+    <%= render :partial => "/shared/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 </div>
 
 <div style="clear:both;height:20px"></div>  
