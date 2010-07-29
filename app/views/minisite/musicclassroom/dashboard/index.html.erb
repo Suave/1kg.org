@@ -30,6 +30,7 @@
   <div class="newbox">
       <div class="title_line"><h5>相册</h5></div>
         <%= render :partial => "/shared/photo", :collection => @photos %>
+        <span class="gary_span"><%= "coming soon" if @photos.empty? %></span>
       <div class="clearfix" style="clear:both;height:20px"></div>
   </div>
   
@@ -38,6 +39,7 @@
       <div class="title_line"><h5>分享</h5></div>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @shares %>
+        <span class="gary_span"><%= "coming soon" if @shares.empty? %></span>
       </div>
       <div class="cleanfix" style="height:20px"></div>
   </div>
@@ -48,6 +50,7 @@
   <div class="newbox">
     <div class="title_line"><h5>参与学校</h5></div>
      <%= render :partial => "/requirement_types/requirement", :collection => @project.requirements %>
+     <span class="gary_span"><%= "学校大使们，赶紧为你的学校申请吧" if @project.requirements.empty? %></span>
   </div>
   
 </div>
