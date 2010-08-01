@@ -11,7 +11,7 @@
 <% end -%>
 
 <% content_for :fullsize do -%>
-<div style="position:absolute;top:252px;left:694px;text-align:center"><%= link_to "","#",:id => "apply_mcr"%></div>
+<div style="position:absolute;top:252px;left:694px;text-align:center"><%= link_to " ",@project,:id => "apply_mcr"%></div>
 <img src="/images/musicclassroom/banner.jpg" alt="“爱音乐”音乐教室" style="margin:10px;" />
 
 
@@ -50,12 +50,13 @@
   <div class="newbox">
     <div class="title_line"><h5>参与学校</h5></div>
      <%= render :partial => "/requirement_types/requirement", :collection => @project.requirements %>
-     <span class="gary_span"><%= "学校大使们，赶紧为你的学校申请吧" if @project.requirements.empty? %></span>
+     <span class="gary_span"><%= "学校大使们，赶紧为你的学校 #{link_to '申请',@project} 吧!" if @project.requirements.empty? %></span>
   </div>
   
 </div>
 
 <div id="misc" >
+  <span style="color:#999;font-weight:bold">活动支持</span><br/>
   <%= link_to image_tag("musicclassroom/imusic.gif"), "http://www.118100.cn" %>
   <%= link_to image_tag("musicclassroom/imusiclub.gif"), "http://www.imusiclub.cn" %>
   <%= link_to image_tag("musicclassroom/yoodoo.png"), "http://yooodo.com" %>
@@ -63,5 +64,5 @@
   <%= link_to image_tag("musicclassroom/telecom.gif"), "http://www.chinatelecom.com.cn/" %>
   <%= link_to image_tag("logo.gif"), root_url %>
 </div>
-<h1></h1>
+
 <% end -%>
