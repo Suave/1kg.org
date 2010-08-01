@@ -27,7 +27,8 @@
 
 <% content_for :sidebar do -%>
 
-
+  <div id="admins"><%= link_to "邀请好友",invite_co_donation_url(@co_donation),:class => "adminbutton"%>，参加这个活动。</div>
+  
   <%= render :partial => "state" %>
     
     <div class="newbox">
@@ -162,7 +163,6 @@
         </div>
     </div>
     <%= render :partial => "/shared/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
-    <p style="text-align:right"><%= link_to "邀请站内好友",invite_co_donation_url(@co_donation)%>，参加这个活动。<p>
 </div>
 
 <div style="clear:both;height:20px"></div>  
