@@ -85,7 +85,7 @@
               <%= link_to "我要推荐", new_session_path(:to => board_topic_path(@topic.board, @topic)) ,:class => "buttonlink" -%>
             <% end -%>
           </p>
-        <%= share_link(summary(@topic ,60),(@page_title.to_s + " - 多背一公斤"))%>
+        <%= render :partial => "/shared/share_to", :locals => {:text => summary(@topic ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
         </div>
   </div>
 
