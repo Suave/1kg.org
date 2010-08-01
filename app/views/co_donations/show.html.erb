@@ -81,7 +81,6 @@
   
     <% if current_user && (@co_donation.user == current_user) -%>
     <div style="float:right">
-       <%= link_to "邀请朋友",edit_co_donation_url(@co_donation),:class => "adminbutton" %>
        <%= link_to "修改信息",edit_co_donation_url(@co_donation),:class => "adminbutton" %>
     </div>
     <% end -%>
@@ -163,6 +162,7 @@
         </div>
     </div>
     <%= render :partial => "/shared/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+    <p style="text-align:right"><%= link_to "邀请站内好友",invite_co_donation_url(@co_donation)%>，参加这个活动。<p>
 </div>
 
 <div style="clear:both;height:20px"></div>  
