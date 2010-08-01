@@ -1,0 +1,25 @@
+<% @page_title = @title = "创建公益项目" -%>
+
+<% content_for :crumb do -%>
+<li>创建公益项目</li>
+<% end -%>
+
+<% content_for :sidebar do -%>
+<% @page = Page.find_by_slug('project-guide') -%>
+  <%if @page%>
+  <div class="newbox">
+     <span class="span_title">创建公益项目说明</span>
+      <div class="clearfix" style="margin-bottom:10px"></div>
+     <%= render :text => @page.body %>
+  </div>
+  <%end%>
+<% end -%>
+
+
+<div class="newbox" id="activitiesPostNew">
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :projects, :url => projects_path, :html => {:multipart => true} do |f| -%>
+    <%= render :partial => "form", :object => f %>
+    <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/co_donations/';return false" %>
+  <% end -%>
+</div>

@@ -495,7 +495,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
-
+  
   create_table "stuff_bucks", :force => true do |t|
     t.integer  "type_id",                          :null => false
     t.integer  "school_id",                        :null => false
@@ -574,6 +574,28 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "comment"
     
     t.boolean  "auto_fill"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
+    t.datetime "apply_end_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "feedback_at"
+    t.text     "description"
+    t.text     "condition"
+    t.text     "support"
+    t.text     "feedback_require"
+    t.datetime "created_at"
+    t.string   "image_file_name"
+    t.boolean  "validated",           :default => false
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    t.boolean  "refused",           :default => false
+    t.boolean  "for_envoy",           :default => false
   end
 
   create_table "taggings", :force => true do |t|

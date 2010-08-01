@@ -177,10 +177,12 @@ ActionController::Routing::Routes.draw do |map|
                                     :large_map => :get
                                   }
 
-  map.resources :requirement_types, :as => 'projects' do |project|
-    project.resources :requirements
-    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  map.resources :requirement_types, :as => 'entrys' do |entry|
+    entry.resources :requirements
+    entry.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
   end
+  
+  map.resources :projects
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
