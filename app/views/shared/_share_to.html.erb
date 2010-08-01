@@ -1,0 +1,10 @@
+<div class='share_to'> 分享给你的朋友
+  <a href='#' onclick="javascript:$('#qq_and_msn').slideDown();return false;"><img src='/images/icon/qq.gif' alt='QQ/MSN'/> QQ/MSN</a>
+  <a target='_blank' href='http://www.douban.com/recommend/?url=<%=request.url%>&title=<%=title%>'><img src='/images/icon/douban.gif' alt='分享到豆瓣'/> 豆瓣</a>
+  <a target='_blank' href='http://share.renren.com/share/buttonshare.do?link=<%=request.url%>&title=<%=title%>'><img src='/images/icon/renren.gif' alt='分享到人人'/> 人人</a>
+  <a target='_blank' href='http://www.kaixin001.com/repaste/share.php?rurl=<%=request.url%>&rtitle=<%=title%>&rcontent=<%=text%>...'  ><img src='/images/icon/kaixin001.gif' alt='分享到开心'/> 开心</a>
+  <a href='http://v.t.sina.com.cn/share/share.php?url=<%=request.url%>&title=<%=title%>' target='_blank'><img src='/images/icon/sina.gif' alt='分享到新浪微博'/> 新浪微博</a>
+  <a href='mailto:?subject=分享给你：<%=title%>&body=原文地址：<%= request.url%>%0A%0A摘要：%0A<%= text%>...' target='_blank' style="display:none"><img src='/images/icon/mail.gif' alt='发邮件给朋友'/> 邮件</a>
+  <p id="qq_and_msn" style="display:none">把下面的内容通过 MSN 或 QQ 发送给好友<br/><input value="<%=title%>  <%=request.url%>" style="width:<%=(title.size)*8%>px;border:1px solid #333;font-size:13px"></input></p>
+</div>
+  
