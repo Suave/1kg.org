@@ -576,6 +576,29 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "auto_fill"
   end
 
+  create_table "sub_projects", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
+    t.integer  "school_id"
+    t.string   "user_telephone"
+    t.text     "apply_reason"
+    t.text     "apply_plan"
+    t.text     "problem"
+    t.text     "budget"
+    t.text     "feedback"
+    t.datetime "feedback_at"
+    t.datetime "created_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean  "validated",           :default => false
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    t.datetime "last_modified_at"
+    t.integer  "comments_count",   :default => 0
+  end
+  
+  
   create_table "projects", :force => true do |t|
     t.string   "title"
     t.integer  "user_id"
