@@ -39,7 +39,7 @@ class SubDonationsController < ApplicationController
   def prove
     @sub_donation = @co_donation.sub_donations.find(params[:id])
     respond_to do |wants|
-      if @sub_donation.update_attributes(params[:sub_donation]) && !@sub_donation.image_file_name.nil?  && (@sub_donation.expected_at > @sub_donation.created_at)
+      if !@sub_donation.image_file_name.nil?  && (@sub_donation.expected_at > @sub_donation.created_at) && @sub_donation.update_attributes(params[:sub_donation])
         @sub_donation.prove
         message = Message.new(:subject => "#{@sub_donation.user.login}为#{@co_donation.school.title}捐赠了#{@sub_donation.quantity}件#{@co_donation.goods_name}",
                             :content => "<p>你好，#{@co_donation.user.login}:</p><br/><p>你发起的团捐“#{@co_donation.title}”，得到了#{@sub_donation.user.login}的捐赠。<br/><br/>请对#{@sub_donation.user.login}的捐赠证明和实际物资接收情况进行确认：<br/>使用你的帐号登录一公斤网站，在你的团捐页面里你会看到每条已寄出的捐赠记录下都有可以确定状态的选项，请针对实际情况选择合适的选项，并适时更新。<br/>地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"
@@ -49,7 +49,7 @@ class SubDonationsController < ApplicationController
         message.save!
         wants.html { redirect_to @co_donation}
       else
-        flash[:notice] = "照片或日期输入出错"
+        flash[:notice] = "照片上传或日期填写出错"
         wants.html {redirect_to(co_donation_url(@co_donation) + "?error=prove") }
       end
     end
