@@ -1,0 +1,56 @@
+<% @page_title = "公益项目管理"%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理后台", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<table>
+  <tbody>
+      <tr>
+        <th>名称</th>
+        <th>发起人</th>
+        <th>申请日期</th>
+        <th>状态</th>
+        <th width="10%">详细</th>
+      </tr>
+      <% @projects.each_with_index do |project,n|%>
+      
+      <tr>
+        <td><%= project.validated ? (link_to project.title,project_path(project)) : project.title %></td>
+        <td><%= link_to "#{project.user.login}",user_path(project.user)%></td>
+        <td><%= project.created_at.to_date %></td>
+        <td>
+          <%= project.state_tag %>
+        </td>
+        <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
+      </tr>
+      
+      <tr>
+        <td class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
+          开始时间： <%= project.start_at.to_date %>
+           　申请截止： <%= project.start_at.to_date %>
+           　<%unless project.end_at.nil? %>结束时间： <%= project.end_at.to_date %><%end%>
+           　<%unless project.feedback_at.nil? %>反馈截止： <%= project.feedback_at.to_date %><%end%>
+           
+          <p><h5>项目背景</h5>
+          <%= project.description %>
+          </p>
+          <p><h5>提供支持</h5>
+          <%= project.support %>
+          </p>
+          <p><h5>申请要求</h5>
+          <%= project.condition %>
+          </p>
+          <p><h5>反馈要求</h5>
+          <%= project.feedback_require %>
+          </p>
+          <div style="float:right">
+            <div style="float:right"><%=  project.validated ? (link_to "取消审核",cancel_admin_project_path(project),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_project_path(project),:class => "adminbutton",:method => :put)%></div>
+          </div>  
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+            

@@ -182,7 +182,9 @@ ActionController::Routing::Routes.draw do |map|
     entry.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
   end
   
-  map.resources :projects
+  map.resources :projects do |project|
+    project.resources :sub_project
+  end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
@@ -204,7 +206,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
-    
+    admin.resources :projects,:member => {:validate => :put, :cancel => :put,:refuse => :put}
   end
 
   # 专题页面

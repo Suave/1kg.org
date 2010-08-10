@@ -14,7 +14,7 @@
 
     <span class="span_title2">参与的学校</span>
     <div style="margin:6px 0">
-      <%= render :partial => "requirement", :collection => @project.requirements %>
+      
     </div>
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @others.empty?%>
@@ -28,29 +28,6 @@
 <%end%>
 
 
-<% if false -%>      
-  <div class="cleanfix" style="clear:both;height:20px"></div>
-  <span class="remark"><%= link_to "&raquo; 回到公益项目首页",requirement_types_url%></span>
-  <div class="cleanfix" style="clear:both;height:20px"></div>
-  
-  <div>
-    <span class="span_title2">参与的学校</span>
-    <div style="margin:6px 0">
-      <%= render :partial => "requirement", :collection => @project.requirements %>
-      <div style="clear:both;"></div>
-    </div>
-  </div>
-  
-  <% unless @others.empty?%>
-  <div>
-      <span class="span_title2">其他项目</span>
-      <div style="margin:6px 0">
-        <%= render :partial => "/shared/project", :collection => @others %>
-      </div>
-  </div>
-  <%end%>
-<% end -%>
-
 <div class="newbox">
       <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
             <%= image_tag(@project.image(:thumb), :alt => @project.title,:style => "width:160px;") %>
@@ -60,7 +37,7 @@
           <p style="color:#666;margin:6px 0">项目申请已结束</p>
         <%else%>
           <%= link_to "立即申请",new_requirement_type_requirement_url(@project, :school_id => params[:school_id]),:class => "buttonjoin2"%>
-          <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.must%></p>
+          <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.for_envoy%></p>
         <% end %>
       </div>
       <div id="module_meta">
@@ -75,15 +52,15 @@
 <div class="newbox" style="color:#666">
       <div class="project_info">
         <div class="title_line"><span class="span_title2">项目背景</span></div>
-        <%= @project.description_html %>
+        <%= @project.description %>
       </div>
       <div class="project_info">
         <div class="title_line"><span class="span_title2">征集要求</span></div>
-        <%= simple_format(@project.condition_html) %>
+        <%= simple_format(@project.condition) %>
       </div>
       <div class="project_info">  
         <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div>
-        <%= simple_format(@project.support_html) %>
+        <%= simple_format(@project.support) %>
       </div>
       <div class="project_info">
         <div class="title_line"><span class="span_title2">反馈要求</span></div>
@@ -91,8 +68,8 @@
       </div>
         
 </div>
-<%= share_link(summary(@project ,60),(@page_title.to_s + " - 多背一公斤"))%>
+<%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
-<%= render :partial => "/comments/comments", :object => @comments %>
-<%= render :partial => "/comments/form", :locals => {:commentable => @project} %>
+<%= render :partial => "/comments/comments", :object => @comments if false%>
+<%= render :partial => "/comments/form", :locals => {:commentable => @project} if false%>

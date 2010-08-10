@@ -581,13 +581,14 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
     t.integer  "school_id"
-    t.string   "user_telephone"
-    t.text     "apply_reason"
-    t.text     "apply_plan"
+    t.integer  "project_id"
+    t.string   "telephone"
+    t.string   "status"
+    t.text     "reason"
+    t.text     "plan"
     t.text     "problem"
     t.text     "budget"
     t.text     "feedback"
-    t.datetime "feedback_at"
     t.datetime "created_at"
     t.datetime "start_at"
     t.datetime "end_at"
@@ -613,6 +614,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "support"
     t.text     "feedback_require"
     t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_viewed_at"
     t.string   "image_file_name"
     t.boolean  "validated",           :default => false
     t.datetime "validated_at"
@@ -743,7 +746,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.integer  :game_category_id
+    t.integer :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length

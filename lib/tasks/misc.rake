@@ -30,6 +30,51 @@ namespace :misc do
     end
   end
   
+  desc "公益项目数据迁移"
+  task :projects_data_copy => :environment do
+    RequirementType.non_exchangable.validated.each do |r|
+      a = Project.new(
+                  :user_id  => r.creator_id,
+                  :title => r.title,
+                  :validated_at => r.validated_at,
+                  :created_at => r.created_at,
+                  :updated_at => r.updated_at,
+                  :description => r.description_html,
+                  :support => r.support_html,
+                  :condition => r.condition_html,
+                  :feedback_require => r.feedback_require,
+                  :start_at => r.start_at,
+                  :end_at => r.end_at,
+                  :for_envoy => r.must,
+                  :apply_end_at => r.apply_end_at,
+                  :feedback_at => r.feedback_at
+                  )
+      a.save
+      r.requirements.each do |s|
+        a.sub_projects.build(
+          :user_id => s.applicator_id,
+          :school_id => s.school_id,
+          :status =>  s.status,
+          :validated_at => s.validated_at,
+          :validated => s.validated,
+          :validated_by_id => s.validated_by_id,
+          :plan => s.apply_plan,
+          :reason => s.apply_reason,
+          :feedback => s.feedback,
+          :problem => s.problem,
+          :budget => s.budget,
+          :start_at => s.start_at,
+          :end_at => s.end_at,
+          :telephone => s.applicator_telephone,
+          :created_at => s.created_at,
+          :last_modified_at => s.last_modified_at
+        ).save
+      end
+      
+    end
+  end  
+
+  
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|
