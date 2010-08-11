@@ -2,14 +2,33 @@
 <div class="cleanfix" style="clear:both;height:10px"></div>
 
 <% content_for :sidebar do -%>
-  <% if @myteams%>
+  
   <div class="cleanfix" style="clear:both;height:20px"></div>
+  <% if @myteams && !@myteams.empty?%>
+  
   <div class="newbox">
-      <span class="span_title" style="margin-right:8px">我关注的团队</span>
+      <span class="span_title" style="margin-right:8px">我管理的团队</span>
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <%= render :partial => "/shared/user_list", :locals => {:users => @myteams} %>
   </div>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
   <% end %>
+
+  <div class="newbox">
+      <span class="span_title" style="margin-right:8px">我关注的团队</span>
+      <div class="cleanfix" style="clear:both;height:10px"></div>
+      <% if current_user%>
+        <% if @followingteams.empty?%>
+          暂无
+        <%else%>
+          <%= render :partial => "/shared/user_list", :locals => {:users => @followingteams} %>
+        <%end%>
+      <%else%>
+        请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
+      <% end %>
+      
+  </div>
+  
 <%end%>
 
 <div class="newbox">
