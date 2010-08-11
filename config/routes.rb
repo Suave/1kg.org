@@ -11,8 +11,8 @@ ActionController::Routing::Routes.draw do |map|
     c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
   end
  
-  map.resources :requirements do |requirement|
-    requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
+  map.resources :sub_projects do |sub_project|
+    sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
   end
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
@@ -87,9 +87,6 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :requirements do |requirement|
-      requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
-    end
     
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
@@ -183,7 +180,9 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :projects do |project|
-    project.resources :sub_project
+    project.resources :sub_projects do |sub_project|
+      sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
+    end
   end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'

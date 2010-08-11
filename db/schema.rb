@@ -205,9 +205,9 @@ ActiveRecord::Schema.define(:version => 0) do
   end
   
   create_table "message_copies", :force => true do |t|
-    t.integer "recipient_id",                   :null => false
-    t.integer "message_id",                     :null => false
-    t.boolean "unread",       :default => true
+    t.integer  "recipient_id",                   :null => false
+    t.integer  "message_id",                     :null => false
+    t.boolean  "unread",       :default => true
   end
 
   create_table "messages", :force => true do |t|
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
+    t.integer  "sub_project_id"
     t.integer  "co_donation_id"
   end
 
@@ -299,11 +300,11 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "public_boards", :force => true do |t|
-    t.string  "title",            :limit => 100,                  :null => false
-    t.text    "description"
-    t.text    "description_html"
-    t.integer "position",                        :default => 999, :null => false
-    t.string  "slug"
+    t.string   "title",            :limit => 100,                  :null => false
+    t.text     "description"
+    t.text     "description_html"
+    t.integer  "position",                        :default => 999, :null => false
+    t.string   "slug"
     t.datetime "deleted_at"
   end
 
@@ -474,6 +475,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
+    t.integer  "sub_project_id"
     t.integer  "user_id",                                     :null => false
     t.integer  "hits",                     :default => 0,     :null => false
     t.integer  "comments_count",           :default => 0,     :null => false

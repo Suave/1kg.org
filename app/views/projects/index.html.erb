@@ -7,7 +7,7 @@
       <%  @validated_projects.each do |@project| %>
       <div style="margin-bottom:20px;padding:10px;background:#f0f0f0">
         <div style="height:120px;width:120px;overflow:hidden;text-align:center;float:left;margin-right:15px">
-              <%= link_to image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:120px;width:120px;"),requirement_type_url(@project)%>
+              <%= link_to image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:120px;width:120px;"),project_url(@project)%>
         </div>
         <div style="float:left;width:460px;color:#444">
           <div style="float:right;text-align:right;margin:4px 0;">
@@ -19,7 +19,7 @@
           </p>
         </div>
         <div style="float:right;text-align:right;margin-right:10px">
-            <%= link_to '&raquo; 查看详情',requirement_type_url(@project)%>
+            <%= link_to '&raquo; 查看详情',project_url(@project)%>
           </div>
         <div style="clear:both;height:0px"></div>
       </div>

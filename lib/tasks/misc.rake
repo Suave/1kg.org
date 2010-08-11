@@ -51,7 +51,8 @@ namespace :misc do
                   )
       a.save
       r.requirements.each do |s|
-        a.sub_projects.build(
+        b = SubProject.new(
+          :project_id => a.id,
           :user_id => s.applicator_id,
           :school_id => s.school_id,
           :status =>  s.status,
@@ -68,7 +69,18 @@ namespace :misc do
           :telephone => s.applicator_telephone,
           :created_at => s.created_at,
           :last_modified_at => s.last_modified_at
-        ).save
+        )
+        b.save
+        s.shares.each do |x|
+          x.sub_project_id = b.id
+          x.save
+        end
+        s.comments.each do |c|
+          c.commentable_id = b.id
+          c.commentable_type = 'SubProject'
+          c.save
+        end
+        
       end
       
     end
