@@ -183,6 +183,7 @@ ActionController::Routing::Routes.draw do |map|
     project.resources :sub_projects do |sub_project|
       sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
     end
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}
   end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'

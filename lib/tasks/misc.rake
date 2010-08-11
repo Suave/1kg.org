@@ -36,6 +36,7 @@ namespace :misc do
       a = Project.new(
                   :user_id  => r.creator_id,
                   :title => r.title,
+                  :status => "going",
                   :validated_at => r.validated_at,
                   :created_at => r.created_at,
                   :updated_at => r.updated_at,
@@ -43,6 +44,7 @@ namespace :misc do
                   :support => r.support_html,
                   :condition => r.condition_html,
                   :feedback_require => r.feedback_require,
+                  :image_file_name => r.image_file_name,
                   :start_at => r.start_at,
                   :end_at => r.end_at,
                   :for_envoy => r.must,
@@ -50,6 +52,13 @@ namespace :misc do
                   :feedback_at => r.feedback_at
                   )
       a.save
+      
+      r.comments.each do |m|
+        m.commentable_id = a.id
+        m.commentable_type = 'Project'
+        m.save
+      end
+    
       r.requirements.each do |s|
         b = SubProject.new(
           :project_id => a.id,

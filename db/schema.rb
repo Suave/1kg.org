@@ -619,10 +619,9 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "updated_at"
     t.datetime "last_viewed_at"
     t.string   "image_file_name"
-    t.boolean  "validated",           :default => false
+    t.string   "status"
     t.datetime "validated_at"
     t.integer  "validated_by_id"
-    t.boolean  "refused",           :default => false
     t.boolean  "for_envoy",           :default => false
   end
 
