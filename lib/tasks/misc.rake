@@ -91,7 +91,7 @@ namespace :misc do
         end
         
       end
-      
+      puts "."
     end
   end  
 

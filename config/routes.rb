@@ -206,7 +206,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
-    admin.resources :projects,:member => {:validate => :put, :cancel => :put,:refuse => :put}
+    admin.resources :projects,:member => {:validate => :put, :refuse_letter => :get,:refuse => :put}
   end
 
   # 专题页面

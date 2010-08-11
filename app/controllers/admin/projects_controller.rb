@@ -5,7 +5,8 @@ class Admin::ProjectsController < Admin::BaseController
  
   def validate
     @project = Project.find params[:id]
-    @project.update_attributes!(:validated => true,:validated_at => Time.now, :validated_by_id => current_user.id)
+    @project.validate
+    @project.update_attributes(:validated_at => Time.now, :validated_by_id => current_user.id)
     flash[:notice] = "已通过验证"
     
     message = Message.new(:subject => "你发起的团捐通过了审核",
@@ -18,10 +19,11 @@ class Admin::ProjectsController < Admin::BaseController
     redirect_to admin_projects_path()
   end
 
-  def cancel
+  def refuse
     @project = Project.find params[:id]
-    @project.update_attributes!(:validated => false,:validated_at => nil, :validated_by_id => current_user.id)
-    flash[:notice] = "已取消验证"
+    @project.refuse
+    @project.update_attributes(:refused_at => nil, :refused_by_id => current_user.id)
+    flash[:notice] = "已拒绝申请"
     redirect_to admin_projects_path()
   end
   

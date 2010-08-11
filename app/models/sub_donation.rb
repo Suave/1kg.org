@@ -48,7 +48,6 @@ class SubDonation < ActiveRecord::Base
     
     event :receive do  
       transition [:proved,:refused,:missed] => :received
-      
     end  
     
     event :miss do  

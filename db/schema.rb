@@ -622,6 +622,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "status"
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.datetime "refused_at"
+    t.integer  "refused_by_id"
     t.boolean  "for_envoy",           :default => false
   end
 

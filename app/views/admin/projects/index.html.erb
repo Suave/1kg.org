@@ -17,11 +17,11 @@
       <% @projects.each_with_index do |project,n|%>
       
       <tr>
-        <td><%= project.validated ? (link_to project.title,project_path(project)) : project.title %></td>
+        <td><%= project.validated? ? (link_to project.title,project_path(project)) : project.title %></td>
         <td><%= link_to "#{project.user.login}",user_path(project.user)%></td>
         <td><%= project.created_at.to_date %></td>
         <td>
-          <%= project.state_tag %>
+          <%= status_tag(project.status) %>
         </td>
         <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
       </tr>
@@ -46,7 +46,7 @@
           <%= project.feedback_require %>
           </p>
           <div style="float:right">
-            <div style="float:right"><%=  project.validated ? (link_to "取消审核",cancel_admin_project_path(project),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_project_path(project),:class => "adminbutton",:method => :put)%></div>
+            <div style="float:right"><%=  project.validated? ? (link_to "取消审核",refuse_admin_project_path(project),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_project_path(project),:class => "adminbutton",:method => :put)%></div>
           </div>  
         </td>
       </tr>
