@@ -104,7 +104,7 @@ class SubDonationsController < ApplicationController
   def message_to_donor(state)
     text= {'miss' => ["接收人没有收到你为#{@co_donation.school.title}捐赠的#{@sub_donation.quantity}件#{@co_donation.goods_name}","<p>你好，#{@sub_donation.user.login}:</p><br/><p>由于某些原因，接收人没有收到你的捐赠,你可以联系接收人和你使用的物流公司或邮局去了解详情。<br/>团捐页面的地址 => http://www.1kg.org/co_donations/#{@co_donation.id} <br/>不论如何,仍然感谢你的捐赠! :)</p><br/><p>多背一公斤团队</p>"],
      'receive' => ["接收人收到了你为#{@co_donation.school.title}捐赠的#{@sub_donation.quantity}件#{@co_donation.goods_name}","<p>你好，#{@sub_donation.user.login}:</p><br/><p>接收人收到了你的捐赠，谢谢你对#{@co_donation.school.title}的帮助。<br/>去团捐页面看看吧：<br/>地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"],
-     'refuse' => ["你为#{@co_donation.school.title}捐赠的#{@sub_donation.quantity}件#{@co_donation.goods_name}失效了","<p>你好，#{@sub_donation.user.login}:</p><br/><p>由于团捐组织者认为你的捐赠证明不符合要求，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"]
+     'refuse' => ["你为#{@co_donation.school.title}捐赠的#{@sub_donation.quantity}件#{@co_donation.goods_name}失效了","亲爱的用户：<br/><p>你好，#{@sub_donation.user.login}:</p><br/><p>由于团捐组织者认为你的捐赠证明不符合要求，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{@co_donation.id} </p><br/><p>多背一公斤团队</p>"]
      }[state]
     
     message = Message.new(:subject => text[0],
