@@ -7,7 +7,7 @@ class Project < ActiveRecord::Base
   has_attached_file :image, :styles => { :project_avatar => "60x60>", :project_logo => "200x200>" }
   named_scope :validated, :conditions => "validated_at IS NOT NULL"
   named_scope :not_validated, :conditions => "validated_at IS NULL"
-  attr_accessor :action
+  
   
   def clean_html
     description
@@ -21,23 +21,5 @@ class Project < ActiveRecord::Base
     (apply_end_at < Time.now ) ? true : false
   end
   
-  state_machine :status, :initial => :waiting do
   
-    event :validate  do  
-      transition [:refused,:waiting] => :validated
-    end
-    
-    event :refuse do  
-      transition [:waiting,:validated,:going] => :refused
-    end
-    
-    event :start do  
-      transition :validated => :going
-    end  
-        
-    event :finish do  
-      transition :going => :finished
-    end
-  end
-
 end

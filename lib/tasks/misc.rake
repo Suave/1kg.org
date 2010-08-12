@@ -36,7 +36,7 @@ namespace :misc do
       a = Project.new(
                   :user_id  => r.creator_id,
                   :title => r.title,
-                  :status => "going",
+                  :state => "waiting",
                   :validated_at => r.validated_at,
                   :created_at => r.created_at,
                   :updated_at => r.updated_at,
@@ -51,7 +51,7 @@ namespace :misc do
                   :apply_end_at => r.apply_end_at,
                   :feedback_at => r.feedback_at
                   )
-      a.save
+      puts a.save
       
       r.comments.each do |m|
         m.commentable_id = a.id
@@ -64,7 +64,7 @@ namespace :misc do
           :project_id => a.id,
           :user_id => s.applicator_id,
           :school_id => s.school_id,
-          :status =>  s.status,
+          :state =>  s.status,
           :validated_at => s.validated_at,
           :validated => s.validated,
           :validated_by_id => s.validated_by_id,
@@ -91,7 +91,6 @@ namespace :misc do
         end
         
       end
-      puts "."
     end
   end  
 
