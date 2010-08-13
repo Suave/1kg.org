@@ -8,7 +8,8 @@ class TeamsController < ApplicationController
     @teams = Team.validated.all
     @activities = Activity.ongoing.find(:all,:conditions => "team_id is not null",:limit => 10,:order => "created_at desc")
     @topics =  Topic.find(:all,:limit => 10, :conditions => ["boards.talkable_type = ?","Team"],:include => [:board],:order => "last_replied_at desc")
-    @myteams = Team.validated.find(:all,:conditions => {:user_id => current_user.id}) if current_user
+    @myteams = Leadership.find(:all,:conditions => {:user_id => current_user.id}).map(&:team) if current_user
+    @followingteams = (Following.teams.find(:all,:conditions => {:follower_id => current_user.id}).map(&:followable) - @myteams) if current_user
   end
   
   def show

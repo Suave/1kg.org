@@ -21,7 +21,7 @@ namespace :misc do
         s.refuse
         message = Message.new(
           :subject => "你为#{s.co_donation.school.title}捐赠的#{s.quantity}件#{s.co_donation.goods_name}失效了",
-          :content => "<p>由于你没有在一周内按时上传捐赠证明，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{s.co_donation.id} </p><br/><p>多背一公斤团队</p>"
+          :content => "<p>亲爱的用户：<br/>由于你没有在一周内按时上传捐赠证明，你的捐赠失效了。<br/>团捐页面地址 => http://www.1kg.org/co_donations/#{s.co_donation.id} </p><br/><p>多背一公斤团队</p>"
           )
         message.author_id = 0
         message.to = [s.user]
@@ -29,8 +29,7 @@ namespace :misc do
       end
     end
   end
-  
-  
+
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|
