@@ -1,7 +1,7 @@
 class SubProjectsController < ApplicationController
   before_filter :login_required, :except => [:show]
-  before_filter :manage_project_process, :only => [:validate,:refuse,:sent_letter,:refuse_letter]
-  before_filter :find_sub_project, :except => [:new, :create, :index,:validate,:refuse,:sent_letter,:refuse_letter]
+  before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]
+  before_filter :find_sub_project, :except => [:new, :create, :index,:validate,:refuse,:refuse_letter]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:edit, :update]
   
   def new
@@ -97,16 +97,9 @@ class SubProjectsController < ApplicationController
   end
   
   def refuse_letter
-    flash[:notice] = "这是发给项目申请人的站内信，你可以修改此站内信的内容，请客观的说明申请被拒绝的原因。"
-    @message = current_user.sent_messages.build
+    flash[:notice] = "申请已拒绝，这是发给项目申请人的站内信，你可以修改此站内信的内容，说明申请被拒绝的原因。"
+    @message = Message.new
     @recipient = @sub_project.user
-  end
-  
-  def sent_letter
-    @message = current_user.sent_messages.build(params[:message])
-    @message.save
-    flash[:notice] = "消息已发出"
-    redirect_to manage_project_path(@sub_project.project)
   end
   
   private

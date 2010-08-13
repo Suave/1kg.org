@@ -21,13 +21,34 @@ class SentController < ApplicationController
     @message = current_messages.build(params[:message])
     if @message.save
       flash[:notice] = "消息已发出"
-      redirect_to user_url(@message.recipients[0])
+      if params[:back_url]
+	redirect_to params[:back_url]
+      else
+        redirect_to user_url(@message.recipients[0])
+      end
     else
       @recipient = User.find(params[:message][:to])
       render :action => "new"
     end
   end
 
+   def by_system
+    # 系统站内信
+    @message = Message.new(params[:message])
+    @message.author_id = 0
+    if @message.save
+      flash[:notice] = "消息已发出"
+      if params[:back_url]
+	redirect_to params[:back_url]
+      else
+        redirect_to user_url(@message.recipients[0])
+      end
+    else
+      @recipient = User.find(params[:message][:to])
+      render :action => "new"
+    end
+  end
+  
   def destroy
     @message = current_messages.find(params[:id])
     @message.update_attribute('deleted', true)

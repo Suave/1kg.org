@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
+  map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
   map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
@@ -180,7 +181,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :projects, :member => {:manage => :get} do |project|
-    project.resources :sub_projects, :member => {:validate => :put,:refuse => :put,:sent_letter => :put,:refuse_letter => :get} do |sub_project|
+    project.resources :sub_projects, :member => {:validate => :put,:refuse => :put,:refuse_letter => :get} do |sub_project|
       sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
     end
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}

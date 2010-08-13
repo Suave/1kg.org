@@ -3,7 +3,7 @@ class Admin::RequirementTypesController < Admin::BaseController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
   def index
-    @projects = RequirementType.find :all, :include => :creator 
+    @projects = RequirementType.not_validated.find :all, :include => :creator 
   end
   
   def new

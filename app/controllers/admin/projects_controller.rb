@@ -29,7 +29,14 @@ class Admin::ProjectsController < Admin::BaseController
     @project.refuse
     @project.update_attributes(:refused_at => nil, :refused_by_id => current_user.id)
     flash[:notice] = "已拒绝申请"
-    redirect_to admin_projects_path()
+    redirect_to refuse_letter_admin_project_path(@project)
+  end
+  
+  def refuse_letter
+    @project = Project.find params[:id]
+    flash[:notice] = "拒绝了公益项目“#{@project.title}”的通过，这是发给项目发起人的站内信，你可以修改此站内信的内容，说明申请被拒绝的原因。"
+    @message = Message.new
+    @recipient = @project.user
   end
   
 end
