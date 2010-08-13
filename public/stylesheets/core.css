@@ -1429,7 +1429,7 @@ a.progressCancel:hover {
 #donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:10px 0 0 30px;height:120px}
 #donation_counter .progressbar{width:185px;}
 #donation_quantity{width:50px;font-size:16px;text-align:right}
-#donation_receiver{text-align:center;font-size:13px;padding:6px 0 0;margin:30px 0 0;}
+#donation_receiver{text-align:center;font-size:13px;padding:6px 0 0;margin:10px 0 0;}
 #donation_receiver p{margin:6px}
 .donation_number{position:relative;top:2px}
 .donation_note{margin-top:4px;text-align:left;padding:5px 10px;background-color:#eee}

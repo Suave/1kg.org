@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
   map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
+  map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
   map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
@@ -11,8 +12,8 @@ ActionController::Routing::Routes.draw do |map|
     c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
   end
  
-  map.resources :requirements do |requirement|
-    requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
+  map.resources :sub_projects do |sub_project|
+    sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
   end
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
@@ -87,9 +88,6 @@ ActionController::Routing::Routes.draw do |map|
                                            :comments => :get
                                           } do |school|
     school.resources :visits
-    school.resources :requirements do |requirement|
-      requirement.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Requirement'}
-    end
     
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
@@ -177,9 +175,16 @@ ActionController::Routing::Routes.draw do |map|
                                     :large_map => :get
                                   }
 
-  map.resources :requirement_types, :as => 'projects' do |project|
-    project.resources :requirements
-    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  map.resources :requirement_types, :as => 'entrys' do |entry|
+    entry.resources :requirements
+    entry.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
+  end
+
+  map.resources :projects, :member => {:manage => :get} do |project|
+    project.resources :sub_projects, :member => {:validate => :put,:refuse => :put,:refuse_letter => :get} do |sub_project|
+      sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
+    end
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}
   end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
@@ -202,7 +207,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     admin.resources :vendors # 公益商品供应商，包括积分兑换商家
     admin.resources :bulletins
-    
+    admin.resources :projects,:member => {:validate => :put, :refuse_letter => :get,:refuse => :put}
   end
 
   # 专题页面
