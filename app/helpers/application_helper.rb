@@ -310,15 +310,15 @@ module ApplicationHelper
     ))
   end
   
-  def status_tag(status)
-    status_attr = {
-     :waiting => ['#666',"未验证"],
+  def state_tag(state)
+    state_attr = {
+     :waiting => ['#666',"待验证"],
      :refused => ['#666',"已拒绝"],
      :validated => ['#33c',"已验证"],
      :going => ['#c33',"进行中"],
      :finished => ['#600',"已结束"]
-     }[status.to_sym]
-     "<span style='color:#{status_attr[0]}'>#{status_attr[1]}</span>"
+     }[state.to_sym]
+     "<span style='color:#{state_attr[0]}'>#{state_attr[1]}</span>"
   end
   
   def upload_button(container, url)

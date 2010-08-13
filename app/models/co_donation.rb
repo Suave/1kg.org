@@ -51,7 +51,7 @@ class CoDonation < ActiveRecord::Base
   end
   
   def records
-    self.sub_donations.by_state("received") + self.sub_donations.by_state("proved") + self.sub_donations.by_state("ordered") + self.sub_donations.by_state("missed") + self.sub_donations.by_state("refused")
+    self.sub_donations.state_is("received") + self.sub_donations.state_is("proved") + self.sub_donations.state_is("ordered") + self.sub_donations.state_is("missed") + self.sub_donations.state_is("refused")
   end
   
   def edit

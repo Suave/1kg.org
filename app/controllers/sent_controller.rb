@@ -8,25 +8,24 @@ class SentController < ApplicationController
   end
 
   def show
-		@message = current_messages.find(params[:id])
+    @message = current_messages.find(params[:id])
   end
 
   def new
-		@message = current_messages.build
-		@recipient = User.find(params[:user_id])
+    @message = current_messages.build
+    @recipient = User.find(params[:user_id])
   end
 
   def create
     # 站内信发出后, 返回第一个收件人的空间
-		@message = current_messages.build(params[:message])
-
-		if @message.save
-		  flash[:notice] = "消息已发出"
-	    redirect_to user_url(@message.recipients[0])
+    @message = current_messages.build(params[:message])
+    if @message.save
+      flash[:notice] = "消息已发出"
+      redirect_to user_url(@message.recipients[0])
     else
       @recipient = User.find(params[:message][:to])
       render :action => "new"
-		end
+    end
   end
 
   def destroy

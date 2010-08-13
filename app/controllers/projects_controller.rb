@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  before_filter :login_required, :except => [:show,:index] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
 
@@ -7,20 +8,39 @@ class ProjectsController < ApplicationController
   end
   
   def show
-      @others = []
+    @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
+    @comment = Comment.new
+    @others = Project.validated.find(:all, :limit => 4) - [@project]
   end
   
   def new
       @project = Project.new(:feedback_require => "")
   end
+  
+  def edit
+  end
 
+  def update
+    feedback_require = feedback_require_process
+    @project.update_attributes!(params[:project])
+    @project.feedback_require = feedback_require
+    @project.save
+    flash[:notice] = "修改成功"
+    redirect_to project_url(@project)
+  end
+  
   def create
     feedback_require = feedback_require_process
     @project = Project.new(params[:project])
     @project.feedback_require = feedback_require
-    @project.save!  
+    @project.user = current_user
+    @project.save
     flash[:notice] = "项目创建成功"
     redirect_to projects_url
+  end
+  
+  def manage
+    @sub_projects = @project.sub_projects
   end
   
   private

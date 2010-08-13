@@ -7,11 +7,13 @@
 <% end %>
 
 <% content_for :sidebar do -%>
+  <% if current_user && (@project.user == current_user || current_user.admin?)%>
+  <div id="admins">
+    你是项目的管理员，可以：<br/>
+    <%= link_to "编辑项目", edit_project_url(@project) ,:class=>"adminbutton"%> <%= link_to "管理项目", manage_project_url(@project) ,:class=>"adminbutton"%>
+  </div>
+  <%end%>
   <div class="cleanfix" style="clear:both;height:20px"></div>
-  <span class="remark"><%= link_to "&raquo; 回到公益项目首页",requirement_types_url%></span>
-  <div class="cleanfix" style="clear:both;height:20px"></div>
-
-
     <span class="span_title2">参与的学校</span>
       <%= render :partial => "sub_project", :collection => @project.sub_projects %>
     <div style="margin:6px 0">
@@ -20,11 +22,14 @@
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @others.empty?%>
   <div>
-      <span class="span_title2">其他项目</span>
+      <span class="span_title2">其它公益项目</span>
       <div style="margin:6px 0">
         <%= render :partial => "/shared/project", :collection => @others %>
       </div>
   </div>
+  <div class="cleanfix" style="clear:both;height:20px"></div>
+  <span class="remark"><%= link_to "&raquo; 回到公益项目首页",requirement_types_url%></span>
+
   <%end%>
 <%end%>
 
@@ -37,7 +42,7 @@
         <%if @project.apply_end? -%>
           <p style="color:#666;margin:6px 0">项目申请已结束</p>
         <%else%>
-          <%= link_to "立即申请",new_requirement_type_requirement_url(@project, :school_id => params[:school_id]),:class => "buttonjoin2"%>
+          <%= link_to "立即申请",new_project_sub_project_url(@project),:class => "buttonjoin2"%>
           <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.for_envoy%></p>
         <% end %>
       </div>
@@ -72,5 +77,5 @@
 <%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
-<%= render :partial => "/comments/comments", :object => @comments if false%>
-<%= render :partial => "/comments/form", :locals => {:commentable => @project} if false%>
+<%= render :partial => "/comments/comments", :object => @comments%>
+<%= render :partial => "/comments/form", :locals => {:commentable => @project}%>

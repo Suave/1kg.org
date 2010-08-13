@@ -8,7 +8,7 @@
           <span><%= link_to "填写反馈", edit_school_requirement_url(sub_project.school, sub_project) ,:class => "adminbutton"%>
           </span>
         <% else %>
-          <span><%= ['已完成','进行中','申请中'][sub_project.status.to_i]%></span>
+          <span><%= ['已完成','进行中','申请中'][sub_project.state.to_i]%></span>
         <% end -%>
     </div>
     <div style="clear:both"></div>

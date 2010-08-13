@@ -16,9 +16,7 @@ class Admin::RequirementTypesController < Admin::BaseController
     @project.feedback_require = feedback_require
     @project.validated_at = Time.now
     @project.validated_by_id = current_user.id
-    @project.save!
-    
-    
+    @project.save! 
     
     flash[:notice] = "项目创建成功"
     redirect_to admin_requirement_types_url

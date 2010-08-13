@@ -3,6 +3,7 @@
   <span class="span_title2">一 基本信息</span>
   <div class="contents" style="padding-left:10px">    
     <p><span>为哪所学校团捐?<span class="require">*</span></span>
+  
       <% if @controller.action_name == "edit" %>
         <span class="gary_span"><%= @co_donation.school.title %>　</span>
       <% else %>
@@ -105,7 +106,7 @@
 </div>  
 <%end%>
 
-  <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
   $(document).ready(DateTimeShortcuts.init);
   $('#co_donation_school_id').delayedObserver(0.25, function(element, value){$("#school_info").hide();$("#school_link").attr("href",("/schools/" + value));if (value != ''){$("#school_info").show()} })
-  </script>
+</script>

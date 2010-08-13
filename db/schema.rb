@@ -594,9 +594,10 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "start_at"
     t.datetime "end_at"
-    t.boolean  "validated",           :default => false
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.datetime "refused_at"
+    t.integer  "refused_by_id"
     t.datetime "last_modified_at"
     t.integer  "comments_count",   :default => 0
   end

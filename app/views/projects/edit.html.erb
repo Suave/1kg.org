@@ -1,7 +1,7 @@
-<% @page_title = @title = "创建公益项目" -%>
+<% @page_title = @title = "编辑公益项目" -%>
 
 <% content_for :crumb do -%>
-<li>创建公益项目</li>
+<li>编辑公益项目</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
@@ -18,8 +18,8 @@
 
 <div class="newbox" id="activitiesPostNew">
   <div class="clearfix" style="height:10px"></div>
-  <% form_for :project, :url => projects_path, :html => {:multipart => true} do |f| -%>
+  <% form_for :project, :url => project_path(@project), :html => {:multipart => true,:method => :put} do |f| -%>
     <%= render :partial => "form", :object => f %>
-    <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{projects_url}';return false" %>
+    <%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_url(@project)}';return false" %>
   <% end -%>
 </div>
