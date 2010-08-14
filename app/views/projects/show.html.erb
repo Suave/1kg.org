@@ -14,11 +14,15 @@
   </div>
   <%end%>
   <div class="cleanfix" style="clear:both;height:20px"></div>
+  <% unless @sub_projects.empty?%>
+    <span class="span_title2">我的项目</span>
+    <%= render :partial => "sub_project", :collection => @my_sub_projects %>
+    <div class="cleanfix" style="clear:both;height:20px"></div>
+  <%end%>
     <span class="span_title2">参与的学校</span>
-      <%= render :partial => "sub_project", :collection => @project.sub_projects %>
-    <div style="margin:6px 0">
-      
-    </div>
+      <p><%= "暂无" if @sub_projects.empty?%></p>
+      <%= render :partial => "sub_project", :collection => @sub_projects %>
+    
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @others.empty?%>
   <div>

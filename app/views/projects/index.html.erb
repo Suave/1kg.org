@@ -15,7 +15,7 @@
           </div>
           <span class="span_title"><%= project.title %></span>
           <p style="margin:6px">
-          <%= project.description.gsub('<\br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..140) %> <%= "..." if project.description.gsub(/<.*?>/, '').mb_chars[200] %>
+            <%= project.description.gsub('<\br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..140) %> <%= "..." if project.description.gsub(/<.*?>/, '').mb_chars[200] %>
           </p>
         </div>
         <div style="float:right;text-align:right;margin-right:10px">

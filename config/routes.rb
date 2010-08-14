@@ -181,7 +181,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :projects, :member => {:manage => :get} do |project|
-    project.resources :sub_projects, :member => {:validate => :put,:refuse => :put,:refuse_letter => :get} do |sub_project|
+    project.resources :sub_projects, :member => {:validate => :put,:refuse => :put,:refuse_letter => :get,:feedback => :get} do |sub_project|
       sub_project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
     end
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}

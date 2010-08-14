@@ -1,0 +1,32 @@
+
+<% @title = @page_title = "项目执行报告" -%>
+<% form_for [@sub_project.project, @sub_project] do |form| %>
+  <%= form.text_area :feedback, :style => 'width:580px;height:320px;', :class => "mceEditor" %>
+  <p><%= form.submit "确认" ,:class => "surebutton"%> <%= form.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_sub_project_url(@sub_project.project,@sub_project)}';return false" %></p>
+<% end %>
+
+<% content_for :sidebar do -%>
+<div class="project_info">
+  <div class="title_line"><span class="span_title2">反馈要求</span></div>
+  <%= "#{@sub_project.project.feedback_require}<br/>" %><%= "需要在 #{@sub_project.project.feedback_at.to_date} 之前完成反馈" unless @sub_project.project.feedback_at.nil?%>
+</div>
+  <div class="project_info">
+    <div class="title_line"><span class="span_title2">我的执行计划</span></div>
+    <%= @sub_project.plan %>
+  </div>
+  
+  <% unless @sub_project.problem.nil? or @sub_project.problem.empty?%>
+  <div class="project_info">
+    <div class="title_line"><span class="span_title2">可能遇到的问题与我的解决方案</span></div>
+    <%= @sub_project.problem %>
+  </div>
+  <% end%>
+  
+  
+  <% unless @sub_project.budget.nil? or @sub_project.budget.empty?%>
+  <div class="project_info">
+    <div class="title_line"><span class="span_title2">我的资金预算</span></div>
+    <%= @sub_project.budget %>
+  </div>
+  <% end%>
+<%end%>

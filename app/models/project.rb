@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   named_scope :not_validated, :conditions => ["state in (?)",["waiting","refused"]]
   named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
-  
+  validates_presence_of :description
   def clean_html
     description
   end

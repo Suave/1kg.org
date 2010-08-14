@@ -1,8 +1,9 @@
 class SubProjectsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]
-  before_filter :find_sub_project, :except => [:new, :create, :index,:validate,:refuse,:refuse_letter]
-  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:edit, :update]
+  before_filter :find_sub_project, :only => [:show,]
+  before_filter :check_permission, :only => [:edit,:update,:feedback]
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:edit,:feedback]
   
   def new
     @project = Project.find params[:project_id]
@@ -17,20 +18,24 @@ class SubProjectsController < ApplicationController
     @sub_project = SubProject.new
     @schools = @project.for_envoy ? current_user.envoy_schools : (current_user.envoy_schools + current_user.visited_schools).uniq
     @school = School.find(:first,:conditions => {:id =>params[:school_id]}).nil? ? nil : School.find(params[:school_id])
+    flash[:notice] = '请先完整阅读反馈要求，并仔细填写此项目申请表，带<span class="require"> * </span>号标记的为必填项。'
   end
   
   def create
     @project = Project.find params[:project_id]
     @sub_project = @project.sub_projects.build(params[:sub_project])
     @schools = @project.for_envoy ? current_user.envoy_schools : (current_user.envoy_schools + current_user.visited_schools).uniq
-    if @project.for_envoy && !User.moderators_of(@sub_project.school).include?(current_user)
-      flash[:notice] = "你不是#{@apply.school.title}的学校大使,不能申请这个项目。"
+    if @project.for_envoy && !@sub_project.school.nil? && !User.moderators_of(@sub_project.school).include?(current_user)
+      flash[:notice] = "你不是#{@sub_project.school.title}的学校大使,不能申请这个项目。"
       render :action => "new" 
     else
       
-    @sub_project.save
-    flash[:notice] = "你的申请已提交，情等待项目发起人的审核"
-    redirect_to project_url(@project)
+      if @sub_project.save
+        flash[:notice] = "你的申请已提交成功，系统会自动通知项目管理员去审核你的申请"
+        redirect_to project_url(@project)
+      else
+        render 'new'
+      end
     end
   end
   
@@ -46,24 +51,17 @@ class SubProjectsController < ApplicationController
   end
   
   def edit
-    @requirement = Requirement.find(params[:id])
-    @school = @requirement.school
+    @school = @sub_project.school
     respond_to do |want|
-      if (@requirement.applicator == current_user) || current_user.admin?
-        want.html
-      else
-        flash[:notice] = "对不起，您没有权限更新此项目的反馈报告"
-        want.html { redirect_to school_requirement_path(@school, @requirement)}
-      end
+      want.html
     end
   end
   
   def update
-    @requirement = Requirement.find(params[:id])
-    @school = @requirement.school
+    @school = @sub_project.school
     respond_to do |want|
-      if @requirement.update_attributes!(params[:requirement])
-        want.html {redirect_to school_requirement_path(@school, @requirement)}
+      if @sub_project.update_attributes!(params[:sub_project])
+        want.html {redirect_to project_sub_project_path(@sub_project.project, @sub_project)}
       else
         want.html {render 'edit'}
       end
@@ -102,6 +100,9 @@ class SubProjectsController < ApplicationController
     @recipient = @sub_project.user
   end
   
+  def feedback
+  end
+  
   private
   def manage_project_process
     @sub_project = SubProject.find(params[:id])
@@ -109,11 +110,20 @@ class SubProjectsController < ApplicationController
       flash[:notice] = "你没有权限进行此项操作"
       redirect_to project_path(@sub_project.project)
     end
-    
   end
 
+  def check_permission
+    @sub_project = SubProject.find(params[:id])
+    if @sub_project.user == current_user
+    elsif current_user.admin?
+    else
+      flash[:notice] = "你没有权限进行此操作"
+      redirect_to project_url(@sub_donation)
+    end
+  end
+
+  
   def find_sub_project
     @sub_project = SubProject.validated.find(params[:id])
   end
-  
 end

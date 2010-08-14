@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
   end
   
   def show
+    @sub_projects = @project.sub_projects.validated
+    @my_sub_projects = @project.sub_projects.find(:all,:conditions => {:user_id => current_user.id}) if current_user
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
     @others = Project.validated.find(:all, :limit => 4) - [@project]

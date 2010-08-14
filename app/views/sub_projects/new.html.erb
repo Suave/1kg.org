@@ -13,7 +13,7 @@
       <div class="contents" style="padding-left:10px">
         <p><%= @project.feedback_require.gsub("\n", '<br />') %>
         <br/><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%></p>
-        <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈 <%= error_message_on @sub_project, :agree_feedback_terms %></p>
+        <p><%= f.check_box :agree_feedback_terms %> 我承诺按照以上要求进行项目反馈 <span class="require">*</span><%= error_message_on @sub_project, :agree_feedback_terms %></p>
       </div>
 </div>
 
@@ -43,14 +43,14 @@
         </p>
         
         <p>
-          <h6>你的计划：<span class="require">*</span></h6>
-          <span>以时间为线索，请告诉我们，你每个时间段将完成的工作内容</span>
+          <h6>你的执行计划：<span class="require">*</span></h6>
+          <span>以时间为线索，你每个时间段将完成的工作内容</span>
           <br/><%= error_message_on @sub_project, :plan%><%= f.text_area :plan, :cols => 80, :rows => 6 %>
         </p>
         
         <p>
           <h6>资金预算：</h6>
-          <span>如果项目提供资金，请告诉我们你们打算怎么使用这笔钱？ 如：交通费、物资采购费等。</span>
+          <span>如果项目提供资金，你打算怎么使用这笔钱？ 如：交通费、物资采购费等。</span>
           <br/><%= f.text_area :budget, :cols => 80, :rows => 6 %>
         </p>
         
@@ -77,7 +77,7 @@
       </div>
 </div>
 <br/>
-<p style="margin-left:40px"><%= submit_tag "申 请" %>  <%= link_to "取 消 ", project_url(@project)%></p>
+<p style="margin-left:40px"><%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_url(@project)}';return false" %>
                                                     
         <script type="text/javascript">
         $(document).ready(DateTimeShortcuts.init)

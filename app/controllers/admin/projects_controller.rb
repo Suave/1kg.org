@@ -34,7 +34,7 @@ class Admin::ProjectsController < Admin::BaseController
   
   def refuse_letter
     @project = Project.find params[:id]
-    flash[:notice] = "拒绝了公益项目“#{@project.title}”的通过，这是发给项目发起人的站内信，你可以修改此站内信的内容，说明申请被拒绝的原因。"
+    flash[:notice] = "拒绝了公益项目“#{@project.title}”的通过，这是系统给项目发起人的站内信，请修改此站内信的内容，说明申请被拒绝的原因。"
     @message = Message.new
     @recipient = @project.user
   end

@@ -17,7 +17,7 @@ class SharesController < ApplicationController
     @school = School.find_by_id(params[:school])
     @activity = Activity.find_by_id(params[:activity])
     @sub_project = SubProject.find_by_id(params[:sub_project])
-    @school = @requirement.school if @requirement
+    @school = @sub_project.school if @sub_project
     @school = @activity.school if @activity && @activity.school
     @geo = @school.geo unless @school.nil?
   end
