@@ -1096,7 +1096,8 @@ h3.title {
 .team{float:left;width:84px;margin:2px}
 .user dt,.team dt {height:50px; margin:0; overflow:hidden; text-align:center;}
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
-.team dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
+.team dd {padding:0 4px; overflow:hidden; text-align:center; color:#aaa;height:60px}
+
 
 
 .obp {float:left; width:115px; margin:12px;}
@@ -1224,6 +1225,11 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
 .activity_list_meta span{position:relative;top:-2px}
 .activity_list_meta h5{margin:2px 0}
+
+.hot_activity_frame{width:110px;height:110px;border: 1px solid #ccc;padding:2px}
+.hot_activity_image{width:110px;height:110px;overflow:hidden}
+.hot_activity_title{text-align:center;width:110px;font-weight:bold}
+
 #content-secondary .activity_list_meta{width:184px}
  
 .tab{-background:url("/images/border.gif") repeat-x;height:27px;border-bottom:1px #ccc solid;-border:none}
@@ -1283,7 +1289,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .comment_author{text-align:right;font-style:italic;color:#888;margin-bottom:8px;padding-bottom:4px;border-bottom:1px #ccc solid}
 
 .entrance{border-bottom:1px #c0c0c0 dashed;padding:6px 0 14px;margin-bottom:6px}
-.channel{margin-right:0;position:relative;top:-36px;text-align:right}
+.channel{margin:40px  0 0;position:relative;text-align:right;}
 .channel a{color:#666}
 .entrance_link{font-size:14px;color:#444;font-weight:bold;line-height:27px}
 .envoy_badge{position:relative;top:2px}
@@ -1423,7 +1429,6 @@ a.progressCancel:hover {
 .title_line .span_title2{color:#444}
 .title_line span{font-weight:bold;font-size:14px}
 .title_line h5{font-weight:bold;font-size:14px}
-
 
 .donantion_detail{float:left;width:300px;height:188px;padding: 0 20px 10px 0;}
 #donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:10px 0 0 30px;height:120px}
