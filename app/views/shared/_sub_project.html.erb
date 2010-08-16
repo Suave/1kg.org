@@ -1,14 +1,14 @@
 <div class="requirement">
     <div class="project_image_frame">
-        <img class="project_image" src="<%= sub_project.project.image.url(:thumb) %>"/>
+        <img class="project_image" src="<%= execution.project.image.url(:thumb) %>"/>
     </div>
     <div>
-        <h5><%= link_to short_title(sub_project.project,10), project_sub_project_url(sub_project.project, sub_project) %></h5>
-        <% if logged_in? && sub_project.user == current_user -%>
-          <span><%= link_to "填写反馈", feedback_project_sub_project_url(sub_project.project, sub_project) ,:class => "adminbutton"%>
+        <h5><%= link_to short_title(execution.project,10), project_execution_url(execution.project, execution) %></h5>
+        <% if logged_in? && execution.user == current_user -%>
+          <span><%= link_to "填写反馈", feedback_project_execution_url(execution.project, execution) ,:class => "adminbutton"%>
           </span>
         <% else %>
-          <span><%= state_tag(sub_project.state)%></span>
+          <span><%= state_tag(execution.state)%></span>
         <% end -%>
     </div>
     <div style="clear:both"></div>

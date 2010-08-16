@@ -49,7 +49,7 @@ class School < ActiveRecord::Base
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
-  has_many :sub_projects, :order => "id desc", :dependent => :destroy
+  has_many :executions, :order => "id desc", :dependent => :destroy
   
   
   has_many :donations, :dependent => :destroy

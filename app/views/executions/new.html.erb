@@ -6,7 +6,7 @@
   <div class="cleanfix" style="clear:both;height:20px"></div> 
 <% end -%>
 
-<% form_for :sub_project, :url => project_sub_projects_url(@project) do |f| -%>
+<% form_for :execution, :url => project_executions_url(@project) do |f| -%>
    <%= render :partial => "form", :object => f %>
   <br/>
   <p style="margin-left:40px"><%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_url(@project)}';return false" %>

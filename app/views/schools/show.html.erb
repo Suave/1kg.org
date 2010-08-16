@@ -220,11 +220,11 @@
      <div class="school_sidebar">
       <h3 class="label_lei">公益项目</h3>
       <div class="sidebar_inter">
-        <%= '目前学校还没有公益项目' if @sub_projects.empty? %>
-        <%= render :partial => "/shared/sub_project", :collection => @sub_projects %>
+        <%= '目前学校还没有公益项目' if @executions.empty? %>
+        <%= render :partial => "/shared/execution", :collection => @executions %>
         <div style="clear:both;height:5px"></div>
         <div id="project_info">
-          <p>去看看<%= '还' unless @sub_projects.empty? %>有什么 
+          <p>去看看<%= '还' unless @executions.empty? %>有什么 
             <%= link_to "公益项目", projects_url(:school_id => @school),:class => "adminbutton" %>
             可以申请。
           </p>

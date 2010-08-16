@@ -13,9 +13,9 @@
       <p class="postNew"></p>
       <div class="contents">
         <p><h6>接受申请的学校学校: <span class="require">*</span></h6>
-        <%= editing ? @sub_project.school.title : form.select(:school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666")%>
+        <%= editing ? @execution.school.title : form.select(:school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666")%>
         <% unless editing%>
-          <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @sub_project, :school_id %>
+          <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @execution, :school_id %>
         <% end %>
         <br/>
         <span id="why" style="display:none;color:#666">如果下拉菜单里没有你要找的学校，说明你<%= @project.for_envoy? ? "没有去过或关注那所学校，请先到学校页面进行关注。" : "并不是那所学校大使。"%> </span>
@@ -25,20 +25,20 @@
             
         <p><h6>你申请该项目的原因： <span class="require">*</span></h6>
           <span>学校目前的情况是怎样的？为什么需要申请这个项目？这个项目能为学校/学生带来什么改变?</span>
-          <br/><%= error_message_on @sub_project, :reason %>
+          <br/><%= error_message_on @execution, :reason %>
           <%= form.text_area :reason, :cols => 80, :rows => 6 %>
         </p>
           
         <p>
           <h6>你的时间计划：<span class="require">*</span></h6>
           <span>从什么时候开始，到什么时候结束?</span>
-          <br/><%= form.text_field :start_at, {:class => "vDateField"} %> 至 <%= form.text_field :end_at, {:class => "vDateField"} %><br/><%= error_message_on @sub_project, :time %>
+          <br/><%= form.text_field :start_at, {:class => "vDateField"} %> 至 <%= form.text_field :end_at, {:class => "vDateField"} %><br/><%= error_message_on @execution, :time %>
         </p>
         
         <p>
           <h6>你的执行计划：<span class="require">*</span></h6>
           <span>以时间为线索，你每个时间段将完成的工作内容</span>
-          <br/><%= error_message_on @sub_project, :plan%><%= form.text_area :plan, :cols => 80, :rows => 6 %>
+          <br/><%= error_message_on @execution, :plan%><%= form.text_area :plan, :cols => 80, :rows => 6 %>
         </p>
         
         <p>
@@ -66,7 +66,7 @@
           <%= h current_user.login %>
         </p>
         
-        <p><label class="label">电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @sub_project, :telephone %></p>
+        <p><label class="label">电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
       </div>
 </div>
 

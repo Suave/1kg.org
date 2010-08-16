@@ -290,7 +290,7 @@ class SchoolsController < ApplicationController
     @wannas = Visited.find(:all,:conditions => ['school_id = ? and status = ? and wanna_at > ?', @school.id, 3, Time.now], :order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
-    @sub_projects = @school.sub_projects.validated.find(:all,:limit => 3)
+    @executions = @school.executions.validated.find(:all,:limit => 3)
     @co_donations = @school.co_donations.validated.find(:all,:limit => 3)
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
     

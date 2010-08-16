@@ -260,7 +260,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
-    t.integer  "sub_project_id"
+    t.integer  "execution_id"
     t.integer  "co_donation_id"
   end
 
@@ -475,7 +475,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
-    t.integer  "sub_project_id"
+    t.integer  "execution_id"
     t.integer  "user_id",                                     :null => false
     t.integer  "hits",                     :default => 0,     :null => false
     t.integer  "comments_count",           :default => 0,     :null => false
@@ -489,6 +489,12 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_replied_by_id"
   end
 
+  create_table "static_permissions", :force => true do |t|
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "identifier",  :limit => 100, :null => false
+    t.string   "description"
+  end
 
   add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
   
@@ -572,7 +578,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "auto_fill"
   end
 
-  create_table "sub_projects", :force => true do |t|
+  create_table "executions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false

@@ -1,4 +1,4 @@
-class SubProject < ActiveRecord::Base
+class Execution < ActiveRecord::Base
   attr_accessor :agree_feedback_terms
   
   belongs_to :project

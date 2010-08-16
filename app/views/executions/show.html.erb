@@ -1,4 +1,4 @@
-<% @page_title = "#{@sub_project.school.title}的#{@sub_project.project.title}" -%>
+<% @page_title = "#{@execution.school.title}的#{@execution.project.title}" -%>
 <% content_for :heads do -%>
 <%= javascript_include_tag "jquery.timeago.js" %>
 <%= javascript_include_tag 'swfupload' %>
@@ -8,26 +8,26 @@
 <% content_for :sidebar do -%>
 <div class="cleanfix" style="clear:both;height:20px"></div> 
 
-<br/><span class="remark"><%= link_to "&raquo;  回到#{@sub_project.project.title}",project_url(@sub_project.project)%></span>
-<br/><span class="remark"><%= link_to "&raquo;  回到#{@sub_project.school.title}",school_url(@sub_project.school)%></span>
+<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.project.title}",project_url(@execution.project)%></span>
+<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.school.title}",school_url(@execution.school)%></span>
 
   <div class="cleanfix" style="height:20px"></div>
 <% end -%>
 
-<%= main_photo_thumb(@sub_project.school) -%>
+<%= main_photo_thumb(@execution.school) -%>
 
 <div style="float:left;width:516px;margin-left:10px">
-  <div style="font-size:16px;font-weight:bold"><%= link_to @sub_project.school.title,school_url(@sub_project.school) %> 的 <%= link_to @sub_project.project.title,project_url(@sub_project.project)%></div>
+  <div style="font-size:16px;font-weight:bold"><%= link_to @execution.school.title,school_url(@execution.school) %> 的 <%= link_to @execution.project.title,project_url(@execution.project)%></div>
   
   <div id="entry">
     <div id="summary">
-    <% short = (@sub_project.reason).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
-    <%= short[120].nil? ? @sub_project.reason  : (short + "...") %>
+    <% short = (@execution.reason).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
+    <%= short[120].nil? ? @execution.reason  : (short + "...") %>
     <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
     </div>
     
     <div id="reason_detail" style="display:none">
-      <%= (@sub_project.reason) %>
+      <%= (@execution.reason) %>
       <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
     </div>
   </div>
@@ -37,7 +37,7 @@
 
 <div id="projects_tabs">
   <div style="float:right;position:relative;top:5px">
-    <img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @sub_project.last_updated_at.to_date %></span>
+    <img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @execution.last_updated_at.to_date %></span>
   </div>
     <ul class="tab" >
       <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
@@ -45,40 +45,40 @@
     </ul>
     
     <div id="detail">
-      <p>项目申请人：<%= link_to @sub_project.user.login ,user_url(@sub_project.user)%> <%= "(电话： #{@sub_project.telephone})" if current_user && current_user.admin?%></p>
-      <p>　项目状态：<%= state_tag(@sub_project.state) %>
+      <p>项目申请人：<%= link_to @execution.user.login ,user_url(@execution.user)%> <%= "(电话： #{@execution.telephone})" if current_user && current_user.admin?%></p>
+      <p>　项目状态：<%= state_tag(@execution.state) %>
       </p>
-        <p>　　执行期： <%=  @sub_project.project.start_at.to_date %> 至 <%=  @sub_project.project.end_at.nil? ? '未要求' : @sub_project.project.end_at.to_date %></p>
-        <p>　申请日期： <%=  @sub_project.project.created_at.to_date %></p>
+        <p>　　执行期： <%=  @execution.project.start_at.to_date %> 至 <%=  @execution.project.end_at.nil? ? '未要求' : @execution.project.end_at.to_date %></p>
+        <p>　申请日期： <%=  @execution.project.created_at.to_date %></p>
       
       <div class="project_info">
         <div class="title_line"><h5>反馈要求</h5></div>
-        <%= "#{@sub_project.project.feedback_require}<br/>" %><%= "需要在 #{@sub_project.project.feedback_at.to_date} 之前完成反馈" unless @sub_project.project.feedback_at.nil?%>
+        <%= "#{@execution.project.feedback_require}<br/>" %><%= "需要在 #{@execution.project.feedback_at.to_date} 之前完成反馈" unless @execution.project.feedback_at.nil?%>
       </div>
       
       <div class="project_info">
         <div class="title_line"><h5>执行计划</h5></div>
-        <%= @sub_project.plan %>
+        <%= @execution.plan %>
       </div>
           
-      <% unless @sub_project.problem.nil? or @sub_project.problem.empty?%>
+      <% unless @execution.problem.nil? or @execution.problem.empty?%>
         <div class="project_info">
         <div class="title_line"><h5>可能遇到的问题与解决方案</h5></div>
-        <%= @sub_project.problem %>
+        <%= @execution.problem %>
         </div>
       <% end%>
           
-      <% unless @sub_project.budget.nil? or @sub_project.budget.empty?%>
+      <% unless @execution.budget.nil? or @execution.budget.empty?%>
         <div class="project_info">
         <div class="title_line"><h5>资金预算</h5></div>
-          <%= @sub_project.budget %>
+          <%= @execution.budget %>
         </div>
       <% end%>
       
     </div>
           
         <div id="report">      
-        <% if @sub_project.validated?%>
+        <% if @execution.validated?%>
         
         <div class="project_info">
           <div class="title_line"><span>照片</span></div>
@@ -92,11 +92,11 @@
                 <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
               </p>
               
-              <% if logged_in? && @sub_project.user == current_user -%>
-                <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@sub_project.id)) %>
+              <% if logged_in? && @execution.user == current_user -%>
+                <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@execution.id)) %>
               <%end%>
               <div style="display:none;" id="upload_tip">
-              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @sub_project.id) %> 上传.
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @execution.id) %> 上传.
               </div>
                 
                 
@@ -105,18 +105,18 @@
         </div>
         
         <div class="project_info">
-            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?sub_project=#{@sub_project.id}" %></div>
+            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?execution=#{@execution.id}" %></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
             <%= "暂无分享" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
 
         <div class="project_info">
-          <div class="title_line"><span>执行报告</span></div><%= link_to "更新报告", feedback_project_sub_project_url(@sub_project.project, @sub_project) ,:class => "buttonlink"%>
-          <% if @sub_project.feedback.blank? %>
+          <div class="title_line"><span>执行报告</span></div><%= link_to "更新报告", feedback_project_execution_url(@execution.project, @execution) ,:class => "buttonlink"%>
+          <% if @execution.feedback.blank? %>
               <p>申请人还没有填写</p>
           <% else %>
-            <%= @sub_project.feedback %>
+            <%= @execution.feedback %>
           <% end -%>
         </div>
         
@@ -132,11 +132,11 @@
 </script>
 
 <%= render :partial => "/comments/comments", :object => @comments %>
-<%= render :partial => "/comments/form", :locals => {:commentable => @sub_project,:cancel => true} %>
+<%= render :partial => "/comments/form", :locals => {:commentable => @execution,:cancel => true} %>
 
 <div class="cleanfix" style="clear:both;height:5px"></div>
 <script type="text/javascript">
 jQuery(document).ready(function () {
-  $("#last_time").text(jQuery.timeago("<%= @sub_project.last_updated_at %>"));
+  $("#last_time").text(jQuery.timeago("<%= @execution.last_updated_at %>"));
   })
 </script>

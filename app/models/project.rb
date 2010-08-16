@@ -2,7 +2,7 @@ require "state_machine"
 
 class Project < ActiveRecord::Base  
   belongs_to :user
-  has_many:sub_projects
+  has_many:executions
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_attached_file :image, :styles => { :project_avatar => "60x60>", :project_logo => "200x200>" }
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
