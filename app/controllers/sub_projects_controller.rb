@@ -1,9 +1,9 @@
 class SubProjectsController < ApplicationController
   before_filter :login_required, :except => [:show]
   before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]
-  before_filter :find_sub_project, :only => [:show,]
-  before_filter :check_permission, :only => [:edit,:update,:feedback]
-  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:edit,:feedback]
+  before_filter :check_permission, :only => [:edit,:update,:feedback,:finish]
+  before_filter :find_sub_project, :only => [:show]
+  uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
   def new
     @project = Project.find params[:project_id]
@@ -29,9 +29,17 @@ class SubProjectsController < ApplicationController
       flash[:notice] = "你不是#{@sub_project.school.title}的学校大使,不能申请这个项目。"
       render :action => "new" 
     else
-      
       if @sub_project.save
         flash[:notice] = "你的申请已提交成功，系统会自动通知项目管理员去审核你的申请"
+        message = Message.new(:subject => "#{@project.title}有了新的申请",
+                              :content => "<p>你好，#{@project.user.login}:</p><br/><p>#{@sub_project.user.login}申请了你的公益项目（“#{@project.title}”）</p>\
+                                           <br/><p>去检查一下他的申请吧，作出通过或者拒绝的判断。 => http://www.1kg.org/projects/#{@project.id}/manage </p>\
+                                           <br/><p>多背一公斤团队</p>"
+                                )
+        message.author_id = 0
+        message.to = [@project.user]
+        message.save!
+      
         redirect_to project_url(@project)
       else
         render 'new'
@@ -51,19 +59,55 @@ class SubProjectsController < ApplicationController
   end
   
   def edit
-    @school = @sub_project.school
-    respond_to do |want|
-      want.html
-    end
+      respond_to do |want|
+        unless @sub_project.validated?
+          want.html
+        else
+          flash[:notice] = "已经通过的项目不能再修改"
+          want.html { redirect_to @project }
+        end
+        
+      end
   end
   
   def update
-    @school = @sub_project.school
     respond_to do |want|
       if @sub_project.update_attributes!(params[:sub_project])
-        want.html {redirect_to project_sub_project_path(@sub_project.project, @sub_project)}
+        #针对不同的项目状态判断更新的内容是申请表还是反馈
+        if @sub_project.validated?
+          if params[:is_finish] #如果声明项目结束，站内信通知发起人查看
+            @sub_project.finish
+            message = Message.new(:subject => "#{@school.title}的项目已经完成",
+                                  :content => "<p>你好，#{@project.user.login}:</p><br/>\
+                                               <p>#{@sub_project.user.login}在#{@school.title}的公益项目已经完成了。（“#{@project.title}”）</p>\
+                                               <br/><p>去看看他的反馈报告吧。 => http://www.1kg.org/projects/#{@project.id}/sub_projects/#{@sub_project.id} </p>\
+                                               <br/><p>多背一公斤团队</p>"
+                                    )
+            message.author_id = 0
+            message.to = [@project.user]
+            message.save!
+            flash[:notice] = "已经声明项目完成,通知了项目发起人"
+            want.html  {redirect_to project_sub_project_path(@project, @sub_project)}
+          else  
+            flash[:notice] = "反馈更新成功"
+            want.html {redirect_to project_sub_project_path(@project, @sub_project)}
+          end
+        else
+          flash[:notice] = "申请表修改成功"
+      
+          message = Message.new(:subject => "#{@project.title}的申请有了更新",
+                                  :content => "<p>你好，#{@project.user.login}:</p><br/><p>#{@sub_project.user.login}更新了他的公益项目申请（“#{@project.title}”）</p>\
+                                               <br/><p>再去检查一下他的申请吧。 => http://www.1kg.org/projects/#{@project.id}/manage </p>\
+                                               <br/><p>多背一公斤团队</p>"
+                                  )
+          message.author_id = 0
+          message.to = [@project.user]
+          message.save!
+          want.html {redirect_to project_path(@project)} 
+        end
+        
       else
-        want.html {render 'edit'}
+        want.html {@sub_project.validated? ? render(:feedback) : render(:edit)}
       end
     end
   end
@@ -72,48 +116,60 @@ class SubProjectsController < ApplicationController
     @sub_project.update_attributes(:validated_at => Time.now, :validated_by_id => current_user.id)
     @sub_project.allow
     flash[:notice] = "该项目已通过申请"
-    message = Message.new(:subject => "你为#{@sub_project.school.title}申请的公益项目已经通过了审核",
-                            :content => "<p>你好，#{@sub_project.user.login}:</p><br/><p>你为#{@sub_project.school.title}申请的公益项目“#{@sub_project.project.title}”已经通过了项目管里员的审核。</p>\
+    message = Message.new(:subject => "你为#{@school.title}申请的公益项目已经通过了审核",
+                            :content => "<p>你好，#{@sub_project.user.login}:</p><br/><p>你为#{@school.title}申请的公益项目“#{@project.title}”已经通过了项目管里员的审核。</p>\
                                          <br/><p>之后该项目的管理者会联系你，确认如何向你提供项目说明中的支持内容：</p>\
                                          <br/><p>而作为项目申请人你需要做到：</p>\
                                          <p> - 在获得支持后，按照你的执行计划按时完成项目的执行。</p>\
                                          <p> - 按照你的反馈计划，按时填写项目反馈，报告项目的进展。</p>\
-                                         <br/><p>现在就去你的项目页面看看吧。 => http://www.1kg.org/projects/#{@sub_project.project.id}/sub_projects/#{@sub_project.id} </p>\
+                                         <br/><p>现在就去你的项目页面看看吧。 => http://www.1kg.org/projects/#{@project.id}/sub_projects/#{@sub_project.id} </p>\
                                          <br/><p>多背一公斤团队</p>"
                             )
     message.author_id = 0
     message.to = [@sub_project.user]
     message.save!
-    redirect_to manage_project_path(@sub_project.project)
+    redirect_to manage_project_path(@project)
   end
 
   def refuse
     @sub_project.refuse
     @sub_project.update_attributes(:refused_at => nil, :refused_by_id => current_user.id)
     flash[:notice] = "已拒绝申请"
-    redirect_to refuse_letter_project_sub_project_url(@sub_project.project,@sub_project)
+    redirect_to refuse_letter_project_sub_project_url(@project,@sub_project)
   end
   
   def refuse_letter
-    flash[:notice] = "申请已拒绝，这是发给项目申请人的站内信，你可以修改此站内信的内容，说明申请被拒绝的原因。"
+    flash[:notice] = "申请已拒绝，这是告知项目申请人的站内信，你可以修改此站内信的内容，并说明申请被拒绝的原因。"
     @message = Message.new
     @recipient = @sub_project.user
   end
   
   def feedback
+    respond_to do |want|
+      if @sub_project.validated?
+        want.html
+      else
+        flash[:notice] = "未通过的项目不能写反馈报告"
+        want.html { redirect_to @project }
+      end
+    end   
   end
   
   private
   def manage_project_process
     @sub_project = SubProject.find(params[:id])
+    @school = @sub_project.school
+    @project = @sub_project.project
     unless current_user = @sub_project.user || current_user.admin?
       flash[:notice] = "你没有权限进行此项操作"
-      redirect_to project_path(@sub_project.project)
+      redirect_to project_path(@project)
     end
   end
 
   def check_permission
     @sub_project = SubProject.find(params[:id])
+    @school = @sub_project.school
+    @project = @sub_project.project
     if @sub_project.user == current_user
     elsif current_user.admin?
     else
@@ -122,8 +178,10 @@ class SubProjectsController < ApplicationController
     end
   end
 
-  
   def find_sub_project
     @sub_project = SubProject.validated.find(params[:id])
+    @school = @sub_project.school
+    @project = @sub_project.project
   end
+  
 end

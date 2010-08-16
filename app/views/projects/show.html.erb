@@ -14,9 +14,22 @@
   </div>
   <%end%>
   <div class="cleanfix" style="clear:both;height:20px"></div>
-  <% unless @sub_projects.empty?%>
+  <% unless @my_sub_projects.empty?%>
     <span class="span_title2">我的项目</span>
-    <%= render :partial => "sub_project", :collection => @my_sub_projects %>
+    <% @my_sub_projects.each do |s| %>
+      <div class="school_list" style="border-bottom:1px solid #ddd;padding-bottom:4px">
+        <%= main_photo_thumb(s.school) -%>       
+        <div class="school_list_meta" style="width:170px">
+          <h5><%= link_to h(s.school.title), school_url(s.school)%></h5>
+          <%= state_tag(s.state)%>
+          <br/>
+          <div style="float:right"><%= s.validated? ? link_to("更新反馈",feedback_project_sub_project_path(s.project,s),:class => "adminbutton")\
+                    : link_to("修改申请",edit_project_sub_project_path(s.project,s),:class => "adminbutton")%></div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      
+    <% end %>
     <div class="cleanfix" style="clear:both;height:20px"></div>
   <%end%>
     <span class="span_title2">参与的学校</span>
@@ -75,11 +88,10 @@
       <div class="project_info">
         <div class="title_line"><span class="span_title2">反馈要求</span></div>
         <%= "#{@project.feedback_require}<br/>" %><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%>
-      </div>
-        
+      </div>       
 </div>
+
 <%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
-
 <%= render :partial => "/comments/comments", :object => @comments%>
 <%= render :partial => "/comments/form", :locals => {:commentable => @project}%>

@@ -1,7 +1,5 @@
 <% form_for [@co_donation, @sub_donation], :html => {:multipart => true} do |f| %>
-
   <p style="margin:3px 0;">捐赠证明图片</p>
-
   <%= f.file_field :image %>
   <%= f.submit '上传' %>
 <% end %>

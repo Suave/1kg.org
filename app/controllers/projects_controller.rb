@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  
   before_filter :login_required, :except => [:show,:index] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
@@ -16,7 +17,7 @@ class ProjectsController < ApplicationController
   end
   
   def new
-      @project = Project.new(:feedback_require => "")
+    @project = Project.new(:feedback_require => "")
   end
   
   def edit

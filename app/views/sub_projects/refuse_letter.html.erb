@@ -24,7 +24,8 @@
           <p>
             <strong><%= form.label :content, "内容:" -%></strong><%= error_message_on @message, :content %>
             <br />
-            <%= form.text_area :content, :cols => 60 ,:rows => 16,:value => "#{@recipient.login}，你好：\n\n感谢你为#{@sub_project.school.title}申请了公益项目“#{@sub_project.project.title}”。\n但是很遗憾，我们没有通过你的申请，原因是：\n" %>
+            <%= form.text_area :content, :cols => 60 ,:rows => 16,\
+                :value => "#{@recipient.login}，你好：\n\n感谢你为#{@sub_project.school.title}申请了公益项目“#{@sub_project.project.title}”。\n但是很遗憾，我们没有通过你的申请。\n原因如下：\n\n.....\n(请在此补充内容)\n......\n\n你可回到项目页面修改你的申请 => http://www.1kg.org/projects/#{@project.id}" %>
           </p>
           <input name="back_url" type="hidden" value="<%= manage_project_url(@sub_project.project)%>">
           <p><%= form.submit "发送" ,:class => "surebutton" -%></p>

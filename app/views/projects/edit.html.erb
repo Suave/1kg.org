@@ -1,16 +1,17 @@
-<% @page_title = @title = "编辑公益项目" -%>
+
+<% @page_title = @title = "编辑公益项目申请表" -%>
 
 <% content_for :crumb do -%>
-<li>编辑公益项目</li>
+   <li>编辑公益项目申请表</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
 <% @page = Page.find_by_slug('project-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">公益项目说明</span>
+      <span class="span_title">公益项目说明</span>
       <div class="clearfix" style="margin-bottom:10px"></div>
-     <%= render :text => @page.body %>
+      <%= render :text => @page.body %>
   </div>
   <%end%>
 <% end -%>

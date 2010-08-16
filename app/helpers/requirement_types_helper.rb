@@ -1,7 +1,7 @@
 module RequirementTypesHelper
 
   def feedbacks_check_box(form, tag, value)
-      text << '<p>需上传照片：  '
+      text = '<p>需上传照片：  '
       text << [['物资签收单',"need_list"],['物资签收照片',"need_list_photo"],['发票/收据照片',"invoice_photo"],['感谢信照片',"letter_photo"],['项目开展照片',"project_photo"]].map do |option|
         included = value.nil? ? false : value.include?(option[0])
         check_box_tag(tag, option[0], included,:name => "project[#{option[1]}]") + 

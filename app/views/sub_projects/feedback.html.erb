@@ -2,6 +2,7 @@
 <% @title = @page_title = "项目执行报告" -%>
 <% form_for [@sub_project.project, @sub_project] do |form| %>
   <%= form.text_area :feedback, :style => 'width:580px;height:320px;', :class => "mceEditor" %>
+  <p><%= check_box_tag :is_finish, 0 %> 声明项目已经完成，通知项目发起人查看反馈。</p>
   <p><%= form.submit "确认" ,:class => "surebutton"%> <%= form.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_sub_project_url(@sub_project.project,@sub_project)}';return false" %></p>
 <% end %>
 

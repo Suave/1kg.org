@@ -1,5 +1,9 @@
 <% @page_title = @title = "#{@project.title}项目管理" %>
 
+<% content_for :sidebar do -%>
+<span class="remark"><%= link_to "&raquo;  回到#{@project.title}",project_url(@project)%></span>
+<% end %>
+
 <div class="newbox">
   <% @sub_projects.each do |sub_project|%>
   <%end%>

@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "group_boards", :force => true do |t|
-    t.integer "group_id", :null => false
+    t.integer  "group_id", :null => false
   end
 
   create_table "groups", :force => true do |t|
@@ -489,12 +489,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_replied_by_id"
   end
 
-  create_table "static_permissions", :force => true do |t|
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "identifier",  :limit => 100, :null => false
-    t.string   "description"
-  end
 
   add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
   
