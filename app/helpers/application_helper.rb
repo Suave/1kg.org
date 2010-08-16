@@ -11,7 +11,7 @@ module ApplicationHelper
   end
   
   def month_and_day(datetime)
-    "#{datetime.month}-#{datetime.day}"
+    "#{datetime.month}月#{datetime.day}日"
   end
   
   def title_suffix
