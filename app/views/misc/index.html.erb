@@ -58,7 +58,7 @@
     <% @hot_activities.each do |activity|%>
     <div style="width:120px;height:160px;padding:5px;float:left">
       <div class="hot_activity_frame"><div class="hot_activity_image"><%= link_to image_tag(activity.main_photo.public_filename(:small), :alt => activity.title,:style => "height:110px" ),activity_url(activity)%></div></div>
-      <p class="hot_activity_title"><%= link_to short_title(activity,16), activity_path(activity)%></p>
+      <p class="hot_activity_title"><%= link_to short_title(activity,15, activity_path(activity)%></p>
     </div>
   <%end%> 
   <div class="hot" style="float:right">
