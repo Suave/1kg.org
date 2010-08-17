@@ -29,31 +29,6 @@ class Admin::RequirementsController < Admin::BaseController
     @requirement = Requirement.find(params[:id])
   end
   
-  def approve
-    @requirement = Requirement.find(params[:id])
-    @requirement.update_attribute(:validated, true)
-    @requirement.update_attribute(:validated_at, Time.now)
-    @requirement.update_attribute(:status, 1)
-    #发站内信通知事批准申请
-  
-    msg = Message.new
-    msg.author_id = 0
-    msg.to = [@requirement.applicator_id]
-    msg.subject = "为#{@requirement.school.title}的项目申请已通过"
-    msg.content = "你好， #{@requirement.applicator.login}：<br/><br/>你为#{@requirement.school.title}( http://www.1kg.org/schools/#{@requirement.school.id} ) 申请的项目：#{@requirement.requirement_type.title}( http://www.1kg.org/projects/#{@requirement.requirement_type.id} )，已经得到了通过。接下来我们会给予你必要的支持，而你需要在项目结束之前完成你的执行计划，并按照项目的反馈要求提供你的报告。<br/><br/>多背一公斤团队"
-    msg.save! 
-    redirect_to admin_requirement_type_requirements_url(@requirement.requirement_type)
-    
-  end
-  
-  def reject
-    @requirement = Requirement.find(params[:id])
-    @requirement.update_attribute(:validated, false)
-    @requirement.update_attribute(:validated_at, nil)
-    @requirement.update_attribute(:status, 2)
-    redirect_to admin_requirement_type_requirements_url(@requirement.requirement_type)
-  end
-  
   def update
     @requirement = Requirement.find(params[:id])
     @requirement.update_attributes!(params[:requirement])
@@ -70,9 +45,6 @@ class Admin::RequirementsController < Admin::BaseController
   
   def show
     @requirement = Requirement.find(params[:id])
-    if @requirement.status
-      render :template => "/admin/requirements/school"
-    else
     @donations = @requirement.donations.find :all, :include => [:user, :school]
       
       respond_to do |format|
@@ -89,7 +61,7 @@ class Admin::RequirementsController < Admin::BaseController
                     :disposition => "attachment; filename=passwords.csv"
         end
       end
-    end
+    
   end
   
   private
