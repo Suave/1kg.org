@@ -17,9 +17,9 @@ class Execution < ActiveRecord::Base
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
   def validate
-    if start_at.nil? || end_at.nil? || (start_at > end_at)
-      errors.add(:time,"时间计划输入有误")
-    end
+    #if start_at.nil? || end_at.nil? || (start_at > end_at)
+    #  errors.add(:time,"时间计划输入有误")
+    #end
   end
     
   def last_updated_at
