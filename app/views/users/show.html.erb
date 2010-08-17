@@ -15,10 +15,6 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <% if false and logged_in? and current_user.admin? -%>
-  测试功能：<%= link_to "创建新公益项目", new_requirement_type_url %> | <%= link_to "所有项目", requirement_types_url %>
-  <% end -%>
-  
   <% if logged_in? -%>
       <div id="admins"><%= "你是管理员，" if current_user.admin? -%>
       <%= "#{@user.login}关注了你，" if current_user.neighbors.include?(@user)%>
