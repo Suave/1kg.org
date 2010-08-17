@@ -175,11 +175,6 @@ ActionController::Routing::Routes.draw do |map|
                                     :large_map => :get
                                   }
 
-  map.resources :requirement_types, :as => 'entrys' do |entry|
-    entry.resources :requirements
-    entry.resources :comments, :controller => 'comments', :requirements => {:commentable => 'RequirementType'}
-  end
-
   map.resources :projects, :member => {:manage => :get} do |project|
     project.resources :executions, :member => {:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
       execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
