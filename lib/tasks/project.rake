@@ -58,7 +58,7 @@ namespace :project do
           :school_id => s.school_id,
           :state =>  ['finished','validated','waiting'][s.status.to_i],
           :validated_at => s.validated_at,
-          :validated_by_id => s.validated_by_id,
+          :validated_by_id => (s.validated ? 1 :nil),
           :plan => s.apply_plan,
           :reason => s.apply_reason,
           :feedback => s.feedback,
@@ -70,7 +70,7 @@ namespace :project do
           :created_at => s.created_at,
           :last_modified_at => s.last_modified_at
         )
-        b.save
+        puts "#{b.save} #{s.id}"
         s.shares.each do |x|
           x.execution_id = b.id
           x.save
