@@ -1,0 +1,12 @@
+  <div class="school_list" style="border-bottom:1px solid #ddd;padding-bottom:4px">
+    <%= main_photo_thumb(execution.school) -%>       
+    <div class="school_list_meta" style="width:170px">
+      <h5><%= link_to h(execution.school.title), school_url(execution.school)%></h5>
+      <%= state_tag(execution.state)%>
+      <br/>
+      <%= link_to "详情",project_execution_path(execution.project,execution),:style => "float:right"%>
+      <span class="gary_span"><%= execution.created_at.to_date%> 申请</span>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  

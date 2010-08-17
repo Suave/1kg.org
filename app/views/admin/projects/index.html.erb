@@ -14,7 +14,7 @@
         <th>状态</th>
         <th width="10%">详细</th>
       </tr>
-      <% @projects.each_with_index do |project,n|%>
+        <% @projects.each_with_index do |project,n|%>
       
       <tr>
         <td><%= project.validated? ? (link_to project.title,project_path(project)) : project.title %></td>

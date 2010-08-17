@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  
   before_filter :login_required, :except => [:show,:index] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
@@ -8,13 +9,15 @@ class ProjectsController < ApplicationController
   end
   
   def show
+    @executions = @project.executions.validated
+    @my_executions = @project.executions.find(:all,:conditions => {:user_id => current_user.id}) if current_user
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
     @others = Project.validated.find(:all, :limit => 4) - [@project]
   end
   
   def new
-      @project = Project.new(:feedback_require => "")
+    @project = Project.new(:feedback_require => "")
   end
   
   def edit
@@ -40,7 +43,7 @@ class ProjectsController < ApplicationController
   end
   
   def manage
-    @sub_projects = @project.sub_projects
+    @executions = @project.executions
   end
   
   private

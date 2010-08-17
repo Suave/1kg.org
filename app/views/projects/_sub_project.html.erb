@@ -1,9 +1,0 @@
-  <div class="school_list" style="border-bottom:1px solid #ddd;padding-bottom:4px">
-    <%= main_photo_thumb(sub_project.school) -%>       
-    <div class="school_list_meta" style="width:170px">
-      <h5><%= link_to h(sub_project.school.title), project_sub_project_path(sub_project,sub_project)%></h5>
-      <%= state_tag(sub_project.state)%>
-      <br/><span class="gary_span"><%= sub_project.created_at.to_date%> 申请</span>
-    </div>
-    <div class="clearfix"></div>
-  </div>

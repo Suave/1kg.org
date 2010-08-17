@@ -3,8 +3,23 @@ namespace :project do
   desc "公益项目状态判断"
   task :update_state => :environment do
     Project.state_is("validated").map{|p| p.start if 1.day.from_now > p.start_at}
-    Project.state_is("going").map{|p| p.finish if 1.day.from_now > p.end_at}
-    SubProject.state_is("validated").map{|p| p.start if 1.day.from_now > p.project.start_at}
+    Project.state_is("going").each do |p|
+      if 1.day.from_now > p.end_at
+        p.finish
+        p.executions.validated.map {|e| e.finish}
+        message = Message.new(:subject => "你发起的公益项目#{p.title}已经结束",
+                              :content => "<p>你好，#{@project.user.login}:</p><br/><p>按照你的时间计划，你发起的公益项目#{p.title}已经结束了。</p>\
+                                           <br/><p>至此所有的公益项目执行也都结束了，请查看每个项目的反馈内容来了解项目的执行情况。 => http://www.1kg.org/projects/#{@project.id}</p>\
+                                           <br/>再次感谢你发起的公益项目，希望执行的结果能够让你满意。\
+                                           <br/><br/><p>多背一公斤团队</p>"
+                                )
+        message.author_id = 0
+        message.to = [@project.user]
+        message.save!
+        
+      end
+    end
+    Execution.state_is("validated").map{|p| p.start if 1.day.from_now > p.project.start_at}
   end  
 
   desc "公益项目数据迁移"
@@ -37,13 +52,12 @@ namespace :project do
       end
     
       r.requirements.each do |s|
-        b = SubProject.new(
+        b = Execution.new(
           :project_id => a.id,
           :user_id => s.applicator_id,
           :school_id => s.school_id,
           :state =>  ['finished','validated','waiting'][s.status.to_i],
           :validated_at => s.validated_at,
-          :validated => s.validated,
           :validated_by_id => s.validated_by_id,
           :plan => s.apply_plan,
           :reason => s.apply_reason,
@@ -58,12 +72,12 @@ namespace :project do
         )
         b.save
         s.shares.each do |x|
-          x.sub_project_id = b.id
+          x.execution_id = b.id
           x.save
         end
         s.comments.each do |c|
           c.commentable_id = b.id
-          c.commentable_type = 'SubProject'
+          c.commentable_type = 'Execution'
           c.save
         end
       end

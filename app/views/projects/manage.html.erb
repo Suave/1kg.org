@@ -1,7 +1,11 @@
 <% @page_title = @title = "#{@project.title}项目管理" %>
 
+<% content_for :sidebar do -%>
+<span class="remark"><%= link_to "&raquo;  回到#{@project.title}",project_url(@project)%></span>
+<% end %>
+
 <div class="newbox">
-  <% @sub_projects.each do |sub_project|%>
+  <% @executions.each do |execution|%>
   <%end%>
 </div>
 
@@ -14,7 +18,7 @@
         <th>状态</th>
         <th style="width:66px">详细/管理</th>
       </tr>
-      <% @sub_projects.each_with_index do |s,n|%>
+      <% @executions.each_with_index do |s,n|%>
       
       <tr>
         <td><%= (link_to s.school.title,school_path(s)) %></td>
@@ -35,8 +39,8 @@
            <p><span style="font-weight:bold">申请人电话：</span>  <%= s.telephone%></p>
            <p><span style="font-weight:bold">执行时间：</span><%= "#{s.start_at.to_date} 开始至  #{s.end_at.to_date} 结束"%></p>
            <div style="float:right">
-             <%=  (link_to "通过申请",validate_project_sub_project_url(s.project,s),:class => "adminbutton",:method => :put) unless s.validated? %>
-             <%=  (link_to "拒绝申请",refuse_project_sub_project_url(s.project,s),:class => "adminbutton",:method => :put) unless s.refused? %>
+             <%=  (link_to "通过申请",validate_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.validated? %>
+             <%=  (link_to "拒绝申请",refuse_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.refused? %>
            </div>
         </td>
       </tr>

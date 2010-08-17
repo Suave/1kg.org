@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "group_boards", :force => true do |t|
-    t.integer "group_id", :null => false
+    t.integer  "group_id", :null => false
   end
 
   create_table "groups", :force => true do |t|
@@ -267,7 +267,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
-    t.integer  "sub_project_id"
+    t.integer  "execution_id"
     t.integer  "co_donation_id"
   end
   
@@ -486,7 +486,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
-    t.integer  "sub_project_id"
+    t.integer  "execution_id"
     t.integer  "user_id",                                     :null => false
     t.integer  "hits",                     :default => 0,     :null => false
     t.integer  "comments_count",           :default => 0,     :null => false
@@ -589,7 +589,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "auto_fill"
   end
 
-  create_table "sub_projects", :force => true do |t|
+  create_table "executions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
