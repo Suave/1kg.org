@@ -8,7 +8,7 @@ namespace :project do
         p.finish
         p.executions.validated.map {|e| e.finish}
         message = Message.new(:subject => "你发起的公益项目#{p.title}已经结束",
-                              :content => "<p>你好，#{@project.user.login}:</p><br/><p>按照你的时间计划，你发起的公益项目#{p.title}已经结束了。</p>\
+                              :content => "<p>你好，#{p.user.login}:</p><br/><p>按照你的时间计划，你发起的公益项目#{p.title}已经结束了。</p>\
                                            <br/><p>至此所有的公益项目执行也都结束了，请查看每个项目的反馈内容来了解项目的执行情况。 => http://www.1kg.org/projects/#{@project.id}</p>\
                                            <br/>再次感谢你发起的公益项目，希望执行的结果能够让你满意。\
                                            <br/><br/><p>多背一公斤团队</p>"
