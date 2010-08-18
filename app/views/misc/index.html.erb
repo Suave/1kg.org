@@ -52,44 +52,19 @@
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
-<div class="hot_box">
-  <span class="span_title">新提交学校</span>
-  <div class="cleanfix" style="height:3px"></div>
-  <% @new_schools.each do |school|%>
-  <div class="hot">
-    <%= main_photo_thumb(school) -%>       
-    <div class="school_list_meta" style="width:155px;height:80px">
-      <h5><%= link_to short_title(school,10), school_path(school)%></h5>
-      <span><% if school.geo.parent %><%= link_to school.geo.parent.name.to_s,'/geos/'+school.geo.parent.id.to_s %> > <% end %><%= link_to school.geo.name.to_s,'/geos/'+school.geo.id.to_s %></span>
-      <br/><span>学校需要: <%= school.need.tag_list.sort_by{rand}[0,3].join(' ')%> ...</span>
-    </div>  
-  </div>
-  <%end%>
-  <div class="hot" style="float:right">
-    <div class="channel">
-        <%= link_to "&raquo; 学校频道",schools_url,:style=> "font-size:14px;font-weight:bold" %>
-        <br/>　共有<%= @school_count%>所学校</div>
-  </div>
-  <div  style="clear:both"></div>
-</div> 
-
 <div class="hot_box" style="height:210px">
   <span class="span_title">最受欢迎活动</span>
   <div class="cleanfix" style="height:3px"></div>
     <% @hot_activities.each do |activity|%>
-      <div class="activity_list">
-    <%= topic_photo_thumb(activity) -%>       
-    <div class="activity_list_meta" style="width:172px;height:90px">
-    <h5><%= link_to short_title(activity), activity_path(activity)%></h5>
-    <span><%= %w(公益旅游 物资募捐 支教活动 其他活动 同城活动 网上活动)[activity.category] %></span><br/>
-    <span><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>
+    <div style="width:120px;height:160px;padding:5px;float:left">
+      <div class="hot_activity_frame"><div class="hot_activity_image"><%= link_to image_tag(activity.main_photo.public_filename(:small), :alt => activity.title,:style => "height:110px" ),activity_url(activity)%></div></div>
+      <p class="hot_activity_title"><%= link_to short_title(activity,15), activity_path(activity)%></p>
     </div>
-  </div>
   <%end%> 
   <div class="hot" style="float:right">
     <div class="channel">
-        <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:14px;font-weight:bold" %>
-        <br/><%= @activity_count%>个活动在进行</div>
+      <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:14px;font-weight:bold" %>
+      <br/><%= @activity_count%>个活动在进行</div>
   </div>
   <div  style="clear:both"></div>
 </div> 

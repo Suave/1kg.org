@@ -56,7 +56,13 @@
         </ul>
         <div class="clearfix" style="height:10px"></div>
         <div class="panel setting">
+          <div id="all">
+            <%= render :partial => "/users/group_topics", :object => @recent_topics_in_all_groups %>
+             <p class="remark">&raquo; <%= link_to "更多话题", topics_url%></p>
+          </div>
+
           <% if logged_in? %>
+          
           <div id="my">
             <%= render :partial => "/users/group_topics", :object => @recent_topics %>
             <p class="remark">&raquo; <%= link_to "更多话题", group_topics_user_url(current_user) %></p>
@@ -73,10 +79,7 @@
           </div>
           <% end -%>
           
-          <div id="all">
-            <%= render :partial => "/users/group_topics", :object => @recent_topics_in_all_groups %>
-             <p class="remark">&raquo; <%= link_to "更多话题", topics_url%></p>
-          </div>
+          
         </div>
       </div>
       <script type="text/javascript">

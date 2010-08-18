@@ -1,16 +1,16 @@
 <div class=<%= (defined? detail) ? "donantion_detail" : "activity_list"%>>
     <div class="project_image_frame">
-        <img class="project_image" src="<%= co_donation.image(:co_donation_avatar) %>"/>
+        <%= link_to (image_tag (co_donation.image(:co_donation_avatar)),:class => "project_image"),co_donation%>
     </div>
-    <div style="float:left;margin-left:10px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
-    <h5 style="font-size:13px"><%= link_to co_donation.title, co_donation %></h5>
-    <span class="gary_span"><%= date_for_short co_donation.end_at %>截止</span>
-    <br/>
-    <% if co_donation.done%>
-      <h5>达成捐赠目标</h5>
-    <% else %>
-      <h5>还需要 <%= co_donation.still_need%> 件</h5>
-    <% end %>
+    <div style="float:left;margin-left:10px;height:80px;<%= (defined? detail) ? 'width:196px' : 'width:176px'%>">
+        <h5 style="font-size:13px;height:36px"><%= link_to co_donation.title, co_donation %></h5>
+        
+        <% if co_donation.done%>
+            <h5>达成捐赠目标</h5>
+        <% else %>
+            <h5>还需要 <%= co_donation.still_need%> 件</h5>
+        <% end %>
+        
     <%= progressbar co_donation.matched_percent, :generate_css => true %><span><%= co_donation.number%>/<%= co_donation.goal_number%></span><br/>
     </div>
     <% if (defined? detail) %>
