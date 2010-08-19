@@ -495,6 +495,9 @@ class SchoolsController < ApplicationController
         if next_step
           next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(new_school_url(:step => next_step,:id => @school.id,:new => true))
         else
+          if current_step == "need"
+            @school.need.update_attributes!(:updated_at => Time.now)
+          end
           redirect_to(edit_school_url(@school, :step => current_step))
         end
       
