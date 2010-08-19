@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string   "longitude"
     t.integer  "marked_by_id"
     t.datetime "marked_at"
+    t.datetime "updated_at"
   end
 
   create_table "school_boards", :force => true do |t|

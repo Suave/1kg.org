@@ -497,6 +497,8 @@ class SchoolsController < ApplicationController
         else
           if current_step == "need"
             @school.need.update_attributes!(:updated_at => Time.now)
+          elsif current_step == "basic"
+            @school.basic.update_attributes!(:updated_at => Time.now)
           end
           redirect_to(edit_school_url(@school, :step => current_step))
         end

@@ -2,7 +2,6 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
-  <%= javascript_include_tag "jquery.timeago.js" %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
 <% end %>
@@ -17,7 +16,6 @@
       function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
     );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-    $("#last_time").text(jQuery.timeago("<%= @school.last_modified_at %>"));
   });
 </script>
 
@@ -52,7 +50,6 @@
   </div>
  
 
-
   <div class="school_box">                             
     <% if  @school.intro.nil? || @school.intro.empty? %>
        <%if logged_in? &&  @school.edited_by(current_user) %>
@@ -71,13 +68,17 @@
     <% end -%>
     <% unless needlist(@school).blank? %>
     <div style="margin-bottom:-20px">
-      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
+      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要<br/></p>
       <p style="float:left;width:540px;">
       <%= needlist(@school)%>
       </p>      
-      <div class="clearfix" style="clear:both;height:10px"></div>
-      <%= "<div class='flashNotice'>学校需求已经超过三个月没有更新，如果你能联系到学校，请 #{link_to "更新学校需求",edit_school_url(@school,:step => 'need')}。  </div>" if (@school.need.updated_at||@school.last_modified_at||@school.created_at) < 3.month.ago%>
-      <div class="clearfix" style="clear:both;height:10px"></div>
+      <div class="clearfix" style="clear:both;height:0px"></div>
+      <% if (@school.need.updated_at || @school.last_modified_at || @school.created_at) < 3.month.ago %>
+        <div class='flashNotice'>学校需求已经超过三个月没有更新，如果你能联系到学校，请 <%= link_to "更新学校需求",edit_school_url(@school,:step => 'need')%>  </div>
+      <% else %>
+        <div style="float:right;margin:-10px 15px 15px 0"><%= link_to "更新需求",edit_school_url(@school,:step => 'need'),:class=> "adminbutton"%> </div>
+      <% end %>
+      <div class="clearfix" style="clear:both;height:20px"></div>
     </div>
     <%end%>
     <a class="more" name='#morecontact'>更多学校信息</a>
@@ -118,9 +119,11 @@
       <% unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
       
-    
-  <%= "<div class='flashNotice'>学校信息已经超过半年没有更新，如果你能联系到学校，请 #{link_to "更新学校信息",edit_school_url(@school)}。  </div>" if @school.last_modified_at < 6.month.ago%>
-  
+    <% if (@school.basic.updated_at || @school.last_modified_at || @school.created_at)  < 6.month.ago  %>
+      <div class='flashNotice'>学校基本信息已经超过半年没有更新，如果你能联系到学校，请 <%= link_to "更新学校信息",edit_school_url(@school) %>。  </div>
+    <% else %>
+      <div style="float:right"><%= link_to "更新信息",edit_school_url(@school),:class=> "adminbutton"%> </div>
+    <% end %>
     </div>
 
   </div>
