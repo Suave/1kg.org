@@ -2,6 +2,7 @@
   <%= javascript_include_tag 'jquery.prettyPhoto' %>
   <%= stylesheet_link_tag 'prettyPhoto' %>
   <%= stylesheet_link_tag 'school' %>
+  <%= javascript_include_tag "jquery.timeago.js" %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
 <% end %>
@@ -16,6 +17,7 @@
       function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
     );
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    $("#last_time").text(jQuery.timeago("<%= @school.last_modified_at %>"));
   });
 </script>
 
@@ -23,6 +25,7 @@
 <% end -%>
   <div id="meta">
     <div class="meta_left">
+      
       <% if @school.main_photo -%>
       <%= link_to image_tag(@school.main_photo.public_filename(:small), :alt => @school.title), @school.main_photo.public_filename(:medium),:class => "school_main" %>
       <%else%>
@@ -49,6 +52,7 @@
   </div>
 
 
+
   <div class="school_box">                             
     <% if  @school.intro.nil? || @school.intro.empty? %>
        <%if logged_in? &&  @school.edited_by(current_user) %>
@@ -69,28 +73,27 @@
     <div style="margin-bottom:-20px">
       <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
       <p style="float:left;width:540px;">
-    <%= needlist(@school)%>
-    </p>
-    <div class="clearfix" style="clear:both;height:20px"></div>
+      <%= needlist(@school)%>
+      </p>      
+      <div class="clearfix" style="clear:both;height:10px"></div>
+      <%= "<div class='flashNotice'>学校需求已经超过三个月没有更新，如果你能联系到学校，请 #{link_to "更新学校需求",edit_school_url(@school,:step => 'need')}。  </div>" if (@school.need.updated_at||@school.last_modified_at||@school.created_at) < 3.month.ago%>
+      <div class="clearfix" style="clear:both;height:10px"></div>
     </div>
     <%end%>
-    
-      <a class="more" name='#morecontact'>更多学校信息</a>
-    <div id="morecontact" style="display:none;padding:20px 0 20px 60px">
-    
-  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
-
-  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
-  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
-  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
-  
-  <% if @local && @local.ngo_support != 2 -%>
-  <p class="content_text">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
-  </p>
-  <%end%>
-  <br/>
+    <a class="more" name='#morecontact'>更多学校信息</a>
+    <div id="morecontact">
+      <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+      <p class="content_text">学校有
+      <%= "#{h @basic.level_amount}个年级," unless @basic.level_amount.blank?%>
+      <%= "#{h @basic.class_amount}个班级," unless @basic.class_amount.blank?%>
+      <%= "#{h @basic.student_amount}名学生," unless @basic.student_amount.blank?%>
+      <%= "#{h @basic.teacher_amount}名老师。" unless h @basic.teacher_amount.blank?%></p>
+      <% if @local && @local.ngo_support != 2 -%>
+      <p class="content_text">
+      <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
+      </p>
+      <%end%>
+      <br/>
     <% unless @basic.master.blank? %><p class="content_text">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
     <% if @contact && !@contact.name.blank? %>
       <p class="content_text">学校的联系人是 <%= h @contact.name %>
@@ -109,10 +112,14 @@
       <% end %>
       <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
       <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
-           。</p>
+          。</p>
       <% if @finder.survey_at %><p class="content_text">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
-      <%unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+      <% unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
+      
+    
+  <%= "<div class='flashNotice'>学校信息已经超过半年没有更新，如果你能联系到学校，请 #{link_to "更新学校信息",edit_school_url(@school)}。  </div>" if @school.last_modified_at < 6.month.ago%>
+  
     </div>
   </div>
   

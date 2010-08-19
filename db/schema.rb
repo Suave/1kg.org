@@ -406,6 +406,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.string  "medicine"
     t.string  "hardware"
     t.string  "other"
+    t.datetime "updated_at"
   end
 
   create_table "school_snapshots", :force => true do |t|
