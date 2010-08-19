@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_attached_file :image, :styles => { :project_avatar => "60x60>", :project_logo => "200x200>" }
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
-  named_scope :not_validated, :conditions => ["state in (?)",["waiting","refused"]]
+  named_scope :not_validated, :conditions => {:state => "waiting"}
   named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
   validates_presence_of :description
   def clean_html
