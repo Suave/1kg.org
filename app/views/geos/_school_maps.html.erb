@@ -1,7 +1,6 @@
 <% content_for :tail do -%>
-  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
-  
+
   <% # 如果提供城市，则只显示此城市的学校 %>
   <% if @city %>
     <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
@@ -16,33 +15,16 @@
   <%= javascript_include_tag 'markerclusterer_packed' %>
 
   <script type="text/javascript">
-    google.load('search', '1');
-    
     var map;
-    
+  
     function initialize() {
       if (GBrowserIsCompatible()) {
-        var mapContainer = document.getElementById('map_div');
-        var controlContainer = document.getElementById('searchControl'); // build the control div
-        controlContainer.style.width = '600px'; // set the control width
-        map = new google.maps.Map2(mapContainer);
-
-        
-        //map = new GMap2(document.getElementById("map_div"));
+        map = new GMap2(document.getElementById("map_div"));
         map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
         map.addControl(new GLargeMapControl());
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
-
-        var searchControl = new google.search.SearchControl();
-        searcher = new google.search.LocalSearch(); // create the object
-        searcher.setCenterPoint(map); // bind the searcher to the map
         
-        var options = new google.search.SearcherOptions(); // create the object
-        options.setExpandMode(google.search.SearchControl.EXPAND_MODE_OPEN);
-        searchControl.addSearcher(searcher , options);
-        searchControl.draw(controlContainer);
-
         school_icon = new GIcon();
         school_icon.image = "/images/m0.png";
         school_icon.shadow = null;
@@ -51,36 +33,22 @@
         school_icon.iconAnchor = new GPoint(8,10 );
         school_icon.infoWindowAnchor = new GPoint(8, 6); 
         var markers = [];
-                 
+ 
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
           var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
-                
+
           GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
+          
           markers.push(marker);
         }
-                
-                  
+
+        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 8});
+      
         <% if @school %>
           schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
         <% end %>
-        
-        searchControl.setResultSetSize(8);
-        searchControl.setSearchCompleteCallback(searcher , function() {
-          var results = searcher.results; // Grab the results array
-          for (var i = 0; i < results.length; i++) {
-            var result = results[i]; // Get the specific result
-            var markerLatLng = new GLatLng(parseFloat(result.lat),
-                                                      parseFloat(result.lng));
-            var marker = new GMarker(markerLatLng, {icon: school_icon, title: 'test'}); // Create the marker
-            marker.bindInfoWindow(result.html.cloneNode(true));
-            result.marker = marker; // bind the marker to the result
-            map.addOverlay(marker); // add the marker to the map
-          }
-        });
-        
-        searchControl.execute('小学');
-        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 8});
+        //var markerCluster = new MarkerClusterer(map, markers);
       }
     }
     window.onload = initialize;

@@ -19,6 +19,7 @@ class GeosController < ApplicationController
   end
   
   def show
+
     @city = @province = params[:id] ? Geo.find( params[:id]) : nil
     @cities  = Geo.roots
     @map_center = @province ? [@province.latitude,@province.longitude,7] : Geo::DEFAULT_CENTER
@@ -33,6 +34,7 @@ class GeosController < ApplicationController
       else
         format.html
       end
+
     end
   end
   
