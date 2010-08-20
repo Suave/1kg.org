@@ -1,26 +1,17 @@
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>选择你要去的省市</h3>
       <div class="contents">
         <% geos.each do |geo| -%>
           <%= link_to_function geo.name, "provinceClickFn(new GLatLng(#{geo.latitude.to_f}, #{geo.longitude.to_f}), #{geo.id})", :style => "font-size:14px" %>
         <% end -%>
       </div>
-    </div>
-  </div>
-</div>
 
 <script type="text/javascript" charset="utf-8">
   // zoom map to the province user choosed, and update school lists
   function provinceClickFn(latlng, id)
   {
-    map.setCenter(latlng, 7);
-    jQuery.get('/geos/' + id + '/schools', {}, function(data){
-      jQuery('#schools').html(data);
-    });
-    jQuery.get('/geos/box/' + id, {}, function(data){
-      jQuery('#geobox').html(data);
-    });
+    map.setCenter(latlng, 8);
+    $('#loading').show();
+    jQuery.ajax({url:('/geos/' + id + '/schools'), success: function(data){
+      jQuery('#schools').html(data);$('#loading').hide();
+    }});
   }
 </script>

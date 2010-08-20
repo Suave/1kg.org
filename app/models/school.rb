@@ -167,10 +167,11 @@ class School < ActiveRecord::Base
   
     # ToDo: 需要和at以及locate scope合并
     def near_to(geo, limit = 0)
-      params = {:order => "updated_at desc"}
+      params = {:order => "last_month_karma desc"}
       params[:limit] = limit unless limit.zero?
       
-      if geo.leaf?
+      if  geo.nil?
+      elsif geo.leaf?
         params[:conditions] = ['geo_id = ?', geo.id]
       else
         ids =[geo.id]
