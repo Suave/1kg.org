@@ -1,9 +1,14 @@
 <% @page_title = "按城市查找" -%>
+<% content_for :sidebar do -%>
+   <style type＝"text/css">#map_div{height:360px}</style>
+<% end -%>
 
 <% content_for :sidebar do -%>
-  <%= render :partial => "/schools/submit" %>
-  <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @cities} %></div>
-  <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
+  <span class="span_title">学校列表</span><br/>
+  <div id="loading" style="position:absolute;margin:160px 100px;padding:3px 12px;background-color:#333;color:#fff;display:none">读取中...</div>
+  <div id="schools" class="contents">
+     <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
+  </div>
 <% end -%>
 
 <% content_for :crumb do -%>
@@ -13,27 +18,13 @@
   </ul>
 <% end -%>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h2><%= @province ?  @province.name : "全国"%></h2>
-      <div class="contents">
-        <%= render :partial => 'school_maps' %>
-      </div>
-    </div>
-  </div>
+<div class="newbox">
+    
+    <span class="span_title"><%= @province ?  @province.name : "全国" %></span> <%=link_to "全国",geos_url if @province%><br/>
+    <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @province.children} if @province%></div>
+      
+    <%= render :partial => 'school_maps' %>  
+    <%= render :partial => 'provinces' %>
+    <div class="clearfix" style="height:10px;clear:both"> </div>
+    
 </div>
-
-<%if @province %>
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function()
-  {
-    jQuery.get('/geos/' + <%=@province.id.to_s%> + '/schools', {}, function(data){
-      jQuery('#schools').html(data);
-    });
-    jQuery.get('/geos/box/' + <%=@province.id.to_s%>, {}, function(data){
-      jQuery('#geobox').html(data);
-    });
-  })
-</script>
-<%end%>

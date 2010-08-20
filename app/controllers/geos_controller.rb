@@ -1,21 +1,18 @@
 class GeosController < ApplicationController
   def index
     @province = params[:province]? Geo.find( params[:province]) : nil
-    @cities  = Geo.roots
     @map_center = @province ? [@province.latitude,@province.longitude,7] : Geo::DEFAULT_CENTER
-    @schools = School.validated.paginate(:page => params[:page], :per_page => 10)
+    @schools = School.near_to(@province).paginate(:page => params[:page], :per_page => 9)
     
     respond_to do |format|
       if !params[:page].blank?
-        format.html {render :action => 'schools', :layout => false}
+        @schools = (@province ? School.near_to(@province): School.validated ).paginate(:page => params[:page] || 1,
+                                      :per_page => 9)
+        format.html {render :template => '/geos/_school_box', :layout => false}
       else
         format.html
       end
     end
-  end
-  
-  def all
-    redirect_to geos_path
   end
   
   def show
@@ -80,8 +77,8 @@ class GeosController < ApplicationController
     respond_to do |format|
       format.html do
         @schools = @all_schools.paginate(:page => params[:page] || 1,
-                                      :per_page => 10)
-        render :layout => false
+                                      :per_page => 9)
+        render :template => "/geos/_school_box" ,:layout => false
       end
       
       format.json do

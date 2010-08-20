@@ -56,9 +56,8 @@ ActionController::Routing::Routes.draw do |map|
   end
     
   map.resources :geos, :collection => { :search => :get, 
-                                        :all => :get },
+                                       },
                        :member     => { :schools => :get, 
-                                        :schools_map => :get, 
                                         :shares => :get, 
                                         :users => :get }
                            

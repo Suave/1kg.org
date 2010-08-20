@@ -38,7 +38,7 @@ module ApplicationHelper
     str = will_paginate(paginator, options)
     if str != nil
       str.gsub(/href="(.*?)"/) do
-        %(href='#' onclick="jQuery.get('#{(url ? url + $1.sub(/[^\?]*/, '') : $1)}', null, function(data) {jQuery('##{update}').html(data)}); return false;")
+        %(href='#' onclick="$('#loading').show();jQuery.ajax({url:'#{(url ? url + $1.sub(/[^\?]*/, '') : $1)}', success: function(data) {jQuery('##{update}').html(data);$('#loading').hide();}}); return false;")
       end
     end
   end

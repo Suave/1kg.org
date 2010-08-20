@@ -14,31 +14,23 @@
 
 <% content_for :sidebar do -%>
 
-<div class="newbox"><%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
+<div class="newbox">
+  <%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
 
   <div id="records" class="newbox">
     <div id="record_tabs">
           <span class="span_title" style="margin-right:8px">学校动态</span>
           <ul class="tab">
               <li class="tabs_more"><a href="#by_karma">最活跃</a></li>
-              <li class="tabs_more"><a href="#by_new">最新</a></li>
+              <li class="tabs_more"><a href="#by_update">最新</a></li>
           </ul>
           <div class="clearfix" style="height:10px;clear:both"> </div>
           <div id="by_karma">
-             <% School.top10_popular.include([:main_photo,:geo]).each do |school| -%>
-              <div style="padding:5px;float:left">
-                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
-                <div style="text-align:center;width:80px;height:60px"><%= link_to short_title(school,10),school_url(school)%><br/>[<%= school.geo.parent.name.to_s if school.geo.parent%><%= school.geo.name.to_s%>]</div>  
-              </div>
-             <% end %>
+            <%= render :partial => '/schools/school', :collection => School.top10_popular.include([:main_photo,:geo]) %></div>
           </div>
-          <div id="by_new">
-             <% School.recent_upload.include([:main_photo,:geo]).each do |school| -%>
-              <div style="padding:5px;float:left">
-                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
-                <div style="text-align:center;width:80px;height:60px"><%= link_to short_title(school,10),school_url(school)%><br/>[<%= school.geo.parent.name.to_s if school.geo.parent%><%= school.geo.name.to_s%>]</div>  
-              </div>
-             <% end %>
+          <div id="by_update">
+             <%= render :partial => '/schools/school', :collection => School.recent_upload.include([:main_photo,:geo])%></div>
+              
           </div>
           <div class="cleanfix" style="clear:both;height:20px"></div>
     </div>
