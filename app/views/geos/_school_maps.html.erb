@@ -1,10 +1,9 @@
 <% content_for :tail do -%>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 
-  <% # 如果提供城市，则只显示此城市的学校 %>
   <% if @city %>
     <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
-  <% elsif @search %>
+  <% elsif @controller.controller_name == "search" %>
     <script type="text/javascript">
       var schools = <%= @json.to_json %>;
     </script>

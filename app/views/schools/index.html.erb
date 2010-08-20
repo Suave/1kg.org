@@ -15,15 +15,38 @@
 <% content_for :sidebar do -%>
 
 <div class="newbox"><%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
-<div class="newbox">
-      <span class="span_title">和学校相关的活动</span>
-      <div class="clearfix" style="height:10px"> </div>
-      <div class="contents">
-          <%= render :partial => "/shared/activity", :collection => @activities_for_school,:locals => {:school => true} unless @activities_for_school.nil? %>
-          <div class="remark"><%= link_to '&raquo; 查看更多',with_school_activities_url,:target => "_blank" %></div>
-      </div>
-      <div class="clearfix" style="height:10px;clear:both"> </div>
-</div>
+
+  <div id="records" class="newbox">
+    <div id="record_tabs">
+          <span class="span_title" style="margin-right:8px">学校动态</span>
+          <ul class="tab">
+              <li class="tabs_more"><a href="#by_karma">最活跃</a></li>
+              <li class="tabs_more"><a href="#by_new">最新</a></li>
+          </ul>
+          <div class="clearfix" style="height:10px;clear:both"> </div>
+          <div id="by_karma">
+             <% School.top10_popular.include([:main_photo,:geo]).each do |school| -%>
+              <div style="padding:5px;float:left">
+                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
+                <div style="text-align:center;width:80px;height:60px"><%= link_to short_title(school,10),school_url(school)%><br/>[<%= school.geo.parent.name.to_s if school.geo.parent%><%= school.geo.name.to_s%>]</div>  
+              </div>
+             <% end %>
+          </div>
+          <div id="by_new">
+             <% School.recent_upload.include([:main_photo,:geo]).each do |school| -%>
+              <div style="padding:5px;float:left">
+                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
+                <div style="text-align:center;width:80px;height:60px"><%= link_to short_title(school,10),school_url(school)%><br/>[<%= school.geo.parent.name.to_s if school.geo.parent%><%= school.geo.name.to_s%>]</div>  
+              </div>
+             <% end %>
+          </div>
+          <div class="cleanfix" style="clear:both;height:20px"></div>
+    </div>
+    <script type="text/javascript">
+            jQuery("#record_tabs").tabs()
+        </script>
+  </div>
+
 
 <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
@@ -31,89 +54,17 @@
 
 <div class="newbox" >
       <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
-      <span class="span_title">地图查询学校</span> <%=link_to "全国地图","/geos"%>
-      <div class="clearfix" style="clear:both;height:20px"> </div>
-      <div class="zone">
-        <h6>华北地区</h6>
-        <%= link_to "北京","/geos?province=1" %>
-        <%= link_to "天津","/geos?province=2" %>
-        <%= link_to "河北","/geos?province=3" %>
-        <%= link_to "山西","/geos?province=15" %>
-        <%= link_to "内蒙古","/geos?province=27" %>
-      </div>
-        
-      <div class="zone" style="width:180px;">
-        <h6>东北地区</h6>  
-        <%= link_to "辽宁","/geos?province=40" %>
-        <%= link_to "吉林","/geos?province=55" %>
-        <%= link_to "黑龙江","/geos?province=65" %>
-      </div>
-      
-      <div class="zone" style="width:240px;">
-        <h6>华东地区</h6>
-        <%= link_to "上海","/geos?province=79" %>
-        <%= link_to "江苏","/geos?province=80" %>
-        <%= link_to "浙江","/geos?province=94" %>
-        <%= link_to "安徽","/geos?province=106" %>
-        <%= link_to "福建","/geos?province=124" %>
-        <%= link_to "江西","/geos?province=134" %>
-        <%= link_to "山东","/geos?province=146" %>
-      </div>
+      <span class="span_title">学校</span> <%=link_to "按省市查询","/geos"%>
+       <%= render :partial => '/geos/school_maps' %>
       <div class="clearfix" style="clear:both;"> </div>
-      <div class="zone">
-        <h6>华中地区</h6>
-        <%= link_to "河南","/geos?province=164" %>
-        <%= link_to "湖北","/geos?province=183" %>
-        <%= link_to "湖南","/geos?province=201" %>
-      </div>
-      
-      <div class="zone" style="width:180px;">
-        <h6>华南地区</h6>
-        <%= link_to "广东","/geos?province=216" %>
-        <%= link_to "广西","/geos?province=238" %>
-        <%= link_to "海南","/geos?province=253" %>
-      </div>
-      
-      <div class="zone" style="width:240px">
-        <h6>西南地区</h6>
-        <%= link_to "重庆","/geos?province=273" %>
-        <%= link_to "四川","/geos?province=274" %>
-        <%= link_to "贵州","/geos?province=296" %>
-        <%= link_to "云南","/geos?province=306" %>
-        <%= link_to "西藏","/geos?province=323" %>
-      </div>
-      <div class="clearfix" style="clear:both;"> </div>
-      <div class="zone">
-        <h6>西北地区</h6>
-        <%= link_to "陕西","/geos?province=331" %>
-        <%= link_to "甘肃","/geos?province=342" %>
-        <%= link_to "青海","/geos?province=357" %>
-        <%= link_to "宁夏","/geos?province=366" %>
-        <%= link_to "新疆","/geos?province=372" %>
-      </div>
-      
-      <div class="zone" style="width:180px;">
-        <h6>港澳台地区</h6>
-        <%= link_to "香港","/geos?province=391" %>
-        <%= link_to "澳门","/geos?province=392" %>
-        <%= link_to "台湾","/geos?province=393" %>
-      </div>
-      
-      <div  style="width:220px;height:40px;float:left;background-color:#f0f0f0;padding:6px 0 10px 15px">
-      <span style="font-size:12px;color:#666;font-weight:bold">城市快速搜索</span>
-        <% form_tag search_geos_url, :method => :get do -%>
-          <%= text_field_tag 'city', "", {:size => "16", :class => "form-text",:style => "width:160px"} %> <%= submit_tag "查找", :class => "form-submit" %>
-        <% end -%>
-      </div>
-      <div class="clearfix" style="clear:both;"> </div>
-      <div><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
+      <div style="text-align:right"><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
 </div>
 
 <div class="clearfix" style="clear:both;"> </div>
 
 <div class="newbox">
       <div class="clearfix"></div>
-      <span class="span_title">可为学校申请的项目</span>
+      <span class="span_title">学校公益项目</span>
       <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
@@ -141,22 +92,6 @@
         <%= render :partial => '/shared/topic', :collection => @recent_school_comments %>
       </div>
       <div class="remark"><%= link_to "&raquo; 更多学校话题", comments_schools_url %></div>
-</div>
-
-<div class="newbox">
-      <span class="span_title">最新学校照片</span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>
-      <div class="contents clearfix">
-        <%= render :partial => "/shared/photo", :collection => @photos %>
-      </div>
-</div>
-
-<div class="newbox">
-      <span class="span_title">最活跃的学校</span>
-      <div class="clearfix" style="height:10px"></div>
-      <div class="contents clearfix">
-        <%= render :partial => '/shared/school', :collection => School.top10_popular.include([:main_photo]) %>
-      </div>
 </div>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
