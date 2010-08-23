@@ -808,6 +808,8 @@ body.schools form legend {
 }
 
 
+.small_school{padding:5px;float:left}
+.small_school p{text-align:center;width:80px;height:60px}
 /* =同城
  * -------------------------------------------------------------------------- */
 #page-title h1 {
@@ -1106,9 +1108,9 @@ h3.title {
 .sbtn {border:1px solid black; background:orange; padding:2px;}
 
 /* map view, by yuanyi */
-#map_div { margin: 1em 0; width: 600px; height: 400px; }
+#map_div { margin: 1em 0; width: 640px; height: 320px; }
 #map_div span { display: none; }
-#map_popup {width: 400px; float: left; margin-bottom: 20px;}
+#map_popup {width: 320px; float: left; margin-bottom: 20px;}
 #map_popup h3{background: none; margin:0; padding:0;}
 #map_popup #summary { width: 250px; float: left;}
 #map_popup img { width: 130px; margin-left: 20px;}

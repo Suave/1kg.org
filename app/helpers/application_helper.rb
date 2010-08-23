@@ -38,7 +38,7 @@ module ApplicationHelper
     str = will_paginate(paginator, options)
     if str != nil
       str.gsub(/href="(.*?)"/) do
-        %(href='#' onclick="jQuery.get('#{(url ? url + $1.sub(/[^\?]*/, '') : $1)}', null, function(data) {jQuery('##{update}').html(data)}); return false;")
+        %(href='#' onclick="$('#loading').show();jQuery.ajax({url:'#{(url ? url + $1.sub(/[^\?]*/, '') : $1)}', success: function(data) {jQuery('##{update}').html(data);$('#loading').hide();}}); return false;")
       end
     end
   end
@@ -204,7 +204,7 @@ module ApplicationHelper
   
   def main_photo_thumb(school,style="")
     img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
-    "<div class='school_list_photo' style=#{style}>"+ (link_to image_tag(img_url, :alt => school.title ),school_url(school)).to_s + "</div>"
+    "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title,:style => style ),school_url(school)).to_s + "</div>"
   end
   
   def topic_photo_thumb(activity)

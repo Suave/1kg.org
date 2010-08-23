@@ -10,7 +10,7 @@ class SchoolsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
+        @map_center = Geo::DEFAULT_CENTER
         @shares = Share.with_school.find(:all,:limit => 4)
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
@@ -20,11 +20,6 @@ class SchoolsController < ApplicationController
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
-        @activities_for_school = Activity.ongoing.find(:all,
-                                                       :conditions => "School_id is not null",
-                                                       :order => "created_at desc, start_at desc",
-                                                       :limit => 5,
-                                                       :include => [:main_photo, :school])
       }
       format.json {
         @schools = School.validated
