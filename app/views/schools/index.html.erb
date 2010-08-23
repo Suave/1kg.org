@@ -14,9 +14,10 @@
 
 <% content_for :sidebar do -%>
 
-<div class="newbox">
-  <%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %></div>
-
+  <div class="newbox">
+    <%= render :partial => '/searches/search_box', :locals => {:kind => 'school'} %>
+  </div>  
+  
   <div id="records" class="newbox">
     <div id="record_tabs">
           <span class="span_title" style="margin-right:8px">学校动态</span>
@@ -26,21 +27,19 @@
           </ul>
           <div class="clearfix" style="height:10px;clear:both"> </div>
           <div id="by_karma">
-            <%= render :partial => '/schools/school', :collection => School.top10_popular.include([:main_photo,:geo]) %></div>
+            <%= render :partial => '/schools/school', :collection => School.top10_popular.include([:main_photo,:geo]) %>
           </div>
           <div id="by_update">
-             <%= render :partial => '/schools/school', :collection => School.recent_upload.include([:main_photo,:geo])%></div>
-              
+             <%= render :partial => '/schools/school', :collection => School.recent_upload.include([:main_photo,:geo])%>             
           </div>
           <div class="cleanfix" style="clear:both;height:20px"></div>
     </div>
+    <%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
     <script type="text/javascript">
             jQuery("#record_tabs").tabs()
-        </script>
-  </div>
+    </script>
 
 
-<%= render :partial => 'need_tag_cloud', :locals => {:tags => @tags} %>
 
 <% end -%>
 
@@ -61,7 +60,7 @@
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
       </div>
-     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
+      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
 </div>
 
 <div class="newbox">
