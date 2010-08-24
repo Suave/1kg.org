@@ -1,0 +1,9 @@
+<div style="width:320px">
+<%= render :partial => "shared/activity", :collection => @activities[0..1]%>
+</div>
+<span class="gary_span">
+      
+        <%= "#{@geo.name}还有更多的活动，#{link_to '去看看？',('/activities/by_geo/'+ @geo.id)}"  %>
+      
+</span>
+<div class="clearfix" style="clear:both">

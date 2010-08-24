@@ -59,15 +59,16 @@ function copy_clip(meintext){
 	return false;
 }
 
-function openInfoWindow(latlng, id)
+function openSchoolInfoWindow(latlng, id,marker_type)
 {
-  GDownloadUrl("/schools/info_window/" + id, function(data, responseCode) {
+  GDownloadUrl("/" + marker_type + "/info_window/" + id, function(data, responseCode) {
     map.openInfoWindowHtml(latlng, data);
   });
 }
-function markerClickFn(latlng, id) {
+
+function markerClickFn(latlng, id ,marker_type) {
   return function() {
-    openInfoWindow(latlng, id)
+    openSchoolInfoWindow(latlng, id,marker_type)
   }
 }
 
