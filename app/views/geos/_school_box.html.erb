@@ -1,4 +1,14 @@
-    <%= render :partial => '/schools/school', :collection => @schools %>    
-    <br/><span class="gary_span"><%= "#{@city ? @city.name : @province.name}还没有学校" if @schools.empty? %></span>
-    <%= schools_paginate @schools, @city %>
+  <%= render :partial => '/schools/school', :collection => @schools %>    
+  <%= schools_paginate @schools, @city %>
   
+  <div class="clearfix" style="clear:both;height:20px;">
+  </div>
+  <div style="text-align:center">
+    <span class="gary_span">
+      <% if @schools.empty?%>
+        <%= "还没有#{@city ? @city.name : @province.name}的学校，#{link_to '提交一所新学校？',new_school_url}"  %>
+      <% else %>
+        <%= "你知道有其他的学校？请#{link_to '提交新学校',new_school_url}"  %>
+      <% end %>    
+    </span>
+  </div>  
