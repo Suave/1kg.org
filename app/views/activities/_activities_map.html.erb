@@ -4,7 +4,7 @@
     <script type="text/javascript">
       var schools = <%= @json.to_json %>;
     </script>
-
+<%= @json%>
   <script type="text/javascript">
     var map;
   
@@ -16,19 +16,25 @@
         map.addControl(new GMapTypeControl());
         map.addControl(new GScaleControl());
         
-        school_icon = new GIcon();
-        school_icon.image = "/images/m0.png";
-        school_icon.shadow = null;
-        school_icon.iconSize = new GSize(16, 20);
-        school_icon.shadowSize = null;
-        school_icon.iconAnchor = new GPoint(8,10 );
-        school_icon.infoWindowAnchor = new GPoint(8, 6); 
-        var markers = [];
- 
+        base_icon = new GIcon();
+        base_icon.shadow = null;
+        base_icon.iconSize = new GSize(16, 20);
+        base_icon.shadowSize = null;
+        base_icon.iconAnchor = new GPoint(8,10 );
+        base_icon.infoWindowAnchor = new GPoint(8, 6); 
+        
+        
+        var green_icon = new GIcon(base_icon,"/images/a1.png");
+        var blue_icon = new GIcon(base_icon,"/images/a2.png");
+        var orange_icon = new GIcon(base_icon,"/images/a3.png");
+        var pink_icon = new GIcon(base_icon,"/images/a4.png");
+        var brown_icon = new GIcon(base_icon,"/images/a5.png");
+        var purple_icon = new GIcon(base_icon,"/images/a6.png");
+        markers = [];
+        
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
-          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
-
+          var marker = new GMarker(point, {icon: [blue_icon,green_icon,orange_icon,pink_icon,brown_icon,purple_icon][(schools[i].t)], title: schools[i].n});
           //GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
           
           markers.push(marker);
@@ -47,11 +53,13 @@
 
 <div id="activities_category" style="width:140px;height:320px;margin:1em 0;float:right;background:#ddd">
   <ul>
-    <li><div class="color_cube" style="background-color:red"></div><a href="#" class="selected">全部活动</a></li>
-    <li><div class="color_cube" style="background-color:blue"></div><a href="#">公益旅行</a></li>
-    <li><div class="color_cube" style="background-color:green"></div><a href="#">支教</a></li>
-    <li><div class="color_cube" style="background-color:orange"></div><a href="#">物资团捐</a></li>
-    
+    <li><div class="color_cube" style="background-color:#aaa"></div><a href="#" class="selected">全部活动</a></li>
+    <li><div class="color_cube" style="background-color:green"></div><a href="#">公益旅行</a></li>
+    <li><div class="color_cube" style="background-color:blue"></div><a href="#">支教</a></li>
+    <li><div class="color_cube" style="background-color:orange"></div><a href="#">物资募捐</a></li>
+    <li><div class="color_cube" style="background-color:#d18"></div><a href="#">同城公益</a></li>
+    <li><div class="color_cube" style="background-color:purple"></div><a href="#">网络活动</a></li>
+    <li><div class="color_cube" style="background-color:red"></div><a href="#">其他</a></li>
   </ul>
 </div>
 <div id="map_div" style="width:498px"></div>
