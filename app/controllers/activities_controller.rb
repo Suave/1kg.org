@@ -6,6 +6,16 @@ class ActivitiesController < ApplicationController
   
 
   def index
+    @map_center = Geo::DEFAULT_CENTER
+    @json = []
+    Activity.ongoing.find(:all,:conditions => ["arrival_id > ?", 0]).each do |activity|
+      @json << {:i => activity.id,
+                       :t => activity.category,
+                       :n => activity.title,
+                       :a => activity.arrival.latitude,
+                       :o => activity.arrival.longitude
+                       }
+    end
     @activities_hash = {}
     @activities = @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
@@ -14,10 +24,7 @@ class ActivitiesController < ApplicationController
     @activities_hash[:city] = Activity.recent_by_category("同城活动")
     @activities_hash[:online] = Activity.recent_by_category("网上活动")
     @activities_hash[:other] = Activity.recent_by_category("其他")
-    @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
-    @photos = Photo.with_activity.find(:all,:limit => 10,:group => "activity_id",:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
-    @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
     @shares = Share.with_activity.find(:all,:limit => 6)
     
     respond_to do |wants|

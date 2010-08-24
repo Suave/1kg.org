@@ -1,17 +1,9 @@
 <% content_for :tail do -%>
   <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
 
-  <% if @city %>
-    <script type="text/javascript" src="/geos/<%= @city.id %>/schools.json"></script>
-  <% elsif @controller.controller_name == "search" %>
     <script type="text/javascript">
       var schools = <%= @json.to_json %>;
     </script>
-  <% else %>
-    <script type="text/javascript" src="/schools.json"></script>
-  <% end %>
-  
-  <%= javascript_include_tag 'markerclusterer_packed' %>
 
   <script type="text/javascript">
     var map;
@@ -37,20 +29,29 @@
           var point = new GLatLng(schools[i].a, schools[i].o)
           var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
 
-          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
+          //GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));
           
           markers.push(marker);
+          map.addOverlay(marker);
         }
-
-        var markerCluster = new MarkerClusterer(map, markers, {maxZoom: 8});
       
-        <% if @school %>
+        <% if @false %>
           schoolClickFn(new GLatLng(<%= @school.basic.latitude.to_f %>, <%= @school.basic.longitude.to_f %>), <%= @school.id %>, 9)
         <% end %>
+        
       }
     }
     window.onload = initialize;
   </script>
 <% end %>
 
-<div id="map_div"></div>
+<div id="activities_category" style="width:140px;height:320px;margin:1em 0;float:right;background:#ddd">
+  <ul>
+    <li><div class="color_cube" style="background-color:red"></div><a href="#" class="selected">全部活动</a></li>
+    <li><div class="color_cube" style="background-color:blue"></div><a href="#">公益旅行</a></li>
+    <li><div class="color_cube" style="background-color:green"></div><a href="#">支教</a></li>
+    <li><div class="color_cube" style="background-color:orange"></div><a href="#">物资团捐</a></li>
+    
+  </ul>
+</div>
+<div id="map_div" style="width:498px"></div>
