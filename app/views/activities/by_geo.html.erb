@@ -1,0 +1,20 @@
+<% @page_title = "所有进行中的活动" %>
+
+<% content_for :crumb do -%>
+<ul>
+  <li>所有进行中的活动</li>
+</ul>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+  <span class="remark"><%= link_to "&raquo; 回到活动首页",activities_url%></span>
+<%end%>
+
+<div class="newbox">
+      <span class="span_title"><%= @geo.name %>的所有活动</span>
+      <div class="contents">
+      <%= render :partial => "shared/activity", :collection => @activities%>
+      </div>
+</div>

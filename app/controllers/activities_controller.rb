@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares]
-  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares]
+  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares,:info_window,:by_geo]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares,:by_geo]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
@@ -9,7 +9,7 @@ class ActivitiesController < ApplicationController
     @map_center = Geo::DEFAULT_CENTER
     @json = []
     Activity.ongoing.find(:all,:conditions => ["arrival_id > ?", 0]).each do |activity|
-      @json << {:i => activity.id,
+      @json << {:i => activity.arrival.id,
                        :t => activity.category,
                        :n => activity.title,
                        :a => activity.arrival.latitude,
@@ -230,6 +230,22 @@ class ActivitiesController < ApplicationController
     else
       flash[:notice] = "你不可以设置此活动的主题图"
       redirect_to activity_url(@school)
+    end
+  end
+  
+  def info_window
+    @geo = Geo.find params[:id]
+    @activities = Activity.ongoing.find(:all,:conditions => {:arrival_id => @geo.id},:limit => 3)
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
+  end
+
+  def by_geo
+    @geo = Geo.find params[:id]
+    @activities = Activity.ongoing.find(:all,:conditions => {:arrival_id => @geo.id})
+    respond_to do |format|
+      format.html
     end
   end
   
