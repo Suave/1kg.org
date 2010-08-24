@@ -5,13 +5,20 @@ class ActivitiesController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
   def index
+    @map_center = Geo::DEFAULT_CENTER
+    @json = []
+    Activity.ongoing.find(:all,:conditions => ["arrival_id > ?", 0]).each do |activity|
+      @json << {:i => activity.id,
+                       :t => activity.category,
+                       :n => activity.title,
+                       :a => activity.arrival.latitude,
+                       :o => activity.arrival.longitude
+                       }
+    end
     @activities_hash = {}
     @activities = Activity.available.ongoing.find(:all,:limit => 60, :order => "created_at desc", :conditions => ['created_at > ?', Time.now - 1.month], :include => [:main_photo,:departure, :arrival])
     @activities_hash = @activities.group_by(&:category)
-    
-    @photos = Photo.with_activity.find(:all, :conditions => ['photos.created_at > ?', Time.now - 1.month],
-                :limit => 10, :order => "photos.created_at desc", :include => [:activity])
-  
+    @shares = Share.with_activity.find(:all,:limit => 6)
     @participated = current_user.participated_activities.find(:all, :limit => 4) if logged_in?
 
     respond_to do |wants|

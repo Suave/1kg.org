@@ -67,11 +67,16 @@
 
 <% end -%>
 
+
+      <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonlink" %></div>
+      <span class="span_title" style="margin-right:8px">活动</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
+      <div class="cleanfix" style="clear:both;height:2px"></div>           
+      <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>       
+      <%= render :partial => 'activities_map' %>
+
 <div class="newbox">
       <div id="activity_tabs">
-        <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
-        <span class="span_title" style="margin-right:8px">最近的活动</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
-        <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
+        
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", 1],["支教", 2],["募捐", 3],['网络活动', 4],['同城活动', 5],['其他', 6]].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
@@ -96,13 +101,3 @@
 </div>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>           
-
-<div class="newbox">
-      <span class="span_title">最新活动照片</span>
-      <div class="cleanfix" style="clear:both;height:10px"></div>           
-      <div class="contents clearfix">
-        <%= render :partial => "/shared/photo", :collection => @photos %>
-      </div>
-</div>
-
-<div class="cleanfix" style="clear:both;height:20px"></div>

@@ -162,7 +162,7 @@ class SchoolsController < ApplicationController
         else
           %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
           if @step == 'mainphoto'
-            update_main_photo(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
+            update_main_photo(@step, nil, "你的修改已经保存，可以继续修改其他内容，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
           else
             update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
           end
