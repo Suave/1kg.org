@@ -38,12 +38,9 @@
     <script type="text/javascript">
             jQuery("#record_tabs").tabs()
     </script>
-
-
-
 <% end -%>
 
-<div class="newbox" >
+<div class="newbox">
       <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
       <span class="span_title">学校</span> <%=link_to "按省市查询","/geos"%>
        <%= render :partial => '/geos/school_maps' %>
