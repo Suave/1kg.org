@@ -3,7 +3,7 @@
 </div>
 <span class="gary_span">
       
-        <%= "#{@geo.name}还有更多的活动，#{link_to '去看看？',('/activities/by_geo/'+ @geo.id)}"  %>
+        <%= "#{@geo.name}还有更多的活动，#{link_to '去看看？',('/activities/by_geo/'+ @geo.id.to_s)}" unless @activities[2].blank? %>
       
 </span>
 <div class="clearfix" style="clear:both">
