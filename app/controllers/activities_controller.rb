@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares,:info_window,:by_geo]
-  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares,:by_geo]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares,:by_geo,:info_window]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
