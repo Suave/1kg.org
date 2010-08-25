@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares,:info_window,:by_geo]
-  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares,:by_geo,:info_window]
+  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares,:info_window,:by_geo,:all]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares,:by_geo,:info_window,:all]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
@@ -16,14 +16,8 @@ class ActivitiesController < ApplicationController
                        :o => activity.arrival.longitude
                        }
     end
-    @activities_hash = {}
-    @activities = @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
-    @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
-    @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
-    @activities_hash[:teach] = Activity.recent_by_category("支教")
-    @activities_hash[:city] = Activity.recent_by_category("同城活动")
-    @activities_hash[:online] = Activity.recent_by_category("网上活动")
-    @activities_hash[:other] = Activity.recent_by_category("其他")
+    
+    @activities = Activity.ongoing.find(:all,:limit => 6,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
     @shares = Share.with_activity.find(:all,:limit => 6)
     
@@ -31,6 +25,11 @@ class ActivitiesController < ApplicationController
       wants.html
       wants.atom
     end
+  end
+  
+  def all
+    @activities = Activity.ongoing.find(:all,:limit => 80,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
+    @activities_hash = @activities.group_by(&:category)
   end
   
   def category

@@ -112,6 +112,7 @@ ActionController::Routing::Routes.draw do |map|
                                              :category => :get,
                                              :ongoing => :get,
                                              :over => :get,
+                                             :all => :get,
                                              :total_shares => :get} do |activity|
     activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
