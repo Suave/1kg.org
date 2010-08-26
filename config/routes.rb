@@ -73,6 +73,7 @@ ActionController::Routing::Routes.draw do |map|
                                       :interest => :put,
                                       :wanna => :put,
                                       :setphoto => :put,
+                                      :followers => :get,
                                       :novisited => :put,
                                       :marked => :put,
                                       :manage => :put,

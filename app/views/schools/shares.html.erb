@@ -5,3 +5,7 @@
       <span style="margin-left:500px;">返回 <%= link_to "#{h @school.title}", school_url(@school) %></span>
       <div class="contents"><p><%= will_paginate @shares %></p></div>
 </div>
+
+<% content_for :sidebar do -%>
+  <p>&raquo; <%= link_to "返回学校页面", school_url(@school) %></p>
+<% end -%>
