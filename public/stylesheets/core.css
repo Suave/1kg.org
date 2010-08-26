@@ -1100,8 +1100,8 @@ h3.title {
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
 .team dd {padding:0 4px; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
-.obp {float:left; width:115px; margin:12px;}
-.obp dt {height:85px; margin:0; overflow:hidden; text-align:center;border:1px solid #999}
+.obp {float:left; width:107px; margin:12px;}
+.obp dt {height:80px; margin:0; overflow:hidden; text-align:center;border:1px solid #999}
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px;}
 .obp dd span {display:block;}
 
