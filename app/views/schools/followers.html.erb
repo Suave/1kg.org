@@ -1,0 +1,7 @@
+<% @page_title = @title = "关注#{h @school.title}的用户" -%>
+
+<%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
+  
+<% content_for :sidebar do -%>
+  <p>&raquo; <%= link_to "返回学校页面", school_url(@school) %></p>
+<% end -%>

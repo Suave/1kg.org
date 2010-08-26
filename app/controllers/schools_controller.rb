@@ -1,6 +1,6 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers]
   before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:total_shares]
   before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
@@ -196,6 +196,7 @@ class SchoolsController < ApplicationController
     @message = current_user.sent_messages.build
   end
   
+  
   def sent_apply
     
     @message = current_user.sent_messages.build(params[:message])
@@ -270,18 +271,13 @@ class SchoolsController < ApplicationController
     @contact = @school.contact
     @finder  = @school.finder
     @basic = @school.basic
-    @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
-   
     @followers = @school.interestings
-    @subscribers = @school.followers
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
-    @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
-    @wannas = Visited.find(:all,:conditions => ['school_id = ? and status = ? and wanna_at > ?', @school.id, 3, Time.now], :order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @executions = @school.executions.validated.find(:all,:limit => 3)
@@ -439,6 +435,10 @@ class SchoolsController < ApplicationController
           %(<span class='formError'><img src="/images/unchecked.gif" />#{@school.geo.name}已经有了一所<a href='/schools/#{@school.id}/'>#{@school.title}</a></span>)
       }
     end
+  end
+  
+  def followers
+    @followers = @school.interestings
   end
   
   private
