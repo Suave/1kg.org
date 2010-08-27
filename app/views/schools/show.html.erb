@@ -122,37 +122,7 @@
 
   </div>
   
-  <div class="school_box">
-    <span class="span_title2" >相册</span> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
-        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
-    <div class="contents clearfix" style="padding-top:16px;">
-      <div id="photos" class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
-      </div>
-      <div id="upload_container"></div>
-      <p class="content_gray" style="display:none;" id="upload_tip">
-        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
-      </p>
-    </div>  
-  </div>
-    
-  <div class="school_box">
-    <span class="span_title2" >分享</span> <%= @shares.blank? ? "还没有学校分享" : link_to("共有#{@school.shares.size}篇分享 >",shares_school_path(@school)) %>
-    <%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
-    <div class="contents clearfix">
-      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
-    </div>
-  </div>
-
-  <div class="school_box">
-    <span class="span_title2" >话题</span> <%= @topics.blank? ? "还没有话题" : link_to("共有#{@board.topics.size}篇话题 >",board_path(@board)) %>
-    <%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>
-    <div class="contents">
-      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
-    </div>
-  </div>  
-  
-<div class="newbox">
+  <div class="newbox">
       <div id="activity_tabs">
         <span class="span_title" style="margin-right:8px">活动</span>
         <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
@@ -176,10 +146,39 @@
 <script type="text/javascript">
   jQuery("#activity_tabs").tabs();
 </script>
-</div>
+  </div>
+    
+  <div class="school_box">
+    <span class="span_title2" >分享</span> <%= @shares.blank? ? "还没有学校分享" : link_to("共有#{@school.shares.size}篇分享 >",shares_school_path(@school)) %>
+    <%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
+    <div class="contents clearfix">
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    </div>
+  </div>
+
+  <div class="school_box">
+    <span class="span_title2" >话题</span> <%= @topics.blank? ? "还没有话题" : link_to("共有#{@board.topics.size}篇话题 >",board_path(@board)) %>
+    <%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>
+    <div class="contents">
+      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
+    </div>
+  </div>
 
 
-
+  <div class="school_box">
+    <span class="span_title2" >相册</span> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
+        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
+    <div class="contents clearfix" style="padding-top:16px;">
+      <div id="photos" class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
+      </div>
+      <div id="upload_container"></div>
+      <p class="content_gray" style="display:none;" id="upload_tip">
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
+      </p>
+    </div>  
+  </div>
+  
 <% content_for :sidebar do -%>
 
     <% if logged_in? && current_user.school_moderator? -%>
@@ -202,7 +201,7 @@
     <% end -%>  
 
   <div class="school_sidebar">
-      <div class="title_line"><span class="span_title2">学校大使</span><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:146px" unless current_user && current_user.school_moderator?%></div>
+      <div class="title_line"><span class="span_title2">学校大使</span><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:146px;-margin-left:136px" unless current_user && current_user.school_moderator?%></div>
       <div class="sidebar_inter">
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
@@ -223,7 +222,7 @@
   <% end %>
   
      <div class="school_sidebar">
-      <div class="title_line"><span class="span_title2">公益项目</span><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:146px"%></div>
+      <div class="title_line"><span class="span_title2">公益项目</span><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:146px;-margin-left:136px"%></div>
       <div class="sidebar_inter">
         <%= '目前学校还没有公益项目' if @executions.empty? %>
         <%= render :partial => "/shared/execution", :collection => @executions %>
