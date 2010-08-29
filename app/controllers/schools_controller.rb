@@ -60,7 +60,6 @@ class SchoolsController < ApplicationController
   
   def total_shares
     @shares = Share.with_school.paginate(:page => params[:page], :per_page => 20)
-    @title = @page_title = "所有学校分享"
   end
 
   def comments
@@ -273,8 +272,8 @@ class SchoolsController < ApplicationController
     @basic = @school.basic
     @followers = @school.interestings
     @moderators = User.moderators_of(@school)
-    @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
-    @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
+    @shares = @school.shares.find(:all, :order => "created_at desc", :limit => 5,:include => [:user,:tags])
+    @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])

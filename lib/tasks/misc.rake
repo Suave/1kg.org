@@ -30,59 +30,49 @@ namespace :misc do
     end
   end
   
-  desc "公益项目数据迁移"
-  task :projects_data_copy => :environment do
-    RequirementType.non_exchangable.validated.each do |r|
-      a = Project.new(
-                  :user_id  => r.creator_id,
-                  :title => r.title,
-                  :validated_at => r.validated_at,
-                  :created_at => r.created_at,
-                  :updated_at => r.updated_at,
-                  :description => r.description_html,
-                  :support => r.support_html,
-                  :condition => r.condition_html,
-                  :feedback_require => r.feedback_require,
-                  :start_at => r.start_at,
-                  :end_at => r.end_at,
-                  :for_envoy => r.must,
-                  :apply_end_at => r.apply_end_at,
-                  :feedback_at => r.feedback_at
+  desc "学校分享话题合并"
+  task :topic_to_share => :environment do
+    Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],:include => [:board]).each do |t|
+      s = Share.new(
+                  :user_id  => t.user_id,
+                  :title => t.title,
+                  :body_html => t.body_html,
+                  :clean_html => t.clean_html,
+                  :school_id => t.board.talkable.school_id,
+                  :geo_id => t.board.talkable.school.geo_id,
+                  :last_modified_at => t.last_modified_at,
+                  :last_modified_by_id => t.last_modified_by_id,
+                  :last_replied_at => t.last_replied_at,
+                  :deleted_at => t.deleted_at,
+                  :last_replied_by_id => t.last_replied_by_id,
+                  :created_at => t.created_at,
+                  :updated_at => t.updated_at
                   )
-      a.save
-      r.requirements.each do |s|
-        b = SubProject.new(
-          :project_id => a.id,
-          :user_id => s.applicator_id,
-          :school_id => s.school_id,
-          :status =>  s.status,
-          :validated_at => s.validated_at,
-          :validated => s.validated,
-          :validated_by_id => s.validated_by_id,
-          :plan => s.apply_plan,
-          :reason => s.apply_reason,
-          :feedback => s.feedback,
-          :problem => s.problem,
-          :budget => s.budget,
-          :start_at => s.start_at,
-          :end_at => s.end_at,
-          :telephone => s.applicator_telephone,
-          :created_at => s.created_at,
-          :last_modified_at => s.last_modified_at
-        )
-        b.save
-        s.shares.each do |x|
-          x.sub_project_id = b.id
-          x.save
-        end
-        s.comments.each do |c|
-          c.commentable_id = b.id
-          c.commentable_type = 'SubProject'
-          c.save
-        end
-        
-      end
+      puts "t_#{t.id}" if !s.save
       
+      t.votes.each do |v|
+        v.voteable_type = 'Share'
+        v.voteable_id = s.id
+        puts "v_#{v.id}" if !v.save
+      end
+        
+      t.posts.each do |p|
+        c = Comment.new(
+                  :user_id  => p.user_id,
+                  :body => p.body_html,
+                  :commentable_type => "Share",
+                  :commentable_id => s.id,
+                  :deleted_at => p.deleted_at,
+                  :created_at => p.created_at,
+                  :updated_at => p.updated_at
+                  )
+        puts "p_#{p.id}" if !c.save
+        p.comments.each do |reply|
+          reply.update_attributes(:commentable_type => "Comment",:commentable_id => c.id)
+        end
+      end
+      s.updated_at = t.updated_at
+      s.save
     end
   end  
 

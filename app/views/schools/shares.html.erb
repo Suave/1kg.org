@@ -1,8 +1,7 @@
-<% @page_title = @title = "#{h @school.title}的全部分享" -%>
+<% @page_title = @title = "#{h @school.title}的学校论坛" -%>
 
 <div class="newbox">
         <%= render :partial => "/shared/share", :collection => @shares %>
-      <span style="margin-left:500px;">返回 <%= link_to "#{h @school.title}", school_url(@school) %></span>
       <div class="contents"><p><%= will_paginate @shares %></p></div>
 </div>
 
