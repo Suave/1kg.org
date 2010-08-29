@@ -128,11 +128,7 @@ fullscreen:{
 desc:"Toggle fullscreen mode"
 },
 media:{
-<<<<<<< HEAD:vendor/plugins/tiny_mce/lib/tiny_mce/assets/tiny_mce/langs/zh.js
 desc:"插入/编辑视频 PPT",
-=======
-desc:"Insert / edit embedded media",
->>>>>>> 2f4292bb47a0192f0713447b57870123f93c2ca4:vendor/plugins/tiny_mce/lib/tiny_mce/assets/tiny_mce/langs/zh.js
 edit:"Edit embedded media"
 },
 fullpage:{

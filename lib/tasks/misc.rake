@@ -29,6 +29,53 @@ namespace :misc do
       end
     end
   end
+  
+  desc "学校分享话题合并"
+  task :topic_to_share => :environment do
+    Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],:include => [:board]).each do |t|
+      s = Share.new(
+                  :user_id  => t.user_id,
+                  :title => t.title,
+                  :body_html => t.body_html,
+                  :clean_html => t.clean_html,
+                  :school_id => t.board.talkable.school_id,
+                  :geo_id => t.board.talkable.school.geo_id,
+                  :last_modified_at => t.last_modified_at,
+                  :last_modified_by_id => t.last_modified_by_id,
+                  :last_replied_at => t.last_replied_at,
+                  :deleted_at => t.deleted_at,
+                  :last_replied_by_id => t.last_replied_by_id,
+                  :created_at => t.created_at,
+                  :updated_at => t.updated_at
+                  )
+      puts "t_#{t.id}" if !s.save
+      
+      t.votes.each do |v|
+        v.voteable_type = 'Share'
+        v.voteable_id = s.id
+        puts "v_#{v.id}" if !v.save
+      end
+        
+      t.posts.each do |p|
+        c = Comment.new(
+                  :user_id  => p.user_id,
+                  :body => p.body_html,
+                  :commentable_type => "Share",
+                  :commentable_id => s.id,
+                  :deleted_at => p.deleted_at,
+                  :created_at => p.created_at,
+                  :updated_at => p.updated_at
+                  )
+        puts "p_#{p.id}" if !c.save
+        p.comments.each do |reply|
+          reply.update_attributes(:commentable_type => "Comment",:commentable_id => c.id)
+        end
+      end
+      s.updated_at = t.updated_at
+      s.save
+    end
+  end  
+
 
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
