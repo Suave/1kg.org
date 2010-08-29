@@ -151,8 +151,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type"
-    t.string   "type_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "comments_count"
