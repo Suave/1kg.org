@@ -20,8 +20,12 @@
       <div class="contents clearfix">
         <%= render :partial => "gallery_photo", :collection => @photos %>
       </div>
-      <span style="margin-left:500px;">返回 <%= link_to '学校页面', school_url(@school) %></span>
+      
       <div class="contents"><p><%= will_paginate @photos %></p></div>
     </div>
   </div>
 </div>
+
+<% content_for :sidebar do -%>
+  <p>&raquo; <%= link_to "返回学校页面", school_url(@school) %></p>
+<% end -%>

@@ -17,15 +17,14 @@ body{background:#fff}
 
 .school_box{padding:0 10px 10px;margin-bottom:14px;}
 .school_box p {font-size:14px}
-.school_sidebar{padding:2px 10px;margin-bottom:8px}
+.school_sidebar{margin:2px 10px 8px;}
 .sidebar_inter{padding:8px 0}
 
 #morecontact{display:none;padding:20px}
-#morecontact p{margin-left:40px}
-.label_lei{color:#777;border-bottom:1px #c0c0c0 solid}
+.label_lei{color:#777;border-bottom:1px #c0c0c0 solid;font-size:13px}
 .content_text{font-size:14px;color:#444;padding:0 5px;}
 .content_gary{font-size:14px;color:#888;padding:0 5px;}
-.contents{padding:4px 8px}
+.contents{padding:4px 5px}
 
 .important a{font-size:16px;}
 
@@ -38,7 +37,6 @@ body{background:#fff}
 
 .what_time{margin-top:28px;left:406px;position:absolute}
 
-.obp{margin:0}
 .need_tag{margin:0 2px;}
 
 #moderators_info,#donations_info,#project_info{padding:6px 10px;background:#f3f3f3;margin-top:4px;border:1px #d3d3d3 solid }
