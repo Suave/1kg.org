@@ -17,7 +17,6 @@ class ActivitiesController < ApplicationController
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
     @photos = Photo.with_activity.find(:all,:limit => 10,:group => "activity_id",:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
-    @comments = Comment.find(:all,:limit => 5,:conditions => {:type => "comment",:commentable_type => "Activity"},:order => "created_at desc")
     @shares = Share.with_activity.find(:all,:limit => 6)
     
     respond_to do |wants|
