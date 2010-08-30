@@ -17,7 +17,6 @@ class ActivitiesController < ApplicationController
     end    
     @activities = Activity.ongoing.find(:all,:limit => 6,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
-
     @shares = Share.with_activity.find(:all,:limit => 6)
     @participated = current_user.participated_activities.find(:all, :limit => 4) if logged_in?
 
