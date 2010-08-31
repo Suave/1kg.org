@@ -21,7 +21,7 @@
       <% @executions.each_with_index do |s,n|%>
       
       <tr>
-        <td><%= (link_to s.school.title,school_path(s)) %></td>
+        <td><%= (link_to s.school.title,school_path(s.school)) %></td>
         <td><%= link_to "#{s.user.login}",user_path(s.user)%></td>
         <td><%= s.created_at.to_date %></td>
         <td>
