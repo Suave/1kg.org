@@ -17,6 +17,11 @@ class Project < ActiveRecord::Base
     ["validated","going","finished"].include?(state)
   end
   
+  def refused?
+    state == 'refused'
+  end
+  
+  
   def apply_end?
     (apply_end_at < Time.now ) ? true : false
   end
