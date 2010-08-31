@@ -37,7 +37,9 @@
            <p><h5>困难预估：</h5> <%= s.problem%></p>
            <p><h5>预算计划：</h5> <%= s.budget%></p>
            <p><span style="font-weight:bold">申请人电话：</span>  <%= s.telephone%></p>
-           <p><span style="font-weight:bold">执行时间：</span><%= "#{s.start_at.to_date} 开始至  #{s.end_at.to_date} 结束"%></p>
+	   <% if s.start_at && s.end_at%>
+             <p><span style="font-weight:bold">执行时间：</span><%= "#{s.start_at.to_date} 开始至  #{s.end_at.to_date} 结束"%></p>
+           <%end%>
            <div style="float:right">
              <%=  (link_to "通过申请",validate_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.validated? %>
              <%=  (link_to "拒绝申请",refuse_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.refused? %>
