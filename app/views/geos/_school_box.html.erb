@@ -1,7 +1,4 @@
-<div class="newbox">
-  <div class="clearfix" style="height:10px"></div>
-  <div id="schools" class="contents">
-    <h3><%= @city.nil? ? '所有学校' : "#{@city.name}的学校" %></h3>
-    <%= render :partial => '/geos/schools', :object => @schools %>
-  </div>
-</div>
+    <%= render :partial => '/schools/school', :collection => @schools %>    
+    <br/><span class="gary_span"><%= "#{@city ? @city.name : @province.name}还没有学校" if @schools.empty? %></span>
+    <%= schools_paginate @schools, @city %>
+  

@@ -86,7 +86,7 @@ class School < ActiveRecord::Base
     {:conditions => ["geo_id in (?)", city_ids]}
   }
   named_scope :top10_popular, :order => 'last_month_karma DESC', :limit => 6
-  named_scope :recent_upload, :order => "created_at desc", :limit => 10
+  named_scope :recent_upload, :order => "created_at desc", :limit => 6
   named_scope :include, lambda {|includes| {:include => includes}}
   
   @@city_neighbors = {
@@ -168,10 +168,11 @@ class School < ActiveRecord::Base
   
     # ToDo: 需要和at以及locate scope合并
     def near_to(geo, limit = 0)
-      params = {:order => "updated_at desc"}
+      params = {:order => "last_month_karma desc"}
       params[:limit] = limit unless limit.zero?
       
-      if geo.leaf?
+      if  geo.nil?
+      elsif geo.leaf?
         params[:conditions] = ['geo_id = ?', geo.id]
       else
         ids =[geo.id]

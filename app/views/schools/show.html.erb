@@ -21,6 +21,12 @@
 
 <% content_for :subtitle do -%>
 <% end -%>
+<%= render :partial => "status" %>
+<span class="span_title"><%= h @school.title -%></span>
+　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %>
+ <%= link_to "(地图和交通指南)", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
+ <br/>
+  
   <div id="meta">
     <div class="meta_left">
       <% if @school.main_photo -%>
@@ -35,62 +41,53 @@
       
     </div>
     <div class="meta_right">
-      <%= render :partial => "status" %>
-      <h1><%= h @school.title -%></h1>
-      <!--<% unless @basic.has_internet==0 %><img src="/images/icon/online.png" title="这个学校能上网"><% end %>-->
+      <p style="font-size:13px">
+      <% if  @school.intro.blank? %>
+        <div class="clearfix" style="clear:both;height:20px"></div>
+       　学校还没有学校简介，赶快为学校写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_school_url(@school) ,:class => "adminbutton"%>
+      <%else%>
+        <%= @school.intro %>
+      <% end %>
+      </p>
       <div class="meta_info">
-        <h5 style="font-size:14px;">活跃度</h5> <%= karma_star(@school.last_month_karma)-%> <span style="color:#999;font-size:10px">累计活跃度:<%=@school.karma%></span>
-        <p>地址　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %> <%= h @basic.address %></p>
-        <p><%= "邮编　#{@basic.zipcode}　 " unless @basic.zipcode.blank?%><span style="color:#999">最近更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></span></p>
+        <a class="more" name='#morecontact'>更多学校信息</a><span style="color:#999">最近更新: <%= @school.last_modified_at.to_date if @school.last_modified_at %></span></p>
       </div>
     </div>
     
     <div class="clearfix"></div>
   </div>
 
-
   <div class="school_box">                             
-    <% if  @school.intro.nil? || @school.intro.empty? %>
-       <%if logged_in? &&  @school.edited_by(current_user) %>
-       <p>　　<span style="color:red">注意！</span> 可以为学校编写学校简介了，赶快为学校写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_school_url(@school) ,:class => "adminbutton"%></p>
-       <%end%>
-    <%else%>
-      <p class="content_text" style="float:left">学校简介</p>
-        <p style="float:left;width:540px;font-size:14px;">
-      <%= @school.intro %>
-      </p>
-      <div class="clearfix" style="clear:both;height:20px"></div>
-    <% end %>
     
-    <% if @need && !@need.urgency.blank? -%>
-      <p class="content_text" style="margin-bottom:0">学校非常需要 <span class="important"><%= link_to_needs @need.urgency %><span></p>
-    <% end -%>
+    <div id="morecontact">
     <% unless needlist(@school).blank? %>
-    <div style="margin-bottom:-20px">
-      <p class="content_text" style="float:left">学校<%="还" unless @need.urgency.blank?%>需要</p>
-      <p style="float:left;width:540px;">
-    <%= needlist(@school)%>
-    </p>
-    <div class="clearfix" style="clear:both;height:20px"></div>
+    <div>
+      <p>学校需求:</p>
+      <p>
+        <%= link_to_needs @need.urgency %><%= needlist(@school)%>
+      </p>      
+      <div class="clearfix" style="clear:both;height:0px"></div>
+      <% if (@school.need.updated_at || @school.last_modified_at || @school.created_at) < 3.month.ago %>
+        <div class='flashNotice'>学校需求已经超过三个月没有更新，如果你能联系到学校，请 <%= link_to "更新学校需求",edit_school_url(@school,:step => 'need')%>  </div>
+      <% else %>
+        <div style="float:right;"><%= link_to "更新需求",edit_school_url(@school,:step => 'need'),:class=> "adminbutton"%> </div>
+      <% end %>
+      <div class="clearfix" style="clear:both;height:20px"></div>
     </div>
-    <%end%>
-    
-      <a class="more" name='#morecontact'>更多学校信息</a>
-    <div id="morecontact" style="display:none;padding:20px 0 20px 60px">
-    
-  <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
-  <p class="content_text">学校有<%unless @basic.level_amount.blank?%><%= h @basic.level_amount %>个年级，<%end-%>
-
-  <%unless @basic.class_amount.blank?%><%= h @basic.class_amount %>个班，<%end-%>
-  <%unless @basic.student_amount.blank?%><%= h @basic.student_amount %>名学生，<%end-%>
-  <%unless @basic.teacher_amount.blank?%><%= h @basic.teacher_amount %>名老师。<%end-%></p>
-  
-  <% if @local && @local.ngo_support != 2 -%>
-  <p class="content_text">
-  <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
-  </p>
-  <%end%>
-  <br/>
+    <%end%>  
+      
+      <p class="content_text">学校<%= radio_value @basic.has_library %><%= "#{@basic.book_amount}本" if ! @basic.book_amount == 0 %>图书，<%= radio_value @basic.has_pc %><%= "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0 %>电脑<% if @basic.has_pc != 0 %>，<%= '不' if @basic.has_internet == 0 %>能上网<%end%>。</p>
+      <p class="content_text">学校有
+      <%= "#{h @basic.level_amount}个年级," unless @basic.level_amount.blank?%>
+      <%= "#{h @basic.class_amount}个班级," unless @basic.class_amount.blank?%>
+      <%= "#{h @basic.student_amount}名学生," unless @basic.student_amount.blank?%>
+      <%= "#{h @basic.teacher_amount}名老师。" unless h @basic.teacher_amount.blank?%></p>
+      <% if @local && @local.ngo_support != 2 -%>
+      <p class="content_text">
+      <% if @local.ngo_support == 0 -%>目前没有<% end %><%= '有' unless @local.ngo_projects.blank? and @local.ngo_support == 1 %>公益团队<%= h @local.ngo_name if @local.ngo_support == 1%>给这所学校提供<%unless @local.ngo_projects.blank?%><%= h @local.ngo_projects %><%end-%>支持。
+      </p>
+      <%end%>
+      <br/>
     <% unless @basic.master.blank? %><p class="content_text">学校的校长是 <%= h @basic.master %><% unless @basic.telephone.blank? %>，学校电话是<%= h @basic.telephone %><%end-%>。</p><%end-%>
     <% if @contact && !@contact.name.blank? %>
       <p class="content_text">学校的联系人是 <%= h @contact.name %>
@@ -109,54 +106,75 @@
       <% end %>
       <%unless @finder.qq.blank? %>，QQ <%= h @finder.qq %><%end%>
       <%unless @finder.msn.blank? %>，MSN <%= h @finder.msn %><%end%>
-           。</p>
+          。</p>
       <% if @finder.survey_at %><p class="content_text">收集人是在 <%= h @finder.survey_at.to_date %> 收集的学校信息</p><%end%>
-      <%unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
+      <% unless @finder.note.blank? %><p class="content_text" style="clear:both">收集人的活动建议 <%= h @finder.note %></p><%end%>
     <% end -%>
+      
+    <% if (@school.basic.updated_at || @school.last_modified_at || @school.created_at)  < 6.month.ago  %>
+      <div class='flashNotice'>学校基本信息已经超过半年没有更新，如果你能联系到学校，请 <%= link_to "更新学校信息",edit_school_url(@school) %>。  </div>
+    <% else %>
+      <div style="float:right"><%= link_to "更新信息",edit_school_url(@school),:class=> "adminbutton"%> </div>
+    <% end %>
     </div>
   </div>
   
+  <div class="newbox">
+      <div id="activity_tabs">
+        <span class="span_title" style="margin-right:8px">活动</span>
+        <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
+        <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.school_moderator?%>
+        <ul class="tab" >
+          <% [["公益活动", "all"], ["物资团捐", "co_donations"]].each do |type| %>
+            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
+          <% end -%>
+        </ul>
+        <div class="cleanfix" style="clear:both;height:10px"></div>
+        <div id = "all">
+          <%= render :partial => "/shared/activity", :collection => @activities %>
+          <%= "还没有学校活动" if @activities.blank?%>
+        </div>
+        
+        <div id ="co_donations">
+          <%= render :partial => "/shared/co_donation", :collection => @co_donations %>
+          <%= "还没有团捐活动" if @co_donations.blank?%>
+        </div>
+      </div>
+<script type="text/javascript">
+  jQuery("#activity_tabs").tabs();
+</script>
+  </div>
+    
   <div class="school_box">
-    <h3 class="label_lei" >学校相册</h3>
+    <span class="span_title2" >分享</span> <%= @shares.blank? ? "还没有学校分享" : link_to("共有#{@school.shares.size}篇分享 >",shares_school_path(@school)) %>
+    <%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
+    <div class="contents clearfix">
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    </div>
+  </div>
+
+  <div class="school_box">
+    <span class="span_title2" >话题</span> <%= @topics.blank? ? "还没有话题" : link_to("共有#{@board.topics.size}篇话题 >",board_path(@board)) %>
+    <%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>
+    <div class="contents">
+      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
+    </div>
+  </div>
+
+
+  <div class="school_box">
+    <span class="span_title2" >相册</span> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
+        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0,5] %>
+      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
       </div>
       <div id="upload_container"></div>
-
-      <div class="content_text content_gary" style="text-align:right">
-          学校有<%= @school.photos.size %>张照片 
-          <%unless @photos.size < 6%><%= link_to "查看全部", photos_school_path(@school),:class => "buttonlink" %> | <%end%>
-        <%= upload_button('upload_container', photo_upload_path_with_session('school',@school.id)) %>
-      </div>
       <p class="content_gray" style="display:none;" id="upload_tip">
         上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:school_id => @school.id) %> 上传.
       </p>
     </div>  
   </div>
-    
-  <div class="school_box">
-    <h3 class="label_lei">用户分享</h3>
-    <div class="contents clearfix">
-    <%unless @shares.blank?%>
-      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
-    <p class="content_gary"><% if @shares[4] %>查看<%= link_to "更多分享", shares_school_path(@school),:class => "buttonlink" %>，<% end %>去过这所学校吗？<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class =>"buttonlink"%>让大家了解你和学校的小故事。</p>
-    <%else%>
-    <p class="content_text">学校还没有分享，<%= link_to "写篇分享", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>让大家了解你和学校的小故事。</p>
-    <%end%>
-    </div>
-  </div>
-
-  <div class="school_box">
-    <h3 class="label_lei" >学校话题</h3>
-    <div class="contents">
-      <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
-      <% if @topics.blank? %><p class="content_text">学校还没有话题，你可以<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>。</p>
-      <%else%>
-      <p class="content_gary">有什么想说的，<%= link_to "写新话题", new_board_topic_url(@board),:class => "buttonlink" %>让大家看到。<%if @topics.size > 5%><%= link_to "全部话题", board_topics_url(@board),:class => "buttonlink" %><% end -%> </p>
-      <% end %>
-    </div>
-  </div>  
   
 <% content_for :sidebar do -%>
 
@@ -180,109 +198,32 @@
     <% end -%>  
 
   <div class="school_sidebar">
-    <%= render :partial => 'map_sidebar', :locals => {:school => @school} %>
-    <div class="clear"></div>
-  </div>
-  
-  <div class="school_sidebar">
-    <% if @traffic && !@traffic.description_html.blank? %><a name='#moretraffic' class="more" style="">查看学校交通指南</a>
-    <div id="moretraffic" style="display:none">
-      <h3 class="label_lei">交通指南</h3>
-      <div class="content_text" style="margin-top:5px">
-      <%=@traffic.description_html %>
-      <%= "<p>附近景点： #{@traffic.sight}</p>" %>
-      </div>
-    </div>
-    <div class="clear"></div>
-    <%end%>
-  </div>
-
-  <div class="school_sidebar">
-      <h3 class="label_lei">学校大使</h3>
+      <div class="title_line"><span class="span_title2">学校大使</span><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:146px;-margin-left:136px" unless current_user && current_user.school_moderator?%></div>
       <div class="sidebar_inter">
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
           <%else%>
                     学校还没有学校大使
           <%end%>
-          <% unless @moderators.include? current_user %>
-          <a class="more" name='#moderators_info'>什么是学校大使？如何申请？</a>
-          <div style="clear:both;height:5px"></div>
-          <div id="moderators_info" style="display:none">
-            <p>学校大使是可以为学校更新信息、申请社区资源的用户，<%= link_to "查看详情" ,"/misc/school-moderator-guide"%>。</p>
-            <p style="text-align:right">现在就 <%= link_to '申请大使',apply_school_url(@school),:class => "adminbutton"%> </p>
-          </div>
-          <% end %>
       </div>
       <div class="clearfix"></div>
   </div>
 
-     <div class="school_sidebar">
-      <h3 class="label_lei">公益项目</h3>
-      <div class="sidebar_inter">
-        <%= '目前学校还没有公益项目' if @executions.empty? %>
-        <%= render :partial => "/shared/execution", :collection => @executions %>
-        <div style="clear:both;height:5px"></div>
-        <div id="project_info">
-          <p>去看看<%= '还' unless @executions.empty? %>有什么 
-            <%= link_to "公益项目", projects_url(:school_id => @school),:class => "adminbutton" %>
-            可以申请。
-          </p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="school_sidebar">
-      <h3 class="label_lei">团捐</h3>
-      <div class="sidebar_inter">
-        <%= '目前还没有人为此学校发起团捐' if @co_donations.empty? %>
-        <%= render :partial => "/shared/co_donation", :collection => @co_donations %>
-        <div style="clear:both;height:5px"></div>
-        <% if logged_in? && @moderators.include?(current_user) %>
-        <div id="project_info">
-          <p>
-            您是学校大使，为此学校
-            <%= link_to "发起团捐", new_co_donation_path(:school_id => @school), :class => "adminbutton" %>
-          </p>
-        </div>
-        <% end %>
-      </div>
-    </div>  
-
-  
-  <div class="school_sidebar">
-    <h3 class="label_lei">学校活动</h3>
-    <div class="sidebar_inter">
-    <%= render :partial => "/shared/activity", :collection => @activities unless @activities.nil?%>
-    <p class="content_text" style="text-align:right"><%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>和更多的人一起去学校。</p>
-    </div>  
-  </div>
-
-  <% unless @wannas.blank? %>
-  <div class="school_sidebar">
-    <h3 class="label_lei">要去的用户</h3>
-    <div class="sidebar_inter">
-    <%= render :partial => "/shared/visit", :collection => @wannas ,:locals =>{:school => '这所学校'}%>
-    </div>  
-  </div>
-  <%end%>
-
-  <% unless @visits.blank? %>
-  <div class="school_sidebar">
-    <h3 class="label_lei">去过的用户</h3>
-    <div class="sidebar_inter">
-    <%= render :partial => "/shared/visit", :collection => @visits ,:locals =>{:school => '这所学校'}%>
-    </div>  
-  </div>
-  <%end%>
-  
   <% unless @followers.blank? %>
   <div class="school_sidebar">
-    <h3 class="label_lei">关注的用户</h3>
+    <div class="title_line"><span class="span_title2">关注的用户</span> <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%></div>
     <div class="sidebar_inter">
-    <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
+    <%= render :partial => "/shared/user_list", :locals => {:users => @followers[0..8]} %>
     </div>
   </div>
   <% end %>
   
+     <div class="school_sidebar">
+      <div class="title_line"><span class="span_title2">公益项目</span><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:146px;-margin-left:136px"%></div>
+      <div class="sidebar_inter">
+        <%= '目前学校还没有公益项目' if @executions.empty? %>
+        <%= render :partial => "/shared/execution", :collection => @executions %>
+        <div style="clear:both;height:5px"></div>
+      </div>
+    </div>
 <% end -%>

@@ -1,6 +1,6 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers]
   before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:total_shares]
   before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
@@ -10,7 +10,7 @@ class SchoolsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @photos = Photo.with_school.find(:all,:limit => 10,:order => "created_at desc", :group => "school_id")
+        @map_center = Geo::DEFAULT_CENTER
         @shares = Share.with_school.find(:all,:limit => 4)
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
@@ -20,11 +20,6 @@ class SchoolsController < ApplicationController
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
-        @activities_for_school = Activity.ongoing.find(:all,
-                                                       :conditions => "School_id is not null",
-                                                       :order => "created_at desc, start_at desc",
-                                                       :limit => 5,
-                                                       :include => [:main_photo, :school])
       }
       format.json {
         @schools = School.validated
@@ -144,7 +139,6 @@ class SchoolsController < ApplicationController
   end
   
   def edit
-    
     %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
     render :action => "edit"
   end
@@ -168,7 +162,7 @@ class SchoolsController < ApplicationController
         else
           %w(basic traffic need other position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
           if @step == 'mainphoto'
-            update_main_photo(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
+            update_main_photo(@step, nil, "你的修改已经保存，可以继续修改其他内容，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
           else
             update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/schools/#{@school.id}'>回到学校</a>。")
           end
@@ -201,6 +195,7 @@ class SchoolsController < ApplicationController
   def apply
     @message = current_user.sent_messages.build
   end
+  
   
   def sent_apply
     
@@ -276,18 +271,13 @@ class SchoolsController < ApplicationController
     @contact = @school.contact
     @finder  = @school.finder
     @basic = @school.basic
-    @donation = Requirement.find(:all,:conditions => {:status => "1"}).map(&:school).include?(@school)
-   
     @followers = @school.interestings
-    @subscribers = @school.followers
     @moderators = User.moderators_of(@school)
     @shares = @school.shares.find(:all, :order => "updated_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "updated_at desc", :limit => 6,:include => [:user, :school, :activity])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
-    @visits = Visited.find(:all,:conditions => {:school_id => @school.id,:status => 1},:order => "created_at DESC",:include => [:user])
-    @wannas = Visited.find(:all,:conditions => ['school_id = ? and status = ? and wanna_at > ?', @school.id, 3, Time.now], :order => "wanna_at ASC",:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
     @executions = @school.executions.validated.find(:all,:limit => 3)
@@ -447,6 +437,10 @@ class SchoolsController < ApplicationController
     end
   end
   
+  def followers
+    @followers = @school.interestings
+  end
+  
   private
   
   def find_school
@@ -456,7 +450,7 @@ class SchoolsController < ApplicationController
   def check_permission
     if @school.edited_by(current_user)
     else
-      flash[:notice] = "你没有权限进行此操作"
+      flash[:notice] = "为了保证学校信息真实准确，只有学校大使才能修改学校信息，成为学校大使很简单，=> <a href='#{apply_school_url(@school)}'>点击这里</a>"
       redirect_to school_url(@school)
     end
   end
@@ -496,6 +490,11 @@ class SchoolsController < ApplicationController
         if next_step
           next_step == "done" ? redirect_to(school_url(@school)) : redirect_to(new_school_url(:step => next_step,:id => @school.id,:new => true))
         else
+          if current_step == "need"
+            @school.need.update_attributes!(:updated_at => Time.now)
+          elsif current_step == "basic"
+            @school.basic.update_attributes!(:updated_at => Time.now)
+          end
           redirect_to(edit_school_url(@school, :step => current_step))
         end
       
