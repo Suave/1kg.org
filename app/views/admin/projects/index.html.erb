@@ -48,7 +48,8 @@
           <%= project.feedback_require %>
           </p>
           <div style="float:right">
-            <%=  project.validated? ? (link_to "取消审核",refuse_admin_project_path(project),:class => "adminbutton",:method => :put) : (link_to "通过审核",validate_admin_project_path(project),:class => "adminbutton",:method => :put)%>
+            <%= (link_to "拒绝审核",refuse_admin_project_path(project),:class => "adminbutton",:method => :put) if !project.refused?%>
+            <%= (link_to "通过审核",validate_admin_project_path(project),:class => "adminbutton",:method => :put) if !project.validated?%>
           </div>  
         </td>
       </tr>
