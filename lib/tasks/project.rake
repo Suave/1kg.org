@@ -75,6 +75,10 @@ namespace :project do
           x.execution_id = b.id
           x.save
         end
+        s.photos.each do |x|
+          x.execution_id = b.id
+          x.save
+        end
         s.comments.each do |c|
           c.commentable_id = b.id
           c.commentable_type = 'Execution'

@@ -93,10 +93,10 @@
               </p>
               
               <% if logged_in? && @execution.user == current_user -%>
-                <%= upload_button('upload_container', photo_upload_path_with_session('requirement',@execution.id)) %>
+                <%= upload_button('upload_container', photo_upload_path_with_session('execution',@execution.id)) %>
               <%end%>
               <div style="display:none;" id="upload_tip">
-              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:requirement_id => @execution.id) %> 上传.
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:execution_id => @execution.id) %> 上传.
               </div>
                 
                 
