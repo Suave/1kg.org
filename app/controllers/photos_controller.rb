@@ -27,8 +27,8 @@ class PhotosController < ApplicationController
       if params[:Filedata]
         wants.html {render(:text => @photo.id)}
       else
-        if @photo.school || @photo.activity || @photo.requirement
-          wants.html {redirect_to @photo.school || @photo.activity || @photo.requirement}
+        if @photo.school || @photo.activity || @photo.execution
+          wants.html {redirect_to @photo.school || @photo.activity || @photo.execution}
         else
           wants.html {render 'insert', :layout => false}
         end
