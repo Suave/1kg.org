@@ -39,6 +39,12 @@ class ProjectsController < ApplicationController
     @project.user = current_user
     @project.save
     flash[:notice] = "项目创建成功"
+    message = Message.new(:subject => "#{@project.user}创建了的公益项目#{@project.title}",
+                          :content => "<p>请去网站后台查看</p>"
+                          )
+    message.author_id = 0
+    message.to = [User.admins]
+    message.save!
     redirect_to projects_url
   end
   
