@@ -1,8 +1,8 @@
 class ExecutionsController < ApplicationController
-  before_filter :login_required, :except => [:show]
+  before_filter :login_required, :except => [:show,:info_window]
   before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]
   before_filter :check_permission, :only => [:edit,:update,:feedback,:finish]
-  before_filter :find_execution, :only => [:show]
+  before_filter :find_execution, :only => [:show,:info_window]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:feedback]
   
   def new
@@ -153,6 +153,12 @@ class ExecutionsController < ApplicationController
         want.html { redirect_to @project }
       end
     end   
+  end
+  
+  def info_window
+    respond_to do |format|
+      format.html {render :layout => false}
+    end
   end
   
   private

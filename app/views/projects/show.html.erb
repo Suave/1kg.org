@@ -13,6 +13,10 @@
     <%= link_to "编辑项目", edit_project_url(@project) ,:class=>"adminbutton"%> <%= link_to "管理项目", manage_project_url(@project) ,:class=>"adminbutton"%>
   </div>
   <%end%>
+  
+  <%= render :partial => 'school_map'%>
+  
+  
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @my_executions.blank?%>
     <span class="span_title2">我的项目</span>
@@ -32,11 +36,7 @@
     <% end %>
     <div class="cleanfix" style="clear:both;height:20px"></div>
   <%end%>
-    <span class="span_title2">参与的学校</span>
-      <p><%= "暂无" if @executions.blank? %></p>
-      <%= render :partial => "execution", :collection => @executions %>
-    
-  <div class="cleanfix" style="clear:both;height:20px"></div>
+  
   <% unless @others.empty?%>
   <div>
       <span class="span_title2">其它公益项目</span>

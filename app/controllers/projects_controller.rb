@@ -14,6 +14,17 @@ class ProjectsController < ApplicationController
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
     @others = Project.validated.find(:all, :limit => 4) - [@project]
+    @map_center = Geo::DEFAULT_CENTER
+    @json = []
+    @executions.compact.each do |e|
+      next if e.school.basic.blank?
+      @json << {:i => e.id,
+                       :t => e.school.icon_type,
+                       :n => e.school.title,
+                       :a => e.school.basic.latitude,
+                       :o => e.school.basic.longitude
+                       }
+    end
   end
   
   def new
