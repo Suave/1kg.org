@@ -18,8 +18,7 @@
   </ul>
 <% end -%>
 
-<div class="newbox">
-    
+<div class="newbox">    
     <span class="span_title"><%= @province ?  @province.name : "全国" %></span> <%=link_to "全国",geos_url if @province%><br/>
     <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @province.children} if @province%></div>
       
