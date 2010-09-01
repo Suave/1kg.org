@@ -12,7 +12,7 @@ class PhotosController < ApplicationController
   end
   
   def new
-    @photo = Photo.new(:requirement_id => params[:requirement_id],:school_id => params[:school_id], :activity_id => params[:activity_id])
+    @photo = Photo.new(:execution_id => params[:execution_id],:school_id => params[:school_id], :activity_id => params[:activity_id])
   end
   
   def create
@@ -22,7 +22,7 @@ class PhotosController < ApplicationController
     @photo.title = '未命名图片' unless @photo.title.blank?
     @photo.save!
     flash[:notice] = "照片上传成功!"
-    
+    debugger
     respond_to do |wants|
       if params[:Filedata]
         wants.html {render(:text => @photo.id)}
