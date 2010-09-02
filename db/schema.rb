@@ -259,6 +259,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "deleted_at"
     t.integer  "activity_id"
     t.integer  "school_id"
+    t.integer  "requirement_id"
     t.integer  "execution_id"
     t.integer  "co_donation_id"
   end
