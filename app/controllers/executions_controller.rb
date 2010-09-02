@@ -156,6 +156,7 @@ class ExecutionsController < ApplicationController
   end
   
   def info_window
+    @school = @execution.school
     respond_to do |format|
       format.html {render :layout => false}
     end

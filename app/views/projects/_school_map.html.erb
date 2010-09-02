@@ -3,7 +3,7 @@
 
   <script type="text/javascript">
     var schools = <%= @json.to_json %>;
-    function loadExecution(latlng, id)
+    function openInfoWindow(latlng, id)
     {
     GDownloadUrl("/executions/info_window/" + id, function(data, responseCode) {
     map.openInfoWindowHtml(latlng, data);
@@ -29,7 +29,7 @@
         for (var i = 0; i < schools.length; ++i) {
           var point = new GLatLng(schools[i].a, schools[i].o)
           var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
-          GEvent.addListener(marker, "click", loadExecution(point, schools[i].i));   
+          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));   
           map.addOverlay(marker);
         }        
       }
@@ -41,5 +41,5 @@
 <span class="span_title2">参与学校</span>
 <div id="school_map" style="background-color:#ddd;border:1px #ccc solid;width: 278px; height: 178px; margin:10px 0 2px;"></div>
 <div id="map_info">
- 
+  <%= link_to '查看所有',large_map_project_url(@project)%>
 </div>

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   
-  before_filter :login_required, :except => [:show,:index] 
+  before_filter :login_required, :except => [:show,:index,:large_map] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
 
@@ -63,6 +63,21 @@ class ProjectsController < ApplicationController
   
   def manage
     @executions = @project.executions
+  end
+  
+  def large_map
+    @json = []
+    @executions = @project.executions.validated
+    @executions.compact.each do |e|
+    @map_center = Geo::DEFAULT_CENTER
+      next if e.school.basic.blank?
+      @json << {:i => e.id,
+                       :t => e.school.icon_type,
+                       :n => e.school.title,
+                       :a => e.school.basic.latitude,
+                       :o => e.school.basic.longitude
+                       }
+    end
   end
   
   private

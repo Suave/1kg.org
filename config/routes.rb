@@ -175,7 +175,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :large_map => :get
                                   }
 
-  map.resources :projects, :member => {:manage => :get} do |project|
+  map.resources :projects, :member => {:manage => :get,:large_map => :get} do |project|
     project.resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
       execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
     end
