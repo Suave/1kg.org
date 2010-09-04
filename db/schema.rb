@@ -333,11 +333,13 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "school_basics", :force => true do |t|
     t.integer  "school_id"
+    t.integer  "village_id"
     t.text     "intro"
     t.string   "address"
     t.integer  "zipcode"
     t.string   "master"
     t.string   "telephone"
+    t.string   "population"
     t.string   "level_amount"
     t.string   "teacher_amount"
     t.string   "student_amount"
@@ -362,6 +364,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_contacts", :force => true do |t|
+    t.integer "village_id"
     t.integer "school_id"
     t.string  "name"
     t.string  "role"
@@ -396,6 +399,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_needs", :force => true do |t|
+    t.integer "village_id"
     t.integer "school_id"
     t.string  "urgency"
     t.string  "book"
@@ -444,6 +448,16 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamps
   end
 
+  create_table "villages", :force => true do |t|
+    t.integer  "user_id",                                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.integer  "geo_id"
+    t.integer  "main_photo_id"
+    t.string   "title",                                  :null => false
+  end
+  
   create_table "schools", :force => true do |t|
     t.integer  "user_id"
     t.string   "ref"
@@ -585,6 +599,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
     t.integer  "school_id"
+    t.integer  "village_id"
     t.integer  "project_id"
     t.string   "telephone"
     t.string   "state"
@@ -610,6 +625,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
+    t.boolean  "no_need_apply",       :default => false
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"

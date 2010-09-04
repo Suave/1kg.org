@@ -16,6 +16,9 @@ ActionController::Routing::Routes.draw do |map|
     execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
   end
   
+  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
+  
+  
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"

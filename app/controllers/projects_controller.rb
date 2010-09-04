@@ -17,12 +17,11 @@ class ProjectsController < ApplicationController
     @map_center = Geo::DEFAULT_CENTER
     @json = []
     @executions.compact.each do |e|
-      next if e.school.basic.blank?
+      next if e.community.basic.blank?
       @json << {:i => e.id,
-                       :t => e.school.icon_type,
-                       :n => e.school.title,
-                       :a => e.school.basic.latitude,
-                       :o => e.school.basic.longitude
+                       :n => e.community.title,
+                       :a => e.community.basic.latitude,
+                       :o => e.community.basic.longitude
                        }
     end
   end
@@ -68,14 +67,13 @@ class ProjectsController < ApplicationController
   def large_map
     @json = []
     @executions = @project.executions.validated
-    @executions.compact.each do |e|
     @map_center = Geo::DEFAULT_CENTER
-      next if e.school.basic.blank?
+    @executions.compact.each do |e|
+      next if e.community.blank?
       @json << {:i => e.id,
-                       :t => e.school.icon_type,
-                       :n => e.school.title,
-                       :a => e.school.basic.latitude,
-                       :o => e.school.basic.longitude
+                       :n => e.community.title,
+                       :a => e.community.basic.latitude,
+                       :o => e.community.basic.longitude
                        }
     end
   end

@@ -21,6 +21,7 @@ class SchoolNeed < ActiveRecord::Base
   acts_as_taggable
   
   belongs_to :school
+  belongs_to :village
 
   before_save :setup_tag
 

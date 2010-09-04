@@ -1,0 +1,25 @@
+<% @page_title = @title = "提交村庄信息" %>
+<% @body_class = "schools" -%>
+<% content_for :crumb do -%>
+<li>提交村庄信息</li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+
+<% end -%>
+
+<div class="newbox" >
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :village, :url => villages_path, :html => {:multipart => true}  do |f| -%>
+
+    <%= render :partial => "form", :object => f %>        
+    <p>
+      <%= f.submit "确认" ,:class => "surebutton"%>
+      <% "由于项目特殊所以在这里硬编码了" %>
+      <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='//';return false" %>
+      <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
+    </p>
+  <% end -%>
+  <div class="clearfix" style="height:20px"></div>
+</div>

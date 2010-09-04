@@ -31,6 +31,7 @@ class SchoolBasic < ActiveRecord::Base
   include GMap
 
   belongs_to :school
+  belongs_to :village
   belongs_to :marked_by, :class_name => "User", :foreign_key => "marked_by_id"
 
   validates_presence_of :address, :message => "必填项"
@@ -41,13 +42,18 @@ class SchoolBasic < ActiveRecord::Base
   
   before_create :parse_address_to_coordinates
   
+  def community
+    self.school ? self.school : self.village
+  end
+  
+  
   private
   def parse_address_to_coordinates
     #self.longitude, self.latitude = find_coordinates_by_address(self.address)
     
     #if self.longitude == DEFAULT_LONGITUDE && self.latitude == DEFAULT_LATITUDE
-    self.longitude = self.school.geo.longitude
-    self.latitude  = self.school.geo.latitude
+    self.longitude = (self.community.geo.longitude)
+    self.latitude  = (self.community.geo.latitude)
     #end
 
     self.marked_at = Time.now
