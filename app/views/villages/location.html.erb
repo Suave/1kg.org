@@ -11,7 +11,7 @@
 
 <div class="newbox" >
   <div class="clearfix" style="height:10px"></div>
-  <% form_for :village, :url => village_path(@village), :html => {:multipart => true,:method => :put}  do |f| -%>
+  <% form_for :village, :url => village_path(@village) + "?next=main_photo", :html => {:multipart => true,:method => :put}  do |f| -%>
 
     <fieldset>
       <legend>标记村庄位置</legend>
@@ -53,7 +53,7 @@
     </fieldset>
 
     <p>
-      <%= f.submit "确认" ,:class => "surebutton",:onclick =>"javascript:window.location='#{village_path(@village)}';return false" %>
+      <%= f.submit "确认" ,:class => "surebutton" %>
       <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
     </p>
   <% end -%>

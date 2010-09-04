@@ -1,6 +1,7 @@
 class VillagesController < ApplicationController
   before_filter :find_village, :except => [:index,:new,:create]
   before_filter :login_required, :except => [:show,:index]
+  before_filter :check_permission ,:only => [:edit,:destory,:update,:location,:main_photo]
   
   def show
     @executions = @village.executions
@@ -18,7 +19,7 @@ class VillagesController < ApplicationController
     @village.user = current_user
     respond_to do |format|
       if @village.save
-        flash[:notice] = "村庄创建成功请继续完善村庄信息"
+        flash[:notice] = "村庄创建成功,请标记村庄的具体位置"
         format.html{redirect_to location_village_url(@village)}
       else
         flash[:notice] = "请检查所有必填项是否填写正确"
@@ -29,7 +30,24 @@ class VillagesController < ApplicationController
   
   def update
     @village.update_attributes(params[:village])
-    redirect_to village_url(@village)
+    
+    respond_to do |format|
+      format.html do
+        if params[:next] == 'main_photo'
+          flash[:notice] = "请上传一张村庄的照片"
+          redirect_to main_photo_village_url(@village)
+        else
+          redirect_to village_url(@village)
+        end
+      end    
+    # for drag & drop school marker
+      format.js do
+        @village.basic.update_attributes( :latitude => params[:latitude], 
+                                         :longitude => params[:longitude],
+                                         :marked_at => Time.now,
+                                         :marked_by_id => current_user.id )
+      end
+    end  
   end
   
   def main_photo
@@ -60,9 +78,17 @@ class VillagesController < ApplicationController
   
   def large_map
     @map_center = Geo::DEFAULT_CENTER
-    @edit = params[:edit]
     respond_to do |format|
       format.html {render :layout => false}
+    end
+  end
+  
+  def check_permission
+    if @village.user == current_user
+    elsif current_user.admin?
+    else
+      flash[:notice] = "你没有权限进行此操作"
+      redirect_to co_donation_url(@co_donation)
     end
   end
   
