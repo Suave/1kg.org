@@ -1171,6 +1171,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 .checkbox_label{margin:0 10px 0 2px;}
 
+.actionbutton{background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:5px;color:white;border:1px solid #c10}
+.actionbutton:hover{color:white;background-color:#ff4411}
+
 .meta_label{font-weight:bold;margin-left:4px}
 .meta_col{float:left;margin-right:10px}
 #school_meta{margin-top:20px;margin-left:60px;height:50px}

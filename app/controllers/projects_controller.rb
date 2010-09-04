@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   
-  before_filter :login_required, :except => [:show,:index] 
+  before_filter :login_required, :except => [:show,:index,:large_map] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
 
@@ -14,6 +14,16 @@ class ProjectsController < ApplicationController
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
     @others = Project.validated.find(:all, :limit => 4) - [@project]
+    @map_center = Geo::DEFAULT_CENTER
+    @json = []
+    @executions.compact.each do |e|
+      next if e.community.basic.blank?
+      @json << {:i => e.id,
+                       :n => e.community.title,
+                       :a => e.community.basic.latitude,
+                       :o => e.community.basic.longitude
+                       }
+    end
   end
   
   def new
@@ -52,6 +62,20 @@ class ProjectsController < ApplicationController
   
   def manage
     @executions = @project.executions
+  end
+  
+  def large_map
+    @json = []
+    @executions = @project.executions.validated
+    @map_center = Geo::DEFAULT_CENTER
+    @executions.compact.each do |e|
+      next if e.community.blank?
+      @json << {:i => e.id,
+                       :n => e.community.title,
+                       :a => e.community.basic.latitude,
+                       :o => e.community.basic.longitude
+                       }
+    end
   end
   
   private

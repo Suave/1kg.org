@@ -28,6 +28,7 @@ class Photo < ActiveRecord::Base
   belongs_to :user,:foreign_key => "user_id"
   belongs_to :school,:foreign_key => "school_id"
   belongs_to :activity,:foreign_key => "activity_id"
+  belongs_to :requirement,:foreign_key => "requirement_id"
   belongs_to :execution,:foreign_key => "execution_id"
   belongs_to :co_donation,:foreign_key => "co_donation_id"
   

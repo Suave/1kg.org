@@ -96,7 +96,7 @@
       <% elsif @co_donation.end_at < (Date.today - 1.day)%>
         <h5>捐赠已经截止</h5>
       <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>
-          <a href="#" style="background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:6px" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" class="surebutton">我要捐赠</a>
+          <a href="#" class="actionbutton" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" >我要捐赠</a>
           <div id="input_number" style="display:none">
           <% form_for [@co_donation, @sub_donation] do |f| %>
               <span class="span_title2">捐赠</span>

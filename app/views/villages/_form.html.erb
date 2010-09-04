@@ -1,0 +1,69 @@
+<div class="form_box">
+  <div class="contents">
+    <fieldset>
+     <legend>村庄信息</legend>
+        <br/>
+        <div class="meta_col" >
+          <label class="meta_label">地区</label><span class="require">*</span>
+          <div style="margin-top:5px;"><%= geo_select "village", "geo",[], @village.geo_id %>
+          </div>
+        </div>
+        <div class="meta_col">
+          <label class="meta_label">地址</label><span class="require">*</span><br/>
+        <% form.fields_for :basic_attributes, @village.basic do |b| -%>
+        <%= b.hidden_field :id %>
+        <%= b.hidden_field :level_amount ,:value => '0'%>
+        <%= b.hidden_field :class_amount ,:value => '0'%>
+        <%= b.hidden_field :student_amount ,:value => '0'%>
+        <%= b.hidden_field :teacher_amount ,:value => '0'%>
+        <%= b.text_field :address, :size => 24, :class => "formText",:style => "width:190px" %></div>
+        <div class="meta_col">
+        <label class="meta_label">村庄名称</label><span class="require">*</span><br/>
+        <%= form.text_field :title, :size => 16, :class => "formText" %>
+        </div>
+        <div class="meta_col">
+        <label class="meta_label">邮编</label><br/>
+        <%= b.text_field :zipcode, :size => 8, :class => "formText" %>
+        </div>
+
+    <div class="clearfix" style="clear:both;height:10px"></div>
+    <p>
+      <label class="label">村庄人数</label>
+      <%= b.text_field :population, :size => 24, :class => "formText",:style => "width:60px" %><%= error_message_on @school, :intro %>
+    </p>
+    
+    <p>
+      <label class="label">村庄简介</label> <span class="gary_span">140字以内 (还剩 <span id="remaining" style="color:#c80;font-weight:bold"></span> 字)</span> <%= error_message_on @school, :intro %>
+      <br/><%= b.text_area  :intro, :cols => 64, :rows => 4 %>
+    </p>
+    <% end %>
+    
+    <% form.fields_for :need_attributes, @village.need do |n| -%>
+    <p>
+      <label class="label">村庄需求</label>
+      <%= n.text_area  :other, :cols => 64, :rows => 4 %>
+    </p>
+    <%end%>
+      <script type="text/javascript">
+      function updateCount() {
+      document.getElementById("remaining").innerHTML = 140 - document.getElementById("village_basic_attributes_intro").value.length;
+      setTimeout(updateCount, 400);
+       }
+      updateCount();</script>
+    
+    </fieldset>
+    
+    
+    <fieldset>
+      <legend>村庄联系人</legend>
+      <% form.fields_for :contact_attributes, @village.contact do |c| -%>
+      <%= c.hidden_field :id %>
+      <p><label class="label">姓名<span class="require">*</span></label><%= c.text_field :name, :size => 10, :class => 'formText' %>
+      <label class="small_label">职务</label><%= c.text_field :role, :size => 10, :class => 'formText' %>
+      <label class="small_label">电话<span class="require">*</span></label><%= c.text_field :telephone, :size => 15, :class => 'formText' %></p>
+      <p><label class="label">邮箱</label><%= c.text_field :email, :size => 15, :class => 'formText' %><label class="small_label">QQ</label><%= c.text_field :qq, :size => 15, :class => 'formText' %></p>
+      <% end -%>
+    </fieldset>
+    
+  </div>
+</div>

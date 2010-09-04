@@ -1,0 +1,42 @@
+<% content_for :tail do -%>
+  <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    var schools = <%= @json.to_json %>;
+    function openInfoWindow(latlng, id)
+    {
+    GDownloadUrl("/executions/info_window/" + id, function(data, responseCode) {
+    map.openInfoWindowHtml(latlng, data);
+     });
+    }
+  </script>
+  
+  <script type="text/javascript">
+    var map;
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        map = new GMap2(document.getElementById("school_map"));
+        map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] - 1 %>);
+        
+        school_icon = new GIcon(); team_icon = new GIcon();
+        school_icon.image = "/images/m0.png"; 
+        school_icon.shadow = team_icon.shadow =null;
+        school_icon.iconSize = team_icon.iconSize = new GSize(16, 20);
+        school_icon.shadowSize = team_icon.shadowSize =null;
+        school_icon.iconAnchor = team_icon.iconAnchor = new GPoint(8,10 );
+        school_icon.infoWindowAnchor = new GPoint(8, 6);
+        
+        for (var i = 0; i < schools.length; ++i) {
+          var point = new GLatLng(schools[i].a, schools[i].o)
+          var marker = new GMarker(point, {icon: school_icon, title: schools[i].n});
+          GEvent.addListener(marker, "click", markerClickFn(point, schools[i].i));   
+          map.addOverlay(marker);
+        }        
+      }
+    }
+    window.onload = initialize;
+  </script>
+<% end %>
+
+<span class="span_title2">参与学校</span>  <%= @executions.blank? ? '<span class="gary_span">还没有学校参与</span>' : link_to("共有#{@executions.size}所学校参与",large_map_project_url(@project))%>
+<div id="school_map" style="background-color:#ddd;border:1px #ccc solid;width: 278px; height: 178px; margin:10px 0 2px;"></div>

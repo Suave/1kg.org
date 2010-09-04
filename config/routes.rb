@@ -13,8 +13,11 @@ ActionController::Routing::Routes.draw do |map|
   end
  
   map.resources :executions do |execution|
-    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
+    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
   end
+  
+  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
+  
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
@@ -176,9 +179,9 @@ ActionController::Routing::Routes.draw do |map|
                                     :large_map => :get
                                   }
 
-  map.resources :projects, :member => {:manage => :get} do |project|
-    project.resources :executions, :member => {:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
-      execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'SubProject'}
+  map.resources :projects, :member => {:manage => :get,:large_map => :get} do |project|
+    project.resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
+      execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
     end
     project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}
   end

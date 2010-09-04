@@ -1,0 +1,111 @@
+<% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+  <%= stylesheet_link_tag 'school' %>
+  <%= javascript_include_tag 'swfupload' %>
+  <%= javascript_include_tag 'handlers' %>
+<% end %>
+
+<% @page_title = "#{h @village.title}" -%>
+
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    $(".more").toggle(
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+  });
+</script>
+
+<% content_for :subtitle do -%>
+<% end -%>
+
+<span class="span_title"><%= h @village.title -%></span>
+　<% if @village.geo.parent %><%= link_to @village.geo.parent.name.to_s,'/geos/'+@village.geo.parent.id.to_s %> > <% end %><%= link_to @village.geo.name.to_s,'/geos/'+@village.geo.id.to_s %>
+ <%= link_to "(查看地图位置)", large_map_village_url(:iframe => true, :width => 550, :height => 480, :alt => @village.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
+ <br/>
+  
+  <div id="meta">
+    <div class="meta_left">
+      <% if @village.main_photo -%>
+      <%= link_to image_tag(@village.main_photo.public_filename(:small), :alt => @village.title), @village.main_photo.public_filename(:medium),:class => "school_main" %>
+      <%else%>
+        <% if logged_in? && @village.edited_by(current_user)%>
+        <%= link_to image_tag("school_main_set.png"),village_url(@village)+"/edit?step=mainphoto" %>
+        <%else%>
+        <img class="school_main" src="/images/school_main.png"/>
+        <%end%>
+      <%end%>
+      
+    </div>
+    <div class="meta_right">
+      <p style="font-size:13px">
+      <% if  @village.intro.blank? %>
+        <div class="clearfix" style="clear:both;height:20px"></div>
+       　村庄还没有村庄简介，赶快为村庄写一份简短生动的介绍吧。  <%= link_to "现在就写", edit_village_url(@village) ,:class => "adminbutton"%>
+      <%else%>
+        <%= @village.intro %>
+      <% end %>
+      </p>
+    </div>
+    
+    <div class="clearfix"></div>
+  </div>
+
+  <div class="school_box">
+      <span class="span_title2" >基本信息</span>
+      <div style="padding:10px 4px;font-size:13px;color:#666;line-height:22px">
+        <%= "　　地址： #{h @village.geo.full_name} #{h @village.address}"%>
+        <br/>
+        <%= "　　邮编：  #{h @village.zipcode}"%>
+        <br/>
+        <%= "　联系人： #{h @village.contact.name}"%>
+        <br/>
+        <%= "联系电话： #{h @village.contact.telephone}"%>
+        <br/>
+        <%= "　　需求： #{h @village.need.other}"%>
+      </div>
+  </div>
+    
+  <div class="school_box">
+    <span class="span_title2" >分享</span>
+    <%= @shares.blank? ? "还没有村庄分享" :  "共有#{@shares.size}篇分享" %>
+    <div class="contents clearfix">
+      <%= render :partial => "/shared/share", :collection => @shares %>
+    </div>
+  </div>
+
+  <div class="school_box">
+    <span class="span_title2" >相册</span>
+    <%= @photos.blank? ? "还没有村庄照片" :"共有#{@photos.size}张照片" %>
+    <div class="contents clearfix" style="padding-top:16px;">
+      <div id="photos" class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0..7],:locals => {:no_title => true} %>
+      </div>
+    </div>  
+  </div>
+  
+<% content_for :sidebar do -%>
+
+    <% if logged_in? && current_user == @village.user -%>
+    <div id="admins">
+        你是提交村庄者，可以使用以下功能：
+      <br/>
+        <%= link_to '更新信息',edit_village_url(@village),:class => "adminbutton"%>
+    </div>
+    <% end -%>  
+    
+      <div style="text-align:center;margin:20px 0;padding:15px;background:#e9e9e9;border:1px solid #ccc">
+        <span class="span_title2" >旱灾调研项目正在进行</span>
+        <div class="clearfix" style="clear:both;height:10px"></div>
+        <% if @execution %>
+          <p style="font-size:13px;color:#666">村庄已经加入 <%= link_to '立即查看',project_execution_url(@execution.project,@execution)%><p>
+        <% elsif logged_in? && current_user == @village.user -%>
+          <%= link_to "立即加入", join_research_village_url(@village),:class => "actionbutton",:method => :post,:confirm => "确定要参加调研项目并建立新的项目页面吗？"%>
+        <% else %>
+          <p style="font-size:13px;color:#666">村庄还没有加入项目 <%= link_to '(了解项目)',project_url(6)%><p>
+        <% end %>   
+      </div>
+    
+<% end -%>

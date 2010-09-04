@@ -1,4 +1,4 @@
-<% @page_title = "#{@execution.school.title}的#{@execution.project.title}" -%>
+<% @page_title = "#{@execution.community.title}的#{@execution.project.title}" -%>
 <% content_for :heads do -%>
 <%= javascript_include_tag "jquery.timeago.js" %>
 <%= javascript_include_tag 'swfupload' %>
@@ -9,15 +9,15 @@
 <div class="cleanfix" style="clear:both;height:20px"></div> 
 
 <br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.project.title}",project_url(@execution.project)%></span>
-<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.school.title}",school_url(@execution.school)%></span>
+<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.community.title}",@execution.community%></span>
 
   <div class="cleanfix" style="height:20px"></div>
 <% end -%>
 
-<%= main_photo_thumb(@execution.school) -%>
+<%= main_photo_thumb(@execution.community) -%>
 
 <div style="float:left;width:516px;margin-left:10px">
-  <div style="font-size:16px;font-weight:bold"><%= link_to @execution.school.title,school_url(@execution.school) %> 的 <%= link_to @execution.project.title,project_url(@execution.project)%></div>
+  <div style="font-size:16px;font-weight:bold"><%= link_to @execution.community.title,school_url(@execution.community) %> 的 <%= link_to @execution.project.title,project_url(@execution.project)%></div>
   
   <div id="entry">
     <div id="summary">

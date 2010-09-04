@@ -1,0 +1,36 @@
+
+<% @page_title = @title = "编辑村庄信息" %>
+<% @body_class = "schools" -%>
+<% content_for :crumb do -%>
+<li>编辑村庄信息</li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+
+<% end -%>
+
+<div class="newbox" >
+  <div class="clearfix" style="height:10px"></div>
+  <% form_for :village, :url => village_path(@village), :html => {:multipart => true,:method => :put}  do |f| -%>
+    
+    
+    <fieldset>
+      <legend>上传村庄主照片</legend>
+    <div class="contents">
+      <% f.fields_for :main_photo_attributes, @village.main_photo do |p| -%>
+      <p><label class="label">照片标题</label><%= p.text_field :title, :size => 40, :class => "formText" ,:value =>''%></p>      
+      <p><label class="label">上传照片</label><%= p.file_field :uploaded_data %></p>
+      <% end -%>
+    </div>
+    </fieldset>    
+    
+    <p>
+      <%= f.submit "确认" ,:class => "surebutton"%>
+      <% "由于项目特殊所以在这里硬编码了" %>
+      <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{village_path(@village)}';return false" %>
+      <span class="gary_span">带<span class="require">*</span>号的是必填项</span>
+    </p>
+  <% end -%>
+  <div class="clearfix" style="height:20px"></div>
+</div>
