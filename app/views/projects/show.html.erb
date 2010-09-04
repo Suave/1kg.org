@@ -1,10 +1,21 @@
 <% @page_title = @project.title %>
 <% content_for :heads do -%>
+  <%= javascript_include_tag 'jquery.prettyPhoto' %>
+  <%= stylesheet_link_tag 'prettyPhoto' %>
+
   <style type="text/css">.school_list_photo{width:80px;height:60px;margin-top:4px}
          .school_list_photo img{width:80px;height:60px}
          .school_list_meta{width:170px;padding:4px 0}
   </style>
+  
+  <script type="text/javascript" charset="utf-8">
+    jQuery(document).ready(function(){
+    jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    });
+  </script>
 <% end %>
+
+
 
 <% content_for :sidebar do -%>
   <% if current_user && (@project.user == current_user || current_user.admin?)%>
@@ -23,19 +34,23 @@
     <div class="cleanfix" style="clear:both;height:20px"></div>
   <%end%>
   
-  <% unless @others.empty?%>
-  <div>
-      <span class="span_title2">其它公益项目</span>
-      <div style="margin:6px 0">
-        <%= render :partial => "/shared/project", :collection => @others %>
+    <div>
+      <span class="span_title2">项目照片</span>　
+      <div class="cleanfix" style="height:10px"></div>
+      <div class="clearfix" id="photos">
+        <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+          <%= "暂无照片" if @photos.empty? %>
+        <div style="text-align:right;clear:both">
+          <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+        </div>
       </div>
-  </div>
-  <div class="cleanfix" style="clear:both;height:20px"></div>
+    </div>
+
+  <div class="cleanfix" style="height:20px"></div>
+
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
 
-  <%end%>
 <%end%>
-
 
 <div class="newbox">
       <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
@@ -79,5 +94,16 @@
 
 <%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
+
+
+
+    
+  <div class="school_box">
+    <span class="span_title2" >项目分享</span> <span class="gary_span"><%= @shares.blank? ? "还没有学校分享" : "共有#{@shares.size}篇分享" %></span>
+    <div class="contents clearfix">
+      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+    </div>
+  </div>
+
 <%= render :partial => "/comments/comments", :object => @comments%>
 <%= render :partial => "/comments/form", :locals => {:commentable => @project}%>

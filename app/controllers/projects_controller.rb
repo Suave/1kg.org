@@ -13,7 +13,8 @@ class ProjectsController < ApplicationController
     @my_executions = @project.executions.find(:all,:conditions => {:user_id => current_user.id}) if current_user
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
-    @others = Project.validated.find(:all, :limit => 4) - [@project]
+    @photos = @executions.map(&:photos).flatten
+    @shares = @executions.map(&:shares).flatten
     @map_center = Geo::DEFAULT_CENTER
     @json = []
     @executions.compact.each do |e|
