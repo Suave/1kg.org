@@ -4,11 +4,10 @@
       <h5><%= link_to h(execution.community.title), project_execution_url(execution.project, execution)%></h5>
       <%= state_tag(execution.state)%>
       <br/>
-      <span class="gary_span"><%= execution.created_at.to_date%> 申请</span>
+      <span class="gary_span"><%= month_and_day(execution.created_at) %>申请</span>　
       <% if current_user && (execution.user == current_user)%>
-      <div><%= execution.validated? ? link_to("更新反馈",feedback_project_execution_path(execution.project,execution),:class => "adminbutton")\
+      <%= execution.validated? ? link_to("　反馈　",project_execution_path(execution.project,execution),:class => "adminbutton")\
                     : link_to("修改申请",edit_project_execution_path(execution.project,execution),:class => "adminbutton")%>
-      </div>
       <%end%>
     </div>
     <div class="clearfix"></div>

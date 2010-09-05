@@ -1450,7 +1450,7 @@ a.progressCancel:hover {
 .donation_admin{background: url('/images/turn.gif') no-repeat #ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc;clear:both;}
 .donation_lastest{padding:5px 0;border-bottom:1px solid #ccc;}
 
-#module_meta {margin-left:180px;width:300px}
+#module_meta {margin-left:180px;}
 
 .detail_n{padding:10px 25px;background:#eee url(/images/turn.gif) no-repeat;}
 #SWFUpload_0{position:relative;top:7px}
