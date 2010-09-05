@@ -38,13 +38,7 @@
     </p>
     <% end %>
     
-    <% form.fields_for :need_attributes, @village.need do |n| -%>
-    <p>
-      <label class="label">村庄需求</label>
-      <%= n.text_area  :other, :cols => 64, :rows => 4 %>
-    </p>
-    <%end%>
-      <script type="text/javascript">
+    <script type="text/javascript">
       function updateCount() {
       document.getElementById("remaining").innerHTML = 140 - document.getElementById("village_basic_attributes_intro").value.length;
       setTimeout(updateCount, 400);

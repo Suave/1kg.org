@@ -15,4 +15,12 @@ class Village < ActiveRecord::Base
   def edited_by(u)
     self.user == u
   end
+  
+  def before_create
+    # 确保用户只提交了基本信息也不会出错
+    self.need ||= SchoolNeed.new
+    self.contact ||= SchoolContact.new
+  end
+  
+  
 end
