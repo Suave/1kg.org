@@ -25,36 +25,32 @@
   </div>
 <%end%>
   
-      <%= render :partial => 'school_map'%>
-  
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% unless @my_executions.blank?%>
     <span class="span_title2">我的项目</span>
     <%= render :partial => '/projects/execution',:collection => @my_executions%>
     <div class="cleanfix" style="clear:both;height:20px"></div>
   <%end%>
-  
-    <div>
-      <span class="span_title2">项目照片</span>　
-      <div class="cleanfix" style="height:10px"></div>
-      <div class="clearfix" id="photos">
-        <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
-          <%= "暂无照片" if @photos.empty? %>
-        <div style="text-align:right;clear:both">
-          <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
-        </div>
-      </div>
-    </div>
 
-  <div class="cleanfix" style="height:20px"></div>
+  <span class="span_title2">参与<%= (@project.id == 6) ? '村庄' : '学校' %></span><br/>
+  <% @executions.each do |e|%>
+            <div class="small_school">
+                <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px"),project_execution_url(e.project,e)%>
+                <p><%= link_to short_title(e.community,10),project_execution_url(e.project,e)%><br/>[<%= e.community.geo.parent.name.to_s if e.community.geo.parent%><%= e.community.geo.name.to_s%>]</p>  
+            </div>          
+  <% end %>
 
+  <div class="cleanfix" style="height:20px;clear:both"></div>
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
 
 <%end%>
 
-<div class="newbox">
+<div>
       <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-        <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>
+        <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>    
+        <p class="gary_span"><label>申请截：</label><%= month_and_day @project.apply_end_at %><br/>
+        <label>开始时间：</label><%= month_and_day@project.start_at %><br/>
+        <label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : month_and_day(@project.end_at) %></p>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
         <%if @project.no_need_apply%>
@@ -67,40 +63,55 @@
       </div>
       <div id="module_meta">
         <span class="span_title"><%= @project.title %></span>
-        <p><label>申请截止时间：</label><%= @project.apply_end_at.to_date %></p>
-        <p><label>开始时间：</label><%= @project.start_at.to_date %></p>
-        <p><label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : @project.end_at.to_date %></p>
+        <div id="summary">
+          <div class="project_info">
+            <p>
+              <%= (@project.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..200) %>...
+              <a href="#" onclick="javascript:$('#summary').hide();$('#project_detail').show();return false">(更多)</a>
+            </p>
+          </div>
+        </div>
+        
+        <div id="project_detail" style="display:none">
+          <div class="project_info">
+          <%= (@project.description) %> 
+          </div>
+          
+          <div class="project_info">
+            <div class="title_line"><span class="span_title2">征集要求</span></div>
+            <%= simple_format(@project.condition) %>
+          </div>
+          
+          <div class="project_info">  
+            <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div>
+            <%= simple_format(@project.support) %>
+          </div>
+          
+          <div class="project_info">
+            <div class="title_line"><span class="span_title2">反馈要求</span></div>
+            <%= "#{@project.feedback_require}<br/>" %><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%>
+          </div>
+          <a href="#" onclick="javascript:$('#project_detail').hide();$('#summary').show();return false">(收起)</a>
+        </div>  
       </div>
 </div>
-
-<div class="cleanfix" style="height:20px;clear:both"></div>
-<div class="newbox" style="color:#666">
-      <div class="project_info">
-        <div class="title_line"><span class="span_title2">项目背景</span></div>
-        <%= @project.description %>
-      </div>
-      <div class="project_info">
-        <div class="title_line"><span class="span_title2">征集要求</span></div>
-        <%= simple_format(@project.condition) %>
-      </div>
-      <div class="project_info">  
-        <div class="title_line"><span class="span_title2">参与学校或志愿者可获得的支持</span></div>
-        <%= simple_format(@project.support) %>
-      </div>
-      <div class="project_info">
-        <div class="title_line"><span class="span_title2">反馈要求</span></div>
-        <%= "#{@project.feedback_require}<br/>" %><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%>
-      </div>       
-</div>
+<div class="cleanfix" style="height:10px;clear:both"></div>
+      <%= render :partial => 'school_map'%>
 
 <%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
-
-
-    
   <div class="school_box">
-    <span class="span_title2" >项目分享</span> <span class="gary_span"><%= @shares.blank? ? "还没有学校分享" : "共有#{@shares.size}篇分享" %></span>
+    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %></span>
+    <div class="contents clearfix" style="padding-top:16px;">
+      <div id="photos" class="clearfix">
+      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
+      </div>
+    </div>  
+  </div>
+    
+  <div>
+    <span class="span_title2" >项目分享</span> <span class="gary_span"><%= @shares.blank? ? "还没有项目分享" : "共有#{@shares.size}篇分享" %></span>
     <div class="contents clearfix">
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
     </div>

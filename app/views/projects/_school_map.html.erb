@@ -16,7 +16,7 @@
     function initialize() {
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("school_map"));
-        map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] - 1 %>);
+        map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
         
         school_icon = new GIcon(); team_icon = new GIcon();
         school_icon.image = "/images/m0.png"; 
@@ -38,5 +38,5 @@
   </script>
 <% end %>
 
-<span class="span_title2">参与学校</span>  <%= @executions.blank? ? '<span class="gary_span">还没有学校参与</span>' : link_to("共有#{@executions.size}所学校参与",large_map_project_url(@project))%>
-<div id="school_map" style="background-color:#ddd;border:1px #ccc solid;width: 278px; height: 178px; margin:10px 0 2px;"></div>
+<span class="span_title2">项目地图</span>
+<div id="school_map" style="background-color:#ddd;border:1px #ccc solid;width: 630px; height: 320px; margin:10px 0 2px;"></div>

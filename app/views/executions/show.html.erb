@@ -51,6 +51,8 @@
         <p>　　执行期： <%=  @execution.project.start_at.to_date %> 至 <%=  @execution.project.end_at.nil? ? '未要求' : @execution.project.end_at.to_date %></p>
         <p>　申请日期： <%=  @execution.project.created_at.to_date %></p>
       
+      
+      <% unless @execution.project.id == 6%>
       <div class="project_info">
         <div class="title_line"><h5>反馈要求</h5></div>
         <%= "#{@execution.project.feedback_require}<br/>" %><%= "需要在 #{@execution.project.feedback_at.to_date} 之前完成反馈" unless @execution.project.feedback_at.nil?%>
@@ -60,6 +62,8 @@
         <div class="title_line"><h5>执行计划</h5></div>
         <%= @execution.plan %>
       </div>
+      <%end%>
+      
           
       <% unless @execution.problem.nil? or @execution.problem.empty?%>
         <div class="project_info">
@@ -138,5 +142,6 @@
 <script type="text/javascript">
 jQuery(document).ready(function () {
   $("#last_time").text(jQuery.timeago("<%= @execution.last_updated_at %>"));
+  <%= "$('#report_link').click()" if @execution.project.id == 6 %>
   })
 </script>
