@@ -47,10 +47,7 @@
 
 <div>
       <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-        <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>    
-        <p class="gary_span"><label>申请截：</label><%= month_and_day @project.apply_end_at %><br/>
-        <label>开始时间：</label><%= month_and_day@project.start_at %><br/>
-        <label>结束时间：</label><%= @project.end_at.nil? ? '未要求' : month_and_day(@project.end_at) %></p>
+        <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
         <%if @project.no_need_apply%>
@@ -62,11 +59,13 @@
         <% end %>
       </div>
       <div id="module_meta">
-        <span class="span_title"><%= @project.title %></span>
+        <span class="span_title"><%= @project.title %></span><br/>
+        <span class="gary_span">申请截止：<%= month_and_day @project.apply_end_at %>　
+        项目进行：<%= month_and_day@project.start_at %> 至 <%= @project.end_at.nil? ? '未要求' : month_and_day(@project.end_at) %></span>
         <div id="summary">
           <div class="project_info">
             <p>
-              <%= (@project.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..200) %>...
+              <%= (@project.description).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..180) %>...
               <a href="#" onclick="javascript:$('#summary').hide();$('#project_detail').show();return false">(更多)</a>
             </p>
           </div>
