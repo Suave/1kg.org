@@ -45,7 +45,7 @@
 
 <div style="clear:both;height:20px"></div>
 <%if current_user && @school.edited_by(current_user)%>
-<a href="#" onclick="javascript:$('#move_info').show();$(this).hide();edit_position()" class="adminbutton">修改位置</a>
+<p><a href="#" onclick="javascript:$('#move_info').show();$(this).hide();edit_position()" class="adminbutton">修改位置</a></p>
 <p id="move_info" ><span>拖动标记修改学校位置,修改之后刷新页面即可生效</span></p>
 <%end%>
 <style type="text/css">

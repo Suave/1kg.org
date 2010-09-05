@@ -10,8 +10,13 @@ class VillagesController < ApplicationController
     @execution = @executions.find(:first,:conditions => {:project_id => 6}) #获取灾情调研项目
   end
   
-  def new
-    @village =Village.new
+   def new
+    %w(basic need position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = 'basic'
+    if @step == 'basic'
+      @village = Village.new
+    else
+      @village = Village.find(params[:id])
+    end  
   end
   
   def create
@@ -20,8 +25,9 @@ class VillagesController < ApplicationController
     respond_to do |format|
       if @village.save
         flash[:notice] = "村庄创建成功,请标记村庄的具体位置"
-        format.html{redirect_to location_village_url(@village)}
+        format.html{redirect_to new_village_url(:step => 'position',:id => @village.id,:new=> true)}
       else
+        @step = 'basic'
         flash[:notice] = "请检查所有必填项是否填写正确"
         format.html{render :action => "new"}
       end
@@ -33,14 +39,27 @@ class VillagesController < ApplicationController
     
     respond_to do |format|
       format.html do
-        if params[:next] == 'main_photo'
-          flash[:notice] = "请上传一张村庄的照片"
-          redirect_to main_photo_village_url(@village)
-        else
-          redirect_to village_url(@village)
+        if params[:new] == 'true'
+          if params[:step] == 'basic'
+            update_info "basic", "position", "村庄信提交成功！"
+          elsif params[:step] == 'position'
+            update_info "position", "need", "标记村庄位置成功！"
+          elsif params[:step] == 'need'
+            update_info "need", "mainphoto", "村庄需求信息提交成功！"
+          elsif params[:step] == 'mainphoto'
+            update_info('mainphoto', 'done', "所有村庄信息已经完成，谢谢你的提交，之后你还可以继续更新村庄的信息。")
+          end
+        else 
+          %w(basic need position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = "basic"
+          if @step == 'mainphoto'
+            update_info(@step, nil, "你的修改已经保存，可以继续修改其他内容，或 <a href='/villages/#{@village.id}'>回到学校</a>。")
+          else
+            update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/villages/#{@village.id}'>回到学校</a>。")
+          end
+          
         end
       end    
-    # for drag & drop school marker
+    # for drag & drop village marker
       format.js do
         @village.basic.update_attributes( :latitude => params[:latitude], 
                                          :longitude => params[:longitude],
@@ -93,7 +112,36 @@ class VillagesController < ApplicationController
   end
   
   private
+  
   def find_village
     @village = Village.find(params[:id])
   end
+  
+  
+  def update_info(current_step, next_step, msg)
+    begin
+      @village.update_attributes!(params[:village])
+      flash[:notice] = msg
+        if next_step
+          next_step == "done" ? redirect_to(village_url(@village)) : redirect_to(new_village_url(:step => next_step,:id => @village.id,:new => true))
+        else
+          if current_step == "need"
+            @village.need.update_attributes!(:updated_at => Time.now)
+          elsif current_step == "basic"
+            @village.basic.update_attributes!(:updated_at => Time.now)
+          end
+          redirect_to(edit_village_url(@village, :step => current_step))
+        end    
+    rescue ActiveRecord::RecordInvalid
+      flash[:notice] = '请检查所有必填项是否填写正确'
+      if next_step
+        @step = current_step
+        render :action => "new"
+      else
+        @step = current_step
+        render :action => "edit"
+      end
+    end
+  end
+  
 end

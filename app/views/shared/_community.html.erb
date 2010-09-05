@@ -1,0 +1,4 @@
+            <div class="small_school">
+                <%= link_to image_tag((community.main_photo.blank?  ? '/images/community_main_thumb.png' : community.main_photo.public_filename(:thumb)), :alt => community.title,:style => "width:80px;height:60px"),(community)%>
+                <p><%= link_to(short_title(community,10),community)%><br/>[<%= community.geo.parent.name.to_s if community.geo.parent%><%= community.geo.name.to_s%>]</p>  
+            </div>

@@ -25,6 +25,10 @@ class ProjectsController < ApplicationController
                        :o => e.community.basic.longitude
                        }
     end
+    #为旱灾调研项目的hack
+    if @project.id = 6
+      @villages = (Village.all - @executions.map(&:village))
+    end
   end
   
   def new

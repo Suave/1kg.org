@@ -41,6 +41,12 @@
   <% end %>
 
   <div class="cleanfix" style="height:20px;clear:both"></div>
+  
+  <% unless @villages.blank?%>
+    <span class="span_title2">更多村庄</span><br/>
+    <%= render :partial => '/shared/community',:collection => @villages%>
+    <div class="cleanfix" style="height:20px;clear:both"></div>
+  <% end %>
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
 
 <%end%>

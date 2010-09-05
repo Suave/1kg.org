@@ -1,0 +1,9 @@
+<% step_list = [['basic','基本信息'],['position','标记位置'],['need','村庄需求'],['mainphoto','村庄主照片']]%>
+
+<div id="school-steps" class="clearfix">
+  <ol >
+    <% step_list.each do |l|%>
+    <li <%if step == l[0] %> class="current" <%elsif defined?(new)%>  <%else%> onclick='javascript:window.location="<%= "/schools/#{@school.id}/edit?step=#{l[0]}"%>"' class="select_step"  <%end%>  > <%= l[1]%></li>
+    <% end -%>
+  </ol>
+</div>
