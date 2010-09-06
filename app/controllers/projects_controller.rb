@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
                        }
     end
     #为旱灾调研项目的hack
-    if @project.id = 6
+    if @project.id == 6
       @villages = (Village.all - @executions.map(&:village))
     end
   end
