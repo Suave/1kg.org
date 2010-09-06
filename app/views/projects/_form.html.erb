@@ -19,7 +19,6 @@
 
 <div class="form_box">
 <p><label>项目申请要求</label><br/><%= form.text_area :condition, :size => "74x6" %></p>
-<label>无需审核申请？</label><%= form.check_box :no_need_apply%><br/>
 <label>必须是学校大使才能申请？</label><%= form.check_box :for_envoy%>
   <p><label>反馈截止时间</label><%= form.text_field :feedback_at, {:class => "vDateField"} %></p>
   <%= feedbacks_check_box(form,:feedback_require,@project.feedback_require) %>

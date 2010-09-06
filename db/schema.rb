@@ -625,7 +625,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "user_id"
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
-    t.boolean  "no_need_apply",       :default => false
     t.datetime "apply_end_at"
     t.datetime "start_at"
     t.datetime "end_at"
