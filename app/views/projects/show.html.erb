@@ -56,7 +56,8 @@
         <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
-        <%if @project.no_need_apply%>
+        <%if @project.id == 6%>
+          <%= link_to "提交乡村",new_village_url(),:class => "buttonjoin2"%>
         <% elsif @project.apply_end? -%>
           <p style="color:#666;margin:6px 0">项目申请已结束</p>
         <%else%>
