@@ -76,7 +76,6 @@ namespace :misc do
     end
   end  
 
-
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|

@@ -1,18 +1,18 @@
-<% @page_title = "#{h @share.title} - 活动分享" -%>
+<% @page_title = "#{h @share.title} - 论坛帖子" -%>
 <% @title = h @share.title %>
 <% content_for :heads do -%>  
     <style type="text/css">.school_list_photo{width:80px;height:60px;margin-top:4px}
          .school_list_photo img{width:80px;height:60px}
          .school_list_meta{width:170px;padding:4px 0}
   </style>
-  <meta name="description" content="来自多背一公斤的分享： <%= summary(@share ,60)%>...">
+  <meta name="description" content="来自多背一公斤的帖子： <%= summary(@share ,60)%>...">
 <% end %>
 
 
 <% content_for :crumb do -%>
   <p style="display:none"><%= summary(@share ,60)%></p>
-  <li><%= link_to '分享',shares_url %></li>
-  <p style="display:none">来自多背一公斤的话题： <%= summary(@share ,60)-%>...</p>
+  <li><%= link_to '论坛',shares_url %></li>
+  <p style="display:none">来自多背一公斤的帖子： <%= summary(@share ,60)-%>...</p>
 <% end -%>
   
 <% content_for :sidebar do -%>
@@ -21,9 +21,9 @@
       <% if current_user.admin?%>
       你是管理员，可以:<br/>
       <% else %>
-      你是分享的作者，可以:<br/>
+      你是作者，可以:<br/>
       <%end%>
-      <%= link_to "编辑分享", edit_share_url(@share),:class => "adminbutton"%> <%= link_to "删除分享", share_url(@share), :confirm => "确定删除么?", :method => :delete ,:class => "adminbutton"%></p> 
+      <%= link_to "编辑帖子", edit_share_url(@share),:class => "adminbutton"%> <%= link_to "删除帖子", share_url(@share), :confirm => "确定删除么?", :method => :delete ,:class => "adminbutton"%></p> 
   </div>
   <% end -%>
   <%if @share.school_id%>
@@ -51,7 +51,7 @@
   
   <% if @share.activity_id %>
   <div class="newbox">
-        <span class="span_title2">分享的活动</span>
+        <span class="span_title2">相关的活动</span>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
            <%= render :partial => '/shared/activity', :object => @share.activity %>
@@ -86,7 +86,7 @@
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %>
         </p>
         <p id ="voting" style="margin:7px 0;">
-        <span>已有 <%= @share.votes.count -%> 人推荐这篇分享 </span>
+        <span>已有 <%= @share.votes.count -%> 人推荐这篇帖子 </span>
         <% if logged_in? -%>
           <% if current_user.voted?(@share) -%>
             您已推荐了

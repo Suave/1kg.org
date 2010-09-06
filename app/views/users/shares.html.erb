@@ -1,9 +1,9 @@
-<% @page_title = @title = "#{@user.login}的分享" -%>
+<% @page_title = @title = "#{@user.login}的帖子" -%>
 
 <% content_for :crumb do -%>
     <li><%= link_to @user.login, user_url(@user) %></li>
     <ul>
-      <li><%= @user.login %>的分享</li>
+      <li><%= @user.login %>的帖子</li>
     </ul>
 <% end -%>
 
