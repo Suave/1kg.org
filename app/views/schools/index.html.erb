@@ -38,12 +38,9 @@
     <script type="text/javascript">
             jQuery("#record_tabs").tabs()
     </script>
-
-
-
 <% end -%>
 
-<div class="newbox" >
+<div class="newbox">
       <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
       <span class="span_title">学校</span> <%=link_to "按省市查询","/geos"%>
        <%= render :partial => '/geos/school_maps' %>
@@ -60,7 +57,7 @@
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
       </div>
-      <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ", requirement_types_url %></div><%end%>
+     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div><%end%>
 </div>
 
 <div class="newbox">

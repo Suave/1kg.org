@@ -1,0 +1,28 @@
+<% editing = @controller.action_name == "edit" && !current_user.admin? %>
+<span class="span_title2">一 项目基本信息</span>
+<div class="form_box">
+  <p><label class="label">项目名称</label><%= form.text_field(:title, :size => 20, :class => "text") %></p>
+  <p>
+    <label class="label">主题图</label> <span class="gary_span">为了更好的显示效果，建议使用正方形图片<span>
+    <br/><%= form.file_field :image,:style => "margin-left:70px" %> <%= error_message_on @team, :image%>
+  </p>
+      
+  <p><label class="label">申请截止</label><%= editing ? @project.apply_end_at.to_date : form.text_field(:apply_end_at, {:class => "vDateField"}) %></p>
+  <p><label class="label">项目开始</label><%= editing ? (@project.start_at ? @project.start_at.to_date : '') : form.text_field(:start_at, {:class => "vDateField"}) %></p>
+  
+  <p><label class="label">项目结束</label><%= form.text_field :end_at, {:class => "vDateField"} %> （可选）</p>
+  <p><label>项目背景介绍</label><br /><%= form.text_area :description, :style => 'width:540px;height:200px;', :class => "mceEditor" %></p>
+  <p><label>参与学校/志愿者可获得的支持</label><br /><%= form.text_area(:support, :size => "74x6") %></p>
+</div>
+
+<span class="span_title2">二 项目申请＆反馈要求</span>
+
+<div class="form_box">
+<p><label>项目申请要求</label><br/><%= form.text_area :condition, :size => "74x6" %></p>
+<label>必须是学校大使才能申请？</label><%= form.check_box :for_envoy%>
+  <p><label>反馈截止时间</label><%= form.text_field :feedback_at, {:class => "vDateField"} %></p>
+  <%= feedbacks_check_box(form,:feedback_require,@project.feedback_require) %>
+</p>
+
+</div>
+<script type="text/javascript" charset="utf-8">$(document).ready(DateTimeShortcuts.init)</script>

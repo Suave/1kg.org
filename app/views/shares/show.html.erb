@@ -1,8 +1,9 @@
 <% @page_title = "#{h @share.title} - 论坛帖子" -%>
 <% @title = h @share.title %>
 <% content_for :heads do -%>  
-  <style type="text/css">
-  .school_list_meta{width:160px;}
+    <style type="text/css">.school_list_photo{width:80px;height:60px;margin-top:4px}
+         .school_list_photo img{width:80px;height:60px}
+         .school_list_meta{width:170px;padding:4px 0}
   </style>
   <meta name="description" content="来自多背一公斤的帖子： <%= summary(@share ,60)%>...">
 <% end %>
@@ -35,7 +36,19 @@
         </div>
     </div>
   <%end%>
+  
+    <%if @share.execution_id%>
+    <div class="newbox">
+        <span class="span_title2">相关公益项目</span>
+        <div class="clearfix" style="height:5px"></div>
+        <div class="contents">
+          <%= render :partial => '/projects/execution', :object => @share.execution %>
+          <div class="clearfix"></div>
+        </div>
+    </div>
+  <%end%>
 
+  
   <% if @share.activity_id %>
   <div class="newbox">
         <span class="span_title2">相关的活动</span>

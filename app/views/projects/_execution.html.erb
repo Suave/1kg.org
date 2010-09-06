@@ -1,0 +1,15 @@
+  <div class="school_list" style="border-bottom:1px solid #ddd;padding-bottom:4px">
+    <%= main_photo_thumb(execution.community) -%>       
+    <div class="school_list_meta" style="width:170px">
+      <h5><%= link_to h(execution.community.title), project_execution_url(execution.project, execution)%></h5>
+      <%= state_tag(execution.state)%>
+      <br/>
+      <span class="gary_span"><%= month_and_day(execution.created_at) %>申请</span>　
+      <% if current_user && (execution.user == current_user)%>
+      <%= execution.validated? ? link_to("　反馈　",project_execution_path(execution.project,execution),:class => "adminbutton")\
+                    : link_to("修改申请",edit_project_execution_path(execution.project,execution),:class => "adminbutton")%>
+      <%end%>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+  

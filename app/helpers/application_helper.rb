@@ -310,6 +310,17 @@ module ApplicationHelper
     ))
   end
   
+  def state_tag(state)
+    state_attr = {
+     :waiting => ['#666',"待验证"],
+     :refused => ['#666',"已拒绝"],
+     :validated => ['#33c',"已验证"],
+     :going => ['#c33',"进行中"],
+     :finished => ['#600',"已结束"]
+     }[state.to_sym]
+     "<span style='color:#{state_attr[0]}'>#{state_attr[1]}</span>"
+  end
+  
   def upload_button(container, url)
     html = upload_script_for("upload", container, url)
     html += content_tag(:span, :id => "upload") do

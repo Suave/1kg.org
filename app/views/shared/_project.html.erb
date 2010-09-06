@@ -1,10 +1,10 @@
 <div class="project">
     <div class="project_image_frame">
-        <img class="project_image" src="<%= project.image.url(:thumb) %>"/>
+        <img class="project_image" src="<%= project.image.url(:project_avatar) %>"/>
     </div>
     <div class="project_meta">
-        <h5><%= link_to project.title,requirement_type_url(project,:school_id => params[:school_id])%></h5>
-        <%= project.description_html.gsub('</br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..50)%>...
+        <h5><%= link_to project.title,project_url(project)%></h5>
+        <%= project.description.gsub('</br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..50)%>...
     </div>
     <div style="clear:both"></div>
 </div>

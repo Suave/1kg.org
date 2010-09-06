@@ -1,0 +1,149 @@
+<% @page_title = "#{@execution.community.title}的#{@execution.project.title}" -%>
+<% content_for :heads do -%>
+<%= javascript_include_tag "jquery.timeago.js" %>
+<%= javascript_include_tag 'swfupload' %>
+<%= javascript_include_tag 'handlers' %>
+<% end %>
+
+<% content_for :sidebar do -%>
+<div class="cleanfix" style="clear:both;height:20px"></div> 
+
+<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.project.title}",project_url(@execution.project)%></span>
+<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.community.title}",@execution.community%></span>
+
+  <div class="cleanfix" style="height:20px"></div>
+<% end -%>
+
+<%= main_photo_thumb(@execution.community) -%>
+
+<div style="float:left;width:516px;margin-left:10px">
+  <div style="font-size:16px;font-weight:bold"><%= link_to @execution.community,(@execution.community) %> 的 <%= link_to @execution.project.title,project_url(@execution.project)%></div>
+  
+  <div id="entry">
+    <div id="summary">
+    <% short = (@execution.reason).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
+    <%= short[120].nil? ? @execution.reason  : (short + "...") %>
+    <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
+    </div>
+    
+    <div id="reason_detail" style="display:none">
+      <%= (@execution.reason) %>
+      <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
+    </div>
+  </div>
+</div>
+<div style="clear:both;height:20px"></div>
+          
+
+<div id="projects_tabs">
+  <div style="float:right;position:relative;top:5px">
+    <img src="/images/icon/clock.gif" style="position:relative;top:4px"/> 最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @execution.last_updated_at.to_date %></span>
+  </div>
+    <ul class="tab" >
+      <li class="tabs_more"><%= link_to '项目细节', "#detail" %></li>
+      <li class="tabs_more"><%= link_to '项目反馈', "#report",:id => "report_link" %></li>
+    </ul>
+    
+    <div id="detail">
+      <p>项目申请人：<%= link_to @execution.user.login ,user_url(@execution.user)%> <%= "(电话： #{@execution.telephone})" if current_user && current_user.admin?%></p>
+      <p>　项目状态：<%= state_tag(@execution.state) %>
+      </p>
+        <p>　　执行期： <%=  @execution.project.start_at.to_date %> 至 <%=  @execution.project.end_at.nil? ? '未要求' : @execution.project.end_at.to_date %></p>
+        <p>　申请日期： <%=  @execution.project.created_at.to_date %></p>
+      
+      
+      <% unless @execution.project.id == 6%>
+      <div class="project_info">
+        <div class="title_line"><h5>反馈要求</h5></div>
+        <%= "#{@execution.project.feedback_require}<br/>" %><%= "需要在 #{@execution.project.feedback_at.to_date} 之前完成反馈" unless @execution.project.feedback_at.nil?%>
+      </div>
+      
+      <div class="project_info">
+        <div class="title_line"><h5>执行计划</h5></div>
+        <%= @execution.plan %>
+      </div>
+      <%end%>
+      
+          
+      <% unless @execution.problem.nil? or @execution.problem.empty?%>
+        <div class="project_info">
+        <div class="title_line"><h5>可能遇到的问题与解决方案</h5></div>
+        <%= @execution.problem %>
+        </div>
+      <% end%>
+          
+      <% unless @execution.budget.nil? or @execution.budget.empty?%>
+        <div class="project_info">
+        <div class="title_line"><h5>资金预算</h5></div>
+          <%= @execution.budget %>
+        </div>
+      <% end%>
+      
+    </div>
+          
+        <div id="report">      
+        <% if @execution.validated?%>
+        
+        <div class="project_info">
+          <div class="title_line"><span>照片</span></div>
+            
+            <div class="clearfix" id="photos">
+              <div id="upload_container"></div>
+              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+              <%= "暂无照片" if @photos.empty? %>
+                
+              <p style="text-align:right;clear:both">
+                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
+              </p>
+              
+              <% if logged_in? && @execution.user == current_user -%>
+                <%= upload_button('upload_container', photo_upload_path_with_session('execution',@execution.id)) %>
+              <%end%>
+              <div style="display:none;" id="upload_tip">
+              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:execution_id => @execution.id) %> 上传.
+              </div>
+                
+                
+              
+            </div>     
+        </div>
+        
+        <div class="project_info">
+
+            <div class="title_line"><span>项目帖子</span> <%= link_to '写新帖子',new_share_url + "?execution=#{@execution.id}" %></div>
+
+            <%= render :partial => "/shared/share", :collection => @shares %>
+            <%= "暂无帖子" if @shares.empty? %>
+            <div class="cleanfix" style="height:20px"></div>
+        </div>
+
+        <div class="project_info">
+          <div class="title_line"><span>执行报告</span></div><%= link_to "更新报告", feedback_project_execution_url(@execution.project, @execution) ,:class => "buttonlink"%>
+          <% if @execution.feedback.blank? %>
+              <p>申请人还没有填写</p>
+          <% else %>
+            <%= @execution.feedback %>
+          <% end -%>
+        </div>
+        
+      <% else %>
+        <div class="project_info">
+        <p>项目还在申请中。</p>
+        </div>
+      <%end%>
+        </div>
+</div>
+<script type="text/javascript">
+  jQuery("#projects_tabs").tabs();  
+</script>
+
+<%= render :partial => "/comments/comments", :object => @comments %>
+<%= render :partial => "/comments/form", :locals => {:commentable => @execution,:cancel => true} %>
+
+<div class="cleanfix" style="clear:both;height:5px"></div>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+  $("#last_time").text(jQuery.timeago("<%= @execution.last_updated_at %>"));
+  <%= "$('#report_link').click()" if @execution.project.id == 6 %>
+  })
+</script>

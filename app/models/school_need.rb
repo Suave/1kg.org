@@ -21,6 +21,7 @@ class SchoolNeed < ActiveRecord::Base
   acts_as_taggable
   
   belongs_to :school
+  belongs_to :village
 
   before_save :setup_tag
 
@@ -35,6 +36,10 @@ class SchoolNeed < ActiveRecord::Base
   HARDWARE_NEEDS = %W(教学楼 宿舍楼 操场 篮球架 乒乓球桌 课桌椅 厕所 饮水工程 垃圾池 窗户维修 图书室 国旗 旗杆 旗台)
   TEACHER_NEEDS = %W(语文老师 数学老师 音乐老师 体育老师 美术老师 英语老师 计算机老师)
 
+  WATER_NEEDS = %W(打井 修水池 修水渠 拉水管 水质优化)
+  FOOD_NEEDS = %W(大米 小麦 豆制品 蔬菜)
+  HOSPITAl_NEEDS = %W(添加医疗设备 专业志愿者 卫生院楼房改造 常用药)
+  KNOWLEDGE_NEEDS = %W(环保教育)
 #  至少有一个学校需求
 #  def validate
 #    if book.blank? && stationary.blank? && sport.blank? && cloth.blank? && accessory.blank? && course.blank? && medicine.blank? && hardware.blank? && teacher.blank? &&  other.blank?

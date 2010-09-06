@@ -29,6 +29,7 @@ class Photo < ActiveRecord::Base
   belongs_to :school,:foreign_key => "school_id"
   belongs_to :activity,:foreign_key => "activity_id"
   belongs_to :requirement,:foreign_key => "requirement_id"
+  belongs_to :execution,:foreign_key => "execution_id"
   belongs_to :co_donation,:foreign_key => "co_donation_id"
   
   acts_as_paranoid
@@ -46,7 +47,7 @@ class Photo < ActiveRecord::Base
   
   validates_as_attachment
   
-  attr_accessible :uploaded_data, :title, :description, :description_html, :school_id, :activity_id,:requirement_id,:co_donation_id
+  attr_accessible :uploaded_data, :title, :description, :description_html, :school_id, :activity_id,:execution_id,:co_donation_id
   
   before_save :fill_title, :format_content
   after_create :create_feed

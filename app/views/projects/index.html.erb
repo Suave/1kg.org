@@ -2,24 +2,23 @@
 
 <div class="newbox">
       <div style="clear:both;height:20px">
-      </div>
-      
-      <%  @validated_projects.each do |@project| %>
+      </div>      
+      <%  @validated_projects.each do |project| %>
       <div style="margin-bottom:20px;padding:10px;background:#f0f0f0">
         <div style="height:120px;width:120px;overflow:hidden;text-align:center;float:left;margin-right:15px">
-              <%= link_to image_tag(@project.image(:thumb), :alt => @project.title,:style => "height:120px;width:120px;"),requirement_type_url(@project)%>
+              <%= link_to image_tag(project.image(:project_logo), :alt => project.title,:style => "height:120px;width:120px;"),project_url(project)%>
         </div>
         <div style="float:left;width:460px;color:#444">
           <div style="float:right;text-align:right;margin:4px 0;">
-            <%= @project.must ? '[只有学校大使可申请]': ''%>
+            <%= project.for_envoy ? '[只有学校大使可申请]': ''%>
           </div>
-          <span class="span_title"><%= @project.title %></span>
+          <span class="span_title"><%= project.title %></span>
           <p style="margin:6px">
-          <%= @project.description_html.gsub('<\br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..140) %> <%= "..." if @project.description_html.gsub(/<.*?>/, '').mb_chars[200] %>
+            <%= project.description.gsub('<\br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..140) %> <%= "..." if project.description.gsub(/<.*?>/, '').mb_chars[200] %>
           </p>
         </div>
         <div style="float:right;text-align:right;margin-right:10px">
-            <%= link_to '&raquo; 查看详情',requirement_type_url(@project)%>
+            <%= link_to '&raquo; 查看详情',project_url(project)%>
           </div>
         <div style="clear:both;height:0px"></div>
       </div>

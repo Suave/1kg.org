@@ -33,6 +33,7 @@ class Share < ActiveRecord::Base
   belongs_to :activity, :counter_cache => true
   belongs_to :school
   belongs_to :requirement
+  belongs_to :execution
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
   validates_presence_of :geo_id, :message => "请选择一个和你的分享有关的城市"

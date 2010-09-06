@@ -1,0 +1,26 @@
+
+<% @page_title = @title = "编辑村庄信息" %>
+<% @body_class = "schools" -%>
+<% content_for :crumb do -%>
+<li>编辑村庄信息</li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+
+<% end -%>
+
+<div class="newbox" >
+  <div class="clearfix" style="height:10px"></div>    
+    <fieldset>
+      <legend>上传村庄主照片</legend>
+    <div class="contents">
+      <% form.fields_for :main_photo_attributes, @village.main_photo do |p| -%>
+      <p><label class="label">照片标题</label><%= p.text_field :title, :size => 40, :class => "formText" ,:value =>''%></p>      
+      <p><label class="label">上传照片</label><%= p.file_field :uploaded_data %></p>
+      <% end -%>
+    </div>
+    </fieldset>    
+  
+  <div class="clearfix" style="height:20px"></div>
+</div>

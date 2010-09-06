@@ -1109,7 +1109,6 @@ h3.title {
 
 /* map view, by yuanyi */
 #map_div { margin: 1em 0; width: 640px; height: 320px; }
-#map_div span { display: none; }
 #map_popup {width: 320px; float: left; margin-bottom: 20px;}
 #map_popup h3{background: none; margin:0; padding:0;}
 #map_popup #summary { width: 250px; float: left;}
@@ -1170,6 +1169,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
 .buttonjoin:hover,.buttonjoin2:hover{background-position:0 -48px;color:#fff;}
 .checkbox_label{margin:0 10px 0 2px;}
+
+.actionbutton{background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:5px;color:white;border:1px solid #c10}
+.actionbutton:hover{color:white;background-color:#ff4411}
 
 .meta_label{font-weight:bold;margin-left:4px}
 .meta_col{float:left;margin-right:10px}
@@ -1432,7 +1434,7 @@ a.progressCancel:hover {
 .donation_admin{background: url('/images/turn.gif') no-repeat #ddd;padding:4px 0;text-align:center;border-top:1px solid #ccc;border-bottom:1px solid #ccc;clear:both;}
 .donation_lastest{padding:5px 0;border-bottom:1px solid #ccc;}
 
-#module_meta {margin-left:180px;width:300px}
+#module_meta {margin-left:180px;}
 
 .detail_n{padding:10px 25px;background:#eee url(/images/turn.gif) no-repeat;}
 #SWFUpload_0{position:relative;top:7px}

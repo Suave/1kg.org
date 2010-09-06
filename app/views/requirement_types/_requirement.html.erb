@@ -1,9 +1,0 @@
-  <div class="school_list" style="border-bottom:1px solid #ddd;padding-bottom:4px">
-    <%= main_photo_thumb(requirement.school) -%>       
-    <div class="school_list_meta" style="width:170px">
-      <h5><%= link_to h(requirement.school.title), school_requirement_path(requirement.school,requirement)%></h5>
-      <%= link_to ['已完成','进行中','申请中'][requirement.status.to_i],school_requirement_path(requirement.school,requirement),:class => "project_status",:style => "border:1px solid ##{['aaccff','aaff88','ffe099'][requirement.status.to_i]};background-color:##{['99aadd','99dd66','ffcc66'][requirement.status.to_i]}"%>
-      <br/><spam class="gary_span"><%= requirement.created_at.to_date%> 申请</span>
-    </div>
-    <div class="clearfix"></div>
-  </div>

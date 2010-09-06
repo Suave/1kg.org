@@ -14,7 +14,7 @@
     <p>
       <label class="label" for="school_school_traffic_description">学校地理位置</label>
       <%= @school.geo.ancestors[0].name if @school.geo.child? %> <%= @school.geo.name %>
-      <%= @school.basic.address %>（<strong>拖动红色标记更新学校位置</stron>）
+      <%= @school.basic.address %>（<strong>拖动红色标记更新学校位置</strong>）
       <% content_for :tail do -%>
         <script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
       <script type="text/javascript">

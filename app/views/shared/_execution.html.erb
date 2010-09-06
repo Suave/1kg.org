@@ -1,0 +1,15 @@
+<div class="requirement">
+    <div class="project_image_frame">
+        <img class="project_image" src="<%= execution.project.image.url(:project_avatar) %>"/>
+    </div>
+    <div>
+        <h5><%= link_to short_title(execution.project,10), project_execution_url(execution.project, execution) %></h5>
+        <% if logged_in? && execution.user == current_user -%>
+          <span><%= link_to "填写反馈", feedback_project_execution_url(execution.project, execution) ,:class => "adminbutton"%>
+          </span>
+        <% else %>
+          <span><%= state_tag(execution.state)%></span>
+        <% end -%>
+    </div>
+    <div style="clear:both"></div>
+</div>

@@ -49,6 +49,7 @@ class School < ActiveRecord::Base
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
+  has_many :executions, :order => "id desc", :dependent => :destroy
   
   
   has_many :donations, :dependent => :destroy
@@ -65,7 +66,7 @@ class School < ActiveRecord::Base
                           :source => :user, 
                           :conditions => "status = #{Visited.status('wanna')}"
 
-  has_many :co_donations
+  has_many :co_donations, :order => "id desc", :dependent => :destroy
   
   has_many :followings, :as => "followable"
   has_many :followers, :through => :followings

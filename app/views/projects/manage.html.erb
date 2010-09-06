@@ -1,0 +1,54 @@
+<% @page_title = @title = "#{@project.title}项目管理" %>
+
+<% content_for :sidebar do -%>
+<span class="remark"><%= link_to "&raquo;  回到#{@project.title}",project_url(@project)%></span>
+<% end %>
+
+<div class="newbox">
+  <% @executions.each do |execution|%>
+  <%end%>
+</div>
+
+<table>
+  <tbody>
+      <tr>
+        <th>服务学校</th>
+        <th>申请人</th>
+        <th>申请日期</th>
+        <th>状态</th>
+        <th style="width:66px">详细/管理</th>
+      </tr>
+      <% @executions.each_with_index do |s,n|%>
+      
+      <tr>
+        <td><%= (link_to s.community.title,s.community) %></td>
+        <td><%= link_to "#{s.user.login}",user_path(s.user)%></td>
+        <td><%= s.created_at.to_date %></td>
+        <td>
+          <%= state_tag(s.state) %>
+        </td>
+        <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
+      </tr>
+      
+      <tr>
+        <td class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
+           <p><h5>申请原因和学校状况：</h5> <%= s.reason%></p>
+           <p><h5>项目执行计划：</h5> <%= s.plan%></p>
+           <p><h5>困难预估：</h5> <%= s.problem%></p>
+           <p><h5>预算计划：</h5> <%= s.budget%></p>
+           <p><span style="font-weight:bold">申请人电话：</span>  <%= s.telephone%></p>
+	   <% if s.start_at && s.end_at%>
+             <p><span style="font-weight:bold">执行时间：</span><%= "#{s.start_at.to_date} 开始至  #{s.end_at.to_date} 结束"%></p>
+           <%end%>
+           <div style="float:right">
+             <%=  (link_to "通过申请",validate_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.validated? %>
+             <%=  (link_to "拒绝申请",refuse_project_execution_url(s.project,s),:class => "adminbutton",:method => :put) unless s.refused? %>
+           </div>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+
+
+<div class="cleanfix" style="clear:both;height:40px"></div> 

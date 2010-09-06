@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "group_boards", :force => true do |t|
-    t.integer "group_id", :null => false
+    t.integer  "group_id", :null => false
   end
 
   create_table "groups", :force => true do |t|
@@ -203,9 +203,9 @@ ActiveRecord::Schema.define(:version => 0) do
   end
   
   create_table "message_copies", :force => true do |t|
-    t.integer "recipient_id",                   :null => false
-    t.integer "message_id",                     :null => false
-    t.boolean "unread",       :default => true
+    t.integer  "recipient_id",                   :null => false
+    t.integer  "message_id",                     :null => false
+    t.boolean  "unread",       :default => true
   end
 
   create_table "messages", :force => true do |t|
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
+    t.integer  "execution_id"
     t.integer  "co_donation_id"
   end
 
@@ -297,11 +298,11 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "public_boards", :force => true do |t|
-    t.string  "title",            :limit => 100,                  :null => false
-    t.text    "description"
-    t.text    "description_html"
-    t.integer "position",                        :default => 999, :null => false
-    t.string  "slug"
+    t.string   "title",            :limit => 100,                  :null => false
+    t.text     "description"
+    t.text     "description_html"
+    t.integer  "position",                        :default => 999, :null => false
+    t.string   "slug"
     t.datetime "deleted_at"
   end
 
@@ -330,11 +331,13 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "school_basics", :force => true do |t|
     t.integer  "school_id"
+    t.integer  "village_id"
     t.text     "intro"
     t.string   "address"
     t.integer  "zipcode"
     t.string   "master"
     t.string   "telephone"
+    t.string   "population"
     t.string   "level_amount"
     t.string   "teacher_amount"
     t.string   "student_amount"
@@ -359,6 +362,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_contacts", :force => true do |t|
+    t.integer "village_id"
     t.integer "school_id"
     t.string  "name"
     t.string  "role"
@@ -393,6 +397,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   create_table "school_needs", :force => true do |t|
+    t.integer "village_id"
     t.integer "school_id"
     t.string  "urgency"
     t.string  "book"
@@ -441,6 +446,16 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamps
   end
 
+  create_table "villages", :force => true do |t|
+    t.integer  "user_id",                                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.integer  "geo_id"
+    t.integer  "main_photo_id"
+    t.string   "title",                                  :null => false
+  end
+  
   create_table "schools", :force => true do |t|
     t.integer  "user_id"
     t.string   "ref"
@@ -474,6 +489,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
+    t.integer  "execution_id"
     t.integer  "user_id",                                     :null => false
     t.integer  "hits",                     :default => 0,     :null => false
     t.integer  "comments_count",           :default => 0,     :null => false
@@ -495,7 +511,7 @@ ActiveRecord::Schema.define(:version => 0) do
   end
 
   add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
-
+  
   create_table "stuff_bucks", :force => true do |t|
     t.integer  "type_id",                          :null => false
     t.integer  "school_id",                        :null => false
@@ -574,6 +590,57 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text     "comment"
     
     t.boolean  "auto_fill"
+  end
+
+  create_table "executions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
+    t.integer  "school_id"
+    t.integer  "village_id"
+    t.integer  "project_id"
+    t.string   "telephone"
+    t.string   "state"
+    t.text     "reason"
+    t.text     "plan"
+    t.text     "problem"
+    t.text     "budget"
+    t.text     "feedback"
+    t.datetime "created_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    t.datetime "refused_at"
+    t.integer  "refused_by_id"
+    t.datetime "last_modified_at"
+    t.integer  "comments_count",   :default => 0
+  end
+  
+  
+  create_table "projects", :force => true do |t|
+    t.string   "title"
+    t.integer  "user_id"
+    t.integer  "team_id"
+    t.boolean  "by_team",             :default => false
+    t.datetime "apply_end_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "feedback_at"
+    t.text     "description"
+    t.text     "condition"
+    t.text     "support"
+    t.text     "feedback_require"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_viewed_at"
+    t.string   "image_file_name"
+    t.string   "state"
+    t.datetime "validated_at"
+    t.integer  "validated_by_id"
+    t.datetime "refused_at"
+    t.integer  "refused_by_id"
+    t.boolean  "for_envoy",           :default => false
   end
 
   create_table "taggings", :force => true do |t|
@@ -698,7 +765,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer :user_id
     t.string  :photo_file_name
     t.string  :comment    
-    t.integer  :game_category_id
+    t.integer :game_category_id
     t.string  :name
     t.string  :level
     t.string  :length

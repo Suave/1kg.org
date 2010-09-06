@@ -16,7 +16,7 @@ class SchoolsController < ApplicationController
       :include => [:user, :board],
       :order => "last_replied_at desc",
       :limit => 4)
-        @projects = RequirementType.non_exchangable.validated.find :all, :order => "created_at desc",:limit => 2
+        @projects = Project.validated.find :all, :order => "created_at desc",:limit => 2
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
@@ -279,7 +279,7 @@ class SchoolsController < ApplicationController
     @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
-    @requirements = @school.requirements.find(:all,:limit => 3,:conditions => ["applicator_id is not null"])
+    @executions = @school.executions.validated.find(:all,:limit => 3)
     @co_donations = @school.co_donations.validated.find(:all,:limit => 3)
     @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
     

@@ -1,0 +1,48 @@
+<script src="http://ditu.google.cn/maps?file=api&amp;v=2&amp;key=ABQIAAAAJod3rJ1UD4NbyqMUYncq8hSJzhnW5idwQnMkpN3KtraAW36MXhQfv15HR27S30pNBsaozzpDAHB-QA" type="text/javascript"></script>
+<%= javascript_include_tag 'jquery' %>
+<script type="text/javascript">
+  var map;
+  function initializeBig() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("map_div"));
+      map.setCenter(new GLatLng(<%= @village.basic.latitude.to_f %>, <%= @village.basic.longitude.to_f %>), 7);
+      map.addControl(new GLargeMapControl());
+      map.addControl(new GMapTypeControl());
+      map.addControl(new GScaleControl());
+      var point = new GLatLng(<%= @village.basic.latitude.to_f %>, <%= @village.basic.longitude.to_f %>);
+      var green = new GIcon(G_DEFAULT_ICON, "http://maps.gstatic.cn/intl/zh-CN_cn/mapfiles/marker_green.png");
+      bigmarker = new GMarker(point);
+      greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
+      
+      <% if current_user && @village.edited_by(current_user)%>
+      GEvent.addListener(greenmarker, "dragend", function() {
+        jQuery.ajax({
+          type: 'PUT',
+          url: '<%= village_path(@village) %>',
+          data: 'longitude=' + greenmarker.getPoint().lng() + '&latitude=' + greenmarker.getPoint().lat(),
+          dataType: "script"
+        });
+      });
+      <% end %>
+
+      map.addOverlay(bigmarker);
+    }
+  };
+  function edit_position(){bigmarker.remove();map.addOverlay(greenmarker);$('#drag').hide();$('#sure').show(); }
+  
+  window.onload = function(){initializeBig();}
+ 
+ 
+</script>
+      <%= @village.geo.ancestors[0].name if @village.geo.child? %> <%= @village.geo.name %>
+      <%= @village.basic.address %>（<strong>拖动红色气泡标记村庄位置</strong>）
+<div id="map_div" style="width: 600px; height: 360px;"></div>
+
+
+<style type="text/css">
+#move_info{font-size:13px;color:#000;padding:0 5px;margin:10px 0 0;display:none}
+.adminbutton{background:url(/images/adminbutton.gif) no-repeat;text-decoration:none;
+color:#fff;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;*margin:0 -1px}
+.adminbutton:hover{background-position:0 -21px;color:#fff;}
+ 
+</style>

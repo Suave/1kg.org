@@ -16,8 +16,8 @@ namespace :misc do
   
   desc "判定一周内没有上传证明的捐赠无效"
   task :check_sub_donation => :environment do
-    SubDonation.all.each do |s|
-      if (s.state == "ordered") && (s.created_at < 7.days.ago)
+    SubDonation.state_is('ordered').each do |s|
+      if (s.created_at < 7.days.ago)
         s.refuse
         message = Message.new(
           :subject => "你为#{s.co_donation.school.title}捐赠的#{s.quantity}件#{s.co_donation.goods_name}失效了",
@@ -29,6 +29,7 @@ namespace :misc do
       end
     end
   end
+<<<<<<< HEAD
   
   desc "学校分享话题合并"
   task :topic_to_share => :environment do
@@ -75,8 +76,9 @@ namespace :misc do
       s.save
     end
   end  
+=======
+>>>>>>> b7fac48bb63e585d0fc530e71e1c6d3069954bcd
 
-  
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do
     Activity.find(:all,:conditions => {:done => false}).each do |a|

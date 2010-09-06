@@ -1,0 +1,33 @@
+    <%= form.hidden_field :id %>
+    
+    <% form.fields_for :need_attributes, @village.need do |n| -%>
+    <%= n.hidden_field :id %>
+    
+    <p>
+      <label class="label" for="school_school_need_course">生活和饮用水</label>
+      <%= needs_check_box n, :hardware, SchoolNeed::WATER_NEEDS, @village.need.hardware %>
+    </p>
+    
+    
+    <p>
+      <label class="label" for="school_school_need_accessory">粮食和蔬菜</label>
+      <%= needs_check_box n, :accessory, SchoolNeed::FOOD_NEEDS, @village.need.accessory %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">医疗</label>
+      <%= needs_check_box n, :medicine, SchoolNeed::HOSPITAl_NEEDS, @village.need.medicine %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_course">教育类</label>
+      <%= needs_check_box n, :course, SchoolNeed::KNOWLEDGE_NEEDS, @village.need.course %>
+    </p>
+    
+    <p>
+      <label class="label" for="school_school_need_other">其他</label>
+      <%= n.text_field :other, :size => 40, :class => 'formText' %>
+    </p>
+    
+    <% end -%>
+    

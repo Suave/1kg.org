@@ -1,0 +1,20 @@
+<% @page_title = @title = "申请项目:#{h @project.title}" %>
+
+<% content_for :sidebar do -%>
+
+<span class="remark"><%= link_to "&raquo; 回到#{@project.title}项目",project_url(@project)%></span>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<% end -%>
+
+<% form_for [@execution.project,@execution],:html => {:method => :put} do |f| -%>
+   <%= render :partial => "form", :object => f %>
+   <br/>
+   <p style="margin-left:40px"><%= f.submit "确认" ,:class => "surebutton"%> <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{project_url(@project)}';return false" %>
+                                                    
+   <script type="text/javascript">
+      $(document).ready(DateTimeShortcuts.init)
+      //根据申请学校调整更新信息提示的学校连接
+      $('#apply_school_id').delayedObserver(0.25, function(element, value){$("#school_info").hide();$("#school_link").attr("href",("/schools/" + value));if (value != ''){$("#school_info").show()} })
+   </script>    
+      
+<% end -%>
