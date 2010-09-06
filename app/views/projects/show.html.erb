@@ -123,6 +123,7 @@
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
     </div>
   </div>
-
+  
+<div class="cleanfix" style="height:20px;clear:both"></div>
 <%= render :partial => "/comments/comments", :object => @comments%>
 <%= render :partial => "/comments/form", :locals => {:commentable => @project}%>
