@@ -4,7 +4,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 %>
 
 
-<p><label class="label">分享标题<span style="color:red;">＊</span></label>
+<p><label class="label">帖子标题<span style="color:red;">＊</span></label>
 <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
 </p>
 
@@ -14,14 +14,17 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
   <input style="display:none" type="text" name="share[geo_id]" value="<%=@geo.id%>"/>
 <%end%>
 
-<p><label class="label">相关活动　</label>
-<%if @activity.nil?%>
-  <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]} + (@share.activity.nil? ? [] : [[@share.activity.title,@share.activity.id]] ), {:include_blank => true}  %>
-<%else%>
-  <%=@activity.title%>
-  <input style="display:none" type="text" name="share[activity_id]" value="<%=@activity.id%>"/>
-<%end%>
+
+<%if false%>
+  <p><label class="label">相关活动　</label>
+  <%if @activity.nil?%>
+    <%= form.select :activity_id, activities.find(:all, :select => "activities.id, activities.title").collect{|a| [a.title, a.id]} + (@share.activity.nil? ? [] : [[@share.activity.title,@share.activity.id]] ), {:include_blank => true}  %>
+  <%else%>
+    <%=@activity.title%>
+    <input style="display:none" type="text" name="share[activity_id]" value="<%=@activity.id%>"/>
+  <%end%>
 </p>
+<%end%>
 
 <p><label class="label">相关学校　</label>
 <%if @school.nil?%>

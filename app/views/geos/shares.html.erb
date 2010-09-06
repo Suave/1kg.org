@@ -2,14 +2,14 @@
   <ul>
     <li><%= link_to "全国", geos_url %></li>
     <li><%= link_to @city.name, geo_url(@city) %></li>
-    <li>所有居民分享</li>
+    <li>所有居民帖子</li>
   </ul>
 <% end -%>
 
 <div class="box">
   <div class="boxOuter">
     <div class="boxInner">
-      <h3>所有<%= @city.name %>居民分享</h3>
+      <h3>所有<%= @city.name %>居民帖子</h3>
       <span class="postNew"><%= link_to image_tag("submit_share.png"), new_share_url %></span>
       <div class="contents">
         <% @shares.each do |s| -%>

@@ -105,9 +105,9 @@
         </div>
         
         <div class="project_info">
-            <div class="title_line"><span>项目分享</span> <%= link_to '写篇分享',new_share_url + "?requirement=#{@requirement.id}" %></div>
+            <div class="title_line"><span>项目帖子</span> <%= link_to '写新帖子',new_share_url + "?requirement=#{@requirement.id}" %></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
-            <%= "暂无分享" if @shares.empty? %>
+            <%= "暂无帖子" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
 

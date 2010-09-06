@@ -1,14 +1,11 @@
 <div class="newbox">
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title"><%= h user.login %>的分享</span>
+  <span class="span_title"><%= h user.login %>的帖子</span>
         <div class="panel setting">
           <div id='shares'>
             <% if shares.blank? -%>
               <div class="contents">
-                <p>参加过<%= user.participated_activities.size %>个活动, 但还没有活动分享</p>
-                <% if user == current_user -%>
-                  <p>++ <%= link_to "写分享", new_share_url %></p>
-                <% end -%>
+                还没有帖子
               </div>
             <% else -%>
               <%= render :partial => "/shared/share", :collection => @shares %>

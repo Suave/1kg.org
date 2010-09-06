@@ -61,8 +61,8 @@
   <%end%>
   
   <div class="newbox">
-      <div style="float:right;"><%= link_to '写篇分享',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
-      <span class="span_title">活动分享</span>
+      <%if false%><div style="float:right;"><%= link_to '写新贴子',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div><%end%>
+      <span class="span_title">活动帖子</span>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @shares %>
       </div>

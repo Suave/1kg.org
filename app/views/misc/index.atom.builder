@@ -1,5 +1,5 @@
 atom_feed do |feed|
-  feed.title("多背一公斤最新分享")
+  feed.title("多背一公斤最新帖子")
   feed.updated(@atom_shares.first.created_at)
 
   for share in @atom_shares

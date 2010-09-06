@@ -48,7 +48,7 @@ class ActivitiesController < ApplicationController
   
   def total_shares
     @shares = Share.with_activity.paginate(:page => params[:page], :per_page => 20)
-    @title = @page_title = "所有活动分享"
+    @title = @page_title = "所有活动帖子"
   end
   
   def ongoing

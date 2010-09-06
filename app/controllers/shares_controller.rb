@@ -59,7 +59,7 @@ class SharesController < ApplicationController
   
   def destroy
     @share.destroy
-    flash[:notice] = "您刚删除了活动分享<#{@share.title}>"
+    flash[:notice] = "您刚删除了活动帖子<#{@share.title}>"
     redirect_to user_url(current_user)
   end
   

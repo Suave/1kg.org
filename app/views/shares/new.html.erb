@@ -1,14 +1,14 @@
-<% @page_title = "写分享" %>
+<% @page_title = "写帖子" %>
 
 <% content_for :crumb do -%>
-<li>写分享</li>
+<li>写帖子</li>
 <% end -%>
 
 <% content_for :sidebar do -%>
   <% @page = Page.find_by_slug('share-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">分享指南</span>
+     <span class="span_title">编辑指南</span>
       <div class="clearfix" style="height:10px"></div>
      <%= render :text => @page.body %>
   </div>
@@ -16,7 +16,7 @@
 <%end%>
 
 <div class="newbox" >
-      <span class="span_title">写分享</span>
+      <span class="span_title">帖子分享</span>
       <div class="clearfix" style="height:10px"></div>
       <% form_for :share, :url => shares_url do |f| -%>
         <%= render :partial => "form", :object => f %>        
