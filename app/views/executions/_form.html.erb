@@ -12,7 +12,7 @@
       <span class="span_title">二 填写申请表</span>
       <p class="postNew"></p>
       <div class="contents">
-        <p><h6>接受申请的学校学校: <span class="require">*</span></h6>
+        <p><h6>接受申请的学校: <span class="require">*</span></h6>
         <%= editing ? @execution.school.title : form.select(:school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666")%>
         <% unless editing%>
           <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @execution, :school_id %>

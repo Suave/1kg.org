@@ -56,10 +56,11 @@
         <%= image_tag(@project.image.url(:project_logo), :alt => @project.title,:style => "width:160px;") %>
       </div>
       <div style="float:right;text-align:right;margin:4px 0 0">
-        <%if @project.id == 6%>
-          <%= link_to "提交乡村",new_village_url(),:class => "buttonjoin2"%>
-        <% elsif @project.apply_end? -%>
+        
+        <% if @project.apply_end? -%>
           <p style="color:#666;margin:6px 0">项目申请已结束</p>
+        <% elsif @project.id == 6 %>
+          <%= link_to "提交乡村",new_village_url(),:class => "buttonjoin2"%>
         <%else%>
           <%= link_to "立即申请",new_project_execution_url(@project),:class => "buttonjoin2"%>
           <p style="color:#666;margin:6px 0"><%=  "此项目只有学校大使才可以申请" if @project.for_envoy%></p>
@@ -108,10 +109,10 @@
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
   <div class="school_box">
-    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %></span>
+    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : "共有#{@photos.size}张照片" %></span>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
+      <%= render :partial => "/schools/gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
       </div>
     </div>  
   </div>
