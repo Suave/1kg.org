@@ -49,8 +49,8 @@
 <div class="rcolumn">
   <div class="newbox">
     <div class="title_line"><h5>参与学校</h5></div>
-     <%= render :partial => "/requirement_types/requirement", :collection => @project.requirements %>
-     <span class="gary_span"><%= "学校大使们，赶紧为你的学校 #{link_to '申请',@project} 吧!" if @project.requirements.empty? %></span>
+     <%= render :partial => "/projects/execution", :collection => @project.executions %>
+     <span class="gary_span"><%= "学校大使们，赶紧为你的学校 #{link_to '申请',@project} 吧!" if @project.executions.empty? %></span>
   </div>
   
 </div>

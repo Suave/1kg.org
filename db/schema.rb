@@ -652,6 +652,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "refused_at"
     t.integer  "refused_by_id"
     t.boolean  "for_envoy",           :default => false
+    t.integer  "comments_count",      :default => 0
   end
 
   create_table "taggings", :force => true do |t|
