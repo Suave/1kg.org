@@ -59,7 +59,6 @@ class ProjectsController < ApplicationController
                           )
     message.author_id = 0
     message.to = User.admins
-    debugger
     message.save!
     
     redirect_to projects_url
