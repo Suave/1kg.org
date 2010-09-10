@@ -23,6 +23,12 @@ config.action_controller.perform_caching             = true
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 
+ActionMailer::Base.sendmail_settings = {  
+  :location       => '/usr/sbin/sendmail',  
+  :arguments      => '-i -t'  }
+  
+
+
 ActionMailer::Base.smtp_settings = {
   :address => "127.0.0.1",
   :domain  => "1kg.org",
