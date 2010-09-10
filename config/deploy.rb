@@ -22,7 +22,7 @@ namespace :deploy do
     run "rm -rf #{current_path}/public/group && ln -s #{deploy_to}/shared/group #{deploy_to}/current/public/group"
     run "ln -s #{deploy_to}/shared/postcard #{deploy_to}/current/public/images/postcard"
     run "ln -s #{deploy_to}/shared/sphinx #{deploy_to}/current/db/sphinx"
-    run "rm -rf #{deploy_to}/current/public/docs/festcard09.rar && ln -s #{deploy_to}/shared/festcard09.rar #{deploy_to}/current/public/docs/festcard09.rar"
+    run "rm -rf #{deploy_to}/current/public/docs && ln -s #{deploy_to}/shared/docs #{deploy_to}/current/public/"
     run "cd #{current_path} && RAILS_ENV=#{env} rake schools:to_json"
     run "cd #{deploy_to}/current && rm -rf public/stylesheets/*.cache.css"
     run "cd #{deploy_to}/current && rm -rf public/javascripts/*.cache.js"
