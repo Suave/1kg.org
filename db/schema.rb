@@ -795,7 +795,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.timestamps
   end
   
-  create_table :game_categories, :force => true do |t|
+    create_table :game_categories, :force => true do |t|
     t.string  :photo_file_name
     t.string  :name
     t.string  :slug

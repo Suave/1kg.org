@@ -34,7 +34,6 @@ Rails::Initializer.run do |config|
     :lib     => 'thinking_sphinx',
     :version => '1.3.14'
   )
-  config.gem "adzap-ar_mailer"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -74,8 +73,9 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
   config.active_record.observers = :user_observer, :school_observer, :message_copy_observer
   
-  config.action_mailer.delivery_method = :activerecord
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_charset= "utf-8"
+  
 end
 
 require 'sanitize'

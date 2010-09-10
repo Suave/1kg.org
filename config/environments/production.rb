@@ -26,6 +26,9 @@ config.action_controller.perform_caching             = true
 ActionMailer::Base.smtp_settings = {
   :address => "127.0.0.1",
   :domain  => "1kg.org",
-  :port => 25
+  :port => 25,
+#  :authentication => :login,
+#  :user_name => "no-reply@1kg.org",
+#  :password => '1kgmore'
 }
 Paperclip.options[:command_path] = "/opt/local/bin"
