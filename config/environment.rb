@@ -22,20 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-  config.gem "rack",:version => '1.0.1'
-  config.gem "fastercsv"
-  config.gem "hpricot"
-  config.gem "nokogiri"
-  config.gem "sanitize"
-  config.gem "json"
-  config.gem 'mime-types', :lib => 'mime/types'
-  config.gem(
-    'thinking-sphinx',
-    :lib     => 'thinking_sphinx',
-    :version => '1.3.14'
-  )
-  config.gem "adzap-ar_mailer"
-
+  
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
