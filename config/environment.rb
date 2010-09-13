@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-  #config.gem "rack"
+  config.gem "rack",:version => '1.0.1'
   config.gem "fastercsv"
   config.gem "hpricot"
   config.gem "nokogiri"
