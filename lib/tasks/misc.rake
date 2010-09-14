@@ -29,7 +29,6 @@ namespace :misc do
       end
     end
   end
-<<<<<<< HEAD
   
   desc "学校分享话题合并"
   task :topic_to_share => :environment do
@@ -76,8 +75,6 @@ namespace :misc do
       s.save
     end
   end  
-=======
->>>>>>> b7fac48bb63e585d0fc530e71e1c6d3069954bcd
 
   desc "为有分享的结束活动标记"
   task :activity_done => :environment do

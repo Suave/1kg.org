@@ -10,16 +10,6 @@
 <% content_for :sidebar do -%>
 <%= render :partial => '/searches/search_box', :locals => {:kind => 'activity'} %>
 
-
-<%if @teams%>
-<div class="newbox">
-  <div class="cleanfix" style="clear:both;height:10px"></div>
-<span class="span_title">公益团队</span>
-  <div class="cleanfix" style="clear:both;height:10px"></div>
-  
-</div>
-<%end%>
-
 <% @page = Page.find_by_slug('special_sidebar') -%>
 <%if @page%>
 <div class="newbox">
@@ -96,6 +86,19 @@
 </div>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>           
+
+<div class="cleanfix" style="height:20px"></div>
+
+<div class="newbox">
+  <span class="span_title">最新帖子</span>
+  <div class="cleanfix" style="height:10px"></div>
+  <div class="contents">
+    <%= render :partial => "/shared/share", :collection => @shares %>
+  </div>
+  <div class="remark"><%= link_to "&raquo; 更多帖子", total_shares_activities_url %></div>
+  <div class="cleanfix" style="height:20px"></div>
+</div>
+
 
 <div class="newbox">
       <span class="span_title">最新活动照片</span>
