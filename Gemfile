@@ -13,4 +13,5 @@ group :production do
   gem "adzap-ar_mailer"
   gem "rmagick"
   gem "state_machine"
+  gem "mysql"
 end
