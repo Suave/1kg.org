@@ -147,7 +147,7 @@
     
   <div class="school_box">
     <span class="span_title2" >学校论坛</span> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
-    <%= link_to "写新文章", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
+    <%= link_to "写新帖子", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
     <div class="contents clearfix">
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
     </div>
