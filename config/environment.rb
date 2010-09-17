@@ -6,7 +6,7 @@
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
-
+ENV['GEM_PATH'] = File.expand_path('~/.gems') + ':/usr/lib/ruby/gems/1.8'
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
@@ -22,20 +22,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on. 
   # They can then be installed with "rake gems:install" on new installations.
-  #config.gem "rack"
-  config.gem "fastercsv"
-  config.gem "hpricot"
-  config.gem "nokogiri"
-  config.gem "sanitize"
-  config.gem "json"
-  config.gem 'mime-types', :lib => 'mime/types'
-  config.gem(
-    'thinking-sphinx',
-    :lib     => 'thinking_sphinx',
-    :version => '1.3.14'
-  )
-  config.gem "adzap-ar_mailer"
-
+  
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -74,7 +61,7 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
   config.active_record.observers = :user_observer, :school_observer, :message_copy_observer
   
-  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.delivery_method = :activerecord
   config.action_mailer.default_charset= "utf-8"
 end
 

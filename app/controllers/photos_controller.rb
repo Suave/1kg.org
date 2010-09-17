@@ -22,7 +22,6 @@ class PhotosController < ApplicationController
     @photo.title = '未命名图片' unless @photo.title.blank?
     @photo.save!
     flash[:notice] = "照片上传成功!"
-    debugger
     respond_to do |wants|
       if params[:Filedata]
         wants.html {render(:text => @photo.id)}
