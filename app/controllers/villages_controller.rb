@@ -1,6 +1,6 @@
 class VillagesController < ApplicationController
   before_filter :find_village, :except => [:index,:new,:create]
-  before_filter :login_required, :except => [:show,:index]
+  before_filter :login_required, :except => [:show,:index,:large_map]
   before_filter :check_permission ,:only => [:edit,:destory,:update,:location,:main_photo]
   
   def show
