@@ -8,15 +8,15 @@
 
 <% content_for :fullsize do -%>
 
-<%= render :partial => 'steps', :locals => {:step => @step,:new => true} %>
+<%= render :partial => 'steps', :locals => {:step => @step} %>
 
 <div id="school_form">  
   <div class="clearfix" style="height:10px"></div>
-  <% form_for :village, :url => @village.id.nil? ? villages_url(:step => @step ,:new => true) : village_url(@village, :step => @step,:new => true), :html => {:method => (@step == 'basic'?  :post : :put),:multipart => true} do |f| -%>
+  <% form_for :village, :url => @village.id.nil? ? villages_url(:step => @step) : village_url(@village, :step => @step), :html => {:method => :put,:multipart => true} do |f| -%>
 
     <%= render :partial => "form_#{@step}", :locals => {:form => f}%>     
     <p>
-      <%= f.submit "下一步" ,:class => "surebutton"%>
+      <%= f.submit "保存" ,:class => "surebutton"%>
       <% "由于项目特殊所以在这里硬编码了" %>
       <%= f.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='/@villages/#{@village.id}';return false" %>
       <span class="gary_span">带<span class="require">*</span>号的是必填项</span>

@@ -22,7 +22,7 @@
 <% end -%>
 
 <span class="span_title"><%= h @village.title -%></span>
-　<% if @village.geo.parent %><%= link_to @village.geo.parent.name.to_s,'/geos/'+@village.geo.parent.id.to_s %> > <% end %><%= link_to @village.geo.name.to_s,'/geos/'+@village.geo.id.to_s %>
+ <% if @village.geo.parent %><%= link_to @village.geo.parent.name.to_s,'/geos/'+@village.geo.parent.id.to_s %> > <% end %><%= link_to @village.geo.name.to_s,'/geos/'+@village.geo.id.to_s %>
  <%= link_to "(查看地图位置)", large_map_village_url(:iframe => true, :width => 550, :height => 480, :alt => @village.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
  <br/>
   

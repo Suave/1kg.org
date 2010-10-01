@@ -17,7 +17,10 @@
       if (GBrowserIsCompatible()) {
         map = new GMap2(document.getElementById("school_map"));
         map.setCenter(new GLatLng(<%= @map_center[0].to_f %>, <%= @map_center[1].to_f %>), <%= @map_center[2] %>);
+        map.addControl(new GLargeMapControl());
+        map.addControl(new GMapTypeControl());
         
+      
         school_icon = new GIcon(); team_icon = new GIcon();
         school_icon.image = "/images/m0.png"; 
         school_icon.shadow = team_icon.shadow =null;

@@ -19,6 +19,10 @@ class VillagesController < ApplicationController
     end  
   end
   
+  def edit
+    %w(basic need position mainphoto).include?(params[:step]) ? @step = params[:step] : @step = 'basic'
+  end
+  
   def create
     @village = Village.new(params[:village])
     @village.user = current_user
@@ -54,7 +58,7 @@ class VillagesController < ApplicationController
           if @step == 'mainphoto'
             update_info(@step, nil, "你的修改已经保存，可以继续修改其他内容，或 <a href='/villages/#{@village.id}'>回到学校</a>。")
           else
-            update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/villages/#{@village.id}'>回到学校</a>。")
+            update_info(@step, nil, "你的修改已经保存，可以继续修改，或 <a href='/villages/#{@village.id}'>回到村庄页面</a>。")
           end
           
         end
