@@ -24,7 +24,7 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/postcard #{deploy_to}/current/public/images/postcard"
     run "ln -s #{deploy_to}/shared/sphinx #{deploy_to}/current/db/sphinx"
     run "rm -rf #{deploy_to}/current/public/docs && ln -s #{deploy_to}/shared/docs #{deploy_to}/current/public/"
-    run "cd #{deploy_to}/current && rake schools:to_json RAILS_ENV=#{env}"
+    #run "cd #{deploy_to}/current && rake schools:to_json RAILS_ENV=#{env}"
     run "cd #{deploy_to}/current && rm -rf public/stylesheets/*.cache.css"
     run "cd #{deploy_to}/current && rm -rf public/javascripts/*.cache.js"
     run "cd #{deploy_to}/current && bundle install"
