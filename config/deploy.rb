@@ -1,18 +1,18 @@
 #require 'capistrano/ext/multistage'
 default_run_options[:pty] = true
 
-set :application, "1kg"
-set :user, "jill"
+set :application, "1kg.org"
+set :user, "admin"
 set :repository, "git://github.com/Suave/1kg.org.git"
 set :scm, :git
 set :deploy_via, :remote_cache
 
-role :app, "1kg.org", :primary => true
-role :web, "1kg.org"
-role :db, "1kg.org", :primary => true
+role :app, "72.20.52.208", :primary => true
+role :web, "72.20.52.208"
+role :db, "72.20.52.208", :primary => true
 
 namespace :deploy do
-  set :deploy_to, "/home/jill/master"  
+  set :deploy_to, "/home/admin/1kg.org"  
   
   desc "Custom after update code to put production database.yml in place."
   task :copy_configs, :roles => :app do
@@ -51,7 +51,7 @@ namespace :deploy do
     #     ENV['REASON'] = 'an application upgrade'
     #     ENV['UNTIL']  = Time.now.+(600).strftime("%H:%M %Z")
     #     web.disable
-    set :deploy_to, "/home/jill/master"
+    set :deploy_to, "/home/admin/1kg.org"
     set :branch, "master"
     set :env, "production"
     
