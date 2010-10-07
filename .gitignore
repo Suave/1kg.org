@@ -4,7 +4,7 @@ mkmf.log
 log/*
 tmp/*
 tmp/**/*
-config/*.sphinx.conf
+config/sphinx.yml
 db/sphinx/*
 db/sphinx/**/*
 doc/api
