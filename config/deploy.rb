@@ -27,7 +27,7 @@ namespace :deploy do
     #run "cd #{deploy_to}/current && rake schools:to_json RAILS_ENV=#{env}"
     run "cd #{deploy_to}/current && rm -rf public/stylesheets/*.cache.css"
     run "cd #{deploy_to}/current && rm -rf public/javascripts/*.cache.js"
-    run "cd #{deploy_to}/current && bundle install"
+    #run "cd #{deploy_to}/current && bundle install"
   end
   
   desc "Deploy to dev server"
