@@ -24,6 +24,7 @@ class MiscController < ApplicationController
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
     @atom_shares = Share.find(:all,:limit => 10,:order => "created_at desc")
+    @projects = [Project.find(6),Project.last]
     
     respond_to do |wants|
       wants.html{render :action => "index"}

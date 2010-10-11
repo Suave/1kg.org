@@ -74,13 +74,25 @@
   <div  style="clear:both"></div>
 </div> 
 
+<div class="newbox">
+      <div class="clearfix"></div>
+      <span class="span_title">公益项目</span>
+      <div class="clearfix" style="height:10px"></div>
+      <div class="contents clearfix">
+        <%= render :partial => '/shared/project', :collection => @projects %>
+      </div>
+     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div><%end%>
+</div>
+
+
 
 <div class="cleanfix" style="height:20px"></div>
 <div class="newbox">
-  <div style="float:right"><span class="gary_span">&raquo; <%= link_to "进入团捐频道", co_donations_url%></span></div>
+  <div style="float:right"><span class="gary_span">&raquo;</span></div>
   <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span>
   <div class="cleanfix" style="height:20px"></div>
   <%= render :partial => "/shared/co_donation", :collection => @co_donations%>
+  <div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",co_donations_url %></div>
   <div  style="clear:both"></div>
 </div>
 
