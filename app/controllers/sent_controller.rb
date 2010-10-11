@@ -3,8 +3,8 @@ class SentController < ApplicationController
   
   def index
 		@messages = current_messages.undeleted.paginate :per_page => 10,
-																										:page  		=> params[:page],
-																										:order 		=> "created_at DESC"
+		                  :page  		=> params[:page],
+				  :order 		=> "created_at DESC"
   end
 
   def show

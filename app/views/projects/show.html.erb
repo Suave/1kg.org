@@ -11,6 +11,10 @@
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
+    $(".more").toggle(
+      function () {$($(this).attr('name')).animate({ height: 'show' },'fast');$(this).attr('style','background-image:url(/images/less.gif)')},
+      function () {$($(this).attr('name')).animate({ height: 'hide' },'fast');$(this).attr('style','background-image:url(/images/more.gif)')}
+    );
     });
   </script>
 <% end %>
@@ -44,7 +48,9 @@
   
   <% unless @villages.blank?%>
     <span class="span_title2">更多村庄</span><br/>
-    <%= render :partial => '/shared/community',:collection => @villages%>
+    <%= render :partial => '/shared/community',:collection => @villages[0..5]%>
+    <a class="more" name="#more_village">查看更多</a>
+    <div id="more_village" style="display:none"><%= render :partial => '/shared/community',:collection => @villages[5..-1]%></div>
     <div class="cleanfix" style="height:20px;clear:both"></div>
   <% end %>
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
@@ -109,7 +115,7 @@
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
   <div class="school_box">
-    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@photos.size}篇分享",photos_project_path(@project)) %></span>
+    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@photos.size}张照片",photos_project_path(@project)) %></span>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
       <%= render :partial => "/schools/gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
