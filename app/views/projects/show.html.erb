@@ -109,7 +109,7 @@
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
   <div class="school_box">
-    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : "共有#{@photos.size}张照片" %></span>
+    <span class="span_title2" >项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@photos.size}篇分享",photos_project_path(@project)) %></span>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
       <%= render :partial => "/schools/gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
@@ -118,7 +118,7 @@
   </div>
     
   <div>
-    <span class="span_title2" >项目分享</span> <span class="gary_span"><%= @shares.blank? ? "还没有项目分享" : "共有#{@shares.size}篇分享" %></span>
+    <span class="span_title2" >项目分享</span> <span class="gary_span"><%= @shares.blank? ? "还没有项目分享" : link_to("共有#{@shares.size}篇分享",shares_project_path(@project))%></span>
     <div class="contents clearfix">
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
     </div>

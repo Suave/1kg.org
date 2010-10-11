@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   
-  before_filter :login_required, :except => [:show,:index,:large_map] 
+  before_filter :login_required, :except => [:show,:index,:large_map,:shares,:photos] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
 
@@ -82,6 +82,16 @@ class ProjectsController < ApplicationController
     end
   end
   
+  def shares
+    @executions = @project.executions.validated
+    @shares = @executions.map(&:shares).flatten.paginate(:page => params[:page], :per_page => 20)
+  end
+  
+  def photos
+    @executions = @project.executions.validated
+    @photos = @executions.map(&:photos).flatten.paginate(:page => params[:page], :per_page => 20)
+  end
+    
   private
 
   def find_project

@@ -1,0 +1,10 @@
+<% @page_title = @title = "#{h @project.title}的论坛" -%>
+
+<div class="newbox">
+        <%= render :partial => "/shared/share", :collection => @shares %>
+      <div class="contents"><p><%= will_paginate @shares %></p></div>
+</div>
+
+<% content_for :sidebar do -%>
+  <p>&raquo; <%= link_to "返回学校页面", project_url(@project) %></p>
+<% end -%>
