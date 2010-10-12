@@ -13,7 +13,7 @@ class Village < ActiveRecord::Base
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
   
   def edited_by(u)
-    self.user == u
+    self.user == u || u.admin?
   end
   
   def before_create
