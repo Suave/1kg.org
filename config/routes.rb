@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requirements, :member => {}  
   map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
-  map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get} do |c|
+  map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
                                             :admin_state => :put}
     c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    

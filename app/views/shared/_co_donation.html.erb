@@ -7,6 +7,8 @@
         
         <% if co_donation.done%>
             <h5>达成捐赠目标</h5>
+        <% elsif co_donation.end_at < Date.today %>
+            <h5>已结束</h5>
         <% else %>
             <h5>还需要 <%= co_donation.still_need%> 件</h5>
         <% end %>

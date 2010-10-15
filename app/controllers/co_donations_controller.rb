@@ -1,5 +1,5 @@
 class CoDonationsController < ApplicationController
-  before_filter :find_co_donation, :except => [:new, :create, :index]
+  before_filter :find_co_donation, :except => [:over,:new, :create, :index]
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy,:send_invitation,:invite]
   before_filter :check_permission ,:only => [:edit,:destory,:update,:admin_state]
   before_filter :get_state, :only => [:show]
@@ -42,6 +42,12 @@ class CoDonationsController < ApplicationController
       end
     end
   end
+  
+  def over
+    @co_donations = CoDonation.validated.over.paginate(:page => params[:page] || 1,:order => "validated_at desc",
+                                                                  :per_page => 6)
+  end
+  
   
   def show
     @sub_donation = SubDonation.new
@@ -96,6 +102,7 @@ class CoDonationsController < ApplicationController
   def invite
     @friends = current_user.neighbors
   end
+  
   
   private
   def find_co_donation

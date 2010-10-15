@@ -15,7 +15,8 @@ class CoDonation < ActiveRecord::Base
   
   named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
   named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
-  named_scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"  
+  named_scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"
+  named_scope :over, :conditions => ["end_at < ?",Date.today], :order => "created_at desc"  
   acts_as_paranoid
   
   def self.total_beneficiary
