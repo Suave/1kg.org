@@ -34,26 +34,30 @@ class SubDonation < ActiveRecord::Base
   def after_destroy
    self.co_donation.update_number!
   end
-  
-  state_machine :state, :initial => :waiting do
-  
-    event :allow  do  
-      transition [:refused,:waiting] => :validated
+
+ #使用state_machine做捐赠的状态转换,提供了一证明、拒绝、收到、丢失、等待这5个动作。
+  state_machine :state, :initial => :ordered do
+    
+    event :prove  do  
+      transition :ordered => :proved
     end
     
     event :refuse do  
-      transition [:waiting,:validated,:going] => :refused
+      transition [:ordered,:proved,:received,:missed] => :refused
     end
     
-    event :start do  
-      transition :validated => :going
+    event :receive do  
+      transition [:proved,:refused,:missed] => :received
     end  
-        
-    event :finish do  
-      transition :going => :finished
+    
+    event :miss do  
+      transition [:received,:proved,:refused] => :missed
+    end
+    
+    event :wait do  
+      transition [:received,:refused,:missed] => :proved
     end
   end
-
   
   
   private
