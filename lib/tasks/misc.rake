@@ -13,6 +13,18 @@ namespace :misc do
     end
   end
 
+  desc "项目报告转移道分享"
+  task :trans_report => :environment do
+    Execution.all.map{|e| e unless  e.feedback.blank?}.compact.each do |e|
+      @share = Share.new(:body_html => e.feedback,:updated_at => e.last_modified_at,:created_at => e.created_at,:school_id => e.school_id,:execution_id => e.id,:geo_id => 0)
+      @share.title = "#{e.village_id.nil? ? e.school.title : e.village.title }的#{e.project.title}项目执行报告"
+      @share.user = e.user
+      puts @share.save
+      puts @share.errors
+    end
+  end  
+
+
   
   desc "判定一周内没有上传证明的捐赠无效"
   task :check_sub_donation => :environment do

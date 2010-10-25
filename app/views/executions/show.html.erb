@@ -116,15 +116,6 @@
             <%= "暂无帖子" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
-
-        <div class="project_info">
-          <div class="title_line"><span>执行报告</span></div><%= link_to "更新报告", feedback_project_execution_url(@execution.project, @execution) ,:class => "buttonlink"%>
-          <% if @execution.feedback.blank? %>
-              <p>申请人还没有填写</p>
-          <% else %>
-            <%= @execution.feedback %>
-          <% end -%>
-        </div>
         
       <% else %>
         <div class="project_info">
