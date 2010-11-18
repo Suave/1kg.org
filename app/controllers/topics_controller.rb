@@ -18,19 +18,22 @@ class TopicsController < ApplicationController
   
   def create
     @topic = Topic.new(params[:topic])
-    @topic.user = current_user
-    @topic.board = @board
-    @topic.save!
-    flash[:notice] = "发帖成功"
-
-    if @board.talkable.class == SchoolBoard
-      redirect_to school_url(@board.talkable.school_id)
-    elsif @board.talkable.class == GroupBoard
-      redirect_to group_url(@board.talkable.group_id)
-    elsif @board.talkable.class == Team
-      redirect_to team_url(@board.talkable.id)
-    else
-      redirect_to board_url(@board)
+    if @topic.title.include?("考前答案") || @topic.title.include?("考试答案")
+      render_500
+    else  
+      @topic.user = current_user
+      @topic.board = @board
+      @topic.save!
+      flash[:notice] = "发帖成功"
+      if @board.talkable.class == SchoolBoard
+        redirect_to school_url(@board.talkable.school_id)
+      elsif @board.talkable.class == GroupBoard
+        redirect_to group_url(@board.talkable.group_id)
+      elsif @board.talkable.class == Team
+        redirect_to team_url(@board.talkable.id)
+      else
+        redirect_to board_url(@board)
+      end
     end
   end
   
