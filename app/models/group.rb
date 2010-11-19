@@ -34,7 +34,7 @@ class Group < ActiveRecord::Base
   after_create :create_discussion
   after_create :create_feed
   
-  validates_presence_of :title, :message => "请填写小组名"
+  validates_presence_of :title, :message => "请填写小组名",:within => 1..20
   validates_presence_of :geo_id, :message => "请选择小组所在城市"
   
   define_index do
