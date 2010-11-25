@@ -18,28 +18,21 @@
 <%= f.text_field :login, :size => 20 %><%= error_message_on(:user, :login, :tag => 'span') %>
 <span class="tip">中英文均可，以后可以改的</span></p>
 
+<div style="overflow:hidden;">
+  <input id='password_confirmation' name='password_confirmation' size='20' type='password' style="margin-left:4000px">
+</div> 
 <p><label for="password" class="label">密码</label>
 <%= f.password_field :password, :size => 20 %><%= error_message_on(:user, :password, :tag => 'span') %></p>
-
 <p><label for="password_confirmation" class="label">密码确认</label>
-<div id="fuck_spammer"></div><%= error_message_on(:user, :password_confirmation, :tag => 'span') %></p>
+<input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
 <p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
 <p class="submit"><%= submit_tag '注 册' %></p>
+ 
 <% end -%>
 
-<!--
-<div class="tips">
-  <h4>注册小贴士</h4>
-  <p class="tip">如果收不到确认邮件，请发邮件联系 <a href="mailto:feedback@1kg.org">feedback@1kg.org</a>，我们会帮您激活帐户。</p>
-</div>
--->
 <p class="login">&raquo; 我已经注册了，现在要<%= link_to "登录", login_url %></p>
-
     </div>
   </div>
 </div>
 
-<script type="text/javascript">
-  $('#fuck_spammer').html("<input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>")
-</script>
 <% end -%>

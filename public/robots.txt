@@ -7,4 +7,7 @@ User-agent: Yahoo! Slurp
 Disallow: /
 User-agent: msnbot
 Disallow: /
+User-agent: *
+Disallow: /signup
+Disallow: /login
 

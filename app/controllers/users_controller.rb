@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    if in_black_list?
+    if in_black_list? || params[:password_confirmation].present?
       flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户，如果你确认这是一个错误，请联系我们的管理员"
       redirect_to root_path
     else
