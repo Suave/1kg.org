@@ -41,12 +41,9 @@ class Share < ActiveRecord::Base
   
   
   def validate
-    begin
-      if self.user.shares.last.created_at > 1.minute.ago
-        errors.add(:time,"发贴频率过快")
+      if self.user.shares.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
+        errors.add(:title,"发贴频率过快")
       end
-    rescue  
-    end
   end  
   
   acts_as_voteable
