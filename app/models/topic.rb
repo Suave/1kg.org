@@ -46,6 +46,19 @@ class Topic < ActiveRecord::Base
   
   validates_presence_of :title
   
+  
+  
+  def validate
+    begin
+      if self.user.topics.last.created_at > 1.minute.ago
+        errors.add(:time,"发贴频率过快")
+      end
+    rescue  
+     
+    end
+    
+  end
+  
   before_save :format_content
   before_create :set_last_reply
   after_create :create_feed

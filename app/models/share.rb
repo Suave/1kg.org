@@ -39,6 +39,16 @@ class Share < ActiveRecord::Base
   validates_presence_of :geo_id, :message => "请选择一个和你的分享有关的城市"
   validates_presence_of :title,  :message => "请起个题目"
   
+  
+  def validate
+    begin
+      if self.user.shares.last.created_at > 1.minute.ago
+        errors.add(:time,"发贴频率过快")
+      end
+    rescue  
+    end
+  end  
+  
   acts_as_voteable
   acts_as_taggable
   acts_as_paranoid
