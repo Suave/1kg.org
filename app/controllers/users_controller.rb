@@ -31,21 +31,21 @@ class UsersController < ApplicationController
         render :action => "new"
       else
         @user = User.new(params[:user])
-        @user.register! if @user.valid?
-        if @user.errors.empty?
-          if !verify_recaptcha() 
+        if !verify_recaptcha() 
             flash[:notice] = "验证码输入有误"      
             render :action => "new"
-          else
+        else
+        @user.register! if @user.valid?
+          if @user.errors.empty?
             @user.activate!
             @user.update_attribute(:ip, request.remote_ip)
             cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
             self.current_user = @user
             flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
             redirect_back_or_default CGI.unescape(params[:to] || '/setting')
+          else
+            render :action => 'new'
           end
-        else
-          render :action => 'new'
         end
       end
     end
