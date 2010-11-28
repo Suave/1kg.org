@@ -15,17 +15,17 @@
 
 
 <p><label for="login" class="label">用户名</label>
-<%= f.text_field :login, :size => 20 %><%= error_message_on(:user, :login, :tag => 'span') %>
-<span class="tip">中英文均可，以后可以改的</span></p>
-
-<div style="overflow:hidden;">
-  <input id='password_confirmation' name='password_confirmation' size='20' type='password' style="margin-left:4000px">
-</div> 
+<%= f.text_field :login, :size => 20 %><%= error_message_on(:user, :login, :tag => 'span') %></p>
 <p><label for="password" class="label">密码</label>
 <%= f.password_field :password, :size => 20 %><%= error_message_on(:user, :password, :tag => 'span') %></p>
 <p><label for="password_confirmation" class="label">密码确认</label>
 <input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
 <p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
+<br/>
+<p>
+  为了避免恶意注册，请黄色输入框输入下面图片中显示的两个单词，<br/>如果看不清请点击输入框边上的 <%= image_tag "/images/icon/recaptcha.png",:style=>"position:relative;top:3px"%> 刷新单词
+  <%= recaptcha_tags %>
+</p>
 <p class="submit"><%= submit_tag '注 册' %></p>
  
 <% end -%>
