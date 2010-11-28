@@ -22,12 +22,15 @@ class UsersController < ApplicationController
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    if in_black_list? || params[:password_confirmation].present?
+    if in_black_list? 
       flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户，如果你确认这是一个错误，请联系我们的管理员"
       redirect_to root_path
     else
-      unless params[:terms] == "1"
+      if params[:terms] != "1"
         flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"      
+        render :action => "new"
+      elsif !verify_recaptcha() 
+        flash[:notice] = "验证码输入有误"      
         render :action => "new"
       else
         @user = User.new(params[:user])

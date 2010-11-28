@@ -15,6 +15,7 @@ db/data.yml
 db/sphinx
 vendor/rails
 config/database.yml
+config/recaptcha.yml
 public/user
 public/user/*
 public/user/**/*
