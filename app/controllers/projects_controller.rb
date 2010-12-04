@@ -52,6 +52,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(params[:project])
     @project.feedback_require = feedback_require
     @project.user = current_user
+    debugger
     @project.save
     flash[:notice] = "项目创建成功"
     message = Message.new(:subject => "#{@project.user.login}创建了的公益项目#{@project.title}",

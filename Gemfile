@@ -14,4 +14,5 @@ group :production do
   gem "rmagick"
   gem "state_machine"
   gem "mysql"
+  gem "ruby-debug"
 end

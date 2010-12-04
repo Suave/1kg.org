@@ -20,7 +20,7 @@ class PhotosController < ApplicationController
     # 针对Flash上传
     @photo.swf_uploaded_data = params[:Filedata] if params[:Filedata]
     @photo.title = '未命名图片' unless @photo.title.blank?
-    @photo.save!
+    @photo.save
     flash[:notice] = "照片上传成功!"
     respond_to do |wants|
       if params[:Filedata]

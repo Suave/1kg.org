@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   belongs_to :user
   has_many:executions,:include => [:school]
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_attached_file :image, :styles => { :project_avatar => "60x60>", :project_logo => "200x200>" }
+  has_attached_file :image, :styles => { :project_avatar => "60x60>", :project_logo => "200x200>" },:whiny => false
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   named_scope :not_validated, :conditions => {:state => "waiting"}
   named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
