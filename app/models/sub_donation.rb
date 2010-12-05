@@ -6,7 +6,7 @@ class SubDonation < ActiveRecord::Base
   
   attr_accessor :action
   
-  has_attached_file :image, :styles => {:medium => "580x580>", :thumb => "150x150>" },
+  has_attached_file :image, :styles => {:prove => "580x580>" },
                             :default_style=> :_48x48,
                             :url=>"/system/sub_donations/:id/:style.:extension"
   validates_presence_of :co_donation_id, :user_id, :quantity

@@ -28,4 +28,4 @@ ActionMailer::Base.smtp_settings = {
   :domain  => "1kg.org",
   :port => 25
 }
-Paperclip.options[:command_path] = "/opt/local/bin"
+Paperclip.options[:command_path] = "/usr/bin"
