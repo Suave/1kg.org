@@ -31,7 +31,6 @@ class Photo < ActiveRecord::Base
   belongs_to :requirement,:foreign_key => "requirement_id"
   belongs_to :execution,:foreign_key => "execution_id"
   belongs_to :co_donation,:foreign_key => "co_donation_id"
-  validates_presence_of     :user_id, :message => "用户名不能为空"
   acts_as_paranoid
   
   has_attachment :processor => :rmagick,
