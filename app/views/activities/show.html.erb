@@ -6,14 +6,18 @@
       jQuery(document).ready(function(){
       jQuery("a[rel^='prettyPhoto']").prettyPhoto();
       $("#toggle_image").toggle(
-        function(){$(this).text("隐藏图片？");$("#hide_image img").toggle();return false;},
-        function(){$(this).text("显示图片？");$("#hide_image img").toggle();return false;});
+        function(){$(this).text("隐藏图片？");$("#hide_image img").hide();return false;},
+        function(){$(this).text("显示所有图片？");$("#hide_image img").show();return false;});
       });
     </script>
   <% end %>
   <%= javascript_include_tag 'swfupload' %>
   <%= javascript_include_tag 'handlers' %>
-  <style type="text/css">.school_list_meta{width:160px;}#hide_image img{display:none}</style>
+  <style type="text/css">
+    .school_list_meta{width:160px;}
+    #hide_image img{display:none}
+    #hide_image img:first{display:inherit}
+  </style>
   <meta name="description" content="来自多背一公斤的活动： <%= summary(@activity ,60)%>...">
 <%end%>
 
@@ -112,7 +116,7 @@
           <div id="entry">
             <% if @activity.description_html.match '<img ' %>
               <div style="background-color:#eee;padding:4px">
-                <span class="gary_span">为了便于阅读，我们隐藏了活动介绍中的图片，<a href="#"  id="toggle_image">显示图片？</a></span>
+                <span class="gary_span">为了便于阅读，默认只显示活动介绍中的一张图片，<a href="#"  id="toggle_image">显示全部？</a></span>
               </div>
             <% end %>
             <div id="hide_image">
