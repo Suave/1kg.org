@@ -6,8 +6,8 @@
       jQuery(document).ready(function(){
       jQuery("a[rel^='prettyPhoto']").prettyPhoto();
       $("#toggle_image").toggle(
-        function(){$(this).text("隐藏图片？");$("#hide_image img").hide();return false;},
-        function(){$(this).text("显示所有图片？");$("#hide_image img").show();return false;});
+        function(){$(this).text("隐藏图片？");$("#hide_image img").show();return false;},
+        function(){$(this).text("显示所有图片？");$("#hide_image img").hide();return false;});
       });
     </script>
   <% end %>
@@ -16,7 +16,7 @@
   <style type="text/css">
     .school_list_meta{width:160px;}
     #hide_image img{display:none}
-    #hide_image img:first{display:inherit}
+    #hide_image img:first{display:block}
   </style>
   <meta name="description" content="来自多背一公斤的活动： <%= summary(@activity ,60)%>...">
 <%end%>
