@@ -6,7 +6,7 @@
 
 APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
 
-ActionMailer::Base.smtp_settings = {  
+ActionMailer::Base.sendmail_settings = {  
   :address              => "smtp.gmail.com",  
   :port                 => 587,  
   :user_name            => APP_CONFIG['mail_user_name'],  

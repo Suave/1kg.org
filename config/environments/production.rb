@@ -25,7 +25,7 @@ config.action_controller.perform_caching             = true
 
 APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
 
-ActionMailer::Base.smtp_settings = {  
+ActionMailer::Base.sendmail _settings = {  
   :address              => "smtp.gmail.com",  
   :port                 => 587,  
   :user_name            => APP_CONFIG['mail_user_name'],  
