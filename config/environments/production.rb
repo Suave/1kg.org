@@ -23,9 +23,15 @@ config.action_controller.perform_caching             = true
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
 
-ActionMailer::Base.smtp_settings = {
-  :address => "127.0.0.1",
-  :domain  => "1kg.org",
-  :port => 25
+APP_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")[Rails.env]
+
+ActionMailer::Base.smtp_settings = {  
+  :address              => "smtp.gmail.com",  
+  :port                 => 587,  
+  :user_name            => APP_CONFIG['mail_user_name'],  
+  :password             => APP_CONFIG['mail_password'],  
+  :authentication       => "plain",  
+  :enable_starttls_auto => true  
 }
+
 Paperclip.options[:command_path] = "/usr/bin"

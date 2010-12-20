@@ -61,8 +61,8 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector
   config.active_record.observers = :user_observer, :school_observer, :message_copy_observer
   
-  config.action_mailer.delivery_method = :activerecord
-  config.action_mailer.default_charset= "utf-8"
+  #config.action_mailer.delivery_method = :activerecord
+  #config.action_mailer.default_charset= "utf-8"
 end
 
 require 'sanitize'
