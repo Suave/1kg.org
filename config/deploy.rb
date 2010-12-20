@@ -18,6 +18,7 @@ namespace :deploy do
   task :copy_configs, :roles => :app do
     run "cp #{deploy_to}/shared/database.yml #{current_path}/config/database.yml"
     run "cp #{deploy_to}/shared/recaptcha.yml #{current_path}/config/recaptcha.yml"
+    run "cp #{deploy_to}/shared/config.yml #{current_path}/config/config.yml"
     run "cp #{deploy_to}/shared/sphinx.yml #{current_path}/config/sphinx.yml"
     run "ln -s #{deploy_to}/shared/photos #{current_path}/public/photos"
     run "rm -rf #{current_path}/public/user && ln -s #{deploy_to}/shared/user #{current_path}/public/user"
