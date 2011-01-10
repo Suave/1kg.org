@@ -18,7 +18,7 @@ class TopicsController < ApplicationController
   
   def create
     @topic = Topic.new(params[:topic])
-    if @topic.title.include?("考前答案") || @topic.title.include?("考试答案")
+    if @topic.title.include?("火车") || @topic.title.include?("客服")
       render_500
     else  
       @topic.user = current_user

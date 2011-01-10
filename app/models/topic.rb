@@ -50,7 +50,7 @@ class Topic < ActiveRecord::Base
   
 
   def validate
-      if self.user.topics.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
+      if self.user.topics.first.created_at > 1.minute.ago
         errors.add(:title,"发贴频率过快")
       end
   end
