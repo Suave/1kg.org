@@ -50,7 +50,7 @@ class Topic < ActiveRecord::Base
   
 
   def validate
-      if self.user.topics.first.created_at > 1.minute.ago
+      if self.user.topics.first && (self.user.topics.first.created_at > 1.minute.ago)
         errors.add(:title,"发贴频率过快")
       end
   end
