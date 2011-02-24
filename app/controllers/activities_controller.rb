@@ -91,8 +91,9 @@ class ActivitiesController < ApplicationController
   
   def create
     @activity = Activity.new(params[:activity])
-    if @activity.title.include?("考前答案") || @activity.title.include?("考试答案")
-      render_500
+    if current_user.activities.size == 0 && !verify_recaptcha() 
+      flash[:notice] = "验证码输入有误"      
+      render :action => "new"
     else  
       @activity.user = current_user
       @activity.save!

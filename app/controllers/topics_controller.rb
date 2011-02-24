@@ -18,8 +18,9 @@ class TopicsController < ApplicationController
   
   def create
     @topic = Topic.new(params[:topic])
-    if @topic.title.include?("火车") || @topic.title.include?("客服")
-      render_500
+    if current_user.topics.size == 0 && !verify_recaptcha() 
+      flash[:notice] = "验证码输入有误"      
+      render :action => "new"
     else  
       @topic.user = current_user
       @topic.board = @board
