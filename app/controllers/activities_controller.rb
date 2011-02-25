@@ -91,7 +91,7 @@ class ActivitiesController < ApplicationController
   
   def create
     @activity = Activity.new(params[:activity])
-    if current_user.activities.size == 0 && !verify_recaptcha() 
+    if !verify_recaptcha() 
       flash[:notice] = "验证码输入有误"      
       render :action => "new"
     else  

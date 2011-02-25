@@ -18,7 +18,7 @@ class TopicsController < ApplicationController
   
   def create
     @topic = Topic.new(params[:topic])
-    if current_user.topics.size == 0 && !verify_recaptcha() 
+    if !verify_recaptcha() 
       flash[:notice] = "验证码输入有误"      
       render :action => "new"
     else  
