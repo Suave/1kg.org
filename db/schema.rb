@@ -473,6 +473,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"
     t.integer  "validated_by_id"
+    t.integer  "igeey_id"
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
     t.integer  "last_month_karma",    :default => 0
@@ -826,7 +827,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.text    :content
     t.string  :category
     t.integer :item_id
-    t.string :item_type
+    t.string  :item_type
     t.integer :user_id
     
     t.timestamps

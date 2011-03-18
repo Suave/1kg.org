@@ -21,6 +21,7 @@
 
 <% content_for :subtitle do -%>
 <% end -%>
+
 <%= render :partial => "status" %>
 <span class="span_title"><%= h @school.title -%></span>
 　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %>
@@ -37,8 +38,7 @@
         <%else%>
         <img class="school_main" src="/images/school_main.png"/>
         <%end%>
-      <%end%>
-      
+      <%end%>      
     </div>
     <div class="meta_right">
       <p style="font-size:13px">
@@ -57,8 +57,7 @@
     <div class="clearfix"></div>
   </div>
 
-  <div class="school_box">                             
-    
+  <div class="school_box">
     <div id="morecontact">
     <% unless needlist(@school).blank? %>
     <div>
@@ -144,7 +143,8 @@
   jQuery("#activity_tabs").tabs();
 </script>
   </div>
-    
+   
+  <div class="clearfix"></div>  
   <div class="school_box">
     <span class="span_title2" >学校论坛</span> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
     <%= link_to "写新帖子", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
@@ -169,7 +169,15 @@
   </div>
   
 <% content_for :sidebar do -%>
-
+    
+    <% if @school.igeey_id %>
+      <p style="background: #fffbd4;margin: 0 0 15px;padding: 10px 20px;border: #edd885 solid;border-width: 2px 0;">
+        <img src='/images/igeey.png' style="float:left;padding-right:10px"/>
+        <%= @school.title%> 在爱聚网也有了自己的页面啦，快去看看吧。:) <br/>
+        <a href='http://www.igeey.com/v/<%= @school.igeey_id %>'>http://www.igeey.com/v/<%= @school.igeey_id %></a>
+      </p>
+    <% end %>
+  
     <% if logged_in? && current_user.school_moderator? -%>
     <div id="admins">你是学校管理员，可以使用以下功能：<br/>
       <% if @school.validated? -%>

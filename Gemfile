@@ -16,3 +16,8 @@ group :production do
   gem "mysql"
   gem "ruby-debug"
 end
+
+group :development do
+  gem "ya2yaml"
+end
+
