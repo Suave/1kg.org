@@ -79,6 +79,7 @@ ActionController::Routing::Routes.draw do |map|
                                       :setphoto => :put,
                                       :followers => :get,
                                       :novisited => :put,
+                                      :intro =>  :get,
                                       :marked => :put,
                                       :manage => :put,
                                       :sent_apply => :post},

@@ -1,10 +1,9 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers,:intro]
   before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:total_shares]
   before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
   skip_filter :verify_authenticity_token, :only => [:update]
-  
   include ApplicationHelper
 
   def index
@@ -440,7 +439,33 @@ class SchoolsController < ApplicationController
     @followers = @school.interestings
   end
   
+  def intro
+    @basic = @school.basic
+    @text = @basic.intro
+    if @text.blank?
+      @text = "#{@school.title}的情况："  
+      @text += "#{@basic.level_amount}个年级," unless @basic.level_amount.blank?
+      @text += "#{@basic.class_amount}个班级," unless @basic.class_amount.blank?
+      @text += "#{@basic.student_amount}名学生," unless @basic.student_amount.blank?
+      @text += "#{@basic.teacher_amount}名老师。" unless @basic.teacher_amount.blank?
+      @text += "#{radio_value @basic.has_library}"
+      @text += "#{@basic.book_amount}本" if ! @basic.book_amount == 0
+      @text += "图书，"
+      @text += "#{radio_value @basic.has_pc}"
+      @text += "#{@basic.pc_amount}台" if ! @basic.pc_amount == 0
+      @text += "电脑，" 
+      @text += "#{'不' if @basic.has_internet == 0}能上网。"
+      @text += ""
+    end
+    render :text => @text
+  end
+  
   private
+  
+  def radio_value(value)
+    result = %w(没有 有 未知)
+    value.blank? ? "未知" : result[value]
+  end
   
   def find_school
     @school = School.validated.find(params[:id])
