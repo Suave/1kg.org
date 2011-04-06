@@ -7,7 +7,6 @@ class GroupsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_topic, :new, :create, :edit, :update]
   
   def index
-    @groups = Group.find :all, :order => "created_at desc", :limit => 8
     @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 20
     if logged_in?
       @my_recommends = (Group.find(:all,:conditions=>{:geo_id=>current_user.geo_id}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...4]+Group.find(:all,:limit=>8,:conditions=>{:geo_id=>0}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...8])[0,8]
@@ -30,7 +29,7 @@ class GroupsController < ApplicationController
   def all
     @groups = Group.paginate :page => params[:page] || 1, 
                              :conditions => "deleted_at is null", 
-                             :order => "created_at desc", 
+                             :order => "created_at asc", 
                              :per_page => 49
   end
   
