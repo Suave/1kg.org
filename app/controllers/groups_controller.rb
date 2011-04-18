@@ -56,17 +56,12 @@ class GroupsController < ApplicationController
   end
   
   def create
-    if !verify_recaptcha() 
-      flash[:notice] = "验证码输入有误"      
-      render :action => "new"
-    else  
       avatar_convert(:group, :avatar)
       @group = Group.new(params[:group])
       @group.creator = current_user
       @group.save!
       flash[:notice] = "小组创建成功"
       redirect_to group_url(@group)
-    end
   end
   
   def edit

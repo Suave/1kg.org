@@ -23,11 +23,6 @@
         <% form_for :activity, :url => activities_url do |f| -%>
         <%= render :partial => "form", :object => f %>
  
-        <p>
-   请黄色输入框输入下面图片中显示的两个单词，<br/>如果看不清请点击输入框边上的 <%= image_tag "/images/icon/recaptcha.png",:style=>"position:relative;top:3px"%> 刷新单词
-   <%= recaptcha_tags %>
-        </p>
- 
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>
         <span><%= link_to "取 消 ", activities_url,:style => "width:100px"%></span> 带<span class="require">*</span>号的是必填项
         </p>

@@ -18,10 +18,7 @@ class TopicsController < ApplicationController
   
   def create
     @topic = Topic.new(params[:topic])
-    if !verify_recaptcha() 
-      flash[:notice] = "验证码输入有误"      
-      render :action => "new"
-    else  
+
       @topic.user = current_user
       @topic.board = @board
       @topic.save!
@@ -35,7 +32,6 @@ class TopicsController < ApplicationController
       else
         redirect_to board_url(@board)
       end
-    end
   end
   
   def edit

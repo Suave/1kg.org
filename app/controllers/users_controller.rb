@@ -41,7 +41,7 @@ class UsersController < ApplicationController
             @user.update_attribute(:ip, request.remote_ip)
             cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
             self.current_user = @user
-            flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧"
+            flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧。"
             redirect_back_or_default CGI.unescape(params[:to] || '/setting')
           else
             render :action => 'new'

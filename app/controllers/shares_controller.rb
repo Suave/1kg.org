@@ -23,15 +23,10 @@ class SharesController < ApplicationController
   end
   
   def create
-    if !verify_recaptcha() 
-      flash[:notice] = "验证码输入有误"      
-      render :action => "new"
-    else  
       @share = Share.new(params[:share])
       @share.user = current_user
       @share.save!
       redirect_to share_url(@share)
-    end
   end
   
   def edit

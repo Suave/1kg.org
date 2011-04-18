@@ -45,14 +45,15 @@ class Topic < ActiveRecord::Base
   }
   
   validates_presence_of :title
-  
-  
-  
 
   def validate
-      if self.user.topics.first && (self.user.topics.first.created_at > 1.minute.ago)
-        errors.add(:title,"发贴频率过快")
-      end
+    errors.add(:title,"发贴频率过快") if self.user.topics.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
+    if self.user.topics.size > 0 && (self.user.created_at > 1.day.ago)
+      errors.add(:title,"新用户只限每天发一篇")
+    end
+    if /小姐/.match(title)
+      errors.add(:title,"敏感词")
+    end
   end
   
   before_save :format_content

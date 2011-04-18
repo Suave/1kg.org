@@ -80,7 +80,13 @@ class Activity < ActiveRecord::Base
   
   
   def validate
-    errors.add(:title,"发贴频率过快") if self.user.topics.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
+    errors.add(:title,"发贴频率过快") if self.user.activities.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
+    if self.user.activities.size > 0 && (self.user.created_at > 1.day.ago)
+      errors.add(:title,"新用户只限每天发一篇活动")
+    end
+    if /小姐/.match(title)
+      errors.add(:title,"敏感词")
+    end
     begin
       if (Activity.find(id).start_at < Time.now) and ((Activity.find(id).start_at != start_at) or (Activity.find(id).end_at != end_at))
         errors.add(:time,"已经不能修改活动时间")
