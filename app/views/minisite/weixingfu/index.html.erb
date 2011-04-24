@@ -1,0 +1,67 @@
+<% @page_title = "微幸福课堂"  -%>
+
+<% content_for :heads do -%>
+<link type="text/css" rel="stylesheet" href="/stylesheets/kuailebox.css" media="screen, projection" />
+<style>
+#toys{text-align:center}
+#toys img{padding:3px;border:1px solid #ddd}
+</style>
+<% end -%>
+
+<% content_for :fullsize do -%>
+<img src="/images/weixingfu/banner.jpg" alt="<%= @page_title%>" style="margin:10px;" />
+
+<div class="lcolumn">
+   
+  <div class="newbox" style="font-size:13px">
+    <div class="title_line"><h5>活动介绍</h5></div>
+      <p>如果你马上就要踏上乡村学校/打工子弟学校/特殊教育学校之旅
+        <br/>却正在发愁为送给孩子们什么礼物才好
+        <br/>如果你担心再不展示你的心灵手巧就要变老
+        <br/>不要犹豫，马上参加我们的"DIY玩具"免费申请活动
+        <br/>让我们陪孩子们一起DIY五彩的童年
+      </p>
+  </div>
+  
+  <div class="newbox">
+    <div class="title_line"><h5>参与学校</h5></div>
+    <span>接受报名中..</span>
+  </div>
+  
+  <div class="newbox">
+    <div class="title_line"><h5>讨论区</h5></div>
+      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                            :topics => @board.latest_topics } %>
+      <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+    </div>
+  
+
+</div>  
+<div class="rcolumn">
+
+    <div class="title_line"><h5>活动时间&参与方式</h5></div>
+    <p>
+      即日起-2012年，每月在报名者中挑选4～5组志愿者或团队获得由趣玩微幸福寄出的玩具
+    </p>
+    <p style="line-height:20px">
+        1. 最近一个月内计划走访乡村学校/打工子弟学校/特殊教育学校的志愿者均可申请参加
+        <br/>2. 先登录在<a href="www.quwan.com" target='_blank'>趣玩网站</a>免费挑选DIY玩具30—50个，总价值约500元；
+        <br/>3. 将你挑选设计的DIY玩具方案连同申请信息回帖申请即可，我们将审核并发放玩具；
+        <br/>4. 通过审核的志愿者，可在走访时将玩具带到学校和孩子一起完成手工玩具的制作；
+        <br/>5. 最后将与孩子们做手工的欢乐时光在爱聚网上分享。
+    </p>
+
+</div>  
+  
+  <br/>
+  <div class="clear" id="toys">
+    <div class="title_line"><h5 style="color:#999">玩具照片</h5></div>
+<img src='/images/weixingfu/diy麦兜.jpg'/>
+<img src='/images/weixingfu/diy油画招财筒子.jpg'/>
+<img src='/images/weixingfu/笔袋.jpg'/>
+<img src='/images/weixingfu/太阳能6合1.jpg'/>
+<img src='/images/weixingfu/万年历.jpg'/>
+  </div>
+
+
+<% end %>
