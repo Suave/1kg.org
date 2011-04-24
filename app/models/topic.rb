@@ -51,7 +51,7 @@ class Topic < ActiveRecord::Base
     if self.user.topics.size > 0 && (self.user.created_at > 1.day.ago)
       errors.add(:title,"新用户只限每天发一篇")
     end
-    if /小姐/.match(title)
+    if /小姐|发票/.match(title)
       errors.add(:title,"敏感词")
     end
   end
