@@ -53,11 +53,9 @@
           <%= radio_button_tag :on, d, @search.on == d %><%= d %>
         <% end %><br />
         <%= check_box_tag :include_over, '1', @search.include_over %> 包含已结束活动
-        <br />
+        <br/>
       </p>
       </div>
     <% end %>
-    <script type="text/javascript">
-  $('#kind').delayedObserver(0.25, function(element, value) {switch_search_to(value)})</script>
   <div class="cleanfix" style="height:10px"></div>
 </div>

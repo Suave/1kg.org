@@ -43,7 +43,7 @@
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
           <%= render :partial => '/shared/execution', :object => @share.execution %>
-          <div class="clearfix"></div>
+          <div class="clearfix" style="clear:both;height:10px"></div>
         </div>
     </div>
   <%end%>
@@ -59,7 +59,6 @@
         <div class="clearfix" style="clear:both;height:10px"></div>
   </div>
   <% end %>
-  
   <%= render :partial => '/shared/voters', :object => @voters %>
 <% end -%>
 
