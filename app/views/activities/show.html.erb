@@ -127,7 +127,7 @@
   
   <div class="newbox">
       <span class="span_title">活动相册</span>
-        <%= link_to '上传照片', new_photo_path(:activity_id => @activity.id) %> 
+        <%= link_to '上传照片', new_photo_path(:activity_id => @activity.id),:class => 'linkbutton' %> 
       <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix" id="photos">
         <%= render :partial => "/schools/gallery_photo", :collection => @photos%>
