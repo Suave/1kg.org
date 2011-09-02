@@ -212,6 +212,7 @@ ActionController::Routing::Routes.draw do |map|
   # 专题页面
   map.namespace :minisite do |site|
     map.weixingfu "/minisite/weixingfu", :controller => "/minisite/weixingfu", :action => "index"
+    map.weixingfu "/minisite/mangexingdong", :controller => "/minisite/mangexingdong", :action => "index"
     site.namespace :postcard do |postcard|
       postcard.with_options :controller => "dashboard" do |dash|
         dash.index    '',         :action => "index"

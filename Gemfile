@@ -1,7 +1,6 @@
 source 'http://rubygems.org'
 gem "rails", "= 2.3.4"
 
-group :production do
   gem "rack","1.0.1"
   gem "fastercsv"
   gem "hpricot"
@@ -13,11 +12,6 @@ group :production do
   gem "adzap-ar_mailer"
   gem "rmagick"
   gem "state_machine"
-  gem "mysql"
+  gem 'mysql2', '0.2.4'
   gem "ruby-debug"
-end
-
-group :development do
   gem "ya2yaml"
-end
-

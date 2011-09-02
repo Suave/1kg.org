@@ -11,7 +11,7 @@ ol, ul { list-style-type : none; }
 table { border-collapse : collapse; border-spacing : 0; }
 caption, th { text-align : left; }
 img { border:0;}
-dt, address, caption, cite, code, dfn, em, i, strong, b, th, var { font-style : normal; font-weight : normal; }
+dt, address, caption, cite, code, dfn, em, i, strong, th, var { font-style : normal; font-weight : normal; }
 q:before, q:after { content :''; }
 
 /* =body */
