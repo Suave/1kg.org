@@ -12,6 +12,7 @@ gem "rails", "= 2.3.4"
   gem "adzap-ar_mailer"
   gem "rmagick"
   gem "state_machine"
+  gem 'mysql'
   gem 'mysql2', '0.2.4'
   gem "ruby-debug"
   gem "ya2yaml"
