@@ -154,14 +154,6 @@
   
 <% content_for :sidebar do -%>
     
-    <% if @school.igeey_id %>
-      <p style="background: #fffbd4;margin: 0 0 15px;padding: 10px 20px;border: #edd885 solid;border-width: 2px 0;">
-        <img src='/images/igeey.png' style="float:left;padding-right:10px"/>
-        <%= @school.title%>在<a href="http://www.igeey.com" alt="爱聚网">爱聚网</a>也有了自己的页面啦，快去看看吧。:) <br/>
-        <a href='http://www.igeey.com/v/<%= @school.igeey_id %>'>http://www.igeey.com/v/<%= @school.igeey_id %></a>
-      </p>
-    <% end %>
-  
     <% if logged_in? && current_user.school_moderator? -%>
     <div id="admins">你是学校管理员，可以使用以下功能：<br/>
       <% if @school.validated? -%>

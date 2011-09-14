@@ -4,8 +4,8 @@
     </div>
     <div>
         <h5><%= link_to short_title(execution.project,10), project_execution_url(execution.project, execution) %></h5>
-        <% if logged_in? && execution.user == current_user -%>
-          <span><%= link_to "填写反馈", feedback_project_execution_url(execution.project, execution) ,:class => "adminbutton"%>
+        <% if logged_in? && current_user == execution.user %>
+          <span><%= link_to "填写反馈", new_share_url(:execution=>execution.id),:class => "adminbutton"%>
           </span>
         <% else %>
           <span><%= state_tag(execution.state)%></span>

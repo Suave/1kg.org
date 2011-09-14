@@ -29,7 +29,7 @@ module ApplicationHelper
 		str.gsub(/href="(.*?)"/) do
 		  %(href='#{$1}#topicCommentsList')
 		end
-	        end
+    end
   end
 
   def will_paginate_remote(paginator, options={})
@@ -64,7 +64,9 @@ module ApplicationHelper
     url_for( :controller => request.path_parameters['controller'], :action => request.path_parameters['action'], :only_path => false)
   end
   
-  
+  def short_text(text,length=20)
+    text.gsub('<\br>','\n').gsub(/<.*?>/,'').mb_chars.slice(0..length).to_s.lstrip + (text.mb_chars[length].nil?? "" : "...") if text
+  end 
   
   def geo_select(object, method, extra_field=[], value=nil)
     geo_root = extra_field.blank? ? Geo.roots.collect{|g| [g.name, g.id]} : ([extra_field] + Geo.roots.collect{|g| [g.name, g.id]})

@@ -21,14 +21,7 @@
   
   <div id="entry">
     <div id="summary">
-    <% short = (@execution.reason).gsub(/<.*?>/, '').gsub("\n", '<br/>').mb_chars.slice(0..120) %> 
-    <%= short[120].nil? ? @execution.reason  : (short + "...") %>
-    <% unless short[120].nil? %> <a href="#" onclick="javascript:$('#summary').hide();$('#reason_detail').show();return false">(展开)</a><% end%>
-    </div>
-    
-    <div id="reason_detail" style="display:none">
-      <%= (@execution.reason) %>
-      <a href="#" onclick="javascript:$('#reason_detail').hide();$('#summary').show();return false">(收起)</a>
+    <%= @execution.reason %> 
     </div>
   </div>
 </div>
@@ -83,7 +76,6 @@
           
         <div id="report">      
         <% if @execution.validated?%>
-        
         <div class="project_info">
           <div class="title_line"><span>照片</span></div>
             
@@ -95,25 +87,17 @@
               <p style="text-align:right;clear:both">
                 <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
               </p>
-              
               <% if logged_in? && @execution.user == current_user -%>
-                <%= upload_button('upload_container', photo_upload_path_with_session('execution',@execution.id)) %>
+                <%= link_to '上传照片', new_photo_path(:execution_id => @execution.id) %>
               <%end%>
-              <div style="display:none;" id="upload_tip">
-              上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:execution_id => @execution.id) %> 上传.
-              </div>
-                
-                
-              
             </div>     
         </div>
         
         <div class="project_info">
 
-            <div class="title_line"><span>项目帖子</span> <%= link_to '写新帖子',new_share_url + "?execution=#{@execution.id}" %></div>
-
+          <div class="title_line"><span>项目反馈</span> <%= link_to '写新反馈',new_share_url(:execution=>@execution.id)%></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
-            <%= "暂无帖子" if @shares.empty? %>
+            <%= "暂无反馈" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
         
