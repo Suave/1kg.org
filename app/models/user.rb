@@ -217,6 +217,10 @@ class User < ActiveRecord::Base
     @activated
   end
   
+  def followed_schools
+    self.followings.find(:all,:conditions => {:followable_type => 'School'}).map(&:followable)
+  end
+  
   def admin?
     has_role?("roles.admin")
   end
