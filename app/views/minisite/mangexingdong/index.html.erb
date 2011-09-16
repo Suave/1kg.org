@@ -23,18 +23,22 @@
     </p>
   </div>
   
-  <div class="newbox" style="font-size:13px">
+  <div class="newbox" style="font-size:12px;clear:both">
     <div class="title_line"><h5>活动报导</h5></div>
     <p>来自一线的原味报导和志愿者的亲身体会：</p>
-    <p style="padding:2px 0">
-      <b><a href="http://1kg.org/misc/mangexingdong_1">10名爱心背包客 给山里孩子背去新书包</a></b>
-    </p>
-    <p style="padding:2px;border-top:1px dashed #eee">
-      <b><a href="http://1kg.org/misc/mangexingdong_2">往返800公里 “爱心、信号”的满格之旅</a></b>
+    <p>
+    <a href="http://1kg.org/misc/mangexingdong_1" style="display:block;padding:5px;width:200px;float:left;text-align:center">
+      <img src='/images/mangexingdong/feedback1.jpg' />
+      <br/>爱心背包客给山里孩子背去新书包
+    </a>
+    <a href="http://1kg.org/misc/mangexingdong_2" style="display:block;padding:5px;width:200px;float:left;text-align:center">
+      <img src='/images/mangexingdong/feedback2.jpg' />
+      <br/>往返800公里“爱心,信号”的满格之旅
+    </a>
     </p>
   </div>
   
-  <div class="newbox">
+  <div class="newbox clear" >
     <div class="title_line"><h5>讨论区</h5></div>
       <%= render :partial => "/topics/topics", :locals => { :board => @board, 
                                                           :topics => @board.latest_topics } %>
