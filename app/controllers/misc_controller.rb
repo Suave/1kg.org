@@ -16,7 +16,7 @@ class MiscController < ApplicationController
   def public_look
     @page_title = "首页"
     @activity_count = Activity.ongoing.size
-    @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => ["main_photo_id is not null and created_at > ?",1.month.ago])
+    @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => ["main_photo_id is not null and created_at > ?",40.days.ago])
     @voteds = Vote.find(:all,:order => "created_at desc",:limit => 50).map(&:voteable).uniq[0..10]
     @co_donations = CoDonation.validated.ongoing.all(:limit => 2)
     @teams = Team.validated.find(:all,:order => "created_at desc",:limit => 6)
