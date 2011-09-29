@@ -158,6 +158,7 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
+  map.resources :boxes, :collection => {:design => :get,:apply => :get} 
   
   map.resources :games, :member => {:versions => :get, :revert => :put}  do |game|
     game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
@@ -189,6 +190,7 @@ ActionController::Routing::Routes.draw do |map|
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
   map.namespace :admin do |admin|
     admin.resources :roles
+    admin.resources :boxes
     admin.resources :permissions
     admin.resources :users, :collection => {:search => :get}, :member => {:block => :put}
     admin.resources :geos

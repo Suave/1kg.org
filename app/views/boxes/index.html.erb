@@ -1,0 +1,12 @@
+<div style='background:#eee;padding:30px;'>
+  <h1>这是一张图</h1>
+</div>
+
+<div>
+  <%= render :partial => "/shared/box", :collection => @boxes %>
+</div>
+
+<% content_for :sidebar do -%>
+  <h4><%= link_to '我要设计',design_boxes_path%></h4>
+  <h4><%= link_to '我要申请',apply_boxes_path%></h4>
+<% end %>

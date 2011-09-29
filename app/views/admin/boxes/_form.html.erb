@@ -1,0 +1,18 @@
+<% form_for @box,:url => admin_boxes_path,:html => {:multipart => true} do |form| %>
+  <p>
+    <label class="label">名称</label>
+    <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @box, :title %>
+  </p>
+
+  <p>
+    <label class="label">说明</label>
+    <%= form.text_area :detail, :style => 'width:480px;height:160px;' %>
+  </p>
+
+  <p>
+    <label class="label">盒子照片</label>
+  　<%= form.file_field :image %> <%= error_message_on @co_donation, :image %>
+    (或示意图？)
+  </p>        
+  <%= submit_tag "发 布" %> 或 <%= link_to "返回", admin_bulletins_url %>
+<% end %>

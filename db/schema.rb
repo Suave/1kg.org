@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "school_id"
     t.integer  "team_id"
     t.boolean  "by_team",             :default => false
-    t.boolean  "done",             :default => false
+    t.boolean  "done",                :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
@@ -41,6 +41,26 @@ ActiveRecord::Schema.define(:version => 0) do
     t.boolean  "sticky",           :default => false
   end
   
+  create_table "bringings", :force => true do |t|
+    t.integer  "user_id",          :null => false
+    t.integer  "box_id",           :null => false
+    t.integer  "execution_id",     :null => false
+    t.integer  "number"     
+  end
+
+  create_table "boxes", :force => true do |t|
+    t.string   "name"
+    t.boolean  "published",        :default => false
+    t.text     "detail"
+    t.string   "image_file_name"
+    t.integer  "user_id",          :null => false
+    t.boolean  "published",           :default => false
+    t.boolean  "available",           :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+  end
+
   create_table "co_donations", :force => true do |t|
     t.integer  "user_id",          :null => false
     t.integer  "school_id"
@@ -48,7 +68,6 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    
     t.datetime "end_at"
     
     t.string   "goods_name"

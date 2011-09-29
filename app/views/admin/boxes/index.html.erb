@@ -1,0 +1,48 @@
+<% @page_title = "" -%>
+
+<% content_for :sidebar do -%>
+  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="box">
+  <div class="boxOuter">
+    <div class="boxInner">
+      <h3>盒子列表</h3>
+      <span class="postNew">++ <%= link_to "添加新盒子", new_admin_box_url %></span>
+      <div class="contents">
+        <table border="0" cellspacing="5" cellpadding="5">
+          <tr>
+            <th style="width:120px">名字</th>
+            <th style="width:120px">提交人</th>
+            <th style="width:30px">公开</th>
+            <th style="width:30px">定型</th>
+            <th style="width:40px">操作</th>
+            <th style="width:100px">其他</th>
+          </tr>
+          <% @boxs.each do |box| %>
+            <% form_for box,:url => admin_box_path(box) do |form| %>
+              <tr>
+                <td><%= box.name %></td>
+                <td><%= box.user.login %></td>
+                <td>
+                  <%= form.check_box :published %>
+                </td>
+                <td>
+                  <%= form.check_box :available %>
+                </td>
+                <td>
+                  <%= submit_tag '更新' %>
+                </td>
+                <td>
+                  <%= link_to '编辑',edit_admin_box_path(box) %>
+                  <%= link_to '删除',admin_box_path(box),:method => :delete %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
