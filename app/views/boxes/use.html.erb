@@ -1,0 +1,17 @@
+<div class="newbox">
+  <h1>申请一公斤盒子</h1>
+  <p>要怎么怎么做呢balabalabalabala</p>
+  <h3><%= link_to '立即申请',apply_boxes_path %></h3>
+</div>
+
+<div class="newbox">
+  <h3>参与学校</h3>
+</div>
+
+<div class="newbox">
+  <h3>反馈</h3>
+</div>
+
+<% content_for :sidebar do -%>
+  <h3><%= link_to '我要设计',design_boxes_path%></h3>
+<% end %>

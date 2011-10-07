@@ -50,10 +50,10 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "boxes", :force => true do |t|
     t.string   "name"
-    t.boolean  "published",        :default => false
+    t.boolean  "published",           :default => false
     t.text     "detail"
     t.string   "image_file_name"
-    t.integer  "user_id",          :null => false
+    t.integer  "user_id",             :null => false
     t.boolean  "published",           :default => false
     t.boolean  "available",           :default => false
     t.datetime "created_at"
@@ -620,6 +620,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "village_id"
     t.integer  "project_id"
     t.string   "telephone"
+    t.string   "address"
     t.string   "state"
     t.text     "reason"
     t.text     "plan"

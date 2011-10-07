@@ -1,0 +1,80 @@
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+<% end -%>
+
+<% form_for @execution do |form| -%>
+                                                    
+  <% editing = @controller.action_name == "edit" %>
+  <div class="newbox">
+      <span class="span_title">一 确认此项目的反馈要求</span>
+      <div class="contents" style="padding-left:10px">
+
+        <p>1．每次活动用新浪微博与大家分享照片与信息 @多背一公斤 #一公斤盒子#</p>
+        <p>2．在使用完一个盒子后，在一公斤盒子项目页面提交“项目反馈”，包括活动照片，文字记录和盒子内“一公斤盒子使用反馈”单的照片。</p>
+        
+        <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求对团捐进行管理和反馈 <span class="require">*</span> <%= error_message_on @execution, :agree_feedback_terms %></p>
+      </div>
+  </div>
+
+  <div class="newbox">
+      <span class="span_title">二 填写申请表</span>
+      <p class="postNew"></p>
+      <div class="contents">
+        <p>
+          <h6>接受申请的学校: <span class="require">*</span></h6>
+          <%= editing ? @execution.school.title : form.select(:school_id, (@school.nil? ? [['学校名称','']] : [[@school.title,@school.id]]) + @schools.collect{|s| [s.title, s.id]}, {:include_blank => false},:style => "color:#666")%>
+          <% unless editing%>
+            <a onclick="javascript:$('#why').toggle()" href="javascript:return false">没找到你想要的学校？</a><%= error_message_on @execution, :school_id %>
+            <div id="why" style="display:none;" class="caution">如果左边的下拉菜单里没有你要找的学校，说明你还没有关注或去过学校，先去<%= link_to '学校板块',schools_path %>找到你学要的学校吧</div>
+          <% end %>
+        </p>
+          
+        <div id="school_info" class="caution" style="display:none ">申请前请先与学校取得联系，确认学校邮寄地址、联系电话、学生人数、教师人数和班级数。<br/>如果与网站上的<a id="school_link"> 学校信息 </a>不一致，请先 "更新学校信息"。</div>
+            
+        <p>
+          <h6>申请的盒子: <span class="require">*</span></h6>
+          <% @boxes.each_with_index do |box,index|%>
+            <%= box.name%> <%= select :exection,[:bringing,[index]],[1,2,3,4,5,6,7,8,9,10]%>
+          <% end %>
+        </p>
+
+        <p>
+          <h6>你申请该项目的原因： <span class="require">*</span></h6>
+          <span>学校目前的情况是怎样的？为什么需要申请这个项目？这个项目能为学校/学生带来什么改变?</span>
+          <br/><%= error_message_on @execution, :reason %>
+          <%= form.text_area :reason, :cols => 80, :rows => 6 %>
+        </p>
+          
+        <p>
+          <h6>盒子要在什么时候使用？<span class="require">*</span></h6>
+          <br/><%= select('execution','year',[2011,2012]) %>年 <%= select('execution','month',1.upto(12)) %>月
+          <br/><%= form.hidden_field :start_at %><br/><%= error_message_on @execution, :time %>
+        </p>
+        
+        <p>
+          <h6>困难及解决办法：</h6>
+          <span>在实际项目中你可能会遇到什么困难？你打算怎么解决？</span>
+          <br/><%= form.text_area :problem, :cols => 80, :rows => 6 %>
+        </p>
+        
+      </div>
+    
+  </div>
+
+
+  <div class="newbox">
+      <span class="span_title">三 申请人信息</span>
+      <div class="contents" style="padding-left:10px">
+        <p><label class="label">网站用户名</label>
+          <%= form.hidden_field :user_id, {:value => current_user.id} %>
+          <%= h current_user.login %>
+        </p>
+        
+        <p><label class="label">电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
+      </div>
+  </div>
+
+  <p style="margin-left:40px"><%= form.submit "确认" ,:class => "surebutton"%> 
+
+<% end -%>

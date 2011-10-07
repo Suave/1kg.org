@@ -4,4 +4,6 @@ class Box < ActiveRecord::Base
   
   named_scope :published,     :conditions => {:published => true}
   named_scope :available,     :conditions => {:available => true}
+  has_and_belongs_to_many :executions, :class_name =>  'Bringing'
+  has_many :bringings
 end

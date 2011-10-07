@@ -1,5 +1,5 @@
 class Execution < ActiveRecord::Base
-  attr_accessor :agree_feedback_terms
+  attr_accessor :agree_feedback_terms,:year,:month
   
   belongs_to :project
   belongs_to :school
@@ -9,6 +9,8 @@ class Execution < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :bringings
+  has_and_belongs_to_many :boxes, :class_name => 'Bringing'
   
   validates_presence_of :reason,:message => "必须填写申请理由"
   validates_presence_of :plan,:message => "必须填写实施计划"
