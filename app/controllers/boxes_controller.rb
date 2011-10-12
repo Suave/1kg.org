@@ -29,6 +29,7 @@ class BoxesController < ApplicationController
       @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
       render "apply"
     elsif @execution.save
+      flash[:notice] = "你的申请已经提交成功，请等候并持续关注，结果我们会通过站内信告知 :)"
       redirect_to boxes_path
     else
       @boxes = Box.available
