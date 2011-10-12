@@ -1,0 +1,60 @@
+<% @page_title = "" -%>
+
+<% content_for :sidebar do -%>
+
+  <%= render :partial => "/admin/shared/operation_list" %>
+<% end -%>
+
+<div class="newbox">
+  <h3>所有申请 <span><%= link_to '下载表格',"#{admin_bringings_path}.csv" %></span></h3>
+  <div class="contents">
+    <table border="0" cellspacing="5" cellpadding="5">
+      <tr>
+        <th style="width:80px">申请人</th>
+        <th style="width:120px">学校</th>
+        <th style="width:80px">申请盒子</th>
+        <th style="width:50px">状态</th>
+        <th style="width:70px">时间</th>
+        <th style="width:50px">展开</th>
+      </tr>
+      <% @executions.each_with_index do |execution,n| %>
+      <tr>
+        <td><%= link_to execution.user.login,user_path(execution.user)%></td>
+        <td><%= link_to execution.school.title,school_path(execution.school)%></td>
+        <td><%= execution.bringings_count %>种</td>
+        <td><%= state_tag(execution.state) %></td>
+        <td><%= "#{execution.start_at.year}年#{execution.start_at.month}月"%></td>
+        <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
+      </tr>
+       <tr>
+        <td class="detail_n" colspan="6"  id='<%= "detail_#{n}" %>' style="display:none">
+          <p>
+            <h5>盒子详情</h5>
+            <%= execution.bringings.map{|b| "#{b.box.name}[#{b.number}]　"}%>
+          </p>
+          <p>
+            <h5>申请原因</h5>
+            <%= execution.reason %>
+          </p>
+          <p>
+            <h5>困难应对</h5>
+            <%= execution.problem %>
+          </p>
+          <p>
+            <h5>联系方式</h5>
+            姓名:<%= execution.realname %>
+            <br/>
+            收货地址和邮编：<%= execution.address %>
+            <br/>
+            电话/手机：<%= execution.telephone %>
+          </p>
+          <div style="float:right">
+             <%=  (link_to "通过申请",validate_admin_bringing_url(execution),:class => "adminbutton",:method => :put) unless execution.validated? %>
+             <%=  (link_to "拒绝申请",refuse_admin_bringing_url(execution),:class => "adminbutton",:method => :put) unless execution.refused? %>
+          </div>  
+        </td>
+      </tr>
+     <% end %>
+    </table>
+  </div>
+</div>
