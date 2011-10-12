@@ -1,13 +1,13 @@
 <% @page_title = @box.name %>
 <div style="margin-bottom:20px">
   <div style="float:left;text-align:center;width:150px">
-    <%= image_tag(@box.image(:box_avatar)) %>
+    <%= image_tag(@box.image(:box_topic)) %>
     <p>
       <%= link_to '立即申请',apply_boxes_path,:class => 'buttonlink' %>
       <%= link_to '指南下载',@box.guide.url,:class => 'buttonlink' if @box.guide_file_name %>
     </p>
   </div>
-  <div style="margin-left:165px">
+  <div style="margin-left:160px">
     <h1><%= @page_title%></h1>
     <h5>盒子简介</h5>
     <pre><%= @box.intro %></pre>
@@ -27,7 +27,7 @@
   <span class="remark"><%= link_to "&raquo;  回到一公斤盒子",boxes_path %></span>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
   <div> 
-    <h5>其他盒子</h5>
+    <h4>其他盒子</h4>
     <%= render :partial => "/shared/box", :collection => @boxes %>
   </div>
 <% end -%>

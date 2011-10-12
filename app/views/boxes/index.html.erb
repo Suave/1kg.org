@@ -33,7 +33,7 @@
 </div>
 
 <% content_for :sidebar do -%>
-  <% if logged_in?%>
+  <% if logged_in? && @my_executions.present?%>
     <div class="newbox">
       <h3>我的申请:</h3>
       <% @my_executions.each do |e|%>
