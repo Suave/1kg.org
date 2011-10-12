@@ -4,14 +4,10 @@ class BoxesController < ApplicationController
 
   def index
     @boxes = Box.available
-  end
-
-  def design
-    @boxes = Box.available
-    @designs = Box.published
-  end
-
-  def use
+    @executions = Execution.validated_with_box
+    @my_executions  = current_user.executions.with_box if logged_in?
+    @shares = @executions.map(&:shares).flatten
+    @photos = @executions.map(&:photos).flatten
   end
 
   def apply
@@ -21,27 +17,38 @@ class BoxesController < ApplicationController
     @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
   end
 
-  def new 
-    @box = Box.new
+  def submit
+    @execution = Execution.new(params[:execution])
+    @execution.start_at = @execution.end_at = Date.new(params[:execution][:year].to_i,params[:execution][:month].to_i,1)
+    params[:bringings].each do |bringing|
+      @execution.bringings.build(bringing.merge({:user_id => current_user.id})) unless bringing[:number].to_i == 0
+    end
+    if @execution.bringings.size == 0
+      @boxes = Box.available
+      @bringings = @execution.bringings.build
+      @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+      render "apply"
+    elsif @execution.save
+      redirect_to boxes_path
+    else
+      @boxes = Box.available
+      @bringings = @execution.bringings.build
+      @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+      render "apply"
+    end
   end
-  
-  def create
-    @box = Box.new(params[:box])
-    @box.user = current_user
-    @box.save
-    flash[:notice] = "谢谢! 你的设计已经提交，我们会尽快确认 :)"
-    redirect_to design_boxes_path
+
+  def executions
+    @execution = Execution.find(params[:id])
+    @photos = @execution.photos
+    @shares = @execution.shares
+    @comments = @execution.comments
   end
-  
-  def edit 
+
+  def show
     @box = Box.find(params[:id])
+    @boxes = Box.available - [@box]
+    @comments = @box.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
   end
-  
-  def update 
-    @box = Box.find(params[:id])
-    @box = Box.update_attributes(params[:box])
-    @box.save
-    redirect_to box_path(box)
-  end
-  
+
 end

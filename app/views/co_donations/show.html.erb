@@ -32,8 +32,8 @@
   <%= render :partial => "state" %>
     
     <div class="newbox">
-      <span class="span_title2">捐赠记录</span>
-        <div class="cleanfix" style="height:10px"></div>
+      <h4>捐赠记录</h4>
+       
         <% "还没有获得捐赠" if @co_donation.records.empty?%>
         <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
         <% unless @co_donation.records.empty?%>
@@ -44,8 +44,8 @@
     
     <div class="newbox">
       <span style="float:right"><%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %></span>
-      <span class="span_title2">相册</span>　
-      <div class="cleanfix" style="height:10px"></div>
+      <h4>相册</h4>　
+     
       <div class="clearfix" id="photos">
         <div id="upload_container"></div>
         <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
@@ -99,8 +99,8 @@
           <a href="#" class="actionbutton" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" >我要捐赠</a>
           <div id="input_number" style="display:none">
           <% form_for [@co_donation, @sub_donation] do |f| %>
-              <span class="span_title2">捐赠</span>
-              <%= f.text_field :quantity,:id => "donation_quantity"%><span class="span_title2">件</span>
+              <h4>捐赠</h4>
+              <%= f.text_field :quantity,:id => "donation_quantity"%><h4>件</h4>
               <%= f.submit '确定',:class => "surebutton" %><br/>
               <%= error_message_on @sub_donation, :quantity %>
           <% end %>
@@ -133,26 +133,24 @@
     
     <div id="detail">
       <div class="project_info">
-        <div class="title_line"><h5>学校故事</h5></div>
+        <h5>学校故事</h5>
         <%= @co_donation.description unless @co_donation.description.nil? %>
       </div>
       
       <div class="project_info">
-        <div class="title_line"><h5>物资要求</h5></div>
+        <h5>物资要求</h5>
         <%= @co_donation.goods_requirements unless @co_donation.goods_requirements.nil?%>
       </div>
       
       <div class="project_info">
-        <div class="title_line"><h5>反馈计划</h5></div>
+        <h5>反馈计划</h5>
         <%= @co_donation.plan unless @co_donation.plan.nil? %>
       </div>
     </div>
           
-    <div id="report">
-          
+    <div id="report">      
         <div class="project_info">
-          <div class="title_line"><span>反馈报告</span> <%= link_to "更新反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink" if @co_donation.feedback && logged_in? && @co_donation.user == current_user%></div>
-          <% if @co_donation.feedback.nil? %>
+          <h5>反馈报告</h5> <%= link_to "更新反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink" if @co_donation.feedback && logged_in? && @co_donation.user == current_user%>          <% if @co_donation.feedback.nil? %>
             <% if logged_in? && @co_donation.user == current_user -%>
               如果捐赠有了进展，就<%= link_to "填写反馈", feedback_co_donation_url(@co_donation) ,:class => "buttonlink"%> 告诉大家吧。
             <% else %>

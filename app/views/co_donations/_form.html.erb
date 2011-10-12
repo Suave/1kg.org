@@ -1,6 +1,6 @@
 <div style="clear:both"></div>
 <div class="form_box">
-  <span class="span_title2">一 基本信息</span>
+ <h4>一 基本信息</h4>
   <div class="contents" style="padding-left:10px">    
     <p><span>为哪所学校团捐?<span class="require">*</span></span>
   
@@ -50,7 +50,7 @@
   </div>
 </div>
 <div class="form_box">
-  <span class="span_title2">二 详情</span>
+ <h4>二 详情</h4>
   <div class="contents" style="padding-left:10px">    
   <p><h6>学校故事：<span class="require">*</span></h6><%= error_message_on @co_donation, :description %>
       <span class="gary_span">说明学校需求的具体情况，你发起捐赠的原因是什么？</span>
@@ -76,7 +76,7 @@
 </div>
       
 <div class="form_box">
-  <span class="span_title2">三 接收地址</span>
+ <h4>三 接收地址</h4>
   <br/><span class="gary_span">为了确保捐赠人的物资能够顺利邮寄或快递，请仔细填写以下信息。</span>
   <div class="contents" style="padding-left:10px">    
   <p>
@@ -99,7 +99,7 @@
 <% if @controller.action_name == "edit" %>
 <%else%>
 <div class="form_box">
-  <span class="span_title2">四 责任承诺</span>
+ <h4>四 责任承诺</h4>
   <p>团捐发起人有责任对收到捐赠者的捐赠进行确认，在团捐成功后需要尽快填写反馈报告，告知参与者捐赠物资的使用情况。</p>
   <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求对团捐进行管理和反馈<span class="require">*</span> <%= error_message_on @co_donation, :agree_feedback_terms %></p>
   </div>

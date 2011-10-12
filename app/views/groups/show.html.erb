@@ -19,13 +19,13 @@
 </div>
 
 <div class="newbox">
-      <span class="span_title2">小组长</span>
+      <h4>小组长</h4>
       <%= render :partial => "/shared/user_list", :locals => {:users => User.moderators_of(@board)} %>
 </div>
 
 
 <div class="newbox">
-    <span class="span_title2">小组成员</span>
+    <h4>小组成员</h4>
     <%= render :partial => "/shared/user_list", :locals => {:users => @group.members.find(:all, :limit => 12)} %>
     <p class="remark">&raquo; <%= link_to "查看全部成员", members_group_url(@group) %></p>
 </div>
@@ -67,7 +67,7 @@
 <div class="newbox">
   <div style="float:right"><%= link_to "写新话题", new_topic_group_url(@group),:class => "buttonjoin" %></div>
   
-  <span class="span_title">小组话题</span>
+ <h3>小组话题</h3>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>

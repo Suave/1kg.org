@@ -1,8 +1,8 @@
 <% @page_title = "#{@type.title} 的 #{@requirement.school.title} Buck" -%>
 
 <% content_for :sidebar do -%>
-  <h4>> <%= link_to "返回管理首页", admin_url %></h4>
-  <h4>> <%= link_to "返回项目首页", admin_requirement_type_requirements_url(@requirement.requirement_type) %></h4>
+
+  <h4>> <%= link_to "返回项目首页", admin_requirement_type_requirements_url(@requirement.requirement_type) %></span>
   <%= render :partial => "/admin/shared/operation_list" %>
 <% end -%>
 <div class="newbox">
@@ -27,13 +27,13 @@
 </div>
 
 <div class="newbox">
-  <span class="span_title">申请原因</span>
+ <h3>申请原因</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.apply_reason %>
 </div>
 
 <div class="newbox">
-  <span class="span_title">执行计划</span>
+ <h3>执行计划</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.apply_plan %>
 </div>
@@ -42,7 +42,7 @@
 
 
 <div class="newbox">
-  <span class="span_title">执行报告</span>
+ <h3>执行报告</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.feedback %>
   <%= '还没有填写' if @requirement.feedback.nil? %>

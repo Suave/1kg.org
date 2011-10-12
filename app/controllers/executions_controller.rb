@@ -1,5 +1,5 @@
 class ExecutionsController < ApplicationController
-  before_filter :login_required, :except => [:show,:info_window]
+  before_filter :login_required, :except => [:show,:info_window,:apply_box]
   before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]
   before_filter :check_permission, :only => [:edit,:update,:feedback,:finish]
   before_filter :find_execution, :only => [:show,:info_window]
@@ -46,7 +46,7 @@ class ExecutionsController < ApplicationController
       end
     end
   end
-  
+ 
   def show
     @school = @execution.school
     respond_to do |want|

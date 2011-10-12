@@ -9,8 +9,8 @@
 <% end -%>
 
 <div class="newbox">
-    <span class="span_title">全部话题</span>
-    <div class="cleanfix" style="height:10px"></div>
+   <h3>全部话题</h3>
+    
     <div class="contents">
       <%= render :partial => "/shared/topic", :collection => @topics %>
       <%= customize_paginate @topics %>

@@ -1,12 +1,81 @@
-<div style='background:#eee;padding:30px;'>
-  <h1>这是一张图</h1>
+<% content_for :fullsize do -%>
+  <%= image_tag('/images/box_banner.png',:style => 'margin:10px')%>
+  <div style="position:absolute;top:200px;left:750px;">
+    <%= link_to ' ',apply_boxes_path,:id => 'apply'%>
+  </div>
+<% end %>
+
+<div class="newbox">
+  <h3>关于一公斤盒子：</h3>
+  <p>一个盒子代表一个班级的一节主题课。 盒子里的内容包括这节课所需的材料和一个简单易懂的活动指南。指南里有一公斤盒子的介绍，一公斤盒子的愿景，以及一系列这个主题课堂的活动方案。</p>
+  <p>只要填写一份表格说明好你的计划并承诺反馈，就可以申请一公斤盒子。把盒子带到学校去给孩子上一堂有趣的课吧!</p>
 </div>
 
-<div>
+<div class="newbox">
+  <h3>可以申请的盒子：</h3>
   <%= render :partial => "/shared/box", :collection => @boxes %>
+  <div class="cleanfix" style="clear:both;"></div>
+  <%= link_to '去“一公斤盒子设计”小组讨论更多设计 >>','http://www.1kg.org/groups/1236' %>
+</div>
+
+<div class="newbox">
+  <h3>使用照片：</h3>
+  <%= render :partial => "/shared/photo", :collection => @photos %>
+  <%= '敬请等待' if @photos.empty? %>
+  <div class="cleanfix" style="clear:both;"></div>
+</div>
+
+<div class="newbox">
+  <h3>使用反馈：</h3>
+  <%= render :partial => "/shared/share", :collection => @shares %>
+  <%= '敬请等待' if @shares.empty? %>
+  <div class="cleanfix" style="clear:both;"></div>
 </div>
 
 <% content_for :sidebar do -%>
-  <h4><%= link_to '我要设计',design_boxes_path%></h4>
-  <h4><%= link_to '我要申请',apply_boxes_path%></h4>
+  <% if logged_in?%>
+    <div class="newbox">
+      <h3>我的申请:</h3>
+      <% @my_executions.each do |e|%>
+        <div class="">
+          <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px;float:left"),"/boxes/executions/#{e.id}" %>
+          <p style="margin-left:90px">
+            <%= link_to e.user.login,user_path(e.user) %> 为
+            <%= link_to short_title(e.community,10),e.community%>
+            申请了:<br/>
+            <span>
+              <%= e.bringings[0..2].map{|b| link_to("#{b.box.name} ",box_path(b.box)) }%>
+              ...
+            </span>
+            <br/>
+            <%= link_to '[了解详情]',"/boxes/executions/#{e.id}" %>(<%= state_tag(e.state) %>)
+          </p>  
+        </div>          
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="newbox">
+    <h3>大家的申请:</h3>
+    <% @executions.each do |e|%>
+      <div class="">
+        <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px;float:left"),"/boxes/executions/#{e.id}" %>
+        <p style="margin-left:90px">
+          <%= link_to e.user.login,user_path(e.user) %> 为
+          <%= link_to short_title(e.community,10),e.community%>
+          申请到了:<br/>
+          <span>
+            <%= e.bringings[0..2].map{|b| link_to("#{b.box.name} ",box_path(b.box)) }%>
+            ...
+          </span>
+          <br/>
+          <%= link_to '[了解详情]',"/boxes/executions/#{e.id}" %>
+        </p>  
+      </div>          
+    <% end %>
+  </div>
+
+  <div class="newbox">
+    <h3>常见问题FAQ:</h3>
+  </div>
 <% end %>

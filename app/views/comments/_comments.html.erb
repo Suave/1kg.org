@@ -1,7 +1,6 @@
 
   <div id="topicCommentsList">
-        <div style="background-color:#eee;padding:2px 6px 3px"><span class="span_title2">留言版</span></div>
-        <div style="clear:both;height:10px"></div>
+        <h4>留言版</h4>
         <% unless comments.empty? -%>
         <ol>
           <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>

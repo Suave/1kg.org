@@ -28,12 +28,31 @@ a:hover, a:active {
   color: #E98523;
 }
 
-h4, h5, h6 {
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom:2px;
-}
+span{color:#666;font-size:11px;font-weight:normal}
+span a{color: #76a712}
 
+h1,h2,h3,h4,h5,h6{
+  font-weight: bold;
+  color:#444;
+  margin:0 0 0.4em 0;
+}
+h1{font-size:24px}
+h2{font-size:18px}
+h3{font-size:15px}
+h4{font-size:14px}
+h5{font-size:13px;border-bottom: 1px solid #eee;margin:20px 0 10px;padding-bottom:3px;}
+h6{font-size:12px}
+
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  line-height:1.6;
+  margin:4px 0;
+  text-align:left;
+  } 
 
 input, select, textarea {
 	font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
@@ -170,7 +189,7 @@ caption {
   font-size: 2em;
 }
 #content-primary p {
-  margin: 1em 0;
+  margin: 0.8em 0;
 }
 .box .contents {
   padding: 0 20px 15px;
@@ -218,11 +237,6 @@ body.ad-column-180 #content-secondary {
 }
 
 .form_box{margin-bottom:40px}
-.newbox h3 {
-  color: #000e00;
-  font: bold 1.3em Arial, Helvetica, sans-serif;
-  padding: 20px 0px 10px;
-}
 
 #content-secondary .box h3 {
   padding: 20px 15px 10px;
@@ -287,27 +301,7 @@ body.home #header {
   height: 100px;
 }
 
-#header h1 {
-  float: left;
-  width: 191px;
-  height: 38px;
-  position: relative;
-  top: 30px;
-  left: 50px;
-  font-size: 1px;
-}
-#header h1 span {
-  display: block;
-  background: url(../images/logo-1kg-org.gif) no-repeat;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top:-5px;
-}
-#header h1 a {
-  display: block;
-  color: #8fc847;
-}
+#logo{position:absolute;top:20px;margin-left:10px}
 
 #header #links {float:right; width:400px; position:relative; right:10px; top:52px; color:gray; text-align:right;}
 #header #links a, #header #links a:link {color:yellow; padding:2px;}
@@ -770,8 +764,8 @@ body.schools form legend {
 }
 
 
-.small_school{padding:5px;float:left}
-.small_school p{text-align:center;width:80px;height:60px}
+.small_school{text-align:center;padding:5px;float:left}
+.small_school p{width:80px;height:60px;}
 /* =同城
  * -------------------------------------------------------------------------- */
 #page-title h1 {
@@ -1161,7 +1155,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
 .activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
 
-.onekg_box{width:300px;height:150;background:#f6f6f6;margin:10px;padding:5px;}
+.onekg_box{width:290px;height:100px;background:#f6f6f6;margin:5px 10px 5px 0;padding:5px;float:left}
 .project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
 .project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
 .project_image{width:72px;}
@@ -1226,9 +1220,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .record{margin-bottom:8px;height:54px;width:270px;float:left;border-bottom:1px solid #ddd;padding-bottom:8px}
 #records .record{margin-right:10px;width:300px}
  
-.newbox{padding-left:10px;margin-bottom:20px;}
-.span_title{font-size:17px;font-weight:bold;color:#555}
-.span_title2{font-size:15px;font-weight:bold;color:#555}
+.newbox{margin-bottom:25px;clear:both;padding:0 5px}
  
 #admins{padding:0 5px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 #search_box{padding:6px 10px;margin-top:4px;}
@@ -1379,11 +1371,7 @@ a.progressCancel:hover {
 
 #show_feed{background-color:#d9ffb3;margin:6px 0;padding:6px 10px;border-top:1px solid #99cc66;border-bottom:1px solid #99cc66;margin-top:4px }
 
-.title_line {border-bottom: 1px solid #d0d0d0;margin:10px 0 10px;padding-bottom:3px;}
 #donations_tabs .title_line {border-bottom: none}
-.title_line .span_title2{color:#444}
-.title_line span{font-weight:bold;font-size:14px}
-.title_line h5{font-weight:bold;font-size:14px}
 
 .donantion_detail{float:left;width:300px;height:188px;padding: 0 20px 10px 0;}
 #donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:10px 0 0 30px;height:120px}
@@ -1402,3 +1390,6 @@ a.progressCancel:hover {
 
 .detail_n{padding:10px 25px;background:#eee url(/images/turn.gif) no-repeat;}
 #SWFUpload_0{position:relative;top:7px}
+
+#apply{background:url('/images/musicclassroom/button.png');display:block;width:174px;height:37px}
+#apply:hover{background-position:0 -37px;}

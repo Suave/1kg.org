@@ -10,7 +10,7 @@
   <% @page = Page.find_by_slug('school-moderator-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">学校大使说明</span>
+    <h3>学校大使说明</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
      <%= render :text => @page.body %>
   </div>
@@ -18,7 +18,7 @@
 <%end%>
 
 <div class="newbox">
-      <span class="span_title">申请学校</span>
+     <h3>申请学校</h3>
       <div class="clearfix" style="margin-bottom:10px">
       <%= render :partial => "/shared/school",:object => @school%></div>
       
@@ -33,7 +33,7 @@
       <%else%>
       <p> 你在 <%=visited.visited_at.to_date %> 去过这所学校 </p>
       <div class="contents">
-        <span class="span_title">申请信</span>
+       <h3>申请信</h3>
         <% form_for :message, :url => {:controller => "schools", :action => "sent_apply"} do |form| %>
           <p>
           <strong><%= form.label :subject, "主题:" -%></strong>

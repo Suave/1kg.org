@@ -1,35 +1,24 @@
 <% @page_title = "登 录" %>
 <% @body_class = "signinup" %>
 
-<% content_for :fullsize do -%>
-<div class="box" id="signin">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>用户登录</h3>
+<div style="margin:20px 40px">
+    <h3>用户登录</h3>
 
-      <% form_tag session_path do -%>
-      <%= hidden_field_tag :to, params[:to] if params[:to] %>
-      <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
-      
-      <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
-      
-      <p class="rememberMe"><%= check_box_tag 'remember_me' %> <label for="remember_me">记住我</label></p>
-      
-      <p class="submit">
-        <%= submit_tag '登 录' %>
-        <%= link_to "忘记密码了？点击这里找回", forget_password_path %>
-      </p>
-      <% end -%>
-      
-      <p class="login">&raquo; 我还没有注册，<%= link_to "10秒钟轻松注册", signup_url %></p>
+    <% form_tag session_path do -%>
+    <%= hidden_field_tag :to, params[:to] if params[:to] %>
+    <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+    
+    <p><label for="password" class="label">密码</label> <%= password_field_tag 'password' %></p>
+    
+    <p class="rememberMe"><%= check_box_tag 'remember_me' %> <label for="remember_me" class="label">记住我</label></p>
+    
+    <p class="submit" style="padding-left:30px">
+      <%= submit_tag '登 录' %>
+      <%= link_to "忘记密码了？点击这里找回", forget_password_path %>
+    </p>
+    <% end -%>
+    
+    <p class="login">&raquo; 我还没有注册，<%= link_to "10秒钟轻松注册", signup_url %></p>
 
-    </div>
-  </div>
 </div>
 
-<% if session[:return_to] =~ /^\/activities\/[0-9]+\/join$/ %>
-<%# for adwords tracker, 点击活动页面“我要参加”过来的，会加载下面的代码 %>
-  <!-- Google Code for Showed intention to participate Conversion Page --> <script language="JavaScript" type="text/javascript"> <!-- var google_conversion_id = 1048548952; var google_conversion_language = "zh_CN"; var google_conversion_format = "3"; var google_conversion_color = "ffffff"; var google_conversion_label = "JmLXCOL5jwEQ2Kz-8wM"; //--> </script> <script language="JavaScript" src="http://www.googleadservices.com/pagead/conversion.js"> </script> <noscript> <img height="1" width="1" border="0" src="http://www.googleadservices.com/pagead/conversion/1048548952/?label=JmLXCOL5jwEQ2Kz-8wM&amp;guid=ON&amp;script=0"/> </noscript>
-<% end -%>
-
-<% end -%>

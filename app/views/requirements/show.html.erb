@@ -15,13 +15,13 @@
 
 <div class="newbox" style="width:640px;height:120px">
   <div  style="float:left">
-    <span class="span_title">公益物资</span>
+   <h3>公益物资</h3>
     <div class="cleanfix"></div>
     <%= render :partial => "/shared/goods", :object => @requirement.requirement_type %>
   </div>
   
   <div class="newbox" style="float:left">
-    <span class="span_title">受助学校</span>
+   <h3>受助学校</h3>
     <div class="cleanfix" style="height:6px"></div>
     <%= render :partial => "/shared/school", :object => @requirement.school %>
   </div>
@@ -29,7 +29,7 @@
 
 <div class="cleanfix" style="clear:both;height:3px"></div>
 <div class="newbox">
-  <span class="span_title">捐助者名单</span>
+ <h3>捐助者名单</h3>
   <div class="cleanfix" style="height:3px"></div>
   <div class="donar_list">
     <%=@requirement.notes_html%>

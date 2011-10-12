@@ -1,4 +1,4 @@
-<% form_for @box,:url => boxes_path,:html => {:multipart => true} do |form| %>
+<% form_for @box,:url => apply_executions_path,:html => {:multipart => true} do |form| %>
   <p>
     <label class="label">名称</label>
     <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @box, :title %>

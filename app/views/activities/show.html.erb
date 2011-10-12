@@ -48,23 +48,23 @@
     <% end -%>
 
     <div class="newbox">
-      <span class="span_title">参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加</span>
-        <div class="cleanfix" style="height:10px"></div>
+     <h3>参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加</h3>
+        
         <%= render :partial => "/shared/user_list", :locals => {:users => @activity.participators} %>
         <div class="cleanfix" style="height:20px"></div>
     </div>
   
   <% if @activity.school%>
   <div class="newbox">
-    <span class="span_title">相关学校</span>
-    <div class="cleanfix" style="height:10px"></div>
+   <h3>相关学校</h3>
+    
     <%= render :partial => "/shared/school", :collection => [@activity.school] %>
   </div>
   <%end%>
   
   <div class="newbox">
       <div style="float:right;"><%= link_to '写新贴子',new_share_url + "?activity=#{@activity.id}",:class => "buttonlink" %></div>
-      <span class="span_title">活动贴子</span>
+     <h3>活动贴子</h3>
       <div class="contents">
         <%= render :partial => "/shared/share", :collection => @shares %>
       </div>
@@ -108,7 +108,7 @@
           
           <div class="clearfix" style="margin-bottom:20px;"></div>
 
-          <span class="span_title">活动介绍</span>
+         <h3>活动介绍</h3>
           <div class="clearfix" style="margin-bottom:5px;"></div>
 
           <div id="entry">
@@ -126,7 +126,7 @@
   </div>
   
   <div class="newbox">
-      <span class="span_title">活动相册</span>
+     <h3>活动相册</h3>
         <%= link_to '上传照片', new_photo_path(:activity_id => @activity.id),:class => 'linkbutton' %> 
       <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix" id="photos">

@@ -8,7 +8,7 @@
   <% @page = Page.find_by_slug('share-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">编辑指南</span>
+    <h3>编辑指南</h3>
       <div class="clearfix" style="height:10px"></div>
      <%= render :text => @page.body %>
   </div>
@@ -16,7 +16,7 @@
 <%end%>
 
 <div class="newbox" >
-      <span class="span_title">帖子分享</span>
+     <h3>帖子分享</h3>
       <div class="clearfix" style="height:10px"></div>
       <% form_for :share, :url => shares_url do |f| -%>
         <%= render :partial => "form", :object => f %>

@@ -12,6 +12,7 @@
           <li><%= link_to "开放讨论区管理", admin_boards_path %></li>
           <li><%= link_to "公益小组", admin_groups_path %></li>
           <li><%= link_to "一公斤盒子", admin_boxes_path %></li>
+          <li><%= link_to "盒子申请", admin_bringings_path %></li>
           <li><%= link_to "静态页面管理", admin_pages_path %></li>
           <li><%= link_to "游戏分类", admin_game_categories_path %></li>
           <li><%= link_to "团捐管理", admin_co_donations_path %>(<%= CoDonation.not_validated.size%>)</li>
@@ -24,33 +25,3 @@
   </div>
 </div>
 
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>公益市场</h3>
-      <div class="contents">
-        <ul>
-          <li><%= link_to "公益物资", admin_requirement_types_url %></li>
-          <li><%= link_to "商家管理", admin_vendors_url %></li>
-          <% if false %><li><%= link_to "商品管理", admin_products_url %></li><% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% if false %>
-<div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>公益商城 for AJXY</h3>
-      <div class="contents">
-        <ul>
-          <li><%= link_to "商品管理", admin_goods_url %></li>
-          <li><%= link_to "发送邮件", sale_admin_goods_url %></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<% end %>

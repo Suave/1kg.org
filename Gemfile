@@ -13,6 +13,6 @@ gem "rails", "= 2.3.4"
   gem "rmagick"
   gem "state_machine"
   gem 'mysql'
-  gem 'mysql2', '0.2.4'
+  gem 'mysql2', '0.2.7'
   gem "ruby-debug"
   gem "ya2yaml"

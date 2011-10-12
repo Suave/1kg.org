@@ -12,8 +12,8 @@
 
   <% unless @bulletins.blank? -%>
   <div class="newbox">
-    <span class="span_title">公告</span>
-    <div class="cleanfix" style="height:10px"></div>
+   <h3>公告</h3>
+    
     <% @bulletins.each do |b| %>
       <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
     <% end %>
@@ -25,15 +25,15 @@
     <a href="/minisite/mangexingdong"><img src='/images/mangexingdong/mangexingdong.gif'/></a>
   </div>
   <div class="newbox">
-    <span class="span_title">公益团队</span>
-    <div class="cleanfix" style="height:10px"></div>
+   <h3>公益团队</h3>
+    
       <%= render :partial => "/shared/team", :collection => @teams %>
     <p class="remark"><%= link_to "&raquo;  查看全部", teams_url %></p>
   </div>
 
   <div id="records" class="newbox">
     <div id="record_tabs">
-          <span class="span_title" style="margin-right:8px">用户动态</span>
+        <h3>用户动态</h3>
           <ul class="tab">
               <li class="tabs_more"><a href="#wannas">要去</a></li>
               <li class="tabs_more"><a href="#visiteds">去过</a></li>
@@ -56,7 +56,7 @@
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="hot_box" style="height:210px">
-  <span class="span_title">最受欢迎活动</span>
+ <h3>最受欢迎活动</h3>
   <div class="cleanfix" style="height:3px"></div>
     <% @hot_activities.each do |activity|%>
     <div style="width:120px;height:160px;padding:5px;float:left">
@@ -79,7 +79,7 @@
 
 <div class="newbox">
       <div class="clearfix"></div>
-      <span class="span_title">公益项目</span>
+     <h3>公益项目</h3>
       <div class="clearfix" style="height:10px"></div>
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
@@ -87,12 +87,9 @@
      <div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div>
 </div>
 
-
-
 <div class="cleanfix" style="height:20px"></div>
 <div class="newbox">
-  <div style="float:right"><span class="gary_span">&raquo;</span></div>
-  <span class="span_title">物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></span>
+ <h3>物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></h3>
   <div class="cleanfix" style="height:20px"></div>
   <%= render :partial => "/shared/co_donation", :collection => @co_donations%>
   <div class="remark"><%= link_to "&raquo; 查看全部物资团捐 ",co_donations_url %></div>
@@ -102,8 +99,8 @@
 <div class="cleanfix" style="height:20px"></div>
 
 <div class="newbox">
-  <span class="span_title">最新推荐</span>
-  <div class="cleanfix" style="height:10px"></div>
+ <h3>最新推荐</h3>
+  
   <div class="contents">
     <%= render :partial => "/shared/vote", :collection => @voteds %>
   </div>

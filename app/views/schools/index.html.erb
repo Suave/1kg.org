@@ -20,7 +20,7 @@
   
   <div id="records" class="newbox">
     <div id="record_tabs">
-          <span class="span_title" style="margin-right:8px">学校动态</span>
+          <h3>学校动态</h3>
           <ul class="tab">
               <li class="tabs_more"><a href="#by_karma">最活跃</a></li>
               <li class="tabs_more"><a href="#by_update">最新</a></li>
@@ -42,7 +42,7 @@
 
 <div class="newbox">
       <div style="float:right"><%= link_to "提交学校", new_school_url,:class => "buttonjoin" %></div>
-      <span class="span_title">学校</span> <%=link_to "按省市查询","/geos"%>
+      <h3>学校 <span><%=link_to "按省市查询","/geos"%></span></h3> 
        <%= render :partial => '/geos/school_maps' %>
       <div class="clearfix" style="clear:both;"> </div>
       <div style="text-align:right"><span class="gary_span">&raquo;  去学校别忘了带上一份</span> <a href="/school_info.xls">学校信息收集表</a></div>
@@ -52,8 +52,7 @@
 
 <div class="newbox">
       <div class="clearfix"></div>
-      <span class="span_title">学校公益项目</span>
-      <div class="clearfix" style="height:10px"></div>
+      <h3>学校公益项目</h3>
       <div class="contents clearfix">
         <%= render :partial => '/shared/project', :collection => @projects %>
       </div>
@@ -61,8 +60,7 @@
 </div>
 
 <div class="newbox">
-  <span class="span_title">学校论坛</span>
-  <div class="cleanfix" style="height:10px"></div>
+  <h3>学校论坛</h3>
   <div class="contents">
     <%= render :partial => "/shared/share", :collection => @shares %>
   </div>

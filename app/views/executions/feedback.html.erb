@@ -8,17 +8,17 @@
 
 <% content_for :sidebar do -%>
 <div class="project_info">
-  <div class="title_line"><span class="span_title2">反馈要求</span></div>
+  <div class="title_line"><h4>反馈要求</h4></div>
   <%= "#{@execution.project.feedback_require}<br/>" %><%= "需要在 #{@execution.project.feedback_at.to_date} 之前完成反馈" unless @execution.project.feedback_at.nil?%>
 </div>
   <div class="project_info">
-    <div class="title_line"><span class="span_title2">我的执行计划</span></div>
+    <div class="title_line"><h4>我的执行计划</h4></div>
     <%= @execution.plan %>
   </div>
   
   <% unless @execution.problem.nil? or @execution.problem.empty?%>
   <div class="project_info">
-    <div class="title_line"><span class="span_title2">可能遇到的问题与我的解决方案</span></div>
+    <div class="title_line"><h4>可能遇到的问题与我的解决方案</h4></div>
     <%= @execution.problem %>
   </div>
   <% end%>
@@ -26,7 +26,7 @@
   
   <% unless @execution.budget.nil? or @execution.budget.empty?%>
   <div class="project_info">
-    <div class="title_line"><span class="span_title2">我的资金预算</span></div>
+    <div class="title_line"><h4>我的资金预算</h4></div>
     <%= @execution.budget %>
   </div>
   <% end%>

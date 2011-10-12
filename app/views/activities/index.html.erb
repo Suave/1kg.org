@@ -21,7 +21,7 @@
 <%end%>
 
 <div class="newbox">
-  <span class="span_title">我参与的活动</span> 
+ <h3>我参与的活动</h3> 
   <% if current_user %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
   <div id="participated">
@@ -60,7 +60,7 @@
 <div class="newbox">
       <div id="activity_tabs">
         <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
-        <span class="span_title" style="margin-right:8px">最近的活动</span> <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a>
+      <h3>最近的活动 <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a></h3> 
         <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
@@ -85,13 +85,11 @@
 </script>
 </div>
 
-<div class="cleanfix" style="clear:both;height:20px"></div>           
-
-<div class="cleanfix" style="height:20px"></div>
+<div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="newbox">
-  <span class="span_title">最新帖子</span>
-  <div class="cleanfix" style="height:10px"></div>
+ <h3>最新帖子</h3>
+  
   <div class="contents">
     <%= render :partial => "/shared/share", :collection => @shares %>
   </div>
@@ -101,7 +99,7 @@
 
 
 <div class="newbox">
-      <span class="span_title">最新活动照片</span>
+     <h3>最新活动照片</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>           
       <div class="contents clearfix">
         <%= render :partial => "/shared/photo", :collection => @photos %>

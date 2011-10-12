@@ -26,7 +26,7 @@
             <% stack << gid %>
             <% name = s.geo.parent.nil? ? s.geo.name : s.geo.parent.name %>
             </ul>
-            <h4><a name="<%= name %>"></a><%= name %></h4>
+            <h4><a name="<%= name %>"></a><%= name %></span>
             <ul>
           <% end %>
           <li><%= link_to s.title, school_url(s) %></li>

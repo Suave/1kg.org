@@ -1,18 +1,33 @@
-<% form_for @box,:url => admin_boxes_path,:html => {:multipart => true} do |form| %>
+<% form_for [:admin,@box],:html => {:multipart => true} do |form| %>
   <p>
     <label class="label">名称</label>
     <%= form.text_field :name, :size => 40, :class => "formText" %> <%= error_message_on @box, :title %>
   </p>
 
   <p>
-    <label class="label">说明</label>
-    <%= form.text_area :detail, :style => 'width:480px;height:160px;' %>
+    <label class="label">简介</label>
+    <%= form.text_area :intro, :style => 'width:480px;height:80px;' %>
+  </p>
+
+  <p>
+    <label class="label">包含内容</label>
+    <%= form.text_area :content, :style => 'width:480px;height:120px;' %>
+  </p>
+  
+  <p>
+    <label class="label">视频代码</label>
+    <%= form.text_area :video, :style => 'width:480px;height:80px;' %>
+  </p>
+
+  <p>
+    <label class="label">指南文件</label>
+  　<%= form.file_field :guide %> <%= error_message_on @box, :guide %>
   </p>
 
   <p>
     <label class="label">盒子照片</label>
-  　<%= form.file_field :image %> <%= error_message_on @co_donation, :image %>
+  　<%= form.file_field :image %> <%= error_message_on @box, :image %>
     (或示意图？)
   </p>        
-  <%= submit_tag "提 交" %> 或 <%= link_to "返回", admin_bulletins_url %>
+  <%= submit_tag "提 交" %> 或 <%= link_to "返回", admin_boxes_url %>
 <% end %>

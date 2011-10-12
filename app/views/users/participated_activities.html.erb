@@ -12,7 +12,7 @@
 <% end %>
 
 <div class="newbox">
-      <span class="span_title">所有<%=@user.login-%>参与的活动</span>
+     <h3>所有<%=@user.login-%>参与的活动</h3>
       <div class="contents">
       <%= render :partial => "shared/activity", :collection => @activities%>
       <%= customize_paginate @activities %>

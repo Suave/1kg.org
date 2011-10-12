@@ -108,7 +108,7 @@
   
   <div class="newbox">
       <div id="activity_tabs">
-        <span class="span_title" style="margin-right:8px">活动</span>
+      <h3>活动</h3>
         <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
         <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.school_moderator?%>
         <ul class="tab" >
@@ -134,7 +134,7 @@
    
   <div class="clearfix"></div>  
   <div class="school_box">
-    <span class="span_title2" >学校论坛</span> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
+   <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
     <%= link_to "写新帖子", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
     <div class="contents clearfix">
       <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
@@ -143,7 +143,7 @@
 
 
   <div class="school_box">
-    <span class="span_title2" >相册</span> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
+   <h4>相册</h4> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
     <%= link_to '上传照片', new_photo_path(:school_id => @school.id),:class=>"buttonlink" %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
@@ -174,7 +174,7 @@
     <% end -%>  
 
   <div class="school_sidebar">
-      <div class="title_line"><span class="span_title2">学校大使</span><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.school_moderator?%></div>
+      <div class="title_line"><h4>学校大使</h4><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.school_moderator?%></div>
       <div class="sidebar_inter">
           <% unless @moderators.blank? %>
           <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
@@ -187,7 +187,7 @@
 
   <% unless @followers.blank? %>
   <div class="school_sidebar">
-    <div class="title_line"><span class="span_title2">关注的用户</span> <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%></div>
+    <div class="title_line"><h4>关注的用户</h4> <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%></div>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers[0..8]} %>
     </div>
@@ -195,7 +195,7 @@
   <% end %>
   
      <div class="school_sidebar">
-      <div class="title_line"><span class="span_title2">公益项目</span><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:136px"%></div>
+      <div class="title_line"><h4>公益项目</h4><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:136px"%></div>
       <div class="sidebar_inter">
         <%= '目前学校还没有公益项目' if @executions.empty? %>
         <%= render :partial => "/shared/execution", :collection => @executions %>

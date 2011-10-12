@@ -35,7 +35,7 @@
   
   <%unless @envoys.empty?%>
   <div class="school_frame">
-    <span class="span_title2">管理的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></span>
+    <h4>管理的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/envoy"%></h4>
     <div class="clearfix" style="height:10px"></div>
     <div class="contents">
     <%= render :partial => "/shared/school", :collection => @envoys %>
@@ -46,7 +46,7 @@
   
   <% unless @visiteds.blank? %>
   <div class="school_frame">
-        <span class="span_title2">去过/要去/关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></span>
+        <h4>去过/要去/关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></h4>
         <div class="clearfix" style="height:10px"></div>
         <div class="contents">
           <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
@@ -60,7 +60,7 @@
   <%unless @donations.empty?%>
 
   <div class="newbox">
-        <span class="span_title"><%= h @user.login %>的公益贺卡</span>
+       <h3><%= h @user.login %>的公益贺卡</h3>
         <div class="contents">
           <p><strong>买过<%= @donations.count %>张，分别捐给：</strong></p>
           <table>
@@ -74,14 +74,14 @@
   <%end%>
   <div class="clearfix" style="height:10px;clear:both"></div>
   <div class="newbox">
-    <span class="span_title2"><%= h @user.login %>关注...</span> <%= link_to "查看全部", friends_user_url(@user) %>
+    <h4><%= h @user.login %>关注...</h4> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
     <%= render :partial => "/shared/user_list", :locals => {:users => @followings} %>
   </div>
   
   <div class="clearfix" style="height:10px;clear:both"></div>
   <div class="newbox">
-    <span class="span_title2">谁在关注<%= h @user.login %>...</span> <%= link_to "查看全部", friends_user_url(@user) %>
+    <h4>谁在关注<%= h @user.login %>...</h4> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>
   </div>

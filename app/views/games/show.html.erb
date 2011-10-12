@@ -48,9 +48,9 @@
     </div>
     <div style="clear:both;height:10px"></div>
     <div class="entry">
-      <span class="span_title">课程介绍</span>
+     <h3>课程介绍</h3>
       <%= @game.content %>
-      <span class="span_title">参考资料</span>
+     <h3>参考资料</h3>
       <ol>
         <% @game.references.each do |r| %>
           <li><%= r.name %>:<%= link_to r.link, r.link %></li>

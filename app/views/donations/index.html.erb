@@ -27,7 +27,7 @@
   <div class="clearfix" style="clear:both;height:20px"></div>
   
   <div id="partners">
-  <span class="span_title">合作商家</span>
+ <h3>合作商家</h3>
   <div style="height:10px;width:100%"></div>
   <%= link_to image_tag("/images/partners/elong.gif"),"http://www.elong.com"%>
   <%= image_tag("/images/partners/etpass.gif")%>
@@ -35,7 +35,7 @@
   </div>  
       
   <div class="newbox" style="width:780px;float:left">
-  <span class="span_title">公益物资</span>
+ <h3>公益物资</h3>
       <div class="clearfix" style="height:5px"></div>
       <%= render :partial => "/shared/goods", :collection => RequirementType.exchangable.last5,:locals => {:with_list => true} %>
   </div>

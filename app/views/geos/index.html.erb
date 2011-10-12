@@ -4,7 +4,7 @@
 <% end -%>
 
 <% content_for :sidebar do -%>
-  <span class="span_title">学校列表</span><br/>
+ <h3>学校列表</h3><br/>
   <div id="loading" style="position:absolute;margin:160px 100px;padding:3px 12px;background-color:#333;color:#fff;display:none">读取中...</div>
   <div id="schools" class="contents">
      <%= render :partial => "school_box", :locals => {:provinces => @cities} %>
@@ -19,7 +19,7 @@
 <% end -%>
 
 <div class="newbox">    
-    <span class="span_title"><%= @province ?  @province.name : "全国" %></span> <%=link_to "全国",geos_url if @province%><br/>
+   <h3><%= @province ?  @province.name : "全国" %></h3> <%=link_to "全国",geos_url if @province%><br/>
     <div id="geobox"><%= render :partial => "geo_box", :locals => {:geos => @province.children} if @province%></div>
       
     <%= render :partial => 'school_maps' %>  

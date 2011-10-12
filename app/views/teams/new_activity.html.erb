@@ -8,7 +8,7 @@
 <% @page = Page.find_by_slug('activity-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">活动编辑指南</span>
+    <h3>活动编辑指南</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
      <%= render :text => @page.body %>
   </div>
@@ -17,7 +17,7 @@
 
 
   <div class="newbox" id="activitiesPostNew">
-        <span class="span_title">发布团队活动</span>
+       <h3>发布团队活动</h3>
         <div class="clearfix" style="height:20px"></div>
         <% form_for :activity, :url => create_activity_team_url(@team) do |f| -%>
         <%= render :partial => "/activities/form", :object => f %>  

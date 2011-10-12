@@ -5,7 +5,7 @@
 <% end -%>
 
 <div class="newbox" >
-  <span class="span_title">游戏版本历史</span>
+ <h3>游戏版本历史</h3>
   <div class="clearfix" style="height:10px"></div>
   <% @game.versions.reverse.each do |v| %>
     <p><a href="<%= game_path(@game, :version => v.version) %>" target="_blank"><%= v.user.login %> 修改于 <%= v.created_at.to_date %>:<%= (v.comment.blank? ? '未说明' : v.comment ) %></a> <%= link_to '回滚', revert_game_path(@game, :version => v.version), :class => 'adminbutton', :method => :put, :confirm => '确定回滚到此版本吗？' %></p>

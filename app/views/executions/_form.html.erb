@@ -1,6 +1,6 @@
 <% editing = @controller.action_name == "edit" %>
 <div class="newbox">
-      <span class="span_title">一 确认此项目的反馈要求</span>
+     <h3>一 确认此项目的反馈要求</h3>
       <div class="contents" style="padding-left:10px">
         <p><%= @project.feedback_require.gsub("\n", '<br />') %>
         <br/><%= "需要在 #{@project.feedback_at.to_date} 之前完成反馈" unless @project.feedback_at.nil?%></p>
@@ -9,7 +9,7 @@
 </div>
 
 <div class="newbox">
-      <span class="span_title">二 填写申请表</span>
+     <h3>二 填写申请表</h3>
       <p class="postNew"></p>
       <div class="contents">
         <p><h6>接受申请的学校: <span class="require">*</span></h6>
@@ -59,7 +59,7 @@
 
 
 <div class="newbox">
-      <span class="span_title">三 申请人信息</span>
+     <h3>三 申请人信息</h3>
       <div class="contents" style="padding-left:10px">
         <p><label class="label">网站用户名</label>
           <%= form.hidden_field :user_id, {:value => current_user.id} %>

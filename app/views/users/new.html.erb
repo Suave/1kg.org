@@ -1,41 +1,34 @@
 <% @page_title = "注 册" %>
 <% @body_class = "signinup" %>
 
-<% content_for :fullsize do -%>
-
-<div class="box" id="signup">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>用户注册</h3>
-      
-<% form_for :user, :url => users_path do |f| -%>
-<%= hidden_field_tag :to, params[:to] if params[:to] %>
-<p><label for="email" class="label">邮件地址</label>
-<%= f.text_field :email, :size => 20 %><%= error_message_on(:user, :email, :tag => 'span') %> <span class="notice">推荐使用<a href="http://www.gmail.com" target="_blank" tabindex="-1">Gmail</a>，不推荐使用QQ邮箱</span></p>
+<div id="signup" style="padding:20px 40px">
+    <h3>用户注册</h3>
+          
+    <% form_for :user, :url => users_path do |f| -%>
+    <%= hidden_field_tag :to, params[:to] if params[:to] %>
+    <p><label for="email" class="label">邮件地址</label>
+    <%= f.text_field :email, :size => 20 %><%= error_message_on(:user, :email, :tag => 'span') %> <span class="notice">推荐使用<a href="http://www.gmail.com" target="_blank" tabindex="-1">Gmail</a>，不推荐使用QQ邮箱</span></p>
 
 
-<p><label for="login" class="label">用户名</label>
+    <p><label for="login" class="label">用户名</label>
 
-<%= f.text_field :login, :size => 20 %><%= error_message_on(:user, :login, :tag => 'span') %></p>
+    <%= f.text_field :login, :size => 20 %><%= error_message_on(:user, :login, :tag => 'span') %></p>
 
-<p><label for="password" class="label">密码</label>
-<%= f.password_field :password, :size => 20 %><%= error_message_on(:user, :password, :tag => 'span') %></p>
-<p><label for="password_confirmation" class="label">密码确认</label>
-<input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
-<p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
+    <p><label for="password" class="label">密码</label>
+    <%= f.password_field :password, :size => 20 %><%= error_message_on(:user, :password, :tag => 'span') %></p>
+    <p><label for="password_confirmation" class="label">密码确认</label>
+    <input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
+    <p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
 
-<br/>
-<p>
-  为了避免恶意注册，请黄色输入框输入下面图片中显示的两个单词，<br/>如果看不清请点击输入框边上的 <%= image_tag "/images/icon/recaptcha.png",:style=>"position:relative;top:3px"%> 刷新单词
-  <%= recaptcha_tags %>
-</p>
-<p class="submit"><%= submit_tag '注 册' %></p>
- 
-<% end -%>
+    <br/>
+    <p>
+      为了避免恶意注册，请黄色输入框输入下面图片中显示的两个单词，<br/>如果看不清请点击输入框边上的 <%= image_tag "/images/icon/recaptcha.png",:style=>"position:relative;top:3px"%> 刷新单词
+      <%= recaptcha_tags %>
+    </p>
+    <p class="submit"><%= submit_tag '注 册' %></p>
+     
+    <% end -%>
 
-<p class="login">&raquo; 我已经注册了，现在要<%= link_to "登录", login_url %></p>
-    </div>
-  </div>
+    <p class="login">&raquo; 我已经注册了，现在要<%= link_to "登录", login_url %></p>
 </div>
 
-<% end -%>

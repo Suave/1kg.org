@@ -51,14 +51,18 @@ ActiveRecord::Schema.define(:version => 0) do
   create_table "boxes", :force => true do |t|
     t.string   "name"
     t.boolean  "published",           :default => false
-    t.text     "detail"
+    t.text     "intro"
+    t.text     "content"
     t.string   "image_file_name"
+    t.string   "guide_file_name"
+    t.text     "video"
     t.integer  "user_id",             :null => false
-    t.boolean  "published",           :default => false
     t.boolean  "available",           :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "bringings_count",  :default => 0
+    t.integer  "comments_count",   :default => 0
   end
 
   create_table "co_donations", :force => true do |t|
@@ -621,6 +625,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "project_id"
     t.string   "telephone"
     t.string   "address"
+    t.string   "realname"
     t.string   "state"
     t.text     "reason"
     t.text     "plan"
@@ -636,6 +641,7 @@ ActiveRecord::Schema.define(:version => 0) do
     t.integer  "refused_by_id"
     t.datetime "last_modified_at"
     t.integer  "comments_count",   :default => 0
+    t.integer  "bringings_count",  :default => 0
   end
   
   

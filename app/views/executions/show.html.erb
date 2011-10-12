@@ -47,12 +47,12 @@
       
       <% unless @execution.project.id == 6%>
       <div class="project_info">
-        <div class="title_line"><h5>反馈要求</h5></div>
+        <h5>反馈要求</h5>
         <%= "#{@execution.project.feedback_require}<br/>" %><%= "需要在 #{@execution.project.feedback_at.to_date} 之前完成反馈" unless @execution.project.feedback_at.nil?%>
       </div>
       
       <div class="project_info">
-        <div class="title_line"><h5>执行计划</h5></div>
+        <h5>执行计划</h5>
         <%= @execution.plan %>
       </div>
       <%end%>
@@ -60,14 +60,14 @@
           
       <% unless @execution.problem.nil? or @execution.problem.empty?%>
         <div class="project_info">
-        <div class="title_line"><h5>可能遇到的问题与解决方案</h5></div>
+        <h5>可能遇到的问题与解决方案</h5>
         <%= @execution.problem %>
         </div>
       <% end%>
           
       <% unless @execution.budget.nil? or @execution.budget.empty?%>
         <div class="project_info">
-        <div class="title_line"><h5>资金预算</h5></div>
+        <h5>资金预算</h5>
           <%= @execution.budget %>
         </div>
       <% end%>

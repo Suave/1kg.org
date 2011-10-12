@@ -10,12 +10,16 @@ class Execution < ActiveRecord::Base
   has_many :photos, :order => "id desc", :dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
   has_many :bringings
+  accepts_nested_attributes_for :bringings 
   has_and_belongs_to_many :boxes, :class_name => 'Bringing'
   
   validates_presence_of :reason,:message => "必须填写申请理由"
   validates_presence_of :plan,:message => "必须填写实施计划"
   validates_presence_of :telephone,:message => "请留下您的电话或手机号码"
+
   named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
+  named_scope :with_box,  :conditions => ["bringings_count > ?",0],:include => [:bringings]
+  named_scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings]
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
   def validate

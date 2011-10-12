@@ -24,7 +24,7 @@
   <div class="clearfix"></div>
   <% unless @visits.blank? %>
   <div class="school_frame">
-        <span class="span_title">去过的学校</span>
+       <h3>去过的学校</h3>
         <span style="color:#999"><%= @visits.size %>所学校</span>
         <div class="clearfix" style="height:20px"> </div>
         <%= render :partial => "visit", :collection => @visits,:locals => {:school => nil} %>  
@@ -34,7 +34,7 @@
     <div class="clearfix"></div>
   <% unless @interests.blank? %>
   <div class="school_frame">
-        <span class="span_title">关注的学校</span>
+       <h3>关注的学校</h3>
         <span style="color:#999"><%= @interests.size %>所学校</span>
         <div class="clearfix" style="height:20px"> </div>
         <%= render :partial => "visit", :collection => @interests,:locals => {:school => nil} %>  

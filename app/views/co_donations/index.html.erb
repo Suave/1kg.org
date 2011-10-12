@@ -29,7 +29,7 @@
 
 <div class="clearfix" style="clear:both;height:20px"></div>
 <% unless @group.nil?%>
-  <span class="span_title" style="margin-right:8px">团捐讨论组</span>
+<h3>团捐讨论组</h3>
   <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
   <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
   <div class="clearfix" style="clear:both;height:20px"></div>  
@@ -37,7 +37,9 @@
 
 <% content_for :sidebar do -%>
 
-  <div class="clearfix" style="margin:15px 0 10px"><span class="span_title2" style="margin-right:8px">我参与的团捐</span></div>
+  <div class="clearfix" style="margin:15px 0 10px">
+    <h4>我参与的团捐</h4>
+  </div>
   <% if logged_in?%>
     <%= "你还没有参与过团捐" if @sub_donations.empty? %>
     <% @sub_donations.each do |sub_donation|%>
@@ -54,7 +56,9 @@
 
   
   <% unless @recent.empty?%>
-    <div class="clearfix" style="margin:20px 0 5px;clear:both"><span class="span_title2" style="margin-right:8px">最新捐赠</span></div>
+    <div class="clearfix" style="margin:20px 0 5px;clear:both">
+      <h4>最新捐赠</h4>
+    </div>
     <% @recent.each do |sub_donation| %>
     <div class="donation_lastest">
       <div style="float:left">

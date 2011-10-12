@@ -28,7 +28,7 @@
   <% end -%>
   <%if @share.school_id%>
     <div class="newbox">
-        <span class="span_title2">相关学校</span>
+        <h4>相关学校</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
           <%= render :partial => '/shared/school', :object => @share.school %>
@@ -37,9 +37,9 @@
     </div>
   <%end%>
   
-    <%if @share.execution_id%>
+    <%if @share.execution.project.present? %>
     <div class="newbox">
-        <span class="span_title2">相关公益项目</span>
+        <h4>相关公益项目</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
           <%= render :partial => '/shared/execution', :object => @share.execution %>
@@ -51,7 +51,7 @@
   
   <% if @share.activity_id %>
   <div class="newbox">
-        <span class="span_title2">相关的活动</span>
+        <h4>相关的活动</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
            <%= render :partial => '/shared/activity', :object => @share.activity %>

@@ -7,7 +7,7 @@
   <% if @myteams && !@myteams.empty?%>
   
   <div class="newbox">
-      <span class="span_title" style="margin-right:8px">我管理的团队</span>
+    <h3>我管理的团队</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <%= render :partial => "/shared/user_list", :locals => {:users => @myteams} %>
   </div>
@@ -15,7 +15,7 @@
   <% end %>
 
   <div class="newbox">
-      <span class="span_title" style="margin-right:8px">我关注的团队</span>
+      <h3>我关注的团队</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <% if current_user%>
         <% if @followingteams.empty?%>

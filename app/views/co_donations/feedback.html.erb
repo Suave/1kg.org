@@ -10,7 +10,7 @@
 <% @page = Page.find_by_slug('donation-activity-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">团捐编辑指南</span>
+    <h3>团捐编辑指南</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
      <%= render :text => @page.body %>
   </div>
@@ -19,7 +19,7 @@
 
 
 <div class="newbox" id="activitiesPostNew">
-  <span class="span_title">团捐反馈</span>
+ <h3>团捐反馈</h3>
   <div class="clearfix" style="height:10px"></div>
   <% form_for @co_donation, :html => {:multipart => true} do |f| -%>
     <p><label >反馈正文<span class="require">*</span></label><%= error_message_on @activity, :description %>

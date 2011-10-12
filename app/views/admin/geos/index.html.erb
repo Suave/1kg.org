@@ -1,12 +1,12 @@
 <% @page_title = "地区管理" -%>
 
 <% content_for :sidebar do -%>
-  <h4>> <%= link_to "返回管理后台", admin_url %></h4>
+  <h6>> <%= link_to "返回管理后台", admin_url %></h6>
   <%= render :partial => "/admin/shared/operation_list" %>
 <% end -%>
 
 <div class="setting">
-  <p><h4>> <%= link_to "创建新地区", new_admin_geo_url %></h4></p>
+  <p><h4>> <%= link_to "创建新地区", new_admin_geo_url %></span></p>
   <div class="block">
     <h3>所有地区</h3>
     <p class="note">点击地区可以进行编辑</p>

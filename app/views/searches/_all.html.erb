@@ -1,6 +1,6 @@
 <div class="newbox">
   <% if @objects['School'] %>
-  <span class="span_title">学校</span>
+ <h3>学校</h3>
   <div class="contents">
     <%= render :partial => '/schools/schools', :object => @objects['School'] %>
   </div>
@@ -8,7 +8,7 @@
   
   <% if @objects['Activity'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">活动</span>
+ <h3>活动</h3>
   <div class="contents">
     <%= render :partial => "/shared/activity", :collection => @objects['Activity'].compact %>
   </div>
@@ -16,7 +16,7 @@
   
   <% if @objects['Share'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">论坛</span>
+ <h3>论坛</h3>
   <div class="contents">
     <%= render :partial => "/shared/share", :collection => @objects['Share'].compact %>
   </div>
@@ -24,7 +24,7 @@
 
   <% if @objects['Group'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">小组</span>
+ <h3>小组</h3>
   <div class="contents">
     <%= render :partial => '/groups/groups', :object => @objects['Group'].compact %>
   </div>
@@ -32,7 +32,7 @@
 
   <% if @objects['Topic'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">主题</span>
+ <h3>主题</h3>
   <div class="contents">
     <%= render :partial => '/topics/topics', :object => @objects['Topic'].compact %>
   </div>
@@ -40,7 +40,7 @@
   
   <% if @objects['User'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <span class="span_title">用户</span>
+ <h3>用户</h3>
   <div class="contents">
     <%= render :partial => "/shared/user_list", :locals => {:users => @objects['User'].compact} %>
   </div>

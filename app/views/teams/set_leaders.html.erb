@@ -10,9 +10,9 @@
 <p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span class="span_title">现有管理员</span>
+ <h3>现有管理员</h3>
   <%= link_to '不做管理员了？',leave_team_url(@team),:method => :delete,:confirm => '您确定不做团队的管理员了么?'%>
-  <div class="cleanfix" style="height:10px"></div>
+  
   <% @team.leaders.each do |user| %>
        <dl class="user">
           <dt>

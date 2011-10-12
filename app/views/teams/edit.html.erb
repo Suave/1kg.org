@@ -9,7 +9,7 @@
 <% @page = Page.find_by_slug('team-guide') -%>
   <%if @page%>
   <div class="newbox">
-     <span class="span_title">公益团队指南</span>
+    <h3>公益团队指南</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
      <%= render :text => @page.body %>
   </div>

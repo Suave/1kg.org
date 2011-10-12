@@ -1,5 +1,5 @@
 <% editing = @controller.action_name == "edit" && !current_user.admin? %>
-<span class="span_title2">一 项目基本信息</span>
+<h4>一 项目基本信息</h4>
 <div class="form_box">
   <p><label class="label">项目名称</label><%= form.text_field(:title, :size => 20, :class => "text") %></p>
   <p>
@@ -15,7 +15,7 @@
   <p><label>参与学校/志愿者可获得的支持</label><br /><%= form.text_area(:support, :size => "74x6") %></p>
 </div>
 
-<span class="span_title2">二 项目申请＆反馈要求</span>
+<h4>二 项目申请＆反馈要求</h4>
 
 <div class="form_box">
 <p><label>项目申请要求</label><br/><%= form.text_area :condition, :size => "74x6" %></p>

@@ -30,7 +30,7 @@
             <span class="gary_span"><%= "你已关注这个团队<br/>#{link_to "取消关注?",unfollow_team_url(@team), :method => :delete}" %></span>
         <% end %>   
         </div>
-        <span class="span_title"><%= @team.name %></span>
+       <h3><%= @team.name %></h3>
         <div style="margin:4px 0">位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>
         类型： <%= @team.category%><br/>
         <%= "网站： #{link_to @team.website,@team.website}<br/>" unless @team.website.empty? %>
@@ -47,13 +47,13 @@
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
   <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.leaders.include?(current_user)%></span>
-  <div class="title_line"><span class="span_title2">团队活动</span></div>
+  <div class="title_line"><h4>团队活动</h4></div>
   <%= render :partial => "/shared/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>
 
 <div class="newbox">
-  <div class="title_line"><span class="span_title2">团队相册</span></div>
+  <div class="title_line"><h4>团队相册</h4></div>
    <%= render :partial => "/shared/photo", :collection => @photos %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>
@@ -63,7 +63,7 @@
   <% if @team.followers.include?(current_user)%>
   <span style="float:right"><%= link_to "写新话题", new_board_topic_url(@team.board),:class => "buttonlink" %></span>
   <% end %>
-  <div class="title_line"><span class="span_title2">团队话题</span></div>
+  <div class="title_line"><h4>团队话题</h4></div>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:board => @team.board, :topics => @team.board.topics} %>
@@ -87,7 +87,7 @@
   </div>
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span class="span_title">关注者</span>
+ <h3>关注者</h3>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers} %>

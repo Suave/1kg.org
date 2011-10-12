@@ -11,7 +11,7 @@
       <div style="float:right;text-align:right;margin:4px 0;">
         <%= project.for_envoy ? '[只有学校大使可申请]': ''%>
       </div>
-      <span class="span_title"><%= link_to project.title,project_path(project) %></span>
+     <h3><%= link_to project.title,project_path(project) %></h3>
       <p style="margin:6px">
         <%= short_text(project.description,140) %> 
       </p>

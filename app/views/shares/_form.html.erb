@@ -34,7 +34,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 
 <%unless @execution.nil?%>
 <p><label class="label">相关项目　</label>
-  <%="#{@execution.project.title} [#{@execution.community.title}]"%>
+  <%="#{@execution.project.nil? ? '一公斤盒子' : @execution.project.title } [#{@execution.community.title}]"%>
   <input style="display:none" type="text" name="share[execution_id]" value="<%=@execution.id%>"/>
 </p>
 <%end%>

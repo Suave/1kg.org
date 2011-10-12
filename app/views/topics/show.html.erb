@@ -30,7 +30,7 @@
   
   <div class="newbox">
   <div class="cleanfix" style="height:20px"></div>
-      <span class="span_title">推荐此话题的用户</span>
+     <h3>推荐此话题的用户</h3>
       <div class="clearfix" style="height:10px"></div>
       <%= render :partial => "/shared/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
   </div>
@@ -40,7 +40,7 @@
   <div class="newbox">
     <span class="span_title">
       <% if @topic.board.talkable.class == GroupBoard -%>小组的<% elsif @topic.board.talkable.class == SchoolBoard -%>学校的<% end %>其他话题</span>
-    <div class="cleanfix" style="height:10px"></div>
+    
     <div class="contents">
       <%= render :partial => "/shared/stopic", :collection => @others %>
     </div>
