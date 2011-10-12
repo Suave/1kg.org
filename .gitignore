@@ -17,6 +17,7 @@ vendor/rails
 config/database.yml
 config/recaptcha.yml
 config/config.yml
+config/deploy.rb
 public/user
 public/user/*
 public/user/**/*
