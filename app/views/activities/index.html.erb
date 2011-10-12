@@ -27,7 +27,7 @@
   <div id="participated">
     <% @participated.each do |activity|%>
     <div class="activity_list" style="margin-bottom:10px;width:290px">
-    <h5><%= link_to h(activity.title), activity_path(activity)%></h5>
+    <h6><%= link_to h(activity.title), activity_path(activity)%></h6>
     <%if activity.done%>
       <span class="gary_span">结束时间：<%= activity.end_at.to_date%></span><br/>
       <span class="gary_span"><%= activity.shares.count%> 篇帖子</span>　 

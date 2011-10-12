@@ -11,6 +11,7 @@
         <% else %>
             <span>还需要 <%= co_donation.still_need%> 件</span>
         <% end %>
+        <br/>
         <%= progressbar co_donation.matched_percent, :generate_css => true %><span><%= co_donation.number%>/<%= co_donation.goal_number%></span><br/>
 
     </div>

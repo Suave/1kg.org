@@ -1,7 +1,7 @@
 <div class="activity_list">
   <%= topic_photo_thumb(activity) -%>       
   <div class="activity_list_meta">
-  <h5><%= link_to short_title(activity), activity_path(activity)%></h5>
+  <h6><%= link_to short_title(activity), activity_path(activity)%></h6>
   <span class="gary_span"><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>
   <%if activity.end_at < Time.now%>
     <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span><br/>
