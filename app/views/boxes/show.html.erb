@@ -13,7 +13,7 @@
     <pre><%= @box.intro %></pre>
     <h5>盒子内容</h5>
     <pre><%= @box.content %></pre>
-    <% if @box.video %>
+    <% unless @box.video.blank? %>
       <h5>盒子视频</h5>
       <%= @box.video %>
     <% end %>

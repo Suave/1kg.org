@@ -8,7 +8,7 @@
       var schools = <%= @json.to_json %>;
     </script>
   <% else %>
-    <script type="text/javascript" src="/schools.json"></script>
+    <script type="text/javascript" src="/json/schools.json"></script>
   <% end %>
   
   <%= javascript_include_tag 'markerclusterer_packed' %>

@@ -129,7 +129,7 @@ namespace :schools do
                       }
     end
     
-    file = File.open("#{RAILS_ROOT}/public/schools.json", 'w')
+    file = File.open("#{RAILS_ROOT}/public/json/schools.json", 'w')
     file.write('var schools =')
     file.write schools_json.to_json
     file.close
