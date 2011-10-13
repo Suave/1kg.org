@@ -39,7 +39,8 @@ public/good_photos/**/*
 public/javascripts/*.cache.js
 public/stylesheets/*.cache.css
 public/system
-public/schools.json
+public/json/*
+public/json
 public/images/calendar_date_select/
 public/javascripts/calendar_date_select/
 public/javascripts/tiny_mce
