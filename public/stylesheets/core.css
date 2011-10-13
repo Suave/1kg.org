@@ -15,9 +15,11 @@ img {border:0;}
 body {
   background-color: #fdfdfd;
   color: #333;
-	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
+	font: 12px/1.6 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
 }
+
+p{margin:0.6em 0}
 
 a {
   color: #569701;
