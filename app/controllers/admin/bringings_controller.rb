@@ -4,7 +4,9 @@ class Admin::BringingsController < Admin::BaseController
     @executions = Execution.with_box
     respond_to do |format|
       format.html {}
-      format.csv {}
+      format.csv {
+        @boxes = Box.available
+      }
     end
   end
   
