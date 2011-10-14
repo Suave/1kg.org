@@ -19,6 +19,6 @@ class Minisite::MangexingdongController < ApplicationController
     File.open("#{RAILS_ROOT}/public/json/mangexingdong.json", 'w') do |file|
       file.write((@json.merge({count => @json[count] + 1})).to_json)
     end
-    @total_count = ((Time.now - Date.new(2011,9,10))/3600).to_i*{ 'index_count' => 15,'poster_count' => 5}[count] + 1 + @json[count]
+    @total_count = ((Time.now - Date.new(2011,9,10).to_time)/3600).to_i*{ 'index_count' => 15,'poster_count' => 5}[count] + 1 + @json[count]
   end
 end
