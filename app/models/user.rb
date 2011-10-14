@@ -174,12 +174,6 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
 
-  def validate
-    if User.find(:first,:conditions => ['ip = ? and created_at > ?',self.ip,1.day.ago])
-       errors.add(:login,"为了防止恶意注册，同一台电脑一天只能注册一个帐号")
-    end
-  end
-  
   # Encrypts the password with the user salt
   def encrypt(password)
     self.class.encrypt(password, salt)

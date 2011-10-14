@@ -75,8 +75,10 @@ class UsersController < ApplicationController
     @type = params[:type]
     avatar_convert(:user, :avatar)
     puts params[:user][:avatar]
-    @user.update_attributes!(params[:user])
-    @user.profile.update_attributes!(params[:user][:profile_attributes])
+    @user.update_attributes(params[:user])
+    @user.profile.update_attributes(params[:user][:profile_attributes])
+    @user.save
+    flash[:notice] = " 更新成功！"
     redirect_to setting_path(:type => @type)
   end
 
