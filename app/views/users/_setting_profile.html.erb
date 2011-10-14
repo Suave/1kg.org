@@ -1,0 +1,22 @@
+        <% f.fields_for :profile do |profile_form|%> 
+            <h3>基本信息</h3>
+          <% if false %><p><label>真实姓名</label>姓<%= profile_form.text_field :last_name, :size => 4, :class => 'text' %> 名<%= profile_form.text_field :first_name, :size => 4, :class => 'text' %></p><% end %>
+            <p><label>性别</label><%= profile_form.select :gender, {"女" => 1, "男" => 0} %></p>
+            <p><label>生日</label><%= profile_form.date_select :birth, :use_month_names => %w(一月 二月 三月 四月 五月 六月 七月 八月 九月 十月 十一月 十二月), :start_year => 1930, :end_year => Time.now.year %></p>
+          <% if false %><p><label>电话</label><%= profile_form.text_field :phone, :size => 20 %></p><% end %>
+            <p><label>博客</label> <%= profile_form.text_field :blog_url, :size => 20, :class => 'text' %></p>
+            <h3>聊天工具</h3>
+            <p><label>QQ</label> <%= profile_form.text_field :qq, :size => 20, :class => 'text' %></p>
+            <p><label>MSN</label> <%= profile_form.text_field :msn, :size => 20, :class => 'text' %></p>
+            <p><label>Skype</label> <%= profile_form.text_field :skype, :size => 20, :class => 'text' %></p>
+            <h3>社交网络</h3>
+            <p><label>豆瓣</label> <%= profile_form.text_field :douban, :size => 20, :class => 'text' %></p>
+            <p><label>开心网</label> <%= profile_form.text_field :kaixin001, :size => 20, :class => 'text' %></p>
+            <p><label>人人网</label> <%= profile_form.text_field :renren, :size => 20, :class => 'text' %></p>
+            <p><label>Twitter</label> <%= profile_form.text_field :twitter, :size => 20, :class => 'text' %></p>
+            <h3>个人介绍</h3>
+            <p><%= profile_form.text_area :bio, :style => "width:250px;height:100px;" %></p>
+            <h3>隐私设置</h3>
+            <p><label>隐私设置</label><%= profile_form.select :privacy, {"对所有人保密" => 0, "仅对好友公开" => 1} %></p>
+      <% end %>
+

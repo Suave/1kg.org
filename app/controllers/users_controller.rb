@@ -67,62 +67,17 @@ class UsersController < ApplicationController
   def edit
     @page_title = "编辑个人信息"
     @user = current_user
-    
-    if params[:type] == "account"
-      @type = "account"
-      render :action => "setting_account"
-    elsif params[:type] == 'profile'
-      @type = "profile"
-      @profile = @user.profile || Profile.new
-      render :action => "setting_profile"
-    else
-      @type = "avatar"
-      render :action => "setting_avatar" 
-    end
+    @type = params[:type] || 'avatar'
   end
   
   def update
     @user = current_user
-    
-    if params[:for] == 'account'
-      unless params[:user].blank?
-        @user.geo_id       = params[:user][:geo_id]
-        @user.login        = params[:user][:login]
-        @user.email_notify = params[:user][:email_notify]
-        @user.save
-        flash[:notice] = "帐号设置更新成功"
-      else
-        flash[:notice] = "信息不完整，请重新填写"
-      end
-      redirect_to setting_url(:type => 'account')
-    elsif params[:for] == 'password'
-      @user.update_attributes!(params[:user])
-      #self.current_user = @user
-      flash[:notice] = "密码修改成功"
-      redirect_to setting_url(:type => 'account')
-    
-  
-      
-    elsif params[:for] == 'avatar'
-      avatar_convert(:user, :avatar)
-      @user.update_attributes!(params[:user])
-      flash[:notice] = "头像修改成功"
-      redirect_to setting_url(:type => "avatar")
-    
-
-    elsif params[:for] == 'profile'
-      if @user.profile
-        @user.profile.update_attributes!(params[:profile])
-      else
-        # 用户第一次填个人资料
-        profile = Profile.new(params[:profile])
-        @user.profile = profile
-        @user.save!
-      end
-      flash[:notice] = "个人资料修改成功"
-      redirect_to setting_url(:type => 'profile')
-      
-    end
+    @type = params[:type]
+    avatar_convert(:user, :avatar)
+    puts params[:user][:avatar]
+    @user.update_attributes!(params[:user])
+    @user.profile.update_attributes!(params[:user][:profile_attributes])
+    redirect_to setting_path(:type => @type)
   end
 
   def suspend

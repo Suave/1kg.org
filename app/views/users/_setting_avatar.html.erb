@@ -1,0 +1,6 @@
+            <h3>我的头像</h3>
+            <p class="center"><%= avatar_for(@user, "large") %></p>
+            <p class="note">支持 <strong>GIF</strong>, <strong>JPG</strong>, <strong>PNG</strong> 格式的头像, 尺寸不小于 72X72</p>
+
+            <p><label>选择新头像</label> <%= file_column_field 'user', 'avatar', :size => 20 %></p>
+

@@ -19,7 +19,6 @@ class Profile < ActiveRecord::Base
   include BodyFormat
   
   belongs_to :user
-  
   before_save :correct_blog_url, :format_content
   
   def douban_url

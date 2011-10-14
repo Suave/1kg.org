@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   has_one :profile, :dependent => :destroy 
-  
+  accepts_nested_attributes_for :profile 
   
   has_many :comments, :dependent => :destroy 
   has_many :submitted_activities, :class_name => "Activity", 
@@ -131,7 +131,7 @@ class User < ActiveRecord::Base
   
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :avatar
+  attr_accessible :login, :email, :password, :password_confirmation,:avatar_temp,:avatar,:geo_id,:profile,:email_notify
 
   acts_as_state_machine :initial => :pending, :column => :state
   state :passive
@@ -139,6 +139,7 @@ class User < ActiveRecord::Base
   state :active,  :enter => :do_activate
   state :suspended
   state :deleted, :enter => :do_delete
+
 
   event :register do
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
