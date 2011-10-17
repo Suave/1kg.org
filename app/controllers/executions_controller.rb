@@ -48,13 +48,17 @@ class ExecutionsController < ApplicationController
   end
  
   def show
-    @school = @execution.school
-    respond_to do |want|
-        @comments = @execution.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
-        @comment = Comment.new
-        @photos = @execution.photos
-        @shares = @execution.shares
-        want.html
+    if @execution.with_box?
+      redirect_to "/boxes/execution/#{@execution.id}" 
+    else
+      @school = @execution.school
+      respond_to do |want|
+          @comments = @execution.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
+          @comment = Comment.new
+          @photos = @execution.photos
+          @shares = @execution.shares
+          want.html
+      end
     end
   end
   

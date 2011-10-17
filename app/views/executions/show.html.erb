@@ -81,7 +81,7 @@
             
             <div class="clearfix" id="photos">
               <div id="upload_container"></div>
-              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
+              <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
               <%= "暂无照片" if @photos.empty? %>
                 
               <p style="text-align:right;clear:both">

@@ -4,7 +4,7 @@ class BoxesController < ApplicationController
 
   def index
     @boxes = Box.available
-    @executions = Execution.validated_with_box
+    @executions = Execution.validated_with_box.find(:all,:limit => 8)
     @my_executions  = current_user.executions.with_box if logged_in?
     @shares = @executions.map(&:shares).flatten
     @photos = @executions.map(&:photos).flatten
@@ -39,11 +39,16 @@ class BoxesController < ApplicationController
     end
   end
 
-  def executions
+  def execution
     @execution = Execution.find(params[:id])
     @photos = @execution.photos
     @shares = @execution.shares
     @comments = @execution.comments
+    render 'execution'
+  end
+
+  def executions
+    @executions = Execution.validated_with_box.paginate :page => params[:page] || 1, :per_page => 20
   end
 
   def show

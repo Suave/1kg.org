@@ -1,15 +1,13 @@
-<div class="requirement">
-    <div class="project_image_frame">
-        <img class="project_image" src="<%= execution.project.image.url(:project_avatar) %>"/>
-    </div>
-    <div>
-        <h5><%= link_to short_title(execution.project,10), project_execution_url(execution.project, execution) %></h5>
-        <% if logged_in? && current_user == execution.user %>
-          <span><%= link_to "填写反馈", new_share_url(:execution=>execution.id),:class => "adminbutton"%>
-          </span>
-        <% else %>
-          <span><%= state_tag(execution.state)%></span>
-        <% end -%>
-    </div>
-    <div style="clear:both"></div>
-</div>
+<div class="event_list">
+  <%= link_to image_tag((execution.community.main_photo.blank?  ? '/images/school_main_thumb.png' : execution.community.main_photo.public_filename(:thumb)), :alt => execution.community.title),"/boxes/executions/#{execution.id}" %>
+  <p style="margin-left:90px">
+    <%= link_to execution.user.login,user_path(execution.user) %> 为
+    <%= link_to short_title(execution.community,10),execution.community%> 的申请: 
+    <% if execution.project_id %>
+      <%= link_to execution.project.title,execution.project %>
+    <% end %>
+    <br/>
+    <%= execution.state_tag %>
+    <%= link_to '[详情]',execution.path_tag%>
+  </p>  
+</div>          

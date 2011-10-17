@@ -18,10 +18,21 @@ class Execution < ActiveRecord::Base
   validates_presence_of :telephone,:message => "请留下您的电话或手机号码"
 
   named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
-  named_scope :with_box,  :conditions => ["bringings_count > ?",0],:include => [:bringings]
-  named_scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings]
+  named_scope :with_box,  :conditions => ["bringings_count > ?",0],:include => [:bringings],:order => 'created_at desc'
+  named_scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings],:order => 'created_at desc'
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
+  def state_tag
+    {"validated"=> '已经通过!',"going"=>"已经通过!","finished"=>"已经完成",'waiting' => '在等待审核'}[state]
+  end
+
+  def path_tag
+    self.bringings_count.zero? ? "/projects/#{self.project_id}/executions/#{self.id}" : "/boxes/execution/#{self.id}"
+  end
+
+  def with_box?
+    !bringings_count.zero?
+  end
   def validate
     #至少要关联一所学校或一所村庄
     if school_id.nil? && village.nil?

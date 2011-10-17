@@ -81,7 +81,7 @@
     <%= @photos.blank? ? "还没有村庄照片" :"共有#{@photos.size}张照片" %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
-      <%= render :partial => "/schools/gallery_photo", :collection => @photos[0..7],:locals => {:no_title => true} %>
+      <%= render :partial => "/photos/gallery", :collection => @photos[0..7],:locals => {:no_title => true} %>
       </div>
     </div>  
   </div>

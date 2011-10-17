@@ -1,8 +1,8 @@
-<div class="hot" style="width:290px">
+<div class="event_list">
   <div style="float:left">
     <%= main_photo_thumb(record.school) -%> 
   </div>
-  <div style="margin-left:100px;">
+  <div style="margin-left:90px;">
     <%= link_to record.user.login, user_url(record.user) %> <%= '要' if record.status == 3%>去<%= '过' if record.status == 1%><br/>
     <%= link_to h(record.school.title), school_path(record.school)%><br/>
     <span class="gary_span">[<%= record.school.geo.parent.name.to_s if record.school.geo.parent%><%=  record.school.geo.name.to_s %> <%= month_and_day(record.visited_at) unless record.visited_at.blank? %>]</span>

@@ -40,6 +40,12 @@
             <h5>困难应对</h5>
             <%= execution.problem %>
           </p>
+          <% if execution.problem.present? %>
+          <p>
+            <h5>使用计划</h5>
+            <%= execution.problem %>
+          </p>
+          <% end %>
           <p>
             <h5>联系方式</h5>
             姓名:<%= execution.realname %>

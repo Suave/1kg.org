@@ -21,7 +21,7 @@
 <% end -%>
 
 <%= render :partial => "status" %>
-<span class="span_title"><%= h @school.title -%></span>
+  <h1><%= h @school.title -%></h1>
 　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %>
  <%= link_to "(地图和交通指南)", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
  <br/>
@@ -108,9 +108,11 @@
   
   <div class="newbox">
       <div id="activity_tabs">
-      <h3>活动</h3>
+        <div style="float:right">
         <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
         <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.school_moderator?%>
+        </div>
+      <h3>活动</h3>
         <ul class="tab" >
           <% [["公益活动", "all"], ["物资团捐", "co_donations"]].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
@@ -130,10 +132,10 @@
 <script type="text/javascript">
   jQuery("#activity_tabs").tabs();
 </script>
+  <div class="clearfix"></div>  
   </div>
    
-  <div class="clearfix"></div>  
-  <div class="school_box">
+  <div class="newbox">
    <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
     <%= link_to "写新帖子", new_share_url+"?school=#{@school.id}",:class=>"buttonlink"%>
     <div class="contents clearfix">
@@ -142,8 +144,9 @@
   </div>
 
 
-  <div class="school_box">
-   <h4>相册</h4> <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
+  <div class="newbox">
+    <h4>相册</h4>
+    <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
     <%= link_to '上传照片', new_photo_path(:school_id => @school.id),:class=>"buttonlink" %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
@@ -187,19 +190,20 @@
 
   <% unless @followers.blank? %>
   <div class="school_sidebar">
-    <div class="title_line"><h4>关注的用户</h4> <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%></div>
+    <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%>
+    <h4>关注的用户</h4>
     <div class="sidebar_inter">
     <%= render :partial => "/shared/user_list", :locals => {:users => @followers[0..8]} %>
     </div>
   </div>
   <% end %>
-  
-     <div class="school_sidebar">
-      <div class="title_line"><h4>公益项目</h4><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink",:style=>"margin-left:136px"%></div>
-      <div class="sidebar_inter">
-        <%= '目前学校还没有公益项目' if @executions.empty? %>
-        <%= render :partial => "/shared/execution", :collection => @executions %>
-        <div style="clear:both;height:5px"></div>
-      </div>
+  <div class="school_sidebar">
+     <div style="float:right"><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink" %></div>
+    <h4>公益项目</h4>
+    <div class="sidebar_inter">
+      <%= '目前学校还没有公益项目' if @executions.empty? %>
+      <%= render :partial => "/shared/execution", :collection => @executions %>
+      <div style="clear:both;height:5px"></div>
     </div>
-  <% end -%>
+  </div>
+<% end -%>

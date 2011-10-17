@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(:version => 0) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
+    t.integer  "uses_count",       :default => 0
+    t.integer  "rank",             :default => 0
     t.integer  "bringings_count",  :default => 0
     t.integer  "comments_count",   :default => 0
   end

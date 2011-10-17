@@ -1,4 +1,4 @@
-<% @title = '一公斤盒子' %>
+<% @page_title = '一公斤盒子' %>
 <% content_for :fullsize do -%>
   <%= image_tag('/images/box_banner.jpg',:style => 'margin:10px')%>
   <div style="position:absolute;top:200px;left:740px;">
@@ -27,15 +27,13 @@
 
 <div class="newbox">
   <h3>使用照片：</h3>
-  <%= render :partial => "/shared/photo", :collection => @photos %>
-  <%= '敬请等待' if @photos.empty? %>
+  <%= render :partial => "/photos/gallery", :collection => @photos%>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
 <div class="newbox">
   <h3>使用反馈：</h3>
   <%= render :partial => "/shared/share", :collection => @shares %>
-  <%= '敬请等待' if @shares.empty? %>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
@@ -43,43 +41,14 @@
   <% if logged_in? && @my_executions.present?%>
     <div class="newbox">
       <h3>我的申请:</h3>
-      <% @my_executions.each do |e|%>
-        <div class="">
-          <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px;float:left"),"/boxes/executions/#{e.id}" %>
-          <p style="margin-left:90px">
-            <%= link_to e.user.login,user_path(e.user) %> 为
-            <%= link_to short_title(e.community,10),e.community%>
-            申请了:<br/>
-            <span>
-              <%= e.bringings[0..2].map{|b| link_to("#{b.box.name} ",box_path(b.box)) }%>
-              ...
-            </span>
-            <br/>
-            <%= link_to '[了解详情]',"/boxes/executions/#{e.id}" %>(<%= state_tag(e.state) %>)
-          </p>  
-        </div>          
-      <% end %>
+      <%= render :partial => "/shared/execution", :collection => @my_executions %>
     </div>
   <% end %>
 
   <div class="newbox">
     <h3>大家的申请:</h3>
-    <% @executions.each do |e|%>
-      <div class="">
-        <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px;float:left"),"/boxes/executions/#{e.id}" %>
-        <p style="margin-left:90px">
-          <%= link_to e.user.login,user_path(e.user) %> 为
-          <%= link_to short_title(e.community,10),e.community%>
-          申请到了:<br/>
-          <span>
-            <%= e.bringings[0..2].map{|b| link_to("#{b.box.name} ",box_path(b.box)) }%>
-            ...
-          </span>
-          <br/>
-          <%= link_to '[了解详情]',"/boxes/executions/#{e.id}" %>
-        </p>  
-      </div>          
-    <% end %>
+    <%= render :partial => "/shared/execution", :collection => @executions %>
+    <%= link_to '查看更多申请' ,executions_boxes_path%>
   </div>
 
   <div class="newbox">

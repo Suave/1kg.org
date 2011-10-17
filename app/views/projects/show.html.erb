@@ -117,7 +117,7 @@
    <h4>项目照片</span> <span class="gary_span"><%= @photos.blank? ? "还没有项目照片" : link_to("共有#{@photos.size}张照片",photos_project_path(@project)) %></h4>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
-      <%= render :partial => "/schools/gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
+      <%= render :partial => "/photos/gallery", :collection => @photos[0..3],:locals => {:no_title => true} %>
       </div>
     </div>  
   </div>

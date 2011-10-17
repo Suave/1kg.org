@@ -1,88 +1,11 @@
-<% @page_title = "#{@execution.community.title}的一公斤盒子申请" -%>
+<% @page_title = "全部的一公斤盒子申请" -%>
 <% content_for :heads do -%>
-<%= javascript_include_tag "jquery.timeago.js" %>
-<%= javascript_include_tag 'swfupload' %>
-<%= javascript_include_tag 'handlers' %>
 <% end %>
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
-  <span class="remark"><%= link_to "&raquo;  回到#{@execution.community.title}",@execution.community%></span>
   <span class="remark"><%= link_to "&raquo;  回到一公斤盒子",boxes_path %></span>
 <% end -%>
 
-<%= main_photo_thumb(@execution.community) -%>
-
-<div style="float:left;width:516px;margin-left:10px">
-  <div style="font-size:16px;font-weight:bold"><%= @page_title %></div>
-  <div id="entry">
-      <p>项目申请人：<%= link_to @execution.user.login ,user_url(@execution.user)%> <%= "(电话： #{@execution.telephone})" if current_user && current_user.admin?%>
-      <br/>项目状态：<%= state_tag(@execution.state) %>
-      <br/>最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @execution.last_updated_at.to_date %></span>
-      </p>
-  </div>
-</div>
-<div style="clear:both;height:20px"></div>
-          
-
-<div id="projects_tabs">
-    <div id="detail">
-    <h5>申请原因</h5>
-    <p>
-    <%= @execution.reason %> 
-    </p>
-    <h5>申请盒子数量</h5>
-    <div>
-      <% @execution.bringings.each do |b| %>
-      <%= link_to("#{b.box.name}",box_path(b.box)) %>
-      <%= b.number %>个
-      <br/> 
-      <% end %>
-    </div>
-
-      <% unless @execution.problem.nil? or @execution.problem.empty?%>
-        <div class="project_info">
-        <h5>可能遇到的问题与解决方案</h5>
-        <%= @execution.problem %>
-        </div>
-      <% end%>
-    </div>
-          
-        <% if @execution.validated?%>
-        <div class="project_info">
-          <h5>照片 <span><%= link_to '上传照片', new_photo_path(:execution_id => @execution.id)  if logged_in?%></span></h5>
-            <div class="clearfix" id="photos">
-              <%= render :partial => "/schools/gallery_photo", :collection => @photos,:locals => {:no_title => true}%>
-              <%= "暂无照片" if @photos.empty? %>
-              <p style="text-align:right;clear:both">
-                <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
-              </p>
-              </div>     
-        </div>
-        
-        <div class="project_info">
-
-          <h5>项目反馈 <span><%= link_to '写新反馈',new_share_url(:execution=>@execution.id)%></span></h5>
-            
-            <%= render :partial => "/shared/share", :collection => @shares %>
-            <%= "暂无反馈" if @shares.empty? %>
-            <div class="cleanfix" style="height:20px"></div>
-        </div>
-        
-      <% else %>
-        <div class="project_info">
-        <p>项目还在申请中。</p>
-        </div>
-      <%end%>
-</div>
-
-<%= render :partial => "/comments/comments", :object => @comments %>
-<%= render :partial => "/comments/form", :locals => {:commentable => @execution,:cancel => true} %>
-
-<div class="cleanfix" style="clear:both;height:5px"></div>
-<script type="text/javascript">
-jQuery(document).ready(function () {
-  $("#last_time").text(jQuery.timeago("<%= @execution.last_updated_at %>"));
-  })
-</script>
-
+<h3>全部申请</h3>
+<%= render :partial => "/shared/execution", :collection => @executions %>

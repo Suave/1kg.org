@@ -87,7 +87,6 @@ ActionController::Routing::Routes.draw do |map|
                                            :archives => :get, 
                                            :cits => :get,
                                            :check => :get,
-                                           #:todo => :get,
                                            :total_shares => :get,
                                            :comments => :get
                                           } do |school|
@@ -158,11 +157,10 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
-  map.resources :boxes, :collection => {:apply => :get, :submit => :post} do |box|
+  map.resources :boxes, :collection => {:apply => :get, :submit => :post,:execution => :get,:executions => :get} do |box|
     box.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Box'}
-    box.executions   'executions/:id', :action => "executions",:controller => 'boxes'
   end
-  
+
   map.resources :games, :member => {:versions => :get, :revert => :put}  do |game|
     game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
   end

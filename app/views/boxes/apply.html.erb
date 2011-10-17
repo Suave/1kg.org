@@ -51,8 +51,10 @@
           
         <p>
           <h6>盒子要在什么时候使用？<span class="require">*</span></h6>
-          <%= select('execution','year',[2011,2012]) %>年 <%= select('execution','month',1.upto(12)) %>月
-          <br/><%= form.hidden_field :plan,:value => '对于盒子申请不需详细计划' %>
+          <span>1.最晚在每月15号前（含15号）提交下个月活动计划和一公斤盒子需求。 </span>
+          <br/><span>2.审核时间：当月16号～25号完成审核并发放一公斤盒子。</span>
+          <p>我计划在 <%= select('execution','year',[2011,2012]) %> 年 <%= select('execution','month',1.upto(12)) %> 月使用盒子</p>
+          <%= form.hidden_field :plan,:value => '对于盒子申请不需详细计划' %>
         </p>
         
         <p>

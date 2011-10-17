@@ -1137,7 +1137,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .meta_col input{margin-top:5px}
  
 .more{background:url(/images/more.gif) no-repeat;padding-left:14px;padding-right:6px;color:#333;cursor:pointer;float:right;}
-.more:hover{background-position:0 -13px;}
+.more:hover{background-position:0 -13px}
 .contents img,#entry img{max-width: 580px; width: expression(this.width > 580 ? 580: true); height:auto;}
 .contents p{margin:14px 0}
 .notes{margin:-4px 6px 0;color:#666;font-size:13px}
@@ -1152,6 +1152,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
  
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
+
+.event_list{margin:4px 0 10px;height:60px;width:290px;float:left}
+.event_list a img{width:80px;height:60px;float:left}
 
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}

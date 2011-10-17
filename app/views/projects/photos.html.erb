@@ -18,7 +18,7 @@
       
       <span class="postNew"><%= link_to image_tag("upload_photo.png"), new_photo_url(:project => @project.id) %></span>
       <div class="contents clearfix">
-        <%= render :partial => "/schools/gallery_photo", :collection => @photos %>
+        <%= render :partial => "/photos/gallery", :collection => @photos %>
       </div>
       
       <div class="contents"><p><%= will_paginate @photos %></p></div>

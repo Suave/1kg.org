@@ -15,6 +15,7 @@
             <th style="width:120px">名字</th>
             <th style="width:120px">提交人</th>
             <th style="width:30px">公开</th>
+            <th style="width:40px">权重</th>
             <th style="width:40px">操作</th>
             <th style="width:100px">其他</th>
           </tr>
@@ -25,6 +26,9 @@
                 <td><%= box.user.login %></td>
                 <td>
                   <%= form.check_box :available %>
+                </td>
+                <td>
+                  <%= form.text_field :rank,:style => "width:30px" %>
                 </td>
                 <td>
                   <%= submit_tag '更新' %>

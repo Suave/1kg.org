@@ -1,0 +1,15 @@
+<dl class="obp">
+  <dt><%= link_to image_tag(image_path(gallery.public_filename(:thumb)), :alt => gallery.title), gallery.public_filename(:medium), 
+        :rel => "prettyPhoto[gallery]", :description => photo_meta(gallery, current_user), :title => gallery.title %></dt>
+  <% unless defined?(no_title)%>
+  <dd>
+    <span id="photo_title_<%= gallery.id %>"><%= short_title(gallery,16) %></span>
+    <% if logged_in? && gallery.editable_by?(current_user) %>
+      <%= text_field_tag :title, gallery.title, 
+          :onkeydown => "return photo_edit_key_down(event, '#{gallery.id}');",
+          :style => "display:none;", :id => "title_edit_#{gallery.id}", :size => 15  %>
+      (<%= link_to_function '编辑', "switch_photo_edit('#{gallery.id}'); return false;", :id => "edit_button_#{gallery.id}" %>|<%= link_to '删除', gallery, :confirm => "确定要删除吗？", :method => 'delete' %>)
+    <% end %>
+  </dd>
+  <%end%>
+</dl>
