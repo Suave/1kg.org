@@ -4,10 +4,11 @@ class BoxesController < ApplicationController
 
   def index
     @boxes = Box.available
-    @executions = Execution.validated_with_box.find(:all,:limit => 8)
+    @executions = Execution.validated_with_box
     @my_executions  = current_user.executions.with_box if logged_in?
     @shares = @executions.map(&:shares).flatten
     @photos = @executions.map(&:photos).flatten
+    @executions = @execution[0..7]
   end
 
   def apply
