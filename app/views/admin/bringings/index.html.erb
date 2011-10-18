@@ -1,24 +1,32 @@
 <% @page_title = "" -%>
 
 <% content_for :sidebar do -%>
-
   <%= render :partial => "/admin/shared/operation_list" %>
 <% end -%>
 
 <div class="newbox">
-  <h3>所有申请 <span><%= link_to '下载表格',"#{admin_bringings_path}.csv" %></span></h3>
+  <h3>所有申请 </h3>
+  <% form_tag admin_bringings_path(:format => :csv), :method => :get do -%>
+    <p>
+      从<%= text_field_tag 'from_at' ,'',:class =>"vDateField" %> 到现在的申请 <%= submit_tag "下载" %>
+      or <span><%= link_to '下载全部表格',"#{admin_bringings_path}.csv" %></span>
+    </p> 
+  <% end -%>
+
   <div class="contents">
     <table border="0" cellspacing="5" cellpadding="5">
       <tr>
+        <th style="width:70px">申请时间</th>
         <th style="width:80px">申请人</th>
-        <th style="width:120px">学校</th>
-        <th style="width:80px">申请盒子</th>
+        <th style="width:110px">学校</th>
+        <th style="width:80px">盒子</th>
         <th style="width:50px">状态</th>
-        <th style="width:70px">时间</th>
+        <th style="width:70px">使用时间</th>
         <th style="width:50px">展开</th>
       </tr>
       <% @executions.each_with_index do |execution,n| %>
       <tr>
+        <td><%= "#{execution.created_at.to_date}"%></td>
         <td><%= link_to execution.user.login,user_path(execution.user)%></td>
         <td><%= link_to execution.school.title,school_path(execution.school)%></td>
         <td><%= execution.bringings_count %>种</td>
@@ -64,3 +72,11 @@
     </table>
   </div>
 </div>
+
+<%= customize_paginate @executions %>
+
+<% content_for :tail do -%>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(DateTimeShortcuts.init);
+  </script>
+<% end %>

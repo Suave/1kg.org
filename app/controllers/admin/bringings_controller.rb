@@ -1,11 +1,16 @@
 class Admin::BringingsController < Admin::BaseController
   
   def index 
-    @executions = Execution.with_box
+    @executions = Execution.with_box.paginate(:page => 1, :per_page => 20)
     respond_to do |format|
       format.html {}
       format.csv {
-        @boxes = Box.available
+      @boxes = Box.available
+      if params[:from_at]
+        @executions = Execution.with_box.find(:all,:conditions => ['created_at > (?)',params[:from_at].to_time])
+      else
+        @executions = Execution.with_box
+      end
       }
     end
   end
