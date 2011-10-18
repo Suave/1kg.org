@@ -8,7 +8,7 @@ class BoxesController < ApplicationController
     @my_executions  = current_user.executions.with_box if logged_in?
     @shares = @executions.map(&:shares).flatten
     @photos = @executions.map(&:photos).flatten
-    @executions = @execution[0..7]
+    @executions = @executions[0..7]
   end
 
   def apply
