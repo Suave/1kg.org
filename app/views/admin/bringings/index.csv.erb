@@ -1,3 +1,3 @@
 通过状态 申请人 学校 申请月份 申请原因 困难预估 真实姓名 地址邮编 联系电话 <%= @boxes.map{|b| "\"#{b.name}\" "} %>
-<% @executions.each do |e| -%>"<%= e.state %>" "<%= e.user.login %>" "<%= e.school.title %>" "<%= "#{e.start_at.year}年#{e.start_at.month}月" %>" "<%= e.reason.gsub("\r\n",' ') %>" "<%= e.problem.gsub("\r\n",' ') %>" "<%= e.realname %>" "<%= e.address.gsub("\r\n",' ') %>" "<%= e.telephone.gsub("\r\n",' ') %>" <%= @boxes.map{|b| (r = Bringing.find(:first,:conditions => {:box_id => b.id,:execution_id => e.id})) ? "#{r.number} ": "0 " }%>
+<% @executions.each do |e| -%>"<%= e.state_tag %>" "<%= e.user.login %>" "<%= e.school.title %>" "<%= "#{e.start_at.year}年#{e.start_at.month}月" %>" "<%= e.reason.gsub("\r\n",' ') %>" "<%= e.problem.gsub("\r\n",' ') %>" "<%= e.realname %>" "<%= e.address %>" "<%= e.telephone %>" <%= @boxes.map{|b| (r = Bringing.find(:first,:conditions => {:box_id => b.id,:execution_id => e.id})) ? "#{r.number} ": "0 " }%>
 <% end -%>
