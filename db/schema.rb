@@ -499,10 +499,6 @@ ActiveRecord::Schema.define() do
   create_table "shares", :force => true do |t|
     t.string   "title",                                       :null => false
     t.integer  "geo_id",                                      :null => false
-    t.string   "share_cover_file_name"
-    t.string   "share_cover_content_type"
-    t.string   "share_cover_file_size"
-    t.text     "body_html"
     t.text     "clean_html"
     t.integer  "activity_id"
     t.integer  "school_id"

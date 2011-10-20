@@ -40,7 +40,7 @@ schools = @share.new_record? ? current_user.visited_schools : (@share.user.visit
 <%end%>
 
 <p>
-  <%= form.text_area :body_html, :style => 'width:640px;height:480px;', :class => "mceEditor" %>
+  <%= form.text_area :clean_html, :style => 'width:640px;height:480px;', :class => "mceEditor" %>
 </p>
 
 <p><label class="label" >附加标签</label>

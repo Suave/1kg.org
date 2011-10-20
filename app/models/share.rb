@@ -1,30 +1,3 @@
-# == Schema Information
-#
-# Table name: shares
-#
-#  id                       :integer(4)      not null, primary key
-#  title                    :string(255)     not null
-#  geo_id                   :integer(4)      not null
-#  share_cover_file_name    :string(255)
-#  share_cover_content_type :string(255)
-#  share_cover_file_size    :string(255)
-#  body_html                :text
-#  activity_id              :integer(4)
-#  school_id                :integer(4)
-#  user_id                  :integer(4)      not null
-#  hits                     :integer(4)      default(0), not null
-#  comments_count           :integer(4)      default(0), not null
-#  hidden                   :boolean(1)
-#  created_at               :datetime
-#  updated_at               :datetime
-#  last_modified_at         :datetime
-#  last_modified_by_id      :integer(4)
-#  last_replied_at          :datetime
-#  last_replied_by_id       :integer(4)
-#  deleted_at               :datetime
-#  clean_html               :text
-#
-
 class Share < ActiveRecord::Base
   include BodyFormat
   
@@ -37,7 +10,6 @@ class Share < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :as => 'photoable', :dependent => :destroy
   
-  validates_presence_of :geo_id, :message => "请选择一个和你的分享有关的城市"
   validates_presence_of :title,  :message => "请起个题目"
   
   
@@ -114,8 +86,6 @@ class Share < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(self.body_html)
-    self.save(false) if self.clean_html_changed?
     self.clean_html
   end
 
@@ -129,7 +99,7 @@ class Share < ActiveRecord::Base
   end
   
   def format_content
-    self.clean_html = sanitize(self.body_html)
+    self.clean_html = sanitize(self.clean_html)
   end
   
   def create_feed
