@@ -46,7 +46,7 @@ class School < ActiveRecord::Base
   
   has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
-  has_many :photos, :order => "id desc", :dependent => :destroy
+  has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
   has_many :executions, :order => "id desc", :dependent => :destroy

@@ -6,7 +6,7 @@ class CoDonation < ActiveRecord::Base
 
   has_many :sub_donations,:order => "created_at desc",:dependent => :destroy
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :photos, :order => "id desc", :dependent => :destroy
+  has_many :photos, :as => 'photoable', :order => "id desc",:dependent => :destroy
     
   has_attached_file :image, :styles => {:co_donation_topic => "300x300>", :co_donation_avatar => "150x150>" }
   

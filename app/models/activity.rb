@@ -43,7 +43,7 @@ class Activity < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :shares,                         :dependent => :destroy
 
-  has_many :photos, :order => "id desc", :dependent => :destroy
+  has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
   
   acts_as_taggable

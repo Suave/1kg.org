@@ -7,7 +7,7 @@ class Execution < ActiveRecord::Base
   belongs_to :village
 
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :photos, :order => "id desc", :dependent => :destroy
+  has_many :photos, :as => 'photoable', :order => "id desc",:dependent => :destroy
   has_many :shares, :order => "id desc", :dependent => :destroy
   has_many :bringings
   accepts_nested_attributes_for :bringings 

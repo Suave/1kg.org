@@ -15,5 +15,16 @@ namespace :rails3 do
       p.update_attribute(:image_file_name,"#{p.filename[0..-5]}.#{ext.downcase}")
     end
   end
+
+  desc "用多态关联照片"
+  task :polymorphic_photos => :environment do 
+    Photo.find(:all,:conditions => {:parent_id => nil}).each_with_index do |p,index|
+      photoable = {'Execution' => p.execution_id,'School' => p.school_id,'CoDonation' => p.co_donation_id,'Activity' => p.activity_id,'Requirement' => p.requirement_id}.map{|key,value| key.constantize.find_by_id(value) if value}.compact.first
+      if photoable
+        p.update_attributes(:photoable_id => photoable.id,:photoable_type => photoable.class.name)
+        p.save
+      end
+    end
+  end
 end
 
