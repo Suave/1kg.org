@@ -42,11 +42,6 @@ public/stylesheets/*.cache.css
 public/system
 public/json/*
 public/json
-public/images/calendar_date_select/
-public/javascripts/calendar_date_select/
-public/javascripts/tiny_mce
-public/javascripts/tiny_mce/**/*
-public/stylesheets/calendar_date_select/
 public/system/**/*
 .DS_Store
 coverage/*
