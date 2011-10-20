@@ -150,7 +150,7 @@
     <%= link_to '上传照片', new_photo_path(:school_id => @school.id),:class=>"buttonlink" %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
-      <%= render :partial => "gallery_photo", :collection => @photos[0..3],:locals => {:no_title => true} %>
+      <%= render :partial => "/photos/gallery", :collection => @photos[0..3],:locals => {:no_title => true} %>
       </div>
     </div>  
   </div>
