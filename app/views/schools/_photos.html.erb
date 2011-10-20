@@ -1,6 +1,6 @@
 <% photos.each do |p| %>
 <dl class="obp">
-  <dt><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title), p.public_filename(:medium), 
+  <dt><%= link_to image_tag(p.image.url, :alt => p.title), p.image.url(:max565x420), 
         :rel => "prettyPhoto[gallery]",:title => ''  %></dt>
   <dd>
     <%= link_to p.school.title, school_url(p.school) %>

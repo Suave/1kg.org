@@ -39,7 +39,7 @@
   <h4>参与<%= (@project.id == 6) ? '村庄' : '学校' %></h4><br/>
   <% @executions.each do |e|%>
     <div class="small_school">
-      <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.public_filename(:thumb)), :alt => e.community.title,:style => "width:80px;height:60px"),project_execution_url(e.project,e)%>
+      <%= link_to image_tag((e.community.main_photo.blank?  ? '/images/school_main_thumb.png' : e.community.main_photo.image.url), :alt => e.community.title,:style => "width:80px;height:60px"),project_execution_url(e.project,e)%>
       <p><%= link_to short_title(e.community,10),project_execution_url(e.project,e)%><br/>[<%= e.community.geo.parent.name.to_s if e.community.geo.parent%><%= e.community.geo.name.to_s%>]</p>  
     </div>          
   <% end %>

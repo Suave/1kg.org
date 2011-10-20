@@ -4,7 +4,7 @@
       <legend>从学校相册选择</legend>
       <% @school.photos.each do |p| %>
       <dl class="obp" style="margin:0">
-        <dt><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title), p.public_filename(:medium), 
+        <dt><%= link_to image_tag(p.image.url, :alt => p.title), p.image.url(:max565x420), 
               :rel => "prettyPhoto[gallery]",:title => ''  %>
         </dt>
         <dd>

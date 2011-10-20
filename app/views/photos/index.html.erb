@@ -1,4 +1,4 @@
 <% @photos.each do |p| %>
-  <p style="float:left; padding: 10px;margin:0;width: 62px; height:62px;"><%= link_to image_tag(p.public_filename(:thumb), :alt => p.title, :border => '0', :width => '62'), '#', :onclick => "ImageDialog.ts_insert_image('#{p.public_filename(:medium)}');" %>
+  <p style="float:left; padding: 10px;margin:0;width: 62px; height:62px;"><%= link_to image_tag(p.image.url, :alt => p.title, :border => '0', :width => '62'), '#', :onclick => "ImageDialog.ts_insert_image('#{p.image.url(:max565x420)}');" %>
   </p>
 <% end -%>

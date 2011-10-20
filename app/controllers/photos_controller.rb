@@ -17,20 +17,15 @@ class PhotosController < ApplicationController
   
   def create
     @photo = current_user.photos.build(params[:photo])
-    # 针对Flash上传
-    @photo.swf_uploaded_data = params[:Filedata] if params[:Filedata]
-    @photo.title = '未命名图片' unless @photo.title.blank?
-    @photo.save
-    flash[:notice] = "照片上传成功!"
+    @photo.title = '未命名图片' if @photo.title.blank?
+    if @photo.save
+      flash[:notice] = "照片上传成功!" 
+    end
     respond_to do |wants|
-      if params[:Filedata]
-        wants.html {render(:text => @photo.id)}
+      if @photo.school || @photo.activity || @photo.execution
+        wants.html {redirect_to @photo.school || @photo.activity || @photo.execution}
       else
-        if @photo.school || @photo.activity || @photo.execution
-          wants.html {redirect_to @photo.school || @photo.activity || @photo.execution}
-        else
-          wants.html {render 'insert', :layout => false}
-        end
+        wants.html {render 'insert', :layout => false}
       end
     end
   end
@@ -48,7 +43,6 @@ class PhotosController < ApplicationController
   def update
     @photo = current_user.photos.find(params[:id])
     @photo.update_attributes(params[:photo])
-    
     render :text => 'Success'
   end
   

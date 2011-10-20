@@ -1,9 +1,9 @@
 <div class="photo_frame">
     <div class="photo">
     <%if photo.school_id != nil %>
-      <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), school_url(photo.school)%>
+      <%= link_to image_tag(photo.image.url, :alt => photo.title), school_url(photo.school)%>
     <%elsif photo.activity_id != nil%>
-      <%= link_to image_tag(photo.public_filename(:thumb), :alt => photo.title), activity_url(photo.activity)%>
+      <%= link_to image_tag(photo.image.url, :alt => photo.title), activity_url(photo.activity)%>
     <%end%>
     </div>
     <div class="photo_meta">

@@ -1,4 +1,4 @@
             <div class="small_school">
-                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
+                <%= link_to image_tag((school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.image.url), :alt => school.title,:style => "width:80px;height:60px"),school_url(school)%>
                 <p><%= link_to short_title(school,10),school_url(school)%><br/>[<%= school.geo.parent.name.to_s if school.geo.parent%><%= school.geo.name.to_s%>]</p>  
             </div>

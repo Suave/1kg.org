@@ -1,5 +1,5 @@
 <div class="event_list">
-  <%= link_to image_tag((execution.community.main_photo.blank?  ? '/images/school_main_thumb.png' : execution.community.main_photo.public_filename(:thumb)), :alt => execution.community.title),"/boxes/executions/#{execution.id}" %>
+  <%= link_to image_tag((execution.community.main_photo.blank?  ? '/images/school_main_thumb.png' : execution.community.main_photo.image.url), :alt => execution.community.title),"/boxes/executions/#{execution.id}" %>
   <p style="margin-left:90px">
     <%= link_to execution.user.login,user_path(execution.user) %> 为
     <%= link_to short_title(execution.community,10),execution.community%> 的申请: 

@@ -11,7 +11,7 @@
   <table style="border-top:1px solid #CCC;">
     <% School.find(3603).photos.reverse.each do |p| -%>
     <tr>
-      <td><%= link_to image_tag(p.public_filename(:thumb), :style => "border:1px solid #CCC; padding:1px" ), school_url(3603), :target => "_blank" %></td>
+      <td><%= link_to image_tag(p.image.url, :style => "border:1px solid #CCC; padding:1px" ), school_url(3603), :target => "_blank" %></td>
       <td><%= p.description %></td>
     </tr>
     <% end -%>

@@ -62,7 +62,7 @@
     <div style="width:120px;height:160px;padding:5px;float:left">
       <div class="hot_activity_frame">
         <div class="hot_activity_image">
-          <%= link_to image_tag(activity.main_photo.public_filename(:small), :alt => activity.title,:style => "height:110px"),activity_url(activity) if activity.main_photo%>
+          <%= link_to image_tag(activity.main_photo.image.url(:max240x180), :alt => activity.title,:style => "height:110px"),activity_url(activity) if activity.main_photo%>
           <%= image_tag("activity_#{activity.category}.png", :alt => activity.title,:style => "height:110px")  unless activity.main_photo%>
         </div>
     </div>

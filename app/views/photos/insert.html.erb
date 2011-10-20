@@ -34,7 +34,7 @@
 		}
 
 		tinymce.extend(args, {
-			src : '<%= @photo.public_filename(:medium) %>'
+			src : '<%= @photo.image.url(:max565x420) %>'
 		});
 
 		args.onmouseover = args.onmouseout = '';

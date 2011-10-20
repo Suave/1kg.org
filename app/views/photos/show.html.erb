@@ -28,7 +28,7 @@
         <p style="text-align:right; color:gray">
           <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
         </p>
-        <%= image_tag @photo.public_filename(:medium) %>
+        <%= image_tag @photo.image.url(:max565x420) %>
         <%= @photo.description_html %>
         <p style="text-align:right; color:gray">
           <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>

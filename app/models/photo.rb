@@ -37,21 +37,8 @@ class Photo < ActiveRecord::Base
                             :url=>"/media/photos/:id/:attachment/:style.:extension",
                             :default_style=> :'107x80',
                             :default_url=>"/defaults/photos/:attachment/:style.png"
-
-  has_attachment :processor => :rmagick,
-                 :content_type => :image,
-                 :storage => :file_system,
-                 :max_size => 2.megabytes,
-                 :thumbnails => {
-                   :square => "320x64>",
-                   :thumb  => "120x80>",
-                   :small  => "240x180>",
-                   :medium => "565x420>"
-                 }
   
-  validates_as_attachment
-  
-  attr_accessible :uploaded_data, :title, :description, :description_html, :school_id, :activity_id,:execution_id,:co_donation_id
+  attr_accessible :image, :title, :description, :description_html, :school_id, :activity_id,:execution_id,:co_donation_id
   
   before_save :fill_title, :format_content
   after_create :create_feed

@@ -20,7 +20,7 @@
             <% elsif item.category == 'photo' %>
               <div>
                 <%= link_to item.user.login, user_url(item.user) %> 在<%= item.item.created_at.to_date %>为<%= link_to h(item.owner.title), item.owner %>上传了一张新照片<br />
-                <%= link_to image_tag(item.item.public_filename(:thumb)), item.item.public_filename(:medium) %>
+                <%= link_to image_tag(item.item.image.url), item.item.image.url(:max565x420) %>
               </div>
             <% elsif item.category == 'topic' %>
               <div>

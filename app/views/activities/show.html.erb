@@ -91,7 +91,7 @@
           </div>
           
           <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-            <%= link_to image_tag(@activity.main_photo.public_filename(:small), :alt => '活动主题图',:class => "activity_main"), @activity.main_photo.public_filename(:medium) if @activity.main_photo%>
+            <%= link_to image_tag(@activity.main_photo.image.url(:max240x180), :alt => '活动主题图',:class => "activity_main"), @activity.main_photo.image.url(:max565x420) if @activity.main_photo%>
             <%= image_tag("activity_#{@activity.category}.png", :alt => '活动主题图')  unless @activity.main_photo%>
           </div>   
           
