@@ -13,14 +13,14 @@
             <tr>
               <td class="goods_top_left_row" height="310" valign="top" align="center" style="padding-top: 5px;">
                 <a href="javascript:void(0);">
-                  <%= image_tag @photos[0].public_filename, :alt => h(@good.title) %>
+                  <%= image_tag @photos[0].image_url, :alt => h(@good.title) %>
                 </a>
               </td>
             </tr>
             <tr>
               <td height="62" valign="top" style="padding: 3px; font-size: 0pt;">
                 <% @photos.each do |p| %>
-                  <%= image_tag p.public_filename, :width => 58  %>
+                  <%= image_tag p.image_url, :width => 58  %>
                 <% end %>
               </td>
             </tr>

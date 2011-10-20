@@ -34,7 +34,7 @@ module SchoolsHelper
   def render_school_main_photo(school)
     html = ''
     if school.main_photo
-      html += image_tag(school.main_photo.public_filename(:small))
+      html += image_tag(school.main_photo.image.url(:max240x180))
     else
       html += image_tag(image_path('/images/default_school.jpg'), :width => "200")
     end

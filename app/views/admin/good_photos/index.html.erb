@@ -22,7 +22,7 @@
           <% @photos.each_with_index do |p, i| %>
           <tr>
             <td><%= i+1 %></td>
-            <td><%= image_tag p.public_filename %></td>
+            <td><%= image_tag p.image.url %></td>
             <td><%= link_to "删除", admin_good_photo_url(@good, p), :method => :delete, :confirm => "确定删除么？此操作不能恢复"%></td>
           </tr>
           <% end %>

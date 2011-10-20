@@ -205,12 +205,12 @@ module ApplicationHelper
   end
   
   def main_photo_thumb(school,style="")
-    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.public_filename(:thumb)
+    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.image.url
     "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title,:style => style ),school_url(school)).to_s + "</div>"
   end
   
   def topic_photo_thumb(activity)
-    img_url = activity.main_photo.blank?  ? "/images/activity_thumb_#{activity.category}.png" : activity.main_photo.public_filename(:square)
+    img_url = activity.main_photo.blank?  ? "/images/activity_thumb_#{activity.category}.png" : activity.main_photo.image.url
     "<div class='activity_photo_frame'><div class='activity_list_photo'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div></div>"
   end
   

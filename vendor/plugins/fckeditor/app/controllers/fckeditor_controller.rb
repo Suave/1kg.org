@@ -127,8 +127,8 @@ class FckeditorController < ActionController::Base
       var oEditor = dialog.InnerDialogLoaded() ;
 
       var oImg = oEditor.FCK.InsertElement( 'img' ) ;
-    	oImg.src = '#{@new_file.public_filename(:medium).to_s}' ;
-    	oImg.setAttribute( '_fcksavedurl', '#{@new_file.public_filename(:medium).to_s}' ) ;
+    	oImg.src = '#{@new_file.image.url(:max240x180).to_s}' ;
+    	oImg.setAttribute( '_fcksavedurl', '#{@new_file.image.url(:max565x420).to_s}' ) ;
       
       dialog.Cancel();
     </script>"
