@@ -9,6 +9,7 @@ namespace :rails3 do
      `mv #{goal_dir}/#{p.filename[0..-5]}_small.jpg #{goal_dir}/240x180.jpg`
      `mv #{goal_dir}/#{p.filename[0..-5]}_thumb.jpg #{goal_dir}/107x80.jpg`
      `rm #{goal_dir}/#{p.filename[0..-5]}_square.jpg`
+     `rm #{goal_dir}/#{p.filename[0..-5]}_medium.jpg`
     end
   end
 end
