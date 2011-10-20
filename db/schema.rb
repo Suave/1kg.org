@@ -269,13 +269,7 @@ ActiveRecord::Schema.define() do
     t.integer  "parent_id"
     t.integer  "photoable_id"
     t.string   "photoable_type"
-    t.string   "content_type"
-    t.string   "filename"
     t.string   "image_file_name"
-    t.string   "thumbnail"
-    t.integer  "size"
-    t.integer  "width"
-    t.integer  "height"
     t.integer  "user_id"
     t.string   "title",            :null => false
     t.text     "description"
@@ -283,11 +277,6 @@ ActiveRecord::Schema.define() do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.integer  "activity_id"
-    t.integer  "school_id"
-    t.integer  "requirement_id"
-    t.integer  "execution_id"
-    t.integer  "co_donation_id"
   end
 
   create_table "posts", :force => true do |t|

@@ -44,7 +44,7 @@ class BoxesController < ApplicationController
     @execution = Execution.find(params[:id])
     @photos = @execution.photos
     @shares = @execution.shares
-    @comments = @execution.comments
+    @comments = @execution.comments.paginate :page => params[:page] || 1, :per_page => 20
     render 'execution'
   end
 
