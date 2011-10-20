@@ -267,8 +267,11 @@ ActiveRecord::Schema.define(:version => 0) do
 
   create_table "photos", :force => true do |t|
     t.integer  "parent_id"
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
     t.string   "content_type"
     t.string   "filename"
+    t.string   "image_file_name"
     t.string   "thumbnail"
     t.integer  "size"
     t.integer  "width"

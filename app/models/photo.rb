@@ -33,6 +33,11 @@ class Photo < ActiveRecord::Base
   belongs_to :co_donation,:foreign_key => "co_donation_id"
   acts_as_paranoid
   
+  has_attached_file :image, :styles => {:'107x80' => ["107x80#"],:'max240x180' => ["240x180>"],:max565x420 => ["565x420>"]},
+                            :url=>"/media/photos/:id/:attachment/:style.:extension",
+                            :default_style=> :'107x80',
+                            :default_url=>"/defaults/photos/:attachment/:style.png"
+
   has_attachment :processor => :rmagick,
                  :content_type => :image,
                  :storage => :file_system,
