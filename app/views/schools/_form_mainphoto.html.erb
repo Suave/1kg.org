@@ -23,7 +23,7 @@
       <% f.fields_for :main_photo_attributes, @school.main_photo do |p| -%>
       <p><label class="label">照片标题</label><%= p.text_field :title, :size => 40, :class => "formText" ,:value =>''%></p>
           
-      <p><label class="label">上传照片</label><%= p.file_field :uploaded_data %></p>
+      <p><label class="label">上传照片</label><%= p.file_field :image %></p>
       <%= p.hidden_field :school_id ,:value => @school.id%>        
       <% end -%>
     </div>

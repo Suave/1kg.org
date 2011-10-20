@@ -46,6 +46,9 @@ class Photo < ActiveRecord::Base
   named_scope :with_activity, :conditions => "photos.activity_id is not null"
   named_scope :with_school, :conditions => "photos.school_id is not null"
   named_scope :include, lambda {|includes| {:include => includes}}
+
+  validates_presence_of :user_id
+  validates_presence_of :image_file_name
   
   def self.recent
     find(:all, :conditions => "parent_id is NULL", :order => "updated_at desc", :limit => 8)
