@@ -236,21 +236,13 @@ module ApplicationHelper
 
   def photo_meta(photo, current_user)
     photo.user_id = 1 if photo.user.nil?
-    school = photo.school unless photo.school_id.nil?
-    activity = photo.activity unless photo.activity_id.nil?
     
     html = content_tag(:p) do
       meta = link_to(photo.user.login, user_url(photo.user)) + '上传于' + photo.created_at.to_date.to_s + ' '
       meta
     end
 
-    html += "<p>拍摄于 #{link_to photo.school.title, school_url(photo.school)}</p>" unless photo.school.blank?
-    html += "<p>来自活动 #{link_to photo.activity.title, activity_url(photo.activity)}</p>" unless photo.activity.blank?
-    if current_user && school && school.edited_by(current_user)
-      html += "<p> #{link_to '设置为学校主照片', setphoto_school_url(photo.school)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.school.blank?
-    elsif current_user && activity && activity.edited_by(current_user)
-      html += "<p> #{link_to '设置为活动主题图', setphoto_activity_url(photo.activity)+'?p='+photo.id.to_s,:method => :put}</p>" unless photo.activity.blank?
-    end
+    html += "<p>上传于 #{link_to photo.photoable.name,photo.photoable }</p>" 
     html += "<p>#{h(photo.description)}</p>"
     html
   end

@@ -16,6 +16,13 @@ namespace :rails3 do
     end
   end
 
+  desc "删除无用的Model"
+  task :delete_unusage_photos => :environment do 
+    Photo.find(:all,:conditions => 'parent_id is not null').each do |p|
+      p.delete
+    end
+  end
+
   desc "用多态关联照片"
   task :polymorphic_photos => :environment do 
     Photo.find(:all,:conditions => {:parent_id => nil}).each_with_index do |p,index|

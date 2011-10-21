@@ -78,6 +78,9 @@ class Activity < ActiveRecord::Base
     self.by_team ? self.team : self.user
   end
   
+  def name
+    title
+  end
   
   def validate
     errors.add(:title,"发贴频率过快") if self.user.activities.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1

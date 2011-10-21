@@ -276,6 +276,9 @@ class School < ActiveRecord::Base
     return result.reverse
   end
   
+  def name
+    title
+  end
   #include FusionChart
   # 绘制月活跃度变化图
   #def karma_chart

@@ -59,6 +59,9 @@ class CoDonation < ActiveRecord::Base
     
   end
 
+  def name
+    "为#{self.school.title}捐赠#{self.goods_name}"
+  end
   
   def title
     "为#{self.school.title}捐赠#{self.goods_name}"

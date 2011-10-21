@@ -22,6 +22,10 @@ class Execution < ActiveRecord::Base
   named_scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings],:order => 'created_at desc'
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
+  def name
+    name.community.title
+  end
+
   def state_tag
     {"validated"=> '已经通过!',"going"=>"已经通过!","finished"=>"已经完成",'waiting' => '在等待审核'}[state]
   end
