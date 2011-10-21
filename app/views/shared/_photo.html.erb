@@ -1,15 +1,10 @@
 <div class="photo_frame">
     <div class="photo">
-    <%if photo.school_id != nil %>
-      <%= link_to image_tag(photo.image.url, :alt => photo.title), school_url(photo.school)%>
-    <%elsif photo.activity_id != nil%>
-      <%= link_to image_tag(photo.image.url, :alt => photo.title), activity_url(photo.activity)%>
-    <%end%>
+      <%= link_to image_tag(photo.image.url, :alt => photo.title), (photo.photoable)%>
     </div>
     <div class="photo_meta">
       <div class="photo_from">
-      <%if photo.school_id%><%= link_to photo.school.title, school_url(photo.school) %><br/><%end%>
-      <%if photo.activity_id%><%= link_to photo.activity.title, activity_url(photo.activity)%><%end%>
+      <%= link_to photo.photoable.name,photo.photoable if photo.photoable %>
       </div>
     </div>
 </div>
