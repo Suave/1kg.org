@@ -112,13 +112,13 @@
           <div class="clearfix" style="margin-bottom:5px;"></div>
 
           <div id="entry">
-            <% if @activity.description_html.match '<img ' %>
+            <% if @activity.html.match '<img ' %>
               <div style="background-color:#eee;padding:4px">
                 <span class="gary_span">为了便于阅读，默认只显示活动介绍中的一张图片，<a href="#"  id="toggle_image">显示全部？</a></span>
               </div>
             <% end %>
             <div id="hide_image">
-            <%= (@activity.description_html) %>
+            <%= (@activity.html) %>
             </div>
           </div>
           <%= render :partial => "/shared/share_to", :locals => {:text => summary(@activity ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>

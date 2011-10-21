@@ -30,50 +30,33 @@ namespace :rails3 do
 
   desc "修改所有的话题照片链接"
   task :topics_photo_link => :environment do 
-  end
-
-  desc "更新话题的html"
-  task :topics_sanitize => :environment do 
-  def sanitize(text, replace = false)
-    html = text
-    if replace
-      html = text.dup
-      html.gsub!( '</p>', "\n")
-      html.gsub!( '<br/>', "\n")
-      html.gsub!(/<.*?>/, '')
-
-      url_regex = /(?#Protocol)(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?#Username:Password)(?:\w+:\w+@)?(?#Subdomains)(?:(?:[-\w]+\.)+(?#TopLevel Domains)(?:com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum|travel|[a-z]{2}))(?#Port)(?::[\d]{1,5})?(?#Directories)(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?#Query)(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?#Anchor)(?:#(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)?/i
-
-      html.gsub!(url_regex) { |url|
-        "<a href=\"#{url}\">#{url}</a>"
-      }
-
-      html.gsub!("\r\n", '<br/>')
-      html.gsub!("\r", '<br/>')
-      html.gsub!("\n", '<br/>')
+    Topic.find(:all).each do |s|
+      while s.clean_html.match(/\/photos\/(\d{4})\/(\d{4})\/.+?(jpg|JPG|png|PNG|gif|GIF)\"/) do
+        s.clean_html = s.clean_html.sub(/\/photos\/(\d{4})\/(\d{4})\/.+?(jpg|JPG|png|PNG|gif|GIF)\"/,"\/media\/photos\/#{($1+$2).to_i}\/images/max565x420.#{$3.downcase}\"")
+        printf '.'
+      end
+      s.save(false)
+      puts s.id
     end
-    
-    begin
-      html = Sanitize.clean(html, :elements => ['a', 'div', 'span', 'img', 'p', 'embed', 'br',
-        'em','strong', 'strike', 'ol', 'ul', 'li', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'tt', 'param', 'object'],
-          :attributes => {'a' => ['href', 'target', 'title'], 
-            'img' => ['src', 'alt', 'title'], 
-            'span' => ['style'],
-            'object' => ['width', 'height'],
-            'td' => ['colspan', "rowspan",'width', 'height'],
-            'tr' => ['width', 'height'],
-            'table' => ['border'],
-            'param' => ['name', 'value'],
-            'object' => ['data','type', 'width', 'height'],
-            'embed' => ['src', 'type', 'allowscriptaccess', 'allowfullscreen', 'wmode', 'width', 'height']})
-    rescue
-      html
+  end
+ 
+  desc "修改所有活动照片链接"
+  task :activities_photo_link => :environment do 
+    Activity.find(:all).each do |s|
+      while s.clean_html.match(/\/photos\/(\d{4})\/(\d{4})\/.+?(jpg|JPG|png|PNG|gif|GIF)\"/) do
+        s.clean_html = s.clean_html.sub(/\/photos\/(\d{4})\/(\d{4})\/.+?(jpg|JPG|png|PNG|gif|GIF)\"/,"\/media\/photos\/#{($1+$2).to_i}\/images/max565x420.#{$3.downcase}\"")
+        printf '.'
+      end
+      s.save(false)
+      puts s.id
     end
   end
 
-    Topic.find(:all,:conditions => {:clean_html=>nil}).each do |t|
-      t.clean_html = sanitize(t.body_html)
-      puts t.id if t.save
+  desc "活动简介字段更新"
+  task :activities_sanitize => :environment do 
+    Activity.all.each do |a|
+      a.save
+      printf '.'
     end
   end
 
