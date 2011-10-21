@@ -96,7 +96,11 @@ class ProjectsController < ApplicationController
   private
 
   def find_project
-    @project = Project.validated.find(params[:id])
+    if current_user && current_user.admin?
+      @project = Project.find(params[:id])
+    else
+      @project = Project.validated.find(params[:id])
+    end
   end
   
   def feedback_require_process
