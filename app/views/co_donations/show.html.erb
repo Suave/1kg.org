@@ -56,7 +56,7 @@
         </div>
         
         <div style="display:none;" id="upload_tip">
-        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:co_donation_id => @co_donation.id) %> 上传.
+        上传遇到问题？试试 <%= link_to '传统方式', new_photo_path(:photoable_id => @co_donation.id),:photoable_type => @co_donation.class.name) %> 上传.
         </div>  
       </div>
     </div>

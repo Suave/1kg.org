@@ -51,7 +51,7 @@
           
         <% if @execution.validated?%>
         <div class="project_info">
-          <h5>照片 <span><%= link_to '上传照片', new_photo_path(:execution_id => @execution.id)  if logged_in?%></span></h5>
+          <h5>照片 <span><%= link_to '上传照片', new_photo_path(:photoable_id => @execution.id,:photoable_type => @execution.class.name)  if logged_in?%></span></h5>
             <div class="clearfix" id="photos">
               <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
               <%= "暂无照片" if @photos.empty? %>

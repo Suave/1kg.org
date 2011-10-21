@@ -12,20 +12,21 @@ class PhotosController < ApplicationController
   end
   
   def new
-    @photo = Photo.new(:execution_id => params[:execution_id],:school_id => params[:school_id], :activity_id => params[:activity_id])
+    @photo = Photo.new(:photoable_id => params[:photoable_id],:photoable_type => params[:photoable_type])
+    @photo.photoable_id = params[:photoable_id]
+    @photo.photoable_type = params[:photoable_type]
   end
   
   def create
     @photo = current_user.photos.build(params[:photo])
-    @photo.title = '未命名图片' if @photo.title.blank?
     if @photo.save
       flash[:notice] = "照片上传成功!" 
-    end
-    respond_to do |wants|
-      if @photo.school || @photo.activity || @photo.execution
-        wants.html {redirect_to @photo.school || @photo.activity || @photo.execution}
-      else
-        wants.html {render 'insert', :layout => false}
+      respond_to do |wants|
+        if @photo.photoable.present?
+          wants.html {redirect_to url_for(@photo.photoable)}
+        else
+          wants.html {render 'insert', :layout => false}
+        end
       end
     end
   end

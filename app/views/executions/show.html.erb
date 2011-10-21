@@ -88,7 +88,7 @@
                 <%= "共有#{@photos.size}张照片" unless @photos.empty? %>
               </p>
               <% if logged_in? && @execution.user == current_user -%>
-                <%= link_to '上传照片', new_photo_path(:execution_id => @execution.id) %>
+                <%= link_to '上传照片', new_photo_path(:photoable_id => @execution.id,:photoable_type => @execution.class.name) %>
               <%end%>
             </div>     
         </div>

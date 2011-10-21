@@ -147,7 +147,7 @@
   <div class="newbox">
     <h4>相册</h4>
     <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
-    <%= link_to '上传照片', new_photo_path(:school_id => @school.id),:class=>"buttonlink" %>
+    <%= link_to '上传照片', new_photo_path(:photoable_id => @school.id,:photoable_type => @school.class.name),:class=>"buttonlink" %>
     <div class="contents clearfix" style="padding-top:16px;">
       <div id="photos" class="clearfix">
       <%= render :partial => "/photos/gallery", :collection => @photos[0..3],:locals => {:no_title => true} %>

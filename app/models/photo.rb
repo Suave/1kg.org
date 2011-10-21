@@ -27,11 +27,6 @@ class Photo < ActiveRecord::Base
   
   belongs_to :photoable,:polymorphic => true
   belongs_to :user
-  belongs_to :school,:foreign_key => "school_id"
-  belongs_to :activity,:foreign_key => "activity_id"
-  belongs_to :requirement,:foreign_key => "requirement_id"
-  belongs_to :execution,:foreign_key => "execution_id"
-  belongs_to :co_donation,:foreign_key => "co_donation_id"
   acts_as_paranoid
   
   has_attached_file :image, :styles => {:'107x80' => ["107x80#"],:'max240x180' => ["240x180>"],:max565x420 => ["565x420>"]},
@@ -39,10 +34,10 @@ class Photo < ActiveRecord::Base
                             :default_style=> :'107x80',
                             :default_url=>"/defaults/photos/:attachment/:style.png"
   
-  attr_accessible :image, :title, :description, :description_html, :school_id, :activity_id,:execution_id,:co_donation_id
+  attr_accessible :image, :title, :description, :description_html,:photoable_type,:photoable_id
   
   before_save :fill_title, :format_content
-  after_create :create_feed
+  #after_create :create_feed
   
   named_scope :with_activity, :conditions => "photos.activity_id is not null"
   named_scope :with_school, :conditions => "photos.school_id is not null"
