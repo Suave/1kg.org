@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
     @activities_hash[:online] = Activity.recent_by_category("网上活动")
     @activities_hash[:other] = Activity.recent_by_category("其他")
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
-    @photos = Photo.with_activity.find(:all,:limit => 10,:group => "activity_id",:order => "created_at desc" )
+    @photos = Photo.with_activity.find(:all,:limit => 10,:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
     @shares = Share.with_activity.find(:all,:limit => 6)
     

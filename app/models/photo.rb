@@ -39,8 +39,8 @@ class Photo < ActiveRecord::Base
   before_save :fill_title, :format_content
   #after_create :create_feed
   
-  named_scope :with_activity, :conditions => "photos.activity_id is not null"
-  named_scope :with_school, :conditions => "photos.school_id is not null"
+  named_scope :with_activity, :conditions => {:photoable_type => 'Activity'}
+  named_scope :with_school, :conditions => {:photoable_type => 'School'}
   named_scope :include, lambda {|includes| {:include => includes}}
 
   validates_presence_of :user_id
