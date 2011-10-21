@@ -54,9 +54,9 @@
       </p>
 
   
-  <p><label >活动介绍<span class="require">*</span></label> <%= error_message_on @activity, :description_html %>
+  <p><label >活动介绍<span class="require">*</span></label> <%= error_message_on @activity, :clear_html %>
   <br/>
-  <%= form.text_area :description_html, :style => 'width:640px;height:400px;border:1px dotted #ccc', :class => "mceEditor" %>
+  <%= form.text_area :clean_html, :style => 'width:640px;height:400px;border:1px dotted #ccc', :class => "mceEditor" %>
   <span class="gary_span">注意：为了不影响读者阅读，我们会默认隐藏活动介绍中的图片，读者仍可以通过提示看到它们</span>      
   </p>
 </div>

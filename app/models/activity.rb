@@ -187,11 +187,7 @@ class Activity < ActiveRecord::Base
   
   private
   def format_content
-    begin
-      self.clean_html = sanitize(self.description)
-    rescue
-      self.clean_html = self.description_html
-    end
+      self.clean_html = sanitize(self.clean_html)
   end
   
   def create_feed
