@@ -111,7 +111,7 @@ class Topic < ActiveRecord::Base
   end
   
   def html
-    self.clean_html ||= sanitize(body_html)
+    self.clean_html
   end
 
   def voted_by
@@ -126,7 +126,7 @@ class Topic < ActiveRecord::Base
   end
   
   def format_content
-    self.clean_html = sanitize(body_html)
+    self.clean_html = sanitize(clean_html)
   end
   
   def create_feed
