@@ -1,6 +1,5 @@
 class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show, :index,:total]
-  before_filter :find_board,     :except => [:edit,:total]
   before_filter :find_topic,     :except => [:index, :create,:total]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
@@ -14,24 +13,15 @@ class TopicsController < ApplicationController
   end
   
   def new
+    @topic = Topic.new(:boardable_id => params[:boardable_id],:boardable_type => params[:boardable_type])
   end
   
   def create
     @topic = Topic.new(params[:topic])
-
-      @topic.user = current_user
-      @topic.board = @board
-      @topic.save!
-      flash[:notice] = "发帖成功"
-      if @board.talkable.class == SchoolBoard
-        redirect_to school_url(@board.talkable.school_id)
-      elsif @board.talkable.class == GroupBoard
-        redirect_to group_url(@board.talkable.group_id)
-      elsif @board.talkable.class == Team
-        redirect_to team_url(@board.talkable.id)
-      else
-        redirect_to board_url(@board)
-      end
+    @topic.user = current_user
+    @topic.save!
+    flash[:notice] = "发帖成功"
+    redirect_to @topic.boardable
   end
   
   def edit
@@ -98,10 +88,6 @@ class TopicsController < ApplicationController
   
   
   private
-  def find_board
-    @board = Board.find(params[:board_id])
-  end
-  
   def find_topic
     @topic = params[:id].blank? ? Topic.new : Topic.find(params[:id])
   end

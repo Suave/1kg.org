@@ -1,19 +1,5 @@
 class SearchesController < ApplicationController
   def show
-    @page = params[:page]
-    @search = Search.new(params)
-    search_school if @search.kind == 'school'
-    search_activity if @search.kind == 'activity'
-    search_share if @search.kind == 'share'
-    search_group if @search.kind == 'group'
-    search_topic if @search.kind == 'topic'
-    search_user if @search.kind == 'user'
-    
-    if @search.kind == 'all'
-      @records = @search.records(@page)
-      @objects = @records.group_by {|r| r.class.to_s}
-    end
-    
     respond_to do |format|
       format.html
     end

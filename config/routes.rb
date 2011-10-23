@@ -129,6 +129,8 @@ ActionController::Routing::Routes.draw do |map|
     share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
+  map.resources :topics 
+
   map.resources :posts do |post|
     post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
   end
