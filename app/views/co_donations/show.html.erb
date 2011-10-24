@@ -70,6 +70,28 @@
     </div>
 
   
+    <div id="donation_counter">
+      <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
+      <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
+      
+      <% if @co_donation.done%>
+        <h4>捐赠目标已经达成！</h4>
+      <% elsif @co_donation.end_at < (Date.today - 1.day)%>
+        <h4>捐赠已经截止</h4>
+      <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>
+          <a href="#" class="actionbutton" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" >我要捐赠</a>
+          <div id="input_number" style="display:none">
+          <% form_for [@co_donation, @sub_donation] do |f| %>
+              <h4>捐赠</h4>
+              <%= f.text_field :quantity,:id => "donation_quantity"%><h4>件</h4>
+              <%= f.submit '确定',:class => "surebutton" %><br/>
+              <%= error_message_on @sub_donation, :quantity %>
+          <% end %>
+          </div>
+        
+      <% end %>
+    </div>
+
   <div id="donation_meta">
     <p><label>发起人：</label><%= link_to @co_donation.user.login, user_url(@co_donation.user.id) %> <span class="gary_span">(在<%= @co_donation.created_at.to_date %>)</span></p>
     <p><label>受益人数：</label><%= @co_donation.beneficiary_number%> 人</p>
@@ -87,27 +109,6 @@
     <% end -%>
     
   
-    <div id="donation_counter">
-      <%= progressbar @co_donation.matched_percent, :generate_css => true ,:custom_css => true%><br/>
-    <p style="position:relative;top:-28px;-top:-22px"><%= @co_donation.number%>/<%= @co_donation.goal_number%></p>
-      
-      <% if @co_donation.done%>
-        <h5>捐赠目标已经达成！</h5>
-      <% elsif @co_donation.end_at < (Date.today - 1.day)%>
-        <h5>捐赠已经截止</h5>
-      <% elsif [nil,"refused",'missed','received','proved'].include?(@state) %>
-          <a href="#" class="actionbutton" onclick="javascript:$(this).toggle();$('#input_number').toggle();return false" >我要捐赠</a>
-          <div id="input_number" style="display:none">
-          <% form_for [@co_donation, @sub_donation] do |f| %>
-              <h4>捐赠</h4>
-              <%= f.text_field :quantity,:id => "donation_quantity"%><h4>件</h4>
-              <%= f.submit '确定',:class => "surebutton" %><br/>
-              <%= error_message_on @sub_donation, :quantity %>
-          <% end %>
-          </div>
-        
-      <% end %>
-    </div>
     <div><span class="more" name="#donation_receiver">查看邮寄地址</span></div>
 </div>
     
