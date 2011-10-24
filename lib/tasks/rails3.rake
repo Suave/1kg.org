@@ -52,28 +52,87 @@ namespace :rails3 do
     end
   end
 
-  desc "活动简介字段更新"
-  task :activities_sanitize => :environment do 
-    Activity.all.each do |a|
-      a.save
-      printf '.'
+  desc "话题直接多态关联"
+  task :topics_polymorphic => :environment do
+    Topic.all.map do |t|
+      puts t.id
+      t.boardable = t.get_boardable
+      t.save
     end
   end
 
-  desc "删除无用的Model"
-  task :delete_unusage_photos => :environment do 
-    Photo.find(:all,:conditions => 'parent_id is not null').each do |p|
-      p.delete
+  desc "用多态关联分享"
+  task :polymorphic_shares => :environment do 
+    Share.find(:all).each_with_index do |p,index|
+      boardable = {'Execution' => p.execution_id,'School' => p.school_id,'Activity' => p.activity_id,'Requirement' => p.requirement_id}.map{|key,value| key.constantize.find_by_id(value) if value}.compact.first
+      if boardable
+        p.update_attributes(:boardable_id => boardable.id,:boardable_type => boardable.class.name)
+        printf '.' if p.save(false)
+      else
+        printf 'x'
+      end
     end
   end
 
-  desc "用多态关联照片"
-  task :polymorphic_photos => :environment do 
-    Photo.find(:all,:conditions => {:parent_id => nil}).each_with_index do |p,index|
-      photoable = {'Execution' => p.execution_id,'School' => p.school_id,'CoDonation' => p.co_donation_id,'Activity' => p.activity_id,'Requirement' => p.requirement_id}.map{|key,value| key.constantize.find_by_id(value) if value}.compact.first
-      if photoable
-        p.update_attributes(:photoable_id => photoable.id,:photoable_type => photoable.class.name)
-        p.save
+  desc "分享转移成话题"
+  task :shares_to_topics => :environment do 
+    Share.find(:all).each_with_index do |s,index|
+      t = Topic.new(:share_id => s.id,
+                    :clean_html => s.clean_html,
+                    :title => s.title,
+                    :user_id => s.user_id,
+                    :board_id => 0,
+                    :boardable_id => s.boardable_id,
+                    :boardable_type => s.boardable_type,
+                    :comments_count => s.comments_count,
+                    :last_modified_at => s.last_modified_at,
+                    :last_modified_by_id => s.last_modified_by_id,
+                    :last_replied_at => s.last_replied_at,
+                    :last_replied_by_id => s.last_replied_by_id
+                    )
+      if t.save
+        t.created_at = s.created_at
+        t.save
+        printf '.'
+      else
+        printf 'x'
+      end
+    end
+  end
+
+  desc "分享转移成话题"
+  task :shares_has_many => :environment do 
+    Share.find(:all).each_with_index do |s,index|
+      t = Topic.new(:share_id => s.id,
+                    :clean_html => s.clean_html,
+                    :title => s.title,
+                    :user_id => s.user_id,
+                    :board_id => 0,
+                    :boardable_id => s.boardable_id,
+                    :boardable_type => s.boardable_type,
+                    :comments_count => s.comments_count,
+                    :last_modified_at => s.last_modified_at,
+                    :last_modified_by_id => s.last_modified_by_id,
+                    :last_replied_at => s.last_replied_at,
+                    :last_replied_by_id => s.last_replied_by_id
+                    )
+      if t.save
+        t.created_at = s.created_at
+        t.save
+        printf '.'
+      else
+        printf 'x'
+      end
+    end
+  end
+
+  desc "转移权限到小组"
+  task :group_role => :environment do 
+    Role.find(:all,:conditions => ['identifier like ?','roles.board.%']).each do |r|
+      board = Board.find_by_id(r.identifier.match(/(\d.*)$/)[0].to_i)
+      if board && board.talkable_type == 'GroupBoard'
+        r.update_attribute(:identifier,"roles.group.moderator.#{board.talkable.group_id}")
+        puts board.talkable.group_id
       end
     end
   end

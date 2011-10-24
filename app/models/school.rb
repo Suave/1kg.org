@@ -44,8 +44,7 @@ class School < ActiveRecord::Base
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder, :main_photo
   acts_as_paranoid
   
-  has_one  :discussion, :class_name => "SchoolBoard", :dependent => :destroy
-  has_many :topics, :as => 'boardable',:order => "id desc", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy

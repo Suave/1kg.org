@@ -12,11 +12,11 @@
   <tr class="<%= cycle("odd", "even") %>">
     <td>
       <%= image_tag("/images/stick.gif", :alt => "置顶帖", :title => "置顶帖") if t.sticky? %>
-      <%= link_to t.title, board_topic_url(t.board, t) %>
+      <%= link_to t.title,topic_url(t) %>
     </td>
     <td><%= link_to t.user.login, user_url(t.user), :class => "link" %></td>
     <td><%= t.posts_count %></td>
-    <td><%= link_to "#{t.last_replied_datetime.to_date} by #{t.last_replied_user.login}", board_topic_url(t.board, t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>
+    <td><%= link_to "#{t.last_replied_datetime.to_date} by #{t.last_replied_user.login}", topic_url(t, :anchor => (t.last_post.id if t.last_post)), :class => "link" %></td>
   </tr>
   <% end -%>
   </tbody>

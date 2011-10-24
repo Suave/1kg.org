@@ -8,7 +8,7 @@ class SchoolsController < ApplicationController
     respond_to do |format|
       format.html {
         @map_center = Geo::DEFAULT_CENTER
-        @shares = Share.with_school.find(:all,:limit => 4)
+        @shares = Topic.with_school.find(:all,:limit => 4)
         @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
       :include => [:user, :board],
       :order => "last_replied_at desc",

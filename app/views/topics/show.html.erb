@@ -7,9 +7,6 @@
 
 <% content_for :crumb do -%>
   <p style="display:none">来自多背一公斤的话题： <%= summary(@topic ,60)-%>...</p>
-  <% if @topic.board.talkable.class == PublicBoard -%>
-    <li><%= link_to @topic.board.talkable.title, board_url(@topic.board) %></li>
-  <% end -%>
 
   <ul><li><%= @topic.title %></li></ul>
 <% end -%>
@@ -17,20 +14,12 @@
 <% content_for :sidebar do -%>
   <div class="clearfix"  style="height:20px"></div>
   <div class="contents">
-        <% if @topic.board.talkable.class == GroupBoard -%>
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.group.title}小组", group_url(@topic.board.talkable.group) %></p>
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.group.title}小组讨论区", board_url(@topic.board_id) %></p>
-        <% elsif @topic.board.talkable.class == SchoolBoard -%>  
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.school.title}", school_url(@topic.board.talkable.school) %></p>
-          <p>&raquo; <%= link_to "返回 #{@topic.board.talkable.school.title}讨论区", board_url(@topic.board_id) %></p>
-        <% else -%>
-          <p>&raquo; <%= link_to "返回讨论区", board_url(@topic.board_id) %></p>
-        <% end -%>
+    <p>&raquo; <%= link_to "返回讨论区", url_for(@boardable) %></p>
   </div>
   
   <div class="newbox">
   <div class="cleanfix" style="height:20px"></div>
-     <h3>推荐此话题的用户</h3>
+     <h4>推荐此话题的用户</h4>
       <div class="clearfix" style="height:10px"></div>
       <%= render :partial => "/shared/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
   </div>
@@ -38,8 +27,7 @@
   <% unless @others.empty?%>
   <div class="cleanfix" style="height:20px"></div>
   <div class="newbox">
-    <span class="span_title">
-      <% if @topic.board.talkable.class == GroupBoard -%>小组的<% elsif @topic.board.talkable.class == SchoolBoard -%>学校的<% end %>其他话题</span>
+    <h4>其他话题</h4>
     
     <div class="contents">
       <%= render :partial => "/shared/stopic", :collection => @others %>
@@ -75,14 +63,10 @@
           </p>
           <p id ="voting" style="margin:7px 0;">
             <span>已有 <%= @topic.votes.count -%> 人推荐这个话题 </span>
-            <% if logged_in? -%>
-              <% if current_user.voted?(@topic) -%>
-                您已推荐了
-              <% else -%>
-                <%= link_to '我要推荐', vote_board_topic_path(@topic.board, @topic), :method => 'post', :class => 'buttonlink' %>
-              <% end -%>
+            <% if current_user && current_user.voted?(@topic) -%>
+              您已推荐了
             <% else -%>
-              <%= link_to "我要推荐", new_session_path(:to => board_topic_path(@topic.board, @topic)) ,:class => "buttonlink" -%>
+              <%= link_to '我要推荐', vote_topic_path(@topic), :method => 'post', :class => 'buttonlink' %>
             <% end -%>
           </p>
         <%= render :partial => "/shared/share_to", :locals => {:text => summary(@topic ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
@@ -131,19 +115,18 @@
         <% if logged_in? -%>
         
           <% if @topic.block? -%>
-          
             <div class="contents">本帖不能回复</div>
           
           <% else -%>
-            <% if @board.talkable.class == GroupBoard && ! @board.talkable.group.members.include?(current_user) -%>
+            <% if @boardable.class == GroupBoard && ! @boardable.members.include?(current_user) -%>
               <div class="contents">只有小组成员可以回复话题，现在就<%= link_to "加入小组", join_group_url(@topic.board.talkable.group, :to => CGI.escape(request.request_uri)), :class => "buttonlink" %>。
               </div>
-            <% elsif @board.talkable.class == Team && ! @board.talkable.followers.include?(current_user)-%>
+            <% elsif @boardablet.class == Team && ! @boardable.followers.include?(current_user)-%>
               <div class="contents">只有团队的关注者可以回复话题，现在就<%= link_to "关注团队", follow_team_url(@board.talkable), :method => :post, :class => "buttonlink" %>。
               </div>
             <% else -%>
             
-              <% form_for :post, :url => board_topic_posts_url(@board, @topic, :type => "fast") do |f| -%>
+              <% form_for :post, :url => topic_posts_url(@topic,@post, :type => "fast") do |f| -%>
               <p><%= f.text_area :body_html, :cols => 60, :rows => 15 %></p>
               <p class="submit"><%= submit_tag "发 布" %></p>
               <% end -%>

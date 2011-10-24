@@ -1,12 +1,8 @@
 class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show, :index,:total]
-  before_filter :find_topic,     :except => [:index, :create,:total]
+  before_filter :find_topic,     :except => [:index,:new,:create,:total]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
-  
-  def index
-    @topics = @board.topics.paginate(:page => params[:page] || 1, :per_page => 20)
-  end
   
   def total
     @topics = Topic.find(:all,:limit => 100,:order => "last_replied_at desc").paginate(:page => params[:page] || 1, :per_page => 10)
@@ -19,9 +15,13 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.user = current_user
-    @topic.save!
-    flash[:notice] = "发帖成功"
-    redirect_to @topic.boardable
+    if @topic.save
+      flash[:notice] = "发帖成功"
+      redirect_to url_for(@topic.boardable)
+    else
+      flash[:notice] = "发帖成功"
+      render 'new'
+    end
   end
   
   def edit
@@ -65,8 +65,9 @@ class TopicsController < ApplicationController
         wants.html {redirect_to root_url}
       else
         @posts = @topic.posts.available
+        @boardable = @topic.boardable
         @post  = Post.new
-        @others  = @topic.board.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
+        @others  = @topic.boardable.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
         wants.html
       end
     end
@@ -89,7 +90,7 @@ class TopicsController < ApplicationController
   
   private
   def find_topic
-    @topic = params[:id].blank? ? Topic.new : Topic.find(params[:id])
+    @topic = Topic.find(params[:id])
   end
   
   

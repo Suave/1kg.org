@@ -1,12 +1,5 @@
 <div class="topic">
-  <%= main_photo_thumb(topic.board.talkable.school) if topic.board.talkable_type == "SchoolBoard"  -%>
-  <div class="topictitle">
-    <% if topic.board.talkable_type == "SchoolBoard" %>
-    <%= link_to topic.board.talkable.school.title,school_url(topic.board.talkable.school) %> 的话题 <%= link_to short_title(topic), board_topic_url(topic.board,topic) %>
-    <% elsif topic.board.talkable_type == "GroupBoard" %>
-    <%= link_to "#{topic.board.talkable.group.title}小组",group_url(topic.board.talkable.group) %> 的话题 <%= link_to h(topic.title), board_topic_url(topic.board,topic) %>
-    <% end %>
-  </div>
+    <h6><%= link_to h(topic.title), topic_url(topic) %></h6>
     <div class="summary">“<%= summary(topic,38) %>……”</div>
     <% if topic.posts_count == 0%>
     <small style="color:#999"> <%= link_to topic.user.login, user_url(topic.user) %> 写于 <%= topic.created_at.to_date %> </small>

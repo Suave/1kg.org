@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :members,     :through => :memberships, :source => :user
   
-  has_one  :discussion,  :class_name => "GroupBoard", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :dependent => :destroy
   
   before_save  :format_content
   after_create :create_discussion
@@ -45,6 +45,10 @@ class Group < ActiveRecord::Base
   
   def joined?(user)
     user.class == User && members.include?(user)
+  end
+
+  def has_moderator?(user)
+    user.has_role?("roles.group.moderator.#{self.id}")
   end
   
   def managed_by?(user)

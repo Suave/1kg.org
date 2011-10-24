@@ -77,11 +77,10 @@ class GroupsController < ApplicationController
   end
   
   def show
-    @board = @group.discussion.board
-    @topics = @board.topics.find(:all,
-                              :order => "updated_at desc",
-                              :include => [:user],
-                              :limit => 10)
+    @topics = @group.topics.find(:all,
+                            :order => "created_at desc",
+                            :include => [:user],
+                            :limit => 10)
   end
   
   def members
@@ -103,7 +102,6 @@ class GroupsController < ApplicationController
       flash[:notice] = "你是小组创建人, 不能退出该组"
     elsif @group.joined?(current_user)
       @group.members.delete current_user
-      
       current_user.feed_items.create(:user_id => current_user.id, :category => 'quit_group',
                   :item_id => @group.id, :item_type => 'Group')
     else
@@ -112,27 +110,15 @@ class GroupsController < ApplicationController
     redirect_to CGI.unescape(params[:to] || group_url(@group))
   end
 
-  def new_topic
-    unless @group.members.include?(current_user)
-      flash[:notice] = "要先加入小组，才能发起话题"
-      redirect_to group_url(@group)
-    else
-      @board = @group.discussion.board
-      @topic = Topic.new
-      render :template => "/topics/new"
-    end
-  end
-  
   def manage
-    @board = @group.discussion.board
-    @moderators = User.moderators_of(@board)
+    @moderators = User.moderators_of(@group)
     @members = @group.members - @moderators
   end
   
   def moderator
     @board = @group.discussion.board
-    @moderators = User.moderators_of(@board)
-    moderator_role = Role.find_by_identifier("roles.board.moderator.#{@board.id}")
+    @moderators = User.moderators_of(@group)
+    moderator_role = Role.find_by_identifier("roles.group.moderator.#{@board.id}")
     
     if params[:add]
       user = User.find(params[:add])

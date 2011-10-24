@@ -28,7 +28,7 @@ class Requirement < ActiveRecord::Base
   has_many :donations, :foreign_key => "buck_id", :dependent => :destroy
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
-  has_many :shares, :order => "id desc", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
   
   validates_presence_of :type_id, :school_id,:message => "必须选择一所学校"
   validates_presence_of :apply_reason,:message => "必须填写申请理由"

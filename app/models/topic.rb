@@ -27,6 +27,7 @@ class Topic < ActiveRecord::Base
   acts_as_voteable
   acts_as_taggable
   
+  belongs_to :boardable, :polymorphic => true, :dependent => :delete
   belongs_to :board, :counter_cache => 'topics_count'
   belongs_to :boardable, :polymorphic => true
   belongs_to :user
@@ -45,22 +46,19 @@ class Topic < ActiveRecord::Base
       :order => "last_replied_at desc",
       :limit => limit}
   }
+  named_scope :with_activity, :order => "created_at desc, comments_count desc",
+                              :conditions => {:boardable_type => 'Activity'},
+                              :include => [:user]
+  named_scope :with_school, :order => "created_at desc, comments_count desc",
+                              :conditions => {:boardable_type => 'School'},
+                              :include => [:user]
   
-  validates_presence_of :title
 
-  def validate
-    errors.add(:title,"发贴频率过快") if self.user.topics.find(:all,:limit=>2,:conditions => ["created_at > ?",1.minute.ago]).size > 1
-    if self.user.topics.size > 0 && (self.user.created_at > 1.day.ago)
-      errors.add(:title,"新用户只限每天发一篇")
-    end
-    if /小姐|发票/.match(title)
-      errors.add(:title,"敏感词")
-    end
-  end
+  validates_presence_of :title
   
-  before_save :format_content
-  before_create :set_last_reply
-  after_create :create_feed
+  #before_save :format_content
+  #before_create :set_last_reply
+  #after_create :create_feed
   
   define_index do
     # fields
@@ -88,7 +86,7 @@ class Topic < ActiveRecord::Base
   end
   
   def moderatable_by?(user)
-    user.class == User && (self.board.has_moderator?(user) || user.admin?)
+    user.class == User && (self.boardable.has_moderator?(user) || user.admin?)
   end
   
   def editable_by?(user)
@@ -120,7 +118,21 @@ class Topic < ActiveRecord::Base
     self.votes[0..2].map(&:user)
   end
   
-  private
+  def get_boardable
+    case board.talkable.class.name
+    when PublicBoard.name
+      PublicBoard.find(board.talkable.id)
+    when SchoolBoard.name
+      School.find(board.talkable.school_id)
+    when ActivityBoard.name
+      Activity.find(board.talkable.activity_id)
+    when GroupBoard.name
+      Group.find(board.talkable.group_id)
+    when Team
+      Team.find(board.talkable.id)
+    end
+  end
+ private
   
   def set_last_reply
     self.last_replied_at = Time.now

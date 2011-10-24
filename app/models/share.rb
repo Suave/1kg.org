@@ -12,19 +12,6 @@ class Share < ActiveRecord::Base
   
   validates_presence_of :title,  :message => "请起个题目"
   
-  
-  def validate
-    if self.user.shares.find(:all,:limit=>2,:conditions => ["created_at > ?",5.minute.ago]).size > 1
-      errors.add(:title,"发贴频率过快")
-    end
-    if self.user.shares.size > 0 && (self.user.created_at > 1.day.ago)
-      errors.add(:title,"新用户只限每天发一篇")
-    end
-    if /小姐|发票/.match(title)
-      errors.add(:title,"敏感词")
-    end
-  end  
-  
   acts_as_voteable
   acts_as_taggable
   acts_as_paranoid

@@ -174,7 +174,7 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "该活动已删除"
       redirect_to activities_url
     end
-    @shares = @activity.shares
+    @shares = @activity.topics
     @photos = @activity.photos.find(:all, :order => "updated_at desc",:include => [:user, :school, :activity])
     @comments = @activity.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new

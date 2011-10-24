@@ -446,23 +446,6 @@ ActiveRecord::Schema.define() do
     t.text    "description_html"
   end
   
-  create_table "school_guides", :force => true do |t|
-    t.string  "title"
-    t.text    "clean_html"
-    t.text    "content"
-    t.integer "user_id"
-    t.integer "school_id"
-    t.integer "hits", :default => 0
-    t.integer  "comments_count",           :default => 0,     :null => false
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-    t.datetime "last_replied_at"
-    t.integer  "last_replied_by_id"
-    t.datetime "deleted_at"
-    
-    t.timestamps
-  end
-
   create_table "villages", :force => true do |t|
     t.integer  "user_id",                                :null => false
     t.datetime "created_at"
@@ -494,27 +477,6 @@ ActiveRecord::Schema.define() do
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
     t.integer  "last_month_karma",    :default => 0
-  end
-
-  create_table "shares", :force => true do |t|
-    t.string   "title",                                       :null => false
-    t.integer  "geo_id",                                      :null => false
-    t.text     "clean_html"
-    t.integer  "activity_id"
-    t.integer  "school_id"
-    t.integer  "requirement_id"
-    t.integer  "execution_id"
-    t.integer  "user_id",                                     :null => false
-    t.integer  "hits",                     :default => 0,     :null => false
-    t.integer  "comments_count",           :default => 0,     :null => false
-    t.boolean  "hidden",                   :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-    t.datetime "last_replied_at"
-    t.datetime "deleted_at"    
-    t.integer  "last_replied_by_id"
   end
 
   create_table "static_permissions", :force => true do |t|
@@ -602,7 +564,6 @@ ActiveRecord::Schema.define() do
     t.datetime "matched_at"
     t.text     "comment_html"
     t.text     "comment"
-    
     t.boolean  "auto_fill"
   end
 
@@ -676,7 +637,9 @@ ActiveRecord::Schema.define() do
   end
 
   create_table "topics", :force => true do |t|
-    t.integer  "board_id",                                              :null => false
+    t.integer  "board_id"
+    t.integer  "boardable_id"
+    t.string   "boardable_type",                     :limit => 20
     t.integer  "user_id",                                               :null => false
     t.string   "title",               :limit => 200,                    :null => false
     t.text     "clean_html"
@@ -690,8 +653,34 @@ ActiveRecord::Schema.define() do
     t.datetime "deleted_at"
     t.boolean  "block",                              :default => false
     t.integer  "posts_count",                        :default => 0
+    t.integer  "comments_count",                        :default => 0
+    t.integer  "share_id"
     t.boolean  "sticky",                             :default => false
   end
+
+  create_table "shares", :force => true do |t|
+    t.string   "title",                                       :null => false
+    t.text     "clean_html"
+    t.integer  "activity_id"
+    t.integer  "school_id"
+    t.integer  "requirement_id"
+    t.integer  "execution_id"
+    t.integer  "boardable_id"
+    t.string   "boardable_type",                     :limit => 20
+    t.integer  "user_id",                                     :null => false
+    t.integer  "hits",                     :default => 0,     :null => false
+    t.integer  "comments_count",           :default => 0,     :null => false
+    t.boolean  "hidden",                   :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "last_modified_at"
+    t.integer  "last_modified_by_id"
+    t.datetime "last_replied_at"
+    t.integer  "last_replied_by_id"
+    t.datetime "deleted_at"    
+  end
+
+
 
   create_table "users", :force => true do |t|
     t.string   "login"
@@ -728,32 +717,6 @@ ActiveRecord::Schema.define() do
     t.datetime "wanna_at"
     t.string   "notes",      :limit => 42
     t.datetime "deleted_at"
-  end
-  
-  create_table "vendors", :force => true do |t|
-    t.string    "slug" # 厂商唯一标示符
-    t.string    "title" # 厂商名字
-    t.string    "sign_key" # 唯一密钥，双方要保密
-    t.datetime  "created_at"
-    t.datetime  "updated_at"
-    # TODO: 厂商的LOGO，介绍等内容
-  end
-
-  create_table "searches", :force => true do |t|
-    t.string  :q
-    t.string  :title
-    t.string  :city
-    t.string  :address
-    t.string  :need
-    t.string  :kind
-    t.integer :user_id
-    t.string  :category
-    t.string  :on
-    t.string  :include_over
-    t.string  :school_title
-    t.string  :content
-    
-    t.timestamps
   end
   
   create_table :votes, :force => true do |t|

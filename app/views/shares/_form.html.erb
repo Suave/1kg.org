@@ -1,18 +1,8 @@
-<% 
-activities = @share.new_record? ? current_user.participated_activities : (@share.user.participated_activities)
-schools = @share.new_record? ? current_user.visited_schools : (@share.user.visited_schools)
-%>
-
 
 <p><label class="label">帖子标题<span style="color:red;">＊</span></label>
 <%= form.text_field :title, :size => 40, :class => "formText" %> <%= error_message_on @share, :title %>
 </p>
 
-<%if @geo.nil?%>
-  <input style="display:none" type="text" name="share[geo_id]" value="<%= @share.geo_id ? @share.geo_id.to_s : 0%>"/>
-<%else%>
-  <input style="display:none" type="text" name="share[geo_id]" value="<%=@geo.id%>"/>
-<%end%>
 
   <p><label class="label">相关活动　</label>
   <%if @activity.nil?%>

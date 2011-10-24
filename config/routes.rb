@@ -25,7 +25,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
-  map.topics "/topics/total",:controller => "topics", :action => "total"
 
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
@@ -129,7 +128,9 @@ ActionController::Routing::Routes.draw do |map|
     share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
-  map.resources :topics 
+  map.resources :topics,  :member => { :vote => :post } do |topic|
+    topic.resources :posts
+  end
 
   map.resources :posts do |post|
     post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}

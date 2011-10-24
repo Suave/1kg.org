@@ -270,18 +270,17 @@ class User < ActiveRecord::Base
 
   # find school, city and board moderators
   def self.moderators_of(klass)
-    klass_id = ((klass.class == Board || klass.class == School || klass.class == Geo) ? klass.id : klass)
+    klass_id = ((klass.class == Group || klass.class == School || klass.class == Geo) ? klass.id : klass)
     role = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}")
     return role.nil? ? [] : search_role_members(role.id)
   end
 
   def joined_groups_topics
-    board_ids = self.joined_groups.map{|g| g.discussion.board.id}
-    return Topic.in_boards_of(board_ids)
+    Topic.find(:all,:conditions => {:boardable_id => self.joined_groups.map(&:id), :boardable_type => "Group"})
   end
   
   def recent_joined_groups_topics
-    joined_groups_topics.find :all, :order => "last_replied_at desc", :limit => 20
+    Topic.find(:all,:conditions => {:boardable_id => self.joined_groups.map(&:id), :boardable_type => "Group"}, :order => "last_replied_at desc", :limit => 20)
   end
   
   def voted?(obj)
