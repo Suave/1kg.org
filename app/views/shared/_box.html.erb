@@ -1,10 +1,6 @@
 <div class="onekg_box">
-  <div class="project_image_frame">
-    <%= link_to (image_tag (box.image(:box_avatar)),:class => "project_image"),box_path(box) %>
+  <div class ="onekg_box_title">
+    <%= link_to box.name,box_path(box) %>
   </div>
-
-  <div style="margin-left:86px">
-    <h4><%= link_to box.name,box_path(box) %></h4>
-    <p><%= short_text(box.intro,46) %></p>
-  </div>
+  <%= link_to(image_tag(box.image.url),box_path(box),:class => 'onekg_box_image')%>
 </div>

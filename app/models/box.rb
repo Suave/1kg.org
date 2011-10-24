@@ -1,7 +1,10 @@
 class Box < ActiveRecord::Base
   belongs_to :user
-  has_attached_file :image, :styles => {:box_avatar => "72x72#", :box_topic => "140x140#" }
-  has_attached_file :guide
+  has_attached_file :guide, :url=>"/media/boxes/:id/:attachment/:style.:extension"
+  has_attached_file :image, :styles => {:'280x160' => ["280x160#"]},
+                            :url=>"/media/boxes/:id/:attachment/:style.:extension",
+                            :default_style=> :'280x160'
+  
   
   named_scope :available,     :conditions => {:available => true}
   has_many :bringings, :dependent => :destroy 
