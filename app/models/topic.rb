@@ -55,7 +55,8 @@ class Topic < ActiveRecord::Base
   
 
   validates_presence_of :title
-  
+  validates_uniqueness_of :share_id
+
   #before_save :format_content
   #before_create :set_last_reply
   #after_create :create_feed

@@ -37,6 +37,8 @@ class Group < ActiveRecord::Base
   validates_presence_of :title, :message => "请填写小组名",:within => 1..20
   validates_presence_of :geo_id, :message => "请选择小组所在城市"
   
+  acts_as_manageable
+
   define_index do
     # fields
     indexes title

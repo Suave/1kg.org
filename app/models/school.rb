@@ -42,7 +42,10 @@ class School < ActiveRecord::Base
   has_many   :snapshots, :class_name => "SchoolSnapshot"
   
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder, :main_photo
+
   acts_as_paranoid
+  acts_as_ownable
+  acts_as_manageable
   
   has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy

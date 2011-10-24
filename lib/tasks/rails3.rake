@@ -126,13 +126,29 @@ namespace :rails3 do
     end
   end
 
-  desc "转移权限到小组"
-  task :group_role => :environment do 
-    Role.find(:all,:conditions => ['identifier like ?','roles.board.%']).each do |r|
-      board = Board.find_by_id(r.identifier.match(/(\d.*)$/)[0].to_i)
-      if board && board.talkable_type == 'GroupBoard'
-        r.update_attribute(:identifier,"roles.group.moderator.#{board.talkable.group_id}")
-        puts board.talkable.group_id
+  desc "转移权限到management"
+  task :rebuild_role => :environment do 
+    RolesUser.all.each do |r|
+      if r.role
+        if r.role.id == 1
+          User.find(r.user_id).update_attribute(:is_admin,true)
+            printf 'a'
+        elsif r.role.id == 2
+
+        else
+          manageable_id = r.role.identifier.match(/(\d.*)$/)[1].to_i
+          case r.role.identifier.match(/^roles.(.*).moderator/)[1]
+          when 'school'
+            Management.new(:user_id => r.user_id,:manageable_type => 'School',:manageable_id => manageable_id).save
+            printf 's'
+          when 'board'
+             board = Board.find_by_id(manageable_id)
+             if board && board.talkable_type == "GroupBoard" && board.talkable.group
+                Management.new(:user_id => r.user_id,:manageable_type => 'Group',:manageable_id => board.talkable.group.save).save
+                printf 'g'
+             end
+          end
+        end
       end
     end
   end

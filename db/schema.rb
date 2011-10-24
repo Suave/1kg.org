@@ -330,6 +330,12 @@ ActiveRecord::Schema.define() do
     t.string   "description"
   end
 
+  create_table "managements", :force => true do |t|
+    t.integer "manageable_id",        :null => false
+    t.string  "manageable_type",      :null => false
+    t.integer "user_id",              :null => false
+  end
+
   add_index "roles", ["identifier"], :name => "index_roles_on_identifier"
 
   create_table "roles_static_permissions", :id => false, :force => true do |t|
@@ -694,12 +700,12 @@ ActiveRecord::Schema.define() do
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
+    t.boolean  "is_admin"
     t.datetime "deleted_at"
     t.string   "avatar"
     t.integer  "geo_id"
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
-    
     t.integer  "posts_count"
     t.integer  "topics_count"
     t.integer  "shares_count"
