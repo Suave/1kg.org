@@ -1398,3 +1398,5 @@ a.progressCancel:hover {
 
 #apply{background:url('/images/musicclassroom/button.png');display:block;width:174px;height:37px}
 #apply:hover{background-position:0 -37px;}
+.image-button{display:block;width:112px;height:24px;float:left;margin-right:10px}
+.image-button:hover{background-position:0 -24px;}
