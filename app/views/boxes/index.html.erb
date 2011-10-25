@@ -26,14 +26,14 @@
 </div>
 
 <div class="newbox">
-  <h3>使用照片：</h3>
-  <%= render :partial => "/photos/gallery", :collection => @photos%>
+  <h3>使用反馈：</h3>
+  <%= render :partial => "/shared/share", :collection => @shares %>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
 <div class="newbox">
-  <h3>使用反馈：</h3>
-  <%= render :partial => "/shared/share", :collection => @shares %>
+  <h3>使用照片：</h3>
+  <%= render :partial => "/photos/gallery", :collection => @photos%>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 

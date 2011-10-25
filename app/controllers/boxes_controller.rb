@@ -6,8 +6,8 @@ class BoxesController < ApplicationController
     @boxes = Box.available
     @executions = Execution.validated_with_box
     @my_executions  = current_user.executions.with_box if logged_in?
-    @shares = @executions.map(&:shares).flatten
-    @photos = @executions.map(&:photos).flatten
+    @shares = @executions.map(&:shares)[0..7].flatten
+    @photos = @executions.map(&:photos)[0..7].flatten
     @executions = @executions[0..7]
   end
 
