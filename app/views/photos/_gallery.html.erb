@@ -1,5 +1,5 @@
 <dl class="obp">
-  <dt><%= link_to image_tag(image_path(gallery.image.url), :alt => gallery.title), gallery.image.url(:max565x420), 
+  <dt><%= link_to image_tag(image_path(gallery.image.url), :alt => gallery.title), photo_url(gallery), 
         :rel => "prettyPhoto[gallery]",:title => gallery.title %></dt>
   <% unless defined?(no_title)%>
   <dd>

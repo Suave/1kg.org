@@ -6,9 +6,10 @@ class BoxesController < ApplicationController
     @boxes = Box.available
     @executions = Execution.validated_with_box
     @my_executions  = current_user.executions.with_box if logged_in?
-    @shares = @executions.map(&:shares).flatten
-    @photos = @executions.map(&:photos).flatten
-    @executions = @executions[0..7]
+    @shares = @executions.map(&:shares).flatten[0..3]
+    @photos = @executions.map(&:photos).flatten[0..3]
+    @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
+    @board = @group.discussion.board
   end
 
   def apply
@@ -40,6 +41,21 @@ class BoxesController < ApplicationController
     end
   end
 
+  def feedback
+    @executions = Execution.validated_with_box.paginate :page => params[:page] || 1, :per_page => 10
+    @feedback_type = {'photo'=> 'photo','share' => 'share'}[params[:feedback_type]]
+  end
+
+  def shares
+    @executions = Execution.validated_with_box
+    @shares = @executions.map(&:shares).flatten.paginate :page => params[:page] || 1, :per_page => 20
+  end
+
+  def photos
+    @executions = Execution.validated_with_box
+    @photos = @executions.map(&:photos).flatten.paginate :page => params[:page] || 1, :per_page => 20
+  end
+
   def execution
     @execution = Execution.find(params[:id])
     @photos = @execution.photos
@@ -57,5 +73,4 @@ class BoxesController < ApplicationController
     @boxes = Box.available - [@box]
     @comments = @box.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
   end
-
 end

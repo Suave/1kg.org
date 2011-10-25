@@ -157,7 +157,13 @@ ActionController::Routing::Routes.draw do |map|
                             :submitted => :get}
   
   map.resources :photos
-  map.resources :boxes, :collection => {:apply => :get, :submit => :post,:execution => :get,:executions => :get} do |box|
+  map.resources :boxes, :collection => {:apply => :get,
+      :submit => :post,
+      :feedback => :get,
+      :shares => :get,
+      :photos => :get,
+      :execution => :get,
+      :executions => :get} do |box|
     box.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Box'}
   end
 

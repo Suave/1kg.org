@@ -23,7 +23,7 @@ class Execution < ActiveRecord::Base
   named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
   def name
-    name.community.title
+    "#{self.community.title}的项目申请"
   end
 
   def state_tag

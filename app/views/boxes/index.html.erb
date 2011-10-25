@@ -1,8 +1,12 @@
 <% @page_title = '一公斤盒子' %>
 <% content_for :fullsize do -%>
-  <%= image_tag('/images/box_banner.jpg',:style => 'margin:10px')%>
-  <div style="position:absolute;top:200px;left:740px;">
-    <%= link_to ' ',apply_boxes_path,:id => 'apply'%>
+  <%= image_tag('/images/boxes/box_banner.jpg',:style => 'margin:10px')%>
+  <div style="position:absolute;top:170px;left:740px;text-align:right">
+    <%= link_to ' ',apply_boxes_path,:id => 'apply' %>
+    <p style="color:#fff;font-weight:bold">
+      共有 <%= link_to "#{@executions.count}份申请",executions_boxes_path,:style => 'color:#9d4' %> 已通过
+      <%= link_to "立即查看",executions_boxes_path,:style => 'color:#9d4' %> 
+    </p>
   </div>
 <% end %>
 
@@ -10,7 +14,6 @@
   <h3>关于一公斤盒子：</h3>
   <p>一个一公斤盒子能让一个志愿者或老师和36个学生展开一节主题课。 盒子里的内容包括这节课所需的材料和一个简单易懂的使用指南，让每个人都可以轻松的把课堂变得丰富多彩。使用一公斤盒子的课堂强调的是给孩子们提供自我发现和相互学习的空间。</p>
   <p>如果你是一名活跃在一线的志愿者或老师，只要填写一份表格说明你的计划并承诺反馈，就可以申请一公斤盒子。我们将把盒子邮寄到你注明的地址。一公斤盒子项目受到社会各界爱心资助而成长，获得支持的志愿者和老师有向公众提供使用反馈的义务。</p>
-  <p>同时，我们公开邀请大家来 <%= link_to '一公斤盒子设计小组','http://www.1kg.org/groups/1236'%> 参与一公斤盒子的设计。</p>
   <p>
     更多精彩在一公斤盒子的：
     <%= link_to '官方微博','http://weibo.com/2431048800',:target => '_blank'%>　
@@ -25,16 +28,11 @@
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
-<div class="newbox">
-  <h3>使用照片：</h3>
-  <%= render :partial => "/photos/gallery", :collection => @photos%>
-  <div class="cleanfix" style="clear:both;"></div>
-</div>
-
-<div class="newbox">
-  <h3>使用反馈：</h3>
-  <%= render :partial => "/shared/share", :collection => @shares %>
-  <div class="cleanfix" style="clear:both;"></div>
+<div class="newbox" >
+  <h5>盒子设计讨论区</h5>
+  <%= render :partial => "/topics/topics", :locals => { :board => @board, 
+                                                        :topics => @board.latest_topics } %>
+  <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
 </div>
 
 <% content_for :sidebar do -%>
@@ -46,10 +44,19 @@
   <% end %>
 
   <div class="newbox">
-    <h3>大家的申请:</h3>
-    <%= render :partial => "/shared/execution", :collection => @executions %>
-    <%= link_to '查看更多申请' ,executions_boxes_path%>
+    <h3>最新反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'share'),:class => 'buttonlink'%></h3>
+    <%= render :partial => "/shared/share", :collection => @shares %>
+    <div class="cleanfix" style="clear:both;"></div>
+    <%= link_to '查看全部',shares_boxes_path  %>
   </div>
+
+  <div class="newbox">
+    <h3>活动相册： <%= link_to '添加照片',feedback_boxes_path(:feedback_type => 'photo'),:class => 'buttonlink'%></h3> 
+    <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
+    <div class="cleanfix" style="clear:both;"></div>
+    <%= link_to '查看全部',photos_boxes_path %>
+  </div>
+
 
   <div class="newbox">
     <h3>常见问题FAQ:</h3>
