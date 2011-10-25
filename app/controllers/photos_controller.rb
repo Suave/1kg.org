@@ -42,8 +42,9 @@ class PhotosController < ApplicationController
   end
   
   def update
-    @photo = current_user.photos.find(params[:id])
+    @photo = Photo.find(params[:id])
     @photo.update_attributes(params[:photo])
+    @photo.save if photo.editable_by?(current_user)
     render :text => 'Success'
   end
   
