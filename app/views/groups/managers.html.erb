@@ -11,10 +11,10 @@
     <div class="boxInner">
       <h3>现任组长</h3>
       <div class="contents clearfix">
-        <% @moderators.each do |c| %>
+        <% @managements.each do |m| %>
         <dl class="obu">
-          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
-          <dd><%= link_to c.login, user_url(c) %><br /> (<%= link_to "X", moderator_group_url(@group, :remove => c.id), :method => :put, :title => "取消组长资格" %>)</dd>
+          <dt><%= link_to avatar_for(m.user, "large"), user_url(m.user) %></dt>
+          <dd><%= link_to m.user.login, user_url(m.user) %><br /> (<%= link_to "X", management_path(m), :method => :delete, :confirm => "确定取消组长资格吗" %>)</dd>
         </dl>
         <% end -%>
       </div>
@@ -30,7 +30,9 @@
         <% @members.each do |c| %>
         <dl class="obu">
           <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
-          <dd><%= link_to c.login, user_url(c) %><br /> (<%= link_to "加为组长", moderator_group_url(@group, :add => c.id), :method => :put, :title => "加为组长"%>)</dd>
+          <dd><%= link_to c.login, user_url(c) %><br />
+          <%= link_to "加为组长", managements_path(:manageable_type => 'Group',:manageable_id => @group.id,:user_id => c.id), :method => :post %>
+          </dd>
         </dl>
         <% end -%>
       </div>

@@ -110,9 +110,10 @@ class GroupsController < ApplicationController
     redirect_to CGI.unescape(params[:to] || group_url(@group))
   end
 
-  def manage
-    @moderators = User.moderators_of(@group)
-    @members = @group.members - @moderators
+  def managers
+    @managements = @group.managements
+    @managers = @group.managers
+    @members = @group.members - @managers
   end
   
   def moderator

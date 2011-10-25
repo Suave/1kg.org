@@ -6,6 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requirements, :member => {}  
   map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
+  map.resources :managements
   map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
                                             :admin_state => :put}
@@ -17,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   
   map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
+  
   
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
@@ -70,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
                                       :photos => :get,
                                       :apply => :get,
                                       :shares => :get,
-                                      :moderator => :get,
+                                      :managers => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
@@ -80,16 +82,15 @@ ActionController::Routing::Routes.draw do |map|
                                       :novisited => :put,
                                       :intro =>  :get,
                                       :marked => :put,
-                                      :manage => :put,
                                       :sent_apply => :post},
-                          :collection => { :unconfirm => :get, 
-                                           :archives => :get, 
-                                           :cits => :get,
-                                           :check => :get,
-                                           :total_shares => :get,
-                                           :comments => :get
-                                          } do |school|
-    school.resources :visits
+                      :collection => { :unconfirm => :get, 
+                                       :archives => :get, 
+                                       :cits => :get,
+                                       :check => :get,
+                                       :total_shares => :get,
+                                       :comments => :get
+                                      } do |school|
+school.resources :visits
     
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
@@ -149,8 +150,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
-                                      :manage => :get, 
-                                      :moderator => :put,
+                                      :managers => :get, 
                                       :invite => :get,
                                       :send_invitation => :put,
                                       :members => :get

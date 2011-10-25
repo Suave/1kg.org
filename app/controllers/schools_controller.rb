@@ -1,8 +1,8 @@
 require 'json'
 class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers,:intro]
-  before_filter :find_school, :except => [:index,:new,:create,:comments,:check,:total_shares]
-  before_filter :check_permission, :only => [:update,:destroy,:moderator,:manage,:edit]
+  before_filter :find_school,    :except => [:index,:new,:create,:comments,:check,:total_shares]
+  before_filter :check_permission, :only => [:update,:destroy,:managers,:edit]
 
   def index
     respond_to do |format|
@@ -268,7 +268,7 @@ class SchoolsController < ApplicationController
     @finder  = @school.finder
     @basic = @school.basic
     @followers = @school.interestings
-    @moderators = User.moderators_of(@school)
+    @managers = @school.managers
     @topics = @school.topics.find(:all, :order => "created_at desc", :limit => 5,:include => [:user,:tags])
     @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 6,:include => [:user])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
@@ -391,9 +391,9 @@ class SchoolsController < ApplicationController
   end
   
   # 学校管理员列表
-  def moderator
-    @moderators = User.moderators_of @school
-    @candidates = @school.visitors - @moderators
+  def managers
+    @managements = @school.managements 
+    @candidates = @school.visitors - @managements.map(&:user)
   end
   
   def manage

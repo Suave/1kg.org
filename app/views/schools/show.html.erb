@@ -157,8 +157,8 @@
   
 <% content_for :sidebar do -%>
     
-    <% if logged_in? && current_user.school_moderator? -%>
-    <div id="admins">你是学校管理员，可以使用以下功能：<br/>
+    <% if logged_in? && current_user.is_admin -%>
+    <div id="admins">你是管理员，可以使用以下功能：<br/>
       <% if @school.validated? -%>
         <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put ,:class => "adminbutton" %>
       <% else -%>
@@ -166,21 +166,21 @@
       <% end -%>  
         <%= link_to "更新信息", edit_school_url(@school) ,:class => "adminbutton"%>
         <%= link_to "删除学校", school_url(@school), :confirm => "确定删除这所学校?", :method => :delete ,:class => "adminbutton"%>
-        <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
+        <%= link_to "添加大使", managers_school_url(@school), :class => "adminbutton"%>
     </div>
     <% end -%>
-    <% if logged_in? && @moderators.include?(current_user)&& !current_user.school_moderator?-%>
-    <div id="admins">你是学校大使，可以使用以下功能：<br/>
-      <%= link_to "更新信息", edit_school_url(@school) ,:class => "adminbutton"%>
-      <%= link_to "添加大使", moderator_school_url(@school), :class => "adminbutton"%>
-    </div>
+    <% if logged_in? && @school.managed_by?(current_user) %>
+      <div id="admins">你是学校大使，可以使用以下功能：<br/>
+        <%= link_to "更新信息", edit_school_url(@school) ,:class => "adminbutton"%>
+        <%= link_to "添加大使", managers_school_url(@school), :class => "adminbutton"%>
+      </div>
     <% end -%>  
 
   <div class="school_sidebar">
       <div class="title_line"><h4>学校大使</h4><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.school_moderator?%></div>
       <div class="sidebar_inter">
-          <% unless @moderators.blank? %>
-          <%= render :partial => "/shared/user_list", :locals => {:users => @moderators} %>
+          <% unless @managers.blank? %>
+          <%= render :partial => "/shared/user_list", :locals => {:users => @managers} %>
           <%else%>
                     学校还没有学校大使
           <%end%>

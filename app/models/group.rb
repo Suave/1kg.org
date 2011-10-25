@@ -31,7 +31,7 @@ class Group < ActiveRecord::Base
   has_many :topics, :as => 'boardable', :dependent => :destroy
   
   before_save  :format_content
-  after_create :create_discussion
+  after_create :init_membership
   after_create :create_feed
   
   validates_presence_of :title, :message => "请填写小组名",:within => 1..20
@@ -49,17 +49,6 @@ class Group < ActiveRecord::Base
     user.class == User && members.include?(user)
   end
 
-  def has_moderator?(user)
-    user.has_role?("roles.group.moderator.#{self.id}")
-  end
-  
-  def managed_by?(user)
-    user.class == User &&
-                  (
-                    user.admin? || user.has_role?("roles.board.moderator.#{self.discussion.board.id}")
-                  )
-  end
-  
   class << self
     def most_members
       find(:all).sort!{ |x,y| y.memberships.count <=> x.memberships.count }[0...8]
@@ -68,17 +57,8 @@ class Group < ActiveRecord::Base
   
   private
   def create_discussion
-    # 创建小组讨论区
-    board = Board.new
-    board.talkable = GroupBoard.new(:group_id => self.id)
-    board.save!
-    
-    # 设置小组创始人为初始管理员
-    role = Role.find_by_identifier("roles.board.moderator.#{board.id}")
-    self.creator.roles << role
-    
-    # 将小组创始人设为组员
     self.members << self.creator
+    self.managers << self.creator
   end
   
   def format_content
