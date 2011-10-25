@@ -336,6 +336,22 @@ ActiveRecord::Schema.define() do
     t.integer "user_id",              :null => false
   end
 
+  create_table "searches", :force => true do |t|
+    t.string  :q
+    t.string  :title
+    t.string  :city
+    t.string  :address
+    t.string  :need
+    t.string  :kind
+    t.integer :user_id
+    t.string  :category
+    t.string  :on
+    t.string  :include_over
+    t.string  :school_title
+    t.string  :content
+    t.timestamps
+  end
+
   add_index "roles", ["identifier"], :name => "index_roles_on_identifier"
 
   create_table "roles_static_permissions", :id => false, :force => true do |t|
@@ -667,6 +683,7 @@ ActiveRecord::Schema.define() do
   create_table "shares", :force => true do |t|
     t.string   "title",                                       :null => false
     t.text     "clean_html"
+    t.integer  "geo_id"
     t.integer  "activity_id"
     t.integer  "school_id"
     t.integer  "requirement_id"
