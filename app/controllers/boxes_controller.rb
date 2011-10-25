@@ -40,6 +40,14 @@ class BoxesController < ApplicationController
     end
   end
 
+  def new_photo
+    @executions = Execution.validated_with_box
+  end
+
+  def new_share
+    @executions = Execution.validated_with_box
+  end
+
   def execution
     @execution = Execution.find(params[:id])
     @photos = @execution.photos
@@ -57,5 +65,3 @@ class BoxesController < ApplicationController
     @boxes = Box.available - [@box]
     @comments = @box.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
   end
-
-end

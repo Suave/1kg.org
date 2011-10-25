@@ -1,8 +1,9 @@
 <% @page_title = '一公斤盒子' %>
 <% content_for :fullsize do -%>
-  <%= image_tag('/images/box_banner.jpg',:style => 'margin:10px')%>
-  <div style="position:absolute;top:200px;left:740px;">
-    <%= link_to ' ',apply_boxes_path,:id => 'apply'%>
+  <%= image_tag('/images/boxes/box_banner.jpg',:style => 'margin:10px')%>
+  <div style="position:absolute;top:200px;left:680px;">
+    <%= link_to ' ',apply_boxes_path,:class => 'image-button',:style => 'background:url("/images/boxes/apply.png")'%>
+    <%= link_to ' ','http://www.1kg.org/groups/1236',:class => 'image-button',:style => 'background:url("/images/boxes/design.png")'%>
   </div>
 <% end %>
 
@@ -26,13 +27,13 @@
 </div>
 
 <div class="newbox">
-  <h3>使用反馈：</h3>
+  <h3>使用反馈： <%= link_to '写新反馈',new_share_boxes_path,:class => 'buttonlink'%></h3>
   <%= render :partial => "/shared/share", :collection => @shares %>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
 <div class="newbox">
-  <h3>使用照片：</h3>
+  <h3>使用照片： <%= link_to '添加照片',new_photo_boxes_path,:class => 'buttonlink'%></h3> 
   <%= render :partial => "/photos/gallery", :collection => @photos%>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
