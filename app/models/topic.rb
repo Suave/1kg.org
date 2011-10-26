@@ -55,7 +55,7 @@ class Topic < ActiveRecord::Base
   
 
   validates_presence_of :title
-  validates_uniqueness_of :share_id
+  #validates_uniqueness_of :share_id
 
   #before_save :format_content
   #before_create :set_last_reply
@@ -129,7 +129,7 @@ class Topic < ActiveRecord::Base
       Activity.find(board.talkable.activity_id)
     when GroupBoard.name
       Group.find(board.talkable.group_id)
-    when Team
+    when Team.name
       Team.find(board.talkable.id)
     end
   end

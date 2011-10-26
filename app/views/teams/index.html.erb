@@ -33,22 +33,19 @@
 
 <div class="newbox">
   <div style="float:right;position:relative;top:2px"><%= link_to "创建团队", new_team_url,:class => "buttonjoin" %></div>
-    <span class="span_title" style="margin-right:8px">全部团队</span>
-    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <h3>全部团队</h3>
     <%= render :partial => "/shared/team", :collection => @teams %>
 </div>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="newbox">
-    <span class="span_title" style="margin-right:8px">团队活动</span>
-    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <h3>团队活动</h3>
     <%= render :partial => "/shared/activity", :collection => @activities%>
 </div>
-<div class="cleanfix" style="clear:both;height:20px"></div>
+
 <div class="newbox">
-  <span class="span_title" style="margin-right:8px">团队话题</span>
-  <div class="cleanfix" style="clear:both;height:10px"></div>
+  <h3>团队话题</h3>
   <table>
     <tr>
       <th style="width:35%;">话题</th>

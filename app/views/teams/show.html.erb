@@ -61,12 +61,12 @@
 
 <div class="newbox">
   <% if @team.followers.include?(current_user)%>
-  <span style="float:right"><%= link_to "写新话题", new_board_topic_url(@team.board),:class => "buttonlink" %></span>
+    <span style="float:right"><%= link_to "写新话题", new_topic_url(:boardable_id => @team.id,:boardable_type => 'Team'),:class => "buttonlink" %></span>
   <% end %>
   <div class="title_line"><h4>团队话题</h4></div>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
-    <%= render :partial => "/topics/topics", :locals => {:board => @team.board, :topics => @team.board.topics} %>
+    <%= render :partial => "/topics/topics", :locals => {:topics => @team.topics} %>
   </div>  
 </div> 
 <div class="clearfix" style="height:30px;clear:both"></div>

@@ -39,6 +39,10 @@ class Group < ActiveRecord::Base
   
   acts_as_manageable
 
+  def name 
+    title
+  end
+
   define_index do
     # fields
     indexes title

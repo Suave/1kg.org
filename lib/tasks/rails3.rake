@@ -128,19 +128,22 @@ namespace :rails3 do
 
   desc "转移权限到management"
   task :rebuild_role => :environment do 
+    Leadership.all.each do |l|
+      puts 'f' if Management.new(:user_id => l.user_id,:manageable_type => 'Team',:manageable_id => l.team_id).save
+      
+    end
+
     RolesUser.all.each do |r|
       if r.role
         if r.role.id == 1
-          User.find(r.user_id).update_attribute(:is_admin,true)
-            printf 'a'
+          printf 'a' if User.find(r.user_id).update_attribute(:is_admin,true)
         elsif r.role.id == 2
 
         else
           manageable_id = r.role.identifier.match(/(\d.*)$/)[1].to_i
           case r.role.identifier.match(/^roles.(.*).moderator/)[1]
           when 'school'
-            Management.new(:user_id => r.user_id,:manageable_type => 'School',:manageable_id => manageable_id).save
-            printf 's'
+            printf 's' if Management.new(:user_id => r.user_id,:manageable_type => 'School',:manageable_id => manageable_id).save
           when 'board'
              board = Board.find_by_id(manageable_id)
              if board && board.talkable_type == "GroupBoard" && board.talkable.group

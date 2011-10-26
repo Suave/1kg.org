@@ -81,6 +81,8 @@ caption {
   background-color: #eee;
 }
 
+.icon{position:relative;top:4px}
+
 .clear {
   clear: both;
 }
@@ -1105,7 +1107,7 @@ h3.title {
 
 .ad{margin-bottom:10px;}
  
-.buttonlink{background:url(/images/buttonlink.gif) no-repeat;
+.buttonlink{background:url(/images/buttonlink.gif) no-repeat;font-weight:normal;
 color:#fff;margin:0 3px;padding:1px 6px 3px;*padding:3px 6px 1px;width:60px;font-size:13px;}
 .buttonlink:hover{background-position:0 -21px;color:#fff;}
 .adminbutton{background:url(/images/adminbutton.gif) no-repeat;
@@ -1153,19 +1155,18 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .school_frame{width:100%;padding:10px}
 .school_frame h3{font-weight:bold;font-size:16px;margin:10px 0;padding:2px 5px;display:block;}
 
-.event_list{margin:4px 0 10px;height:60px;width:290px;float:left}
+.event_list{margin:4px 0 10px;height:60px;width:290px;float:left;margin-right:20px}
 .event_list a img{width:80px;height:60px;float:left}
 
 .activity-guide{display:none}
 .activity-guide p{margin:6px 0; font-size:12px; color:#666}
 .activity-guide h4{margin:6px 0; font-size:14px; color:#38761d}
 
-.onekg_box{width:290px;height:100px;background:#f6f6f6;margin:5px 10px 5px 0;padding:5px;float:left}
-.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
-.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
-.project_image{width:72px;}
-.project_image_big{width:120px;}
+.onekg_box{width:280px;height:160px;padding:2px;border:1px #ccc solid;float:left;margin: 0 12px 20px 0;}
+.onekg_box_title{background:#222;padding:10px 0;width:280px;position:absolute;text-align:center;margin-top:118px}
+.onekg_box_title a {color:#fff;font-size:15px;font-weight:bold}
 
+.project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
 .project_status{padding:1px 4px;color:#fff;font-weight:bold}
 
 .project_info{margin-bottom:30px}
@@ -1379,8 +1380,8 @@ a.progressCancel:hover {
 #donations_tabs .title_line {border-bottom: none}
 
 .donantion_detail{float:left;width:300px;height:188px;padding: 0 20px 10px 0;}
-#donation_counter{float:left;text-align:right;width:185px;text-align:center;padding:10px 0 0 30px;height:120px}
-#donation_counter .progressbar{width:185px;}
+#donation_counter{float:right;text-align:right;width:165px;text-align:center;padding:10px 0 0 30px;height:120px}
+#donation_counter .progressbar{width:165px;}
 #donation_quantity{width:50px;font-size:16px;text-align:right}
 #donation_receiver{text-align:center;font-size:13px;padding:6px 0 0;margin:10px 0 0;}
 #donation_receiver p{margin:6px}
@@ -1398,3 +1399,5 @@ a.progressCancel:hover {
 
 #apply{background:url('/images/musicclassroom/button.png');display:block;width:174px;height:37px}
 #apply:hover{background-position:0 -37px;}
+.image-button{display:block;width:112px;height:24px;float:left;margin-right:10px}
+.image-button:hover{background-position:0 -24px;}

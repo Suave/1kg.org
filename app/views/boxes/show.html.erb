@@ -1,7 +1,7 @@
 <% @page_title = @box.name %>
 <div style="margin-bottom:20px">
   <div style="float:left;text-align:center;width:150px">
-    <%= image_tag(@box.image(:box_topic)) %>
+    <%= image_tag(@box.image.url(:'150x90')) %>
     <p>
       <%= link_to '立即申请',apply_boxes_path,:class => 'buttonlink' %>
       <%= link_to '指南下载',@box.guide.url,:class => 'buttonlink' if @box.guide_file_name %>

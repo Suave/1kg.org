@@ -7,15 +7,15 @@ class TeamsController < ApplicationController
   def index
     @teams = Team.validated.all
     @activities = Activity.ongoing.find(:all,:conditions => "team_id is not null",:limit => 10,:order => "created_at desc")
-    @topics =  Topic.find(:all,:limit => 10, :conditions => ["boards.talkable_type = ?","Team"],:include => [:board],:order => "last_replied_at desc")
-    @myteams = Leadership.find(:all,:conditions => {:user_id => current_user.id}).map(&:team) if current_user
+    @topics =  Topic.find(:all,:limit => 10, :conditions => ["boardable_type = ?","Team"],:order => "last_replied_at desc")
+    @myteams = Management.find(:all,:conditions => {:user_id => current_user.id,:manageable_type => 'Team'}).map(&:manageable) if current_user
     @followingteams = (Following.teams.find(:all,:conditions => {:follower_id => current_user.id}).map(&:followable) - @myteams) if current_user
   end
   
   def show
     @followers = @team.followers - @team.leaders
     @schools = @team.helped_schools
-    @photos = Photo.find(:all,:include => [:activity],:conditions => ["activities.team_id = ?",@team.id]) #使用性能较好的写法
+    @photos = @team.activities.map(&:photos).flatten #使用性能较好的写法
     @map_center = @team.latitude?? [@team.latitude, @team.longitude, (@team.zoom_level - 1)] : [@team.geo.latitude, @team.geo.longitude, 6]
     @json = []
     @schools.compact.each do |school|
@@ -105,10 +105,6 @@ class TeamsController < ApplicationController
         wants.html {render_404}
       end
     end
-  end
-  
-  def new_activity
-    @activity = Activity.new
   end
   
   def add

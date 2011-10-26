@@ -1,0 +1,24 @@
+<h1>为哪个申请<%= {'share'=>'编写反馈','photo'=> '上传照片'}[@feedback_type]%>呢?</h1>
+<div class="newbox">
+<% @executions.each do |execution| %>
+  <div class="event_list">
+    <%= link_to image_tag((execution.community.main_photo.blank?  ? '/images/school_main_thumb.png' : execution.community.main_photo.image.url), :alt => execution.community.title),"/boxes/executions/#{execution.id}" %>
+    <div style="margin-left:90px">
+      <%= link_to execution.user.login,user_path(execution.user) %> 为
+      <%= link_to short_title(execution.community,10),execution.community%> 的申请
+      (<%= "#{execution.start_at.year}年#{execution.start_at.month}月"%>)
+      <br/>
+      <%= link_to '选择这里',new_share_path(:execution_id => execution.id) ,:class => 'buttonlink' if @feedback_type == 'share'%>
+      <%= link_to '选择这里',new_photo_path(:photoable_id => execution.id,:photoable_type => 'Execution') ,:class => 'buttonlink' if @feedback_type == 'photo'%>
+    </div>  
+  </div>          
+<% end %>
+</div>
+
+<div class="newbox"><p><%= will_paginate @executions %></p></div>
+
+<% content_for :sidebar do -%>
+  <div class="cleanfix" style="clear:both;height:20px"></div> 
+  <span class="remark"><%= link_to "&raquo;  回到一公斤盒子",boxes_path %></span>
+<% end -%>
+

@@ -1,39 +1,32 @@
 <% @page_title = @title = @photo.title -%>
 
 <% content_for :sidebar do -%>
+  <div class="newbox">
+    <h5>其他照片： </h5> 
+    <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
+    <div class="cleanfix" style="clear:both;"></div>
+  </div>
 <% end -%>
 
-<div class="box" id="topicSingle">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3></h3>
-       <div class="metadata">
-          <div class="avatar">
-            <%= link_to avatar_for(@photo.user, "large"), user_url(@photo.user) %>
-          </div>
-          <p>
-            <%= link_to @photo.user.login, user_url(@photo.user)  %> 上传于 <%= @photo.created_at.to_date %>
-            <% if @photo.edited_by current_user -%>
-              (<%= link_to "删除", photo_url(@photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？" %>)
-            <% end -%>
-          </p>
-          <p>
-            <%= "拍摄于 #{link_to @photo.school.title, school_url(@photo.school)}" unless @photo.school.blank? %>
-          </p>
-          <p>
-            <%= "分享到 #{link_to @photo.activity.title, activity_url(@photo.activity)}" unless @photo.activity.blank? %>
-          </p>
-        </div>
-      <div class="contents">
-        <p style="text-align:right; color:gray">
-          <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
-        </p>
-        <%= image_tag @photo.image.url(:max565x420) %>
-        <%= @photo.description_html %>
-        <p style="text-align:right; color:gray">
-          <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
-        </p>
-      </div>
-    </div>
+<div class="metadata">
+  <div class="avatar">
+    <%= link_to avatar_for(@photo.user, "large"), user_url(@photo.user) %>
   </div>
+  <p>
+    <%= link_to @photo.user.login, user_url(@photo.user)  %> 上传于 <%= @photo.created_at.to_date %>
+    <% if @photo.edited_by current_user -%>
+      (<%= link_to "删除", photo_url(@photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？" %>)
+    <% end -%>
+  </p>
+  <p>
+    <%= "上传在 #{link_to(@photo.photoable.name,@photo.photoable)}" unless @photo.photoable.blank? %>
+  </p>
+</div>
+
+<div class="contents">
+  <%= image_tag @photo.image.url(:max565x420) %>
+  <%= @photo.description_html %>
+  <p style="color:gray">
+    <%= @photo.user.login %>的 <%= @photo.previous(@photo.user) ? link_to("上一张", photo_url(@photo.previous(@photo.user))) : "第一张" %> / <%= @photo.next(@photo.user) ? link_to("下一张", photo_url(@photo.next(@photo.user))) : "最后一张了" %>
+  </p>
 </div>

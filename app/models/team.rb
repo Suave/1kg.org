@@ -2,11 +2,11 @@ class Team < ActiveRecord::Base
   belongs_to :user  
   belongs_to :geo
   
-  has_one  :board,:as => :talkable, :dependent => :destroy
   has_many :leaderships, :dependent => :destroy
   has_many :leaders,     :through => :leaderships, :source => :user
   has_many :activities
-  
+  has_many :topics, :as => "boardable"
+
   has_many :followings, :as => "followable"
   has_many :followers, :through => :followings
   
@@ -26,6 +26,7 @@ class Team < ActiveRecord::Base
   after_create :create_discussion,:set_relationship
   
   acts_as_paranoid
+  acts_as_manageable
   
   def clean_html
     self.description
@@ -44,7 +45,7 @@ class Team < ActiveRecord::Base
   
   def set_relationship
     #设置申请人为团队的管理员
-    self.user.leaderships.build(:team_id => self.id).save
+    self.managers << self.user
     #设置申请人为团队的关注者
     self.followers << self.user
   end
@@ -54,17 +55,6 @@ class Team < ActiveRecord::Base
     unless (self.website.nil? || self.website.empty?)
       self.website = "http://" + self.website.gsub('http://','')
     end
-  end
-  
-  def create_discussion
-    # 创建团队讨论区
-    board = Board.new
-    board.talkable = self
-    board.save!
-    # 设置团队申请人为初始管理员
-    role = Role.find_by_identifier("roles.board.moderator.#{board.id}")
-    self.user.roles << role
-    # 将小组创始人设为组员
   end
   
 end
