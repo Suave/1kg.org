@@ -1167,6 +1167,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .onekg_box_title a {color:#fff;font-size:15px;font-weight:bold}
 
 .project{width:280px;-width:270px;height:80px;padding:5px;background:#f3f3f3;margin:0 10px 10px 0;float:left}
+.project_image_frame{width:72px;height:72px;padding:2px;border:1px solid #ccc;float:left;background:#fff;overflow:hidden}
+.project_image{width:72px;}
+.project_image_big{width:120px;}
 .project_status{padding:1px 4px;color:#fff;font-weight:bold}
 
 .project_info{margin-bottom:30px}
