@@ -7,12 +7,29 @@ namespace :rails3 do
      ext = p.filename[-3..-1]
      `mkdir public/media/photos/#{p.id}`
      `cp -r #{origin_dir} #{goal_dir}`
-     `mv #{goal_dir}/#{p.filename} #{goal_dir}/original.#{ext.downcase}`
-     `mv #{goal_dir}/#{p.filename[0..-5]}_thumb.#{ext} #{goal_dir}/107x80.#{ext.downcase}`
-     `mv #{goal_dir}/#{p.filename[0..-5]}_small.#{ext} #{goal_dir}/max240x180.#{ext.downcase}`
-     `mv #{goal_dir}/#{p.filename[0..-5]}_medium.#{ext} #{goal_dir}/max565x420.#{ext.downcase}`
+     `cp #{goal_dir}/#{p.filename} #{goal_dir}/original.#{ext.downcase}`
+     `cp #{goal_dir}/#{p.filename[0..-5]}_thumb.#{ext} #{goal_dir}/107x80.#{ext.downcase}`
+     `cp #{goal_dir}/#{p.filename[0..-5]}_small.#{ext} #{goal_dir}/max240x180.#{ext.downcase}`
+     `cp #{goal_dir}/#{p.filename[0..-5]}_medium.#{ext} #{goal_dir}/max565x420.#{ext.downcase}`
      `rm #{goal_dir}/#{p.filename[0..-5]}_square.#{ext}`
       p.update_attribute(:image_file_name,"#{p.filename[0..-5]}.#{ext.downcase}")
+    end
+  end
+
+  desc "转移头像到paperclip"
+  task :avatars_paperclip => :environment do
+    User.find(:all,:conditions=>['avatar is not null']).each do |u|
+      origin_dir = "public/user/avatar/#{u.id}/"
+      goal_dir = "public/media/users/#{u.id}"
+      ext = 'gif'
+     `mkdir #{goal_dir}`
+     `mkdir #{goal_dir}/avatars`
+     `cp #{origin_dir}icon.gif #{goal_dir}/avatars/original.#{ext.downcase}`
+     `cp #{origin_dir}small/icon.gif #{goal_dir}/avatars/16x16.#{ext.downcase}`
+     `cp #{origin_dir}medium/icon.gif #{goal_dir}/avatars/32x32.#{ext.downcase}`
+     `cp #{origin_dir}large/icon.gif #{goal_dir}/avatars/48x48.#{ext.downcase}`
+      u.update_attribute(:avatar_file_name,"icon.#{ext.downcase}")
+      print '.'
     end
   end
 

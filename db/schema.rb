@@ -707,6 +707,7 @@ ActiveRecord::Schema.define() do
     t.string   "state",                                   :default => "passive"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.string   "avatar_file_name"
     t.integer  "geo_id"
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
