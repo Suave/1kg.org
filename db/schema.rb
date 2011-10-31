@@ -212,6 +212,7 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.string   "avatar_file_name"
     t.string   "slug"
   end
 

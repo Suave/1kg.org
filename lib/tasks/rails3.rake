@@ -16,7 +16,24 @@ namespace :rails3 do
     end
   end
 
-  desc "转移头像到paperclip"
+  desc "转移小组头像到paperclip"
+  task :groups_paperclip => :environment do
+    Group.find(:all,:conditions=>['avatar is not null']).each do |u|
+      origin_dir = "public/group/avatar/#{u.id}/"
+      goal_dir = "public/media/groups/#{u.id}"
+      ext = 'gif'
+     `mkdir #{goal_dir}`
+     `mkdir #{goal_dir}/avatars`
+     `cp #{origin_dir}icon.gif #{goal_dir}/avatars/original.#{ext.downcase}`
+     `cp #{origin_dir}small/icon.gif #{goal_dir}/avatars/16x16.#{ext.downcase}`
+     `cp #{origin_dir}medium/icon.gif #{goal_dir}/avatars/32x32.#{ext.downcase}`
+     `cp #{origin_dir}large/icon.gif #{goal_dir}/avatars/48x48.#{ext.downcase}`
+      u.update_attribute(:avatar_file_name,"icon.#{ext.downcase}")
+      print '.'
+    end
+  end
+
+ desc "转移头像到paperclip"
   task :avatars_paperclip => :environment do
     User.find(:all,:conditions=>['avatar is not null']).each do |u|
       origin_dir = "public/user/avatar/#{u.id}/"
