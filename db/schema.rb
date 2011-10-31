@@ -134,6 +134,7 @@ ActiveRecord::Schema.define() do
     t.integer   "geo_id"
     t.datetime  "created_at"
     t.string    "image_file_name"
+    t.string    "avatar_file_name"
     t.text      "description"
     t.string    "website"
     t.string    "category"
