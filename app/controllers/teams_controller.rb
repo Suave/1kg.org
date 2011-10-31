@@ -15,7 +15,7 @@ class TeamsController < ApplicationController
   def show
     @followers = @team.followers - @team.leaders
     @schools = @team.helped_schools
-    @photos = @team.activities.map(&:photos).flatten #使用性能较好的写法
+    @photos = @team.activities.map(&:photos).flatten[0..7]
     @map_center = @team.latitude?? [@team.latitude, @team.longitude, (@team.zoom_level - 1)] : [@team.geo.latitude, @team.geo.longitude, 6]
     @json = []
     @schools.compact.each do |school|

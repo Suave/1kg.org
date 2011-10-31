@@ -16,6 +16,13 @@ namespace :rails3 do
     end
   end
 
+  desc "转移头像到paperclip"
+  task :avatars_paperclip => :environment do
+    User.all.each do |u|
+      origin_dir = "public/users/#{p.id.to_s.rjust(8, '0')[0..3]}/#{p.id.to_s.rjust(8,'0')[4..-1]}/"
+    end
+  end
+
   desc "修改所有的分享照片链接"
   task :shares_photo_link => :environment do 
     Share.find(:all).each do |s|
