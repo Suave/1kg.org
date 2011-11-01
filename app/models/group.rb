@@ -17,10 +17,10 @@
 class Group < ActiveRecord::Base
   include BodyFormat
   
-  file_column :avatar, :magick => {
-                              :geometry => "72x72>",
-                              :versions => {"small" => "16x16", "medium" => "32x32", "large" => "48x48"}
-                            }
+  has_attached_file :avatar,:styles => {:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
+                            :url=>"/media/group/:id/:attachment/:style.:extension",
+                            :default_style=> :'48x48',
+                            :default_url=>"/defaults/groups/:attachment/:style.png"
   
   belongs_to :city,    :class_name => "Geo",  :foreign_key => "geo_id"
   belongs_to :creator, :class_name => "User", :foreign_key => "user_id"

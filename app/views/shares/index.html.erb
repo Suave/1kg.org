@@ -9,7 +9,7 @@
         <% @hot_users.each_with_index do |u,i| -%>
         <div class="clearfix">
           <div style="float:left; margin:5px 20px 5px 10px;">
-            <%= link_to avatar_for(u, "medium"), user_url(u) %>
+            <%= link_to image_tag(u.avatar.url,:alt => u.login), user_url(u) %>
           </div>
           <div style="margin-top:5px;">
             <%= link_to u.login, user_url(u) %> &middot;&middot;&middot;&middot;&middot;&middot; <%= u.count %> 篇

@@ -62,7 +62,7 @@
     <% @recent.each do |sub_donation| %>
     <div class="donation_lastest">
       <div style="float:left">
-        <%= avatar_for(sub_donation.user, "large") %>
+        <%= image_tag(sub_donation.user.avatar.url,:alt => sub_donation.user.login) %>
       </div>
       <div style="margin-left:56px;">
         <span class="gary_span"><%= sub_donation.user.login %></span><br/>

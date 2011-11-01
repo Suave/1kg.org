@@ -11,6 +11,6 @@
   <span class="tip">必填, 不得重名, 只能使用字母, 数字, " - "</span>
 </p>
 <div>
-  <label class="label"><%= avatar_for current_user, "large" %> <span></span></label>
+  <label class="label"><%= image_tag(current_user.avatar.url,:alt => current_user.login) %> <span></span></label>
   <%= form.text_area :body, :style => 'width:640px;height:400px;', :class => "mceEditor" %>
 </div>

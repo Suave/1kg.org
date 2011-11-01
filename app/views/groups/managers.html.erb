@@ -13,7 +13,7 @@
       <div class="contents clearfix">
         <% @managements.each do |m| %>
         <dl class="obu">
-          <dt><%= link_to avatar_for(m.user, "large"), user_url(m.user) %></dt>
+          <dt><%= link_to image_tag(m.user.avatar.url,:alt => m,user.login), user_url(m.user) %></dt>
           <dd><%= link_to m.user.login, user_url(m.user) %><br /> (<%= link_to "X", management_path(m), :method => :delete, :confirm => "确定取消组长资格吗" %>)</dd>
         </dl>
         <% end -%>
@@ -29,7 +29,7 @@
       <div class="contents clearfix">
         <% @members.each do |c| %>
         <dl class="obu">
-          <dt><%= link_to avatar_for(c, "large"), user_url(c) %></dt>
+          <dt><%= link_to image_tag(c.avatar.url,:alt => c.login), user_url(c) %></dt>
           <dd><%= link_to c.login, user_url(c) %><br />
           <%= link_to "加为组长", managements_path(:manageable_type => 'Group',:manageable_id => @group.id,:user_id => c.id), :method => :post %>
           </dd>

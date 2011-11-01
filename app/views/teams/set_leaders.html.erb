@@ -16,7 +16,7 @@
   <% @team.leaders.each do |user| %>
        <dl class="user">
           <dt>
-            <%= avatar_for(user, "large") %>
+            <%= image_tag(user.avatar.url,:alt => user.login) %>
           </dt>
           <dd>
             <%= link_to user.login, user_url(user) %><br/>
@@ -41,7 +41,7 @@
       
         <dl class="user">
           <dt>
-            <%= avatar_for(u, "large") %>
+            <%= image_tag(u.avatar.url,:alt => u.login) %>
           </dt>
           <dd>
             <%= link_to u.login, user_url(u) %><br/>
@@ -60,7 +60,7 @@
       <p><h6>搜索结果：</h6>
         <dl class="user">
           <dt>
-            <%= avatar_for(@user, "large") %>
+            <%= image_tag(@user.avatar.url,:alt => @user.login) %>
           </dt>
           <dd>
             <%= link_to @user.login, user_url(@user) %><br/>

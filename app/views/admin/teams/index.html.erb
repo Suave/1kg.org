@@ -29,7 +29,7 @@
       </tr>
       <tr>
         <td  class="detail_n" colspan="5"  id='<%= "detail_#{n}" %>' style="display:none">
-          <div style="float:right"><%= avatar_for team, 'large' %> </div>
+          <div style="float:right"><%= image_tag(team.avatar.url,:alt => team.login) %> </div>
           <h5>基本信息</h5>
           <p>
             类型： <%= team.category%>　　　

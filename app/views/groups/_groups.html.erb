@@ -1,6 +1,6 @@
 <% groups.each do |g| %>
 <dl class="obu">
-  <dt><%= link_to avatar_for(g, "large"), group_url(g) %></dt>
+  <dt><%= link_to image_tag(g.avatar.url,:alt => g.login), group_url(g) %></dt>
   <dd>
     <%= link_to g.title, group_url(g) %>
     (<%= g.memberships.count %>)

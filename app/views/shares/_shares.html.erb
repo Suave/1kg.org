@@ -1,7 +1,7 @@
 <% shares.each do |s| -%>
 <div style="clear:both;margin-bottom:1em;min-height:50px">
   <div style="float:left">
-    <%= avatar_for(s.user, "large") %>
+    <%= image_tag(s.user.avatar.url,:alt => s.user.login) %>
   </div>
   <div style="margin-left:60px;">
     <div>

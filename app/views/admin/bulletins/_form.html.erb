@@ -6,7 +6,7 @@
   <%= form.text_field :redirect_url, :size => 40, :class => "formText" %>(注意啊，要包含协议，比如 http://)
 </p>
 
-<p><label class="label"><%= avatar_for current_user, "large" %></label>
+<p><label class="label"><%= image_tag(current_user.avatar.url,:alt => current_user.login) %></label>
 <%= form.text_area :body, :style => 'width:480px;height:320px;', :class => "mceEditor" %>
 </p>
 

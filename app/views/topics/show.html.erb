@@ -79,7 +79,7 @@
         <ol class="clearfix">
           <% @posts.each do |p| -%>
           <li>
-            <div class="avatar"><%= avatar_for p.user, "large" %></div>
+            <div class="avatar"><%= image_tag(p.user.avatar.url,:alt => p.user.login) %></div>
             <div class="content">
               <p class="meta">
                 <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>

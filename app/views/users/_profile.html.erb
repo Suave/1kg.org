@@ -3,7 +3,7 @@
       
       <div>
 	<div style="float:left" style="margin-top:4px">
-	  <%= avatar_for(user, "large") %>
+	  <%= image_tag(user.avatar.url,:alt => user.login) %>
 	</div>
 	<div style="margin-left:56px;">
 	  <p style="margin:0">用户： <%= link_to user.login, user_url(user) %><br/>

@@ -3,7 +3,7 @@
 <% elsif following.followable.is_a?(User) %>
   <div class="contents clearfix">
     <dl class="user">
-      <dt><%= link_to avatar_for(following.followable, "large"), user_url(following.followable) %></dt>
+      <dt><%= link_to image_tag(following.followable.avatar.url,:alt => following.followable.login), user_url(following.followable) %></dt>
       <dd><%= link_to following.followable.login, user_url(following.followable) %></dd>
     </dl>
   </div>

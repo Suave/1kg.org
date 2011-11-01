@@ -96,7 +96,7 @@
           </div>   
           
           <div id="module_meta">
-            <p>发起人: <%= avatar_for @activity.organizer, 'small' %> <%= link_to @activity.organizer.login, @activity.organizer %> <%= "[团队]" if @activity.by_team%>　在 <%= @activity.created_at.to_date %></p>
+            <p>发起人: <%= image_tag(@activity.organizer.avatar.url(:'16x16'),:alt => @activity.organizer.login) %> <%= link_to @activity.organizer.login, @activity.organizer %> <%= "[团队]" if @activity.by_team%>　在 <%= @activity.created_at.to_date %></p>
             <p>类型: <%= @activity.category_name %></p>
             <p>开始日期: <%= @activity.start_at.to_date %>  结束日期：  <%= @activity.end_at.to_date %></p>
             <p>出发地: <%= link_to @activity.departure_id==0 ? "不限" : @activity.departure.name,"/geos/#{@activity.departure_id?? @activity.departure.id : ''}" %> =>

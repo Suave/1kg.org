@@ -1,6 +1,6 @@
 <div class="share">
   <div style="float:left">
-    <%= avatar_for(vote.user, "large") %>
+    <%= image_tag(vote.user.avatar.url,:alt => vote.user.login) %>
   </div>
   <div style="margin-left:60px;">
   <div class="sharetitle">

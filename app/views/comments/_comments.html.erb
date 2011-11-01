@@ -6,7 +6,7 @@
           <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
           <% comments.each_with_index do |comment,index| -%>
           <li>
-            <div class="avatar"><%= avatar_for comment.user, "large" %></div>
+            <div class="avatar"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
             <div class="content">
               <p class="meta">
                 <%= "##{index+1+((page)*15)}" %>

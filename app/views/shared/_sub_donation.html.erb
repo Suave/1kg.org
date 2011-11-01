@@ -1,6 +1,6 @@
 <div class="record" <%= "style='height:86px'" if logged_in? && @co_donation.user == current_user && sub_donation.state != "ordered"%>>
   <div style="float:left">
-    <%= avatar_for(sub_donation.user, "large") %>
+    <%= image_tag(sub_donation.user.avatar.url,:alt => sub_donation.user.login) %>
   </div>
   <div style="margin-left:56px;padding:4px 6px;">
   <div style="float:right"><%= link_to "查看捐赠证明",sub_donation.image.url(:prove),:rel => "prettyPhoto[gallery]",:description => "#{sub_donation.user.login} 为#{@co_donation.school.title}捐赠#{@co_donation.goods_name}的证明" unless sub_donation.image_file_name.nil? %></div>

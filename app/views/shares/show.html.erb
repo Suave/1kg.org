@@ -64,7 +64,7 @@
 
 <div class="newbox shareEntry">
       <div style="width:100%;height:60px">
-        <%= link_to avatar_for(@share.user, "large"), user_url(@share.user) %>
+        <%= link_to image_tag(@share.user.avatar.url,:alt => @share.user.login), user_url(@share.user) %>
         <div style="float:left;padding-left:6px">
           <%= link_to @share.user.login, user_url(@share.user) %> 写于 <%= @share.created_at.to_date %> ...
           <%= @share.hits %> 浏览 / <%= @share.comments_count %> 回复

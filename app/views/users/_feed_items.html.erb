@@ -6,7 +6,7 @@
       <% feed_items.each do |item| %>
         <div style="clear:both;margin-bottom:1em;min-height:50px">
           <div style="float:left">
-            <%= avatar_for(item.user, "large") %>
+            <%= image_tag(item.user.avatar.url,:alt => item.user.login) %>
           </div>
           
           <div style="margin-left:60px;">

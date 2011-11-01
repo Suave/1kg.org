@@ -2,7 +2,7 @@
         <ol>
           <% replys.each_with_index do |comment,index| -%>
           <li class="reply_post">
-            <div class="avatar"><%= avatar_for comment.user, "large" %></div>
+            <div class="avatar"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
             <div class="content">
               <p class="meta">
                 <%= link_to comment.user.login, user_url(comment.user) %> 写于 <%= comment.created_at.to_date %>

@@ -1,7 +1,7 @@
 <div class="contents clearfix">
   <% users.each do |c| %>
   <dl class="user">
-    <dt><%= link_to avatar_for(c, "large"), c %></dt>
+    <dt><%= link_to image_tag(c.avatar.url,:alt => c.login), c %></dt>
     <dd><%= link_to c.login, c %></dd>
   </dl>
   <% end -%>

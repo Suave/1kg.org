@@ -10,7 +10,11 @@ class Team < ActiveRecord::Base
   has_many :followings, :as => "followable"
   has_many :followers, :through => :followings
   
-  has_attached_file :image, :styles => { :team_icon => "64x64",:team_logo => "160x160>"}
+  has_attached_file :image,  :styles => { :team_icon => "64x64",:team_logo => "160x160>"}
+  has_attached_file :avatar, :styles => {:'64x64' => ["64x64#"],:'160x160' => ["160x160#"]},
+                             :url=>"/media/users/:id/:attachment/:style.:extension",
+                             :default_style=> :'64x64',
+                             :default_url=>"/defaults/users/:attachment/:style.png"
   
   attr_accessor :agree_service_terms
   

@@ -1,6 +1,6 @@
 <div class="record">
   <div style="float:left">
-    <%= avatar_for(visit.user, "large") %>
+    <%= image_tag(visit.user.avatar.url,:alt => visit.user.login) %>
   </div>
   <div style="margin-left:56px;">
     <p style="margin:0"><%= link_to visit.user.login, user_url(visit.user) %> <%= '要' if visit.status == 3%><% unless visit.visited_at.blank? %><%= "在#{month_and_day(visit.visited_at)}" unless visit.visited_at.blank? %><%end%>去<%= '过' if visit.status == 1%><br/>

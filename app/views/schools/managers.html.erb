@@ -19,7 +19,7 @@
         <% @managements.each do |management| %>
           <div class="candidate">
           <div style="float:left">
-            <%= avatar_for(management.user, "large") %>
+            <%= image_tag(management.user.avatar.url,:alt => management.user.login) %>
           </div>
           <div style="margin-left:56px;">
             <p style="margin:3px 0"><%= link_to management.user.login, user_url(management.user) %>
@@ -38,7 +38,7 @@
         <% @candidates.each do |user| %>
         <div class="candidate">
           <div style="float:left">
-            <%= avatar_for(user, "large") %>
+            <%= image_tag(user.avatar.url,:alt => user.login) %>
           </div>
           <div style="margin-left:56px;">
             <p style="margin:3px 0">
