@@ -106,7 +106,7 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @donations = @user.donations
-    @shares = @user.shares.find(:all, :limit => 5, :include => [:user, :tags])
+    @shares = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = @user.visiteds.find(:all,:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.envoy_schools(4)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
   end
   
   def shares
-    @shares = @user.shares.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
+    @shares = @user.topics.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
   end
 
 

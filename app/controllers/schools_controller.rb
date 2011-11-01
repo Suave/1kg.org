@@ -249,7 +249,7 @@ class SchoolsController < ApplicationController
       render_404 and return
     end
       
-    @shares = @school.shares.paginate(:page => params[:page], :per_page => 20)
+    @shares = @school.topics.paginate(:page => params[:page], :per_page => 20)
   end
 
 

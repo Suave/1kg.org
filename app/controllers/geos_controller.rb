@@ -145,7 +145,7 @@ class GeosController < ApplicationController
     @schools = School.near_to(city).paginate(:page => params[:page] || 1,
                                                           :order => "updated_at desc",
                                                           :per_page => 10)
-    @shares = city.shares.paginate(:page => params[:page] || 1, :order => "comments_count desc", :per_page => 10)
+    @shares = city.topics.paginate(:page => params[:page] || 1, :order => "comments_count desc", :per_page => 10)
     @activities = Activity.available.ongoing.find(:all, :conditions => ["arrival_id=?", city.id],
                                                         :order => "start_at desc",
                                                         :select => "id, title, start_at")

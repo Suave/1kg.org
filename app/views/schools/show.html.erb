@@ -136,7 +136,7 @@
   </div>
    
   <div class="newbox">
-   <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.shares.size}篇帖子 >",shares_school_path(@school)) %>
+   <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",shares_school_path(@school)) %>
    <%= link_to "写新帖子", new_topic_url(:boardable_id => @school.id,:boardable_type => 'School'),:class=>"buttonlink"%>
     <div class="contents clearfix">
       <%= render :partial => "/shared/share", :collection => @topics[0,4] %>

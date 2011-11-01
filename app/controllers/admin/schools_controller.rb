@@ -76,7 +76,7 @@ class Admin::SchoolsController < Admin::BaseController
       @main_school.need.hardware += @sub_school.need.hardware
     end
     
-    @sub_school.shares.each {|s| s.school_id = @main_id; s.save(false)}
+    @sub_school.topics.each {|s| s.school_id = @main_id; s.save(false)}
     @sub_school.photos.each {|p| p.school_id = @main_id; p.save(false)}
     @sub_school.donations.each {|s| s.school_id = @main_id; s.save(false)}
     @sub_school.visited.each {|v| v.school_id = @main_id; v.save(false)}
