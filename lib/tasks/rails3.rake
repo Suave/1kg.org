@@ -16,19 +16,6 @@ namespace :rails3 do
     end
   end
 
-  desc "转移头像到paperclip"
-  task :teams_paperclip => :environment do
-    Team.find(:all,:conditions=>['image_file_name is not null']).each do |t|
-     origin_dir = "public/images/t.id"
-     goal_dir = "public/media/photos/#{t.id}/avatars"
-     ext = t.image_file_name[-3..-1]
-     `mkdir public/media/teams/#{t.id}`
-     `mkdir public/media/teams/#{t.id}/avatars`
-     `cp #{origin_dir}/team_icon/#{p.image_file_name} #{goal_dir}/64x64.#{ext.downcase}`
-     `cp #{origin_dir}/team_logo/#{p.image_file_name} #{goal_dir}/160x160.#{ext.downcase}`
-    end
-  end
-
   desc "修改所有的分享照片链接"
   task :shares_photo_link => :environment do 
     Share.find(:all).each do |s|
