@@ -134,6 +134,7 @@ ActiveRecord::Schema.define() do
     t.integer   "geo_id"
     t.datetime  "created_at"
     t.string    "image_file_name"
+    t.string    "avatar_file_name"
     t.text      "description"
     t.string    "website"
     t.string    "category"
@@ -212,6 +213,7 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.string   "avatar_file_name"
     t.string   "slug"
   end
 
@@ -720,6 +722,7 @@ ActiveRecord::Schema.define() do
     t.boolean  "is_admin"
     t.datetime "deleted_at"
     t.string   "avatar"
+    t.string   "avatar_file_name"
     t.integer  "geo_id"
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
