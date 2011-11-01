@@ -6,7 +6,7 @@ class Minisite::Mooncake::DashboardController < ApplicationController
   before_filter :find_requirement_type, :only => [:index, :password, :comment, :love_message, :messages]
   def index
     @group = Group.find_by_slug('mooncake')
-    @board = @group.discussion.board
+  
     @requirements = @requirement_type.requirements
     # for love message
     @donation = @requirement_type.donations.find(:first, :conditions => ["matched_at is not null"], :order => "matched_at desc")

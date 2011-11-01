@@ -30,7 +30,7 @@
 <div class="clearfix" style="clear:both;height:20px"></div>
 <% unless @group.nil?%>
 <h3>团捐讨论组</h3>
-  <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
+  <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics} %>
   <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
   <div class="clearfix" style="clear:both;height:20px"></div>  
 <% end %>

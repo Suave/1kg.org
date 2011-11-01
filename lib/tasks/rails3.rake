@@ -107,32 +107,6 @@ namespace :rails3 do
     end
   end
 
-  desc "分享转移成话题"
-  task :shares_has_many => :environment do 
-    Share.find(:all).each_with_index do |s,index|
-      t = Topic.new(:share_id => s.id,
-                    :clean_html => s.clean_html,
-                    :title => s.title,
-                    :user_id => s.user_id,
-                    :board_id => 0,
-                    :boardable_id => s.boardable_id,
-                    :boardable_type => s.boardable_type,
-                    :comments_count => s.comments_count,
-                    :last_modified_at => s.last_modified_at,
-                    :last_modified_by_id => s.last_modified_by_id,
-                    :last_replied_at => s.last_replied_at,
-                    :last_replied_by_id => s.last_replied_by_id
-                    )
-      if t.save
-        t.created_at = s.created_at
-        t.save
-        printf '.'
-      else
-        printf 'x'
-      end
-    end
-  end
-
   desc "转移权限到management"
   task :rebuild_role => :environment do 
     Leadership.all.each do |l|

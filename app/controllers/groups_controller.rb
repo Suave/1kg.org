@@ -117,7 +117,6 @@ class GroupsController < ApplicationController
   end
   
   def moderator
-    @board = @group.discussion.board
     @moderators = User.moderators_of(@group)
     moderator_role = Role.find_by_identifier("roles.group.moderator.#{@board.id}")
     

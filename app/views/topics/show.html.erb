@@ -28,7 +28,6 @@
   <div class="cleanfix" style="height:20px"></div>
   <div class="newbox">
     <h4>其他话题</h4>
-    
     <div class="contents">
       <%= render :partial => "/shared/stopic", :collection => @others %>
     </div>
@@ -41,14 +40,14 @@
         <div class="metadata" style="border-bottom:1px #ccc solid;padding-bottom:4px">
             <h2 style="font-size:20px;font-weight:bold;padding-bottom:4px"><%= @topic.title %></h2>
             <span class="gary_span"><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></span>
-            <% if @topic.moderatable_by? current_user -%>
-              <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_board_topic_url(@topic.board_id, @topic), :method => :put %> |
-              <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_board_topic_url(@topic.board_id, @topic), :method => :put %> |
+            <% if @topic.boardable.managed_by? current_user -%>
+              <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_topic_url(@topic.board_id, @topic), :method => :put %> |
+              <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_topic_url(@topic.board_id, @topic), :method => :put %> |
             <% end -%>
             
-            <% if @topic.editable_by? current_user -%>
-              <%= link_to "编辑", edit_board_topic_url(@topic.board_id, @topic) %> |
-              <%= link_to "删除", board_topic_url(@topic.board_id, @topic), :method => :delete, :confirm => "确定删除么?" %>
+            <% if @topic.owned_by? current_user -%>
+              <%= link_to "编辑", edit_topic_url(@topic) %> |
+              <%= link_to "删除", topic_url(@topic), :method => :delete, :confirm => "确定删除么?" %>
             <% end -%>
         </div>
         <div id="entry">
@@ -85,7 +84,7 @@
                 <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
                 
                 <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' %>
-                <% if p.editable_by current_user -%>
+                <% if false #p.editable_by current_user -%>
                     | <%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
                   <% if p.deleted_at.blank? -%>
                     | <%= link_to "删除", board_topic_post_url(@board, @topic, p), :method => :delete, :confirm => "确定要删除么?" %>

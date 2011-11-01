@@ -4,7 +4,7 @@
 <% end -%>
 
 <h3><%= @school.title %></h3>
-<p>验证: <span class="notice"><%= validate_for_human(@school) %></span> | 讨论区: <%= @school.discussion ? link_to("查看", board_url(@school.discussion.board.id)) : "<span class='notice'>无</span>" %></p>
+<p>验证: <span class="notice"><%= validate_for_human(@school) %></span></p>
 <div class="operations">
   <% if @school.validated? -%>
     <%= link_to "取消验证", validate_school_url(@school, :t => 'remove'), :method => :put %>

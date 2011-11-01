@@ -31,8 +31,7 @@
   
   <div class="newbox">
     <h5>讨论区</h5>
-      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
-                                                          :topics => @board.latest_topics } %>
+      <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
       <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
     </div>
 

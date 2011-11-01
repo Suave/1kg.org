@@ -20,7 +20,7 @@
     <%= link_to "写新话题", new_topic_group_url(@group, :to => CGI.escape(request.request_uri)), :target => "_blank" %>
   </span>
   </div>
-  <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @board.latest_topics} %>
+  <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics} %>
   <p style="text-align:right"><%= link_to "&raquo; 更多话题", group_url(@group), :target => "_blank" %></p>
 </div>
 

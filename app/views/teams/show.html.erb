@@ -47,7 +47,7 @@
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
   <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.leaders.include?(current_user)%></span>
-  <div class="title_line"><h4>团队活动</h4></div>
+  <h4>团队活动</h4>
   <%= render :partial => "/shared/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>

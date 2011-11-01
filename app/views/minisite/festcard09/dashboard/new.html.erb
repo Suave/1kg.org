@@ -45,8 +45,7 @@
   <div class="boxouter">
     <h3>小组讨论</h3>
     <div class="boxinter">
-      <%= render :partial => "/topics/topics", :locals => { :board => @board, 
-                                                            :topics => @board.latest_topics } %>
+      <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
       <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
     </div>
   </div>

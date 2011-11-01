@@ -26,6 +26,7 @@ class Topic < ActiveRecord::Base
   acts_as_paranoid
   acts_as_voteable
   acts_as_taggable
+  acts_as_ownable
   
   belongs_to :boardable, :polymorphic => true, :dependent => :delete
   belongs_to :board, :counter_cache => 'topics_count'

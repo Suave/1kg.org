@@ -4,7 +4,7 @@ class Minisite::Festcard09::DashboardController < ApplicationController
   
   def index
     @group = Group.find_by_slug('postcard')
-    @board = @group.discussion.board
+  
     @for_team_bucks   = @requirement_type.requirements.for_team_donations.find :all, :include => [:school]
     render :action => "new"
   end

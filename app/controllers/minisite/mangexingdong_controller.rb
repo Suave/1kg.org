@@ -3,7 +3,6 @@ class Minisite::MangexingdongController < ApplicationController
   def index
     update_count('index_count')
     @group = Group.find(:first,:conditions=>{:slug => 'mangexingdong'})
-    @board = @group.discussion.board
   end
   
   def poster 

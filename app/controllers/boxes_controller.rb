@@ -9,7 +9,6 @@ class BoxesController < ApplicationController
     @shares = Share.find(:all,:conditions => {:execution_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @photos = Photo.find(:all,:conditions => {:photoable_type => 'Execution',:photoable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
-    @board = @group.discussion.board
   end
 
   def apply

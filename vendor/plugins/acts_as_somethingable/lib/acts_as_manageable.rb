@@ -13,15 +13,15 @@ module ActiveRecord
       
       module InstanceMethods
         def managements
-           Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name})
+          Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name})
         end
 
         def managers
-           Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name},:include => [:user]).map(&:user)
+          Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name},:include => [:user]).map(&:user)
         end
 
         def managed_by?(user)
-           Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name,:user_id => user.id}).present?
+          user && Management.find(:all,:conditions => {:manageable_id => self.id,:manageable_type => self.class.name,:user_id => user.id}).present?
         end
       end
     end

@@ -43,6 +43,10 @@ class Group < ActiveRecord::Base
     title
   end
 
+  def login 
+    title 
+  end
+
   define_index do
     # fields
     indexes title

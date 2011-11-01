@@ -59,18 +59,10 @@ class TopicsController < ApplicationController
   end
   
   def show
-    respond_to do |wants|
-      if @topic.deleted?
-        flash[:notice] = "您查看的帖子已删除"
-        wants.html {redirect_to root_url}
-      else
-        @posts = @topic.posts.available
-        @boardable = @topic.boardable
-        @post  = Post.new
-        @others  = @topic.boardable.topics.find(:all,:limit => 6,:order => "last_replied_at desc")- [@topic]
-        wants.html
-      end
-    end
+    @posts = @topic.posts.available
+    @boardable = @topic.boardable
+    @post  = Post.new
+    @others  = @topic.boardable.topics.find(:all,:limit => 6,:order => "last_replied_at desc") - [@topic]
   end
   
   def stick

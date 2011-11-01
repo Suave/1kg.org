@@ -70,7 +70,7 @@
         <h3>留言板</h3>
         <p class="postNew"><%= link_to image_tag("submit_topic.png"), new_board_topic_url(@board), :target => "_blank"  %></p>
         <div class="contents">
-          <%= render :partial => "/topics/topics", :locals => {:board => @board, :topics => @topics} %>
+          <%= render :partial => "/topics/topics", :locals => {:topics => @board, :topics => @topics} %>
         </div>
         <p class="remark">&raquo; <%= link_to "更多话题", board_topics_url(@board), :target => "_blank"  %></p>
       </div>
