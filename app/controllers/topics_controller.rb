@@ -59,9 +59,9 @@ class TopicsController < ApplicationController
   end
   
   def show
-    @posts = @topic.posts.available
+    @comments = @topic.comments.paginate(:page => params[:page] || 1, :per_page => 15)
     @boardable = @topic.boardable
-    @post  = Post.new
+    @comment  = Comment.new
     @others  = @topic.boardable.topics.find(:all,:limit => 6,:order => "last_replied_at desc") - [@topic]
   end
   

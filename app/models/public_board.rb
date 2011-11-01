@@ -14,9 +14,10 @@
 class PublicBoard < ActiveRecord::Base
   include BodyFormat
   
-  has_one :board, :as => :talkable
+  has_many :topics, :as => 'boardable', :dependent => :destroy
   
   acts_as_paranoid
+  acts_as_manageable
   
   before_save :format_content
   

@@ -1,0 +1,10 @@
+<% team = introable%>
+  <div class="newbox">  
+    <h4> 相关团队： </h4> 
+    <%= image_tag(team.avatar.url(:'48x48'),:style=>'float:left;')%>
+    <div style="margin-left:56px;margin-top:-8px">
+      <p><b><%= link_to team.login,team %></b>
+      </p>
+    </div>
+  </div>
+

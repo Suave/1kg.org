@@ -1,0 +1,11 @@
+<% school = introable%>
+  <div class="box">  
+    <p>来自：<b><%= link_to school.name,url_for([:jtc,school])%></b> <span><%= school.geo.full_name%></span></p>
+    <%= image_tag(school.cover.url(:'64x48'),:style=>'float:left;')%>
+    <div style="margin-left:70px;margin-top:-8px">
+      <p class="explanation">
+        <%= short_text(school.intro,50)%>
+      </p>
+    </div>
+  </div>
+

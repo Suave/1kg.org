@@ -1,0 +1,21 @@
+<% activity = introable%>
+  <h5> 相关活动 </h5> 
+  <div class="box">  
+    <%= image_tag(activity.cover.url(:'72x72'),:style=>'float:left;')%>
+    <div style="margin-left:80px;margin-top:-8px">
+      <p><b><%= link_to activity.title,url_for([:jtc,activity])%></b></p>
+      <p class="explanation">
+        发起人：<%= link_to activity.user.login, jtc_user_path(activity.user)%>
+        <br/>
+        <%= format_date activity.start_at %> 至 <%= format_date activity.end_at %>
+        <br/>
+        <% if activity.school%>
+          <%= activity.geo.full_name%>
+          <%= activity.school.name %>
+        <% else %>
+          <%= activity.geo.full_name%>
+        <% end %>
+      </p>
+    </div>
+  </div>
+

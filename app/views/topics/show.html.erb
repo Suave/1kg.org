@@ -13,10 +13,9 @@
 
 <% content_for :sidebar do -%>
   <div class="clearfix"  style="height:20px"></div>
-  <div class="contents">
-    <p>&raquo; <%= link_to "返回讨论区", url_for(@boardable) %></p>
-  </div>
   
+  <%= render :partial => '/shared/introable', :object => @topic.boardable %>
+
   <div class="newbox">
   <div class="cleanfix" style="height:20px"></div>
      <h4>推荐此话题的用户</h4>
@@ -72,69 +71,6 @@
         </div>
   </div>
 
-<% unless @posts.blank? -%>
-  <div class="newbox" id="topicCommentsList">
-        <h3>回复</h3>
-        <ol class="clearfix">
-          <% @posts.each do |p| -%>
-          <li>
-            <div class="avatar"><%= image_tag(p.user.avatar.url,:alt => p.user.login) %></div>
-            <div class="content">
-              <p class="meta">
-                <%= link_to p.user.login, user_url(p.user) %> 写于 <%= p.created_at.to_date %>
-                
-                <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' %>
-                <% if false #p.editable_by current_user -%>
-                    | <%= link_to "编辑", edit_board_topic_post_url(@board, @topic, p) %>
-                  <% if p.deleted_at.blank? -%>
-                    | <%= link_to "删除", board_topic_post_url(@board, @topic, p), :method => :delete, :confirm => "确定要删除么?" %>
-                  <% end -%>
-                <% end -%>
-              </p>
-              <%= p.html %>
-            </div>
-            
-            <div style="clear:both;height:10px"></div>
-            
-            <div class="reply" style="display:none;">
-              <%= render :partial => "/comments/form", :locals => {:commentable => p,:cancal => true} %>
-            </div>
-            
-            <%= render :partial => "/comments/replys", :object => p.comments.paginate(:page => 1, :per_page => 100) %>
-          </li>
-          
-          <% end -%>
-        </ol>
-  </div>
-<% end %>
+<%= render :partial => "/comments/comments", :object => @comments %>
 
-
-  <div class="newbox" id="topicCommentForm">
-        <h3 id="reply">回帖</h3>
-        <% if logged_in? -%>
-        
-          <% if @topic.block? -%>
-            <div class="contents">本帖不能回复</div>
-          
-          <% else -%>
-            <% if @boardable.class == GroupBoard && ! @boardable.members.include?(current_user) -%>
-              <div class="contents">只有小组成员可以回复话题，现在就<%= link_to "加入小组", join_group_url(@topic.board.talkable.group, :to => CGI.escape(request.request_uri)), :class => "buttonlink" %>。
-              </div>
-            <% elsif @boardablet.class == Team && ! @boardable.followers.include?(current_user)-%>
-              <div class="contents">只有团队的关注者可以回复话题，现在就<%= link_to "关注团队", follow_team_url(@board.talkable), :method => :post, :class => "buttonlink" %>。
-              </div>
-            <% else -%>
-            
-              <% form_for :post, :url => topic_posts_url(@topic,@post, :type => "fast") do |f| -%>
-              <p><%= f.text_area :body_html, :cols => 60, :rows => 15 %></p>
-              <p class="submit"><%= submit_tag "发 布" %></p>
-              <% end -%>
-          
-            <% end -%>
-          <% end -%>
-        <% else -%>
-
-          <div class="contents"><%= link_to "登录", login_path %>以后可以回复话题</div>
-
-        <% end -%>
-  </div>
+<%= render :partial => "/comments/form", :locals => {:commentable => @topic} %>

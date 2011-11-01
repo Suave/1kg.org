@@ -176,6 +176,7 @@ ActiveRecord::Schema.define() do
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "post_id"
     t.integer  "commentable_id"
     t.string   "commentable_type"
     t.integer  "comments_count"

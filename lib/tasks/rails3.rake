@@ -81,9 +81,37 @@ namespace :rails3 do
     end
   end
 
+  desc "原分享的评论转移"
+  task :comments_trans => :environment do 
+    Comment.find(:all,:conditions =>{:commentable_type => 'Share'}).each do |c|
+      c.update_attributes(:commentable_id => Topic.find_by_share_id(c.commentable_id),:commentable_type => 'Topic')
+      print '.' if c.save
+    end
+  end
+  
+  desc "回复转换成评论"
+  task :posts_to_comments => :environment do 
+    Post.find(:all).each_with_index do |p,index|
+      t = Comment.new(:post_id => p.id,
+                    :body_html => p.body_html,
+                    :user_id => p.user_id,
+                    :commentable_id => p.topic_id,
+                    :commentable_type => 'Topic',
+                    :comments_count => p.comments_count
+                    )
+      if t.save
+        t.created_at = p.created_at
+        t.save
+        printf '.'
+      else
+        printf 'x'
+      end
+    end
+  end
+  
   desc "分享转移成话题"
   task :shares_to_topics => :environment do 
-    Share.find(:all).each_with_index do |s,index|
+    Share.find(:all).each do |s|
       t = Topic.new(:share_id => s.id,
                     :clean_html => s.clean_html,
                     :title => s.title,

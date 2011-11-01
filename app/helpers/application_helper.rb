@@ -192,18 +192,6 @@ module ApplicationHelper
     end
   end
   
-  def comments_path(commentable)
-    [commentable, :comments]
-  end
-  
-  def edit_comment_path(comment)
-    [:edit, comment.commentable, comment]
-  end
-  
-  def comment_path(comment)
-    [comment.commentable, comment]
-  end
-  
   def main_photo_thumb(school,style="")
     img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.image.url
     "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title,:style => style ),school_url(school)).to_s + "</div>"

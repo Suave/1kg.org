@@ -1,0 +1,12 @@
+<% user = introable%>
+  <h5> 所属用户 </h5> 
+  <div class="box">  
+    <%= image_tag(user.avatar.url(:'48x48'),:style=>'float:left;')%>
+    <div style="margin-left:56px;margin-top:-8px">
+      <p><b><%= link_to user.login,url_for([:jtc,user])%></b> <span><%= user.geo.full_name if user.geo%></span></p>
+      <p class="explanation">
+      <%= short_text((user.resume.nil? ? user.intro : user.resume),60)%>
+      </p>
+    </div>
+  </div>
+

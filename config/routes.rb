@@ -10,12 +10,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
                                             :admin_state => :put}
-    c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
   end
  
-  map.resources :executions do |execution|
-    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
-  end
+  map.resources :executions
+  map.resources :public_boards
   
   map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
   
@@ -115,7 +113,6 @@ school.resources :visits
                                              :ongoing => :get,
                                              :over => :get,
                                              :total_shares => :get} do |activity|
-    activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 
 
@@ -126,23 +123,14 @@ school.resources :visits
   end
   
   map.resources :shares, :member => {:vote => :post} do |share|
-    share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
   map.resources :topics,  :member => { :vote => :post } do |topic|
-    topic.resources :posts
   end
 
-  map.resources :posts do |post|
-    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
-  end
-  
-  map.resources :comments do |post|
-    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
-  end
+  map.resources :comments 
 
   map.resources :bulletins do |bulletin|
-    bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
   map.resource :search
@@ -167,11 +155,6 @@ school.resources :visits
       :photos => :get,
       :execution => :get,
       :executions => :get} do |box|
-    box.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Box'}
-  end
-
-  map.resources :games, :member => {:versions => :get, :revert => :put}  do |game|
-    game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
   end
   
   map.with_options :controller => 'games' do |games|
@@ -192,9 +175,7 @@ school.resources :visits
 
   map.resources :projects, :member => {:manage => :get,:large_map => :get,:shares => :get ,:photos => :get} do |project|
     project.resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
-      execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
     end
-    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}
   end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'
