@@ -6,7 +6,7 @@ class BoxesController < ApplicationController
     @boxes = Box.available
     @executions = Execution.validated_with_box
     @my_executions  = current_user.executions.with_box if logged_in?
-    @shares = Share.find(:all,:conditions => {:execution_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
+    @shares = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @photos = Photo.find(:all,:conditions => {:photoable_type => 'Execution',:photoable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
   end

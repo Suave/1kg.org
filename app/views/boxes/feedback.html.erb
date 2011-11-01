@@ -8,7 +8,7 @@
       <%= link_to short_title(execution.community,10),execution.community%> 的申请
       (<%= "#{execution.start_at.year}年#{execution.start_at.month}月"%>)
       <br/>
-      <%= link_to '选择这里',new_share_path(:execution_id => execution.id) ,:class => 'buttonlink' if @feedback_type == 'share'%>
+      <%= link_to '选择这里',new_topic_path(:boardable_id => execution.id,:boardable_type => 'Execution') ,:class => 'buttonlink' if @feedback_type == 'share'%>
       <%= link_to '选择这里',new_photo_path(:photoable_id => execution.id,:photoable_type => 'Execution') ,:class => 'buttonlink' if @feedback_type == 'photo'%>
     </div>  
   </div>          

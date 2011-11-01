@@ -95,7 +95,7 @@
         
         <div class="project_info">
 
-          <div class="title_line"><span>项目反馈</span> <%= link_to '写新反馈',new_share_url(:execution=>@execution.id)%></div>
+          <div class="title_line"><span>项目反馈</span> <%= link_to '写新反馈',new_topic_path(:boardable_id => @execution.id,:boardable_type => 'Execution')%></div>
             <%= render :partial => "/shared/share", :collection => @shares %>
             <%= "暂无反馈" if @shares.empty? %>
             <div class="cleanfix" style="height:20px"></div>
