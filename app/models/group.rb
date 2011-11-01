@@ -18,7 +18,7 @@ class Group < ActiveRecord::Base
   include BodyFormat
   
   has_attached_file :avatar,:styles => {:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
-                            :url=>"/media/group/:id/:attachment/:style.:extension",
+                            :url=>"/media/groups/:id/:attachment/:style.:extension",
                             :default_style=> :'48x48',
                             :default_url=>"/defaults/groups/:attachment/:style.png"
   
