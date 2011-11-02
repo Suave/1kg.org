@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   
   private
   def app_stop
-    render :file => "/shared/maintain.html"
+    render :file => "/public/maintain.html"
     return false
   end
   

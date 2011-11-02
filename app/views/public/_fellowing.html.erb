@@ -1,5 +1,5 @@
 <% if following.followable.is_a?(School) %>
-  <%= render :partial => '/shared/school', :object => following.followable %>
+  <%= render :partial => '/public/school', :object => following.followable %>
 <% elsif following.followable.is_a?(User) %>
   <div class="contents clearfix">
     <dl class="user">

@@ -24,7 +24,7 @@
 
 <div class="newbox">
   <h3>可以申请的盒子：</h3>
-  <%= render :partial => "/shared/box", :collection => @boxes %>
+  <%= render :partial => "/public/box", :collection => @boxes %>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
@@ -38,13 +38,13 @@
   <% if logged_in? && @my_executions.present?%>
     <div class="newbox">
       <h3>我的申请:</h3>
-      <%= render :partial => "/shared/execution", :collection => @my_executions %>
+      <%= render :partial => "/public/execution", :collection => @my_executions %>
     </div>
   <% end %>
 
   <div class="newbox">
     <h3>最新反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'share'),:class => 'buttonlink'%></h3>
-    <%= render :partial => "/shared/share", :collection => @shares %>
+    <%= render :partial => "/public/share", :collection => @shares %>
     <div class="cleanfix" style="clear:both;"></div>
     <%= link_to '查看全部',shares_boxes_path  %>
   </div>

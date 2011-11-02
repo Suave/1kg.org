@@ -20,7 +20,7 @@
 <div class="newbox">
      <h3>申请学校</h3>
       <div class="clearfix" style="margin-bottom:10px">
-      <%= render :partial => "/shared/school",:object => @school%></div>
+      <%= render :partial => "/public/school",:object => @school%></div>
       
       <% visited = Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})%>
       <% if visited.nil?%>

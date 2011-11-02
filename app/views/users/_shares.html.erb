@@ -8,7 +8,7 @@
                 还没有帖子
               </div>
             <% else -%>
-              <%= render :partial => "/shared/share", :collection => @shares %>
+              <%= render :partial => "/public/share", :collection => @shares %>
             <% end -%>
             <div class="cleanfix" style="clear:both;"></div> 
             <div class="remark"><%= link_to "&raquo; 查看全部", shares_user_url(user) %></div>

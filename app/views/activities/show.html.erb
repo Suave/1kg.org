@@ -50,7 +50,7 @@
     <div class="newbox">
      <h3>参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加</h3>
         
-        <%= render :partial => "/shared/user_list", :locals => {:users => @activity.participators} %>
+        <%= render :partial => "/public/user_list", :locals => {:users => @activity.participators} %>
         <div class="cleanfix" style="height:20px"></div>
     </div>
   
@@ -58,7 +58,7 @@
   <div class="newbox">
    <h3>相关学校</h3>
     
-    <%= render :partial => "/shared/school", :collection => [@activity.school] %>
+    <%= render :partial => "/public/school", :collection => [@activity.school] %>
   </div>
   <%end%>
   
@@ -66,7 +66,7 @@
     <div style="float:right;"><%= link_to '写新贴子',new_topic_path(:boardable_id => @activity.id,:boardable_type => "Activity"),:class => "buttonlink" %></div>
      <h3>活动贴子</h3>
       <div class="contents">
-        <%= render :partial => "/shared/share", :collection => @shares %>
+        <%= render :partial => "/public/share", :collection => @shares %>
       </div>
       <div class="cleanfix" style="height:20px"></div>
   </div>
@@ -121,7 +121,7 @@
               <%= (@activity.clean_html) %>
             </div>
           </div>
-          <%= render :partial => "/shared/share_to", :locals => {:text => summary(@activity ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+          <%= render :partial => "/public/share_to", :locals => {:text => summary(@activity ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
         </div>
   </div>
   

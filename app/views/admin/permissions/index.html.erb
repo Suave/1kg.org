@@ -2,7 +2,7 @@
 
 <% content_for :sidebar do -%>
   <p>> <%= link_to "返回管理后台", admin_url %></p>
-  <%= render :partial => "/admin/shared/operation_list" %>
+  <%= render :partial => "/admin/public/operation_list" %>
 <% end -%>
 
 <p><h4>> <%= link_to "创建新权限", new_admin_permission_path %></span></p>

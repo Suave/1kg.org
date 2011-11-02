@@ -21,7 +21,7 @@
 <span class="span_title" style="margin-right:8px">进行中的团捐：</span>
 <div class="clearfix" style="clear:both;height:10px"></div>
   <div style="width:640px">
-  <%= render :partial => "/shared/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
+  <%= render :partial => "/public/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
   <div class="clearfix" style="clear:both;height:10px"></div>
   <%= customize_paginate @co_donations %>
   <div class="remark"><%= link_to "&raquo; 已结束的团捐项目 ",over_co_donations_url %></div>

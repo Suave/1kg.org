@@ -3,7 +3,7 @@
 <% content_for :sidebar do -%>
 
   <h4>> <%= link_to "返回项目首页", admin_requirement_type_requirements_url(@requirement.requirement_type) %></span>
-  <%= render :partial => "/admin/shared/operation_list" %>
+  <%= render :partial => "/admin/public/operation_list" %>
 <% end -%>
 <div class="newbox">
   <h1><%= @requirement.requirement_type.title %></h1>

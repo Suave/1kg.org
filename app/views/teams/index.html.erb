@@ -9,7 +9,7 @@
   <div class="newbox">
     <h3>我管理的团队</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @myteams} %>
+      <%= render :partial => "/public/user_list", :locals => {:users => @myteams} %>
   </div>
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% end %>
@@ -21,7 +21,7 @@
         <% if @followingteams.empty?%>
           暂无
         <%else%>
-          <%= render :partial => "/shared/user_list", :locals => {:users => @followingteams} %>
+          <%= render :partial => "/public/user_list", :locals => {:users => @followingteams} %>
         <%end%>
       <%else%>
         请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
@@ -34,14 +34,14 @@
 <div class="newbox">
   <div style="float:right;position:relative;top:2px"><%= link_to "创建团队", new_team_url,:class => "buttonjoin" %></div>
     <h3>全部团队</h3>
-    <%= render :partial => "/shared/team", :collection => @teams %>
+    <%= render :partial => "/public/team", :collection => @teams %>
 </div>
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
 <div class="newbox">
     <h3>团队活动</h3>
-    <%= render :partial => "/shared/activity", :collection => @activities%>
+    <%= render :partial => "/public/activity", :collection => @activities%>
 </div>
 
 <div class="newbox">

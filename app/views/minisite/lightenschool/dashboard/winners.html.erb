@@ -39,7 +39,7 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <h6>奖品：</h6><h6>探路者户外徒步鞋</h6>
   </div>
   <div style="float:right">
-  <%= render :partial => "/shared/share", :collection => @classone %>
+  <%= render :partial => "/public/share", :collection => @classone %>
   </div>
   <div class="clearfix" style="clear:both"></div>
 </div>
@@ -50,9 +50,9 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <h6>奖品：</h6><h6>探路者户外背包</h6>
   </div>
   <div style="float:right">
-    <%= render :partial => "/shared/share", :collection => @classtwo[0,3] %>
+    <%= render :partial => "/public/share", :collection => @classtwo[0,3] %>
     <div id="classtwomore" style="display:none">
-    <%= render :partial => "/shared/share", :collection => @classtwo[3,27] %>
+    <%= render :partial => "/public/share", :collection => @classtwo[3,27] %>
     </div>
   </div>
   <div class="clearfix" style="clear:both"></div>
@@ -65,9 +65,9 @@ body {background: #ececec url(/images/lightenschool/background.png)no-repeat cen
   <h6>六十一名</h6>
   <h6>奖品：</h6><h6>探路者户外T恤衫</h6></div>
   <div style="float:right">
-    <%= render :partial => "/shared/share", :collection => @classthree[0,3] %>
+    <%= render :partial => "/public/share", :collection => @classthree[0,3] %>
     <div id="classthreemore" style="display:none">
-    <%= render :partial => "/shared/share", :collection => @classthree[3,57] %>
+    <%= render :partial => "/public/share", :collection => @classthree[3,57] %>
     </div>
   </div>
   <div class="clearfix" style="clear:both"></div>

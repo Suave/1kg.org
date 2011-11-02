@@ -120,12 +120,12 @@
         </ul>
         <div class="cleanfix" style="clear:both;height:10px"></div>
         <div id = "all">
-          <%= render :partial => "/shared/activity", :collection => @activities %>
+          <%= render :partial => "/public/activity", :collection => @activities %>
           <%= "还没有学校活动" if @activities.blank?%>
         </div>
         
         <div id ="co_donations">
-          <%= render :partial => "/shared/co_donation", :collection => @co_donations %>
+          <%= render :partial => "/public/co_donation", :collection => @co_donations %>
           <%= "还没有团捐活动" if @co_donations.blank?%>
         </div>
       </div>
@@ -139,7 +139,7 @@
    <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",shares_school_path(@school)) %>
    <%= link_to "写新帖子", new_topic_url(:boardable_id => @school.id,:boardable_type => 'School'),:class=>"buttonlink"%>
     <div class="contents clearfix">
-      <%= render :partial => "/shared/share", :collection => @topics[0,4] %>
+      <%= render :partial => "/public/share", :collection => @topics[0,4] %>
     </div>
   </div>
 
@@ -180,7 +180,7 @@
       <div class="title_line"><h4>学校大使</h4><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.school_moderator?%></div>
       <div class="sidebar_inter">
           <% unless @managers.blank? %>
-          <%= render :partial => "/shared/user_list", :locals => {:users => @managers} %>
+          <%= render :partial => "/public/user_list", :locals => {:users => @managers} %>
           <%else%>
                     学校还没有学校大使
           <%end%>
@@ -193,7 +193,7 @@
     <%= link_to "共有#{@followers.size}人",followers_school_url,:style => "float:right"%>
     <h4>关注的用户</h4>
     <div class="sidebar_inter">
-    <%= render :partial => "/shared/user_list", :locals => {:users => @followers[0..8]} %>
+    <%= render :partial => "/public/user_list", :locals => {:users => @followers[0..8]} %>
     </div>
   </div>
   <% end %>
@@ -202,7 +202,7 @@
     <h4>公益项目</h4>
     <div class="sidebar_inter">
       <%= '目前学校还没有公益项目' if @executions.empty? %>
-      <%= render :partial => "/shared/execution", :collection => @executions %>
+      <%= render :partial => "/public/execution", :collection => @executions %>
       <div style="clear:both;height:5px"></div>
     </div>
   </div>

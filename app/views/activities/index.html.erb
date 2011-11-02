@@ -60,7 +60,7 @@
       <div id="activity_tabs">
         <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
       <h3>最近的活动 <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a></h3> 
-        <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新活动'} %>
+        <%= render :partial => '/public/atom', :locals => {:name => '订阅最新活动'} %>
         <ul class="tab" >
           <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
             <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
@@ -68,13 +68,13 @@
         </ul>
         <div class="cleanfix" style="clear:both;height:10px"></div>
         <div id = "all">
-          <%= render :partial => "/shared/activity", :collection => @activities_hash[:all] %>
+          <%= render :partial => "/public/activity", :collection => @activities_hash[:all] %>
           <div class="remark"><%= link_to "&raquo; 查看更多",ongoing_activities_url,:target => "_blank" %>　<%= link_to '&raquo; 以往活动回顾',over_activities_url%></div>
         </div>
         
         <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络','online'],['同城','city'],['其他','other']].each do |type| %>
         <div id ="<%= type[1]%>">
-          <%= render :partial => "/shared/activity", :collection => @activities_hash[type[1].to_sym] %>
+          <%= render :partial => "/public/activity", :collection => @activities_hash[type[1].to_sym] %>
            <div style="color:#666;margin-right:20px;clear:both;text-align:right;">&raquo; 查看更多(<%= link_to "进行中",category_activities_url+"?c=#{type[1]}",:target => "_blank" %>/<%= link_to "已结束",category_activities_url+"?c=#{type[1]}&&over=true",:target => "_blank" %>)</div>
         </div>
         <% end -%>
@@ -90,7 +90,7 @@
  <h3>最新帖子</h3>
   
   <div class="contents">
-    <%= render :partial => "/shared/share", :collection => @shares %>
+    <%= render :partial => "/public/share", :collection => @shares %>
   </div>
   <div class="remark"><%= link_to "&raquo; 更多帖子", total_shares_activities_url %></div>
   <div class="cleanfix" style="height:20px"></div>
@@ -101,7 +101,7 @@
      <h3>最新活动照片</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>           
       <div class="contents clearfix">
-        <%= render :partial => "/shared/photo", :collection => @photos %>
+        <%= render :partial => "/public/photo", :collection => @photos %>
       </div>
 </div>
 

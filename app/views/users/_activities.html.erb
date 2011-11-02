@@ -10,7 +10,7 @@
         <div class="cleanfix" style="clear:both;height:8px"></div> 
         <div class="panel setting">
           <div id='participated'>
-            <%= render :partial => "/shared/activity", :collection => @participated %>
+            <%= render :partial => "/public/activity", :collection => @participated %>
             <div class="cleanfix" style="clear:both;"></div> 
             <span class="remark">
               <%= link_to "&raquo; 查看全部", participated_activities_user_url(user) %>
@@ -18,7 +18,7 @@
           </div>
           
           <div id='launched'>
-            <%= render :partial => "/shared/activity", :collection => @submitted %>
+            <%= render :partial => "/public/activity", :collection => @submitted %>
             <div class="cleanfix" style="clear:both;"></div> 
             <span class="remark">
               <%= link_to "&raquo; 查看全部", submitted_activities_user_url(user) %><br />

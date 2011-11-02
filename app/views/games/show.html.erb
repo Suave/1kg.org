@@ -64,7 +64,7 @@
         <p><a href="<%= game_path(@game, :version => v.version) %>"><%= v.user.login %> 修改于 <%= v.created_at.to_date %>:<%= (v.comment.blank? ? '未说明' : v.comment ) %></a></p>
       <% end %>
     </div>
-      <%= render :partial => "/shared/share_to", :locals => {:text => summary(@game ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+      <%= render :partial => "/public/share_to", :locals => {:text => summary(@game ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
     </div>
   </div>
 </div>

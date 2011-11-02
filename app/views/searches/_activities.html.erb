@@ -2,7 +2,7 @@
   <div id="activity_tabs">
     <div class="cleanfix" style="clear:both;height:10px"></div>
     <div id = "all">
-      <%= render :partial => "/shared/activity", :collection => @activities.compact %>
+      <%= render :partial => "/public/activity", :collection => @activities.compact %>
       <div class="remark"><%= will_paginate @activities %></div>
     </div>
   </div>

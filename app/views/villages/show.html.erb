@@ -72,7 +72,7 @@
    <h4>分享</h4>
     <%= @shares.blank? ? "还没有村庄分享" :  "共有#{@shares.size}篇分享" %>
     <div class="contents clearfix">
-      <%= render :partial => "/shared/share", :collection => @shares %>
+      <%= render :partial => "/public/share", :collection => @shares %>
     </div>
   </div>
 

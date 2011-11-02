@@ -31,7 +31,7 @@
         <h4>相关学校</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
-          <%= render :partial => '/shared/school', :object => @share.school %>
+          <%= render :partial => '/public/school', :object => @share.school %>
           <div class="clearfix"></div>
         </div>
     </div>
@@ -42,7 +42,7 @@
         <h4>相关公益项目</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
-          <%= render :partial => '/shared/execution', :object => @share.execution %>
+          <%= render :partial => '/public/execution', :object => @share.execution %>
           <div class="clearfix" style="clear:both;height:10px"></div>
         </div>
     </div>
@@ -54,12 +54,12 @@
         <h4>相关的活动</h4>
         <div class="clearfix" style="height:5px"></div>
         <div class="contents">
-           <%= render :partial => '/shared/activity', :object => @share.activity %>
+           <%= render :partial => '/public/activity', :object => @share.activity %>
         </div>
         <div class="clearfix" style="clear:both;height:10px"></div>
   </div>
   <% end %>
-  <%= render :partial => '/shared/voters', :object => @voters %>
+  <%= render :partial => '/public/voters', :object => @voters %>
 <% end -%>
 
 <div class="newbox shareEntry">
@@ -97,7 +97,7 @@
         <% end -%>
         </p>
         </div>
-        <%= render :partial => "/shared/share_to", :locals => {:text => summary(@share ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+        <%= render :partial => "/public/share_to", :locals => {:text => summary(@share ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 </div>
 
 <%= render :partial => "/comments/comments", :object => @comments %>

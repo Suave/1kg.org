@@ -2,7 +2,7 @@
 <div style="float:right;margin-top:-20px"><%= link_to "新建项目",new_project_url,:class=> "adminbutton"%></div>
 <% content_for :sidebar do -%>
   <h6>> <%= link_to "返回管理后台", admin_url %></h6>
-  <%= render :partial => "/admin/shared/operation_list" %>
+  <%= render :partial => "/admin/public/operation_list" %>
 <% end -%>
 
 <table>

@@ -37,7 +37,7 @@
       <div class="boxOuter">
         <div class="boxInner">
           <h3>居民</h3>
-          <%= render :partial => "/shared/user_list", :locals => {:users => @citizens} %>
+          <%= render :partial => "/public/user_list", :locals => {:users => @citizens} %>
         </div>
         <p class="remark">&raquo; <%= link_to "查看全部#{@all_citizens.size}位居民", users_geo_url(@city) %></p>
       </div>
@@ -73,5 +73,5 @@
 <div class="newbox" id="cityActivities">
      <h3><%= "#{@city.name}最近的活动"%></h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
-      <%= render :partial => "/shared/activity", :collection => @activities %>
+      <%= render :partial => "/public/activity", :collection => @activities %>
 </div>

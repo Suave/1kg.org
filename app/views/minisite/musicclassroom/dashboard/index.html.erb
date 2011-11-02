@@ -26,7 +26,7 @@
   
   <div class="newbox">
       <h5>相册</h5>
-        <%= render :partial => "/shared/photo", :collection => @photos %>
+        <%= render :partial => "/public/photo", :collection => @photos %>
         <span class="gary_span"><%= "coming soon" if @photos.empty? %></span>
       <div class="clearfix" style="clear:both;height:20px"></div>
   </div>
@@ -35,7 +35,7 @@
       
       <h5>分享</h5>
       <div class="contents">
-        <%= render :partial => "/shared/share", :collection => @shares %>
+        <%= render :partial => "/public/share", :collection => @shares %>
         <span class="gary_span"><%= "coming soon" if @shares.empty? %></span>
       </div>
       <div class="cleanfix" style="height:20px"></div>

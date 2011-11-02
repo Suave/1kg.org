@@ -2,7 +2,7 @@
       <div class="contents clearfix">
         <p class="caution">勾上想邀请的用户, 点击"发送邀请"</p>
       <% form_tag send_invitation_co_donation_url(@co_donation), :method => :put  do -%>
-        <%= render :partial => "/shared/user_invitation", :locals => {:users => @friends} %>
+        <%= render :partial => "/public/user_invitation", :locals => {:users => @friends} %>
       <% end -%>
       </div>
 

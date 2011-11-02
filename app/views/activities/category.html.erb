@@ -17,7 +17,7 @@
 <%= link_to "查看已结束的活动",category_activities_url+"?c=#{category_list[@category]}&&over=true" unless @over %>
 <%= link_to "查看未结束的活动",category_activities_url+"?c=#{category_list[@category]}" if @over %>
 <div class="cleanfix" style="clear:both;height:10px"></div>
-<%= render :partial => "/shared/activity", :collection => @activities %>
+<%= render :partial => "/public/activity", :collection => @activities %>
 <div class="cleanfix" style="clear:both;height:10px"></div>
 <%= customize_paginate @activities %>
 <div class="cleanfix" style="clear:both;height:10px"></div>

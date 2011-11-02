@@ -2,7 +2,7 @@
   <div id="activity_tabs">
     <div class="cleanfix" style="clear:both;height:10px"></div>
     <div id = "all">
-      <%= render :partial => "/shared/user_list", :locals => {:users => @users.compact} %>
+      <%= render :partial => "/public/user_list", :locals => {:users => @users.compact} %>
       <div class="remark"><%= customize_paginate(@users) %></div>
     </div>
   </div>

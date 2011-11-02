@@ -14,13 +14,13 @@
 <% content_for :sidebar do -%>
   <div class="clearfix"  style="height:20px"></div>
   
-  <%= render :partial => '/shared/introable', :object => @topic.boardable %>
+  <%= render :partial => '/public/introable', :object => @topic.boardable %>
 
   <div class="newbox">
   <div class="cleanfix" style="height:20px"></div>
      <h4>推荐此话题的用户</h4>
       <div class="clearfix" style="height:10px"></div>
-      <%= render :partial => "/shared/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
+      <%= render :partial => "/public/user_list", :locals => {:users => @topic.votes.map(&:user)} %>
   </div>
   
   <% unless @others.empty?%>
@@ -28,7 +28,7 @@
   <div class="newbox">
     <h4>其他话题</h4>
     <div class="contents">
-      <%= render :partial => "/shared/stopic", :collection => @others %>
+      <%= render :partial => "/public/stopic", :collection => @others %>
     </div>
     <div class="cleanfix" style="height:20px"></div>
   </div>
@@ -67,7 +67,7 @@
               <%= link_to '我要推荐', vote_topic_path(@topic), :method => 'post', :class => 'buttonlink' %>
             <% end -%>
           </p>
-        <%= render :partial => "/shared/share_to", :locals => {:text => summary(@topic ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+        <%= render :partial => "/public/share_to", :locals => {:text => summary(@topic ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
         </div>
   </div>
 

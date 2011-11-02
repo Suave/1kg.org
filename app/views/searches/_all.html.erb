@@ -10,7 +10,7 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
  <h3>活动</h3>
   <div class="contents">
-    <%= render :partial => "/shared/activity", :collection => @objects['Activity'].compact %>
+    <%= render :partial => "/public/activity", :collection => @objects['Activity'].compact %>
   </div>
   <% end %>
   
@@ -18,7 +18,7 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
  <h3>论坛</h3>
   <div class="contents">
-    <%= render :partial => "/shared/share", :collection => @objects['Share'].compact %>
+    <%= render :partial => "/public/share", :collection => @objects['Share'].compact %>
   </div>
   <% end %>
 
@@ -42,7 +42,7 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
  <h3>用户</h3>
   <div class="contents">
-    <%= render :partial => "/shared/user_list", :locals => {:users => @objects['User'].compact} %>
+    <%= render :partial => "/public/user_list", :locals => {:users => @objects['User'].compact} %>
   </div>
   <% end %>
   <div class="remark"><%= customize_paginate(@records) %></div>

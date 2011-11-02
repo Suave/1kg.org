@@ -48,9 +48,9 @@
   
   <% unless @villages.blank?%>
     <h4>更多村庄</h4><br/>
-    <%= render :partial => '/shared/community',:collection => @villages[0..5]%>
+    <%= render :partial => '/public/community',:collection => @villages[0..5]%>
     <a class="more" name="#more_village">查看更多</a>
-    <div id="more_village" style="display:none"><%= render :partial => '/shared/community',:collection => @villages[5..-1]%></div>
+    <div id="more_village" style="display:none"><%= render :partial => '/public/community',:collection => @villages[5..-1]%></div>
     <div class="cleanfix" style="height:20px;clear:both"></div>
   <% end %>
   <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
@@ -110,7 +110,7 @@
 <div class="cleanfix" style="height:10px;clear:both"></div>
       <%= render :partial => 'school_map'%>
 
-<%= render :partial => "/shared/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+<%= render :partial => "/public/share_to", :locals => {:text => summary(@project ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 <div class="cleanfix" style="height:20px;clear:both"></div>
 
   <div class="school_box">
@@ -125,7 +125,7 @@
   <div>
    <h4>项目反馈</span> <span class="gary_span"><%= @shares.blank? ? "还没有项目分享" : link_to("共有#{@shares.size}篇反馈",shares_project_path(@project))%></h4>
     <div class="contents clearfix">
-      <%= render :partial => "/shared/share", :collection => @shares[0,4] %>
+      <%= render :partial => "/public/share", :collection => @shares[0,4] %>
     </div>
   </div>
   

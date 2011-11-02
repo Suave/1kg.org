@@ -35,7 +35,7 @@
 <div class="newbox">
     <div style="float:right;position:relative;top:5px"><%= link_to "建立小组", new_group_url,:class => "buttonjoin" %></div>
    <h3>小组话题 <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a></h3> 
-    <%= render :partial => '/shared/atom', :locals => {:name => '订阅最新话题'} %>
+    <%= render :partial => '/public/atom', :locals => {:name => '订阅最新话题'} %>
       <div id="tabs" >
         <ul class="tab">
           <li class="tabs_more"><a href="#all">最新话题</a></li>

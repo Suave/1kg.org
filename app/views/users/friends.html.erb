@@ -16,13 +16,13 @@
 <div class="newbox">
  <h3><%= h @user.login %>关注的用户 </h3>
   <div class="clearfix" style="height:10px"></div>
-  <%= render :partial => "/shared/user_list", :locals => {:users => @followings} %>
+  <%= render :partial => "/public/user_list", :locals => {:users => @followings} %>
   <%= customize_paginate @followings %>
 </div>
 
 <div class="newbox">
  <h3>关注<%= h @user.login %>的用户 </h3>
   <div class="clearfix" style="height:10px"></div>
-  <%= render :partial => "/shared/user_list", :locals => {:users => @followers.map(&:user)} %>
+  <%= render :partial => "/public/user_list", :locals => {:users => @followers.map(&:user)} %>
   <%= customize_paginate @followers %>
 </div>

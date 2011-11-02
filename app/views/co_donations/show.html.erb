@@ -35,7 +35,7 @@
       <h4>捐赠记录</h4>
        
         <% "还没有获得捐赠" if @co_donation.records.empty?%>
-        <%= render :partial => "/shared/sub_donation", :collection => @co_donation.records %>
+        <%= render :partial => "/public/sub_donation", :collection => @co_donation.records %>
         <% unless @co_donation.records.empty?%>
         <p style="text-align:right;padding:0 15px">捐赠数量总计 <span class="donation_number" style="color:#EF6A0B;font-size:28px"><%= @co_donation.number %></span></p>
         <% end -%>
@@ -162,7 +162,7 @@
           <% end -%>
         </div>
     </div>
-    <%= render :partial => "/shared/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
+    <%= render :partial => "/public/share_to", :locals => {:text => summary(@co_donation ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>
 </div>
 
 <div style="clear:both;height:20px"></div>  
