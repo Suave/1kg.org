@@ -1,7 +1,7 @@
 <% school = introable%>
   <div class="box">  
     <p>来自：<b><%= link_to school.name,school %></b> <span><%= school.geo.full_name%></span></p>
-    <%= image_tag(school.cover.url(:'64x48'),:style=>'float:left;')%>
+    <%= link_to topic_photo_thumb(school),:alt => '学校主题图',:class => "school_main") %>
     <div style="margin-left:70px;margin-top:-8px">
       <p class="explanation">
         <%= short_text(school.intro,50)%>
