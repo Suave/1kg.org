@@ -88,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
                                        :total_shares => :get,
                                        :comments => :get
                                       } do |school|
-school.resources :visits
+  school.resources :visits
     
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
@@ -115,13 +115,6 @@ school.resources :visits
                                              :total_shares => :get} do |activity|
   end
 
-
-  map.resources :boards, :member => { :schools => :get } do |board|
-    board.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} do |topic|
-      topic.resources :posts
-    end
-  end
-  
   map.resources :shares, :member => {:vote => :post} do |share|
   end
   

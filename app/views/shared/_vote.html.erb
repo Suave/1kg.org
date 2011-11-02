@@ -11,7 +11,7 @@
       <%= link_to vote.title, share_path(vote) %>
     <% elsif vote.is_a?(Topic) %>
     的话题
-      <%= link_to vote.title, board_topic_path(vote.board, vote) %>
+      <%= link_to vote.title,topic_path(vote) %>
     <% end %>
     
   </div>

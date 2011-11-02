@@ -40,8 +40,8 @@
             <h2 style="font-size:20px;font-weight:bold;padding-bottom:4px"><%= @topic.title %></h2>
             <span class="gary_span"><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></span>
             <% if @topic.boardable.managed_by? current_user -%>
-              <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_topic_url(@topic.board_id, @topic), :method => :put %> |
-              <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_topic_url(@topic.board_id, @topic), :method => :put %> |
+              <%= link_to (@topic.sticky? ? "取消置顶" : "置顶"), stick_topic_url(@topic), :method => :put %> |
+              <%= link_to (@topic.block? ? "允许回复" : "禁止回复"), close_topic_url(@topic), :method => :put %> |
             <% end -%>
             
             <% if @topic.owned_by? current_user -%>

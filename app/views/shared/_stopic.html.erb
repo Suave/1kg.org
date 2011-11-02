@@ -1,6 +1,6 @@
 <div class="stopic">
   <div class="topictitle" >
-   <%= link_to h(stopic.title), board_topic_url(stopic.board,stopic) %>
+   <%= link_to h(stopic.title), topic_url(stopic) %>
   </div>
     <small style="color:#999"> <%= stopic.posts_count %> 篇回复　<%= link_to stopic.user.login, user_url(stopic.user) %> 写于 <%= stopic.created_at.to_date %> </small>
 </div>

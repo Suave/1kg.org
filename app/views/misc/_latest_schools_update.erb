@@ -15,7 +15,7 @@
       <td><%= link_to board.talkable.school.user.login, user_url(board.talkable.school.user) %></td>
       <td>
         <% topic = board.topics.find(:first, :order => "last_replied_at desc, created_at desc") %>
-        <%= link_to "#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login.to_s}", board_topic_url(topic.board_id, topic), :title => "点击查看最新更新" %>
+        <%= link_to "#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login.to_s}", topic_url(topic), :title => "点击查看最新更新" %>
       </td>
     </tr>
     <% end -%>
