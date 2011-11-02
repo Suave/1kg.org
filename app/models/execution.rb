@@ -6,6 +6,8 @@ class Execution < ActiveRecord::Base
   belongs_to :user
   belongs_to :village
 
+  acts_as_manageable
+
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy

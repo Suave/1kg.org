@@ -155,6 +155,9 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :photos
   map.resources :boxes, :collection => {:apply => :get,
+    :feedback => :get,
+    :shares => :get,
+    :photos => :get,
     :submit => :post,
     :new_photo => :get,
     :new_share => :get,
