@@ -1,0 +1,10 @@
+<% execution = introable%>
+  <div class="box">  
+    <p>来自：<b><%= link_to "#{execution.user.login}申请的公益项目",execution %></b> </p>
+    <%= link_to topic_photo_thumb(execution.school),:alt => '学校主题图',:class => "school_main" %>
+    <div style="margin-left:70px;margin-top:-8px">
+      <p class="explanation">
+      </p>
+    </div>
+  </div>
+

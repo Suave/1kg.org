@@ -70,6 +70,7 @@ class BoxesController < ApplicationController
   def show
     @box = Box.find(params[:id])
     @boxes = Box.available - [@box]
+    @comment = Comment.new
     @comments = @box.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
   end
 end
