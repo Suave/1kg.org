@@ -11,7 +11,7 @@
 #  deleted_at       :datetime
 #
 
-class PublicBoard < ActiveRecord::Base
+class Theme < ActiveRecord::Base
   include BodyFormat
   
   has_many :topics, :as => 'boardable', :dependent => :destroy
@@ -20,10 +20,6 @@ class PublicBoard < ActiveRecord::Base
   acts_as_manageable
   
   before_save :format_content
-  
-  def board_id
-    board.id
-  end
   
   private
   def format_content

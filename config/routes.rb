@@ -13,8 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   end
  
   map.resources :executions
-  map.resources :public_boards
-  
+  map.resources :themes
   map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
   
   
