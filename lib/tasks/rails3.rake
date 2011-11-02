@@ -84,7 +84,7 @@ namespace :rails3 do
   desc "原分享的推荐转移"
   task :votes_trans => :environment do 
     Vote.find(:all,:conditions =>{:voteable_type => 'Share'}).each do |v|
-      v.update_attributes(:voteable_id => Topic.find_by_share_id(v.voteable_id),:voteable_type => 'Topic')
+      v.update_attributes(:voteable_id => Topic.find_by_share_id(v.voteable_id).id,:voteable_type => 'Topic')
       print '.' if v.save
     end
   end
