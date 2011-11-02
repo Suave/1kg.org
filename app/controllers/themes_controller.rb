@@ -10,10 +10,7 @@ class ThemesController < ApplicationController
   
   def show
     @theme = Theme.find(params[:id])
-    @topics = @theme.topics.find(:all,
-                            :order => "created_at desc",
-                            :include => [:user],
-                            :limit => 10)
+    @topics = @theme.topics.paginate(:page => params[:page], :per_page => 20)
   end
  
 end
