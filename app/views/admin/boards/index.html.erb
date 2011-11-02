@@ -12,7 +12,6 @@
       <th>名称</th>
       <th>Slug</th>
       <th>帖子数</th>
-      <th>序号</th>
       <th>Active?</th>
       <th>操作</th>
     </tr>
@@ -21,7 +20,6 @@
       <td><%= link_to b.title, board_url(b.board_id) %></td>
       <td><%= b.slug %></td>
       <td><%= link_to b.board.topics_count %></td>
-      <td><%= b.position %></td>
       <td><%= b.board.deleted_at.blank? ? "是" : "<span class=\"notice\">否</span>" %></td>
       <td>
         <%= link_to "编辑", edit_admin_board_url(b.board_id, :type => 'public') %> | 

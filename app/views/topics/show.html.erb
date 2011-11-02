@@ -61,10 +61,10 @@
           </p>
           <p id ="voting" style="margin:7px 0;">
             <span>已有 <%= @topic.votes.count -%> 人推荐这个话题 </span>
-            <% if current_user && current_user.voted?(@topic) -%>
+            <% if current_user && current_user.has_voted?(@topic) -%>
               您已推荐了
             <% else -%>
-              <%= link_to '我要推荐', vote_topic_path(@topic), :method => 'post', :class => 'buttonlink' %>
+              <%= link_to '我要推荐', votes_path(:voteable_id => @topic.id,:voteable_type => 'Topic'), :method => 'post', :class => 'buttonlink' %>
             <% end -%>
           </p>
         <%= render :partial => "/public/share_to", :locals => {:text => summary(@topic ,60),:title => (@page_title.to_s + " - 多背一公斤")} %>

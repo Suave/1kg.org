@@ -48,6 +48,8 @@ class Activity < ActiveRecord::Base
   belongs_to :main_photo, :class_name => 'Photo'
   
   acts_as_taggable
+  acts_as_manageable
+  acts_as_ownable
   
   named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
   named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]

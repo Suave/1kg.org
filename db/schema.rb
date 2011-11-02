@@ -316,11 +316,10 @@ ActiveRecord::Schema.define() do
     t.integer "privacy",    :limit => 1
   end
 
-  create_table "public_boards", :force => true do |t|
+  create_table "themes", :force => true do |t|
     t.string   "title",            :limit => 100,                  :null => false
     t.text     "description"
     t.text     "description_html"
-    t.integer  "position",                        :default => 999, :null => false
     t.string   "slug"
     t.datetime "deleted_at"
   end

@@ -22,6 +22,14 @@ module ApplicationHelper
     datetime.to_formatted_s(:month_and_day)
   end
   
+  def format_date(date)
+    "#{date.year == Date.today.year ? '' : "#{date.year}年"}#{date.month}月#{date.day}日"
+  end
+  
+  def full_date(date)
+    date.strftime("%Y-%m-%d %X")
+  end
+  
   def customize_paginate(value, params={})
 		str = will_paginate(value, params.merge({:previous_label => '<<',
                           :next_label => '>>'}))

@@ -6,16 +6,17 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :requirements, :member => {}  
   map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
-  map.resources :managements
   map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
     c.resources :sub_donations, :member => {:prove => :put,
                                             :admin_state => :put}
+    c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
   end
  
-  map.resources :executions
-  map.resources :themes
-  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
+  map.resources :executions do |execution|
+    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
+  end
   
+  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
   
   
   map.public_look "/public", :controller => "misc", :action => "public_look"
@@ -24,6 +25,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
+  map.topics "/topics/total",:controller => "topics", :action => "total"
 
   map.with_options :controller => "users" do |user|
     user.signup 'signup', :action => "new"
@@ -69,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
                                       :photos => :get,
                                       :apply => :get,
                                       :shares => :get,
-                                      :managers => :get,
+                                      :moderator => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
@@ -79,15 +81,16 @@ ActionController::Routing::Routes.draw do |map|
                                       :novisited => :put,
                                       :intro =>  :get,
                                       :marked => :put,
+                                      :manage => :put,
                                       :sent_apply => :post},
-                      :collection => { :unconfirm => :get, 
-                                       :archives => :get, 
-                                       :cits => :get,
-                                       :check => :get,
-                                       :total_shares => :get,
-                                       :comments => :get
-                                      } do |school|
-  school.resources :visits
+                          :collection => { :unconfirm => :get, 
+                                           :archives => :get, 
+                                           :cits => :get,
+                                           :check => :get,
+                                           :total_shares => :get,
+                                           :comments => :get
+                                          } do |school|
+    school.resources :visits
     
   end
   map.connect "/schools/date/:year/:month/:day", :controller => "schools",
@@ -112,17 +115,27 @@ ActionController::Routing::Routes.draw do |map|
                                              :ongoing => :get,
                                              :over => :get,
                                              :total_shares => :get} do |activity|
+    activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 
+
+  map.resources :votes
+  map.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} 
+  
   map.resources :shares, :member => {:vote => :post} do |share|
+    share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
   end
   
-  map.resources :topics,  :member => { :vote => :post } do |topic|
+  map.resources :posts do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
+  end
+  
+  map.resources :comments do |post|
+    post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Comment'}
   end
 
-  map.resources :comments 
-
   map.resources :bulletins do |bulletin|
+    bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
   map.resource :search
@@ -130,7 +143,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 
                                       :new_topic => :get, 
-                                      :managers => :get, 
+                                      :manage => :get, 
+                                      :moderator => :put,
                                       :invite => :get,
                                       :send_invitation => :put,
                                       :members => :get
@@ -141,12 +155,16 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :photos
   map.resources :boxes, :collection => {:apply => :get,
-      :submit => :post,
-      :feedback => :get,
-      :shares => :get,
-      :photos => :get,
-      :execution => :get,
-      :executions => :get} do |box|
+    :submit => :post,
+    :new_photo => :get,
+    :new_share => :get,
+    :execution => :get,
+    :executions => :get} do |box|
+    box.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Box'}
+  end
+
+  map.resources :games, :member => {:versions => :get, :revert => :put}  do |game|
+    game.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Game'}
   end
   
   map.with_options :controller => 'games' do |games|
@@ -167,7 +185,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :projects, :member => {:manage => :get,:large_map => :get,:shares => :get ,:photos => :get} do |project|
     project.resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
+      execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
     end
+    project.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Project'}
   end
   
   map.admin '/admin', :controller => 'admin/misc', :action => 'index'

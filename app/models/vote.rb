@@ -14,6 +14,7 @@ class Vote < ActiveRecord::Base
   # NOTE: Votes belong to a user
   belongs_to :user
   belongs_to :voteable, :polymorphic => true
+  validates_uniqueness_of :user_id, :scope => [:voteable_id,:voteable_type]
 
   default_scope :order => "created_at desc"
   named_scope :recent_votes, :order => "created_at desc",

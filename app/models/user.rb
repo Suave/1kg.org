@@ -283,10 +283,8 @@ class User < ActiveRecord::Base
     Topic.find(:all,:conditions => {:boardable_id => self.joined_groups.map(&:id), :boardable_type => "Group"}, :order => "last_replied_at desc", :limit => 20)
   end
   
-  def voted?(obj)
-    v = Vote.find(:first, :conditions => ['user_id = ? and voteable_id = ? and voteable_type = ? and vote = ?',
-                                        self.id, obj.id, obj.class.to_s, true])
-    !v.nil?
+  def has_voted?(voteable)
+    voteable.votes.find(:first,:conditions => {:user_id => self.id}).present?
   end
   
   def random_password(length)
