@@ -121,6 +121,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :managements
   map.resources :votes
+  map.resources :themes
   map.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} 
   
   map.resources :shares, :member => {:vote => :post} do |share|
