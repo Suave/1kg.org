@@ -281,19 +281,6 @@ ActiveRecord::Schema.define() do
     t.datetime "deleted_at"
   end
 
-  create_table "posts", :force => true do |t|
-    t.integer  "topic_id",            :null => false
-    t.integer  "user_id",             :null => false
-    t.integer  "comments_count"
-    t.text     "body_html"
-    t.text     "clean_html"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-    t.datetime "deleted_at"
-  end
-
   create_table "profiles", :force => true do |t|
     t.integer "user_id"
     t.string  "blog_url"
@@ -324,13 +311,6 @@ ActiveRecord::Schema.define() do
     t.datetime "deleted_at"
   end
 
-  create_table "roles", :force => true do |t|
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "identifier",  :limit => 100, :null => false
-    t.string   "description"
-  end
-
   create_table "managements", :force => true do |t|
     t.integer "manageable_id",        :null => false
     t.string  "manageable_type",      :null => false
@@ -352,22 +332,6 @@ ActiveRecord::Schema.define() do
     t.string  :content
     t.timestamps
   end
-
-  add_index "roles", ["identifier"], :name => "index_roles_on_identifier"
-
-  create_table "roles_static_permissions", :id => false, :force => true do |t|
-    t.integer "role_id",              :null => false
-    t.integer "static_permission_id", :null => false
-  end
-
-  add_index "roles_static_permissions", ["role_id", "static_permission_id"], :name => "role_id_and_static_permission_id", :unique => true
-
-  create_table "roles_users", :id => false, :force => true do |t|
-    t.integer "role_id", :null => false
-    t.integer "user_id", :null => false
-  end
-
-  add_index "roles_users", ["role_id", "user_id"], :name => "index_roles_users_on_role_id_and_user_id", :unique => true
 
   create_table "school_basics", :force => true do |t|
     t.integer  "school_id"
@@ -675,7 +639,6 @@ ActiveRecord::Schema.define() do
     t.integer  "last_modified_by_id"
     t.datetime "deleted_at"
     t.boolean  "block",                              :default => false
-    t.integer  "posts_count",                        :default => 0
     t.integer  "comments_count",                        :default => 0
     t.integer  "share_id"
     t.boolean  "sticky",                             :default => false
@@ -725,7 +688,6 @@ ActiveRecord::Schema.define() do
     t.integer  "geo_id"
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
-    t.integer  "posts_count"
     t.integer  "topics_count"
     t.integer  "shares_count"
     t.integer  "guides_count"

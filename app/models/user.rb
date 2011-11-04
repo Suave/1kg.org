@@ -217,7 +217,7 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    has_role?("roles.admin")
+    is_admin
   end
   
   def has_neighbor?(user)
@@ -243,8 +243,7 @@ class User < ActiveRecord::Base
   end
   
   def self.admins
-    admin_id = Role.find_by_identifier("roles.admin").id
-    return search_role_members(admin_id)
+    User.find(:all,:conditions => {:is_admin => true})
   end
   
   def self.school_moderators
@@ -293,12 +292,12 @@ class User < ActiveRecord::Base
   
   #只包含在小组参与的话题
   def participated_group_topics
-    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map{|p| p.topic if p.board.talkable_type == "GroupBoard"}.uniq.compact
+    self.comments.find(:all, :conditions => {:commentable_type => 'Topic'}).map{|c| c.commentable if c.commentable.boardable_type == 'Group'}.compact.uniq
   end
   
   #只包含在小组发起的话题
   def group_topics
-    self.topics.find(:all, :conditions => ["boards.talkable_type = ?","GroupBoard"],:include => [:board])
+    self.topics.find(:all, :conditions => {:boardable_type => 'Group'})
   end
   
   def teams

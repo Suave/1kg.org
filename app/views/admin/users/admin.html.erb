@@ -3,8 +3,6 @@
 <% end -%>
 
 <div class="tabbedPanel">
-  <%= render :partial => "user_menu" %>
-
   <div class="panel setting">
     <div class="block">
       <h3>管理员名单</h3>
@@ -41,7 +39,7 @@
         <tr>
           <td><%= user.login %></td>
           <td>
-            <% unless user.has_role?("roles.admin") -%>
+            <% unless user.admin? -%>
               <%= link_to "设为管理员", admin_user_path(user, :add => "admin"), :method => :put %>
             <% else -%>
               <%= link_to "取消管理员", admin_user_path(user, :remove => "admin"), :method => :put %>

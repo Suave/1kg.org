@@ -11,7 +11,7 @@
     <td><%= link_to t.title, topic_url(t) %></td>
     <td><%= link_to t.boardable.name,t.boardable%></td>
     <td><%= t.user.login %></td>
-    <td><%= tcomments_count %></td>
+    <td><%= t.comments_count %></td>
     <td><%= link_to "#{ date_for_short t.last_replied_datetime} by #{t.last_replied_user.login}", topic_url(t, :anchor => (t.comments.last.id if t.comments.last)), :class => "link" %></td>
   </tr>
   <% end -%>
