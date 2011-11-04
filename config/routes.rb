@@ -71,7 +71,7 @@ ActionController::Routing::Routes.draw do |map|
                                       :photos => :get,
                                       :apply => :get,
                                       :shares => :get,
-                                      :moderator => :get,
+                                      :managers => :get,
                                       :validate => :put,
                                       :visited => :put,
                                       :interest => :put,
@@ -119,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
+  map.resources :managements
   map.resources :votes
   map.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} 
   
@@ -175,7 +176,7 @@ ActionController::Routing::Routes.draw do |map|
     games.new_category_game '/games/category/:tag/new', :action => "new"
   end
   
-  map.resources :teams,:member => { :set_leaders => :get,
+  map.resources :teams,:member => { :managers => :get,
                                     :search_user => :get,
                                     :add => :post,
                                     :leave => :delete,
@@ -183,7 +184,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :create_activity => :post,
                                     :follow => :post,
                                     :unfollow => :delete,
-                                    :large_map => :get
+                                    :large_map => :get,
+                                    :managers  => :get
                                   }
 
   map.resources :projects, :member => {:manage => :get,:large_map => :get,:shares => :get ,:photos => :get} do |project|

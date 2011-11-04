@@ -40,10 +40,10 @@
   </script>
 <% end %>
 
-<span class="span_title">团队地图</span>
+<h4>团队地图</h4>
 <div id="team_map" style="background-color:#ddd;border:1px #ccc solid;width: 278px; height: 178px; margin:10px 0 2px;"></div>
 <div id="map_info">
-  <% if current_user && @team.leaders.include?(current_user)%>
+  <% if current_user && @team.managers.include?(current_user)%>
     <%= link_to "修改团队地图?", large_map_team_url(:iframe => true, :width => 550, :height => 480,:edit => true) , :rel => 'prettyPhoto[edit]', :description => nil,:style => "float:right;" %>
   <% end %>
     <%= link_to "查看大图", large_map_team_url(:iframe => true, :width => 550, :height => 480), :rel => 'prettyPhoto[iframes]', :description => nil %>

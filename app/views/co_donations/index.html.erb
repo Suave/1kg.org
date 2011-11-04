@@ -18,7 +18,7 @@
 
 <% if logged_in? && current_user.envoy?%><div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div><%end%>
 
-<span class="span_title" style="margin-right:8px">进行中的团捐：</span>
+<h3>进行中的团捐：</h3>
 <div class="clearfix" style="clear:both;height:10px"></div>
   <div style="width:640px">
   <%= render :partial => "/public/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>

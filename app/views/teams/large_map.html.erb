@@ -30,7 +30,7 @@
       bigmarker = new GMarker(point,{icon:team_icon});
       greenmarker = new GMarker(point, {icon:team_icon,draggable: 'true'});
       
-      <% if current_user && @team.leaders.include?(current_user)%>
+      <% if current_user && @team.managers.include?(current_user)%>
       GEvent.addDomListener(document.getElementById("ok"), "click", function() {
         jQuery.ajax({
           type: 'PUT',

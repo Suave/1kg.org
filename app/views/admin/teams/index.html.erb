@@ -52,10 +52,10 @@
           
           <% if team.validated? %>
           <h5>团队管理员</h5>
-          共<%= team.leaders.size%>人
+          共<%= team.managers.size%>人
           <p>
-          <% team.leaders.each do |leader| %>
-            <%= link_to leader.login,leader%>
+          <% team.managers.each do |manager| %>
+            <%= link_to manager.login,manager%>
           <% end %>
           </p>
           <%end%>

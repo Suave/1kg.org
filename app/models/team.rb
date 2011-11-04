@@ -2,12 +2,10 @@ class Team < ActiveRecord::Base
   belongs_to :user  
   belongs_to :geo
   
-  has_many :leaderships, :dependent => :destroy
-  has_many :leaders,     :through => :leaderships, :source => :user
   has_many :activities
   has_many :topics, :as => "boardable"
 
-  has_many :followings, :as => "followable"
+  has_many :followings,:as => "followable"
   has_many :followers, :through => :followings
   
   has_attached_file :image,  :styles => { :team_icon => "64x64",:team_logo => "160x160>"}

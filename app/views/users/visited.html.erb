@@ -14,7 +14,7 @@
 <div>
 <% unless @wannas.blank? %>
   <div class="school_frame">
-        <span class="span_title" >要去的学校</span>
+        <h3>要去的学校</h3>
         <span style="color:#999"><%= @wannas.size %>所学校</span>
         <div class="clearfix" style="height:20px"> </div>
         <%= render :partial => "visit", :collection => @wannas,:locals => {:school => nil} %>

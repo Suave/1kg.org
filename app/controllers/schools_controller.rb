@@ -479,9 +479,7 @@ class SchoolsController < ApplicationController
   
   def update_main_photo(current_step, next_step, msg)
     @photo = current_user.photos.build(params[:school][:main_photo_attributes])
-    @photo.school_id = @school.id
-    logger.info("PHOTO: #{@photo.inspect}")
-    if @photo.filename.nil?
+    if @photo.image_file_name.nil?
       @photo = Photo.find_by_id params[:school][:main_photo_id]
       @school.main_photo = @photo 
       @school.save

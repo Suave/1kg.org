@@ -1,7 +1,7 @@
 class TeamsController < ApplicationController
   before_filter :find_team, :except => [:new, :create, :index]
   before_filter :login_required, :except => [:index,:show,:large_map]
-  before_filter :check_permission, :only => [:edit,:update,:set_leaders,:searcher_user,:add,:new_activity]
+  before_filter :check_permission, :only => [:edit,:update,:managers,:searcher_user,:add,:new_activity]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_activity]
   
   def index
@@ -13,7 +13,6 @@ class TeamsController < ApplicationController
   end
   
   def show
-    @followers = @team.followers - @team.leaders
     @schools = @team.helped_schools
     @photos = @team.activities.map(&:photos).flatten[0..7]
     @map_center = @team.latitude?? [@team.latitude, @team.longitude, (@team.zoom_level - 1)] : [@team.geo.latitude, @team.geo.longitude, 6]
@@ -107,47 +106,12 @@ class TeamsController < ApplicationController
     end
   end
   
-  def add
-    @user = User.find(params[:user_id])
-    if  @team.leaders.include?(@user)
-      flash[:notice] = "他已经是团队的管理员了"
-      redirect_to set_leaders_team_url(@team)
-    else
-      @user.leaderships.build(:team_id => @team.id).save
-      @team.followers << @user
-      message = Message.new(:subject => "你成为了#{@team.name}的管理员",
-                          :content => "<p>你好,#{@user.login}:</p><br/><p>祝贺你成为#{@team.name}的管理员。<br/>成为管理员后，你可以编辑团队的信息，并可以在团队页面以团队的名义发起活动。<br/>快去看看吧 => #{team_url(@team)}</p> <br/><p>多背一公斤团队</p>"
-                          )
-      message.author_id = 0
-      message.to = [@user]
-      message.save!
-    
-      flash[:notice] = "#{@user.login}成为了团队的管理员。"
-      redirect_to set_leaders_team_url(@team)
-    end
+  def managers
+    @managements = @team.managements
+    @followers = @team.followers - @team.managers
+    @mymanagement = current_user.managements.find(:first,:conditions => {:manageable_id => @team.id,:manageable_type => 'Team'})
   end
-  
-  def leave
-    if  @team.leaders.size == 1
-      flash[:notice] = "你是目前团队唯一的管理员，就不能退出啦"
-      redirect_to set_leaders_team_url(@team)
-    else
-      current_user.leaderships.find_by_team_id(@team).delete
-      flash[:notice] = "你现在不是#{@team.name}的管理员了。"
-      redirect_to team_url(@team)
-    end
-  end
-  
-  def set_leaders
-    @followers = @team.followers - @team.leaders
-  end
-  
-  def search_user
-    @followers = @team.followers - @team.leaders
-    @user = User.find_by_email(params[:email])
-    render :set_leaders
-  end
-  
+
   def follow
     #关注团队
     unless @team.followers.include?(current_user)
@@ -168,7 +132,13 @@ class TeamsController < ApplicationController
       redirect_to team_url(@team)  
     end
   end
-  
+ 
+  def search_user
+    @followers = @team.followers - @team.managers
+    @user = User.find_by_email(params[:email])
+    render :managers
+  end  
+
   private
   
   def find_team
@@ -176,7 +146,7 @@ class TeamsController < ApplicationController
   end
   
   def check_permission
-    unless @team.leaders.include?(current_user) || current_user.admin?
+    unless @team.managers.include?(current_user) || current_user.admin?
     flash[:notice] = "你没有团队组织权限。"
     redirect_to @team
     end

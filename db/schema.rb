@@ -138,14 +138,14 @@ ActiveRecord::Schema.define() do
     t.string    "website"
     t.string    "category"
     t.integer   "member_number"
-    t.string   "applicant_name"
-    t.string   "applicant_phone"
-    t.string   "applicant_email"
-    t.string   "applicant_role"
+    t.string    "applicant_name"
+    t.string    "applicant_phone"
+    t.string    "applicant_email"
+    t.string    "applicant_role"
     
-    t.string  "latitude"
-    t.string  "longitude"
-    t.integer "zoom_level",  :default => 4
+    t.string    "latitude"
+    t.string    "longitude"
+    t.integer   "zoom_level",    :default => 4
     
     t.boolean   "validated",     :default => false
     t.datetime  "validated_at"

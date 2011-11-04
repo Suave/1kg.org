@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
   has_one :profile, :dependent => :destroy 
   accepts_nested_attributes_for :profile 
   
+  has_many :managements, :dependent => :destroy
   has_many :comments, :dependent => :destroy 
   has_many :submitted_activities, :class_name => "Activity", 
                                   :conditions => "deleted_at is null", 
@@ -110,7 +111,7 @@ class User < ActiveRecord::Base
 	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
-  has_many :leaderships, :dependent => :destroy
+  has_many :managerships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
                            :source => :group,
                            :order => "memberships.created_at desc"

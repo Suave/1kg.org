@@ -1,0 +1,69 @@
+<% @page_title = @title = "#{h @team.name}管理员" -%>
+
+<% content_for :crumb do -%>
+<li><%= link_to '团队', teams_path %></li>
+<li><%= @team.name %></li>
+<% end -%>
+
+
+<% content_for :sidebar do -%>
+<p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
+<div class="cleanfix" style="height:20px;clear:both"></div>
+<div class="newbox">
+ <h3>现有管理员</h3>
+  <% @team.managers.each do |user| %>
+       <dl class="user">
+          <dt>
+            <%= image_tag(user.avatar.url,:alt => user.login) %>
+          </dt>
+          <dd>
+            <%= link_to user.login, user_url(user) %><br/>
+            
+          </dd>          
+        </dl> 
+    <% end -%>
+</div>
+
+
+<% end -%>
+
+<div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队的管理员可以以团队名义发起活动、编辑团队信息、添加其他管理员。<br/>　　　并且在添加后不能直接删除，添加新的管理员时请务必谨慎。</div>
+
+
+<div class="newbox">
+  <h3>从关注者里添加</h3>
+  <% @followers.each do |u| %>
+    <dl class="user">
+      <dt>
+        <%= image_tag(u.avatar.url,:alt => u.login) %>
+      </dt>
+      <dd>
+        <%= link_to u.login, user_url(u) %><br/>
+        <%= link_to '添加 +',managements_path(:manageable_id => @team.id,:manageable_type => "Team",:user_id => u.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
+      </dd>
+    </dl>
+  <% end %>
+  
+  <div style="clear:both;height:20px;"></div>
+
+  <% form_tag search_user_team_path, :method => :get do -%>
+    <div style="padding:3px 10px;background:#ddd"><label>直接搜索用户的登录邮箱: </label><%= text_field_tag 'email' %> <%= submit_tag "查 找" %></div>
+  <% end -%>
+  <% unless @user.nil? %>
+  <h6>搜索结果：</h6>
+  <p>
+    <dl class="user">
+      <dt>
+        <%= image_tag(@user.avatar.url,:alt => @user.login) %>
+      </dt>
+      <dd>
+        <%= link_to @user.login, user_url(@user) %><br/>
+        <%= link_to '添加 +',managements_path(:manageable_id => @team.id,:manageable_type => "Team",:user_id => @user.id),:method => :post,:confirm => '您确定要添加他/她为团队的管理员么?'%>
+      </dd>
+    </dl>
+  </p>
+  <% end %>
+      
+</div>
+
+<div class="cleanfix" style="height:20px;clear:both"></div>

@@ -18,12 +18,12 @@
 
 <div class="newbox">
     <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
-      <%= image_tag(@team.image.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
+      <%= image_tag(@team.avatar.url(:team_logo), :alt => 'Logo',:class => "activity_main") %>
     </div>
 
     <div style="margin-left:170px">
         <div style="float:right;text-align:right" >
-        <% if @team.leaders.include?(current_user) -%>  
+        <% if @team.managers.include?(current_user) -%>  
         <% elsif !@team.followers.include?(current_user) -%>
             <%= link_to "我要关注", follow_team_url(@team), :method => :post,:class => "buttonjoin2"%>
         <% else %>
@@ -46,7 +46,7 @@
 
 <div class="clearfix" style="height:20px;clear:both"></div>
 <div class="newbox">
-  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.leaders.include?(current_user)%></span>
+  <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.managers.include?(current_user)%></span>
   <h4>团队活动</h4>
   <%= render :partial => "/public/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
@@ -73,11 +73,11 @@
 
 <% content_for :sidebar do -%>
   
-  <% if current_user && @team.leaders.include?(current_user) %>
+  <% if current_user && @team.managers.include?(current_user) %>
     <div id="admins">
         你是<%= @team.name %>的管理员，可以：<br/>
        <%= link_to "更新信息", edit_team_url(@team),:class => "adminbutton" %>
-       <%= link_to "管理成员", set_leaders_team_url(@team),:class => "adminbutton"%>
+       <%= link_to "管理成员", managers_team_url(@team),:class => "adminbutton"%>
        
     </div>
   <% end %>
