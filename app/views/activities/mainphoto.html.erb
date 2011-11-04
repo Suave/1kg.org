@@ -2,18 +2,16 @@
 
 <% content_for :sidebar do -%>
 <% end -%>
-
-
-
 <div class="newbox">
   <div class="contents">
-    <% form_for :photo, :url => mainphoto_create_activity_url, :html => {:multipart => true} do |f| -%>
+    <% form_for @photo, :url => mainphoto_create_activity_url, :html => {:multipart => true} do |f| -%>
     <p><label class="label">照片标题</label><%= f.text_field :title, :size => 40, :class => "formText" %></p>
         <input style="display:none" class="formText" type="text" size="40" name="photo[mainptoto]" value="true"/>
     <p><label class="label">上传照片</label><%= f.file_field :image %></p>
         <span class="gary_span">建议使用正方形图片，宽度不要大于580像素，文件大小不超过500kb。</span>
    
-    <%= f.hidden_field :activity_id %>
+        <%= f.hidden_field :photoable_id ,:value => @photo.photoable.id%>
+        <%= f.hidden_field :photoable_type ,:value => "Activity"%>
     <p class="submit clearfix" style="margin-left:10px"><span class="btnWrap"><%= submit_tag "上 传" %></span> <span class="btnWrap" style="width:80px;text-align:center"><%= link_to "跳 过", activity_url(@activity) %></span></p> 
     <% end -%>
   </div>

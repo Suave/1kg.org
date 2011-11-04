@@ -100,7 +100,7 @@ class ActivitiesController < ApplicationController
   
   def mainphoto
     @photo = Photo.new
-    @photo.activity = @activity
+    @photo.photoable = @activity
   end
   
   def edit

@@ -75,7 +75,6 @@ class Activity < ActiveRecord::Base
   validates_presence_of :arrival_id, :message => "这是必选项"
   validates_presence_of :start_at, :message => "这是必填项"
   validates_presence_of :end_at, :message => "这是必填项"
-  validates_presence_of :description_html, :message => "活动介绍是必填项"
   
   def organizer
     self.by_team ? self.team : self.user
