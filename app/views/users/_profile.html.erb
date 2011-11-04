@@ -24,7 +24,7 @@
 	<% end %>
 </div>
 <div clear="clearfix" style="clear:both;"></div>
-  <% if profile &&current_user&&current_user.school_moderator? -%>
+  <% if profile && current_user && current_user.admin? -%>
     <%= profile.bio_html %>
   <%end%>
   <div clear="clearfix" style="clear:both;height:10px"></div>

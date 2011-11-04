@@ -6,7 +6,7 @@
             <div class="content">
               <p class="meta">
                 <%= link_to comment.user.login, user_url(comment.user) %> 写于 <%= comment.created_at.to_date %>
-                <% if comment.editable_by?(current_user) -%>
+                <% if comment.owned_by?(current_user) -%>
                   | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
                 <% end -%>
               </p>

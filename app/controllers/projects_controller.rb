@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   
-  before_filter :login_required, :except => [:show,:index,:large_map,:shares,:photos] 
+  before_filter :login_required, :except => [:show,:index,:large_map,:topics,:photos] 
   before_filter :find_project, :except => [:new, :create, :index]
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
 
@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     @comments = @project.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
     @comment = Comment.new
     @photos = @executions.map(&:photos).flatten
-    @shares = @executions.map(&:shares).flatten
+    @topics = @executions.map(&:topics).flatten
     @map_center = Geo::DEFAULT_CENTER
     @json = []
     @executions.compact.each do |e|
@@ -83,9 +83,9 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def shares
+  def topics
     @executions = @project.executions.validated
-    @shares = @executions.map(&:shares).flatten.paginate(:page => params[:page], :per_page => 20)
+    @topics = @executions.map(&:topics).flatten.paginate(:page => params[:page], :per_page => 20)
   end
   
   def photos

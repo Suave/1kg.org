@@ -28,6 +28,7 @@ class Photo < ActiveRecord::Base
   belongs_to :photoable,:polymorphic => true
   belongs_to :user
   acts_as_paranoid
+  acts_as_ownable
   
   has_attached_file :image, :styles => {:'107x80' => ["107x80#"],:'max240x180' => ["240x180>"],:max565x420 => ["565x420>"]},
                             :url=>"/media/photos/:id/:attachment/:style.:extension",

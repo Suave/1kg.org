@@ -8,7 +8,7 @@
 <div class="caution">在"学校"、"活动"、"论坛"的搜索中你可以设置更精确的搜索条件。</div>
 <%= render :partial => 'schools' if @search.kind == 'school' %>
 <%= render :partial => 'activities' if @search.kind == 'activity' %>
-<%= render :partial => 'shares' if @search.kind == 'share' %>
+<%= render :partial => 'topics' if @search.kind == 'share' %>
 <%= render :partial => 'groups' if @search.kind == 'group' %>
 <%= render :partial => 'topics' if @search.kind == 'topic' %>
 <%= render :partial => 'users' if @search.kind == 'user' %>

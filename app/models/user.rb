@@ -19,7 +19,7 @@
 #  geo_id                    :integer(4)
 #  guides_count              :integer(4)
 #  topics_count              :integer(4)
-#  shares_count              :integer(4)
+#  topics_count              :integer(4)
 #  posts_count               :integer(4)
 #  ip                        :string(255)
 #  email_notify              :boolean(1)      default(TRUE)
@@ -27,7 +27,6 @@
 
 require 'digest/sha1'
 class User < ActiveRecord::Base
-  acts_as_user
   # Virtual attribute for the unencrypted password
   attr_accessor :password
   cattr_accessor :current_user
@@ -51,8 +50,6 @@ class User < ActiveRecord::Base
                             :default_url=>"/defaults/users/:attachment/:style.png"
   
   belongs_to :geo
-  
-  has_and_belongs_to_many :roles, :uniq => true
 
   define_index do
     # fields
@@ -63,9 +60,6 @@ class User < ActiveRecord::Base
   
   # This method returns true if the user is assigned the role with one of the
   # role titles given as parameters. False otherwise.
-  def has_role?(*roles_identifiers)
-      roles.any? { |role| roles_identifiers.include?(role.identifier) }
-  end
 
   has_one :profile, :dependent => :destroy 
   accepts_nested_attributes_for :profile 
@@ -92,7 +86,7 @@ class User < ActiveRecord::Base
   
   has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
   has_many :posts, :order => "posts.created_at desc", :dependent => :destroy 
-  has_many :shares, :order => "created_at desc", :dependent => :destroy
+  has_many :topics, :order => "created_at desc", :dependent => :destroy
   has_many :photos, :order => "created_at desc", :dependent => :destroy 
   has_many :groups, :dependent => :destroy
   has_many :teams, :dependent => :destroy  
@@ -246,18 +240,6 @@ class User < ActiveRecord::Base
     User.find(:all,:conditions => {:is_admin => true})
   end
   
-  def self.school_moderators
-    school_moderator_id = Role.find_by_identifier("roles.schools.moderator").id
-    return search_role_members(school_moderator_id)
-  end
-
-  # find school, city and board moderators
-  def self.moderators_of(klass)
-    klass_id = ((klass.class == Group || klass.class == School || klass.class == Geo) ? klass.id : klass)
-    role = Role.find_by_identifier("roles.#{klass.class.to_s.downcase}.moderator.#{klass_id}")
-    return role.nil? ? [] : search_role_members(role.id)
-  end
-
   def joined_groups_topics
     Topic.find(:all,:conditions => {:boardable_id => self.joined_groups.map(&:id), :boardable_type => "Group"})
   end
@@ -349,11 +331,5 @@ class User < ActiveRecord::Base
       @activated = true
       self.activated_at = Time.now.utc
       self.deleted_at = self.activation_code = nil
-    end
-
-    def self.search_role_members(role_id)
-      u_t = User.table_name.to_s # user table name
-      ru_t = "#{Role.table_name}_#{User.table_name}" # roles_users table name
-      find_by_sql("select * from #{u_t} inner join #{ru_t} on #{ru_t}.user_id=#{u_t}.id where #{ru_t}.role_id=#{role_id}")
     end
 end

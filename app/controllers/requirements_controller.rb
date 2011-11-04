@@ -25,7 +25,7 @@ class RequirementsController < ApplicationController
     @schools = @project.must ? current_user.managed('School') : (current_user.managed('School') + current_user.visited_schools).uniq
     #@school = School.find params[:apply][:school_id]
     @apply.status = 2
-    if @project.must && !User.moderators_of(@apply.school).include?(current_user)
+    if @project.must && !@apply.school.managers.include?(current_user)
       flash[:notice] = "你不是#{@apply.school.title}的学校大使,不能申请这个项目。"
       render :action => "new" 
     else
@@ -46,7 +46,7 @@ class RequirementsController < ApplicationController
         @comments = @requirement.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
         @comment = Comment.new
         @photos = @requirement.photos
-        @shares = @requirement.topics
+        @topics = @requirement.topics
         want.html { render 'school'}
       else
         want.html

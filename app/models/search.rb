@@ -71,22 +71,7 @@ class Search < ActiveRecord::Base
                         :per_page => per_page,
                         :order => 'start_at DESC', :match_mode => :extended)
   end
-  
-  def shares(page, per_page = 20)
-    conditions = {}
-    attributes = {}
-    
-    conditions[:title] = self.title unless self.title.blank?
-    conditions[:city] = self.city unless self.city.blank?
-    conditions[:school_title] = self.school_title unless self.school_title.blank?
-    conditions[:content] = self.content unless self.content.blank?
-    
-    Share.search(self.q, :conditions => conditions, 
-                        :page => page, 
-                        :per_page => per_page,
-                        :order => 'updated_at DESC', :match_mode => :extended)
-  end
-  
+   
   def groups(page, per_page = 20)
     Group.search(self.q,:page => page, 
                         :per_page => per_page, :match_mode => :extended)

@@ -14,11 +14,11 @@
   </div>
   <% end %>
   
-  <% if @objects['Share'] %>
+  <% if @objects['Topic'] %>
   <div class="cleanfix" style="clear:both;height:10px"></div>
  <h3>论坛</h3>
   <div class="contents">
-    <%= render :partial => "/public/share", :collection => @objects['Share'].compact %>
+    <%= render :partial => "/public/share", :collection => @objects['Topic'].compact %>
   </div>
   <% end %>
 

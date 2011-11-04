@@ -6,7 +6,7 @@
 <div class="setting">
   <div class="block">
     <h3>创建开放讨论区</h3>
-    <% form_for :public_board, :url => admin_boards_url(:type => 'public') do |f| -%>
+    <% form_for :theme, :url => admin_boards_url(:type => 'public') do |f| -%>
     <%= render :partial => "public_form", :object => f %>
     <p><label>&nbsp;</label><%= submit_tag "创建" %> 或 <%= link_to "取消", admin_boards_url %></p>
     <% end -%>

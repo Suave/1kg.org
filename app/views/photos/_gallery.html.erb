@@ -4,7 +4,7 @@
   <% unless defined?(no_title)%>
   <dd>
     <span id="photo_title_<%= gallery.id %>"><%= short_title(gallery,16) %></span>
-    <% if logged_in? && gallery.editable_by?(current_user) %>
+    <% if logged_in? && gallery.owned_by?(current_user) %>
       <%= text_field_tag :title, gallery.title, 
           :onkeydown => "return photo_edit_key_down(event, '#{gallery.id}');",
           :style => "display:none;", :id => "title_edit_#{gallery.id}", :size => 15  %>

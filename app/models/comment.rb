@@ -33,7 +33,7 @@ class Comment < ActiveRecord::Base
   end
   
   def repliable?
-    !self.commentable.is_a?(Post) && !self.commentable.is_a?(Comment)
+    !self.commentable.is_a?(Comment)
   end
   
   private

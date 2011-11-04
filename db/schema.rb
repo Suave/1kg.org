@@ -114,12 +114,6 @@ ActiveRecord::Schema.define() do
     t.timestamps
   end
 
-  create_table "activity_boards", :force => true do |t|
-    t.integer "activity_id",      :null => false
-    t.text    "description"
-    t.text    "description_html"
-  end
-
   create_table "areas", :force => true do |t|
     t.integer "parent_id"
     t.integer "lft"
@@ -153,23 +147,6 @@ ActiveRecord::Schema.define() do
     t.datetime  "deleted_at"
   end
   
-  create_table "boards", :force => true do |t|
-    t.integer  "talkable_id",                        :null => false
-    t.string   "talkable_type",                      :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-    t.integer  "topics_count",        :default => 0
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-  end
-
-  create_table "city_boards", :force => true do |t|
-    t.integer "geo_id",           :null => false
-    t.text    "description"
-    t.text    "description_html"
-  end
-
   create_table "comments", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.text     "body"
@@ -200,9 +177,6 @@ ActiveRecord::Schema.define() do
     t.string  "longitude"
   end
 
-  create_table "group_boards", :force => true do |t|
-    t.integer  "group_id", :null => false
-  end
 
   create_table "groups", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -624,7 +598,6 @@ ActiveRecord::Schema.define() do
   end
 
   create_table "topics", :force => true do |t|
-    t.integer  "board_id"
     t.integer  "boardable_id"
     t.string   "boardable_type",                     :limit => 20
     t.integer  "user_id",                                               :null => false

@@ -70,9 +70,9 @@
     
   <div class="school_box">
    <h4>分享</h4>
-    <%= @shares.blank? ? "还没有村庄分享" :  "共有#{@shares.size}篇分享" %>
+    <%= @topics.blank? ? "还没有村庄分享" :  "共有#{@topics.size}篇分享" %>
     <div class="contents clearfix">
-      <%= render :partial => "/public/share", :collection => @shares %>
+      <%= render :partial => "/public/share", :collection => @topics %>
     </div>
   </div>
 

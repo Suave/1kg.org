@@ -123,9 +123,9 @@
   </div>
     
   <div>
-   <h4>项目反馈</span> <span class="gary_span"><%= @shares.blank? ? "还没有项目分享" : link_to("共有#{@shares.size}篇反馈",shares_project_path(@project))%></h4>
+   <h4>项目反馈</span> <span class="gary_span"><%= @topics.blank? ? "还没有项目分享" : link_to("共有#{@topics.size}篇反馈",topics_project_path(@project))%></h4>
     <div class="contents clearfix">
-      <%= render :partial => "/public/share", :collection => @shares[0,4] %>
+      <%= render :partial => "/public/share", :collection => @topics[0,4] %>
     </div>
   </div>
   

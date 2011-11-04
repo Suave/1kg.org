@@ -1,8 +1,8 @@
 <% @page_title = @title = "#{h @project.title}的论坛" -%>
 
 <div class="newbox">
-        <%= render :partial => "/public/share", :collection => @shares %>
-      <div class="contents"><p><%= will_paginate @shares %></p></div>
+        <%= render :partial => "/public/share", :collection => @topics %>
+      <div class="contents"><p><%= will_paginate @topics %></p></div>
 </div>
 
 <% content_for :sidebar do -%>

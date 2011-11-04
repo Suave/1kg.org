@@ -8,7 +8,7 @@ class Admin::BoardsController < Admin::BaseController
   def new  
     if params[:type] == "public"
       #setup pulbic discussion board, only admin can create, assign moderators
-      @public_board = PublicBoard.new
+      @theme = Theme.new
       render :action => "new_public"
       
     elsif params[:type] == "school"

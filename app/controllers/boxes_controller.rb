@@ -6,7 +6,7 @@ class BoxesController < ApplicationController
     @boxes = Box.available
     @executions = Execution.validated_with_box
     @my_executions  = current_user.executions.with_box if logged_in?
-    @shares = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
+    @topics = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @photos = Photo.find(:all,:conditions => {:photoable_type => 'Execution',:photoable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
   end
@@ -45,9 +45,9 @@ class BoxesController < ApplicationController
     @feedback_type = {'photo'=> 'photo','share' => 'share'}[params[:feedback_type]]
   end
 
-  def shares
+  def topics
     @executions = Execution.validated_with_box
-    @shares = @executions.map(&:shares).flatten.paginate :page => params[:page] || 1, :per_page => 20
+    @topics = @executions.map(&:topics).flatten.paginate :page => params[:page] || 1, :per_page => 20
   end
 
   def photos
@@ -58,7 +58,7 @@ class BoxesController < ApplicationController
   def execution
     @execution = Execution.find(params[:id])
     @photos = @execution.photos
-    @shares = @execution.topics
+    @topics = @execution.topics
     @comments = @execution.comments.paginate :page => params[:page] || 1, :per_page => 20
     render 'execution'
   end

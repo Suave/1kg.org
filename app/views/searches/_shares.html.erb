@@ -1,7 +1,7 @@
 <div class="newbox">
   <div class="contents">
-    <%= render :partial => "/public/share", :collection => @shares.compact %>
+    <%= render :partial => "/public/share", :collection => @topics.compact %>
   </div>
-  <%= will_paginate @shares %>
+  <%= will_paginate @topics %>
   <div class="cleanfix" style="height:20px"></div>
 </div>

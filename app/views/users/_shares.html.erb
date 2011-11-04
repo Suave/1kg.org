@@ -2,16 +2,16 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
  <h3><%= h user.login %>的帖子</h3>
         <div class="panel setting">
-          <div id='shares'>
-            <% if shares.blank? -%>
+          <div id='topics'>
+            <% if topics.blank? -%>
               <div class="contents">
                 还没有帖子
               </div>
             <% else -%>
-              <%= render :partial => "/public/share", :collection => @shares %>
+              <%= render :partial => "/public/share", :collection => @topics %>
             <% end -%>
             <div class="cleanfix" style="clear:both;"></div> 
-            <div class="remark"><%= link_to "&raquo; 查看全部", shares_user_url(user) %></div>
+            <div class="remark"><%= link_to "&raquo; 查看全部", topics_user_url(user) %></div>
           </div>
         </div>
 

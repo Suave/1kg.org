@@ -32,7 +32,7 @@ class GeosController < ApplicationController
       
       @activities = Activity.ongoing.for_the_city(@city).find :all, :order => "created_at desc", :limit => 10
       
-      @shares = Share.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
+      @topics = Topic.find(:all, :conditions => ["user_id in (?)", @all_citizens.flatten],
                                  :order => "last_replied_at desc",
                                  :limit => 6)
                                  
@@ -54,10 +54,10 @@ class GeosController < ApplicationController
     end
   end
   
-  def shares
+  def topics
     @city = Geo.find(params[:id])
     @all_citizens = @city.users.find(:all, :order => "created_at desc", :select => "users.id")
-    @shares = Share.paginate(:page => params[:page], :per_page => 20,
+    @topics = Topic.paginate(:page => params[:page], :per_page => 20,
                                :conditions => ["user_id in (?)", @all_citizens.flatten],
                                :order => "last_replied_at desc")
   end
@@ -145,7 +145,7 @@ class GeosController < ApplicationController
     @schools = School.near_to(city).paginate(:page => params[:page] || 1,
                                                           :order => "updated_at desc",
                                                           :per_page => 10)
-    @shares = city.topics.paginate(:page => params[:page] || 1, :order => "comments_count desc", :per_page => 10)
+    @topics = city.topics.paginate(:page => params[:page] || 1, :order => "comments_count desc", :per_page => 10)
     @activities = Activity.available.ongoing.find(:all, :conditions => ["arrival_id=?", city.id],
                                                         :order => "start_at desc",
                                                         :select => "id, title, start_at")

@@ -8,12 +8,12 @@
   </thead>
   <tbody>
     <% schools.each do |school| -%>
-    <% envoys = User.moderators_of(school) %>
+    <% managers = school.managers %>
     <% next if school.nil? %>
     <tr class="<%= cycle('odd', 'even') %>">
       <td><%= link_to school.title, school_url(school) %></td>
       <td><%= karma_star(school.karma)-%> </td>
-      <td><% envoys[0,2].each do |u| %><%= link_to u.login, user_url(u)  %> <%end%><%= "..." if envoys[2]%></td>
+      <td><%= "#{manager[0,2].map{|u| link_to(u.login, user_url(u)) + ' '}} #{'...' if envoys[2]}" %></td>
     </tr>
     <% end -%>
   </tbody>

@@ -4,7 +4,7 @@ class Minisite::Postcard::DashboardController < ApplicationController
   before_filter :login_required, :except => [:index, :love_message]
   
   def index
-    @board = PublicBoard.find_by_slug("postcard").board
+    @theme= Theme.find_by_slug("postcard")
     @topics = @board.topics.find(:all, :order => "sticky desc, last_replied_at desc", :limit => 10)
     
     postcard = RequirementType.find_by_slug("postcard")

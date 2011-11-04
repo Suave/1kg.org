@@ -65,8 +65,8 @@
 
           <h5>项目反馈 <span><%= link_to '写新反馈',new_topic_path(:boardable_id => @execution.id,:boardable_type => 'Execution')%></span></h5>
             
-            <%= render :partial => "/public/share", :collection => @shares %>
-            <%= "暂无反馈" if @shares.empty? %>
+            <%= render :partial => "/public/share", :collection => @topics %>
+            <%= "暂无反馈" if @topics.empty? %>
             <div class="cleanfix" style="height:20px"></div>
         </div>
         

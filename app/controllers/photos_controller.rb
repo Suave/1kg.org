@@ -44,13 +44,13 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @photo.update_attributes(params[:photo])
-    @photo.save if photo.editable_by?(current_user)
+    @photo.save if photo.owned_by?(current_user)
     render :text => 'Success'
   end
   
   def destroy
     @photo = Photo.find(params[:id])
-    if @photo.editable_by?(current_user)
+    if @photo.owned_by?(current_user)
       @photo.destroy
       flash[:notice] = "照片已经删除"
       if !@photo.school_id.blank?

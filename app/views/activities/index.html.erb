@@ -90,9 +90,9 @@
  <h3>最新帖子</h3>
   
   <div class="contents">
-    <%= render :partial => "/public/share", :collection => @shares %>
+    <%= render :partial => "/public/share", :collection => @topics %>
   </div>
-  <div class="remark"><%= link_to "&raquo; 更多帖子", total_shares_activities_url %></div>
+  <div class="remark"><%= link_to "&raquo; 更多帖子", total_topics_activities_url %></div>
   <div class="cleanfix" style="height:20px"></div>
 </div>
 

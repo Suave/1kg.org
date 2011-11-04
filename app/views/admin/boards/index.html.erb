@@ -15,7 +15,7 @@
       <th>Active?</th>
       <th>操作</th>
     </tr>
-    <% @public_boards.each do |b| -%>
+    <% @themes.each do |b| -%>
     <tr>
       <td><%= link_to b.title, board_url(b.board_id) %></td>
       <td><%= b.slug %></td>

@@ -6,7 +6,7 @@
   <div class="sharetitle">
     <%= link_to vote.user.login, user_url(vote.user) %>
     
-    <% if vote.is_a?(Share) %>
+    <% if vote.is_a?(Topic) %>
     的帖子
       <%= link_to vote.title, share_path(vote) %>
     <% elsif vote.is_a?(Topic) %>

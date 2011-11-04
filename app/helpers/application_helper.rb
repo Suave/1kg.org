@@ -188,18 +188,6 @@ module ApplicationHelper
     return "#{image_tag("/images/stick.gif", :alt => "置顶活动", :title => "置顶活动") if show_sticky && activity.sticky?} #{link_to activity.title, activity_url(activity.id)}"
   end
   
-  def link_to_topic_group(topic)
-    talkable = topic.board.talkable
-    
-    if talkable.is_a?(SchoolBoard)
-      link_to talkable.school.title, board_path(topic.board)
-    elsif talkable.class == PublicBoard
-      link_to talkable.title, board_path(topic.board)
-    else
-      link_to talkable.group.title, group_path(talkable.group)
-    end
-  end
-  
   def main_photo_thumb(school,style="")
     img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.image.url
     "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title,:style => style ),school_url(school)).to_s + "</div>"

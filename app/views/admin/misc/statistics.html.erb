@@ -114,7 +114,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>论坛统计</h3>
-      <%= render :partial => "stat", :object => Share.archives %>
+      <%= render :partial => "stat", :object => Topic.archives %>
       <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
     </div>
   </div>
@@ -124,7 +124,7 @@
   <div class="boxOuter">
     <div class="boxInner">
       <h3>论坛留言统计</h3>
-      <%= render :partial => "stat", :object => Comment.archives('Share') %>
+      <%= render :partial => "stat", :object => Comment.archives('Topic') %>
       <p class="remark"><a href="#top">&raquo; 回到顶端</a></p>
     </div>
   </div>

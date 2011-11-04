@@ -11,7 +11,6 @@ class CoDonationsController < ApplicationController
                                                                   :per_page => 6)
     @sub_donations = logged_in? ? current_user.sub_donations : nil
     @group = Group.find_by_slug('co_donation')
-    @board = @group.discussion.board
     @recent = SubDonation.recent
   end
   

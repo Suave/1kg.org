@@ -5,7 +5,7 @@ class VillagesController < ApplicationController
   
   def show
     @executions = @village.executions
-    @shares = @executions.map{|e| e.topics}.flatten
+    @topics = @executions.map{|e| e.topics}.flatten
     @photos = @executions.map{|e| e.photos}.flatten
     @execution = @executions.find(:first,:conditions => {:project_id => 6}) #获取灾情调研项目
   end

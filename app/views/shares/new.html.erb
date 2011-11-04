@@ -18,7 +18,7 @@
 <div class="newbox" >
      <h3>帖子分享</h3>
       <div class="clearfix" style="height:10px"></div>
-      <% form_for :share, :url => shares_url do |f| -%>
+      <% form_for :share, :url => topics_url do |f| -%>
         <%= render :partial => "form", :object => f %>
       
         <p class="submit clearfix"><span class="btnWrap"><%= submit_tag "发 布" %></span>

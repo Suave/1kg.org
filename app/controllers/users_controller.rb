@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :shares, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends,:groups]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :topics, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends,:groups]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -106,15 +106,15 @@ class UsersController < ApplicationController
     get_user_record(@user)
     # postcard
     @donations = @user.donations
-    @shares = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
+    @topics = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = @user.visiteds.find(:all,:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.managements.type_is('School').find(:all,:limit =>4).map(&:manageable)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
   end
   
-  def shares
-    @shares = @user.topics.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
+  def topics
+    @topics = @user.topics.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
   end
 
 

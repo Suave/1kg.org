@@ -214,16 +214,6 @@ class School < ActiveRecord::Base
     deleted_at.blank? ? false : true
   end
   
-  def has_moderator?(user)
-    return false unless user.class == User 
-    
-    return (
-      user.has_role?('roles.admin') ||
-      user.has_role?('roles.schools.moderator') ||
-      user.has_role?("roles.school.moderator.#{self.id}")
-    )
-  end
-
   def validated_by(user)
     return has_moderator?(user) 
   end

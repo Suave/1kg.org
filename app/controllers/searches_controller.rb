@@ -11,7 +11,7 @@ class SearchesController < ApplicationController
   end
   
   def search_share
-    @shares = @search.topics(@page)
+    @topics = @search.topics(@page)
   end
   
   def search_group

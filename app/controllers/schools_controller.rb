@@ -1,16 +1,16 @@
 require 'json'
 class SchoolsController < ApplicationController
-  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_shares,:shares,:followers,:intro]
-  before_filter :find_school,    :except => [:index,:new,:create,:comments,:check,:total_shares]
+  before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_topics,:topics,:followers,:intro]
+  before_filter :find_school,    :except => [:index,:new,:create,:comments,:check,:total_topics]
   before_filter :check_permission, :only => [:update,:destroy,:managers,:edit]
 
   def index
     respond_to do |format|
       format.html {
         @map_center = Geo::DEFAULT_CENTER
-        @shares = Topic.with_school.find(:all,:limit => 4)
-        @recent_school_comments = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
-      :include => [:user, :board],
+        @topics = Topic.with_school.find(:all,:limit => 4)
+        @recent_school_comments = Topic.find(:all, :conditions => {:boardable_type => 'School'},
+      :include => [:user],
       :order => "last_replied_at desc",
       :limit => 4)
         @projects = Project.validated.find :all, :order => "created_at desc",:limit => 2
@@ -55,14 +55,10 @@ class SchoolsController < ApplicationController
     end
   end
   
-  def total_shares
-    @shares = Share.with_school.paginate(:page => params[:page], :per_page => 20)
+  def total_topics
+    @topics = Topic.with_school.paginate(:page => params[:page], :per_page => 20)
   end
 
-  def comments
-    @comments = Topic.latest_updated_with_pagination_in SchoolBoard, params[:page]
-  end
-  
   def unconfirm
     list(false)
   end
@@ -194,17 +190,16 @@ class SchoolsController < ApplicationController
   
   
   def sent_apply
-    
     @message = current_user.sent_messages.build(params[:message])
     if Visited.find(:first,:conditions => {:user_id => current_user.id,:school_id => @school.id,:status => 1})
       @message = current_user.sent_messages.build(params[:message])
-      moderators = User.moderators_of(@school).map{|m| "#{m.login} "}
+      moderators = @school.managers.map(&:login)
       html = "<br/><br/><br/>
               <span>申请的学校是#{@school.title}(http://www.1kg.org/schools/#{@school.id})</span><br/>
               <span>现有的学校大使是: #{moderators}</span><br/>
               <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/moderator )添加这个用户</span>"
       @message.content += html
-      @message.recipients = (User.moderators_of(@school) + User.school_moderators).uniq
+      @message.recipients = (@school.managers + User.admins).uniq
       if @message.save
         flash[:notice] = "申请已发出，请等待#{User.moderators_of(@school).nil?? '学校管理员' : '其他学校大使或学校管理员'}的确认。"
         redirect_to school_url(@school)
@@ -243,13 +238,13 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.paginate(:page => params[:page], :per_page => 20)
   end
 
-  def shares
+  def topics
     
     if @school.nil? or @school.deleted?
       render_404 and return
     end
       
-    @shares = @school.topics.paginate(:page => params[:page], :per_page => 20)
+    @topics = @school.topics.paginate(:page => params[:page], :per_page => 20)
   end
 
 
@@ -278,12 +273,6 @@ class SchoolsController < ApplicationController
     
     @executions = @school.executions.validated.find(:all,:limit => 3)
     @co_donations = @school.co_donations.validated.find(:all,:limit => 3)
-    @board = SchoolBoard.find(:first, :conditions => {:school_id => @school.id})
-    
-    unless @board.blank?
-      @board = @board.board
-      @topics = @board.latest_topics
-    end
   end
   
   def destroy

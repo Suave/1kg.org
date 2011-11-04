@@ -22,7 +22,7 @@
 #  expect_strength  :string(255)
 #  description_html :text
 #  comments_count   :integer(4)      default(0)
-#  shares_count      :integer(4)      default(0)
+#  topics_count      :integer(4)      default(0)
 #  old_id           :integer(4)
 #  sticky           :boolean(1)
 #  clean_html       :text
@@ -41,7 +41,7 @@ class Activity < ActiveRecord::Base
   has_many :participators,  :through => :participations, :source => :user
   
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :shares,                         :dependent => :destroy
+  has_many :topics,                         :dependent => :destroy
 
   has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
@@ -140,19 +140,9 @@ class Activity < ActiveRecord::Base
     self.class.categories[category]
   end
   
-  def edited_by(user)
-    #user.class == User && (self.user_id == user.id || user.admin?)
-    return false unless user.class == User
-    return true if self.user_id == user.id
-    return true if user.admin?  
-    return true if self.departure && User.moderators_of(self.departure).include?(user)
-    
-  end
-  
   def sticky_by?(user)
     return false unless user.class == User
     return true if user.admin?
-    return true if self.departure &&  self.departure.city_board.board.has_moderator?(user)
   end
   
   def joined?(user)

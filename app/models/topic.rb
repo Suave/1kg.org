@@ -43,8 +43,8 @@ class Topic < ActiveRecord::Base
       :include => [:board, :user] }
   }
   named_scope :latest_updated_in, lambda{|board_class, limit|
-    { :conditions => ["boards.talkable_type=?", board_class.class_name],
-      :include => [:user, :board],
+    { :conditions => {:boardable_type => board_class.class_name},
+      :include => [:user],
       :order => "last_replied_at desc",
       :limit => limit}
   }
@@ -83,21 +83,13 @@ class Topic < ActiveRecord::Base
   def last_modified_user
     last_modified_by_id.blank? ? nil : User.find(last_modified_by_id)
   end
-  
-  def moderatable_by?(user)
-    user.class == User && (self.boardable.has_moderator?(user) || user.admin?)
-  end
-  
-  def editable_by?(user)
-    (user.class == User && self.user_id == user.id) || moderatable_by?(user)
-  end
     
   def deleted?
     deleted_at.nil? ? false : true
   end
   
-  def self.last_10_updated_topics(board_class)
-    latest_updated_in(board_class, 10)
+  def self.last_10_updated_topics(boadable)
+    latest_updated_in(boardable, 10)
   end
   
   def self.latest_updated_with_pagination_in(board_class, page)
@@ -117,20 +109,6 @@ class Topic < ActiveRecord::Base
     self.votes[0..2].map(&:user)
   end
   
-  def get_boardable
-    case board.talkable.class.name
-    when PublicBoard.name
-      PublicBoard.find(board.talkable.id)
-    when SchoolBoard.name
-      School.find(board.talkable.school_id)
-    when ActivityBoard.name
-      Activity.find(board.talkable.activity_id)
-    when GroupBoard.name
-      Group.find(board.talkable.group_id)
-    when Team.name
-      Team.find(board.talkable.id)
-    end
-  end
  private
   
   def set_last_reply
@@ -143,10 +121,6 @@ class Topic < ActiveRecord::Base
   end
   
   def create_feed
-    if self.board.talkable_type == 'SchoolBoard'
-      school = self.board.talkable.school
-      school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}发表了一篇关于#{school.title}新话题：#{self.title}), :user_id => self.user.id, :category => 'topic',
-                :item_id => self.id, :item_type => 'Topic') if school
-    end
+  
   end
 end

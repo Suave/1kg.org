@@ -1,15 +1,15 @@
-class SharesController < ApplicationController
+class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show, :index]
   before_filter :find_share, :except => [:create, :index]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
   def index
-    @shares = Share.paginate :page => params[:page] || 1,
+    @topics = Topic.paginate :page => params[:page] || 1,
                                        :order => "last_replied_at desc",
                                        :per_page => 10
                                        
-    @hot_users = User.find_by_sql("select users.id, users.login, users.avatar, count(user_id) as count from shares left join users on users.id=shares.user_id and users.deleted_at is null where shares.deleted_at is null group by user_id order by count desc limit 5;");
+    @hot_users = User.find_by_sql("select users.id, users.login, users.avatar, count(user_id) as count from topics left join users on users.id=topics.user_id and users.deleted_at is null where topics.deleted_at is null group by user_id order by count desc limit 5;");
   end
   
   
@@ -23,7 +23,7 @@ class SharesController < ApplicationController
   end
   
   def create
-      @share = Share.new(params[:share])
+      @share = Topic.new(params[:share])
       @share.user = current_user
       @share.save!
       redirect_to share_url(@share)
@@ -33,7 +33,7 @@ class SharesController < ApplicationController
   end
   
   def vote
-    @share = Share.find(params[:id])
+    @share = Topic.find(params[:id])
     
     respond_to do |format|
       if @share.nil?
@@ -77,6 +77,6 @@ class SharesController < ApplicationController
   
   private
   def find_share
-    @share = params[:id] ? Share.find(params[:id]) : Share.new
+    @share = params[:id] ? Topic.find(params[:id]) : Topic.new
   end
 end

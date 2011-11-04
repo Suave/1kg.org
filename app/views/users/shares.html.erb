@@ -12,6 +12,6 @@
   <span class="remark"><%= link_to "&raquo; 回到#{@user.login}的空间",user_url(@user)%></span>
 <% end %>
 <div class="newbox">
-<%= render :partial => "/public/share", :collection => @shares %>
-<%= customize_paginate @shares %>
+<%= render :partial => "/public/share", :collection => @topics %>
+<%= customize_paginate @topics %>
 </div>

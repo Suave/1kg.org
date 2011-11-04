@@ -19,7 +19,7 @@
 
 <div class="newbox">
   <h4>小组长</h4>
-  <%= render :partial => "/public/user_list", :locals => {:users => User.moderators_of(@board)} %>
+  <%= render :partial => "/public/user_list", :locals => {:users => @group.managers} %>
 </div>
 
 

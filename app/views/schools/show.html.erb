@@ -110,7 +110,7 @@
       <div id="activity_tabs">
         <div style="float:right">
         <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
-        <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.school_moderator?%>
+        <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.admin?%>
         </div>
       <h3>活动</h3>
         <ul class="tab" >
@@ -136,7 +136,7 @@
   </div>
    
   <div class="newbox">
-   <h4>学校论坛</h4> <%= @shares.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",shares_school_path(@school)) %>
+   <h4>学校论坛</h4> <%= @topics.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",topics_school_path(@school)) %>
    <%= link_to "写新帖子", new_topic_url(:boardable_id => @school.id,:boardable_type => 'School'),:class=>"buttonlink"%>
     <div class="contents clearfix">
       <%= render :partial => "/public/share", :collection => @topics[0,4] %>
@@ -177,7 +177,7 @@
     <% end -%>  
 
   <div class="school_sidebar">
-      <div class="title_line"><h4>学校大使</h4><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.school_moderator?%></div>
+      <div class="title_line"><h4>学校大使</h4><%= link_to '申请大使',apply_school_url(@school),:class => "buttonlink",:style=>"margin-left:136px" unless current_user && current_user.admin?%></div>
       <div class="sidebar_inter">
           <% unless @managers.blank? %>
           <%= render :partial => "/public/user_list", :locals => {:users => @managers} %>

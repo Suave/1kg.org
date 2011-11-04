@@ -17,7 +17,7 @@ class Geo < ActiveRecord::Base
   acts_as_nested_set
   
   has_many :users, :order => "id desc"
-  has_many :shares, :order => "last_replied_at desc"
+  has_many :topics, :order => "last_replied_at desc"
   has_many :groups, :order => "id desc"
   has_many :counties
   

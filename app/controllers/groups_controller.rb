@@ -7,7 +7,7 @@ class GroupsController < ApplicationController
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_topic, :new, :create, :edit, :update]
   
   def index
-    @recent_topics_in_all_groups = Topic.latest_updated_in GroupBoard, 20
+    @recent_topics_in_all_groups = Topic.latest_updated_in Group, 20
     if logged_in?
       @my_recommends = (Group.find(:all,:conditions=>{:geo_id=>current_user.geo_id}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...4]+Group.find(:all,:limit=>8,:conditions=>{:geo_id=>0}).sort!{ |x,y| y.memberships.count <=> x.memberships.count }.map{|a| a unless a.joined?(current_user)}.compact[0...8])[0,8]
       @my_groups = current_user.joined_groups.paginate(:page => 1, :per_page => 8)
@@ -15,11 +15,6 @@ class GroupsController < ApplicationController
       @participated_topics = current_user.participated_group_topics.paginate(:page => 1, :per_page => 20)
       @submitted_topics = current_user.group_topics.paginate(:page => 1, :per_page => 20)
     end
-    @atom_topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "GroupBoard"],
-          :include => [:user, :board],
-          :order => "topics.created_at desc",
-          :limit => 10)
-    
     respond_to do |wants|
       wants.html
       wants.atom
@@ -114,35 +109,6 @@ class GroupsController < ApplicationController
     @managements = @group.managements
     @managers = @group.managers
     @members = @group.members - @managers
-  end
-  
-  def moderator
-    @moderators = User.moderators_of(@group)
-    moderator_role = Role.find_by_identifier("roles.group.moderator.#{@board.id}")
-    
-    if params[:add]
-      user = User.find(params[:add])
-      if @moderators.include?(user)
-        flash[:notice] = "#{user.login}已经是组长了"
-      else
-        user.roles << moderator_role
-      end
-      
-    elsif params[:remove]
-      user = User.find(params[:remove])
-      if @moderators.include?(user)
-        if @moderators.size > 1
-          user.roles.delete moderator_role
-        else
-          flash[:notice] = "#{user.login}是唯一的组长, 不能取消"
-        end
-      else
-        flash[:notice] = "#{user.login}不是组长"
-      end
-      
-    end
-    
-    redirect_to(manage_group_url(@group))
   end
   
   def invite

@@ -11,7 +11,7 @@
   <% guides.each do |guide| -%>
   <tr>
     <td class="leftalign">
-      <% unless guide.class == Share%>
+      <% unless guide.class == Topic%>
       <%= link_to h(guide.title), [guide.school, guide], :class => 'link' %>
       <% else %>
       <%= link_to h(guide.title), [guide], :class => 'link'%>

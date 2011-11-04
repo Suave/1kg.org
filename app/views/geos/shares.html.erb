@@ -11,7 +11,7 @@
     <div class="boxInner">
       <h3>所有<%= @city.name %>居民帖子</h3>
       <div class="contents">
-        <% @shares.each do |s| -%>
+        <% @topics.each do |s| -%>
         <div style="clear:both;margin-bottom:1em;min-height:50px">
           <div style="float:left">
             <%= image_tag(s.user.avatar.url,:alt => s.user.login) %>

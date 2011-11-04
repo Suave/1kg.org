@@ -1,8 +1,8 @@
 <% @title = @page_title = "学校论坛的所有帖子" %>
 
       <div class="contents">
-        <%= render :partial => "public/share", :collection => @shares %>
-        <%= customize_paginate @shares %>
+        <%= render :partial => "public/share", :collection => @topics %>
+        <%= customize_paginate @topics %>
       </div>
 
 <% content_for :sidebar do -%>

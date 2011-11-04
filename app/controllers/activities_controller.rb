@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
-  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_shares]
-  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_shares]
+  before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_topics]
+  before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_topics]
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
@@ -17,7 +17,7 @@ class ActivitiesController < ApplicationController
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
     @photos = Photo.with_activity.find(:all,:limit => 10,:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
-    @shares = Topic.with_activity.find(:all,:limit => 6)
+    @topics = Topic.with_activity.find(:all,:limit => 6)
     
     respond_to do |wants|
       wants.html
@@ -46,8 +46,8 @@ class ActivitiesController < ApplicationController
                                   :per_page => 14)
   end
   
-  def total_shares
-    @shares = Share.with_activity.paginate(:page => params[:page], :per_page => 20)
+  def total_topics
+    @topics = Topic.with_activity.paginate(:page => params[:page], :per_page => 20)
     @title = @page_title = "所有活动帖子"
   end
   
@@ -174,7 +174,7 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "该活动已删除"
       redirect_to activities_url
     end
-    @shares = @activity.topics
+    @topics = @activity.topics
     @photos = @activity.photos.find(:all, :order => "updated_at desc",:include => [:user])
     @comments = @activity.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
     @comment = Comment.new
