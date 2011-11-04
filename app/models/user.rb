@@ -261,6 +261,10 @@ class User < ActiveRecord::Base
     password
   end
   
+  def managed_by?(current_user)
+    false
+  end
+  
   def reset_password!
     new_password = random_password(7)
     self.password = self.password_confirmation = new_password

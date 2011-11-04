@@ -1,0 +1,6 @@
+  <div class="newbox">
+    <h3>全部反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'topic'),:class => 'buttonlink'%></h3>
+    <%= render :partial => "/public/topic", :collection => @topics %>
+    <div class="cleanfix" style="clear:both;"></div>
+    <div class="contents"><p><%= will_paginate @topics %></p></div>
+  </div>

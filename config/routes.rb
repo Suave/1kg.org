@@ -46,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :participated_activities => :get,
                                     :submitted_schools => :get,
                                     :friends => :get,
-                                    :shares => :get,
+                                    :topics => :get,
                                     :groups => :get,
                                     :group_topics => :get,
                                     :visited => :get,
@@ -61,7 +61,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :geos, :collection => { :search => :get, 
                                        },
                        :member     => { :schools => :get, 
-                                        :shares => :get, 
+                                        :topics => :get, 
                                         :users => :get }
                            
   map.connect '/geo_choice', :controller => 'geos_controller', :action => 'geo_choice'
@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :schools, :member => {:large_map => :get,
                                       :photos => :get,
                                       :apply => :get,
-                                      :shares => :get,
+                                      :topics => :get,
                                       :managers => :get,
                                       :validate => :put,
                                       :visited => :put,
@@ -87,7 +87,7 @@ ActionController::Routing::Routes.draw do |map|
                                            :archives => :get, 
                                            :cits => :get,
                                            :check => :get,
-                                           :total_shares => :get,
+                                           :total_topics => :get,
                                            :comments => :get
                                           } do |school|
     school.resources :visits
@@ -114,7 +114,7 @@ ActionController::Routing::Routes.draw do |map|
                                              :category => :get,
                                              :ongoing => :get,
                                              :over => :get,
-                                             :total_shares => :get} do |activity|
+                                             :total_topics => :get} do |activity|
     activity.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Activity'}
   end
 
@@ -123,10 +123,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :votes
   map.resources :themes
   map.resources :topics, :member => { :vote => :post, :stick => :put, :close => :put} 
-  
-  map.resources :shares, :member => {:vote => :post} do |share|
-    share.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Share'}
-  end
   
   map.resources :posts do |post|
     post.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Post'}
@@ -158,11 +154,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :photos
   map.resources :boxes, :collection => {:apply => :get,
     :feedback => :get,
-    :shares => :get,
+    :topics => :get,
     :photos => :get,
     :submit => :post,
     :new_photo => :get,
-    :new_share => :get,
+    :new_topic => :get,
     :execution => :get,
     :executions => :get} do |box|
     box.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Box'}
@@ -189,7 +185,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :managers  => :get
                                   }
 
-  map.resources :projects, :member => {:manage => :get,:large_map => :get,:shares => :get ,:photos => :get} do |project|
+  map.resources :projects, :member => {:manage => :get,:large_map => :get,:topics => :get ,:photos => :get} do |project|
     project.resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
       execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
     end

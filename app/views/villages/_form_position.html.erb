@@ -14,7 +14,7 @@
       bigmarker = new GMarker(point);
       greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
       
-      <% if current_user && @village.edited_by(current_user)%>
+      <% if current_user && @village.owned_by?(current_user)%>
       GEvent.addListener(greenmarker, "dragend", function() {
         jQuery.ajax({
           type: 'PUT',

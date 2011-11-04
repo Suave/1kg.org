@@ -102,6 +102,6 @@ class Search < ActiveRecord::Base
   end
   
   def need_common?
-    self.kind == 'school' || self.kind == 'activity' || self.kind == 'share'
+    self.kind == 'school' || self.kind == 'activity' 
   end
 end

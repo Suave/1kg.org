@@ -59,10 +59,6 @@ class Photo < ActiveRecord::Base
     Photo.find(:first, :conditions => ["parent_id is NULL and id > ? and user_id = ?", self.id, user.id])
   end
   
-  def edited_by(user)
-    user.class == User && (self.user_id == user.id || user.admin?)
-  end
-  
   def swf_uploaded_data=(data)
     data.content_type = MIME::Types.type_for(data.original_filename)
     self.uploaded_data = data

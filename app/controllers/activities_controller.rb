@@ -114,7 +114,7 @@ class ActivitiesController < ApplicationController
       render :action => 'mainphoto'
     else
       @photo.save!
-      if current_user && @activity.edited_by(current_user)
+      if current_user && @activity.owned_by?(current_user)
         @activity.main_photo = @photo
         @activity.save
         flash[:notice] = "活动主题图设置成功"
@@ -214,7 +214,7 @@ class ActivitiesController < ApplicationController
   
   def setphoto
     @activity = Activity.find(params[:id])
-    if current_user && @activity.edited_by(current_user)
+    if current_user && @activity.owned_by?(current_user)
       @activity.main_photo = Photo.find_by_id(params[:p].to_i)
       @activity.save
       flash[:notice] = "活动主题图设置成功"

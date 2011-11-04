@@ -33,7 +33,7 @@ class SchoolsController < ApplicationController
       }
       format.atom {
         @topics = Topic.find(:all, :conditions => ["boards.talkable_type=?", "SchoolBoard"],
-          :include => [:user, :board],
+          :include => [:user],
           :order => "topics.created_at desc",
           :limit => 10)
       }
@@ -277,7 +277,7 @@ class SchoolsController < ApplicationController
   
   def destroy
     respond_to do |format|
-      if current_user.school_moderator? || @school.destroyed_by(current_user)
+      if current_user.owned_by?(current_user)
         @school.destroy
         flash[:notice] = "成功删除学校"
       else
@@ -459,7 +459,7 @@ class SchoolsController < ApplicationController
   end
   
   def check_permission
-    if @school.edited_by(current_user)
+    if @school.owned_by?(current_user)
     else
       flash[:notice] = "为了保证学校信息真实准确，只有学校大使才能修改学校信息，成为学校大使很简单，=> <a href='#{apply_school_url(@school)}'>点击这里</a>"
       redirect_to school_url(@school)

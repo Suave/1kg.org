@@ -9,7 +9,7 @@
 <div class="setting">
   <div class="block">
     <h3>编辑开放讨论区</h3>
-    <% form_for :theme, :url => admin_board_url(@theme.board_id, :type => 'public'), :html => {:method => :put} do |f| -%>
+    <% form_for [:admin,@theme],:html => {:method => :put} do |f| -%>
     <%= render :partial => "/admin/boards/public_form", :object => f %>
     <p><label>&nbsp;</label><%= submit_tag "修 改" %> 或 <%= link_to "取消", admin_boards_url %></p>
     <% end -%>

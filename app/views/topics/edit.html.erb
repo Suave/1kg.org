@@ -1,6 +1,6 @@
 <% @page_title = @title = "编辑话题" -%>
 
-  <% form_for :topic, :url => board_topic_url(@topic.board_id, @topic), :html => {:method => :put} do |f| -%>
+  <% form_for @topic, :html => {:method => :put} do |f| -%>
   <%= render :partial => "form", :object => f %>
   
   <p style="margin-left:70px"><%= f.submit "保存" ,:class => "surebutton"%> <%= f.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.location='#{((@topic.board.talkable.class == Team) ? team_path(@topic.board.talkable) : board_path(@topic.board) )}';return false" %></p>

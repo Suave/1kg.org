@@ -146,7 +146,7 @@ module ApplicationHelper
   end
   
   def topic_last_update(topic)
-    return link_to("#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic.id, :anchor => (topic.comments.last.id if topic.comments.last)))
+    return link_to("#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}",topic_url(topic, :anchor => (topic.comments.last.id if topic.comments.last)))
   end
   
   def activity_departure_name(activity)

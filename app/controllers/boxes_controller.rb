@@ -42,7 +42,7 @@ class BoxesController < ApplicationController
 
   def feedback
     @executions = Execution.validated_with_box.paginate :page => params[:page] || 1, :per_page => 10
-    @feedback_type = {'photo'=> 'photo','share' => 'share'}[params[:feedback_type]]
+    @feedback_type = {'photo'=> 'photo','topic' => 'topic'}[params[:feedback_type]]
   end
 
   def topics

@@ -31,7 +31,7 @@
       <% if @village.main_photo -%>
       <%= link_to image_tag(@village.main_photo.image.url(:max240x180), :alt => @village.title), @village.main_photo.image.url(:max565x420),:class => "school_main" %>
       <%else%>
-        <% if logged_in? && @village.edited_by(current_user)%>
+        <% if logged_in? && @village.owned_by?(current_user)%>
         <%= link_to image_tag("school_main_set.png"),village_url(@village)+"/edit?step=mainphoto" %>
         <%else%>
         <img class="school_main" src="/images/school_main.png"/>

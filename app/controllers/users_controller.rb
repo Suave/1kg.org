@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     @topics = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = @user.visiteds.find(:all,:limit => 4,:order => "created_at desc",:include => [:school])
     @envoys = @user.managements.type_is('School').find(:all,:limit =>4).map(&:manageable)
-    @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
+    @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
   end
   

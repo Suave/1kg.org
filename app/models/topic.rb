@@ -29,19 +29,13 @@ class Topic < ActiveRecord::Base
   acts_as_ownable
   
   belongs_to :boardable, :polymorphic => true, :dependent => :delete
-  belongs_to :board, :counter_cache => 'topics_count'
-  belongs_to :boardable, :polymorphic => true
   belongs_to :user
   has_many   :posts, :dependent => :destroy
   has_many   :comments, :as => 'commentable', :dependent => :destroy
   
-  named_scope :recent,:limit => 6,:group => :board_id,:order => "last_replied_at desc",:include => [:board]
+  named_scope :recent,:limit => 6,:order => "last_replied_at desc"
   named_scope :unsticky,  :conditions => ["sticky=?", false]
-  named_scope :in_boards_of, lambda {|board_ids| 
-    { :conditions => ["topics.deleted_at is null and board_id in (?)", board_ids], 
-      :order => "sticky desc, last_replied_at desc",
-      :include => [:board, :user] }
-  }
+
   named_scope :latest_updated_in, lambda{|board_class, limit|
     { :conditions => {:boardable_type => board_class.class_name},
       :include => [:user],
@@ -57,9 +51,7 @@ class Topic < ActiveRecord::Base
   
 
   validates_presence_of :title
-  #validates_uniqueness_of :share_id
-
-  #before_save :format_content
+  before_save :format_content
   #before_create :set_last_reply
   #after_create :create_feed
   
@@ -95,8 +87,7 @@ class Topic < ActiveRecord::Base
   def self.latest_updated_with_pagination_in(board_class, page)
     Topic.paginate( :page => page || 1, 
                               :conditions => ["boards.talkable_type=?", board_class.class_name],
-                              :include => [:user, :board],
-                              :joins => [:board],
+                              :include => [:user],
                               :order => "last_replied_at desc",
                               :per_page => 10)
   end

@@ -5,14 +5,8 @@
   <div style="margin-left:60px;">
   <div class="sharetitle">
     <%= link_to vote.user.login, user_url(vote.user) %>
-    
-    <% if vote.is_a?(Topic) %>
-    的帖子
-      <%= link_to vote.title, share_path(vote) %>
-    <% elsif vote.is_a?(Topic) %>
     的话题
-      <%= link_to vote.title,topic_path(vote) %>
-    <% end %>
+    <%= link_to vote.title,vote %>
     
   </div>
     <div class="summary">“<%= summary(vote,40) %>……”</div>

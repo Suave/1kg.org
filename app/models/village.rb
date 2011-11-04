@@ -12,9 +12,7 @@ class Village < ActiveRecord::Base
   accepts_nested_attributes_for :basic, :need, :contact, :main_photo
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
   
-  def edited_by(u)
-    self.user == u || u.admin?
-  end
+  acts_as_ownable
   
   def before_create
     # 确保用户只提交了基本信息也不会出错

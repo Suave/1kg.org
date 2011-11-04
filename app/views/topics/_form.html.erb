@@ -1,13 +1,12 @@
 <% form_for @topic do |form| -%>
   <p><label class="label">标题(必填)</label><%= form.text_field :title, :size => 20, :class => "formText" %>      <%= error_message_on @topic, :title %></p>
-  <div><label class="label"><%= avatar_for current_user, "large" %></label>
+  <div><label class="label"> <%= image_tag(current_user.avatar.url(:'48x48'),:style=>'float:left;')%> </label>
     <p style="margin-left:72px">
       <%= form.text_area :clean_html, :style => 'width:540px;height:320px;', :class => "mceEditor" %>
     </p>
 
     <%= form.hidden_field :boardable_type,:value => @topic.boardable_type %>
     <%= form.hidden_field :boardable_id,:value => @topic.boardable_id %>
-    <%= form.hidden_field :board_id,:value => 0 %>
     <p><label class="label" >附加标签</label>
     <%= form.text_field :tag_list, :size => 40, :class => "formText" %>
     <span>（以空格分隔不同标签）</span>

@@ -43,8 +43,8 @@
   <% end %>
 
   <div class="newbox">
-    <h3>最新反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'share'),:class => 'buttonlink'%></h3>
-    <%= render :partial => "/public/share", :collection => @topics %>
+    <h3>最新反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'topic'),:class => 'buttonlink'%></h3>
+    <%= render :partial => "/public/topic", :collection => @topics %>
     <div class="cleanfix" style="clear:both;"></div>
     <%= link_to '查看全部',topics_boxes_path  %>
   </div>

@@ -2,16 +2,17 @@ class Comment < ActiveRecord::Base
   include BodyFormat
   include Editable
   
-  #before_save :format_content
+  before_save :format_content
   after_create :update_commentable
   belongs_to :commentable, :polymorphic => true, :counter_cache => 'comments_count'
   belongs_to :user
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
-  validates_presence_of :user_id,:commentable_id,:commentable_type
+  validates_presence_of :user_id,:commentable_id,:commentable_type,:body
   named_scope :available, :conditions => {:deleted_at => nil}
   
   acts_as_paranoid
+  acts_as_ownable
   
   def self.archives(type)
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"

@@ -10,10 +10,6 @@ class SearchesController < ApplicationController
     @activities = @search.activities(@page, 14)
   end
   
-  def search_share
-    @topics = @search.topics(@page)
-  end
-  
   def search_group
     @groups = @search.groups(@page)
   end

@@ -15,7 +15,7 @@
       bigmarker = new GMarker(point);
       greenmarker = new GMarker(point, {icon:green,draggable: 'true'});
       
-      <% if current_user && @school.edited_by(current_user)%>
+      <% if current_user && @school.owned_by?(current_user)%>
       GEvent.addListener(greenmarker, "dragend", function() {
         jQuery.ajax({
           type: 'PUT',
@@ -44,7 +44,7 @@
 </div>
 
 <div style="clear:both;height:20px"></div>
-<%if current_user && @school.edited_by(current_user)%>
+<%if current_user && @school.owned_by?(current_user)%>
 <p><a href="#" onclick="javascript:$('#move_info').show();$(this).hide();edit_position()" class="adminbutton">修改位置</a></p>
 <p id="move_info" ><span>拖动标记修改学校位置,修改之后刷新页面即可生效</span></p>
 <%end%>

@@ -14,7 +14,7 @@
   </div>
   <p>
     <%= link_to @photo.user.login, user_url(@photo.user)  %> 上传于 <%= @photo.created_at.to_date %>
-    <% if @photo.edited_by current_user -%>
+    <% if @photo.owned_by? current_user -%>
       (<%= link_to "删除", photo_url(@photo), :method => :delete, :confirm => "此操作不能撤销，确定删除么？" %>)
     <% end -%>
   </p>

@@ -218,15 +218,6 @@ class School < ActiveRecord::Base
     return has_moderator?(user) 
   end
   
-  def edited_by(user)
-    return has_moderator?(user) || user.id == self.user_id
-  end
-  
-  
-  def destroyed_by(user)
-    return edited_by(user)
-  end
-  
   def visited?(user)
     return false unless user.class == User
     
