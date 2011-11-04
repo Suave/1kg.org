@@ -25,7 +25,7 @@ class ExecutionsController < ApplicationController
     @project = Project.find params[:project_id]
     @execution = @project.executions.build(params[:execution])
     @schools = @project.for_envoy ? current_user.managed('School') : (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
-    if @project.for_envoy && !@execution.school.nil? && !U@execution.school.managers.include?(current_user)
+    if @project.for_envoy && !@execution.school.nil? && !@execution.school.managers.include?(current_user)
       flash[:notice] = "你不是#{@execution.school.title}的学校大使,不能申请这个项目。"
       render :action => "new" 
     else
@@ -194,5 +194,4 @@ class ExecutionsController < ApplicationController
     @school = @execution.school
     @project = @execution.project
   end
-  
 end
