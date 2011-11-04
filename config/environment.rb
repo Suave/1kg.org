@@ -68,9 +68,6 @@ end
 
 require 'sanitize'
 
-
-CalendarDateSelect.format = :iso_date
-
 TagList.delimiter = " "
 
 #ExceptionNotifier.sender_address = %("Application Error" <exception.notifier@1kg.org>)
