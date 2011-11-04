@@ -108,12 +108,9 @@ class UsersController < ApplicationController
     @donations = @user.donations
     @shares = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = @user.visiteds.find(:all,:limit => 4,:order => "created_at desc",:include => [:school])
-    @envoys = @user.envoy_schools(4)
+    @envoys = @user.managements.type_is('School').find(:all,:limit =>4).map(&:manageable)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:board, :user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
-    
-    # 目前只支持学校动态
-    #@feed_items = FeedItem.find(:all, :conditions => ['((owner_type = ? and owner_id in (?)) or (user_id in (?))) and user_id <> ?', 'School', @user.followings.schools.map(&:followable_id), @user.followings.users.map(&:followable_id), @user.id], :order => 'created_at DESC', :limit => 10)
   end
   
   def shares
@@ -158,7 +155,7 @@ class UsersController < ApplicationController
   end
   
   def envoy
-    @schools = @user.envoy_schools
+    @schools = @user.managed('School')
   end
 
   protected
@@ -183,5 +180,4 @@ class UsersController < ApplicationController
     blocked_ids = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:id)
     cookies[:onekg_id] && blocked_ids.include?(cookies[:onekg_id].to_i)
   end
-  
 end

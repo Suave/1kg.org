@@ -16,7 +16,7 @@ class ExecutionsController < ApplicationController
       redirect_to project_url(@project)
     end
     @execution = Execution.new
-    @schools = @project.for_envoy ? current_user.envoy_schools : (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+    @schools = @project.for_envoy ? current_user.managed('School') : (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
     @school = School.find(:first,:conditions => {:id =>params[:school_id]}).nil? ? nil : School.find(params[:school_id])
     flash[:notice] = '请先完整阅读反馈要求，并仔细填写此项目申请表，带<span class="require"> * </span>号标记的为必填项。'
   end
@@ -24,7 +24,7 @@ class ExecutionsController < ApplicationController
   def create
     @project = Project.find params[:project_id]
     @execution = @project.executions.build(params[:execution])
-    @schools = @project.for_envoy ? current_user.envoy_schools : (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+    @schools = @project.for_envoy ? current_user.managed('School') : (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
     if @project.for_envoy && !@execution.school.nil? && !User.moderators_of(@execution.school).include?(current_user)
       flash[:notice] = "你不是#{@execution.school.title}的学校大使,不能申请这个项目。"
       render :action => "new" 

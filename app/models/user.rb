@@ -140,24 +140,18 @@ class User < ActiveRecord::Base
   state :active,  :enter => :do_activate
   state :suspended
   state :deleted, :enter => :do_delete
-
-
   event :register do
     transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
   end
-  
   event :activate do
     transitions :from => :pending, :to => :active 
   end
-  
   event :suspend do
     transitions :from => [:passive, :pending, :active], :to => :suspended
   end
-  
   event :delete do
     transitions :from => [:passive, :pending, :active, :suspended], :to => :deleted
   end
-
   event :unsuspend do
     transitions :from => :suspended, :to => :active,  :guard => Proc.new {|u| !u.activated_at.blank? }
     transitions :from => :suspended, :to => :pending, :guard => Proc.new {|u| !u.activation_code.blank? }
@@ -218,12 +212,12 @@ class User < ActiveRecord::Base
     self.followings.find(:all,:conditions => {:followable_type => 'School'}).map(&:followable)
   end
   
-  def admin?
-    has_role?("roles.admin")
+  def managed(manageable_type)
+    self.managements.find(:all,:conditions => {:manageable_type => manageable_type}).map(&:manageable)
   end
   
-  def envoy?
-    !self.roles.find(:first, :conditions => ["identifier LIKE ?", "roles.school.moderator.%"]).blank?
+  def admin?
+    has_role?("roles.admin")
   end
   
   def has_neighbor?(user)
@@ -241,17 +235,6 @@ class User < ActiveRecord::Base
   def school_moderator?
     !self.roles.find_by_identifier("roles.schools.moderator").nil?
   end
-
-  def envoy_schools(number = nil)
-     #self.roles.map {|r|  School.find(:first, :conditions => {:validated => true, :deleted_at => nil,:id => (r.identifier).split('.').last.to_i }) if r.identifier =~ /^roles.school.moderator./}.compact
-    a = self.roles.map{|r|((r.identifier).split('.').last.to_i ) if r.identifier =~ /^roles.school.moderator./}.compact
-    if number
-      a = School.validated.find(:all,:conditions => ["id in (?)",a[0,number]])
-    else
-      a = School.validated.find(:all,:conditions => ["id in (?)",a])
-    end  
-  end
-  
   
   def self.recent_citizens
     find(:all, :conditions => ["state='active'"],
@@ -305,7 +288,7 @@ class User < ActiveRecord::Base
   end
   
   def participated_topics
-    self.posts.find(:all, :conditions => ['topics.deleted_at IS NULL'], :include => [:topic]).map(&:topic).uniq
+    self.comments.find(:all, :conditions => {:commentable_type => 'Topic'}).map(&:commentable).uniq
   end
   
   #只包含在小组参与的话题

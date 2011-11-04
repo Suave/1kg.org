@@ -2,5 +2,5 @@
   <div class="topictitle" >
    <%= link_to h(stopic.title), topic_url(stopic) %>
   </div>
-    <small style="color:#999"> <%= stopic.posts_count %> 篇回复　<%= link_to stopic.user.login, user_url(stopic.user) %> 写于 <%= stopic.created_at.to_date %> </small>
+    <small style="color:#999"> <%= stopic.comments_count %> 篇回复　<%= link_to stopic.user.login, user_url(stopic.user) %> 写于 <%= stopic.created_at.to_date %> </small>
 </div>

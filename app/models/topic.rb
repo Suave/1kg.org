@@ -73,19 +73,15 @@ class Topic < ActiveRecord::Base
   end
   
   def last_replied_datetime
-    (self.posts.last || self).created_at
+    (self.comments.last || self).created_at
   end
   
   def last_replied_user
-    (self.posts.last || self).user
+    (self.comments.last || self).user
   end
 
   def last_modified_user
     last_modified_by_id.blank? ? nil : User.find(last_modified_by_id)
-  end
-  
-  def last_post
-    self.posts.last
   end
   
   def moderatable_by?(user)
@@ -95,7 +91,7 @@ class Topic < ActiveRecord::Base
   def editable_by?(user)
     (user.class == User && self.user_id == user.id) || moderatable_by?(user)
   end
-  
+    
   def deleted?
     deleted_at.nil? ? false : true
   end

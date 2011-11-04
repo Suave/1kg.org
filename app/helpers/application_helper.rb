@@ -134,19 +134,19 @@ module ApplicationHelper
   
   def school_last_update(school)
     last_topic = school.last_topic
-    return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.last_post.id if last_topic.last_post))) : school.created_at.to_date)
+    return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.comments.last.id if last_topic.comments.last))) : school.created_at.to_date)
   end
   
   def activity_last_update(activity)
     #last_topic = activity.discussion.board.topics.find(:first, :order => "last_replied_at desc")
-    #return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.last_post.id if last_topic.last_post))) : activity.updated_at.to_date)
+    #return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.comments.last.id if last_topic.comments.last))) : activity.updated_at.to_date)
     last_comment = activity.comments.find(:first, :order => "created_at desc", :select => "id, created_at, user_id")
     return (last_comment ? link_to("#{last_comment.created_at.to_date} by #{last_comment.user.login}", activity_url(activity)) : activity.updated_at.to_date)
     
   end
   
   def topic_last_update(topic)
-    return link_to("#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic.id, :anchor => (topic.last_post.id if topic.last_post)))
+    return link_to("#{topic.last_replied_datetime.to_date} by #{topic.last_replied_user.login}", board_topic_url(topic.board_id, topic.id, :anchor => (topic.comments.last.id if topic.comments.last)))
   end
   
   def activity_departure_name(activity)

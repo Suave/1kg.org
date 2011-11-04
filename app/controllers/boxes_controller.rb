@@ -15,7 +15,7 @@ class BoxesController < ApplicationController
     @execution = Execution.new
     @boxes = Box.available
     @bringings = @execution.bringings.build
-    @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+    @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
   end
 
   def submit
@@ -27,7 +27,7 @@ class BoxesController < ApplicationController
     if @execution.bringings.size == 0
       @boxes = Box.available
       @bringings = @execution.bringings.build
-      @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+      @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
       render "apply"
     elsif @execution.save
       flash[:notice] = "你的申请已经提交成功，请等候并持续关注，结果我们会通过站内信告知 :)"
@@ -35,7 +35,7 @@ class BoxesController < ApplicationController
     else
       @boxes = Box.available
       @bringings = @execution.bringings.build
-      @schools = (current_user.followed_schools + current_user.envoy_schools + current_user.visited_schools).uniq
+      @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
       render "apply"
     end
   end
