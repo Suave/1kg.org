@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :email, :case_sensitive => false, :message => "邮件地址已被占用"
   validates_format_of       :email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
   
-  has_attached_file :avatar, :styles => {:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
+  has_attached_file :avatar, :styles => {:original => '72x72#',:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
                             :url=>"/media/users/:id/:attachment/:style.:extension",
                             :default_style=> :'48x48',
                             :default_url=>"/defaults/users/:attachment/:style.png"

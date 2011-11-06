@@ -19,7 +19,6 @@ class TopicsController < ApplicationController
       flash[:notice] = "发帖成功"
       redirect_to url_for(@topic.boardable)
     else
-      flash[:notice] = "发帖成功"
       render 'new'
     end
   end

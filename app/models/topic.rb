@@ -1,24 +1,3 @@
-# == Schema Information
-#
-# Table name: topics
-#
-#  id                  :integer(4)      not null, primary key
-#  board_id            :integer(4)      not null
-#  user_id             :integer(4)      not null
-#  title               :string(200)     not null
-#  body_html           :text
-#  created_at          :datetime
-#  updated_at          :datetime
-#  last_replied_at     :datetime
-#  last_replied_by_id  :integer(4)
-#  last_modified_at    :datetime
-#  last_modified_by_id :integer(4)
-#  deleted_at          :datetime
-#  block               :boolean(1)
-#  posts_count         :integer(4)      default(0)
-#  sticky              :boolean(1)
-#  clean_html          :text
-#
 
 class Topic < ActiveRecord::Base
   include BodyFormat
@@ -50,7 +29,6 @@ class Topic < ActiveRecord::Base
                               :include => [:user]
   
 
-  validates_presence_of :title
   before_save :format_content
   #before_create :set_last_reply
   #after_create :create_feed

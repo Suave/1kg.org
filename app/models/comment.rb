@@ -1,6 +1,5 @@
 class Comment < ActiveRecord::Base
   include BodyFormat
-  include Editable
   
   before_save :format_content
   after_create :update_commentable

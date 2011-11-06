@@ -1,29 +1,5 @@
-# == Schema Information
-#
-# Table name: photos
-#
-#  id               :integer(4)      not null, primary key
-#  parent_id        :integer(4)
-#  content_type     :string(255)
-#  filename         :string(255)
-#  thumbnail        :string(255)
-#  size             :integer(4)
-#  width            :integer(4)
-#  height           :integer(4)
-#  user_id          :integer(4)
-#  title            :string(255)     not null
-#  description      :text
-#  description_html :text
-#  created_at       :datetime
-#  updated_at       :datetime
-#  deleted_at       :datetime
-#  activity_id      :integer(4)
-#  school_id        :integer(4)
-#
-
 class Photo < ActiveRecord::Base
   include BodyFormat
-  include Editable
   
   belongs_to :photoable,:polymorphic => true
   belongs_to :user
