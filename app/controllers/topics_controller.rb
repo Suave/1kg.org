@@ -35,10 +35,12 @@ class TopicsController < ApplicationController
   end
   
   def destroy
-    @boardable = topic.boardable
-    @topic.destroy
-    flash[:notice] = "帖子删除成功"
-    redirect_to @boardable
+    @boardable = @topic.boardable
+    if topic.owned_by?(current_user)
+      @topic.destroy 
+      flash[:notice] = "帖子删除成功"
+      redirect_to @boardable
+    end
   end
   
   def show
