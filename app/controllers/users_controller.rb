@@ -114,7 +114,7 @@ class UsersController < ApplicationController
   end
   
   def topics
-    @topics = @user.topics.find(:all, :conditions => ["hidden=?", false]).paginate(:page => params[:page] || 1, :per_page => 6)
+    @topics = @user.topics.paginate(:page => params[:page] || 1, :per_page => 6)
   end
 
 

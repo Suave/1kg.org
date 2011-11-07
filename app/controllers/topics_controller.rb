@@ -31,13 +31,14 @@ class TopicsController < ApplicationController
                                                     :last_modified_by_id => current_user.id
                                                    }))
     flash[:notice] = "帖子修改成功"
-    redirect_to board_topic_url(@board, @topic)
+    redirect_to @topic
   end
   
   def destroy
+    @boardable = topic.boardable
     @topic.destroy
     flash[:notice] = "帖子删除成功"
-    redirect_to board_url(@board)
+    redirect_to @boardable
   end
   
   def show
