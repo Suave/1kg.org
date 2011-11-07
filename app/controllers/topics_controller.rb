@@ -35,9 +35,10 @@ class TopicsController < ApplicationController
   end
   
   def destroy
+    @boardable = topic.boardable
     @topic.destroy
     flash[:notice] = "帖子删除成功"
-    redirect_to board_url(@board)
+    redirect_to @boardable
   end
   
   def show
