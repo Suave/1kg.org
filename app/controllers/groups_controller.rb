@@ -1,6 +1,4 @@
 class GroupsController < ApplicationController
-  include Util
-  
   before_filter :login_required, :except => [:index, :show, :all]
   before_filter :find_group, :except => [:index, :create, :all]
   
