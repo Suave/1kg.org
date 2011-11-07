@@ -197,7 +197,7 @@ class SchoolsController < ApplicationController
       html = "<br/><br/><br/>
               <span>申请的学校是#{@school.title}(http://www.1kg.org/schools/#{@school.id})</span><br/>
               <span>现有的学校大使是: #{moderators}</span><br/>
-              <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/moderator )添加这个用户</span>"
+              <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/manager )添加这个用户</span>"
       @message.content += html
       @message.recipients = (@school.managers + User.admins).uniq
       if @message.save
