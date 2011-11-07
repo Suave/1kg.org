@@ -1,11 +1,6 @@
 <% @page_title = @user.login + " 的好友"-%>
 
-<% content_for :crumb do -%>
-    <li><%= link_to @user.login, user_url(@user) %></li>
-    <ul>
-      <li><%= "#{@user.login}的好友" %></li>
-    </ul>
-<% end -%>
+
 
 
 <% content_for :sidebar do -%>

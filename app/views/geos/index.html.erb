@@ -11,12 +11,7 @@
   </div>
 <% end -%>
 
-<% content_for :crumb do -%>
-  <li>目的地查询</li>
-  <ul>
-    <li><%= @province ?  @province.name : "全国"%></li>
-  </ul>
-<% end -%>
+
 
 <div class="newbox">    
    <h3><%= @province ?  @province.name : "全国" %></h3> <%=link_to "全国",geos_url if @province%><br/>

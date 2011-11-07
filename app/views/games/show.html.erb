@@ -1,10 +1,6 @@
 <% @page_title = "#{h @game.name}" -%>
 
-<% content_for :crumb do -%>
-<p style="display:none"><%= summary(@game ,60)%>...</p>
-<li><%= link_to '课程', games_path %></li>
-<li><%= @game.name %></li>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
   

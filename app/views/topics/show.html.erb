@@ -5,11 +5,7 @@
 
 <% @page_title = h(@topic.title) -%>
 
-<% content_for :crumb do -%>
-  <p style="display:none">来自多背一公斤的话题： <%= summary(@topic ,60)-%>...</p>
 
-  <ul><li><%= @topic.title %></li></ul>
-<% end -%>
 
 <% content_for :sidebar do -%>
   <div class="clearfix"  style="height:20px"></div>

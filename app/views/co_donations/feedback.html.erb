@@ -1,10 +1,6 @@
 <% @page_title = "团捐反馈" -%>
 
-<% content_for :crumb do -%>
-<li><%= link_to "团捐", co_donations_path %></li>
-<li><%= link_to @co_donation.title, @co_donation %></li>
-<li>团捐反馈</li>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
 <% @page = Page.find_by_slug('donation-activity-guide') -%>

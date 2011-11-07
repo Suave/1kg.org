@@ -1,11 +1,6 @@
 <% @page_title = @title = "我所在小组的新话题" -%>
 
-<% content_for :crumb do -%>
-<li><%= link_to "小组", groups_url %></li>
-<ul>
-  <li><%= @title %></li>
-</ul>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
 <p>&raquo; <%= link_to "返回小组", groups_url %></p>

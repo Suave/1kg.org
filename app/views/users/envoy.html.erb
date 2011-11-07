@@ -1,12 +1,7 @@
 
 <% @page_title = "#{@user.login} 管理的学校" -%>
 
-<% content_for :crumb do -%>
-<li>用户</li>
-<ul>
-  <li><%= h @user.login %></li>
-</ul>
-<% end -%>
+
 <% content_for :fullsize do -%>
 <style type="text/css">.school_list_meta{width:190px;height:80px}.school_list{width:307px}</style>
 <span class="span_title"><%= "#{@user.login}管理的学校" %></span>

@@ -1,9 +1,6 @@
 <% @page_title = "我的发件箱" -%>
 
-<% content_for :crumb do -%>
-  <li><%= link_to "我的空间", user_url(current_user) %></li>
-  <ul><li>发件箱</li></ul>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
   <%= render :partial => "toolbox" %>

@@ -1,12 +1,7 @@
 
 <% @page_title = "和 #{@user.login} 有关的学校" -%>
 
-<% content_for :crumb do -%>
-<li>用户</li>
-<ul>
-  <li><%= h @user.login %></li>
-</ul>
-<% end -%>
+
 <% content_for :fullsize do -%>
 
 <h2 class="title"><%= "#{@user.login} 要去/去过/关注的学校" %></h2>

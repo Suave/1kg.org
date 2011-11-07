@@ -1,11 +1,6 @@
 <% @page_title = @title = "#{@user.login}的小组" -%>
 
-<% content_for :crumb do -%>
-    <li><%= link_to @user.login, user_url(@user) %></li>
-    <ul>
-      <li><%= @user.login %>的小组</li>
-    </ul>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 

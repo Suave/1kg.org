@@ -1,14 +1,6 @@
 <% @page_title = @title = "#{@group.title}小组成员" -%>
 
-<% content_for :crumb do -%>
-<li><%= link_to "小组", groups_url %></li>
-<ul>
-  <li><%= link_to @group.title, group_url(@group) %></li>
-  <ul>
-    <li>全部成员</li>
-  </ul>
-</ul>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
 

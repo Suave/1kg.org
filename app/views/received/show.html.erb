@@ -1,14 +1,6 @@
 <% @page_title = "我收到的消息" %>
 
-<% content_for :crumb do -%>
-  <li><%= link_to "我的空间", user_url(current_user) %></li>
-  <ul>
-    <li><%= link_to "我的收件箱", user_received_index_path(current_user) %></li>
-    <ul>
-      <li>我收到的消息</li>
-    </ul>
-  </ul>
-<% end -%>
+
 
 <% content_for :sidebar do -%>
   <%= render :partial => "/sent/toolbox" %>

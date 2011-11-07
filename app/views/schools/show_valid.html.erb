@@ -1,14 +1,6 @@
 <% @page_title = "#{@date}验证过的学校" %>
 
-<% content_for :crumb do -%>
-<li><%= link_to "学校", schools_url %></li>
-<ul>
-  <li><%= link_to "每月新增学校", archives_schools_url %></li>
-  <ul>
-    <li><%= @date %>新增学校</li>
-  </ul>
-</ul>
-<% end -%>
+
 
 <% content_for(:sidebar) do %>
   <div class="box">

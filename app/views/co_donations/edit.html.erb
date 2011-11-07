@@ -1,9 +1,5 @@
 <% @page_title = @title = "编辑团捐信息" -%>
 
-<% content_for :crumb do -%>
-<li>编辑团捐信息</li>
-<% end -%>
-
 <% content_for :sidebar do -%>
 <% @page = Page.find_by_slug('donation-activity-guide') -%>
   <%if @page%>
