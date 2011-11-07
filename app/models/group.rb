@@ -15,7 +15,7 @@
 #
 
 class Group < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   has_attached_file :avatar,:styles => {:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
                             :url=>"/media/groups/:id/:attachment/:style.:extension",
@@ -45,12 +45,6 @@ class Group < ActiveRecord::Base
 
   def login 
     title 
-  end
-
-  define_index do
-    # fields
-    indexes title
-    indexes body_html, :as => :description
   end
   
   def joined?(user)

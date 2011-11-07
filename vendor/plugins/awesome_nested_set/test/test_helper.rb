@@ -1,16 +1,16 @@
-$:.unshift(File.dirname(__FILE__) + '/../lib')
 plugin_test_dir = File.dirname(__FILE__)
+
+$:.unshift(plugin_test_dir + '/../lib')
 
 require 'rubygems'
 require 'test/unit'
-require 'multi_rails_init'
-# gem 'activerecord', '>= 2.0'
-require 'active_record' 
-require 'action_controller'
-require 'action_view'
-require 'active_record/fixtures'
+require 'active_support'
+require 'active_support/test_case'
+require 'active_record'
+require 'action_pack'
+require 'awesome_nested_set'
 
-require plugin_test_dir + '/../init.rb'
+CollectiveIdea::Acts::NestedSet::Railtie.extend_active_record
 
 ActiveRecord::Base.logger = Logger.new(plugin_test_dir + "/debug.log")
 
@@ -21,11 +21,12 @@ load(File.join(plugin_test_dir, "db", "schema.rb"))
 
 Dir["#{plugin_test_dir}/fixtures/*.rb"].each {|file| require file }
 
+class ActiveSupport::TestCase #:nodoc:
+  include ActiveRecord::TestFixtures
 
-class Test::Unit::TestCase #:nodoc:
   self.fixture_path = File.dirname(__FILE__) + "/fixtures/"
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
-  
+
   fixtures :categories, :notes, :departments
 end

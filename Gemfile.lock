@@ -118,6 +118,7 @@ GEM
     sanitize (2.0.3)
       nokogiri (< 1.6, >= 1.4.4)
     shoulda-matchers (1.0.0.beta3)
+    state_machine (1.0.2)
     thor (0.14.6)
     treetop (1.4.10)
       polyglot
@@ -147,5 +148,6 @@ DEPENDENCIES
   rspec-rails (~> 2.0)
   sanitize
   shoulda-matchers
+  state_machine
   watchr
   yajl-ruby

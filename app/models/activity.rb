@@ -29,7 +29,7 @@
 #  main_photo_id            :integer(4)
 
 class Activity < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   belongs_to :user
   belongs_to :school
@@ -107,25 +107,10 @@ class Activity < ActiveRecord::Base
   end
   
   
-  acts_as_paranoid
+  
   
   before_save :format_content
   after_create :create_feed
-  
-  define_index do
-    # fields
-    indexes title
-    indexes location
-    indexes clean_html, :as => :description
-    indexes departure.name, :as => :start
-    indexes arrival.name, :as => :destination
-    indexes user.login, :as => :organizer
-    
-    has :category
-    has :end_at
-    has :done, :as => :over
-    has :start_at
-  end
   
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)

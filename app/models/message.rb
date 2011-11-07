@@ -13,7 +13,7 @@
 #
 
 class Message < ActiveRecord::Base
-  include BodyFormat
+  include 
   
 	belongs_to :author, :class_name => "User"
 	has_many :message_copies

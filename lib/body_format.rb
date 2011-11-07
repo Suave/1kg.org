@@ -1,4 +1,4 @@
-module BodyFormat
+module 
   def sanitize(text, replace = false)
     html = text
     if replace

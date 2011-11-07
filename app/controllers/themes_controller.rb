@@ -1,5 +1,5 @@
 class ThemesController < ApplicationController
-  include Util
+  
   
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new_topic, :new, :create, :edit, :update]

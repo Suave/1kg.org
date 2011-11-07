@@ -16,7 +16,7 @@
 #
 
 class Profile < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   belongs_to :user
   before_save :correct_blog_url, :format_content

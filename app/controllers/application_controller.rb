@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   
   include AuthenticatedSystem
-  include ExceptionNotifiable
 
   before_filter :set_current_user
   # See ActionController::RequestForgeryProtection for details

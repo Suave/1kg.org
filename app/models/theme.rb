@@ -1,9 +1,9 @@
 class Theme < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   has_many :topics, :as => 'boardable', :dependent => :destroy
   
-  acts_as_paranoid
+  
   acts_as_manageable
   
   before_save :format_content

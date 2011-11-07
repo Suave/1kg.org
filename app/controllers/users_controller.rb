@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  include Util
+  
   # Be sure to include AuthenticationSystem in Application Controller instead
   #include AuthenticatedSystem
   

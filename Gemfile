@@ -39,6 +39,7 @@ gem 'date_validator'
 gem "json"
 gem "sanitize"
 gem 'capistrano'
+gem 'state_machine'
 
 group :test, :development do
   gem "rspec", "~> 2.0"

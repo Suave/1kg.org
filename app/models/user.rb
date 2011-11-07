@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
   cattr_accessor :current_user
 
-  acts_as_paranoid
+  
   
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"
@@ -51,13 +51,6 @@ class User < ActiveRecord::Base
   
   belongs_to :geo
 
-  define_index do
-    # fields
-    indexes login
-    indexes email
-    indexes profile.bio, :as => :bio
-  end
-  
   # This method returns true if the user is assigned the role with one of the
   # role titles given as parameters. False otherwise.
 
@@ -128,33 +121,9 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation,:avatar_temp,:avatar,:geo_id,:profile,:email_notify
 
-  acts_as_state_machine :initial => :pending, :column => :state
-  state :passive
-  state :pending, :enter => :make_activation_code
-  state :active,  :enter => :do_activate
-  state :suspended
-  state :deleted, :enter => :do_delete
-  event :register do
-    transitions :from => :passive, :to => :pending, :guard => Proc.new {|u| !(u.crypted_password.blank? && u.password.blank?) }
-  end
-  event :activate do
-    transitions :from => :pending, :to => :active 
-  end
-  event :suspend do
-    transitions :from => [:passive, :pending, :active], :to => :suspended
-  end
-  event :delete do
-    transitions :from => [:passive, :pending, :active, :suspended], :to => :deleted
-  end
-  event :unsuspend do
-    transitions :from => :suspended, :to => :active,  :guard => Proc.new {|u| !u.activated_at.blank? }
-    transitions :from => :suspended, :to => :pending, :guard => Proc.new {|u| !u.activation_code.blank? }
-    transitions :from => :suspended, :to => :passive
-  end
-
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(email, password)
-    u = find_in_state :first, :active, :conditions => {:email => email} # need to get the salt
+    u = User.where(:email => email).first # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

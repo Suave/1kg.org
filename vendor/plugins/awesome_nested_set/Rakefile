@@ -1,26 +1,37 @@
-require 'rake'
+# encoding: utf-8
+require 'rubygems'
+begin
+  require 'jeweler'
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install jeweler"
+  exit 1
+end
 require 'rake/testtask'
 require 'rake/rdoctask'
-require 'rake/gempackagetask'
 require 'rcov/rcovtask'
-require "load_multi_rails_rake_tasks" 
+#require "load_multi_rails_rake_tasks" 
 
-spec = eval(File.read("#{File.dirname(__FILE__)}/awesome_nested_set.gemspec"))
-PKG_NAME = spec.name
-PKG_VERSION = spec.version
- 
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.need_zip = true
-  pkg.need_tar = true
+Jeweler::Tasks.new do |s|
+  s.name = "awesome_nested_set"
+  s.summary = "An awesome nested set implementation for Active Record"
+  s.description = s.summary
+  s.email = "info@collectiveidea.com"
+  s.homepage = "http://github.com/collectiveidea/awesome_nested_set"
+  s.authors = ["Brandon Keepers", "Daniel Morrison"]
+  s.add_dependency "activerecord", ['>= 1.1']
+  s.has_rdoc = true
+  s.extra_rdoc_files = [ "README.rdoc"]
+  s.rdoc_options = ["--main", "README.rdoc", "--inline-source", "--line-numbers"]
+  s.test_files = Dir['test/**/*.{yml,rb}']
 end
-
-
+ Jeweler::GemcutterTasks.new
+ 
 desc 'Default: run unit tests.'
 task :default => :test
 
 desc 'Test the awesome_nested_set plugin.'
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
+  t.libs += ['lib', 'test']
   t.pattern = 'test/**/*_test.rb'
   t.verbose = true
 end
@@ -37,7 +48,7 @@ end
 namespace :test do
   desc "just rcov minus html output"
   Rcov::RcovTask.new(:coverage) do |t|
-    # t.libs << 'test'
+    t.libs << 'test'
     t.test_files = FileList['test/**/*_test.rb']
     t.output_dir = 'coverage'
     t.verbose = true

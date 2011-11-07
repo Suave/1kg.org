@@ -13,7 +13,7 @@
 #
 
 class SchoolTraffic < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   acts_as_taggable
   

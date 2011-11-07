@@ -1,0 +1,39 @@
+OauthSide
+=========
+
+对oauth库进一步进行封装，简化rails开发中与oauth相关的功能
+1. 在 config 目录下添加一个 oauth 目录，用于存放各个网站的 oauth 配置信息
+2. 添加一个 controller ，load所有oauth配置，并根据这些配置提供基于oauth的授权
+3. 添加一个名为 OauthToken 的模型，用于存放用户的临时凭证（request token）和令牌凭证（access token）
+
+说明：
+1. 本插件的设计前提是网站有自己的用户和登录系统，插件仅用于开通用户在本网站对外部网站的访问权限，不能支持直接使用外部网站进行认证的场景
+2. 本插件的开发是为了 1kg.org 需要，欢迎多参与这里的活动
+Example
+=======
+一、使用步骤：
+1. 安装插件
+$ cd rails3app
+$ rails plugin install https://github.com/fsword/oauth_side.git 
+
+2. 设置oauth配置信息（以豆瓣为例）
+ . 添加网站专有配置: Rails.root/config/oauth/douban.yml
+ . 确保 ApplicationController 有一个 current_user 方法，返回的是当前用户的 model
+ . 修改视图文件，添加一个链接 <%=link_to '关联豆瓣帐号', :controller => 'oauth', :action => 'douban' %>
+   [注1：用户点击这个链接后，oauth controller将根据id给出的配置建立 oauth consumer ，然后发起 request_token，
+用户将被302到douban网站进行oauth授权，结束后会callback回本站点，由oauth_controller的accept接受和处理]
+   [注2: 使用这个 link_to 方法，需要在route.rb文件中添加 route 规则，例如：
+     match 'oauth(/:action)' => 'oauth#(/:action)']
+ . 指定 oauth 所对应模型，方法是在 User 类中添加一行：
+     add_oauth
+   [注：这条语句使得程序员可以通过 user.douban? 来判断这个用户是否批准了douban的oauth授权。
+对于经过授权的用户，程序员可以通过 user.douban 获取一个 OAuth::AccessToken 对象访问douban的api]
+
+二、用户行为序列：
+  . 登录
+  . 点击 [关联豆瓣帐号] 链接，并根据要求进入douban.com，登录douban并允许使用权限
+  . 重定向回来之后当前网站将可以访问douban网，具体如何使用取决于 user.douban 的调用
+  . cancel/cancel_all: 程序员可以访问 oauth controller 的 cancel 和 cancel_all 这两个 action 让当前用户取消授权，其中，cancel 需要接受一个名为 site 的参数，参数值对应之前在 Rails.root/config/oauth/ 目录下的设置
+
+
+Copyright (c) 2010 li.jianye@gmail.com, released under the MIT license

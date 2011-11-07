@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   before_save :format_content
   after_create :update_commentable
@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :user_id,:commentable_id,:commentable_type,:body
   named_scope :available, :conditions => {:deleted_at => nil}
   
-  acts_as_paranoid
+  
   acts_as_ownable
   
   def self.archives(type)

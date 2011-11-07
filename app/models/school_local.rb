@@ -17,7 +17,7 @@
 #
 
 class SchoolLocal < ActiveRecord::Base
-  include BodyFormat
+  include 
   
   belongs_to :school
   

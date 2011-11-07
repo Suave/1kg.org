@@ -27,7 +27,7 @@ class Team < ActiveRecord::Base
   before_create :format_website_url
   after_create :set_relationship
   
-  acts_as_paranoid
+  
   acts_as_manageable
   
   def clean_html

@@ -6,79 +6,65 @@
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
     <%= stylesheet_link_tag "core", "calendar","temp", :cache => "all.cache" %>
     <%= javascript_include_tag 'jquery', 'jrails', 'jquery-ui', 'calendar.js', 'application.js', "search", :cache => 'all.cache' %>
-    <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
   </head>
   <body>
-		<div id="header">
-			<div class="wrapper">
+    <div id="header">
+      <div class="wrapper">
         <%= link_to image_tag('/images/logo-1kg-org.gif'),root_path,:id => 'logo'%>
+        <div id="nav">
+          <ul>
+            <li><%= link_to "首页", root_path %></li>
+            <li><%= link_to "学校", schools_path %></li>
+            <li><%= link_to "活动", activities_path %></li>
+            <li><%= link_to "小组", groups_path %></li>
+            <li><%= link_to "盒子", boxes_path %></li>
+            <li><a href="/misc/community-guide" target="_blank">帮助</a></li>
+          </ul>
+          <div style="float:right">
+          <% if logged_in? -%>
+            欢迎，<%= link_to current_user.login, user_path(current_user) %> | 
+            <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> | 
+            <%= link_to "帐号设置", setting_url %> | 
+            <%= link_to "退出", logout_path %> 
+          <% else -%>
+            <%= link_to "登录", login_path  %> | <%= link_to "注册", signup_path %>
+          <% end -%>
+          </div>
+        </div>
       </div>
     </div>
     
-    <div id="navWrap">
-      <div id="nav">
-        <ul>
-          <li><%= link_to "首页", root_url %></li>
-          <li><%= link_to "学校", schools_url %></li>
-          <li><%= link_to "活动", activities_url %></li>
-          <li><%= link_to "小组", groups_url %></li>
-          <li><%= link_to "盒子", boxes_url %></li>
-          <li><a href="/misc/community-guide" target="_blank">帮助</a></li>
-        </ul>
-        <p style="float:right">
-        <% if logged_in? -%>
-          欢迎, <%= current_user.login %>(<%= link_to "帐号设置", setting_url %>|<%= link_to "我的1KG", user_url(current_user) %>) | <%= inbox_link("消息") %> | <%= link_to "退出", logout_url %>
-        <% else -%>
-          <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %> | <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>
-        <% end -%>
-        </p>
-      </div>
-      
-      <div id="breadcrumb">
-        <h3>你在这里:</h3>
-        <ul>
-          <li><a href="/">首页</a>
-            <ul>
-              <%= yield :crumb %>
-            </ul>
-          </li>
-        </ul>
+    <div id="content">
+      <div class="wrapper">
+        <table>
+          <tr>
+            <td id="main">
+            <% if flash[:msg] -%>
+              <div id="msg_flash"><%= raw flash[:msg]%></div>
+            <% end -%>
+            <% if flash[:dialog] -%>
+              <div id="dialog_flash"><%= raw flash[:dialog] %></div>
+            <% end -%>
+            <% if flash[:error] -%>
+              <p class="error"><%= flash[:error] %></p>
+            <% end -%>
+              <%= yield %>
+            </td>
+            <td id="sidebar">
+              <%= yield :sidebar %>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
-      
-    <div class="wrapper">
-      <div id="content">
-        <div id="content-layout" class="clearfix">
-          
-          <div id="page-title" class="clearfix">
-            <h1><%= @title.to_s %></h1>
-            <%= yield :subtitle %>
-          </div>
-          <% if flash[:notice] -%>
-            <div class="flashNotice notice"><%= flash[:notice] %></div>
-          <% end -%>
-          
-          <%= yield :fullsize %>
-          
-          <div id="content-primary-wrap">
-            <div id="content-primary">
-                <%= yield :layout %>
-            </div>
-          </div>
 
-          <div id="content-secondary">
-
-           <%= yield :sidebar %>
-
-         </div>
+    <div id="footer">
+      <div class="wrapper">
+        <br/>
+        © 2004-2011&nbsp;<a href="/about">关于</a> - <a href="/report">媒体报道</a> - <a href="/terms">免责声明</a>&nbsp;- <a href="http://www.tudou.com/home/1kgmore" target="_blank">视频</a> - <a href="http://1kg.blogbus.com/" target="_blank">博客</a> - &nbsp;[<a href="http://www.miibeian.gov.cn" target="_blank">京ICP备09055637号</a>]
       </div>
-
     </div>
-    <div class="clear"></div>
-      
-    </div>
-    <%= render :partial => "/public/footer" %>
   </body>
-<%= yield :tail %>
+  <%= yield :tail %>
 </html>

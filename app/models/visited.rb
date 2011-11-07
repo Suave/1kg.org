@@ -20,7 +20,7 @@ class Visited < ActiveRecord::Base
   named_scope :latestvisit, :order => 'created_at DESC', :limit => 5,:conditions => "(status = 1)", :include => [:user, :school]
   named_scope :latestwanna, :order => 'created_at DESC', :limit => 5,:conditions => ["visited_at > ?", Time.now - 1.day], :include => [:user, :school]
   
-  acts_as_paranoid
+  
   
   after_create :create_feed
   

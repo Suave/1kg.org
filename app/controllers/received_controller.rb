@@ -1,5 +1,5 @@
 class ReceivedController < ApplicationController
-  include Util
+  
   
 	before_filter :login_required
 

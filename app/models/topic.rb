@@ -1,8 +1,8 @@
 
 class Topic < ActiveRecord::Base
-  include BodyFormat
+  include 
   
-  acts_as_paranoid
+  
   acts_as_voteable
   acts_as_taggable
   acts_as_ownable
@@ -32,15 +32,6 @@ class Topic < ActiveRecord::Base
   before_save :format_content
   #before_create :set_last_reply
   #after_create :create_feed
-  
-  define_index do
-    # fields
-    indexes title
-    indexes clean_html, :as => :content
-    
-    has :updated_at
-    has :created_at
-  end
   
   def last_replied_datetime
     (self.comments.last || self).created_at
