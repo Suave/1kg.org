@@ -394,9 +394,7 @@ background:#d9e8af;border-bottom:1px #fff solid;color:#569701;}
 /* =siteIntro*/
 .siteIntro {
   float:left;
-  margin: 0 6px;
-  -margin: 0 5px;
-  padding: 5px;
+  margin: 0 5px;
   font-size:13px;
   color:#555;
 }
@@ -1131,13 +1129,11 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_meta{float:left;margin-left:10px;width:170px;height:74px;overflow:hidden} 
 .requirement{width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
 
-.activity_list{margin:0 5px 2px 0;float:left;-margin:0 0 1px}
+.activity{padding:5px;float:left;width:290px}
 .activity_list_photo{width:64px;height:64px;overflow:hidden;}
-.activity_photo_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
+.image_frame{padding:2px;border:1px #ccc solid;float:left;margin-top:4px}
 .activity_main{width:160px}
-.activity_list_meta{float:left;margin-left:10px;width:230px;height:92px;overflow:hidden}
-.activity_list_meta span{position:relative;top:-2px}
-.activity_list_meta h5{margin:2px 0}
+.activity_meta{float:left;margin-left:10px;width:200px;height:92px;overflow:hidden}
 
 .hot_activity_frame{width:110px;height:110px;border: 1px solid #ccc;padding:2px}
 .hot_activity_image{width:110px;height:110px;overflow:hidden}
@@ -1184,7 +1180,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .record{margin-bottom:8px;height:54px;width:270px;float:left;border-bottom:1px solid #ddd;padding-bottom:8px}
 #records .record{margin-right:10px;width:300px}
  
-.newbox{margin-bottom:25px;clear:both;padding:0 5px;overflow:hidden;zoom:1}
+.newbox{margin-bottom:25px;clear:both;overflow:hidden;zoom:1}
  
 #admins{padding:0 5px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 #search_box{padding:6px 10px;margin-top:4px;}

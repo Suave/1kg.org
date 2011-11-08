@@ -1,19 +1,19 @@
 <% content_for :sidebar do -%>
 
-<div style="margin-left:-30px;-margin-left:0;width:290px">
+<div>
   <%= render :partial => "/public/login" %>
   <a href="/minisite/mangexingdong"><img src='/images/mangexingdong/mangexingdong.gif'/></a>
 </div>
 
 <% end -%>
 
-<div id="headline">
+<div>
   <a href="/public"><img src="/images/title.jpg" alt="多背一公斤"></a>
 </div>
 <p style="text-align:center">
   <span class="gary_span">
-    <%= link_to "<span class='counter'>#{@school_count.to_s}</span> 所学校信息", schools_url%> 被收录，
-    <%= link_to "<span class='counter'>#{@activity_count.to_s}</span> 项公益活动", activities_url%> 正在进行
+    <%= link_to raw("<span class='counter'>#{@school_count.to_s}</span> 所学校信息"), schools_url%> 被收录，
+    <%= link_to raw("<span class='counter'>#{@activity_count.to_s}</span> 项公益活动"), activities_url%> 正在进行
   </span>
 </p>
 
