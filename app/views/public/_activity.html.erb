@@ -1,5 +1,7 @@
 <div class="activity">
-  <%= raw topic_photo_thumb(activity) -%>       
+  <div class='border_frame'>
+    <%= link_to image_tag(activity.main_photo_url, :alt => activity.title ,:class => 'main_photo'),activity_path(activity) %>
+  </div>
   <div class="activity_meta">
   <h6><%= link_to short_title(activity), activity_path(activity)%></h6>
   <span class="gary_span"><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>

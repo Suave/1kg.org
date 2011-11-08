@@ -2,7 +2,7 @@
 
 <% content_for :sidebar do -%>
 
-<span class="remark"><%= link_to "&raquo; 回到#{@project.title}项目",project_url(@project)%></span>
+<span class="remark"><%= link_to raw("&raquo; 回到#{@project.title}项目"),project_url(@project)%></span>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
 <% end -%>
 

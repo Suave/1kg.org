@@ -24,7 +24,7 @@
 <%= render :partial => "/comments/form", :locals => {:commentable => @box,:cancel => true} %>
 
 <% content_for :sidebar do -%>
-  <span class="remark"><%= link_to "&raquo;  回到一公斤盒子",boxes_path %></span>
+  <span class="remark"><%= link_to raw("&raquo;  回到一公斤盒子"),boxes_path %></span>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
   <div> 
     <h4>其他盒子</h4>

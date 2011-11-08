@@ -50,7 +50,7 @@
       <div class="contents clearfix">
         <%= render :partial => '/public/project', :collection => @projects %>
       </div>
-     <% if @projects.size == 2%><div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div><%end%>
+     <% if @projects.size == 2%><div class="remark"><%= link_to raw("&raquo; 查看全部公益项目 "),projects_url %></div><%end%>
 </div>
 
 <div class="newbox">
@@ -58,7 +58,7 @@
   <div class="contents">
     <%= render :partial => "/public/share", :collection => @topics %>
   </div>
-  <div class="remark"><%= link_to "&raquo; 查看更多", total_topics_schools_url %></div>
+  <div class="remark"><%= link_to raw("&raquo; 查看更多"), total_topics_schools_url %></div>
   <div class="cleanfix" style="height:20px"></div>
 </div>
 

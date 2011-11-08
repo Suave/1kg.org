@@ -15,7 +15,7 @@
     <% @bulletins.each do |b| %>
       <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
     <% end %>
-    <p class="remark"><%= link_to "&raquo;  查看全部", bulletins_url %></p>
+    <p class="remark"><%= link_to raw("&raquo;  查看全部"), bulletins_url %></p>
   </div>
   <% end -%>
 
@@ -26,7 +26,7 @@
    <h3>公益团队</h3>
     
       <%= render :partial => "/public/team", :collection => @teams %>
-    <p class="remark"><%= link_to "&raquo;  查看全部", teams_url %></p>
+    <p class="remark"><%= link_to raw("&raquo;  查看全部"), teams_url %></p>
   </div>
 
   <div id="records" class="newbox">
@@ -69,7 +69,7 @@
   <%end%> 
   <div class="hot" style="float:right">
     <div class="channel">
-      <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:14px;font-weight:bold" %>
+      <%= link_to raw("&raquo; 活动频道"),activities_url,:style=> "font-size:14px;font-weight:bold" %>
       <br/><%= @activity_count%>个活动在进行</div>
   </div>
   <div  style="clear:both"></div>
@@ -82,7 +82,7 @@
       <div class="contents clearfix">
         <%= render :partial => '/public/project', :collection => @projects %>
       </div>
-     <div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div>
+     <div class="remark"><%= link_to raw("&raquo; 查看全部公益项目 "),projects_url %></div>
 </div>
 
 <div class="cleanfix" style="height:20px"></div>
@@ -90,7 +90,7 @@
  <h3>物资团捐 <span style="color:#f09023;font-size:10px;position:relative;top:-8px">新功能!</span></h3>
   <div class="cleanfix" style="height:20px"></div>
   <%= render :partial => "/public/co_donation", :collection => @co_donations%>
-  <div class="remark"><%= link_to "&raquo; 查看全部物资团捐 ",co_donations_url %></div>
+  <div class="remark"><%= link_to raw("&raquo; 查看全部物资团捐 "),co_donations_url %></div>
   <div  style="clear:both"></div>
 </div>
 

@@ -29,7 +29,6 @@
 #  main_photo_id            :integer(4)
 
 class Activity < ActiveRecord::Base
-  include 
   
   belongs_to :user
   belongs_to :school
@@ -78,6 +77,10 @@ class Activity < ActiveRecord::Base
   
   def organizer
     self.by_team ? self.team : self.user
+  end
+  
+  def main_photo_url(style=nil) 
+    self.main_photo.blank?  ? "/images/activity_thumb_#{category}.png" : main_photo.image.url(style)
   end
   
   def name

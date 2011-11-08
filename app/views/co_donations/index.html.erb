@@ -22,7 +22,7 @@
   <%= render :partial => "/public/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
   <div class="clearfix" style="clear:both;height:10px"></div>
   <%= customize_paginate @co_donations %>
-  <div class="remark"><%= link_to "&raquo; 已结束的团捐项目 ",over_co_donations_url %></div>
+  <div class="remark"><%= link_to raw("&raquo; 已结束的团捐项目 "),over_co_donations_url %></div>
 </div>
 
 <div class="clearfix" style="clear:both;height:20px"></div>

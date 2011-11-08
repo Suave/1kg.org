@@ -11,7 +11,7 @@
       <h3><%= h @good.title %> 图片</h3>
       <span class="postNew">++ <%= link_to "上传图片", new_admin_good_photo_url %></span>
       <div class="contents">
-        <p><%= link_to "&raquo; 返回商品列表", admin_goods_url %></p>
+        <p><%= link_to raw("&raquo; 返回商品列表"), admin_goods_url %></p>
         <p>商品图片不能超过5张，尺寸为 300x300 像素</p>
         <table border="0" cellspacing="5" cellpadding="5">
           <tr>

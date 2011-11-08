@@ -7,7 +7,7 @@
 
 <% content_for :sidebar do -%>
 <div style="margin-left:20px">
-  <span class="remark"><%= link_to "&raquo; 回到给孩子们上一堂课首页",games_url%></span>
+  <span class="remark"><%= link_to raw("&raquo; 回到给孩子们上一堂课首页"),games_url%></span>
   <%= render :partial => "category_list"%>
 </div>
 <% end -%>

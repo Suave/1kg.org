@@ -138,11 +138,8 @@ module ApplicationHelper
   end
   
   def activity_last_update(activity)
-    #last_topic = activity.discussion.board.topics.find(:first, :order => "last_replied_at desc")
-    #return (last_topic ? link_to("#{last_topic.last_replied_datetime.to_date} by #{last_topic.last_replied_user.login}", board_topic_url(last_topic.board_id, last_topic.id, :anchor => (last_topic.comments.last.id if last_topic.comments.last))) : activity.updated_at.to_date)
     last_comment = activity.comments.find(:first, :order => "created_at desc", :select => "id, created_at, user_id")
     return (last_comment ? link_to("#{last_comment.created_at.to_date} by #{last_comment.user.login}", activity_url(activity)) : activity.updated_at.to_date)
-    
   end
   
   def topic_last_update(topic)
@@ -195,7 +192,7 @@ module ApplicationHelper
   
   def topic_photo_thumb(activity)
     img_url = activity.main_photo.blank?  ? "/images/activity_thumb_#{activity.category}.png" : activity.main_photo.image.url
-    "<div class='activity_photo_frame'><div class='activity_list_photo'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div></div>"
+    "<div class='border_frame'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div>"
   end
   
   def plain_text(text,replacement="")

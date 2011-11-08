@@ -21,7 +21,7 @@
   </span>
   </div>
   <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics} %>
-  <p style="text-align:right"><%= link_to "&raquo; 更多话题", group_url(@group), :target => "_blank" %></p>
+  <p style="text-align:right"><%= link_to raw("&raquo; 更多话题"), group_url(@group), :target => "_blank" %></p>
 </div>
 
 <div class="rcolumn">

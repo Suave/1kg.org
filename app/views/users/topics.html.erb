@@ -4,7 +4,7 @@
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
-  <span class="remark"><%= link_to "&raquo; 回到#{@user.login}的空间",user_url(@user)%></span>
+  <span class="remark"><%= link_to raw("&raquo; 回到#{@user.login}的空间"),user_url(@user)%></span>
 <% end %>
 <div class="newbox">
 <%= render :partial => "/public/share", :collection => @topics %>

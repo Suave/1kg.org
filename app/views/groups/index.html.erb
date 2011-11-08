@@ -10,7 +10,7 @@
     <div class="contents clearfix">
       <%= render :partial => "groups", :object => @my_groups %>
       <%= "<p>还没有加入的小组</p>" if @my_groups.size == 0%>
-      <% if @my_groups.size == 12%><div class="remark"><%= link_to "&raquo; 查看全部", groups_user_url(@current_user) %></div><%end%>
+      <% if @my_groups.size == 12%><div class="remark"><%= link_to raw("&raquo; 查看全部"), groups_user_url(@current_user) %></div><%end%>
     </div>    
   <%else%>
   请 <%= link_to "登录", login_path(:to => CGI.escape(request.request_uri)) %>  或 <%= link_to "注册", signup_path(:to => CGI.escape(request.request_uri)) %>

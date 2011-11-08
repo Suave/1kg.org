@@ -53,7 +53,7 @@
     <div id="more_village" style="display:none"><%= render :partial => '/public/community',:collection => @villages[5..-1]%></div>
     <div class="cleanfix" style="height:20px;clear:both"></div>
   <% end %>
-  <span class="remark"><%= link_to "&raquo; 回到公益项目首页",projects_url%></span>
+  <span class="remark"><%= link_to raw("&raquo; 回到公益项目首页"),projects_url%></span>
 
 <%end%>
 

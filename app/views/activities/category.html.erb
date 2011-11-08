@@ -7,7 +7,7 @@
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
-<span class="remark"><%= link_to "&raquo; 回到活动首页",activities_url%></span>
+<span class="remark"><%= link_to raw("&raquo; 回到活动首页"),activities_url%></span>
 <%end%>
 <h3><%= "所有的#{title_list[@category]}活动"%></h3>
 <%= link_to "查看已结束的活动",category_activities_url+"?c=#{category_list[@category]}&&over=true" unless @over %>

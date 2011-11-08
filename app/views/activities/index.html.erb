@@ -13,7 +13,7 @@
   <div class="cleanfix" style="clear:both;height:10px"></div>
   <h4>专题活动</h4>
   <div class="cleanfix" style="clear:both;height:10px"></div>
-  <%= render :text => @page.body %>
+  <%= raw(render :text => @page.body) %>
 </div>
 <%end%>
 
@@ -41,7 +41,7 @@
     <%end%>
     </div>
     <% end %>
-    <div class="remark"><%= link_to '&raquo; 查看全部',participated_activities_user_url(current_user)%></div>
+    <div class="remark"><%= link_to raw('&raquo; 查看全部'),participated_activities_user_url(current_user)%></div>
     <%= "<p>还没有参加过活动噢</p>" if @participated.size == 0%>
     
   </div>
@@ -55,28 +55,28 @@
 <% end -%>
 
 <div class="newbox">
-      <div id="activity_tabs">
-        <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
-      <h3>最近的活动 <a href="#" onclick="javascript:show_feed();return false"><%= image_tag(image_path("rss.png"),:style => "position:relative;top:2px") %></a></h3> 
-        <%= render :partial => '/public/atom', :locals => {:name => '订阅最新活动'} %>
-        <ul class="tab" >
-          <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
-            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
-          <% end -%>
-        </ul>
-        <div class="cleanfix" style="clear:both;height:10px"></div>
-        <div id = "all">
-          <%= render :partial => "/public/activity", :collection => @activities_hash[:all] %>
-          <div class="remark"><%= link_to "&raquo; 查看更多",ongoing_activities_url,:target => "_blank" %>　<%= link_to '&raquo; 以往活动回顾',over_activities_url%></div>
-        </div>
-        
-        <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络','online'],['同城','city'],['其他','other']].each do |type| %>
-        <div id ="<%= type[1]%>">
-          <%= render :partial => "/public/activity", :collection => @activities_hash[type[1].to_sym] %>
-           <div style="color:#666;margin-right:20px;clear:both;text-align:right;">&raquo; 查看更多(<%= link_to "进行中",category_activities_url+"?c=#{type[1]}",:target => "_blank" %>/<%= link_to "已结束",category_activities_url+"?c=#{type[1]}&&over=true",:target => "_blank" %>)</div>
-        </div>
-        <% end -%>
-      </div>
+  <div id="activity_tabs">
+    <div style="float:right;position:relative;top:2px"><%= link_to "发起活动", new_activity_url,:class => "buttonjoin" %></div>
+  <h3>最近的活动</h3> 
+    <%= render :partial => '/public/atom', :locals => {:name => '订阅最新活动'} %>
+    <ul class="tab" >
+      <% [["所有类别", "all"], ["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络活动','online'],['同城活动','city'],['其他','other']].each do |type| %>
+        <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
+      <% end -%>
+    </ul>
+    <div class="cleanfix" style="clear:both;height:10px"></div>
+    <div id = "all">
+      <%= render :partial => "/public/activity", :collection => @activities_hash[:all] %>
+      <div class="remark"><%= link_to raw("&raquo; 查看更多"),ongoing_activities_url,:target => "_blank" %>　<%= link_to '&raquo; 以往活动回顾',over_activities_url%></div>
+    </div>
+    
+    <% [["公益旅行", "travel"],["支教", "teach"],["募捐","donation"],['网络','online'],['同城','city'],['其他','other']].each do |type| %>
+    <div id ="<%= type[1]%>">
+      <%= render :partial => "/public/activity", :collection => @activities_hash[type[1].to_sym] %>
+       <div style="color:#666;margin-right:20px;clear:both;text-align:right;">&raquo; 查看更多(<%= link_to "进行中",category_activities_url+"?c=#{type[1]}",:target => "_blank" %>/<%= link_to "已结束",category_activities_url+"?c=#{type[1]}&&over=true",:target => "_blank" %>)</div>
+    </div>
+    <% end -%>
+  </div>
 <script type="text/javascript">
   jQuery("#activity_tabs").tabs();
 </script>
@@ -86,11 +86,10 @@
 
 <div class="newbox">
  <h3>最新帖子</h3>
-  
   <div class="contents">
-    <%= render :partial => "/public/share", :collection => @topics %>
+    <%= render :partial => "/public/topic", :collection => @topics %>
   </div>
-  <div class="remark"><%= link_to "&raquo; 更多帖子", total_topics_activities_url %></div>
+  <div class="remark"><%= link_to raw("&raquo; 更多帖子"), total_topics_activities_url %></div>
   <div class="cleanfix" style="height:20px"></div>
 </div>
 

@@ -10,5 +10,5 @@
           <%= link_to tag.name, tag_path(:tag => tag.name), :class => css_class %>
         <% end %>
       </div>
-      <p class="remark"> <%= link_to "&raquo; 所有需求", '/tags/needs' %></p>
+      <p class="remark"> <%= link_to raw("&raquo; 所有需求"), '/tags/needs' %></p>
 </div>

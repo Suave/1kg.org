@@ -5,7 +5,7 @@
 <div id="map_div" style="width: 640px; height: 480px;"></div>
 
 <% content_for :sidebar do -%>
-    <span class="remark"><%= link_to "&raquo; 回到#{@project.title}",@project%></span>
+    <span class="remark"><%= link_to raw("&raquo; 回到#{@project.title}"),@project%></span>
 <%end%>
 
 

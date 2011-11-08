@@ -16,7 +16,7 @@ class Topic < ActiveRecord::Base
   named_scope :unsticky,  :conditions => ["sticky=?", false]
 
   named_scope :latest_updated_in, lambda{|board_class, limit|
-    { :conditions => {:boardable_type => board_class.class_name},
+    { :conditions => {:boardable_type => board_class.class.name},
       :include => [:user],
       :order => "last_replied_at desc",
       :limit => limit}

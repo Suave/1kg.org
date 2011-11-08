@@ -8,8 +8,8 @@
 <% content_for :sidebar do -%>
 <div class="cleanfix" style="clear:both;height:20px"></div> 
 
-<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.project.title}",project_url(@execution.project)%></span>
-<br/><span class="remark"><%= link_to "&raquo;  回到#{@execution.community.title}",@execution.community%></span>
+<br/><span class="remark"><%= link_to raw("&raquo;  回到#{@execution.project.title}"),project_url(@execution.project)%></span>
+<br/><span class="remark"><%= link_to raw("&raquo;  回到#{@execution.community.title}"),@execution.community%></span>
 
   <div class="cleanfix" style="height:20px"></div>
 <% end -%>

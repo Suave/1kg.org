@@ -13,7 +13,7 @@
             <%= render :partial => "/public/activity", :collection => @participated %>
             <div class="cleanfix" style="clear:both;"></div> 
             <span class="remark">
-              <%= link_to "&raquo; 查看全部", participated_activities_user_url(user) %>
+              <%= link_to raw("&raquo; 查看全部"), participated_activities_user_url(user) %>
             </span>
           </div>
           
@@ -21,7 +21,7 @@
             <%= render :partial => "/public/activity", :collection => @submitted %>
             <div class="cleanfix" style="clear:both;"></div> 
             <span class="remark">
-              <%= link_to "&raquo; 查看全部", submitted_activities_user_url(user) %><br />
+              <%= link_to raw("&raquo; 查看全部"), submitted_activities_user_url(user) %><br />
             </span>
           </div>
         </div>
