@@ -11,7 +11,7 @@ class TagsController < ApplicationController
   end
   
   def show
-    @tag = params[:tag]
+    @tag = params[:id]
     @school_needs = SchoolNeed.find_tagged_with(params[:tag], :include => [:school => [:basic]])
     
     

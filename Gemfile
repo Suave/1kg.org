@@ -11,6 +11,8 @@ gem 'mysql2','0.2.7'
 
 gem 'yajl-ruby', :require => 'yajl'
 gem 'nokogiri'
+gem 'fastercsv'
+gem 'hpricot'
 
 # Paginator
 # gem "kaminari"
@@ -27,7 +29,7 @@ gem 'paperclip'
 # gem "haml"
 # gem "haml-rails"
 # gem 'validates_timeliness', '~> 3.0.5'
-# gem 'acts-as-taggable-on'
+gem 'acts-as-taggable-on'
  
 # gem 'hoptoad_notifier'
 # gem 'newrelic_rpm'
@@ -67,7 +69,7 @@ end
 # gem "memcache-client", :require => "memcache"
 
 # Deployment tool
-# gem 'capistrano'
+gem 'capistrano'
 # gem 'whiskey_disk'
 
 # Debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
@@ -79,4 +81,4 @@ end
 # gem 'resque'
 
 # Full-text search engine
-# gem 'thinking-sphinx', '~> 2.0.2', :require => 'thinking_sphinx'
+gem 'thinking-sphinx', '~> 2.0.2', :require => 'thinking_sphinx'

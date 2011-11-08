@@ -13,7 +13,7 @@
 #
 
 class SchoolTraffic < ActiveRecord::Base
-  include 
+  
   
   acts_as_taggable
   

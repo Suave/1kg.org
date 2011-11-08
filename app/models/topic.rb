@@ -1,6 +1,6 @@
 
 class Topic < ActiveRecord::Base
-  include 
+  
   
   
   acts_as_voteable

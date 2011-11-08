@@ -84,7 +84,7 @@ class Activity < ActiveRecord::Base
   end
   
   def name
-    title
+    "活动：#{title}"
   end
   
   def validate

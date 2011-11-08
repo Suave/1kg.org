@@ -1,10 +1,9 @@
 class Photo < ActiveRecord::Base
-  include 
-  
   belongs_to :photoable,:polymorphic => true
   belongs_to :user
   
   acts_as_ownable
+  acts_as_voteable
   
   has_attached_file :image, :styles => {:'107x80' => ["107x80#"],:'max240x180' => ["240x180>"],:max565x420 => ["565x420>"]},
                             :url=>"/media/photos/:id/:attachment/:style.:extension",
@@ -14,7 +13,6 @@ class Photo < ActiveRecord::Base
   attr_accessible :image, :title, :description, :description_html,:photoable_type,:photoable_id
   
   before_save :fill_title, :format_content
-  #after_create :create_feed
   
   named_scope :with_activity, :conditions => {:photoable_type => 'Activity'}
   named_scope :with_school, :conditions => {:photoable_type => 'School'}

@@ -1,5 +1,5 @@
 class Theme < ActiveRecord::Base
-  include 
+  
   
   has_many :topics, :as => 'boardable', :dependent => :destroy
   

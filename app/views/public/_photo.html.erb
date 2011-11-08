@@ -1,10 +1,7 @@
-<div class="photo_frame">
-    <div class="photo">
-      <%= link_to image_tag(photo.image.url, :alt => photo.title), (photo.photoable)%>
-    </div>
-    <div class="photo_meta">
-      <div class="photo_from">
-      <%= link_to photo.photoable.name,photo.photoable if photo.photoable %>
-      </div>
-    </div>
+<div class="photo">
+  <%= link_to image_tag(photo.image.url, :alt => photo.title),photo_path(photo) %>
+  <br/>
+  <span><%= "发布在 #{link_to photo.photoable.name,photo.photoable}" unless photo.photoable.name == @protagonist %></span>
+  <br/>
+  <span><%= photo.comments_count %> 个回复 <%= photo.votes_count %> 人推荐</span>
 </div>

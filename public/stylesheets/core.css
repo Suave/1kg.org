@@ -4,22 +4,22 @@
  * http://1kg.org
  * 
  -----------------------------------------------------------------------------*/
-/*  =reset.css */
+/*  reset  */
 * { margin : 0; padding :0; }
 ol,ul { list-style-type : none; }
 table{ border-collapse : collapse; border-spacing : 0; }
 caption, th {text-align : left; }
 img {border:0;}
 
-/* =body */
+/* globe.css */
 body {
   background-color: #fdfdfd;
   color: #333;
-	font: 12px/1.5 Verdana, Arial, Helvetica, sans-serif;
+	font: 12px/1.4 Verdana, Arial, Helvetica, sans-serif;
   text-align: center;
 }
 
-p{margin:0.6em 0}
+p{margin:0.6em 0;line-height:1.5em}
 
 a {
   color: #569701;
@@ -30,8 +30,10 @@ a:hover, a:active {
   color: #E98523;
 }
 
-span{color:#666;font-size:11px;font-weight:normal}
-span a{color: #76a712}
+small {color:#777;font-size:10px;font-weight:normal}
+span {color:#777;font-size:11px;font-weight:normal}
+	
+span a{color: #86b722}
 
 h1,h2,h3,h4,h5,h6{
   font-weight: bold;
@@ -40,10 +42,12 @@ h1,h2,h3,h4,h5,h6{
 }
 h1{font-size:24px}
 h2{font-size:18px}
-h3{font-size:15px}
+h3{font-size:16px}
 h4{font-size:14px}
-h5{font-size:13px;border-bottom: 1px solid #eee;margin:20px 0 10px;padding-bottom:3px;}
+h5{font-size:13px}
 h6{font-size:12px}
+
+h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{color: #447700}
 
 pre {
   white-space: pre-wrap;
@@ -58,7 +62,6 @@ pre {
 
 input, select, textarea {
 	font-family: Arial, Helvetica, Verdana, Geneva, sans-serif;
-	font-size: 1em;
   vertical-align: middle;
 }
 
@@ -73,14 +76,13 @@ th {
 }
 
 td {
-  padding: 5px 6px;
-  border-bottom: #dedede solid 1px;
 }
 
 caption {
   background-color: #eee;
 }
 
+/* class  */
 .icon{position:relative;top:4px}
 
 .clear {
@@ -91,42 +93,8 @@ caption {
   text-align: center;
 }
 
-.small {
-  font-size: .8em;
-  margin-bottom: 1.875em;
-  line-height: 1.875em;
-}
-
-.large {
-  font-size: 1.2em;
-  line-height: 2.5em;
-  margin-bottom: 1.25em;
-}
-
-.hide {
-  display: none;
-}
-
 .require {color:red;}
-/*
-	=easy clearing
-*/
-.clearfix:after {
-  content: ".";
-  display: block;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-.clearfix {
-  display: inline-block;
-  display: block;
-}
-/* Mac IE5 hacks \*//*/
-* html .clearfix { height: 1%; }
-/* show in IE5-mac */
 
-/* =caution */
 .caution {
   background: #fffbd4 url(../images/caution.gif) no-repeat 15px center;
   margin: 0 0;
@@ -135,8 +103,7 @@ caption {
   border-width: 2px 0;
 }
 
-/* =layout 
-------------------------------------------------- */
+/* layout */
 #edgenotice {
   background-color: #000e00;
   color: #fff;
@@ -153,147 +120,6 @@ caption {
   position: relative;
 }
 
-/* =footer */
-#footer .wrapper {
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-
-/*-  Content
-----------------------------------------------------------------------*/
-#content {
-}
-
-/*
-	Primary content
-*/
-#content-primary-wrap {
-	float: left;
-	width: 100%;
-}
-
-#content-primary .block {
-	overflow: hidden;
-}
-
-#content-primary-wrap {
-	margin-right: -320px;
-}
-
-#content-primary {
-	margin-right: 320px;
-}
-.box h2 {
-  background: url(../images/top-right.png) no-repeat right top;
-  padding: 20px 25px 10px;
-  color: #096804;
-  font-weight: bold;
-  font-size: 2em;
-}
-#content-primary p {
-  margin: 0.8em 0;
-}
-.box .contents {
-  padding: 0 20px 15px;
-}
-
-
-.box .contents ol, .box .entry ol {list-style-type: decimal; list-style-position: inside; margin-left:1.2em;}
-.box .contents ul, .box .entry ul {list-style-type: disc; list-style-position: inside; margin-left:1.2em;}
-
-/*entry*/
-#entry table p {margin:0}
-#entry ul li{list-style-type: disc;}
-#entry ol li{list-style-type: decimal;}
-#entry ul,#entry ol{padding-left:40px;margin:12px 0}
-#entry td{border:1px #666666 solid;background-color:#fff;padding:2px 4px;}
-/*
-	Secondary content
-*/
-#content-secondary {
-	float: right;
-	width: 290px;
-}
-
-body.ad-column-180 #content-secondary {
-	width: 180px;
-}
-
-.box {
-  clear: both;
-  background: #f7f7f7 url(../images/bottom-left.png) no-repeat left bottom;
-  margin-bottom: 20px;
-  position: relative;
-}
-.box .boxOuter {
-  background: url(../images/bottom-right.png) no-repeat right bottom;
-}
-.box .boxInner {
-  background: url(../images/top-left.png) no-repeat left top;
-}
-.box h3 {
-  background: url(../images/top-right.png) no-repeat right top;
-  color: #000e00;
-  font: bold 1.3em Arial, Helvetica, sans-serif;
-  padding: 20px 20px 10px;
-}
-
-.form_box{margin-bottom:40px}
-
-#content-secondary .box h3 {
-  padding: 20px 15px 10px;
-}
-#content-secondary .box .contents {
-  padding: 0 15px 15px;
-}
-
-.box .postNew{
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-weight: bold;
-}
-
-.newbox .postNew{
-  float:right;position:inherit;
-  font-weight: bold;
-}
-
-.box .postNewButton {
-	position: absolute;
-  top: 10px;
-  right: 10px;
-  font-weight: bold;
-}
-
-.postNew {
-  position: absolute;
-  right: 340px;
-  font-weight: bold;
-  font-size:1.1em;
-}
-.postNewButton {
-	position: absolute;
-  top: 10px;
-  right: 10px;
-  font-weight: bold;
-}
-
-#what_time{position:absolute;top:68px;right:330px;}
-#visit_date input{width:100px;}
-
-.box .remark, .newbox .remark {
-  margin: 0;
-  padding: 0 20px 10px;
-}
-#content-primary .box p.remark {
-  margin: 0;
-}
-
-
-/* =header
-----------------------------------------------------------------------*/
 #header {
   background: #8fc847 url(../images/header.png) repeat-x center bottom;
   height: 110px;
@@ -309,7 +135,7 @@ body.ad-column-180 #content-secondary {
   position: absolute;
   top:65px
 }
-/* =nav */
+
 #nav ul {
   float: left;
 }
@@ -320,6 +146,7 @@ body.ad-column-180 #content-secondary {
   font-size: 1.2em;
 }
 
+#content {}
 
 #content .wrapper{
   background: url(../images/content.gif) repeat-y;
@@ -328,13 +155,13 @@ body.ad-column-180 #content-secondary {
 #main{
   vertical-align:top;
   width:600px;
-  padding:20px 25px;
+  padding:20px 35px 20px 15px;
   }
 
 #sidebar{
   vertical-align:top;
   width:290px;
-  padding:20px 20px 20px 0;
+  padding:20px 15px 20px 5px;
   *position:relative;
   }
 
@@ -345,6 +172,50 @@ body.ad-column-180 #content-secondary {
 #footer{color:#999}
 #footer a{color:#999}
 
+#footer .wrapper {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+/* style  */
+
+.box h2 {
+  background: url(../images/top-right.png) no-repeat right top;
+  padding: 20px 25px 10px;
+  color: #096804;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+
+.box {
+  clear: both;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.newbox .postNew{
+  float:right;position:inherit;
+  font-weight: bold;
+}
+#what_time{position:absolute;top:68px;right:330px;}
+
+
+#visit_date input{width:100px;}
+
+.box .remark, .newbox .remark {
+  margin: 0;
+  padding: 0 20px 10px;
+}
+#content-primary .box p.remark {
+  margin: 0;
+}
+
+
+/* =header
+----------------------------------------------------------------------*/
 #topicnav{color:#569701;cursor:pointer;display:block;}
 #topicnav img{-padding-top:5px}
 
@@ -720,141 +591,9 @@ body.schools form legend {
   margin: .5em 0 0;
 }
 
-
 .small_school{text-align:center;padding:5px;float:left}
 .small_school p{width:80px;height:60px;}
-/* =同城
- * -------------------------------------------------------------------------- */
-#page-title h1 {
-	color: #e98523;
-  font-weight: bold;
-  font-size: 2em;
-  margin: 0 5px .5em;
-}
 
-
-h2.title {
-  float: left;
-  color: #e98523;
-  font-weight: bold;
-  font-size: 2.5em;
-  margin: 0 5px .5em;
-}
-.moderators {
-  float: right;
-  padding: 1.5em 0 0;
-}
-
-
-table .author {
-  width: 8em;
-  /*text-align: center;*/
-}
-table .replies {
-  width: 4em;
-  /*text-align: center;*/
-}
-table .lastPost {
-  width: 12em;
-}
-
-#cityLatestMembers ul {
-  padding: 0 15px 15px;
-}
-#cityLatestMembers ul li {
-  float: left;
-  margin: 0 .5em;
-}
-#cityLatestMembers ul li img {
-  display: block;
-  border: #ccc solid 1px;
-}
-
-/* =cityList */
-#cityList ul {
-  padding: 1em 0;
-}
-#cityList ul li {
-  float: left;
-  padding: .2em 1em;
-  white-space: nowrap;
-}
-
-/* =活动
- * -------------------------------------------------------------------------- */
-/* =activitiesInfo */
-
-h3.title {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-/* =activitiesPostNew */
-#activitiesPostNew form,
-#topicPostNew form,
-#sharePostNew form,
-#topicCommentForm {
-  width:600px
-  padding:10px}
-.formText, textarea {
-  border: #ccc solid 1px;
-  padding: 2px;
-}
-#activitiesPostNew form .submit, 
-#topicPostNew form .submit {
-  margin-left: 5em;
-}
-#activitiesPostNew form .submit input, 
-#topicPostNew form .submit input,
-#sharePostNew form .submit input,
-#topicCommentForm form .submit input {
-  padding: 0 1em;
-  font-weight: bold;
-  cursor: pointer;
-}
-#activitiesPostNew form p {margin:1em 0;}
-
-/* =activityParty */
-#activityParty img {
-  border: #ccc solid 1px;
-}
-
-
-/* =论坛
- * -------------------------------------------------------------------------- */
-.btnWrap {
-  float: left;
-  background: url(../images/btnL.gif) no-repeat left center;
-  height: 26px;
-  margin-right: 1em;
-}
-.remark .btnWrap {
-  float: right;
-}
-.btnWrap input, .btnWrap a {
-  display: block;
-  background: url(../images/btnR.gif) no-repeat right center;
-  height: 26px;
-  line-height: 26px;
-  border: 0;
-  padding: 0 1em;
-}
-.btnWrap a {
-  color: #444;
-  padding: 0 1.2em;
-}
-.btnWrap input:hover, .btnWrap a:hover, .btnWrap a:active {
-  color: #569701;
-}
-.btnHighlight a {color:red;}
-
-.submit a {
-  height: 26px;
-  line-height: 26px;
-  padding: 0 1em;
-}
-
-/* =pagination */
 .pagination {
   margin: 10px 0 0;
   text-align: right;
@@ -875,137 +614,15 @@ h3.title {
   font-weight: bold;
 }
 
-/* =boardPub */
-.boardPub .replies {
-  width: 2.4em;
-  text-align: center;
-}
-
-/* =topicPostNew */
-#topicPostNew p {margin:1em 0;}
-#topicPostNew form .postIn {
-  margin: 0;
-  font-size: 1.1em;
-}
-#topicPostNew form .postIn em {
-  color: #ff7121;
-  font-weight: bold;
-}
-#topicPostNew .formText {
-  width: 40%;
-}
-
-/* =sharePostNew */
-#sharePostNew p {margin:1em 0;}
-#sharePostNew form .postIn {
-  margin: 0;
-  font-size: 1.1em;
-}
-#sharePostNew form .postIn em {
-  color: #ff7121;
-  font-weight: bold;
-}
-#sharePostNew .formText {
-  width: 40%;
-}
-#sharePostNew p .label {
-	float: left;
-  clear: left;
-  width: 6em;
-  padding: 0 1em 0 0;
-  text-align: right;
-}
-#sharePostNew form .submit { margin-left:7em;}
-
-/* =topicSingle */
-#content-primary #topicSingle h2 {
-  padding-bottom: 5px;
-}
-#content-primary #topicSingle .metadata {
-  padding: 0 20px 20px;
-}
-#content-primary #topicSingle .metadata p,
-#content-primary #topicCommentsList ol .meta {
-  margin: 0;
-  color: #999;
-}
-#topicSingle .avatar {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}
-#topicSingle .avatar img {
-  display: block;
-  border: #dedede solid 1px;
-}
-#topicSingle .entry {
-  padding: 0 30px 20px;
-}
-
-/* =topicCommentsList */
-
-#topicCommentsList ol li {
-  float: left;
-  width: 100%;
-  margin-bottom: 1.2em;
-}
-#topicCommentsList ol div.avatar {
-  float: left;
-  width: 48px;
-  height: 48px;
-  padding: 2px;
-  border: #dedede solid 1px;
-  overflow: hidden;
-}
-#topicCommentsList ol .content {
-  margin-left: 64px;
-}
-
-#topicCommentForm form textarea {
-  width: 600px;
-}
-
-
-/* =formError
-	 by Suave */
-.fieldWithErrors {padding:2px; /*background-color:red; display:table;*/}
+.fieldWithErrors {background-color:#ffcccc}
 .formError {color:red;}
 
 .tableList {table-layout:fixed; word-break:break-all; border-collapse:collapse}
-.tableList td {color:#999;}
+.tableList td {color:#999;margin:4px;border-bottom:1px solid #ccc}
+.tableList tr {border-bottom:1px solid #ccc}
 .tableList a.link {color:#999;}
 .tableList a.link:hover,
 .tableList a.link:active { color:#E98523;}
-
-/* =shareList in user's space */
-#content-primary .shareEntry h2 {
-  padding-bottom: 5px;
-}
-#content-primary .shareEntry .metadata {
-  padding: 0 20px 20px;
-}
-#content-primary .shareEntry .metadata p,
-#content-primary .shareEntry ol .meta {
-  margin-bottom: 1em;
-  color: #999;
-}
-.shareEntry .avatar {
-  float:left
-}
-.shareEntry .avatar img {
-  display: block;
-  border: #dedede solid 1px;
-}
-.shareEntry .entry {
-  padding: 0 30px 20px;
-}
-
-.tipText {color:#999;}
-.right {text-align:right;}
-
-.obu {float:left; width:70px;}
-.obu dt {height:50px; margin:0; overflow:hidden; text-align:center;}
-.obu dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:60px}
 
 .user{float:left;width:80px}
 .team{float:left;width:84px;margin:2px}
@@ -1018,21 +635,14 @@ h3.title {
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px;}
 .obp dd span {display:block;}
 
-.sbtn {border:1px solid black; background:orange; padding:2px;}
-
 /* map view, by yuanyi */
-#map_div { margin: 1em 0; width: 640px; height: 320px; }
+#map_div { margin: 1em 0; width: 600px; height: 360px; }
 #map_popup {width: 320px; float: left; margin-bottom: 20px;}
 #map_popup h3{background: none; margin:0; padding:0;}
 #map_popup #summary { width: 250px; float: left;}
 #map_popup img { width: 130px; margin-left: 20px;}
 
 #contact h3 {background: none;}
-
-#guide{text-align:center;}
-#guide th{text-align:center;}
-
-#guide .leftalign{text-align:left}
 
 .incomplete{text-align: center; color: red;}
 
@@ -1152,17 +762,11 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .remark a{color:#666;}
 .remark a:hover{color:#E98523}
 
-.topic {width:620px;height:80px;overflow:hidden}
-.topic img{height:60px;}
-.topic .school_list_photo{width:80px;margin-right:10px}
+.topic {overflow:hidden;margin-bottom:6px;padding:6px 0;border-bottom:1px dashed #ddd}
 
 .stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
   
-.photo_frame{float:left;height:118px;width:120px;margin:0 0 5px 5px;text-align:center;overflow:hidden}
-.photo{height:80px;}
-.photo_meta{}
-.photo_from{}
-.photo_frame:hover .photo_meta{}
+.photo{width:120px;height:140px;float:right;text-align:center}
  
 .zone{width:210px;height:68px;float:left;-height:48px}
 .zone h6{color:#999;margin-top:4px}
@@ -1171,7 +775,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .white {background-color: white;}
 .gary_span{color:#888}
  
-.summary{color:#777;margin:3px 0 1px}
+.summary{color:#555;margin:3px 0 1px}
  
 .record{margin-bottom:8px;height:54px;width:270px;float:left;border-bottom:1px solid #ddd;padding-bottom:8px}
 #records .record{margin-right:10px;width:300px}
@@ -1200,112 +804,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .counter{"times new roman",serif;font-style:italic;font-size:16px}
 
-/* 用于照片上传 */
-/* -- Table Styles ------------------------------- */
-.progressWrapper {
-  width: 580;
-  overflow: hidden;
-}
-
-.progressContainer {
-  margin-top: 15px;
-  padding: 10px;
-  border: solid 1px #E8E8E8;
-  background-color: #F7F7F7;
-  overflow: hidden;
-}
-
-/* Message */
-.message {
-	margin: 1em 0;
-	padding: 10px 20px;
-	border: solid 1px #FFDD99;
-	background-color: #FFFFCC;
-	overflow: hidden;
-}
-/* Error */
-.red {
-	border: solid 1px #B50000;
-	background-color: #FFEBEB;
-}
-
-/* Current */
-.green {
-	border: solid 1px #DDF0DD;
-	background-color: #EBFFEB;
-}
-
-/* Complete */
-.blue {
-	border: solid 1px #CEE2F2;
-	background-color: #F0F5FF;
-}
-
-.progressName {
-	font-size: 8pt;
-	font-weight: 700;
-	color: #555;
-	width: 323px;
-	height: 14px;
-	text-align: left;
-	white-space: nowrap;
-	overflow: hidden;
-}
-
-.progressBarInProgress,
-.progressBarComplete,
-.progressBarError {
-	font-size: 0;
-	width: 0%;
-	height: 2px;
-	background-color: blue;
-	margin-top: 2px;
-}
-
-.progressBarComplete {
-	width: 100%;
-	background-color: green;
-	visibility: hidden;
-}
-
-.progressBarError {
-	width: 100%;
-	background-color: red;
-	visibility: hidden;
-}
-
-.progressBarStatus {
-	margin-top: 2px;
-	width: 337px;
-	font-size: 7pt;
-	font-family: Arial;
-	text-align: left;
-	white-space: nowrap;
-}
-
-a.progressCancel {
-	font-size: 0;
-	display: block;
-	height: 14px;
-	width: 14px;
-	background-image: url(../images/cancelbutton.gif);
-	background-repeat: no-repeat;
-	background-position: -14px 0px;
-	float: right;
-}
-
-a.progressCancel:hover {
-	background-position: 0px 0px;
-}
-
-
-/* -- SWFUpload Object Styles ------------------------------- */
-.swfupload {
-	cursor:pointer;position:relative;top:5px
-}
-#advance_box p{font-size:12px;line-height:30px}
-
-.goods_list{width:320px;padding:10px 0;float:left}
+.goods_list{width:319px;padding:10px 0;float:left}
 .goods_photo_frame{float:left;display:block;width:86px;height:86px;margin-right:10px;overflow:hidden;border:1px #ccc solid;}
 .goods_meta{float:left;width:100%;}
 .goods_description{float:left;width:220px;height:82px}
@@ -1348,6 +847,3 @@ a.progressCancel:hover {
 #SWFUpload_0{position:relative;top:7px}
 
 #apply{background:url('/images/musicclassroom/button.png');display:block;width:174px;height:37px}
-#apply:hover{background-position:0 -37px;}
-.image-button{display:block;width:112px;height:24px;float:left;margin-right:10px}
-.image-button:hover{background-position:0 -24px;}

@@ -250,6 +250,8 @@ ActiveRecord::Schema.define() do
     t.string   "title",            :null => false
     t.text     "description"
     t.text     "description_html"
+    t.integer  "comments_count",                        :default => 0
+    t.integer  "votes_count",                           :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"

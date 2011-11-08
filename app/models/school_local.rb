@@ -17,7 +17,7 @@
 #
 
 class SchoolLocal < ActiveRecord::Base
-  include 
+  
   
   belongs_to :school
   

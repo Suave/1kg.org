@@ -1,5 +1,5 @@
 class Comment < ActiveRecord::Base
-  include 
+  
   
   before_save :format_content
   after_create :update_commentable

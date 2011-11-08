@@ -26,7 +26,7 @@ require 'open-uri'
 class Donation < ActiveRecord::Base
   set_table_name 'stuffs'
   
-  include 
+  
   
   belongs_to :requirement_type, :foreign_key => :type_id
   belongs_to :requirement, :foreign_key => :buck_id

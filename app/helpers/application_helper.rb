@@ -191,8 +191,7 @@ module ApplicationHelper
   end
   
   def topic_photo_thumb(activity)
-    img_url = activity.main_photo.blank?  ? "/images/activity_thumb_#{activity.category}.png" : activity.main_photo.image.url
-    "<div class='border_frame'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div>"
+    "<div class='oto_frame'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div>"
   end
   
   def plain_text(text,replacement="")

@@ -15,7 +15,7 @@
 #
 
 class Group < ActiveRecord::Base
-  include 
+  
   
   has_attached_file :avatar,:styles => {:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
                             :url=>"/media/groups/:id/:attachment/:style.:extension",
