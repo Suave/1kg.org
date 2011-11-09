@@ -7,7 +7,6 @@
 
 
 <% content_for :sidebar do -%>
-
   <div id="records" class="newbox">
     <div id="record_tabs">
           <h3>学校动态</h3>
@@ -52,7 +51,7 @@
 <div class="newbox">
   <h3>学校论坛</h3>
   <div class="contents">
-    <%= render :partial => "/public/share", :collection => @topics %>
+    <%= render :partial => "/public/topic", :collection => @topics %>
   </div>
   <div class="remark"><%= link_to raw("&raquo; 查看更多"), total_topics_schools_url %></div>
   <div class="cleanfix" style="height:20px"></div>

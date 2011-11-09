@@ -39,7 +39,6 @@ ActionController::Routing::Routes.draw do |map|
       get :submitted_topics
       get :participated_topics
     end
-    resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
   end
     
   resources :geos do
@@ -90,7 +89,6 @@ ActionController::Routing::Routes.draw do |map|
       get :join
       get :quit
       get :new_topic
-      get :manage
       get :managers
       get :invite
       get :send_invitation
@@ -109,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
       get :feedback
       get :topics 
       get :photos 
-      get :submit 
+      post :submit 
       get :new_photo
       get :new_topic
       get :execution
@@ -117,17 +115,20 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  resources :teams,:member => { :managers => :get,
-                                    :search_user => :get,
-                                    :add => :post,
-                                    :leave => :delete,
-                                    :new_activity => :get,
-                                    :create_activity => :post,
-                                    :follow => :post,
-                                    :unfollow => :delete,
-                                    :large_map => :get,
-                                    :managers  => :get
-                                  }
+  resources :teams do
+    member do
+      get :managers
+      get :search_user
+      post :add
+      delete :leave
+      get :new_activity
+      post :create_activity
+      post :follow
+      delete :unfollow
+      get :large_map
+      get :managers
+    end
+  end
 
   resources :projects, :member => {:manage => :get,:large_map => :get,:topics => :get ,:photos => :get} do |project|
       resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
@@ -137,20 +138,41 @@ ActionController::Routing::Routes.draw do |map|
   namespace :admin do 
     get '/' => "misc#index"
     resources :boxes
-    resources :bringings, :member => {:validate => :put, :refuse => :put}
+    resources :bringings do
+      put :validate,:on => :member 
+      put :refuse,:on =>   :member 
+    end
     resources :permissions
-    resources :users, :collection => {:search => :get}, :member => {:block => :put}
+    resources :users do
+     get :serach, :on => :collection 
+     put :block,  :on => :member
+    end
     resources :geos
     resources :counties
-    resources :boards, :member => {:active => :put, :deactive => :put}
-    resources :schools, :member => {:active => :put}, :collection => {:import => :get, :merging => :get, :merge => :put}
+    resources :schools
     resources :pages
     resources :groups
     resources :game_categories
-    resources :co_donations,:member => {:validate => :put, :cancel => :put}
-    resources :teams,:member => {:validate => :put, :cancel => :put}
+    resources :co_donations do
+      member do
+        put :validate
+        put :cancel
+      end
+    end
+    resources :teams do
+      member do
+        put :validate
+        put :cancel
+      end
+    end
     resources :bulletins
-    resources :projects,:member => {:validate => :put, :refuse_letter => :get,:refuse => :put}
+    resources :projects do
+      member do
+        put :validate
+        get :refuse_letter 
+        put :cancel
+      end
+    end
   end
 
   # 专题页面

@@ -1,26 +1,20 @@
 <div class="box">
-  <div class="boxOuter">
-    <div class="boxInner">
-      <h3>操作列表</h3>
-      <div class="contents">
-        <ul>
-          <li><%= link_to "网站公告管理", admin_bulletins_url %></li>
-          <li><%= link_to "管理员&版主设置", admin_users_path %> | <%= link_to "角色", admin_roles_path %> | <%= link_to "权限", admin_permissions_path %></li>
-          <li><%= link_to "学校管理", admin_schools_path %></li>
-          <li><%= link_to "合并重复学校", merging_admin_schools_path %></li>
-          <li><%= link_to "地区管理", admin_geos_path %></li>
-          <li><%= link_to "公益小组", admin_groups_path %></li>
-          <li><%= link_to "一公斤盒子", admin_boxes_path %></li>
-          <li><%= link_to "盒子申请", admin_bringings_path %></li>
-          <li><%= link_to "静态页面管理", admin_pages_path %></li>
-          <li><%= link_to "游戏分类", admin_game_categories_path %></li>
-          <li><%= link_to "团捐管理", admin_co_donations_path %>(<%= CoDonation.not_validated.size%>)</li>
-          <li><%= link_to "团队管理", admin_teams_path %>(<%= Team.not_validated.size%>)</li>
-          <li><%= link_to "公益项目", admin_projects_url %>(<%= Project.not_validated.size%>)</li>
-          <li><%= link_to "数据统计", :controller => "/admin/misc", :action => "statistics" %></li>
-        </ul>
-      </div>
-    </div>
+  <h3>操作列表</h3>
+  <div class="contents">
+    <ul>
+      <li><%= link_to "网站公告管理", admin_bulletins_url %></li>
+      <li><%= link_to "管理员&版主设置", admin_users_path %> | <%= link_to "权限", admin_permissions_path %></li>
+      <li><%= link_to "学校管理", admin_schools_path %></li>
+      <li><%= link_to "地区管理", admin_geos_path %></li>
+      <li><%= link_to "公益小组", admin_groups_path %></li>
+      <li><%= link_to "一公斤盒子", admin_boxes_path %></li>
+      <li><%= link_to "盒子申请", admin_bringings_path %></li>
+      <li><%= link_to "静态页面管理", admin_pages_path %></li>
+      <li><%= link_to "游戏分类", admin_game_categories_path %></li>
+      <li><%= link_to "团捐管理", admin_co_donations_path %>(<%= CoDonation.not_validated.size%>)</li>
+      <li><%= link_to "团队管理", admin_teams_path %>(<%= Team.not_validated.size%>)</li>
+      <li><%= link_to "公益项目", admin_projects_url %>(<%= Project.not_validated.size%>)</li>
+    </ul>
   </div>
 </div>
 
