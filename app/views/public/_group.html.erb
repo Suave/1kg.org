@@ -1,0 +1,8 @@
+<dl class="obu">
+  <dt><%= link_to image_tag(group.avatar.url,:alt => group.login), group_url(group) %></dt>
+  <dd>
+    <%= link_to group.title, group_url(group) %>
+    (<%= group.memberships.count %>)
+  </dd>
+</dl>
+
