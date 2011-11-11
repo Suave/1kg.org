@@ -5,4 +5,13 @@
 <% if params[:keywords]%>
 <p>关键词“<%= params[:keywords] %>”的<%= {'activity' => '活动','group' => '小组','user' => '用户','school' => '学校','topic' => '话题'}[params[:type]] %>搜索结果</p>
 <% end %>
-<%= render :partial => "/public/#{params[:type]}", :collection => @result %>
+<% if params[:type] == 'school' %>
+<div class="newbox">
+  <span class="span-title">&nbsp;</span>
+  <div class="contents">
+    <%= render :partial => '/geos/school_maps' %>
+  </div>
+</div>
+<% end %>
+<%= render :partial => "/public/#{params[:type]}", :collection => @result %> 
+<%= customize_paginate(@result) %>

@@ -7,6 +7,7 @@ class SearchController < ApplicationController
       @result = model.search(@keywords,:page => (params[:page] || 1),:per_page => 10)
       if model == School
         @map_center = Geo::DEFAULT_CENTER
+        @json  = {}
         @result.compact.each do |school|
             next if school.basic.blank?
               @json << {:i => school.id,
