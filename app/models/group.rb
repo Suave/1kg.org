@@ -64,9 +64,9 @@ class Group < ActiveRecord::Base
   end
   
   private
-  def create_discussion
+  def init_membership
     self.members << self.creator
-    self.managers << self.creator
+    Management.new(:user_id => self.user_id,:manageable_id => self.id,:manageable_type => 'Group').save
   end
   
   def format_content

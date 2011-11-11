@@ -1,6 +1,6 @@
 <p><label class="label">小组名</label><%= form.text_field :title, :size => 40, :class => "text" %> <%= error_message_on @group, :title %></p>
 <p><label class="label">所在城市</label><%= geo_select "group", "geo", ["网上", 0], @group.geo_id %> <%= error_message_on @group, :geo_id %></p>
-<p><label class="label">上传小组标志</label><%= form.file_field :avatar %> 
+<p><label class="label">小组头像</label><%= form.file_field :avatar %> 
   <span class="tip">支持 GIF, JPG, PNG 格式, 尺寸不小于 72X72</span>
   </p>
-<p><label class="label">小组介绍</label><%= form.text_area :body_html, :style => 'width:540px;height:400px;', :class => "mceEditor" %></p>
+<p><label class="label">小组介绍</label><%= form.text_area :body_html, :style => 'width:540px;height:120px;' %></p>

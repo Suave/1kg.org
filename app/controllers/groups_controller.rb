@@ -53,7 +53,7 @@ class GroupsController < ApplicationController
   def create
       @group = Group.new(params[:group])
       @group.creator = current_user
-      @group.save!
+      @group.save
       flash[:notice] = "小组创建成功"
       redirect_to group_url(@group)
   end
@@ -76,7 +76,6 @@ class GroupsController < ApplicationController
   end
   
   def members
-    
   end
   
   def join
