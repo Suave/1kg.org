@@ -54,14 +54,14 @@ class TopicsController < ApplicationController
     @topic.toggle!(:sticky)
     flash[:notice] = "本帖已经置顶" if @topic.sticky?
     flash[:notice] = "本帖已经取消置顶" unless @topic.sticky?
-    redirect_to board_topic_url(@board, @topic)
+    redirect_to topic_url(@topic)
   end
   
   def close
     @topic.toggle!(:block)
     flash[:notice] = "本帖已经关闭回复" if @topic.block?
     flash[:notice] = "本帖可以回复" unless @topic.block?
-    redirect_to board_topic_url(@board, @topic)
+    redirect_to topic_url(@topic)
   end
   
   

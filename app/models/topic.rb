@@ -36,8 +36,7 @@ class Topic < ActiveRecord::Base
   define_index do
     # fields
     indexes title
-    indexes clean_html, :as => :content
-    
+    indexes clean_html, :as => :content    
     has :updated_at
     has :created_at
   end

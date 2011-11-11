@@ -8,7 +8,7 @@ gem "rails", "= 2.3.4"
   gem "sanitize"
   gem "json"
   gem 'mime-types'
-  gem 'thinking-sphinx','1.3.14'
+  gem 'thinking-sphinx','1.4.10'
   gem "adzap-ar_mailer"
   gem "rmagick"
   gem "state_machine"

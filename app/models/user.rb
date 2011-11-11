@@ -56,6 +56,7 @@ class User < ActiveRecord::Base
     indexes login
     indexes email
     indexes profile.bio, :as => :bio
+    indexes geo.name, :as => :city
   end
   
   # This method returns true if the user is assigned the role with one of the

@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.public_look "/public", :controller => "misc", :action => "public_look"
   map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
   map.page "/misc/:slug", :controller => "misc", :action => "show_page"
+  map.search "/search", :controller => "search", :action => "show"
 
   map.needs_tag  "/tags/needs", :controller => "tags", :action => "needs"
   map.tag  "/tags/:tag", :controller => "tags", :action => "show"
@@ -135,7 +136,6 @@ ActionController::Routing::Routes.draw do |map|
     bulletin.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Bulletin'}
   end
   
-  map.resource :search
   
   map.resources :groups, :member => { :join => :get, 
                                       :quit => :put, 

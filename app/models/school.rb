@@ -47,13 +47,11 @@ class School < ActiveRecord::Base
   acts_as_ownable
   acts_as_manageable
   
-  has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :order => "sticky desc,id desc", :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
   has_many :executions, :order => "id desc", :dependent => :destroy
-  
-  
   has_many :donations, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -109,15 +107,7 @@ class School < ActiveRecord::Base
               need.cloth, need.accessory, need.medicine, need.course, 
               need.hardware, need.teacher, need.other], :as => :need
     indexes contact.name, :as => :contact
-    
     where "validated = 1 and meta = 0"
-    
-    has basic(:class_amount), :as => :class_amount
-    has basic(:teacher_amount), :as => :teacher_amount
-    has basic(:student_amount), :as => :student_amount
-    has basic(:has_pc), :as => :has_pc
-    has basic(:has_library), :as => :has_library
-    has basic(:has_internet), :as => :has_internet
   end
   
   attr_accessor :city, :city_unit, :town, :town_unit, :village

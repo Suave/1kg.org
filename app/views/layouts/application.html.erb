@@ -18,6 +18,9 @@
     
     <div id="navWrap">
       <div id="nav">
+        <% form_tag search_path,:method => 'get',:id =>"search_box" do |f| -%>
+          <%= text_field_tag 'keywords', @keywords,:placeholder => '输入关键词' %>  <%= select_tag :type,options_for_select([['学校','school'],['话题','topic'],['活动','acitivity'],['小组','group'],['用户','user']]) %> <%= submit_tag '搜索'%>
+        <% end %>
         <ul>
           <li><%= link_to "首页", root_url %></li>
           <li><%= link_to "学校", schools_url %></li>

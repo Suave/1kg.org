@@ -768,6 +768,7 @@ body.schools form legend {
 }
 
 
+#search_box{position:absolute;margin-left:680px;top:-50px}
 .small_school{text-align:center;padding:5px;float:left}
 .small_school p{width:80px;height:60px;}
 /* =同城
