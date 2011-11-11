@@ -107,7 +107,6 @@ class School < ActiveRecord::Base
               need.cloth, need.accessory, need.medicine, need.course, 
               need.hardware, need.teacher, need.other], :as => :need
     indexes contact.name, :as => :contact
-    where "validated = 1 and meta = 0"
   end
   
   attr_accessor :city, :city_unit, :town, :town_unit, :village
