@@ -51,7 +51,6 @@ class GroupsController < ApplicationController
   end
   
   def create
-      avatar_convert(:group, :avatar)
       @group = Group.new(params[:group])
       @group.creator = current_user
       @group.save!
@@ -63,9 +62,7 @@ class GroupsController < ApplicationController
     
   end
   
-  def update
-    avatar_convert(:group, :avatar)
-    
+  def update   
     @group.update_attributes!(params[:group])
     flash[:notice] = "小组信息修改成功"
     redirect_to group_url(@group)
