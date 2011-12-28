@@ -9,7 +9,6 @@ class Topic < ActiveRecord::Base
   
   belongs_to :boardable, :polymorphic => true, :dependent => :delete
   belongs_to :user
-  has_many   :posts, :dependent => :destroy
   has_many   :comments, :as => 'commentable', :dependent => :destroy
   
   named_scope :recent,:limit => 6,:order => "last_replied_at desc"
