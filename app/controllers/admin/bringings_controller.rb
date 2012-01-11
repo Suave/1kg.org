@@ -1,7 +1,7 @@
 class Admin::BringingsController < Admin::BaseController
   
   def index 
-    @executions = Execution.with_box.paginate(:page => 1, :per_page => 20)
+    @executions = Execution.with_box.paginate(:page => params[:page], :per_page => 20)
     respond_to do |format|
       format.html {}
       format.csv {

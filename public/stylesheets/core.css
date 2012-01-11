@@ -1057,7 +1057,7 @@ h3.title {
 
 .user{float:left;width:80px}
 .team{float:left;width:84px;margin:2px}
-.user dt,.team dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.user dt,.team dt {margin:0; overflow:hidden; text-align:center;}
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
 .team dd {padding:0 4px; overflow:hidden; text-align:center; color:#aaa;height:60px}
 

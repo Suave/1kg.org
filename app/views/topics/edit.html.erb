@@ -1,7 +1,2 @@
 <% @page_title = @title = "编辑话题" -%>
-
-  <% form_for @topic, :html => {:method => :put} do |f| -%>
-  <%= render :partial => "form", :object => f %>
-  
-  <p style="margin-left:70px"><%= f.submit "保存" ,:class => "surebutton"%> <%= f.submit "返回" ,:class => "surebutton",:onclick =>"javascript:window.history.back()';return false" %></p>
-  <% end -%>
+<%= render :partial => "form" %>
