@@ -459,7 +459,7 @@ class SchoolsController < ApplicationController
   end
   
   def check_permission
-    if @school.owned_by?(current_user)
+    if @school.managed_by?(current_user)
     else
       flash[:notice] = "为了保证学校信息真实准确，只有学校大使才能修改学校信息，成为学校大使很简单，=> <a href='#{apply_school_url(@school)}'>点击这里</a>"
       redirect_to school_url(@school)
