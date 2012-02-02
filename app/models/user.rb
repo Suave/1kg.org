@@ -85,8 +85,6 @@ class User < ActiveRecord::Base
                              :source => :school,
                              :order => "visiteds.created_at desc"
   
-  has_many :topics, :order => "topics.created_at desc", :dependent => :destroy 
-  has_many :posts, :order => "posts.created_at desc", :dependent => :destroy 
   has_many :topics, :order => "created_at desc", :dependent => :destroy
   has_many :photos, :order => "created_at desc", :dependent => :destroy 
   has_many :groups, :dependent => :destroy
@@ -101,12 +99,11 @@ class User < ActiveRecord::Base
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
 														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
-	has_many :neighborhoods, :dependent => :destroy, :dependent => :destroy 
+	has_many :neighborhoods, :dependent => :destroy
 	has_many :neighbors, :through => :neighborhoods,
 	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
-  has_many :managerships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
                            :source => :group,
                            :order => "memberships.created_at desc"
@@ -116,12 +113,10 @@ class User < ActiveRecord::Base
   has_many :activities, :dependent => :destroy
   has_many :photos, :dependent => :destroy
   has_many :games, :dependent => :destroy
-  has_many :activities, :dependent => :destroy
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
   has_many :followings, :foreign_key => 'follower_id'
-  has_many :feed_items, :as => 'owner'
   
   before_save :encrypt_password
   
