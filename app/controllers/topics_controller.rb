@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
-  def total
+  def index
     @topics = Topic.find(:all,:limit => 100,:order => "last_replied_at desc").paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
