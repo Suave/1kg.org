@@ -7,9 +7,8 @@ class Topic < ActiveRecord::Base
   acts_as_taggable
   acts_as_ownable
   
-  belongs_to :boardable, :polymorphic => true, :dependent => :delete
+  belongs_to :boardable, :polymorphic => true
   belongs_to :user
-  has_many   :posts, :dependent => :destroy
   has_many   :comments, :as => 'commentable', :dependent => :destroy
   
   named_scope :recent,:limit => 6,:order => "last_replied_at desc"
@@ -32,6 +31,14 @@ class Topic < ActiveRecord::Base
   before_save :format_content
   #before_create :set_last_reply
   #after_create :create_feed
+  
+  define_index do
+    # fields
+    indexes title
+    indexes clean_html, :as => :content    
+    has :updated_at
+    has :created_at
+  end
   
   def last_replied_datetime
     (self.comments.last || self).created_at

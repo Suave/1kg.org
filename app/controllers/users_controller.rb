@@ -73,7 +73,6 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @type = params[:type]
-    avatar_convert(:user, :avatar)
     puts params[:user][:avatar]
     @user.update_attributes(params[:user])
     @user.profile.update_attributes(params[:user][:profile_attributes])

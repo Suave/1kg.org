@@ -5,7 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
     <%= stylesheet_link_tag "core", "calendar","temp", :cache => "all.cache" %>
-    <%= javascript_include_tag 'jquery', 'jrails', 'jquery-ui', 'calendar.js', 'application.js', "search", :cache => 'all.cache' %>
+    <%= javascript_include_tag 'jquery', 'jrails', 'jquery-ui', 'calendar.js', 'application.js', :cache => 'all.cache' %>
+    <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
   </head>
   <body>
@@ -22,14 +23,17 @@
             <li><a href="/misc/community-guide" target="_blank">帮助</a></li>
           </ul>
           <div style="float:right">
-          <% if logged_in? -%>
-            欢迎，<%= link_to current_user.login, user_path(current_user) %> | 
-            <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> | 
-            <%= link_to "帐号设置", setting_url %> | 
-            <%= link_to "退出", logout_path %> 
-          <% else -%>
-            <%= link_to "登录", login_path  %> | <%= link_to "注册", signup_path %>
-          <% end -%>
+            <% form_tag search_path,:method => 'get',:id =>"search_box" do |f| -%>
+              <%= text_field_tag 'keywords', @keywords,:placeholder => '输入关键词' %>  <%= select_tag :type,options_for_select([['话题','topic'],['活动','acitivity'],['小组','group'],['用户','user']]) %> <%= submit_tag '搜索'%>
+            <% end %>
+            <% if logged_in? -%>
+              欢迎，<%= link_to current_user.login, user_path(current_user) %> | 
+              <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> | 
+              <%= link_to "帐号设置", setting_url %> | 
+              <%= link_to "退出", logout_path %> 
+            <% else -%>
+              <%= link_to "登录", login_path  %> | <%= link_to "注册", signup_path %>
+            <% end -%>
           </div>
         </div>
       </div>
@@ -57,8 +61,6 @@
             </td>
           </tr>
         </table>
-      </div>
-    </div>
 
     <div id="footer">
       <div class="wrapper">

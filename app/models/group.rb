@@ -28,7 +28,7 @@ class Group < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :members,     :through => :memberships, :source => :user
   
-  has_many :topics, :as => 'boardable', :dependent => :destroy
+  has_many :topics, :as => 'boardable', :order => "sticky desc,id desc",:dependent => :destroy
   
   before_save  :format_content
   after_create :init_membership
@@ -58,9 +58,9 @@ class Group < ActiveRecord::Base
   end
   
   private
-  def create_discussion
+  def init_membership
     self.members << self.creator
-    self.managers << self.creator
+    Management.new(:user_id => self.user_id,:manageable_id => self.id,:manageable_type => 'Group').save
   end
   
   def format_content

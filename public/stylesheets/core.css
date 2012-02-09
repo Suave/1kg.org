@@ -591,6 +591,7 @@ body.schools form legend {
   margin: .5em 0 0;
 }
 
+#search_box{position:absolute;margin-left:680px;top:-50px}
 .small_school{text-align:center;padding:5px;float:left}
 .small_school p{width:80px;height:60px;}
 
@@ -626,7 +627,7 @@ body.schools form legend {
 
 .user{float:left;width:80px}
 .team{float:left;width:84px;margin:2px}
-.user dt,.team dt {height:50px; margin:0; overflow:hidden; text-align:center;}
+.user dt,.team dt {margin:0; overflow:hidden; text-align:center;}
 .user dd {margin:0; overflow:hidden; text-align:center; color:#aaa;height:40px}
 .team dd {padding:0 4px; overflow:hidden; text-align:center; color:#aaa;height:60px}
 

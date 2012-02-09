@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]
   
-  def total
+  def index
     @topics = Topic.find(:all,:limit => 100,:order => "last_replied_at desc").paginate(:page => params[:page] || 1, :per_page => 10)
   end
   
@@ -35,10 +35,12 @@ class TopicsController < ApplicationController
   end
   
   def destroy
-    @boardable = topic.boardable
-    @topic.destroy
-    flash[:notice] = "帖子删除成功"
-    redirect_to @boardable
+    @boardable = @topic.boardable
+    if @topic.owned_by?(current_user)
+      @topic.destroy 
+      flash[:notice] = "帖子删除成功"
+      redirect_to @boardable
+    end
   end
   
   def show
@@ -52,14 +54,14 @@ class TopicsController < ApplicationController
     @topic.toggle!(:sticky)
     flash[:notice] = "本帖已经置顶" if @topic.sticky?
     flash[:notice] = "本帖已经取消置顶" unless @topic.sticky?
-    redirect_to board_topic_url(@board, @topic)
+    redirect_to topic_url(@topic)
   end
   
   def close
     @topic.toggle!(:block)
     flash[:notice] = "本帖已经关闭回复" if @topic.block?
     flash[:notice] = "本帖可以回复" unless @topic.block?
-    redirect_to board_topic_url(@board, @topic)
+    redirect_to topic_url(@topic)
   end
   
   
@@ -67,6 +69,4 @@ class TopicsController < ApplicationController
   def find_topic
     @topic = Topic.find(params[:id])
   end
-  
-  
 end

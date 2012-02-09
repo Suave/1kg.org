@@ -110,7 +110,7 @@ class ActivitiesController < ApplicationController
     @photo = Photo.new(params[:photo])
     @photo.user = current_user
     logger.info("PHOTO: #{@photo.inspect}")
-    if @photo.filename.nil?
+    if @photo.image_file_name.nil?
       render :action => 'mainphoto'
     else
       @photo.save!

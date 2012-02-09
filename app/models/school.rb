@@ -1,28 +1,3 @@
-# == Schema Information
-#
-# Table name: schools
-#
-#  id                       :integer(4)      not null, primary key
-#  user_id                  :integer(4)
-#  ref                      :string(255)
-#  validated                :boolean(1)
-#  meta                     :boolean(1)
-#  created_at               :datetime
-#  updated_at               :datetime
-#  deleted_at               :datetime
-#  category                 :integer(4)
-#  geo_id                   :integer(4)
-#  county_id                :integer(4)
-#  title                    :string(255)     not null
-#  last_modified_at         :datetime
-#  last_modified_by_id      :integer(4)
-#  validated_at             :datetime
-#  validated_by_id          :integer(4)
-#  hits                     :integer(4)      default(0)
-#  karma                    :integer(4)      default(0)
-#  last_month_karma :integer(4)      default(0)
-#  main_photo_id            :integer(4)
-
 class School < ActiveRecord::Base
   
   belongs_to :user
@@ -45,13 +20,11 @@ class School < ActiveRecord::Base
   acts_as_ownable
   acts_as_manageable
   
-  has_many :topics, :as => 'boardable', :order => "id desc", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :order => "sticky desc,id desc", :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :activities, :order => "id desc"
   has_many :requirements, :order => "id desc", :dependent => :destroy
   has_many :executions, :order => "id desc", :dependent => :destroy
-  
-  
   has_many :donations, :dependent => :destroy
   has_many :visited, :dependent => :destroy
   has_many :visitors, :through => :visited, 
@@ -97,6 +70,19 @@ class School < ActiveRecord::Base
                         :hongkong => {:id => 391, :neighbors => {:guangdong => 216}},
                         :macao => {:id => 392, :neighbors => {:guangdong => 216, :fujian => 124}}
   }
+  
+  define_index do
+    # fields
+    indexes title
+    indexes basic.address, :as => :address
+    indexes geo.name, :as => :city
+    indexes [need.book, need.stationary, need.sport, 
+              need.cloth, need.accessory, need.medicine, need.course, 
+              need.hardware, need.teacher, need.other], :as => :need
+    indexes contact.name, :as => :contact
+  end
+  
+  attr_accessor :city, :city_unit, :town, :town_unit, :village
   
   def validate
     self.errors.add(:intro, "学校简介超过了140字") if (intro && intro.mb_chars.size > 140)

@@ -9,6 +9,31 @@ ActionController::Routing::Routes.draw do |map|
   match 'forget_password' => 'sessions#forget_password',:as => :forget_password 
   match "/sent/by_system" => "sent#by_system"
 
+  map.root :controller => "misc", :action => "index"
+  # 用于公益积分
+  map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
+  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
+  map.resources :requirements, :member => {}  
+  map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
+  
+  map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
+    c.resources :sub_donations, :member => {:prove => :put,
+                                            :admin_state => :put}
+    c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
+  end
+ 
+  map.resources :executions do |execution|
+    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
+  end
+  
+  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
+  
+  
+  map.public_look "/public", :controller => "misc", :action => "public_look"
+  map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
+  map.page "/misc/:slug", :controller => "misc", :action => "show_page"
+  map.search "/search", :controller => "search", :action => "show"
+
   get "/public" =>  "misc#public_look"
   get "/misc/:slug" => "misc#show_page"
   get  "/tags/needs" => "tags#needs"
@@ -113,7 +138,20 @@ ActionController::Routing::Routes.draw do |map|
       get :execution
       get :executions
     end
-  end
+  
+  map.resources :groups, :member => { :join => :get, 
+                                      :quit => :put, 
+                                      :new_topic => :get, 
+                                      :manage => :get, 
+                                      :moderator => :put,
+                                      :invite => :get,
+                                      :send_invitation => :put,
+                                      :members => :get
+                                    },
+                            :collection => {:all => :get,
+                            :participated => :get,
+                            :submitted => :get}
+  
 
   resources :teams do
     member do

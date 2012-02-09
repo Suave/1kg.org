@@ -14,6 +14,7 @@ class TeamsController < ApplicationController
   
   def show
     @schools = @team.helped_schools
+    @followers = @team.followers
     @photos = @team.activities.map(&:photos).flatten[0..7]
     @map_center = @team.latitude?? [@team.latitude, @team.longitude, (@team.zoom_level - 1)] : [@team.geo.latitude, @team.geo.longitude, 6]
     @json = []

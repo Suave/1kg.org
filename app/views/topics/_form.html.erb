@@ -11,6 +11,9 @@
     <%= form.text_field :tag_list, :size => 40, :class => "formText" %>
     <span>（以空格分隔不同标签）</span>
     </p> 
-    <p style="margin-left:72px"><%= form.submit "发布" ,:class => "surebutton"%> <%= form.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{url_for @topic.boardable}';return false" %></p>
+    <p style="margin-left:72px">
+      <%= form.submit "确定" ,:class => "surebutton"%>
+      <%= form.submit "取消" ,:class => "surebutton",:onclick =>"javascript:window.location='#{url_for @topic.boardable}';return false" %>
+    </p>
   </div>
 <% end -%>
