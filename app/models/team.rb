@@ -4,9 +4,8 @@ class Team < ActiveRecord::Base
   
   has_many :activities
   has_many :topics, :as => "boardable"
-
-  has_many :followings,:as => "followable"
-  has_many :followers, :through => :followings
+  has_many :follows,:as => "followable"
+  has_many :followers, :through => :follows,:source => :user
   
   has_attached_file :image,  :styles => { :team_icon => "64x64",:team_logo => "160x160>"}
   has_attached_file :avatar, :styles => {:'64x64' => ["64x64#"],:'160x160' => ["160x160#"]},

@@ -316,4 +316,12 @@ module ApplicationHelper
     end
   end
 
+  def follow_to(followable)
+    if logged_in? && current_user.is_following?(followable)
+      link_to("正在关注",follow_path(followable.follows.find_by_user_id(current_user.id)),:method => :delete,:class=>"selected buttonlink")
+    else  
+      link_to("+ 关注","#{follows_path}?followable_type=#{followable.class}&followable_id=#{followable.id}",:method => :post,:class => "buttonlink")
+    end
+  end
+
 end

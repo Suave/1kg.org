@@ -119,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
+  map.resources :follows
   map.resources :managements
   map.resources :votes
   map.resources :themes

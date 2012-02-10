@@ -23,12 +23,7 @@
 
     <div style="margin-left:170px">
         <div style="float:right;text-align:right" >
-        <% if @team.managers.include?(current_user) -%>  
-        <% elsif !@team.followers.include?(current_user) -%>
-            <%= link_to "我要关注", follow_team_url(@team), :method => :post,:class => "buttonjoin2"%>
-        <% else %>
-            <span class="gary_span"><%= "你已关注这个团队<br/>#{link_to "取消关注?",unfollow_team_url(@team), :method => :delete}" %></span>
-        <% end %>   
+          <%= follow_to(@team) %>
         </div>
        <h3><%= @team.name %></h3>
         <div style="margin:4px 0">位置： <%= "#{link_to @team.geo.parent.name,@team.geo.parent} >" if @team.geo.parent%> <%= link_to @team.geo.name,@team.geo %><br/>

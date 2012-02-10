@@ -99,9 +99,6 @@ class User < ActiveRecord::Base
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
 														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
-	has_many :neighborhoods, :dependent => :destroy
-	has_many :neighbors, :through => :neighborhoods,
-	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
@@ -116,7 +113,9 @@ class User < ActiveRecord::Base
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
-  has_many :followings, :foreign_key => 'follower_id'
+  has_many :followings,     :class_name => "Follow",:foreign_key => :user_id
+  has_many :follows,        :as => :followable, :dependent => :destroy
+  has_many :followers,      :through => :follows, :source => :user
   
   before_save :encrypt_password
   
@@ -210,18 +209,6 @@ class User < ActiveRecord::Base
     is_admin
   end
   
-  def has_neighbor?(user)
-    user.neighbors.include?(self)
-  end
-  
-  def neighbor_addable_by?(user)
-    (user != nil) and (id != user.id) and not has_neighbor?(user)
-  end
-  
-  def neighbor_removeable_by?(user)
-    (user != nil) and (id != user.id) and has_neighbor?(user)
-  end
-  
   def school_moderator?
     !self.roles.find_by_identifier("roles.schools.moderator").nil?
   end
@@ -305,6 +292,11 @@ class User < ActiveRecord::Base
     end
     return result.reverse
   end
+
+  def is_following?(followable)
+    self.followings.find(:all,:conditions => {:followable_id => followable.id,:followable_type => followable.class.name}).present?
+  end
+
 
   protected
     # before filter 

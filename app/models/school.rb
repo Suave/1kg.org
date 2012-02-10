@@ -68,8 +68,8 @@ class School < ActiveRecord::Base
 
   has_many :co_donations, :order => "id desc", :dependent => :destroy
   
-  has_many :followings, :as => "followable"
-  has_many :followers, :through => :followings
+  has_many :follows, :as => "followable"
+  has_many :followers, :through => :follows
   has_many :feed_items, :as => "owner"
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic

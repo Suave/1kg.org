@@ -754,8 +754,8 @@ ActiveRecord::Schema.define() do
     t.string   :link
   end
   
-  create_table :followings do |t|
-    t.integer :follower_id
+  create_table :follows do |t|
+    t.integer :user_id
     t.integer :followable_id
     t.string  :followable_type
   end

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :topics, :neighbors, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends,:groups]
+  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :topics, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends,:groups]
   before_filter :login_required, :only => [:edit, :update, :suspend, :unsuspend, :destroy, :purge]
 
   # render new.rhtml
@@ -107,6 +107,8 @@ class UsersController < ApplicationController
     @donations = @user.donations
     @topics = @user.topics.find(:all, :limit => 5, :include => [:user, :tags])
     @visiteds = @user.visiteds.find(:all,:limit => 4,:order => "created_at desc",:include => [:school])
+    @followed_schools = @user.followings.to_school.find(:all, :limit => 8).map(&:followable)
+    @followed_teams = @user.followings.to_team.find(:all, :limit => 8).map(&:followable)
     @envoys = @user.managements.type_is('School').find(:all,:limit =>4).map(&:manageable)
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6)
@@ -118,9 +120,9 @@ class UsersController < ApplicationController
 
 
   def friends
-    @followings = @user.neighbors.paginate(:page => params[:page] || 1, :per_page => 36)
+    @followings = @user.followings.paginate(:page => params[:page] || 1, :per_page => 36).map(&:followable)
     # 关注此用户的人
-    @followers = Neighborhood.paginate(:page => params[:page] || 1, :per_page => 36, :limit => 8, :conditions => {:neighbor_id => @user.id}, :include => [:user])
+    @followers = @user.followers.paginate(:page => params[:page] || 1, :per_page => 36)
   end
   
   def participated_activities
@@ -166,12 +168,8 @@ class UsersController < ApplicationController
     # user's published activities
     @submitted    = @user.submitted_activities.find(:all, :limit => 6,:include => [:main_photo, :departure])
     @participated = @user.participated_activities.find(:all, :limit => 6, :include => [:main_photo, :departure])
-    
-    # 用户关注的人
-    @followings = user.neighbors.find :all, :limit => 8
-    # 关注此用户的人
-    @followers = Neighborhood.find(:all, :limit => 8, :conditions => {:neighbor_id => @user.id}, :include => [:user]).map(&:user)
-    
+    @followed_users = user.followings.to_user.find(:all, :limit => 6).map(&:followable)
+    @followers = user.followers.find(:all, :limit => 6)
     @groups = user.joined_groups.find :all, :limit => 8
   end
   

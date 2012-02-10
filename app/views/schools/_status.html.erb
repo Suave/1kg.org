@@ -1,10 +1,5 @@
 <!--关注 要去 去过-->
       <div style="float:right">
-      <% if @school.visited?(current_user) == 'interesting' -%>
-      <%= link_to "关注", novisited_school_url(@school), :method => :put,:class => "buttonstatus2"%>
-      <%else%>
-      <%= link_to "关注", interest_school_url(@school), :method => :put,:class => "buttonstatus" %>
-      <%end%>
       
       <% if @school.visited?(current_user) == 'wanna' -%>
       <%= link_to "要去", novisited_school_url(@school), :method => :put ,:class => "buttonstatus2"%>
