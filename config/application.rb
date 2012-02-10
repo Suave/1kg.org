@@ -1,9 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
-  require 'rails'
-  require 'active_record/railtie'
-  require 'action_controller/railtie'
-  require 'action_mailer/railtie'
+require 'rails'
+require 'active_record/railtie'
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
 
 
 # If you have a Gemfile, require the gems listed there, including any gems
@@ -12,7 +12,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Onekg
   class Application < Rails::Application
-  Time::DATE_FORMATS.merge!(:default => "%Y/%m/%d %I:%M %p", :ymd => "%Y/%m/%d")
+    Time::DATE_FORMATS.merge!(:default => "%Y/%m/%d %I:%M %p", :ymd => "%Y/%m/%d")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -43,7 +43,7 @@ module Onekg
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-          
+
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir["#{config.root}/lib/autoload/"]
   end

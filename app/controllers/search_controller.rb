@@ -4,10 +4,10 @@ class SearchController < ApplicationController
     if params[:keywords].present? && @type_hash[params[:type]].present?
     @keywords = params[:keywords].split.join('+')
       model = @type_hash[params[:type]]
-      @result = model.search(@keywords,:page => (params[:page] || 1),:per_page => 10)
+      @result = model.search(@keywords,:page => (params[:page] || 1),:per_page => 10,:retry_stale => true)
       if model == School
         @map_center = Geo::DEFAULT_CENTER
-        @json  = {}
+        @json  = [] 
         @result.compact.each do |school|
             next if school.basic.blank?
               @json << {:i => school.id,

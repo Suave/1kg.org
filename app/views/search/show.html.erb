@@ -1,6 +1,6 @@
 <% @page_title = @title = "搜索结果" %>
 <% form_tag search_path,:method => 'get' do |f| -%>
-  <%= text_field_tag 'keywords', @keywords,:placeholder => '输入关键词' %>  <%= select_tag :type,options_for_select([['话题','topic'],['活动','acitivity'],['小组','group'],['用户','user']]) %> <%= submit_tag '搜索'%>
+  <%= text_field_tag 'keywords', @keywords,:placeholder => '输入关键词' %>  <%= select_tag :type,options_for_select([['学校','school'],['话题','topic'],['活动','activity'],['小组','group'],['用户','user']]) %> <%= submit_tag '搜索'%>
 <% end %>
 <% if params[:keywords]%>
 <p>关键词“<%= params[:keywords] %>”的<%= {'activity' => '活动','group' => '小组','user' => '用户','school' => '学校','topic' => '话题'}[params[:type]] %>搜索结果</p>

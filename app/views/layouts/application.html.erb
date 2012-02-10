@@ -4,14 +4,14 @@
     <title><%= @page_title.to_s + " - 多背一公斤" %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
-    <%= stylesheet_link_tag "core", "calendar","temp", :cache => "all.cache" %>
+    <%= stylesheet_link_tag "calendar",'core', :cache => "all.cache" %>
     <%= javascript_include_tag 'jquery', 'jrails', 'jquery-ui', 'calendar.js', 'application.js', :cache => 'all.cache' %>
     <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
   </head>
   <body>
     <div id="header">
-      <div class="wrapper">
+      <div class="container">
         <%= link_to image_tag('/images/logo-1kg-org.gif'),root_path,:id => 'logo'%>
         <div id="nav">
           <ul>
@@ -22,10 +22,10 @@
             <li><%= link_to "盒子", boxes_path %></li>
             <li><a href="/misc/community-guide" target="_blank">帮助</a></li>
           </ul>
-          <div style="float:right">
             <% form_tag search_path,:method => 'get',:id =>"search_box" do |f| -%>
               <%= text_field_tag 'keywords', @keywords,:placeholder => '输入关键词' %>  <%= select_tag :type,options_for_select([['话题','topic'],['活动','acitivity'],['小组','group'],['用户','user']]) %> <%= submit_tag '搜索'%>
             <% end %>
+          <div style="float:right">
             <% if logged_in? -%>
               欢迎，<%= link_to current_user.login, user_path(current_user) %> | 
               <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> | 
@@ -40,11 +40,11 @@
     </div>
     
     <div id="content">
-      <div class="wrapper">
+      <div class="container">
         <%= yield :fullsize %>
         <table>
           <tr>
-            <td id="main">
+            <td id="main" class="span8">
             <% if flash[:msg] -%>
               <div id="msg_flash"><%= raw flash[:msg]%></div>
             <% end -%>
@@ -56,14 +56,16 @@
             <% end -%>
               <%= yield %>
             </td>
-            <td id="sidebar">
+            <td id="sidebar" class="span4">
               <%= yield :sidebar %>
             </td>
           </tr>
         </table>
+      </div>
+    </div>
 
     <div id="footer">
-      <div class="wrapper">
+      <div class="container">
         <br/>
         © 2004-2011&nbsp;<a href="/about">关于</a> - <a href="/report">媒体报道</a> - <a href="/terms">免责声明</a>&nbsp;- <a href="http://www.tudou.com/home/1kgmore" target="_blank">视频</a> - <a href="http://1kg.blogbus.com/" target="_blank">博客</a> - &nbsp;[<a href="http://www.miibeian.gov.cn" target="_blank">京ICP备09055637号</a>]
       </div>

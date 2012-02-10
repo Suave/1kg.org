@@ -1,45 +1,17 @@
-ActionController::Routing::Routes.draw do |map|
+Onekg::Application.routes.draw do 
   root :to  => "misc#index"
   match 'signup' => 'users#new', :as => :signup
   match 'register' => 'users#create', :as => :register
   match 'setting' => 'users#edit', :as => :setting
   match 'login' => 'sessions#new', :as => :login
   match 'logout' => 'sessions#destroy', :as => :logout
+  match 'search' => 'search#show', :as => :search
   match 'reset_password' => 'sessions#reset_password',:as => :reset_password 
   match 'forget_password' => 'sessions#forget_password',:as => :forget_password 
   match "/sent/by_system" => "sent#by_system"
 
-  map.root :controller => "misc", :action => "index"
-  # 用于公益积分
-  map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
-  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
-  map.resources :requirements, :member => {}  
-  map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
-  
-  map.resources :co_donations, :member => {:feedback => :get,:send_invitation => :put,:invite => :get},:collection => {:over => :get} do |c|
-    c.resources :sub_donations, :member => {:prove => :put,
-                                            :admin_state => :put}
-    c.resources :comments, :controller => 'comments', :requirements => {:commentable => 'CoDonation'}    
-  end
- 
-  map.resources :executions do |execution|
-    execution.resources :comments, :controller => 'comments', :requirements => {:commentable => 'Execution'}
-  end
-  
-  map.resources :villages,:member => {:join_research => :post,:main_photo => :get,:location => :get,:large_map => :get}
-  
-  
-  map.public_look "/public", :controller => "misc", :action => "public_look"
-  map.public_atom "/misc/public_look",:controller => "misc", :action => "public_look"
-  map.page "/misc/:slug", :controller => "misc", :action => "show_page"
-  map.search "/search", :controller => "search", :action => "show"
-
-  get "/public" =>  "misc#public_look"
-  get "/misc/:slug" => "misc#show_page"
-  get  "/tags/needs" => "tags#needs"
-  get  "/tags/:tag" => "tags#show"
-
   resources :executions
+  resources :projects
   resources :messages
   resources :managements
   resources :votes
@@ -49,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
   resources :topics
   resources :comments
   resources :bulletins
-  resource :session
+  resource  :session
   
   resources :users do
     member do 
@@ -90,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
       put :unconfirm 
       get :archives 
       get :total_topics
-   end
+    end
   end
 
   resources :activities do
@@ -138,21 +110,8 @@ ActionController::Routing::Routes.draw do |map|
       get :execution
       get :executions
     end
+  end
   
-  map.resources :groups, :member => { :join => :get, 
-                                      :quit => :put, 
-                                      :new_topic => :get, 
-                                      :manage => :get, 
-                                      :moderator => :put,
-                                      :invite => :get,
-                                      :send_invitation => :put,
-                                      :members => :get
-                                    },
-                            :collection => {:all => :get,
-                            :participated => :get,
-                            :submitted => :get}
-  
-
   resources :teams do
     member do
       get :managers
@@ -168,100 +127,45 @@ ActionController::Routing::Routes.draw do |map|
     end
   end
 
-  resources :projects, :member => {:manage => :get,:large_map => :get,:topics => :get ,:photos => :get} do |project|
-      resources :executions, :member => {:info_window => :get,:validate => :put,:refuse => :put,:finish => :put,:refuse_letter => :get,:feedback => :get} do |execution|
-    end
-  end
   
-  namespace :admin do 
-    get '/' => "misc#index"
-    resources :boxes
-    resources :bringings do
-      put :validate,:on => :member 
-      put :refuse,:on =>   :member 
-    end
-    resources :permissions
-    resources :users do
-     get :serach, :on => :collection 
-     put :block,  :on => :member
-    end
-    resources :geos
-    resources :counties
-    resources :schools
-    resources :pages
-    resources :groups
-    resources :game_categories
-    resources :co_donations do
-      member do
-        put :validate
-        put :cancel
-      end
-    end
-    resources :teams do
-      member do
-        put :validate
-        put :cancel
-      end
-    end
-    resources :bulletins
-    resources :projects do
-      member do
-        put :validate
-        get :refuse_letter 
-        put :cancel
-      end
-    end
-  end
+  #namespace :admin do 
+    #get '/' => "misc#index"
+    #resources :boxes
+    #resources :bringings do
+      #put :validate,:on => :member 
+      #put :refuse,:on =>   :member 
+    #end
+    #resources :permissions
+    #resources :users do
+     #get :serach, :on => :collection 
+     #put :block,  :on => :member
+    #end
+    #resources :geos
+    #resources :counties
+    #resources :schools
+    #resources :pages
+    #resources :groups
+    #resources :game_categories
+    #resources :co_donations do
+      #member do
+        #put :validate
+        #put :cancel
+      #end
+    #end
+    #resources :teams do
+      #member do
+        #put :validate
+        #put :cancel
+      #end
+    #end
+    #resources :bulletins
+    #resources :projects do
+      #member do
+        #put :validate
+        #get :refuse_letter 
+        #put :cancel
+      #end
+    #end
+  #end
 
-  # 专题页面
-  namespace :minisite do 
-    get "weixingfu" => "weixingfu#index"
-    get "mangexingdong" => "mangexingdong#index"
-    get "mangexingdong/poster" => "mangexingdong#poster"
-    namespace :postcard do 
-      # index    '',         :action => "index"
-      # password 'password', :action => "password"
-      # give     'give/:id', :action => "give"
-      # comment  'comment/:id', :action => "comment"
-      # messages 'messages', :action => "messages"
-      # donors   'donors/:id', :action => "donors"
-      # love_message 'love_message', :action => "love_message"
-    end
-    
-    namespace :mooncake do |mooncake|
-      # index    '',         :action => "index"
-      # password '/password',:action => "password"
-      # comment  '/comment', :action => "comment"
-      # love_message 'love_message', :action => "love_message"
-      # messages 'messages', :action => "messages"
-      # donors   'donors/:id', :action => "donors"
-    end
-    
-    namespace :lightenschool do |lightenschool|
-      # index    '',         :action => "index"
-        #dash.submit   'submit',   :action => "submit"
-      # required   'required', :action => "required"
-        #dash.processing 'processing',  :action => "processing"
-      # processing 'winners',  :action => "winners"
-    end
-    
-    namespace :kuailebox do |kuailebox|
-      # index    '',         :action => "index"
-    end
-    
-    namespace :cnbloggercon09 do |cnbloggercon09|
-      # index    '',         :action => "index"
-    end
-    
-    namespace :festcard09 do |festcard09|
-      # index    '',         :action => "index"
-      # cards   '/cards',    :action => "cards"
-      # password '/password',:action => "password"
-      # comment  '/comment', :action => "comment"
-    end
-    
-    namespace :musicclassroom do |musicclassroom|
-      # index    '',         :action => "index"
-    end
-  end
 end
