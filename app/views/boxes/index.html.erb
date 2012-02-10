@@ -10,7 +10,7 @@
   </div>
 <% end %>
 
-<div class="newbox">
+<div class="box">
   <h3>关于一公斤盒子：</h3>
   <p>一个一公斤盒子能让一个志愿者或老师和36个学生展开一节主题课。 盒子里的内容包括这节课所需的材料和一个简单易懂的使用指南，让每个人都可以轻松的把课堂变得丰富多彩。使用一公斤盒子的课堂强调的是给孩子们提供自我发现和相互学习的空间。</p>
   <p>如果你是一名活跃在一线的志愿者或老师，只要填写一份表格说明你的计划并承诺反馈，就可以申请一公斤盒子。我们将把盒子邮寄到你注明的地址。一公斤盒子项目受到社会各界爱心资助而成长，获得支持的志愿者和老师有向公众提供使用反馈的义务。</p>
@@ -22,13 +22,13 @@
   </p>
 </div>
 
-<div class="newbox">
+<div class="box">
   <h3>可以申请的盒子：</h3>
   <%= render :partial => "/public/box", :collection => @boxes %>
   <div class="cleanfix" style="clear:both;"></div>
 </div>
 
-<div class="newbox" >
+<div class="box" >
   <h5>盒子设计讨论区</h5>
   <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
   <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
@@ -36,20 +36,20 @@
 
 <% content_for :sidebar do -%>
   <% if logged_in? && @my_executions.present?%>
-    <div class="newbox">
+    <div class="box">
       <h3>我的申请:</h3>
       <%= render :partial => "/public/execution", :collection => @my_executions %>
     </div>
   <% end %>
 
-  <div class="newbox">
+  <div class="box">
     <h3>最新反馈： <%= link_to '写新反馈',feedback_boxes_path(:feedback_type => 'topic'),:class => 'buttonlink'%></h3>
     <%= render :partial => "/public/topic", :collection => @topics %>
     <div class="cleanfix" style="clear:both;"></div>
     <%= link_to '查看全部',topics_boxes_path  %>
   </div>
 
-  <div class="newbox">
+  <div class="box">
     <h3>活动相册： <%= link_to '添加照片',feedback_boxes_path(:feedback_type => 'photo'),:class => 'buttonlink'%></h3> 
     <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
     <div class="cleanfix" style="clear:both;"></div>
@@ -57,7 +57,7 @@
   </div>
 
 
-  <div class="newbox">
+  <div class="box">
     <h3>常见问题FAQ:</h3>
     <p>
       <b>问：申请一公斤盒子需要什么条件？</b>

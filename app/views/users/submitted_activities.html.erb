@@ -7,7 +7,7 @@
 <span class="remark"><%= link_to raw("&raquo; 回到#{@user.login}的空间"),user_url(@user)%></span>
 <% end %>
 
-<div class="newbox">
+<div class="box">
      <h3>所有<%=@user.login-%>发起的活动</h3>
       <div class="contents">
       <%= render :partial => "public/activity", :collection => @activities%>

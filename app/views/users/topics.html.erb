@@ -6,7 +6,7 @@
   <div class="cleanfix" style="clear:both;height:20px"></div> 
   <span class="remark"><%= link_to raw("&raquo; 回到#{@user.login}的空间"),user_url(@user)%></span>
 <% end %>
-<div class="newbox">
+<div class="box">
 <%= render :partial => "/public/share", :collection => @topics %>
 <%= customize_paginate @topics %>
 </div>

@@ -6,7 +6,7 @@
 <% content_for :sidebar do -%>
 <% @page = Page.find_by_slug('project-guide') -%>
   <%if @page%>
-  <div class="newbox">
+  <div class="box">
      <h3>公益项目说明</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
       <%= render :text => @page.body %>
@@ -15,7 +15,7 @@
 <% end -%>
 
 
-<div class="newbox" id="activitiesPostNew">
+<div class="box" id="activitiesPostNew">
   <div class="clearfix" style="height:10px"></div>
   <% form_for :project, :url => project_path(@project), :html => {:multipart => true,:method => :put} do |f| -%>
     <%= render :partial => "form", :object => f %>

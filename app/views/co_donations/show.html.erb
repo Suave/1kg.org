@@ -28,7 +28,7 @@
   
   <%= render :partial => "state" %>
     
-    <div class="newbox">
+    <div class="box">
       <h4>捐赠记录</h4>
        
         <% "还没有获得捐赠" if @co_donation.records.empty?%>
@@ -39,7 +39,7 @@
         <div class="cleanfix" style="height:20px"></div>
     </div>
     
-    <div class="newbox">
+    <div class="box">
       <span style="float:right"><%= upload_button('upload_container', photo_upload_path_with_session('co_donation',@co_donation.id)) %></span>
       <h4>相册</h4>　
      

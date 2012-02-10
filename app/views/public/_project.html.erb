@@ -1,10 +1,9 @@
-<div class="project">
-    <div class="project_image_frame">
+<div class="project item">
+    <div class="project_image_frame item-left">
         <img class="project_image" src="<%= project.image.url(:project_avatar) %>"/>
     </div>
-    <div class="project_meta">
+    <div class="item-right">
         <h6><%= link_to project.title,project_url(project)%></h6>
         <%= project.description.gsub('</br>', '\n').gsub(/<.*?>/, '').mb_chars.slice(0..50)%>...
     </div>
-    <div style="clear:both"></div>
 </div>

@@ -106,7 +106,7 @@
     <% end %>
   </div>
   
-  <div class="newbox">
+  <div class="box">
       <div id="activity_tabs">
         <div style="float:right">
         <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
@@ -135,7 +135,7 @@
   <div class="clearfix"></div>  
   </div>
    
-  <div class="newbox">
+  <div class="box">
    <h4>学校论坛</h4> <%= @topics.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",topics_school_path(@school)) %>
    <%= link_to "写新帖子", new_topic_url(:boardable_id => @school.id,:boardable_type => 'School'),:class=>"buttonlink"%>
     <div class="contents clearfix">
@@ -144,7 +144,7 @@
   </div>
 
 
-  <div class="newbox">
+  <div class="box">
     <h4>相册</h4>
     <%= @photos.blank? ? "还没有学校照片" : link_to("共有#{@school.photos.size}张照片 >",photos_school_path(@school)) %>
     <%= link_to '上传照片', new_photo_path(:photoable_id => @school.id,:photoable_type => @school.class.name),:class=>"buttonlink" %>

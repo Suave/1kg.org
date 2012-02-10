@@ -32,7 +32,6 @@ class Group < ActiveRecord::Base
   
   before_save  :format_content
   after_create :init_membership
-  after_create :create_feed
   
   validates_presence_of :title, :message => "请填写小组名",:within => 1..20
   validates_presence_of :geo_id, :message => "请选择小组所在城市"
@@ -65,10 +64,5 @@ class Group < ActiveRecord::Base
   
   def format_content
     self.body_html = sanitize(self.body_html)
-  end
-  
-  def create_feed
-    self.creator.feed_items.create(:user_id => self.creator.id, :category => 'create_group',
-                :item_id => self.id, :item_type => 'Group') if self.creator
   end
 end

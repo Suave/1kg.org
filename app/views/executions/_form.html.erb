@@ -1,5 +1,5 @@
 <% editing = @controller.action_name == "edit" %>
-<div class="newbox">
+<div class="box">
      <h3>一 确认此项目的反馈要求</h3>
       <div class="contents" style="padding-left:10px">
         <p><%= @project.feedback_require.gsub("\n", '<br />') %>
@@ -8,7 +8,7 @@
       </div>
 </div>
 
-<div class="newbox">
+<div class="box">
      <h3>二 填写申请表</h3>
       <p class="postNew"></p>
       <div class="contents">
@@ -58,7 +58,7 @@
 </div>
 
 
-<div class="newbox">
+<div class="box">
      <h3>三 申请人信息</h3>
       <div class="contents" style="padding-left:10px">
         <p><label class="label">网站用户名</label>

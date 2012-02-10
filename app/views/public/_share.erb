@@ -1,9 +1,8 @@
 <div class="share">
-  <div style="float:left">
+  <div class="item-left">
     <%= image_tag(share.user.avatar.url,:alt => share.user.login) %>
-    <br/>
   </div>
-  <div style="margin-left:60px;">
+  <div style="item-right">
     <h6><%= link_to h(share.title), topic_url(share) %></h6>
     <small style="color:#999">
       by <%= link_to share.user.login, user_url(share.user) %>

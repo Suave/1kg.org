@@ -54,7 +54,7 @@
 
   <%unless @donations.empty?%>
 
-  <div class="newbox">
+  <div class="box">
        <h3><%= h @user.login %>的公益贺卡</h3>
         <div class="contents">
           <p><strong>买过<%= @donations.count %>张，分别捐给：</strong></p>
@@ -68,14 +68,14 @@
   </div>
   <%end%>
   <div class="clearfix" style="height:10px;clear:both"></div>
-  <div class="newbox">
+  <div class="box">
     <h4><%= h @user.login %>关注...</h4> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
     <%= render :partial => "/public/user_list", :locals => {:users => @followings} %>
   </div>
   
   <div class="clearfix" style="height:10px;clear:both"></div>
-  <div class="newbox">
+  <div class="box">
     <h4>谁在关注<%= h @user.login %>...</h4> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
     <%= render :partial => "/public/user_list", :locals => {:users => @followers} %>

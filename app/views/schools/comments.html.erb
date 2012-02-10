@@ -4,7 +4,7 @@
 <p>&raquo; <%= link_to "返回学校首页", schools_url %></p>
 <% end -%>
 
-<div class="newbox">
+<div class="box">
         <%= render :partial => "/public/topic", :collection => @comments %>
         <%= customize_paginate @comments %>
       </div>

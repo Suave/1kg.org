@@ -48,7 +48,7 @@ class Requirement < ActiveRecord::Base
   named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
   named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
-  after_create :create_feed
+
   
   def matched_percent
     (matched_count.to_f*100/quantity).to_i
@@ -62,9 +62,4 @@ class Requirement < ActiveRecord::Base
     matched_percent.to_s + "%"
   end
   
-  private
-  def create_feed
-    self.school.feed_items.create(:user_id => self.applicator_id, :category => 'project',
-                :item_id => self.id, :item_type => 'Requirement') if self.school
-  end
 end

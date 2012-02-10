@@ -8,14 +8,14 @@
 <span class="remark"><%= link_to raw("&raquo; 回到#{@user.login}的空间"),user_url(@user)%></span>
 <% end %>
 
-<div class="newbox">
+<div class="box">
  <h3><%= h @user.login %>关注的用户 </h3>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/public/user_list", :locals => {:users => @followings} %>
   <%= customize_paginate @followings %>
 </div>
 
-<div class="newbox">
+<div class="box">
  <h3>关注<%= h @user.login %>的用户 </h3>
   <div class="clearfix" style="height:10px"></div>
   <%= render :partial => "/public/user_list", :locals => {:users => @followers.map(&:user)} %>

@@ -6,7 +6,7 @@
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% if @myteams && !@myteams.empty?%>
   
-  <div class="newbox">
+  <div class="box">
     <h3>我管理的团队</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <%= render :partial => "/public/user_list", :locals => {:users => @myteams} %>
@@ -14,7 +14,7 @@
   <div class="cleanfix" style="clear:both;height:20px"></div>
   <% end %>
 
-  <div class="newbox">
+  <div class="box">
       <h3>我关注的团队</h3>
       <div class="cleanfix" style="clear:both;height:10px"></div>
       <% if current_user%>
@@ -31,7 +31,7 @@
   
 <%end%>
 
-<div class="newbox">
+<div class="box">
   <div style="float:right;position:relative;top:2px"><%= link_to "创建团队", new_team_url,:class => "buttonjoin" %></div>
     <h3>全部团队</h3>
     <%= render :partial => "/public/team", :collection => @teams %>
@@ -39,12 +39,12 @@
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
-<div class="newbox">
+<div class="box">
     <h3>团队活动</h3>
     <%= render :partial => "/public/activity", :collection => @activities%>
 </div>
 
-<div class="newbox">
+<div class="box">
   <h3>团队话题</h3>
   <table>
     <tr>

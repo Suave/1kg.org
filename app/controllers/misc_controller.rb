@@ -1,19 +1,5 @@
 class MiscController < ApplicationController
-  
   def index
-    @page_title = "首页"
-    @school_count = School.validated.size
-    @activity_count = Activity.ongoing.size
-    if logged_in? 
-      public_look 
-    else
-      respond_to do |wants|
-        wants.html{ render(:action => "welcome")}
-      end
-    end
-  end
-  
-  def public_look
     @page_title = "首页"
     @activity_count = Activity.ongoing.size
     @hot_activities = Activity.ongoing.find(:all,:limit => 4,:order => "participations_count desc" ,:conditions => ["main_photo_id is not null and created_at > ?",1.months.ago])
@@ -24,10 +10,6 @@ class MiscController < ApplicationController
     @visits = Visited.latestvisit
     @wannas = Visited.latestwanna
     @projects = Project.find(:all,:limit => 2,:order => "created_at desc",:conditions => ['id != ?',10]) #hack for operation
-    
-    respond_to do |wants|
-      wants.html{render :action => "index"}
-    end
   end
     
   def show_page

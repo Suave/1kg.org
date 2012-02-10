@@ -13,7 +13,7 @@
 
 <div class="lcolumn">
    
-  <div class="newbox" style="font-size:13px">
+  <div class="box" style="font-size:13px">
     <h5>活动介绍</h5>
       <p>如果你马上就要踏上乡村学校/打工子弟学校/特殊教育学校之旅
         <br/>却正在发愁送给孩子们什么礼物才好
@@ -24,12 +24,12 @@
       想要报名？<a href="http://www.1kg.org/activities/103783">立即去报名贴</a>
   </div>
   
-  <div class="newbox">
+  <div class="box">
     <h5>活动学校</h5>
     <span>接受报名中..</span>
   </div>
   
-  <div class="newbox">
+  <div class="box">
     <h5>讨论区</h5>
       <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
       <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>

@@ -20,7 +20,7 @@ class SubDonation < ActiveRecord::Base
   end
 
   
-  after_create :create_feed
+
   
   def validate
       if quantity.nil? || !(quantity > 0)
@@ -61,10 +61,4 @@ class SubDonation < ActiveRecord::Base
     end
   end
   
-  
-  private
-  def create_feed
-    self.co_donation.school.feed_items.create(:user_id => self.user_id, :category => 'sub_donation',
-                :item_id => self.id, :item_type => 'SubDonation') if self.co_donation && self.co_donation.school
-  end
 end

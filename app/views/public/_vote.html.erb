@@ -13,7 +13,7 @@
     <small style="color:#999">
       <% voters = vote.voted_by %>
       <% first_voter = voters.pop %>
-      来自 <%= voters.map{ |user| link_to "#{user.login}、", user_url(user)} %><%= link_to first_voter.login,user_url(first_voter)%> <%= "...等#{vote.votes.count}人" if voters[1]%>的推荐　 
+      来自 <%= h voters.map{ |user| link_to "#{user.login}、", user_url(user)} %><%= h link_to(first_voter.login,user_url(first_voter))%> <%= "...等#{vote.votes.count}人" if voters[1]%>的推荐　 
     </small>
   </div>
 </div>

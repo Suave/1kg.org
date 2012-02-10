@@ -5,7 +5,7 @@
   <h4>> <%= link_to "返回项目首页", admin_requirement_type_requirements_url(@requirement.requirement_type) %></span>
   <%= render :partial => "/admin/public/operation_list" %>
 <% end -%>
-<div class="newbox">
+<div class="box">
   <h1><%= @requirement.requirement_type.title %></h1>
 
   <div class="cleanfix" style="clear:both;height:20px"></div>
@@ -26,13 +26,13 @@
   <div class="cleanfix" style="clear:both;height:3px"></div>
 </div>
 
-<div class="newbox">
+<div class="box">
  <h3>申请原因</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.apply_reason %>
 </div>
 
-<div class="newbox">
+<div class="box">
  <h3>执行计划</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.apply_plan %>
@@ -41,7 +41,7 @@
 <div class="cleanfix" style="clear:both;height:5px"></div>
 
 
-<div class="newbox">
+<div class="box">
  <h3>执行报告</h3>
   <div class="cleanfix" style="height:3px"></div>
   <%= @requirement.feedback %>

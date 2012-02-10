@@ -1,4 +1,4 @@
-<div class="newbox">
+<div class="box">
   <span class="span-title">&nbsp;</span>
   <div class="contents">
     <%= render :partial => '/geos/school_maps' %>
@@ -6,7 +6,7 @@
 </div>
 
 <% unless @schools.empty? %>
-<div class="newbox">
+<div class="box">
   <span class="span-title">&nbsp;</span>
   <div class="contents">
     <%= render :partial => '/schools/schools', :object => @schools %>

@@ -6,7 +6,7 @@
 <p>关键词“<%= params[:keywords] %>”的<%= {'activity' => '活动','group' => '小组','user' => '用户','school' => '学校','topic' => '话题'}[params[:type]] %>搜索结果</p>
 <% end %>
 <% if params[:type] == 'school' %>
-<div class="newbox">
+<div class="box">
   <span class="span-title">&nbsp;</span>
   <div class="contents">
     <%= render :partial => '/geos/school_maps' %>

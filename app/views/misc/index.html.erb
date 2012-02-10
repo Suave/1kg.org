@@ -1,6 +1,6 @@
 <% content_for :sidebar do -%>
 
-<div class="newbox">
+<div class="box">
   <h3>公告</h3>
   <% @bulletins.each do |b| %>
   <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
@@ -8,13 +8,13 @@
   <p class="remark"><%= link_to raw("&raquo; 更早的"), bulletins_url %></p>
 </div>
 
-<div class="newbox">
+<div class="box">
   <h3>公益团队</h3>
   <%= render :partial => "/public/team", :collection => @teams %>
   <p class="remark"><%= link_to raw("&raquo;  查看全部"), teams_url %></p>
 </div>
 
-<div id="records" class="newbox">
+<div id="records" class="box">
   <div id="record_tabs">
     <h3>用户动态</h3>
     <ul class="tab">
@@ -36,42 +36,33 @@
   </div>
   <% end -%>
 
-  <div class="hot_box" style="height:210px">
-    <h3>最受欢迎活动</h3>
-    <div class="cleanfix" style="height:3px"></div>
+  <div class="box">
+    <h3>热门活动 <span>还有<%= link_to "#{@activity_count}个活动",activities_path %>在进行</span></h3>
+    
     <% @hot_activities.each do |activity|%>
-    <div style="width:120px;height:160px;padding:5px;float:left">
-      <div class="hot_activity_frame">
+    <div class="item hot_activity">
+      <div class="border_frame">
         <div class="hot_activity_image">
           <%= link_to image_tag(activity.main_photo.image.url(:max240x180), :alt => activity.title,:style => "height:110px"),activity_url(activity) if activity.main_photo%>
           <%= image_tag("activity_#{activity.category}.png", :alt => activity.title,:style => "height:110px")  unless activity.main_photo%>
         </div>
       </div>
-      <p class="hot_activity_title"><%= link_to short_title(activity,15), activity_path(activity)%></p>
+      <p><%= link_to short_title(activity,15), activity_path(activity)%></p>
     </div>
-    <%end%> 
-    <div class="hot" style="float:right">
-      <div class="channel">
-        <%= link_to raw("&raquo; 活动频道"),activities_url,:style=> "font-size:14px;font-weight:bold" %>
-        <br/><%= @activity_count%>个活动在进行</div>
-    </div>
-    <div  style="clear:both"></div>
+    <% end %> 
   </div> 
 
-  <div class="newbox">
-    <div class="clearfix"></div>
+  <div class="box">
     <h3>公益项目</h3>
-    <div class="clearfix" style="height:10px"></div>
-    <div class="contents clearfix">
+    <div class="contents">
       <%= render :partial => '/public/project', :collection => @projects %>
     </div>
     <div class="remark"><%= link_to raw("&raquo; 查看全部公益项目 "),projects_url %></div>
   </div>
 
-  <div class="newbox">
+  <div class="box">
     <h3>最新推荐</h3>
     <div class="contents">
       <%= render :partial => "/public/vote", :collection => @voteds %>
     </div>
-    <div class="cleanfix" style="height:20px"></div>
   </div>

@@ -33,8 +33,6 @@ class Neighborhood < ActiveRecord::Base
   
   def create_following
     Following.create!(:follower_id => user.id, :followable_id => neighbor.id, :followable_type => 'User')
-    self.user.feed_items.create(:content => %(#{self.user.login} 关注了#{self.neighbor.login}), :user_id => self.user.id, :category => 'neighborhood',
-                :item_id => self.id, :item_type => 'Neighborhood') if self.neighbor
   end
   
   def destroy_following

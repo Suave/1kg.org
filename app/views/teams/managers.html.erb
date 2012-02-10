@@ -6,7 +6,7 @@
 <% content_for :sidebar do -%>
 <p>&raquo; <%= link_to "返回#{@team.name}", @team %></p>
 <div class="cleanfix" style="height:20px;clear:both"></div>
-<div class="newbox">
+<div class="box">
  <h3>现有管理员</h3>
   <% @team.managers.each do |user| %>
        <dl class="user">
@@ -27,7 +27,7 @@
 <div style="margin:0 10px 30px;color:#666;font-size:13px">注意：团队的管理员可以以团队名义发起活动、编辑团队信息、添加其他管理员。<br/>　　　并且在添加后不能直接删除，添加新的管理员时请务必谨慎。</div>
 
 
-<div class="newbox">
+<div class="box">
   <h3>从关注者里添加</h3>
   <% @followers.each do |u| %>
     <dl class="user">

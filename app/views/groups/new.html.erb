@@ -3,7 +3,7 @@
 <% content_for :sidebar do -%>
 <% end -%>
 
-<div class="newbox">
+<div class="box">
   <h2>创建新小组</h2>
   <% form_for :group, :url => groups_url, :html => {:multipart => true, } do |f| -%>
     <%= render :partial => "form", :object => f %>

@@ -1,5 +1,5 @@
 <h1>为哪个申请<%= {'topic'=>'编写反馈','photo'=> '上传照片'}[@feedback_type]%>呢?</h1>
-<div class="newbox">
+<div class="box">
 <% @executions.each do |execution| %>
   <div class="event_list">
     <%= link_to image_tag((execution.community.main_photo.blank?  ? '/images/school_main_thumb.png' : execution.community.main_photo.image.url), :alt => execution.community.title),"/boxes/executions/#{execution.id}" %>
@@ -15,7 +15,7 @@
 <% end %>
 </div>
 
-<div class="newbox"><p><%= will_paginate @executions %></p></div>
+<div class="box"><p><%= will_paginate @executions %></p></div>
 
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 

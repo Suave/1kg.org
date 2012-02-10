@@ -20,7 +20,6 @@ ActiveRecord::Schema.define() do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "deleted_at"
-    t.string   "ref"
     t.integer  "category",                            :null => false
     t.string   "title",                               :null => false
     t.string   "location",                            :null => false
@@ -29,8 +28,6 @@ ActiveRecord::Schema.define() do
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "register_over_at"
-    t.string   "expense_per_head"
-    t.string   "expect_strength"
     t.text     "clean_html"
     t.text     "description_html"
     t.integer  "comments_count",   :default => 0
@@ -38,6 +35,7 @@ ActiveRecord::Schema.define() do
     t.integer  "shares_count", :default => 0
     t.integer  "old_id"
     t.integer  "main_photo_id"
+    t.string   "image_file_name"
     t.boolean  "sticky",           :default => false
   end
   
@@ -448,88 +446,7 @@ ActiveRecord::Schema.define() do
     t.string   "identifier",  :limit => 100, :null => false
     t.string   "description"
   end
-
-  add_index "static_permissions", ["identifier"], :name => "index_static_permissions_on_identifier"
   
-  create_table "stuff_bucks", :force => true do |t|
-    t.integer  "type_id",                          :null => false
-    t.integer  "school_id",                        :null => false
-    t.integer  "matched_count", :default => 0
-    t.datetime "created_at"
-    t.integer  "quantity",                         :null => false
-    t.string   "status"
-    t.text     "notes_html"
-    t.text     "for_team_tip"
-    t.boolean  "for_team",      :default => false
-    t.boolean  "hidden",        :default => false
-    # 为公益项目申请添加的内容
-    t.integer  "applicator_id"
-    t.datetime "updated_at"
-    t.string   "applicator_telephone"
-    t.text     "apply_reason"
-    t.text     "apply_plan"
-    t.text     "problem"
-    t.text     "budget"
-    t.text     "feedback"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.boolean  "validated",    :default => false
-    t.datetime "validated_at"
-    t.integer  "validated_by_id"
-    t.datetime "last_modified_at"
-    t.integer  "comments_count",   :default => 0
-  end
-
-  create_table "stuff_types", :force => true do |t|
-    t.string   "slug", :default => ''
-    t.integer  "creator_id"
-    t.string   "title"
-    t.datetime "apply_end_at"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.datetime "feedback_at"
-    t.text     "description_html"
-    t.text     "condition_html",          :default => ""
-    t.text     "support_html",            :default => ""
-    t.text     "vendor_link"
-    t.text     "feedback_require"
-    t.integer  "requirements_count",      :default => 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image_file_name"
-    # 是否可用积分兑换
-    t.boolean  "must",             :default => false
-    t.boolean  "exchangable",             :default => false
-    t.datetime  "validated_at"
-    t.integer   "validated_by_id"
-    t.integer  "comments_count",   :default => 0
-  end
-
-  create_table "stuffs", :force => true do |t|
-    t.string   "code",         :null => false # 密码
-    t.integer  "type_id",      :null => false # 公益项目（物资）类型
-    t.integer  "buck_id"
-    t.string   "buyer_name"
-    t.string   "buyer_email"
-    t.datetime "created_at" # 交易处理时间
-    t.string   "order_id"   # 商家订单号
-    t.string   "order_time" # 商家订单时间
-    t.string   "product_serial" # 商家产品编号
-    t.string   "product_number" # 商家产品数量
-    t.string   "deal_id"        # 交易号
-    t.integer  "vendor_id"
-    t.string   "return_url"
-    t.boolean  "confirmed", :default => false # 是否已得到商家网站确认
-    
-    # 验证时填写的字段
-    t.integer  "user_id"
-    t.integer  "school_id"
-    t.datetime "matched_at"
-    t.text     "comment_html"
-    t.text     "comment"
-    t.boolean  "auto_fill"
-  end
-
   create_table "executions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
@@ -702,75 +619,10 @@ ActiveRecord::Schema.define() do
     t.datetime  "udpated_at"
   end
   
-  create_table :games, :force => true do |t|
-    t.integer :game_category_id
-    t.integer :user_id
-    t.integer :user_id
-    t.string  :photo_file_name
-    t.string  :comment    
-    t.integer :game_category_id
-    t.string  :name
-    t.string  :level
-    t.string  :length
-    t.string  :size
-    t.text    :content
-    t.integer :version
-    t.integer :comments_count,   :default => 0
-    t.timestamps
-  end
-  
-  create_table :game_versions, :force => true do |t|
-    t.integer :game_id
-    t.integer :version
-    t.integer :user_id
-    t.string  :photo_file_name
-    t.string  :comment    
-    t.integer  :game_category_id
-    t.string  :name
-    t.string  :level
-    t.string  :length
-    t.string  :size
-    t.text    :content
-    t.integer  :comments_count,   :default => 0
-    t.timestamps
-  end
-  
-  create_table :game_categories, :force => true do |t|
-    t.string  :photo_file_name
-    t.string  :name
-    t.string  :slug
-    t.text    :description_html
-  end
-  
-  create_table :emails do |t|
-    t.string   :from
-    t.string   :to
-    t.integer  :last_send_attempt, :default => 0
-    t.text     :mail
-    t.datetime :created_on
-  end
-  
-  create_table :references do |t|
-    t.integer  :game_id
-    t.string   :name
-    t.string   :link
-  end
-  
   create_table :followings do |t|
     t.integer :follower_id
     t.integer :followable_id
     t.string  :followable_type
   end
   
-  create_table :feed_items do |t|
-    t.string  :owner_id
-    t.string  :owner_type
-    t.text    :content
-    t.string  :category
-    t.integer :item_id
-    t.string  :item_type
-    t.integer :user_id
-    t.timestamps
-  end
-
 end

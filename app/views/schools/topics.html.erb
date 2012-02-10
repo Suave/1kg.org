@@ -1,6 +1,6 @@
 <% @page_title = @title = "#{h @school.title}的学校论坛" -%>
 
-<div class="newbox">
+<div class="box">
     <%= render :partial => "/public/share", :collection => @topics %>
     <div class="contents"><p><%= will_paginate @topics %></p></div>
 </div>

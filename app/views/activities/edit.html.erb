@@ -5,7 +5,7 @@
 <% content_for :sidebar do -%>
  <% @page = Page.find_by_slug('activity-guide') -%>
   <%if @page%>
-  <div class="newbox">
+  <div class="box">
     <h3>活动编辑指南</h3>
       <div class="clearfix" style="margin-bottom:10px"></div>
      <%= render :text => @page.body %>
@@ -13,7 +13,7 @@
  <%end%>
 <% end -%>
 
- <div class="newbox" id="activitiesPostNew">
+ <div class="box" id="activitiesPostNew">
    <h3>编辑活动</h3>
     <div class="clearfix" style="height:10px"></div>
     <div class="caution" style="-float:left">编辑活动请注意，注意活动从开始到结束，时间不能超过三个月噢。</div>

@@ -1,4 +1,4 @@
-<div class="newbox" id="topicCommentForm">
+<div class="box" id="topicCommentForm">
   <% if logged_in? -%>
     <% form_for @comment do |f| -%>
       <%= f.hidden_field :commentable_type,:value => commentable.class.name %>

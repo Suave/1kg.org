@@ -40,7 +40,7 @@
     </div>
     <% end -%>
 
-    <div class="newbox">
+    <div class="box">
      <h3>参加活动的用户</span> <span class="gary_span">有 <%= @activity.participators.size %> 人参加</h3>
         
         <%= render :partial => "/public/user_list", :locals => {:users => @activity.participators} %>
@@ -48,14 +48,14 @@
     </div>
   
   <% if @activity.school%>
-  <div class="newbox">
+  <div class="box">
    <h3>相关学校</h3>
     
     <%= render :partial => "/public/school", :collection => [@activity.school] %>
   </div>
   <%end%>
   
-  <div class="newbox">
+  <div class="box">
     <div style="float:right;"><%= link_to '写新贴子',new_topic_path(:boardable_id => @activity.id,:boardable_type => "Activity"),:class => "buttonlink" %></div>
      <h3>活动贴子</h3>
       <div class="contents">
@@ -65,7 +65,7 @@
   </div>
 <% end -%>
 
-  <div class="newbox" >
+  <div class="box" >
         <div class="contents">        
           <div style="width:120px;float:right;text-align:right">
             <% if @activity.join_closed? %>
@@ -118,7 +118,7 @@
         </div>
   </div>
   
-  <div class="newbox">
+  <div class="box">
      <h3>活动相册</h3>
         <%= link_to '上传照片', new_photo_path(:photoable_id => @activity.id,:photoable_type => @activity.class.name),:class => 'linkbutton' %> 
       <div class="contents clearfix" style="padding-top:16px;">

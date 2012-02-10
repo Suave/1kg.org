@@ -47,8 +47,4 @@ class Photo < ActiveRecord::Base
     self.description_html = sanitize(description||'', true)
   end
   
-  def create_feed
-    self.school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}为#{self.school.title}上传了一张新照片：#{self.title}), :user_id => self.user.id, :category => 'photo',
-                :item_id => self.id, :item_type => 'Photo') if self.school
-  end
 end

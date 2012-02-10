@@ -1,6 +1,6 @@
 <% user = introable%>
   <h5> 所属用户 </h5> 
-  <div class="newbox">  
+  <div class="box">  
     <%= image_tag(user.avatar.url(:'48x48'),:style=>'float:left;')%>
     <div style="margin-left:56px;margin-top:-8px">
       <p><b><%= link_to user.login,user %></b> <span><%= user.geo.full_name if user.geo%></span></p>

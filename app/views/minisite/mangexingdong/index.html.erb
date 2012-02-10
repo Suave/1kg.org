@@ -13,7 +13,7 @@
 
 <div class="lcolumn">
    
-  <div class="newbox" style="font-size:13px">
+  <div class="box" style="font-size:13px">
     <h5>活动介绍</h5>
     <p>
     “多背一公斤，爱心满格，信号满格“，是由中国移动四川公司联合华西都市报、新浪四川、四川交通广播101.7，及“多背一公斤”公益网站，共同开展的爱心公益活动。
@@ -23,7 +23,7 @@
     </p>
   </div>
   
-  <div class="newbox" style="font-size:12px;clear:both">
+  <div class="box" style="font-size:12px;clear:both">
     <h5>活动报导</h5>
     <p>来自一线的原味报导和志愿者的亲身体会：</p>
     <p>
@@ -66,7 +66,7 @@
     </p>
   </div>
   
-  <div class="newbox clear" >
+  <div class="box clear" >
     <h5>讨论区</h5>
       <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
       <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>

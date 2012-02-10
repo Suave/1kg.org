@@ -16,7 +16,7 @@
   });
 </script>
 
-<div class="newbox">
+<div class="box">
     <div style="height:160px;width:160px;overflow:hidden;text-align:center;float:left">
       <%= image_tag(@team.avatar.url(:'160x160'), :alt => 'Logo',:class => "activity_main") %>
     </div>
@@ -45,21 +45,21 @@
 </div>
 
 <div class="clearfix" style="height:20px;clear:both"></div>
-<div class="newbox">
+<div class="box">
   <span style="float:right"><%= link_to "发起活动", new_activity_team_url(@team),:class => "buttonlink"  if current_user && @team.managers.include?(current_user)%></span>
   <h4>团队活动</h4>
   <%= render :partial => "/public/activity", :collection => @team.activities %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>
 
-<div class="newbox">
+<div class="box">
   <div class="title_line"><h4>团队相册</h4></div>
    <%= render :partial => "/public/photo", :collection => @photos %>
   <div class="cleanfix" style="height:20px;clear:both"></div>
 </div>
 
 
-<div class="newbox">
+<div class="box">
   <% if @team.followers.include?(current_user)%>
     <span style="float:right"><%= link_to "写新话题", new_topic_url(:boardable_id => @team.id,:boardable_type => 'Team'),:class => "buttonlink" %></span>
   <% end %>
@@ -82,11 +82,11 @@
     </div>
   <% end %>
   
-  <div class="newbox">
+  <div class="box">
     <%= render :partial => "team_map" %>
   </div>
 <div class="clearfix" style="height:20px;clear:both"></div>
-<div class="newbox">
+<div class="box">
  <h3>关注者</h3>
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">

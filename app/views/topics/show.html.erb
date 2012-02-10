@@ -12,7 +12,7 @@
   
   <%= render :partial => '/public/introable', :object => @topic.boardable %>
 
-  <div class="newbox">
+  <div class="box">
   <div class="cleanfix" style="height:20px"></div>
      <h4>推荐此话题的用户</h4>
       <div class="clearfix" style="height:10px"></div>
@@ -21,7 +21,7 @@
   
   <% unless @others.empty?%>
   <div class="cleanfix" style="height:20px"></div>
-  <div class="newbox">
+  <div class="box">
     <h4>其他话题</h4>
     <div class="contents">
       <%= render :partial => "/public/stopic", :collection => @others %>
@@ -31,7 +31,7 @@
   <%end%>
 <% end -%>
 
-  <div class="newbox" id="topicSingle">
+  <div class="box" id="topicSingle">
         <div class="metadata" style="border-bottom:1px #ccc solid;padding-bottom:4px">
             <h2 style="font-size:20px;font-weight:bold;padding-bottom:4px"><%= @topic.title %></h2>
             <span class="gary_span"><%= link_to @topic.user.login, user_url(@topic.user)  %> 写于 <%= @topic.created_at.to_date %></span>

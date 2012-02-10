@@ -5,7 +5,7 @@
 <span class="remark"><%= link_to raw("&raquo; 回到#{@user.login}的空间"),user_url(@user)%></span>
 <% end %>
 
-<div class="newbox">
+<div class="box">
       <div class="contents">
       <%= render :partial => "/topics/topics", :locals => {:topics => @topics} unless @topics.blank? %>
       <%= customize_paginate @topics %>
