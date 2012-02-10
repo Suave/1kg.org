@@ -13,6 +13,7 @@ Onekg::Application.routes.draw do
   resources :executions
   resources :projects
   resources :messages
+  resources :follows
   resources :managements
   resources :votes
   resources :themes
@@ -36,6 +37,7 @@ Onekg::Application.routes.draw do
       get :submitted_topics
       get :participated_topics
     end
+    resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
   end
     
   resources :geos do

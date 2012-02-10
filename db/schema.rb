@@ -579,7 +579,7 @@ ActiveRecord::Schema.define() do
     t.datetime  "udpated_at"
   end
   
-  create_table :followings do |t|
+  create_table :follows do |t|
     t.integer :user_id
     t.integer :followable_id
     t.string  :followable_type

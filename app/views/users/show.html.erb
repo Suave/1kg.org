@@ -10,15 +10,10 @@
 <% content_for :sidebar do -%>
   <% if logged_in? -%>
       <div id="admins"><%= "你是管理员，" if current_user.admin? -%>
-      <%= "#{@user.login}关注了你，" if current_user.neighbors.include?(@user)%>
+      <%= "#{@user.login}关注了你，" if current_user.followers.include?(@user)%>
       <%= @user == current_user ?  "这是你自己的空间。" :"你可以对#{@user.login}使用以下功能："   -%><br/>      
         <% unless @user == current_user -%>
-       <%= link_to "发站内信", new_user_sent_url(@user) ,:class => "adminbutton"%>
-        <% if @user.neighbor_addable_by?(current_user) -%>
-          <%= link_to "关注用户", user_neighbors_url(@user, :my => current_user), :method => :post ,:class => "adminbutton"%>
-        <% elsif @user.neighbor_removeable_by?(current_user) -%>
-          <%= link_to "取消关注", user_neighbor_url(@user, current_user), :confirm => "确定取消对#{@user.login}的关注吗？", :method => :delete,:class => "adminbutton" %></span>
-        <% end -%>
+        <%= link_to "发站内信", new_message_url(:recipient_id => @user.id) ,:class => "adminbutton"%>
         <%= link_to '封锁用户', block_admin_user_path(@user), :method => 'put', :confirm => '确定要封锁此用户吗？',:class => "adminbutton" if current_user.admin?%>
       <% end -%>      
       </div>
@@ -37,39 +32,22 @@
   </div>
   <%end%>
   
-  <% unless @visiteds.blank? %>
+  <% unless @followed_schools.blank? %>
   <div class="school_frame">
-        <h4>去过/要去/关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></h4>
+        <h4>关注的学校</span>  <span><%= link_to "查看全部", "/users/#{@user.id}/visited"%></h4>
         <div class="clearfix" style="height:10px"></div>
         <div class="contents">
-          <%= render :partial => "visit", :collection => @visiteds,:locals => {:school => nil} %>          
+          <%= render :partial => "/public/school", :collection => @followed_schools,:locals => {:school => nil} %>
           <div class="clearfix"></div>
         </div>
   </div>
   <%end%>
   
   <div class="clearfix" style="height:10px;clear:both"></div>
-
-  <%unless @donations.empty?%>
-
-  <div class="box">
-       <h3><%= h @user.login %>的公益贺卡</h3>
-        <div class="contents">
-          <p><strong>买过<%= @donations.count %>张，分别捐给：</strong></p>
-          <table>
-            <% @donations.each do |s| -%>
-            <% next if s.school.nil? %>
-            <tr><td><%= link_to s.school.title, school_url(s.school) %> <span style="color:#CCC">[<%= s.matched_at.to_date %>]</span></td></tr>
-            <% end -%>
-          </table>
-        </div>
-  </div>
-  <%end%>
-  <div class="clearfix" style="height:10px;clear:both"></div>
-  <div class="box">
+  <div class="newbox">
     <h4><%= h @user.login %>关注...</h4> <%= link_to "查看全部", friends_user_url(@user) %>
     <div class="clearfix" style="height:12px"></div>
-    <%= render :partial => "/public/user_list", :locals => {:users => @followings} %>
+    <%= render :partial => "/public/user_list", :locals => {:users => @followed_users} %>
   </div>
   
   <div class="clearfix" style="height:10px;clear:both"></div>
@@ -83,6 +61,7 @@
 
 <% end -%>
 
+<%= follow_to(@user) unless @user == current_user%>
 <%= render :partial => "activities", :locals => {:user => @user, :activities => @activities} %>
 <%= render :partial => "user_topics", :locals => {:user => @user, :submitted_topics => @submitted_topics, :participated_topics => @participated_topics} %>
 <%= render :partial => "topics", :object => @topics, :locals => {:user => @user} %>

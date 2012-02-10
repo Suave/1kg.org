@@ -86,9 +86,9 @@ class User < ActiveRecord::Base
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
-  has_many :followings,     :class_name => "Follow",:foreign_key => :user_id
-  has_many :follows,        :as => :followable, :dependent => :destroy
-  has_many :followers,      :through => :follows, :source => :user
+  has_many :followings, :class_name => "Follow",:dependent => :destroy
+  has_many :follows,    :as => :followable
+  has_many :followers,  :through => :follows, :source => :user
  
   
   before_save :encrypt_password
@@ -210,6 +210,10 @@ class User < ActiveRecord::Base
     false
   end
   
+  def is_following?(followable)
+    self.followings.where(:followable_id => followable.id,:followable_type => followable.class).first.present?
+  end
+  
   def reset_password!
     new_password = random_password(7)
     self.password = self.password_confirmation = new_password
@@ -218,7 +222,7 @@ class User < ActiveRecord::Base
   end
   
   def participated_topics
-    self.comments.find(:all, :conditions => {:commentable_type => 'Topic'}).map(&:commentable).uniq
+    self.comments.where(:commentable_type => 'Topic')
   end
   
   #只包含在小组参与的话题

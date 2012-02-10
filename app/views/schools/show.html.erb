@@ -22,6 +22,7 @@
 
 <%= render :partial => "status" %>
   <h1><%= h @school.title -%></h1>
+  <%= follow_to(@school) %>
 　<% if @school.geo.parent %><%= link_to @school.geo.parent.name.to_s,'/geos/'+@school.geo.parent.id.to_s %> > <% end %><%= link_to @school.geo.name.to_s,'/geos/'+@school.geo.id.to_s %>
  <%= link_to "(地图和交通指南)", large_map_school_url(:iframe => true, :width => 550, :height => 480, :alt => @school.title), :rel => 'prettyPhoto[iframes]', :description => nil ,:id => 'school_large_map'%>
  <br/>
