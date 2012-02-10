@@ -8,12 +8,12 @@ class ActivitiesController < ApplicationController
   def index
     @activities_hash = {}
     @activities = @activities_hash[:all] = Activity.ongoing.find(:all,:limit => 8,:order => "created_at desc, start_at desc", :include => [:main_photo,:departure, :arrival])
-    @activities_hash[:travel] = Activity.recent_by_category("公益旅游")
-    @activities_hash[:donation] = Activity.recent_by_category("物资募捐")
-    @activities_hash[:teach] = Activity.recent_by_category("支教")
-    @activities_hash[:city] = Activity.recent_by_category("同城活动")
-    @activities_hash[:online] = Activity.recent_by_category("网上活动")
-    @activities_hash[:other] = Activity.recent_by_category("其他")
+    @activities_hash[:travel] = Activity.recent.by_category("公益旅游")
+    @activities_hash[:donation] = Activity.recent.by_category("物资募捐")
+    @activities_hash[:teach] = Activity.recent.by_category("支教")
+    @activities_hash[:city] = Activity.recent.by_category("同城活动")
+    @activities_hash[:online] = Activity.recent.by_category("网上活动")
+    @activities_hash[:other] = Activity.recent.by_category("其他")
     @activities_total = Activity.find(:all,:conditions => ["end_at < ?",Time.now]).size
     @photos = Photo.with_activity.find(:all,:limit => 10,:order => "created_at desc" )
     @participated = current_user.participated_activities.find(:all, :limit => 4) if current_user
@@ -169,9 +169,9 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "该活动已删除"
       redirect_to activities_url
     end
-    @topics = @activity.topics
+    @topics = @activity.topics.paginate :page => params[:page] || 1, :per_page => 15
     @photos = @activity.photos.find(:all, :order => "updated_at desc",:include => [:user])
-    @comments = @activity.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 15
+    @comments = @activity.comments.includes([:user,:commentable]).paginate(:page => params[:page] || 1, :per_page => 15)
     @comment = Comment.new
     
     respond_to do |wants|

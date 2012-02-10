@@ -43,10 +43,10 @@ class Requirement < ActiveRecord::Base
     
   end
   
-  named_scope :confirmed, :conditions => ["validated = ?", true]
-  named_scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]
-  named_scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
-  named_scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
+  scope :confirmed, :conditions => ["validated = ?", true]
+  scope :unconfirmed, :conditions => ["validated = ? or validated IS NULL", false]
+  scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
+  scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
 
   

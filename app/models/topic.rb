@@ -11,19 +11,19 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many   :comments, :as => 'commentable', :dependent => :destroy
   
-  named_scope :recent,:limit => 6,:order => "last_replied_at desc"
-  named_scope :unsticky,  :conditions => ["sticky=?", false]
+  scope :recent,:limit => 6,:order => "last_replied_at desc"
+  scope :unsticky,  :conditions => ["sticky=?", false]
 
-  named_scope :latest_updated_in, lambda{|board_class, limit|
+  scope :latest_updated_in, lambda{|board_class, limit|
     { :conditions => {:boardable_type => board_class.class.name},
       :include => [:user],
       :order => "last_replied_at desc",
       :limit => limit}
   }
-  named_scope :with_activity, :order => "created_at desc, comments_count desc",
+  scope :with_activity, :order => "created_at desc, comments_count desc",
                               :conditions => {:boardable_type => 'Activity'},
                               :include => [:user]
-  named_scope :with_school, :order => "created_at desc, comments_count desc",
+  scope :with_school, :order => "created_at desc, comments_count desc",
                               :conditions => {:boardable_type => 'School'},
                               :include => [:user]
   

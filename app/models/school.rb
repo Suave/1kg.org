@@ -16,6 +16,10 @@ class School < ActiveRecord::Base
   
   accepts_nested_attributes_for :basic, :traffic, :need, :contact, :local, :finder, :main_photo
 
+  has_attached_file :image, :styles => {:'160x120' => ["160x120#"],:'107x80' => ["107x80#"],:'80x60' => ["80x60#"]},
+                            :url=>"/media/schools/:id/:attachment/:style.:extension",
+                            :default_style=> :'107x80'
+
   
   acts_as_ownable
   acts_as_manageable
@@ -47,19 +51,19 @@ class School < ActiveRecord::Base
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
 
   
-  named_scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
-  named_scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
-  named_scope :at, lambda { |city|
+  scope :validated, :conditions => {:validated => true, :meta => false}, :order => "created_at desc"
+  scope :not_validated, :conditions => {:validated => false, :meta => false}, :order => "created_at desc"  
+  scope :at, lambda { |city|
     geo_id = ((city.class == Geo) ? city.id : city)
     {:conditions => ["(geo_id=?)", geo_id]}
   }
   
-  named_scope :locate, lambda { |city_ids|
+  scope :locate, lambda { |city_ids|
     {:conditions => ["geo_id in (?)", city_ids]}
   }
-  named_scope :top10_popular, :order => 'last_month_karma DESC', :limit => 6
-  named_scope :recent_upload, :order => "created_at desc", :limit => 6
-  named_scope :include, lambda {|includes| {:include => includes}}
+  scope :top10_popular, :order => 'last_month_karma DESC', :limit => 6
+  scope :recent_upload, :order => "created_at desc", :limit => 6
+  scope :include, lambda {|includes| {:include => includes}}
   
   @@city_neighbors = {
                         :beijing => {:id => 1, :neighbors => {:hebei => 3, :neimenggu => 27}},

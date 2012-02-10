@@ -1,18 +1,18 @@
-  <div style="margin:0 0 20px 20px;">      
-        <ol>
-          <% replys.each_with_index do |comment,index| -%>
-          <li class="reply_post">
-            <div class="avatar"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
-            <div class="content">
-              <p class="meta">
-                <%= link_to comment.user.login, user_url(comment.user) %> 写于 <%= comment.created_at.to_date %>
-                <% if comment.owned_by?(current_user) -%>
-                  | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
-                <% end -%>
-              </p>
-              <%= comment.body_html %>
-            </div>
-          </li>
-          <% end -%>
-        </ol>
-  </div>
+<div style="margin:0 0 20px 20px;">      
+  <ol>
+    <% replys.each_with_index do |comment,index| -%>
+    <li class="reply_post">
+    <div class="avatar"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
+    <div class="content">
+      <p class="meta">
+      <%= link_to comment.user.login, user_url(comment.user) %> 写于 <%= comment.created_at.to_date %>
+      <% if comment.owned_by?(current_user) -%>
+      | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
+      <% end -%>
+      </p>
+      <%= comment.body_html %>
+    </div>
+    </li>
+    <% end -%>
+  </ol>
+</div>

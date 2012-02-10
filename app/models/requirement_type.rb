@@ -27,11 +27,11 @@ class RequirementType < ActiveRecord::Base
   
   validates_presence_of :title, :message => "不能为空"
   
-  named_scope :exchangable, :conditions => {:exchangable => true}
-  named_scope :non_exchangable, :conditions => {:exchangable => false}
-  named_scope :validated, :conditions => "validated_at IS NOT NULL"
-  named_scope :not_validated, :conditions => "validated_at IS NULL"
-  named_scope :last5, :limit => 9, :order => 'created_at DESC'
+  scope :exchangable, :conditions => {:exchangable => true}
+  scope :non_exchangable, :conditions => {:exchangable => false}
+  scope :validated, :conditions => "validated_at IS NOT NULL"
+  scope :not_validated, :conditions => "validated_at IS NULL"
+  scope :last5, :limit => 9, :order => 'created_at DESC'
   
   def before_create
     self.creator_id = User.current_user.id

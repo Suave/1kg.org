@@ -30,7 +30,7 @@ class Message < ActiveRecord::Base
   validates_presence_of :subject, :message => "请填写标题"
   validates_presence_of :content, :message => "请填写正文"
 
-  named_scope :undeleted, :conditions => {:deleted => false}
+  scope :undeleted, :conditions => {:deleted => false}
 
   def self.create_system_notification(recipients, title, msg)
     create!(:author_id => 0, :to => recipients, :title => title, :content => msg)

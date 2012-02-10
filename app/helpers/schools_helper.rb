@@ -31,16 +31,6 @@ module SchoolsHelper
     edit_school_path(school, :step => 'position')
   end
   
-  def render_school_main_photo(school)
-    html = ''
-    if school.main_photo
-      html += image_tag(school.main_photo.image.url(:max240x180))
-    else
-      html += image_tag(image_path('/images/default_school.jpg'), :width => "200")
-    end
-    html
-  end
-  
   def needs_check_box(form, tag, options, value)
     # 对多背一公斤显示文本框模式
     if current_user.id == 1

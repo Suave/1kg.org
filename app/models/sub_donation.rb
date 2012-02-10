@@ -11,9 +11,9 @@ class SubDonation < ActiveRecord::Base
                             :url=>"/system/sub_donations/:id/:style.:extension"
   validates_presence_of :co_donation_id, :user_id, :quantity
   
-  named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
+  scope :state_is, lambda { |state| {:conditions => {:state => state} }}
   
-  named_scope :recent,:limit => 8,:order => "created_at desc"
+  scope :recent,:limit => 8,:order => "created_at desc"
   
   def description
     "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"

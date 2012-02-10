@@ -5,7 +5,7 @@ class Team < ActiveRecord::Base
   has_many :activities
   has_many :topics, :as => "boardable"
 
-  has_many :followings,:as => "followable"
+  has_many :follows,:as => "followable"
   has_many :followers, :through => :followings
   
   has_attached_file :avatar, :styles => {:'64x64' => ["64x64#"],:'160x160' => ["160x160#"]},
@@ -20,8 +20,8 @@ class Team < ActiveRecord::Base
   validates_acceptance_of :agree_service_terms,:message => "需要同意申请协议才能申请"
   validates_length_of :name, :maximum => 12
   
-  named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
-  named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
+  scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
+  scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
   
   before_create :format_website_url
   after_create :set_relationship

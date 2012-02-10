@@ -6,7 +6,7 @@ class Box < ActiveRecord::Base
                             :default_style=> :'280x160'
   
   
-  named_scope :available,     :conditions => {:available => true}
+  scope :available,     :conditions => {:available => true}
   has_many :bringings, :dependent => :destroy 
   has_many :comments, :as => 'commentable', :dependent => :destroy
 end

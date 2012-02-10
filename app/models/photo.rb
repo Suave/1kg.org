@@ -14,9 +14,9 @@ class Photo < ActiveRecord::Base
   
   before_save :fill_title, :format_content
   
-  named_scope :with_activity, :conditions => {:photoable_type => 'Activity'}
-  named_scope :with_school, :conditions => {:photoable_type => 'School'}
-  named_scope :include, lambda {|includes| {:include => includes}}
+  scope :with_activity, :conditions => {:photoable_type => 'Activity'}
+  scope :with_school, :conditions => {:photoable_type => 'School'}
+  scope :include, lambda {|includes| {:include => includes}}
 
   validates_presence_of :user_id
   validates_presence_of :image_file_name

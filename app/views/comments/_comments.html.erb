@@ -1,33 +1,31 @@
-
-  <div id="topicCommentsList">
-        <h4>留言版</h4>
-        <% unless comments.empty? -%>
-        <ol>
-          <%page = params[:page].to_i==0 ? 0 :(params[:page].to_i - 1)%>
-          <% comments.each_with_index do |comment,index| -%>
-          <li>
-            <div class="avatar"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
-            <div class="content">
-              <p class="meta">
-                <%= "##{index+1+((page)*15)}" %>
-                <%= link_to comment.user.login, user_url(comment.user) %>写于 <%= comment.created_at.to_date %>
-                <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' if comment.repliable? %>
-                <% if logged_in? && comment.owned_by?(current_user) -%>
-                  | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
-                <% end -%>
-              </p>
-              <%= comment.body_html %>
-            </div>
-            <div style="clear:both;height:15px"></div>
-            <% if comment.repliable?  %>
-              <div class="reply" style="display:none">
-              <%= render :partial => "/comments/form", :locals => {:commentable => comment,:cancal => true} %>
-              </div>
-            <% end %>
-            <%= render :partial => "/comments/replys", :object => comment.comments.paginate(:page => 1, :per_page => 100) unless comment.comments.blank?%>
-          </li>
-          <% end -%>
-        </ol>
-        <%= customize_paginate comments%>
-        <% end %>
-  </div>
+<div id="topicCommentsList">
+  <h4>留言版</h4>
+  <% unless comments.empty? -%>
+    <ol>
+      <% comments.each_with_index do |comment,index| -%>
+      <li>
+      <div class="avatar item-left"><%= image_tag(comment.user.avatar.url,:alt => comment.user.login) %></div>
+      <div class="content item-right">
+        <p class="meta">
+        <%= "##{index+1+((params[:page]||1)*15)}" %>
+        <%= link_to comment.user.login, user_url(comment.user) %>写于 <%= comment.created_at.to_date %>
+        <%= link_to "回复", '#', :onclick => 'reply_comment(this); return false;' if comment.repliable? %>
+        <% if logged_in? && comment.owned_by?(current_user) -%>
+        | <%= link_to "编辑", edit_comment_path(comment) %> | <%= link_to "删除", comment_path(comment), :confirm => "确定删除么？", :method => :delete %>
+        <% end -%>
+        </p>
+        <%= comment.body_html %>
+      </div>
+      <div style="clear:both;height:15px"></div>
+      <% if comment.repliable?  %>
+      <div class="reply" style="display:none">
+        <%= render :partial => "/comments/form", :locals => {:commentable => comment,:cancal => true} %>
+      </div>
+      <% end %>
+      <%= render :partial => "/comments/replys", :object => comment.comments.paginate(:page => 1, :per_page => 100) unless comment.comments.blank?%>
+      </li>
+      <% end -%>
+    </ol>
+    <%= will_paginate comments%>
+  <% end %>
+</div>

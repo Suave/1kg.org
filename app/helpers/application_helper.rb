@@ -86,11 +86,6 @@ module ApplicationHelper
     activity.arrival_id==0 ? "不限" : activity.arrival.name
   end
   
-  def main_photo_thumb(school,style="")
-    img_url = school.main_photo.blank?  ? '/images/school_main_thumb.png' : school.main_photo.image.url
-    "<div class='school_list_photo'>"+ (link_to image_tag(img_url, :alt => school.title,:style => style ),school_url(school)).to_s + "</div>"
-  end
-  
   def topic_photo_thumb(activity)
     "<div class='oto_frame'>"+ (link_to image_tag(img_url, :alt => activity.title ),activity_url(activity)).to_s + "</div>"
   end
@@ -138,4 +133,13 @@ module ApplicationHelper
      }[state.to_sym]
      "<span style='color:#{state_attr[0]}'>#{state_attr[1]}</span>"
   end
+  
+  def follow_to(followable)
+    if logged_in? && current_user.is_following?(followable)
+      button_to("正在关注",follow_path(followable.follows.find_by_user_id(current_user.id)),:method => :delete,:class=>"selected")
+    else  
+      button_to("+ 关注","#{follows_path}?followable_type=#{followable.class}&followable_id=#{followable.id}",:method => :post)
+    end
+  end
+
 end

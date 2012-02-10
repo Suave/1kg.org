@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   
   validates_presence_of :user_id,:commentable_id,:commentable_type,:body
-  named_scope :available, :conditions => {:deleted_at => nil}
+  scope :available, :conditions => {:deleted_at => nil}
   
   
   acts_as_ownable

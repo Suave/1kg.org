@@ -1,37 +1,8 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                        :integer(4)      not null, primary key
-#  login                     :string(255)
-#  email                     :string(255)
-#  crypted_password          :string(40)
-#  salt                      :string(40)
-#  created_at                :datetime
-#  updated_at                :datetime
-#  remember_token            :string(255)
-#  remember_token_expires_at :datetime
-#  activation_code           :string(40)
-#  activated_at              :datetime
-#  state                     :string(255)     default("passive")
-#  deleted_at                :datetime
-#  avatar                    :string(255)
-#  geo_id                    :integer(4)
-#  guides_count              :integer(4)
-#  topics_count              :integer(4)
-#  topics_count              :integer(4)
-#  posts_count               :integer(4)
-#  ip                        :string(255)
-#  email_notify              :boolean(1)      default(TRUE)
-#
-
 require 'digest/sha1'
 class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
   cattr_accessor :current_user
-
-  
   
   validates_presence_of     :login, :message => "用户名不能为空"
   validates_presence_of     :email, :message => "邮件地址不能为空"
@@ -64,7 +35,6 @@ class User < ActiveRecord::Base
 
   has_one :profile, :dependent => :destroy 
   accepts_nested_attributes_for :profile 
-  
   has_many :managements, :dependent => :destroy
   has_many :comments, :dependent => :destroy 
   has_many :submitted_activities, :class_name => "Activity", 
@@ -116,7 +86,10 @@ class User < ActiveRecord::Base
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations, :dependent => :destroy
   
-  has_many :followings, :foreign_key => 'follower_id'
+  has_many :followings,     :class_name => "Follow",:foreign_key => :user_id
+  has_many :follows,        :as => :followable, :dependent => :destroy
+  has_many :followers,      :through => :follows, :source => :user
+ 
   
   before_save :encrypt_password
   

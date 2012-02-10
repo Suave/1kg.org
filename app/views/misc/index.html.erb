@@ -1,68 +1,19 @@
+<h2>多背一公斤是一种旅行方式。</h2>
+<h3>它以一种轻松快乐的方式，让旅行者在旅途中探访乡村学校，传递爱心和知识，同时为自己的旅程增添意义。</h3>
 <% content_for :sidebar do -%>
 
-<div class="box">
-  <h3>公告</h3>
-  <% @bulletins.each do |b| %>
-  <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
-  <% end %>
-  <p class="remark"><%= link_to raw("&raquo; 更早的"), bulletins_url %></p>
-</div>
-
-<div class="box">
-  <h3>公益团队</h3>
-  <%= render :partial => "/public/team", :collection => @teams %>
-  <p class="remark"><%= link_to raw("&raquo;  查看全部"), teams_url %></p>
-</div>
-
-<div id="records" class="box">
-  <div id="record_tabs">
-    <h3>用户动态</h3>
-    <ul class="tab">
-      <li class="tabs_more"><a href="#wannas">要去</a></li>
-      <li class="tabs_more"><a href="#visiteds">去过</a></li>
-    </ul>
-    <div class="clearfix" style="height:10px;clear:both"> </div>
-    <div id="wannas">
-      <%= render :partial => "/public/record", :collection => @wannas,:locals => {:school => nil} %>
-    </div>
-    <div id="visiteds">
-      <%= render :partial => "/public/record", :collection => @visits,:locals => {:school => nil} %>
-    </div>
-    <div class="cleanfix"></div>
-  </div>
-  <script type="text/javascript">
-    jQuery("#record_tabs").tabs()
-    </script>
+  <% unless logged_in? -%>
+  <div class="box">
+    <%= render :partial => "/public/login" %>
   </div>
   <% end -%>
 
   <div class="box">
-    <h3>热门活动 <span>还有<%= link_to "#{@activity_count}个活动",activities_path %>在进行</span></h3>
-    
-    <% @hot_activities.each do |activity|%>
-    <div class="item hot_activity">
-      <div class="border_frame">
-        <div class="hot_activity_image">
-          <%= link_to image_tag(activity.main_photo.image.url(:max240x180), :alt => activity.title,:style => "height:110px"),activity_url(activity) if activity.main_photo%>
-          <%= image_tag("activity_#{activity.category}.png", :alt => activity.title,:style => "height:110px")  unless activity.main_photo%>
-        </div>
-      </div>
-      <p><%= link_to short_title(activity,15), activity_path(activity)%></p>
-    </div>
-    <% end %> 
-  </div> 
-
-  <div class="box">
-    <h3>公益项目</h3>
-    <div class="contents">
-      <%= render :partial => '/public/project', :collection => @projects %>
-    </div>
-    <div class="remark"><%= link_to raw("&raquo; 查看全部公益项目 "),projects_url %></div>
+    <h3>公告</h3>
+    <% @bulletins.each do |b| %>
+    <p style="padding-bottom:4px;margin-bottom:6px;border-bottom:1px #d0d0d0 solid"><%= link_to b.title, bulletin_url(b) %></p>
+    <% end %>
+    <p class="remark"><%= link_to raw("&raquo; 更早的"), bulletins_url %></p>
   </div>
 
-  <div class="box">
-    <h3>最新推荐</h3>
-    <div class="contents">
-      <%= render :partial => "/public/vote", :collection => @voteds %>
-    </div>
-  </div>
+<% end %>

@@ -17,8 +17,8 @@ class Visited < ActiveRecord::Base
   belongs_to :school
   belongs_to :user
   
-  named_scope :latestvisit, :order => 'created_at DESC', :limit => 5,:conditions => "(status = 1)", :include => [:user, :school]
-  named_scope :latestwanna, :order => 'created_at DESC', :limit => 5,:conditions => ["visited_at > ?", Time.now - 1.day], :include => [:user, :school]
+  scope :latestvisit, :order => 'created_at DESC', :limit => 5,:conditions => "(status = 1)", :include => [:user, :school]
+  scope :latestwanna, :order => 'created_at DESC', :limit => 5,:conditions => ["visited_at > ?", Time.now - 1.day], :include => [:user, :school]
   
   
   

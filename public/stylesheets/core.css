@@ -150,8 +150,8 @@ caption {
 
 #main {
   vertical-align:top;
-  width:600px;
-  padding:20px 35px 20px 15px;
+  width:580px;
+  padding:20px 45px 20px 25px;
   }
 
 #sidebar {
@@ -304,16 +304,8 @@ body.schools form legend {
 
 .ad {margin-bottom:10px;}
  
-.border_frame {padding:2px;border:1px solid #ccc;float:left}
-.main_photo {display:block}
+.border-frame {padding:2px;border:1px solid #ccc;float:left}
  
-.surebutton {border:1px solid #666;padding:2px 8px;background:#888;color:#fff;font-size:14px;cursor:pointer;margin:0 4px}
-.surebutton:hover {background-color:#e98523;border-color:#b96500;color:#fff}
-.buttonjoin {background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;}
-.buttonjoin2 {background:url(/images/buttonbig.gif) no-repeat;
-color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-size:15px;background-position:0 -24px;}
-.buttonjoin:hover,.buttonjoin2:hover {background-position:0 -48px;color:#fff;}
 .checkbox_label {margin:0 10px 0 2px;}
 
 .actionbutton {background-color:#ff2600;font-size:18px;font-weight:bold;padding:4px 14px;border-radius:5px;color:white;border:1px solid #c10}
@@ -345,11 +337,11 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .activity-guide p {margin:6px 0; font-size:12px; color:#666}
 .activity-guide h4 {margin:6px 0; font-size:14px; color:#38761d}
 
-.onekg_box {width:280px;height:160px;padding:2px;border:1px #ccc solid;float:left;margin: 0 12px 20px 0;}
-.onekg_box_title {background:#222;padding:10px 0;width:280px;position:absolute;text-align:center;margin-top:118px}
+.onekg_box {width:290px;height:160px;}
+.onekg_box_title {background:#222;padding:10px 0;width:290px;position:absolute;text-align:center;margin-top:118px}
 .onekg_box_title a {color:#fff;font-size:15px;font-weight:bold}
 
-.project {width:280px;}
+.project {width:290px;}
 .project_image {width:72px;}
 .project_image_big {width:120px;}
 .project_status {padding:1px 4px;color:#fff;font-weight:bold}
@@ -357,10 +349,8 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 .project_info {margin-bottom:30px}
 .requirement {width:78px;height:136px;padding:3px;background:#f3f3f3;text-align:center;float:left;margin: 4px 4px 4px 0} 
 
-.activity {padding:5px;float:left;width:290px}
-.activity_list_photo {width:64px;height:64px;overflow:hidden;}
-.activity_main {width:160px}
-.activity_meta {float:left;margin-left:10px;width:200px;height:92px;overflow:hidden}
+.activity {width:290px}
+.activity_image {width:64px;height:64px;overflow:hidden;border:1px solid #ddd;padding:1px}
 
 .hot_activity_image {width:110px;height:110px;overflow:hidden}
 .hot_activity {text-align:center;width:145px;}
@@ -386,7 +376,7 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 
 .stopic {width:290px;margin-bottom:10px;border-bottom:1px #ccc solid;padding-bottom:4px}
   
-.photo {width:120px;height:140px;float:right;text-align:center}
+.photo {width:116px;text-align:center}
  
 .zone {width:210px;height:68px;float:left;-height:48px}
 .zone h6 {color:#999;margin-top:4px}
@@ -401,9 +391,9 @@ color:#fff;margin:0;padding:1px 9px 3px;*padding:4px 9px 2px;width:60px;font-siz
 #records .record {margin-right:10px;width:300px}
  
 .box {margin-bottom:20px;overflow:hidden;zoom:1}
-.item{float:left}
-.item-left {float:left}
-.item-right {overflow:hidden;zoom:1;}
+.item{float:left;margin-bottom:10px;}
+.item-left {float:left;margin-right:8px}
+.item-right {overflow:hidden;zoom:1;margin-right:8px}
  
 #admins {padding:0 5px;line-height:24px;font-size:14px;color:#444;margin-bottom:10px;background-color:#f0f0f0}
 #search_box {position: absolute;

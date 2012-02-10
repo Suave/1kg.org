@@ -32,7 +32,6 @@ ActiveRecord::Schema.define() do
     t.text     "description_html"
     t.integer  "comments_count",   :default => 0
     t.integer  "participations_count", :default => 0
-    t.integer  "shares_count", :default => 0
     t.integer  "old_id"
     t.integer  "main_photo_id"
     t.string   "image_file_name"
@@ -391,12 +390,6 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
   end
 
-  create_table "school_snapshots", :force => true do |t|
-    t.integer "school_id"
-    t.integer "karma"
-    t.date    "created_on"
-  end
-
   create_table "school_traffics", :force => true do |t|
     t.integer "school_id"
     t.string  "sight"
@@ -419,7 +412,6 @@ ActiveRecord::Schema.define() do
   
   create_table "schools", :force => true do |t|
     t.integer  "user_id"
-    t.string   "ref"
     t.boolean  "validated",           :default => false
     t.boolean  "meta",                :default => false
     t.datetime "created_at"
@@ -438,15 +430,9 @@ ActiveRecord::Schema.define() do
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
     t.integer  "last_month_karma",    :default => 0
+    t.string   "image_file_name"
   end
 
-  create_table "static_permissions", :force => true do |t|
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "identifier",  :limit => 100, :null => false
-    t.string   "description"
-  end
-  
   create_table "executions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
@@ -536,31 +522,6 @@ ActiveRecord::Schema.define() do
     t.boolean  "sticky",                             :default => false
   end
 
-  create_table "shares", :force => true do |t|
-    t.string   "title",                                       :null => false
-    t.text     "clean_html"
-    t.integer  "geo_id"
-    t.integer  "activity_id"
-    t.integer  "school_id"
-    t.integer  "requirement_id"
-    t.integer  "execution_id"
-    t.integer  "boardable_id"
-    t.string   "boardable_type",                     :limit => 20
-    t.integer  "user_id",                                     :null => false
-    t.integer  "hits",                     :default => 0,     :null => false
-    t.integer  "comments_count",           :default => 0,     :null => false
-    t.boolean  "hidden",                   :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-    t.datetime "last_replied_at"
-    t.integer  "last_replied_by_id"
-    t.datetime "deleted_at"    
-  end
-
-
-
   create_table "users", :force => true do |t|
     t.string   "login"
     t.string   "email"
@@ -581,7 +542,6 @@ ActiveRecord::Schema.define() do
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
     t.integer  "topics_count"
-    t.integer  "shares_count"
     t.integer  "guides_count"
   end
 
@@ -620,9 +580,8 @@ ActiveRecord::Schema.define() do
   end
   
   create_table :followings do |t|
-    t.integer :follower_id
+    t.integer :user_id
     t.integer :followable_id
     t.string  :followable_type
   end
-  
 end

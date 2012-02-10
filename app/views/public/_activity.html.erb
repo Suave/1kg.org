@@ -1,23 +1,23 @@
-<div class="activity">
-  <div class='border_frame'>
-    <%= link_to image_tag(activity.main_photo_url, :alt => activity.title ,:class => 'main_photo'),activity_path(activity) %>
+<div class="activity item">
+  <div class='item-left'>
+    <%= link_to image_tag(activity.main_photo_url, :alt => activity.title ,:class => 'activity_image'),activity_path(activity) %>
   </div>
-  <div class="activity_meta">
-  <h6><%= link_to short_title(activity), activity_path(activity)%></h6>
-  <span class="gary_span"><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>
-  <%if activity.end_at < Time.now%>
+  <div class="item-right">
+    <h6><%= link_to short_title(activity,15), activity_path(activity)%></h6>
+    <span class="gary_span"><%= "#{activity.start_at.to_date} 至 #{activity.end_at.to_date}" %></span><br/>
+    <%if activity.end_at < Time.now%>
     <span class="gary_span"><%= activity.participations.count %> 人参加　 <%= activity.comments_count %> 条留言</span><br/>
     <span class="gary_span"><%= activity.topics.count%> 篇帖子</span>　 
     <span class="gary_span"><%= activity.photos.count%> 张图片</span>
-  <% else%>
+    <% else%>
     <% if [0,1,2,3].include?(activity.category) %>
-      <span class="gary_span"><%= activity.departure_id==0 ? "不限" : activity.departure.name %> => <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
+    <span class="gary_span"><%= activity.departure_id==0 ? "不限" : activity.departure.name %> => <%= activity.arrival_id==0 ? "不限" : activity.arrival.name %></span><br/>
     <% elsif activity.category == 4%>
-      <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
+    <span class="gary_span">所在城市: <%= activity.departure_id==0 ? "不限" : activity.departure.name %></span><br/>
     <% else %>
-      <span class="gary_span">网络活动</span><br/>
+    <span class="gary_span">网络活动</span><br/>
     <%end%>
     <span class="gary_span"><%= activity.participations.size %> 人参加　 <%= activity.comments_count %> 条留言</span>
-  <%end%>
+    <%end%>
   </div>
 </div>

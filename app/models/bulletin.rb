@@ -22,5 +22,5 @@ class Bulletin < ActiveRecord::Base
   
   attr_accessible :title, :body, :redirect_url, :tag_list, :user_id
   
-  named_scope :recent, :limit => 5, :order => 'id DESC'
+  scope :recent, :limit => 5, :order => 'id DESC'
 end

@@ -13,10 +13,10 @@ class CoDonation < ActiveRecord::Base
   validates_presence_of :school_id, :goods_name, :goal_number, :end_at,:description, :plan, :address, :receiver, :zipcode, :phone_number,:goods_requirements,:message=> "此项是必填项"
   validates_acceptance_of :agree_feedback_terms,:message => "只有承诺按要求管理和反馈，才能发起团捐"
   
-  named_scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
-  named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
-  named_scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"
-  named_scope :over, :conditions => ["end_at < ?",Date.today], :order => "created_at desc"  
+  scope :validated, :conditions => {:validated => true}, :order => "created_at desc"
+  scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
+  scope :ongoing, :conditions => ["end_at > ?",1.day.ago], :order => "created_at desc"
+  scope :over, :conditions => ["end_at < ?",Date.today], :order => "created_at desc"  
   
   
   def self.total_beneficiary

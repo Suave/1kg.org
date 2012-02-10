@@ -7,8 +7,6 @@
 
 <% @page_title = @title = "#{@user.login}的个人空间" -%>
 
-
-
 <% content_for :sidebar do -%>
   <% if logged_in? -%>
       <div id="admins"><%= "你是管理员，" if current_user.admin? -%>

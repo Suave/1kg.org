@@ -12,7 +12,6 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Onekg
   class Application < Rails::Application
-    Time::DATE_FORMATS.merge!(:default => "%Y/%m/%d %I:%M %p", :ymd => "%Y/%m/%d")
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -36,15 +35,22 @@ module Onekg
     # config.i18n.default_locale = :de
 
     # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
+    config.filter_parameters += [:password]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir["#{config.root}/lib/autoload/"]
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.migration false
+      g.test_framework :rspec
+      g.options[:active_record][:migration] = false
+    end
   end
 end

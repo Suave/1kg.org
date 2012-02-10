@@ -36,7 +36,7 @@ class Donation < ActiveRecord::Base
   
   before_save :format_content
   
-  named_scope :matched, :conditions => 'matched_at is NOT NULL'
+  scope :matched, :conditions => 'matched_at is NOT NULL'
   #validates_uniqueness_of :code, :message => "密码不能重复"
   
   def matched?

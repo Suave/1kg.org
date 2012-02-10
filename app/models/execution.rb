@@ -19,10 +19,10 @@ class Execution < ActiveRecord::Base
   validates_presence_of :plan,:message => "必须填写实施计划"
   validates_presence_of :telephone,:message => "请留下您的电话或手机号码"
 
-  named_scope :state_is, lambda { |state| {:conditions => {:state => state} }}
-  named_scope :with_box,  :conditions => ["bringings_count > ?",0],:include => [:bringings],:order => 'created_at desc'
-  named_scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings],:order => 'created_at desc'
-  named_scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
+  scope :state_is, lambda { |state| {:conditions => {:state => state} }}
+  scope :with_box,  :conditions => ["bringings_count > ?",0],:include => [:bringings],:order => 'created_at desc'
+  scope :validated_with_box,  :conditions => ["bringings_count > ? and state in (?)",0,['validated','going','finished']],:include => [:bringings],:order => 'created_at desc'
+  scope :validated, :conditions => ["state in (?)",["validated","going","finished"]]
   
   def name
     "#{self.community.title}的项目申请"

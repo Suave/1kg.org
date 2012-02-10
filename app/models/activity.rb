@@ -1,33 +1,3 @@
-# == Schema Information
-#
-# Table name: activities
-#
-#  id               :integer(4)      not null, primary key
-#  user_id          :integer(4)      not null
-#  school_id        :integer(4)
-#  done             :boolean(1)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  deleted_at       :datetime
-#  ref              :string(255)
-#  category         :integer(4)      not null
-#  title            :string(255)     not null
-#  location         :string(255)     not null
-#  departure_id     :integer(4)      not null
-#  arrival_id       :integer(4)      not null
-#  start_at         :datetime
-#  end_at           :datetime
-#  register_over_at :datetime
-#  expense_per_head :string(255)
-#  expect_strength  :string(255)
-#  description_html :text
-#  comments_count   :integer(4)      default(0)
-#  topics_count      :integer(4)      default(0)
-#  old_id           :integer(4)
-#  sticky           :boolean(1)
-#  clean_html       :text
-#  main_photo_id            :integer(4)
-
 class Activity < ActiveRecord::Base
   
   belongs_to :user
@@ -38,34 +8,25 @@ class Activity < ActiveRecord::Base
   
   has_many :participations, :dependent => :destroy
   has_many :participators,  :through => :participations, :source => :user
-  
   has_many :comments, :as => 'commentable', :dependent => :destroy
-  has_many :topics,                         :dependent => :destroy
-
-  has_many :topics, :as => 'boardable', :order => "sticky desc,id desc", :dependent => :destroy
-  has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
+  has_many :topics, :as => 'boardable', :dependent => :destroy
+  has_many :photos, :as => 'photoable', :dependent => :destroy
   belongs_to :main_photo, :class_name => 'Photo'
   
   acts_as_taggable
   acts_as_manageable
   acts_as_ownable
   
-  named_scope :available, :conditions => "deleted_at is null" #, :order => "sticky desc, start_at desc, created_at desc"
-  named_scope :ongoing,  :conditions => ["end_at > ?", Time.now - 1.day]
-  named_scope :over,     :conditions => ["end_at < ?", Time.now - 1.day]
-  named_scope :by_team, :conditions => {:by_team => true}, :order => "created_at desc"
-  
-  named_scope :for_the_city, lambda { |city|
-    geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["arrival_id = ? or departure_id = ?", geo_id, geo_id] }
-  }
-    
-  named_scope :at, lambda { |city|
-    geo_id = (city.class == Geo) ? city.id : city
-    {:conditions => ["(departure_id=? or arrival_id=? or departure_id=0 or arrival_id=0)", geo_id, geo_id]}
-  }
-  
-  named_scope :by_category, lambda { |category| 
+  has_attached_file :image, :styles => {:'120x120' => ["120x120#"],:'64x64' => ["64x64#"]},
+                            :url=>"/media/activities/:id/:attachment/:style.:extension",
+                            :default_style=> :'64x64'
+
+  scope :ongoing,  where(["end_at > ?", Time.now - 1.day])
+  scope :over,     where(["end_at < ?", Time.now - 1.day])
+  scope :by_team,  where(:by_team => true)
+  scope :hot,      where(["main_photo_id is not null and created_at > ?",1.months.ago]).limit(4).order("participations_count desc")
+  scope :recent,   where(['created_at > ?',1.month.ago])
+  scope :by_category, lambda { |category| 
     {:conditions => ["category=?", category]}
   }
 
@@ -106,11 +67,7 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-    
   end
-  
-  
-  
   
   before_save :format_content
   
@@ -118,18 +75,8 @@ class Activity < ActiveRecord::Base
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end
   
-  def self.recent_by_category(category)
-    available.ongoing.find :all,:order => "created_at desc", :limit => 8,:conditions => ["category=?",categories.index(category)], :include => [:main_photo,:departure, :arrival]
-  end
-  
-  
   def category_name
     self.class.categories[category]
-  end
-  
-  def sticky_by?(user)
-    return false unless user.class == User
-    return true if user.admin?
   end
   
   def joined?(user)
@@ -143,9 +90,7 @@ class Activity < ActiveRecord::Base
   
   def self.archives
     date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
-    
     counts = Activity.find_by_sql(["select count(*) as count, #{date_func} from activities where created_at < ? and deleted_at IS NULL group by year,month order by year asc,month asc",Time.now])
-    
     sum = 0
     result = counts.map do |entry|
       sum += entry.count.to_i
