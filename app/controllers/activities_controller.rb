@@ -150,10 +150,6 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "你已经参加这个活动了, 不用重复点击"
     else
       @activity.participators << current_user
-      
-      # 生成动态
-      current_user.feed_items.create(:user_id => current_user.id, :category => 'join_activity',
-                  :item_id => @activity.id, :item_type => 'Activity')
     end
     redirect_to activity_url(@activity)
   end
@@ -161,8 +157,6 @@ class ActivitiesController < ApplicationController
   def quit
     if @activity.joined?(current_user)
       @activity.participators.delete current_user
-      current_user.feed_items.create(:user_id => current_user.id, :category => 'quit_activity',
-                  :item_id => @activity.id, :item_type => 'Activity')
     else
       flash[:notice] = "你没有参加过这个活动"
     end
