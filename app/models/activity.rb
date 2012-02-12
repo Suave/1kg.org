@@ -163,7 +163,7 @@ class Activity < ActiveRecord::Base
     result = counts.map do |entry|
       sum += entry.count.to_i
       {
-        :name => entry.year + "年" + entry.month + "月",
+        :name => "#{entry.year}年#{entry.month}月",
         :month => entry.month.to_i,
         :year => entry.year.to_i,
         :delta => entry.count,

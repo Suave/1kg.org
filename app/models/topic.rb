@@ -76,6 +76,25 @@ class Topic < ActiveRecord::Base
     self.votes[0..2].map(&:user)
   end
   
+  def self.archives(valid = true)
+    date_func = "extract(year from created_at) as year,extract(month from created_at) as month"
+    condition_time = valid ? "validated_at" : "created_at"
+    counts = School.find_by_sql(["select count(*) as count, #{date_func} from schools where validated = ? and deleted_at is null and #{condition_time} < ? group by year,month order by year asc,month asc limit ? ", valid, Time.now,count.to_i])
+    
+    sum = 0
+    result = counts.map do |entry|
+      sum += entry.count.to_i
+      {
+        :name => "#{entry.year}年#{entry.month}月",
+        :month => entry.month.to_i,
+        :year => entry.year.to_i,
+        :delta => entry.count,
+        :sum => sum
+      }
+    end
+    return result.reverse
+  end
+ 
  private
   
   def set_last_reply
