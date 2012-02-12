@@ -209,8 +209,8 @@ class User < ActiveRecord::Base
     is_admin
   end
   
-  def school_moderator?
-    !self.roles.find_by_identifier("roles.schools.moderator").nil?
+  def is_school_manager?
+    self.managements.find(:first,:conditions => {:manageable_type => "School"}).present?
   end
   
   def self.recent_citizens
