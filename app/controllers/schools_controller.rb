@@ -197,7 +197,7 @@ class SchoolsController < ApplicationController
       html = "<br/><br/><br/>
               <span>申请的学校是#{@school.title}(http://www.1kg.org/schools/#{@school.id})</span><br/>
               <span>现有的学校大使是: #{moderators}</span><br/>
-              <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/manager )添加这个用户</span>"
+              <span>如果你同意这份申请，请到添加大使页面( http://www.1kg.org/schools/#{@school.id}/managerss )添加这个用户</span>"
       @message.content += html
       @message.recipients = (@school.managers + User.admins).uniq
       if @message.save
@@ -459,7 +459,7 @@ class SchoolsController < ApplicationController
   end
   
   def check_permission
-    if @school.managed_by?(current_user)
+    if @school.managed_by?(current_user) or current_user.admin?
     else
       flash[:notice] = "为了保证学校信息真实准确，只有学校大使才能修改学校信息，成为学校大使很简单，=> <a href='#{apply_school_url(@school)}'>点击这里</a>"
       redirect_to school_url(@school)

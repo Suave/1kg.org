@@ -48,8 +48,6 @@ class Requirement < ActiveRecord::Base
   scope :for_public_donations, :conditions => ["for_team = ? and hidden = ?", false, false]
   scope :for_team_donations,   :conditions => ["for_team = ? and hidden = ?", true, false]  
   
-
-  
   def matched_percent
     (matched_count.to_f*100/quantity).to_i
   end
@@ -62,4 +60,5 @@ class Requirement < ActiveRecord::Base
     matched_percent.to_s + "%"
   end
   
+  private
 end

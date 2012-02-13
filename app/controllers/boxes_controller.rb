@@ -60,6 +60,7 @@ class BoxesController < ApplicationController
     @photos = @execution.photos
     @topics = @execution.topics
     @comments = @execution.comments.paginate :page => params[:page] || 1, :per_page => 20
+    @comment = Comment.new
     render 'execution'
   end
 

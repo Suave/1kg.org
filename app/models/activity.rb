@@ -1,5 +1,4 @@
 class Activity < ActiveRecord::Base
-  
   belongs_to :user
   belongs_to :school
   belongs_to :departure, :class_name => "Geo", :foreign_key => "departure_id"
@@ -71,6 +70,21 @@ class Activity < ActiveRecord::Base
   
   before_save :format_content
   
+  define_index do
+    # fields
+    indexes title
+    indexes location
+    indexes clean_html, :as => :description
+    indexes departure.name, :as => :start
+    indexes arrival.name, :as => :destination
+    indexes user.login, :as => :organizer
+    
+    has :category
+    has :end_at
+    has :done, :as => :over
+    has :start_at
+  end
+  
   def self.categories
     %w(公益旅游 物资募捐 支教 其他 同城活动 网上活动)
   end
@@ -95,7 +109,7 @@ class Activity < ActiveRecord::Base
     result = counts.map do |entry|
       sum += entry.count.to_i
       {
-        :name => entry.year + "年" + entry.month + "月",
+        :name => "#{entry.year}年#{entry.month}月",
         :month => entry.month.to_i,
         :year => entry.year.to_i,
         :delta => entry.count,

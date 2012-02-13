@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: visiteds
-#
-#  id         :integer(4)      not null, primary key
-#  school_id  :integer(4)
-#  user_id    :integer(4)
-#  visited_at :datetime
-#  status     :integer(1)
-#  created_at :datetime
-#  deleted_at :datetime
-#  notes      :string(20)
-#  wanna_at   :datetime
-#
 
 class Visited < ActiveRecord::Base
   belongs_to :school
@@ -19,10 +5,6 @@ class Visited < ActiveRecord::Base
   
   scope :latestvisit, :order => 'created_at DESC', :limit => 5,:conditions => "(status = 1)", :include => [:user, :school]
   scope :latestwanna, :order => 'created_at DESC', :limit => 5,:conditions => ["visited_at > ?", Time.now - 1.day], :include => [:user, :school]
-  
-  
-  
-
   
   def validate
     if status == 1 && (visited_at.blank? or visited_at > Time.now.to_date)
@@ -50,7 +32,7 @@ class Visited < ActiveRecord::Base
     result = counts.map do |entry|
       sum += entry.count.to_i
       {
-        :name => entry.year + "年" + entry.month + "月",
+        :name => "#{entry.year}年#{entry.month}月",
         :month => entry.month.to_i,
         :year => entry.year.to_i,
         :delta => entry.count,
@@ -61,5 +43,4 @@ class Visited < ActiveRecord::Base
   end
   
   private
- 
 end

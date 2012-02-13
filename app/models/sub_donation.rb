@@ -19,9 +19,6 @@ class SubDonation < ActiveRecord::Base
     "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"
   end
 
-  
-
-  
   def validate
       if quantity.nil? || !(quantity > 0)
         errors.add(:quantity,"数量填写不正确")
@@ -60,5 +57,4 @@ class SubDonation < ActiveRecord::Base
       transition [:received,:refused,:missed] => :proved
     end
   end
-  
 end

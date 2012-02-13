@@ -14,7 +14,7 @@
 
 <div style="margin-bottom:10px;"><%= image_tag "/images/co_donations.png"%></div>
 
-<% if logged_in? && current_user.envoy?%><div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div><%end%>
+<% if logged_in? && current_user.is_school_manager?%><div style="float:right;position:relative;top:2px"><%= link_to "发起团捐", new_co_donation_url,:class => "buttonjoin" %></div><%end%>
 
 <h3>进行中的团捐：</h3>
 <div class="clearfix" style="clear:both;height:10px"></div>

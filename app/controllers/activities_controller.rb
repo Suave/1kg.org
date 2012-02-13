@@ -150,7 +150,6 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "你已经参加这个活动了, 不用重复点击"
     else
       @activity.participators << current_user
-      
     end
     redirect_to activity_url(@activity)
   end
