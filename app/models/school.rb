@@ -70,7 +70,6 @@ class School < ActiveRecord::Base
   
   has_many :follows, :as => "followable"
   has_many :followers, :through => :follows
-  has_many :feed_items, :as => "owner"
 
   delegate :address, :zipcode, :master, :telephone, :level_amount, :teacher_amount, :student_amount, :class_amount,:intro, :to => :basic
 
@@ -147,7 +146,6 @@ class School < ActiveRecord::Base
   validates_presence_of :title, :message => ""
   validates_presence_of :user_id
   
-  after_create :create_feed
   
   # 用于导入博客学校
   class << self
@@ -293,7 +291,4 @@ class School < ActiveRecord::Base
     end
   end
   
-  def create_feed
-    self.user.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}提交了一所新学校：#{self.title}), :user_id => self.user.id, :category => 'create_school', :item_id => self.id, :item_type => 'School')
-  end
 end

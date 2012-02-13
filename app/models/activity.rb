@@ -110,7 +110,6 @@ class Activity < ActiveRecord::Base
   acts_as_paranoid
   
   before_save :format_content
-  after_create :create_feed
   
   define_index do
     # fields
@@ -180,10 +179,5 @@ class Activity < ActiveRecord::Base
   private
   def format_content
       self.clean_html = sanitize(self.clean_html)
-  end
-  
-  def create_feed
-    self.school.feed_items.create(:content => %(#{self.user.login} 在#{self.created_at.to_date}为#{self.school.title}发起了一个新活动：#{self.title}), :user_id => self.user.id, :category => 'activity',
-                :item_id => self.id, :item_type => 'Activity') if self.school
   end
 end

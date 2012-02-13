@@ -19,9 +19,6 @@ class SubDonation < ActiveRecord::Base
     "认捐了#{quantity}件#{self.co_donation.goods_name}给#{self.co_donation.school.title}"
   end
 
-  
-  after_create :create_feed
-  
   def validate
       if quantity.nil? || !(quantity > 0)
         errors.add(:quantity,"数量填写不正确")
@@ -59,12 +56,5 @@ class SubDonation < ActiveRecord::Base
     event :wait do  
       transition [:received,:refused,:missed] => :proved
     end
-  end
-  
-  
-  private
-  def create_feed
-    self.co_donation.school.feed_items.create(:user_id => self.user_id, :category => 'sub_donation',
-                :item_id => self.id, :item_type => 'SubDonation') if self.co_donation && self.co_donation.school
   end
 end

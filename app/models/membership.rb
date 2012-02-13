@@ -13,11 +13,5 @@ class Membership < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   
-  #after_create :create_feed
-  
   private
-  def create_feed
-    self.user.feed_items.create(:user_id => self.user.id, :category => 'join_group',
-    :item_id => self.group_id, :item_type => 'Group') if self.user
-  end
 end

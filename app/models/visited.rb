@@ -22,8 +22,6 @@ class Visited < ActiveRecord::Base
   
   acts_as_paranoid
   
-  after_create :create_feed
-  
   def validate
     if status == 1 && (visited_at.blank? or visited_at > Time.now.to_date)
       errors.add('日期错误')
@@ -61,8 +59,4 @@ class Visited < ActiveRecord::Base
   end
   
   private
-  def create_feed
-    self.school.feed_items.create(:user_id => self.user.id, :category => 'visit',
-                :item_id => self.id, :item_type => 'Visited') if self.school
-  end
 end

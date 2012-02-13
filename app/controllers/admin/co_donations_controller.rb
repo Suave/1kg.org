@@ -14,10 +14,6 @@ class Admin::CoDonationsController < Admin::BaseController
     message.author_id = 0
     message.to = [@co_donation.user]
     message.save!
-    
-    @co_donation.school.feed_items.create(:user_id => @co_donation.user_id, :category => 'create_codonation',
-                :item_id => @co_donation.id, :item_type => 'CoDonation')
-
     redirect_to admin_co_donations_path()
   end
 
