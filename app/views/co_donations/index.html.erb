@@ -6,7 +6,7 @@
   <script type="text/javascript" charset="utf-8">
     jQuery(document).ready(function(){
     jQuery("a[rel^='prettyPhoto']").prettyPhoto();
-    });
+    [});
   </script>
 <%end%>
 
@@ -22,10 +22,21 @@
 <div class="clearfix" style="clear:both;height:10px"></div>
   <div style="width:640px">
   <%= render :partial => "/public/co_donation", :collection => @co_donations ,:locals => {:detail => true}%>
+    <% if @co_donations.empty? %>
+      目前还没有新的团捐在进行
+    <%end%>
   <div class="clearfix" style="clear:both;height:10px"></div>
   <%= customize_paginate @co_donations %>
-  <div class="remark"><%= link_to "&raquo; 已结束的团捐项目 ",over_co_donations_url %></div>
 </div>
+
+<h3>已结束的团捐：</h3>
+<div class="clearfix" style="clear:both;height:10px"></div>
+  <div style="width:640px">
+  <%= render :partial => "/public/co_donation", :collection => @over_co_donations ,:locals => {:detail => true}%>
+  <div class="clearfix" style="clear:both;height:10px"></div>
+  <div class="remark"><%= link_to "&raquo; 查看更多  ",over_co_donations_url %></div>
+</div>
+
 
 <div class="clearfix" style="clear:both;height:20px"></div>
 <% unless @group.nil?%>

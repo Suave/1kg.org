@@ -85,16 +85,17 @@
 
 <div class="cleanfix" style="height:20px"></div>
   <div class="newbox">
-   <h3>物资团捐</h3>
-    <div class="cleanfix" style="height:20px"></div>
+   <h3><%= link_to "物资团捐",co_donations_url %></h3>
+    <div class="cleanfix" style="height:10px"></div>
     <%= render :partial => "/public/co_donation", :collection => @co_donations %>
-    <div class="remark"><%= link_to "&raquo; 查看全部物资团捐 ",co_donations_path %></div>
+    <% if @co_donations.empty? %>
+      目前还没有新的团捐在进行,<%= link_to "查看更早的",co_donations_url %>
+    <%end%>
     <div  style="clear:both"></div>
   </div>
 
 <div class="newbox">
  <h3>最新推荐</h3>
-  
   <div class="contents">
     <%= render :partial => "/public/vote", :collection => @voteds %>
   </div>

@@ -9,6 +9,7 @@ class CoDonationsController < ApplicationController
   def index
     @co_donations = CoDonation.validated.ongoing.paginate(:page => params[:page] || 1,:order => "validated_at desc",
                                                                   :per_page => 6)
+    @over_co_donations = CoDonation.validated.over.find(:all,:limit => 4)
     @sub_donations = logged_in? ? current_user.sub_donations : nil
     @group = Group.find_by_slug('co_donation')
     @recent = SubDonation.recent
