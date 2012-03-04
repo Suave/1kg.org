@@ -204,6 +204,10 @@ class User < ActiveRecord::Base
   def managed(manageable_type)
     self.managements.find(:all,:conditions => {:manageable_type => manageable_type}).map(&:manageable)
   end
+
+  def related_schools
+    (self.followed_schools + self.managed('School') + self.visited_schools).uniq
+  end
   
   def admin?
     is_admin

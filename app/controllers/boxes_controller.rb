@@ -15,7 +15,7 @@ class BoxesController < ApplicationController
     @execution = Execution.new
     @boxes = Box.available
     @bringings = @execution.bringings.build
-    @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
+    @schools = current_user.related_schools
   end
 
   def submit

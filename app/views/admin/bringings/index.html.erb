@@ -19,9 +19,10 @@
         <th style="width:70px">申请时间</th>
         <th style="width:80px">申请人</th>
         <th style="width:110px">学校</th>
-        <th style="width:80px">盒子</th>
+        <th style="width:50px">盒子</th>
         <th style="width:50px">状态</th>
-        <th style="width:70px">使用时间</th>
+        <th style="width:60px">使用时间</th>
+        <th style="width:50px">反馈数</th>
         <th style="width:50px">展开</th>
       </tr>
       <% @executions.each_with_index do |execution,n| %>
@@ -32,6 +33,7 @@
         <td><%= execution.bringings_count %>种</td>
         <td><%= state_tag(execution.state) %></td>
         <td><%= "#{execution.start_at.year}年#{execution.start_at.month}月"%></td>
+        <td><%= execution.topics_count %></td>
         <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
       </tr>
        <tr>

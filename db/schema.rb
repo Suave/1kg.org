@@ -182,6 +182,7 @@ ActiveRecord::Schema.define() do
     t.integer  "user_id",    :null => false
     t.integer  "geo_id",     :null => false
     t.string   "title",      :null => false
+    t.integer  "topics_count",        :default => 0
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -283,6 +284,7 @@ ActiveRecord::Schema.define() do
     t.text     "description_html"
     t.string   "slug"
     t.datetime "deleted_at"
+    t.integer  "topics_count",     :default => 0
   end
 
   create_table "managements", :force => true do |t|
@@ -438,6 +440,7 @@ ActiveRecord::Schema.define() do
     t.integer  "hits",                :default => 0
     t.integer  "karma",               :default => 0
     t.integer  "last_month_karma",    :default => 0
+    t.integer  "topics_count",        :default => 0
   end
 
   create_table "static_permissions", :force => true do |t|
@@ -556,6 +559,7 @@ ActiveRecord::Schema.define() do
     t.datetime "last_modified_at"
     t.integer  "comments_count",   :default => 0
     t.integer  "bringings_count",  :default => 0
+    t.integer  "topics_count",     :default => 0
   end
   
   
@@ -618,31 +622,6 @@ ActiveRecord::Schema.define() do
     t.integer  "share_id"
     t.boolean  "sticky",                             :default => false
   end
-
-  create_table "shares", :force => true do |t|
-    t.string   "title",                                       :null => false
-    t.text     "clean_html"
-    t.integer  "geo_id"
-    t.integer  "activity_id"
-    t.integer  "school_id"
-    t.integer  "requirement_id"
-    t.integer  "execution_id"
-    t.integer  "boardable_id"
-    t.string   "boardable_type",                     :limit => 20
-    t.integer  "user_id",                                     :null => false
-    t.integer  "hits",                     :default => 0,     :null => false
-    t.integer  "comments_count",           :default => 0,     :null => false
-    t.boolean  "hidden",                   :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "last_modified_at"
-    t.integer  "last_modified_by_id"
-    t.datetime "last_replied_at"
-    t.integer  "last_replied_by_id"
-    t.datetime "deleted_at"    
-  end
-
-
 
   create_table "users", :force => true do |t|
     t.string   "login"

@@ -1,4 +1,3 @@
-
 class Topic < ActiveRecord::Base
   include BodyFormat
   
@@ -30,7 +29,6 @@ class Topic < ActiveRecord::Base
 
   before_save :format_content
   #before_create :set_last_reply
-  #after_create :create_feed
   
   define_index do
     # fields
@@ -106,7 +104,4 @@ class Topic < ActiveRecord::Base
     self.clean_html = sanitize(clean_html)
   end
   
-  def create_feed
-  
-  end
 end
