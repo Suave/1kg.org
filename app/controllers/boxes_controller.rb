@@ -48,7 +48,7 @@ class BoxesController < ApplicationController
 
   def topics
     @executions = Execution.validated_with_box
-    @topics = @executions.map(&:topics).flatten.paginate :page => params[:page] || 1, :per_page => 20
+    @topics = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc').paginate :page => params[:page] || 1, :per_page => 20
   end
 
   def photos
