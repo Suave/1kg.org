@@ -1,24 +1,91 @@
-
 <% content_for :sidebar do -%>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
 <% end -%>
 
 <% form_for @execution,:url => submit_boxes_path do |form| -%>
                                                     
-  <% editing = @controller.action_name == "edit" %>
-  <div class="newbox">
-     <h3>一 确认申请盒子的反馈要求</h3>
-      <div class="contents" style="padding-left:10px">
+  <% editing = (@controller.action_name == "edit") %>
+  <div class="newbox" id="requirement">
+    <h3>申请盒子前请阅读申请要求</h3>
+    <h5>一 基本申请要求</h5>
+    <pre>
+    1.1 在<a href="http://www.1kg.org/schools">www.1kg.org/schools</a>完善将使用盒子的学校（包括幼儿园、社区中心等活动单位）信息，    
+          必须包含： 
+         1.1.1. 学校照片
+         1.1.2 .学校简介
+         1.1.3. 上次学校信息更新必须在两年内
+     1.2 如实完成盒子申请表上所有必填信息。
+     1.3 在收到盒子两个月内开始使用。
+     1.4 必须同意使用反馈要求，包括签收单、使用照片及文字记录。细节请看第5项。
+     1.5 申请可以以合作机构或个人身份，请看第3和第4项。 
+    </pre>
 
-        <p>1．每次活动用新浪微博与大家分享照片与信息 @一公斤盒子 #一公斤盒子#</p>
-        <p>2．在使用完一个盒子后，在你申请的一公斤盒子页面提交“项目反馈”，包括活动照片，文字记录和盒子内“一公斤盒子使用反馈表”的照片。</p>
-        
-        <p><%= form.check_box :agree_feedback_terms %> 我承诺按照以上要求进行管理和反馈 <span class="require">*</span> <%= error_message_on @execution, :agree_feedback_terms %></p>
-      </div>
+    <h5>二 合作机构申请</h5>
+    <pre>
+     3.1 合作机构的定义是与“一公斤盒子项目”签订“合作协议”的NGO、学校、幼儿园等机构。
+     3.2 合作机构最多同时提交4份申请，每份申请最不超过20个盒子。
+     3.3 合作机构可以申请盒子做为培训用途，但最多不超过每年每种盒子一个。
+     3.4 具体合作方式按“合作协议”细节。
+    </pre>
+
+    <h5>三 个人申请</h5>
+    <pre>
+     4.1 非合作机构代表的申请人均为个人申请身份。
+     4.2 第一次个人申请盒子数量不超过4个。
+     4.3 在提交第一次有效签收单和使用反馈后，个人申请人最多同时可以提交2份申请，每份申请不超      
+          过8个盒子。
+     4.4 如在盒子寄出两个月内不提交有效签收单和使用反馈的个人申请人不得再次提交盒子申请。
+     4.5 如在接收盒子后需要推迟活动及反馈时间，须及时将新的活动时间通过邮件（box@1kg.org)告
+          知一公斤盒子工作人员。
+    </pre>
+
+    <h5>四 反馈要求</h5>
+    <pre>
+     5.1签收单: 申请人必须提供由盒子接收单位代表所填写的签收单（必须盖公章）电子版（照片或扫
+          描）或原件。
+     5.2使用反馈：申请人必须在www.1kg.org/boxes网页提交使用照片和文字记录。
+     5.3每份申请对应一份签收单和至少一篇使用反馈。
+    </pre>
+
+    <h5>五 申请流程</h5>
+    <pre>
+     6.1 阅读并理解“一公斤盒子”申请要求。　
+     6.2 到 <a href="http://www.1kg.org/schools">www.1kg.org/schoos</a> 完成学校信息。
+     6.3 到 <a href="http://www.1kg.org/boxes">www.1kg.org/boxes</a> 页点击“立即申请”并填写申请表。
+     6.4 如在审批申请表时时遇到问题，“一公斤盒子”工作人员会以邮件或电话的方式与申请人沟通。
+     6.5 申请人可以在申请通过之前自行修改申请表。
+     6.6 如通过审批，申请人将在登陆网站后得到通知。
+     6.7 请在活动开展一个月前提交申请。
+    </pre>
+
+    <h5>六 联系方式</h5>
+    <pre>
+     邮箱：box@1kg.org    
+     电话：010-84805148 （周一-周五早10：30-晚6：00，节假日除外）
+    </pre>
   </div>
 
-  <div class="newbox">
-     <h3>二 填写申请表</h3>
+  <div class="newbox" id="confirmation">
+    <p> 
+    我已仔细阅读并同意以上的申请及反馈要求 <span class="require">*</span>
+    <%= form.check_box :agree_feedback_terms %>
+    </p>
+    <p>
+      你是否能确保盒子签收单位代表填写签收单并盖公章？<span class="require">*</span>
+      <%= form.check_box :agree_receipient_terms %>
+    </p>
+    <p>
+      <label>盒子签收单位全称</label><span class="require">*</span>
+      <%= form.text_field :receipient %>
+    </p>
+    <p style="margin-left:40px">
+      <%= link_to '下一步',"#",:class => "surebutton",:id => "next_step"%> 
+      <%= link_to '取消',boxes_path ,:class => "surebutton"%> 
+    </p>
+  </div>
+
+  <div class="newbox" id="apply_form" style="display:none">
+     <h3>填写申请表</h3>
       <p class="postNew"></p>
       <div class="contents">
         <p>
@@ -34,6 +101,8 @@
             
         <p>
           <h6>申请的盒子: <span class="require">*</span></h6>
+          请注意第一次申请的个人最多可申请4个盒子，种类不限
+          <br/>
           <% @boxes.each_with_index do |box,index|%>
             <%= box.name%> 
             <%= select_tag "bringings[][number]", options_from_collection_for_select([0,1,2,3,4,5,6,7,8,9,10], "to_s", "to_s") %>
@@ -51,9 +120,8 @@
           
         <p>
           <h6>盒子要在什么时候使用？<span class="require">*</span></h6>
-          <span>1.最晚在每月15号前（含15号）提交下个月活动计划和一公斤盒子需求。 </span>
-          <br/><span>2.审核时间：当月16号～25号完成审核并发放一公斤盒子。</span>
-          <p>我计划在 <%= select('execution','year',[2011,2012]) %> 年 <%= select('execution','month',1.upto(12)) %> 月使用盒子</p>
+          <span>请在活动一个月前提交申请。</span>
+          <p>我计划在 <%= select('execution','year',[2012]) %> 年 <%= select('execution','month',Date.today.month.upto(Date.today.month + 2)) %> 月使用盒子</p>
           <%= form.hidden_field :plan,:value => '对于盒子申请不需详细计划' %>
         </p>
         
@@ -63,24 +131,47 @@
           <br/><%= form.text_area :problem, :cols => 80, :rows => 6 %>
         </p>
       </div>
+
+
+    <h6>申请人信息：</h6>
+      <p><label class="label">网站用户名</label>
+        <%= form.hidden_field :user_id, {:value => current_user.id} %>
+        <%= h current_user.login %>
+      </p>
+      <p><label>真实姓名<span class="require">*</span> </label><%= form.text_field :realname %><%= error_message_on @execution, :realname %></p>
+      <p><label>联系电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
+
+    <h6>收货信息：</h6>
+      <p><label>收货人真实姓名和电话<span class="require">*</span> </label><%= form.text_field :consignee %><%= error_message_on @execution, :address %></p>
+      <p><label>收货地址和邮编<span class="require">*</span> </label><%= form.text_field :address %><%= error_message_on @execution, :address %></p>
+      
+    <p style="margin-left:40px">
+      <%= form.submit "确认" ,:class => "surebutton"%> 
+      <%= link_to '取消',boxes_path ,:class => "surebutton"%> 
+    </p>
   </div>
-
-
-  <div class="newbox">
-     <h3>三 申请人信息</h3>
-      <div class="contents" style="padding-left:10px">
-        <p><label class="label">网站用户名</label>
-          <%= form.hidden_field :user_id, {:value => current_user.id} %>
-          <%= h current_user.login %>
-        </p>
-        <p><label>联系电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
-        <p><label>收货地址和邮编<span class="require">*</span> </label><%= form.text_field :address %><%= error_message_on @execution, :address %></p>
-        <p><label>真实姓名<span class="require">*</span> </label><%= form.text_field :realname %><%= error_message_on @execution, :realname %></p>
-      </div>
-  </div>
-
-  <p style="margin-left:40px">
-    <%= form.submit "确认" ,:class => "surebutton"%> 
-    <%= link_to '取消',boxes_path ,:class => "surebutton"%> 
-  </p>
 <% end %>
+
+<% content_for :tail do -%>
+<script type="text/javascript" charset="utf-8">
+  jQuery(document).ready(function(){
+    var check_confirmation = function(){
+      if ($('#execution_agree_feedback_terms').attr('checked') == true && $('#execution_agree_receipient_terms').attr('checked') == true && $('#execution_receipient').val().length != 0){
+        $("#apply_form").show();
+        $("#confirmation").hide();
+        return true
+        }
+        else{
+        return false
+        }
+    }
+    check_confirmation();
+      $("#next_step").click(function(e){
+        if(check_confirmation()){}else{
+          alert('只有确认全部上述要求才能申请盒子')
+        };
+        e.preventDefault();
+      });
+  });
+</script>
+<% end  %>

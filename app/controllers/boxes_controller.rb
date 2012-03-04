@@ -36,6 +36,7 @@ class BoxesController < ApplicationController
       @boxes = Box.available
       @bringings = @execution.bringings.build
       @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
+      flash[:notice] = "请检查所有带<span class='require'>*</span>号的毕填项是否填好"
       render "apply"
     end
   end

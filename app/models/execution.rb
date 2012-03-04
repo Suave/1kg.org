@@ -1,5 +1,5 @@
 class Execution < ActiveRecord::Base
-  attr_accessor :agree_feedback_terms,:year,:month
+  attr_accessor :agree_feedback_terms,:year,:month,:agree_receipient_terms 
   
   belongs_to :project
   belongs_to :school

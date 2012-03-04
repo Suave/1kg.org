@@ -543,6 +543,8 @@ ActiveRecord::Schema.define() do
     t.text     "plan"
     t.text     "problem"
     t.text     "budget"
+    t.text     "receipient"
+    t.text     "consignee"
     t.text     "feedback"
     t.datetime "created_at"
     t.datetime "start_at"
