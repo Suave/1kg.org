@@ -273,6 +273,10 @@ class User < ActiveRecord::Base
     self.topics.find(:all, :conditions => {:boardable_type => 'Group'})
   end
   
+  def has_applyed_boxes?
+    self.executions.with_box.present?
+  end
+
   def teams
     teams_id_list = Following.find(:all,:conditions => {:follower_id => self.id,:followable_type => "Team"}).map(&:followable_id)
     Team.find(:all,:conditions => ["id in (?)",teams_id_list])

@@ -39,6 +39,7 @@ class Execution < ActiveRecord::Base
   def with_box?
     !bringings_count.zero?
   end
+
   def validate
     #至少要关联一所学校或一所村庄
     if school_id.nil? && village.nil?

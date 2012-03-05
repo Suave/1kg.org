@@ -58,6 +58,8 @@
           <% end %>
           <p>
             <h5>申请人</h5>
+            第一次申请？ <%= execution.user.has_applyed_boxes? ? '是' : '否'  %>
+            <br/>
             姓名:<%= execution.realname %>
             <br/>
             电话/手机：<%= execution.telephone %>
