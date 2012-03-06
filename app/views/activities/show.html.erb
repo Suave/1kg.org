@@ -128,6 +128,7 @@
   <div class="newbox">
      <h3>活动相册</h3>
         <%= link_to '上传照片', new_photo_path(:photoable_id => @activity.id,:photoable_type => @activity.class.name),:class => 'linkbutton' %> 
+        <%= link_to '上传活动主题图', mainphoto_activity_path(@activity) %> 
       <div class="contents clearfix" style="padding-top:16px;">
       <div class="clearfix" id="photos">
         <%= render :partial => "/photos/gallery", :collection => @photos%>
