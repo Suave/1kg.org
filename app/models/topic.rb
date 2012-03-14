@@ -30,6 +30,8 @@ class Topic < ActiveRecord::Base
   before_save :format_content
   #before_create :set_last_reply
   
+  validates_presence_of :title, :message => "这是必填项"
+
   define_index do
     # fields
     indexes title
