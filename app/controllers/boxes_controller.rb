@@ -9,6 +9,7 @@ class BoxesController < ApplicationController
     @topics = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @photos = Photo.find(:all,:conditions => {:photoable_type => 'Execution',:photoable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
+    @group_topics = @group.topics.find(:all,:limit => 8)
   end
 
   def apply

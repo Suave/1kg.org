@@ -22,8 +22,8 @@
 
 <div class="newbox" >
   <h5>盒子设计讨论区</h5>
-  <%= render :partial => "/topics/topics", :locals => {:topics => @group.topics } %>
-  <p style="text-align:right"><%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
+  <%= render :partial => "/topics/topics", :locals => {:topics => @group_topics} %>
+  <p style="text-align:right"> <span>查看更多请</span> <%= link_to "进入小组",group_url(@group), :target => "_blank",:class => "buttonlink" %></p>
 </div>
 
 <% content_for :sidebar do -%>
