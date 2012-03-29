@@ -26,6 +26,15 @@
 <% content_for :sidebar do -%>
   <span class="remark"><%= link_to "&raquo;  回到一公斤盒子",boxes_path %></span>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
+  <% if current_user.try(:admin?) -%>
+    <div class="newbox">
+      <h3>盒子卡片： <%= link_to '添加卡片',new_photo_path(:photoable_id => @box.id ,:photoable_type => "Box"),:class => 'buttonlink'%></h3> 
+      <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
+      <div class="cleanfix" style="clear:both;"></div>
+      <%= link_to '查看全部',photos_boxes_path %>
+    </div>
+  <% end %>
+
   <div> 
     <h4>其他盒子</h4>
     <%= render :partial => "/public/box", :collection => @boxes %>

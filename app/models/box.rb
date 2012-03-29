@@ -9,4 +9,6 @@ class Box < ActiveRecord::Base
   named_scope :available,     :conditions => {:available => true}
   has_many :bringings, :dependent => :destroy 
   has_many :comments, :as => 'commentable', :dependent => :destroy
+  has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
+
 end
