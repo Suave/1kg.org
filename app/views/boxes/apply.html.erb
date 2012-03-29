@@ -138,7 +138,7 @@
         <%= h current_user.login %>
       </p>
       <p><label>真实姓名<span class="require">*</span> </label><%= form.text_field :realname %><%= error_message_on @execution, :realname %></p>
-      <p><label>联系电话<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
+      <p><label>联系方式(电话和邮箱)<span class="require">*</span> </label><%= form.text_field :telephone %><%= error_message_on @execution, :telephone %></p>
 
     <h6>收货信息：</h6>
       <p><label>收货人真实姓名和电话<span class="require">*</span> </label><%= form.text_field :consignee %><%= error_message_on @execution, :address %></p>
