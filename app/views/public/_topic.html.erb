@@ -1,18 +1,15 @@
 <div class="topic">
   <small style="float:right">
-    <% unless topic.comments_count.zero? %>
-      <%= topic.comments_count %> 个回复 
-      最新回复
-      <%=  topic.last_replied_at.to_date %> 
-      by <%= link_to User.find(topic.last_replied_by_id).login, user_url(User.find(topic.last_replied_at)) %>
-    <% else %>
-      还没有人回复
-    <% end %>
+      <%= topic.comments_count %> 回复
+      <%= topic.votes_count %> 推荐
   </small>
   <h4><%= link_to h(topic.title), topic_url(topic) %>  </h4>
+  <% unless true or topic.comments_count.zero? %>
   <small style="float:right">
-      <%= topic.votes_count %> 人推荐
+      最新回复
+      by <%= link_to User.find(topic.last_replied_by_id).login, user_url(User.find(topic.last_replied_at)) %>
   </small>
+  <% end %>
   <span><%= link_to raw("#{image_tag topic.user.avatar(:'16x16'),:class => 'icon'} ") + topic.user.login, user_url(topic.user) %></span>
   <span>发布在 <%= link_to topic.boardable.name,topic.boardable%></span>
 </div>
