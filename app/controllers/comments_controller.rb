@@ -14,11 +14,12 @@ class CommentsController < ApplicationController
   end
   
   def edit
-    @comment = current_user.comments.find(params[:id])
+    @comment = current_user.admin? ? Comment.find(params[:id]) :  current_user.comments.find(params[:id])
+    @commentable = @comment.commentable
   end
   
   def update
-    @comment = current_user.comments.find(params[:id])
+    @comment = current_user.admin? ? Comment.find(params[:id]) :  current_user.comments.find(params[:id])
     @commentable = @comment.commentable
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
@@ -31,17 +32,17 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    @comment = @commentable.comments.find(params[:id])
+    @comment = current_user.admin? ? Comment.find(params[:id]) :  current_user.comments.find(params[:id])
+    @commentable = @comment.commentable
     @commentable.comments.delete(@comment)
     
     respond_to do |format|
       flash[:notice] = "留言已删除"
       if @comment.commentable_type == "Comment"
-        format.html {redirect_to commentable_path(@commentable.commentable)}
+        format.html {redirect_to url_for(@commentable.commentable)}
       else
-        format.html {redirect_to commentable_path(@commentable)}
+        format.html {redirect_to url_for(@commentable)}
       end
-      
     end
   end
   
@@ -51,5 +52,4 @@ class CommentsController < ApplicationController
     commentable_id = "#{params[:commentable].underscore}_id"
     @commentable = commentable_class.find(params[commentable_id.to_sym])
   end
-  
 end

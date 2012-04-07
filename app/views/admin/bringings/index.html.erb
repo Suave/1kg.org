@@ -19,9 +19,10 @@
         <th style="width:70px">申请时间</th>
         <th style="width:80px">申请人</th>
         <th style="width:110px">学校</th>
-        <th style="width:80px">盒子</th>
+        <th style="width:50px">盒子</th>
         <th style="width:50px">状态</th>
-        <th style="width:70px">使用时间</th>
+        <th style="width:60px">使用时间</th>
+        <th style="width:50px">反馈数</th>
         <th style="width:50px">展开</th>
       </tr>
       <% @executions.each_with_index do |execution,n| %>
@@ -32,6 +33,7 @@
         <td><%= execution.bringings_count %>种</td>
         <td><%= state_tag(execution.state) %></td>
         <td><%= "#{execution.start_at.year}年#{execution.start_at.month}月"%></td>
+        <td><%= execution.topics_count %></td>
         <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
       </tr>
        <tr>
@@ -55,12 +57,20 @@
           </p>
           <% end %>
           <p>
-            <h5>联系方式</h5>
+            <h5>申请人</h5>
+            第一次申请？ <%= execution.user.has_applyed_boxes? ? '是' : '否'  %>
+            <br/>
             姓名:<%= execution.realname %>
             <br/>
-            收货地址和邮编：<%= execution.address %>
-            <br/>
             电话/手机：<%= execution.telephone %>
+          </p>
+          <p>
+            <h5>收货人&签收单位</h5>
+            收货人姓名和联系方式: <%= execution.consignee %>
+            <br/>
+            收货地址和邮编: <%= execution.address %>
+            <br/>
+            签收单位全名: <%= execution.receipient %>
           </p>
           <div style="float:right">
              <%=  (link_to "通过申请",validate_admin_bringing_url(execution),:class => "adminbutton",:method => :put) unless execution.validated? %>

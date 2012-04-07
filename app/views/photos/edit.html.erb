@@ -1,0 +1,18 @@
+<% @page_title = @title = "编辑照片" -%>
+<%= "　在#{link_to @photo.photoable.name ,@photo.photoable}" if @photo.photoable %>
+
+<% content_for :sidebar do -%>
+<% end -%>
+
+<br/>
+<br/>
+<div class="newbox">
+  <div class="contents">
+    <% form_for @photo,:html => {:multipart => true} do |f| -%>
+    <%= image_tag(@photo.image.url(:max565x420), :alt => @photo.title)%>
+    <p><label class="label">照片标题</label><%= f.text_field :title, :size => 40, :class => "formText" %></p>
+    <p><label class="label">照片描述(可选)</label><%= f.text_area :description, :cols => 40, :rows => 4 %></p>
+    <p class="submit clearfix" style="margin-left:320px"><span class="btnWrap"><%= submit_tag "确定" %></span></p>
+  <% end -%>
+  </div>
+</div>

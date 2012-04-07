@@ -19,7 +19,10 @@
   <div id="entry">
       <p>项目申请人：<%= link_to @execution.user.login ,user_url(@execution.user)%> <%= "(电话： #{@execution.telephone})" if current_user && current_user.admin?%>
       <br/>项目状态：<%= state_tag(@execution.state) %>
-      <br/>最后更新： <span id="last_time" style="color:#e98523;font-weight:bold"><%= @execution.last_updated_at.to_date %></span>
+      <br/>最后更新： 
+      <span id="last_time" style="color:#e98523;font-weight:bold">
+        <%= @execution.last_updated_at %>
+      </span>
       </p>
   </div>
 </div>
@@ -64,7 +67,6 @@
         <div class="project_info">
 
           <h5>项目反馈 <span><%= link_to '写新反馈',new_topic_path(:boardable_id => @execution.id,:boardable_type => 'Execution')%></span></h5>
-            
             <%= render :partial => "/public/share", :collection => @topics %>
             <%= "暂无反馈" if @topics.empty? %>
             <div class="cleanfix" style="height:20px"></div>

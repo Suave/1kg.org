@@ -17,6 +17,12 @@ class PhotosController < ApplicationController
     @photo.photoable_type = params[:photoable_type]
   end
   
+  def edit
+    @photo = Photo.find(params[:id])
+    @photo.photoable_id = params[:photoable_id]
+    @photo.photoable_type = params[:photoable_type]
+  end
+  
   def create
     @photo = current_user.photos.build(params[:photo])
     if @photo.save
@@ -44,8 +50,8 @@ class PhotosController < ApplicationController
   def update
     @photo = Photo.find(params[:id])
     @photo.update_attributes(params[:photo])
-    @photo.save if photo.owned_by?(current_user)
-    render :text => 'Success'
+    @photo.save if @photo.owned_by?(current_user)
+    redirect_to @photo
   end
   
   def destroy
@@ -70,7 +76,7 @@ class PhotosController < ApplicationController
   
   def show
     @photo = Photo.find(params[:id])
-    @photos = @photo.photoable.photos - [@photo]
+    @photos = @photo.photoable.photos - [@photo] unless @photo.photoable.nil?
     @photo.user_id = 1 if @photo.user.nil?
   end
 end

@@ -179,6 +179,7 @@ ActiveRecord::Schema.define() do
     t.integer  "user_id",    :null => false
     t.integer  "geo_id",     :null => false
     t.string   "title",      :null => false
+    t.integer  "topics_count",        :default => 0
     t.text     "body_html"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -282,6 +283,7 @@ ActiveRecord::Schema.define() do
     t.text     "description_html"
     t.string   "slug"
     t.datetime "deleted_at"
+    t.integer  "topics_count",     :default => 0
   end
 
   create_table "managements", :force => true do |t|
@@ -448,6 +450,8 @@ ActiveRecord::Schema.define() do
     t.text     "plan"
     t.text     "problem"
     t.text     "budget"
+    t.text     "receipient"
+    t.text     "consignee"
     t.text     "feedback"
     t.datetime "created_at"
     t.datetime "start_at"
@@ -459,6 +463,7 @@ ActiveRecord::Schema.define() do
     t.datetime "last_modified_at"
     t.integer  "comments_count",   :default => 0
     t.integer  "bringings_count",  :default => 0
+    t.integer  "topics_count",     :default => 0
   end
   
   
@@ -559,12 +564,11 @@ ActiveRecord::Schema.define() do
   end
   
   create_table :votes, :force => true do |t|
-    t.column :vote, :boolean, :default => false
-    t.column :created_at, :datetime, :null => false
-    t.column :voteable_type, :string, :limit => 15,
-      :default => "", :null => false
-    t.column :voteable_id, :integer, :default => 0, :null => false
-    t.column :user_id, :integer, :default => 0, :null => false
+    t.boolean :vote
+    t.datetime :created_at
+    t.string :voteable_type
+    t.integer :voteable_id
+    t.integer :user_id
   end
 
   add_index :votes, ["user_id"], :name => "fk_votes_user"

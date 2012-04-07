@@ -69,9 +69,6 @@ class User < ActiveRecord::Base
 	has_many :unread_messages, 		:class_name 		=> "MessageCopy",
 														 		:conditions 		=> {:unread => true},
 														 		:foreign_key 	=> "recipient_id", :dependent => :destroy 
-	has_many :neighborhoods, :dependent => :destroy
-	has_many :neighbors, :through => :neighborhoods,
-	                     :order => "neighborhoods.created_at desc"
   
   has_many :memberships, :dependent => :destroy
   has_many :joined_groups, :through => :memberships, 
@@ -87,7 +84,7 @@ class User < ActiveRecord::Base
   has_many :sub_donations, :dependent => :destroy
   
   has_many :followings, :class_name => "Follow",:dependent => :destroy
-  has_many :follows,    :as => :followable
+  has_many :follows,    :as => :followable, :dependent => :destroy
   has_many :followers,  :through => :follows, :source => :user
  
   
@@ -154,25 +151,13 @@ class User < ActiveRecord::Base
   def managed(manageable_type)
     self.managements.find(:all,:conditions => {:manageable_type => manageable_type}).map(&:manageable)
   end
+
+  def related_schools
+    (self.followed_schools + self.managed('School') + self.visited_schools).uniq
+  end
   
   def admin?
     is_admin
-  end
-  
-  def has_neighbor?(user)
-    user.neighbors.include?(self)
-  end
-  
-  def neighbor_addable_by?(user)
-    (user != nil) and (id != user.id) and not has_neighbor?(user)
-  end
-  
-  def neighbor_removeable_by?(user)
-    (user != nil) and (id != user.id) and has_neighbor?(user)
-  end
-  
-  def school_moderator?
-    !self.roles.find_by_identifier("roles.schools.moderator").nil?
   end
   
   def self.recent_citizens
@@ -204,10 +189,6 @@ class User < ActiveRecord::Base
       password << chars[rand(62)]
     end
     password
-  end
-  
-  def managed_by?(current_user)
-    false
   end
   
   def is_following?(followable)

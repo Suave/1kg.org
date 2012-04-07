@@ -9,13 +9,14 @@ class BoxesController < ApplicationController
     @topics = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @photos = Photo.find(:all,:conditions => {:photoable_type => 'Execution',:photoable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc',:limit =>4)
     @group = Group.find(:first,:conditions=>{:slug => 'box-design'})
+    @group_topics = @group.topics.find(:all,:limit => 8)
   end
 
   def apply
     @execution = Execution.new
     @boxes = Box.available
     @bringings = @execution.bringings.build
-    @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
+    @schools = current_user.related_schools
   end
 
   def submit
@@ -36,6 +37,7 @@ class BoxesController < ApplicationController
       @boxes = Box.available
       @bringings = @execution.bringings.build
       @schools = (current_user.followed_schools + current_user.managed('School') + current_user.visited_schools).uniq
+      flash[:notice] = "请检查所有带<span class='require'>*</span>号的毕填项是否填好"
       render "apply"
     end
   end
@@ -47,7 +49,7 @@ class BoxesController < ApplicationController
 
   def topics
     @executions = Execution.validated_with_box
-    @topics = @executions.map(&:topics).flatten.paginate :page => params[:page] || 1, :per_page => 20
+    @topics = Topic.find(:all,:conditions => {:boardable_type => 'Execution',:boardable_id => Execution.validated_with_box.map(&:id)},:order => 'created_at desc').paginate :page => params[:page] || 1, :per_page => 20
   end
 
   def photos
@@ -71,6 +73,7 @@ class BoxesController < ApplicationController
   def show
     @box = Box.find(params[:id])
     @boxes = Box.available - [@box]
+    @photos = @box.photos
     @comment = Comment.new
     @comments = @box.comments.find(:all,:include => [:user,:commentable]).paginate :page => params[:page] || 1, :per_page => 20
   end
