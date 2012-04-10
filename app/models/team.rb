@@ -24,7 +24,7 @@ class Team < ActiveRecord::Base
   named_scope :not_validated, :conditions => {:validated => false}, :order => "created_at desc"
   
   before_create :format_website_url
-  after_create :set_relationship
+  after_create  :set_relationship
   
   acts_as_paranoid
   acts_as_manageable

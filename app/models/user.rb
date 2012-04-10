@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?, :message => "两次输入的密码不一致"
   validates_length_of       :login,    :within => 2..40, :message => "用户名长度在2-40个字符之间"
   validates_length_of       :email,    :within => 3..100, :message => "邮件地址长度在3-100个字符之间"
-  validates_uniqueness_of   :email, :case_sensitive => false, :message => "邮件地址已被占用"
+  validates_uniqueness_of   :email,    :case_sensitive => false, :message => "邮件地址已被占用"
   validates_format_of       :email,    :with => /\A[\w\.%\+\-]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|jobs|museum)\z/i, :message => "邮件地址格式不正确"
   
   has_attached_file :avatar, :styles => {:original => '72x72#',:'48x48' => ["48x48#"],:'16x16' => ["16x16#"]},
@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   has_many :topics, :order => "created_at desc", :dependent => :destroy
   has_many :photos, :order => "created_at desc", :dependent => :destroy 
   has_many :groups, :dependent => :destroy
-  has_many :teams, :dependent => :destroy  
+  has_many :teams,  :dependent => :destroy  
   has_many :executions, :dependent => :destroy  
   
   #add relationship between messages			
@@ -107,13 +107,13 @@ class User < ActiveRecord::Base
   
   has_many :donations, :dependent => :destroy
   has_many :votes,     :dependent => :destroy
-  has_many :activities, :dependent => :destroy
-  has_many :photos, :dependent => :destroy
-  has_many :games, :dependent => :destroy
+  has_many :activities,:dependent => :destroy
+  has_many :photos,    :dependent => :destroy
+  has_many :games,     :dependent => :destroy
   has_many :co_donations, :dependent => :destroy
-  has_many :sub_donations, :dependent => :destroy
+  has_many :sub_donations,:dependent => :destroy
   
-  has_many :followings,     :class_name => "Follow",:foreign_key => :user_id
+  has_many :followings,     :class_name => "Follow",:foreign_key => :user_id, :dependent => :destroy
   has_many :follows,        :as => :followable, :dependent => :destroy
   has_many :followers,      :through => :follows, :source => :user
   
@@ -278,7 +278,7 @@ class User < ActiveRecord::Base
   end
 
   def teams
-    teams_id_list = Following.find(:all,:conditions => {:follower_id => self.id,:followable_type => "Team"}).map(&:followable_id)
+    teams_id_list = Follow.find(:all,:conditions => {:user_id => self.id,:followable_type => "Team"}).map(&:followable_id)
     Team.find(:all,:conditions => ["id in (?)",teams_id_list])
   end
   
