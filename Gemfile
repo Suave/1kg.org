@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'http://ruby.taobao.org'
 gem "rails", "= 2.3.4"
 
   gem "rack","1.0.1"
