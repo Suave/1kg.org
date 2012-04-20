@@ -539,6 +539,7 @@ ActiveRecord::Schema.define() do
     t.integer  "village_id"
     t.integer  "project_id"
     t.string   "telephone"
+    t.string   "email"
     t.string   "address"
     t.string   "realname"
     t.string   "state"
@@ -632,7 +633,6 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
     t.boolean  "is_admin"
@@ -643,8 +643,6 @@ ActiveRecord::Schema.define() do
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
     t.integer  "topics_count"
-    t.integer  "shares_count"
-    t.integer  "guides_count"
   end
 
   add_index "users", ["email", "state"], :name => "index_users_on_email_and_state"
