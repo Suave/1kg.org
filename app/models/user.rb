@@ -319,8 +319,6 @@ class User < ActiveRecord::Base
     end
     
     def make_activation_code
-      self.deleted_at = nil
-      self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split(//).sort_by {rand}.join )
     end
     
     def do_delete
@@ -328,8 +326,6 @@ class User < ActiveRecord::Base
     end
 
     def do_activate
-      @activated = true
       self.activated_at = Time.now.utc
-      self.deleted_at = self.activation_code = nil
     end
 end
