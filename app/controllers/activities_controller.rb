@@ -1,4 +1,6 @@
 class ActivitiesController < ApplicationController
+  include AntiSpam
+
   before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_topics]
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_topics]
   
@@ -91,11 +93,14 @@ class ActivitiesController < ApplicationController
   
   def create
     @activity = Activity.new(params[:activity])
-      @activity.user = current_user
-      @activity.save!
+    @activity.user = current_user
+    if !@activity.has_spam_word? && @activity.save
       @activity.participators << current_user
       flash[:notice] = "活动发布成功，作为活动发起人你会自动“参加“这个活动，请上传活动主题图片，或者 " + " <a href='#{activity_url(@activity)}'>跳过此步骤</a>。"
       redirect_to mainphoto_activity_url(@activity)
+    else
+      render :new
+    end
   end
   
   def mainphoto
@@ -195,7 +200,7 @@ class ActivitiesController < ApplicationController
     else
       invited_user_ids = params[:invite].collect {|k,v| v.to_i}
       message = Message.new(:subject => "#{current_user.login}邀请您参加#{@activity.title}",
-                            :content => "<p>#{current_user.login}(#{user_url(current_user)})邀请您加入#{@activity.title}(#{activity_url(@activity)})</p><p><br/>快去看看吧!</p><p><br/>多背一公斤团队</p>"
+                            :content => "<p>#{current_user.login}(#{user_url(current_user)})邀请您加入#{@activity.title}(#{activity_url(@activity)})</p><p></br/>快去看看吧!</p><p><br/>多背一公斤团队</p>"
                             )
       message.author_id = 0
       message.to = invited_user_ids

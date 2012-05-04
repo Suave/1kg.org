@@ -11,9 +11,10 @@ class Execution < ActiveRecord::Base
   has_many :comments, :as => 'commentable', :dependent => :destroy
   has_many :photos, :as => 'photoable', :order => "id desc", :dependent => :destroy
   has_many :topics, :as => 'boardable', :order => "sticky desc,id desc", :dependent => :destroy
-  has_many :bringings
+  has_many :bringings,:dependent => :destroy
   accepts_nested_attributes_for :bringings 
-  has_and_belongs_to_many :boxes, :class_name => 'Bringing'
+  has_many :boxs, :through => :bringings, 
+                  :source => :box
   
   validates_presence_of :reason,:message => "必须填写申请理由"
   validates_presence_of :plan,:message => "必须填写实施计划"

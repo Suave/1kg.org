@@ -90,6 +90,7 @@ class User < ActiveRecord::Base
   has_many :groups, :dependent => :destroy
   has_many :teams,  :dependent => :destroy  
   has_many :executions, :dependent => :destroy  
+  has_many :bringings, :dependent => :destroy  
   
   #add relationship between messages			
   has_many :sent_messages, 			:class_name => "Message", 

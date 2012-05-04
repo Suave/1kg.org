@@ -30,6 +30,7 @@
 
 class Activity < ActiveRecord::Base
   include BodyFormat
+  include AntiSpam
   
   belongs_to :user
   belongs_to :school
@@ -176,6 +177,10 @@ class Activity < ActiveRecord::Base
     self.clean_html
   end
   
+  def has_spam_word?
+    check_spam_word_for(self,'title')
+  end
+
   private
   def format_content
       self.clean_html = sanitize(self.clean_html)

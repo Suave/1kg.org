@@ -1,5 +1,6 @@
 class Topic < ActiveRecord::Base
   include BodyFormat
+  include AntiSpam
   
   acts_as_paranoid
   acts_as_voteable
@@ -93,6 +94,10 @@ class Topic < ActiveRecord::Base
       }
     end
     return result.reverse
+  end
+  
+  def has_spam_word?
+    check_spam_word_for(self,'title')
   end
  
  private
