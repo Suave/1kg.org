@@ -1066,6 +1066,12 @@ h3.title {
 .obp dd {margin:0; overflow:hidden; text-align:center;height:40px;}
 .obp dd span {display:block;}
 
+.card {float:left; width:148px; margin:4px;}
+.card dt img{width:148px;}
+.card dt {height:111px; margin:0; overflow:hidden; text-align:center;border:1px solid #999}
+.card dd {margin:0; overflow:hidden; text-align:center;height:40px;}
+.card dd span {display:block;}
+
 .sbtn {border:1px solid black; background:orange; padding:2px;}
 
 /* map view, by yuanyi */
