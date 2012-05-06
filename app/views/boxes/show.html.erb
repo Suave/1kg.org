@@ -2,13 +2,14 @@
 <div class="newbox">
   <div style="float:right;text-align:center;width:150px">
     <%= image_tag(@box.image.url(:'150x90')) %>
+  </div>
+
+  <h1><%= @page_title%></h1>
     <p>
       <%= link_to '立即申请',apply_boxes_path,:class => 'buttonlink' %>
       <%= link_to '指南下载',@box.guide.url,:class => 'buttonlink' if @box.guide_file_name %>
     </p>
-  </div>
-
-  <h1><%= @page_title%></h1>
+  <br/>
   <h5>盒子简介</h5>
   <pre><%= @box.intro %></pre>
   <h5>盒子内容</h5>
