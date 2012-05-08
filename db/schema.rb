@@ -419,6 +419,21 @@ ActiveRecord::Schema.define() do
     t.integer  "geo_id"
     t.integer  "main_photo_id"
     t.string   "title",                                  :null => false
+  end
+
+  create_table "schools", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "ref"
+    t.boolean  "validated",           :default => false
+    t.boolean  "meta",                :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "deleted_at"
+    t.integer  "category"
+    t.integer  "geo_id"
+    t.integer  "county_id"
+    t.integer  "main_photo_id"
+    t.string   "title", 
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"
