@@ -256,6 +256,8 @@ ActiveRecord::Schema.define() do
     t.datetime "deleted_at"
   end
 
+  add_index "photos", ["photoable_id","photoable_type"], :name => "index_photos_on_photoable"
+
   create_table "profiles", :force => true do |t|
     t.integer "user_id"
     t.string  "blog_url"
@@ -415,21 +417,6 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
     t.datetime "deleted_at"
     t.integer  "geo_id"
-    t.integer  "main_photo_id"
-    t.string   "title",                                  :null => false
-  end
-  
-  create_table "schools", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "ref"
-    t.boolean  "validated",           :default => false
-    t.boolean  "meta",                :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-    t.integer  "category"
-    t.integer  "geo_id"
-    t.integer  "county_id"
     t.integer  "main_photo_id"
     t.string   "title",                                  :null => false
     t.datetime "last_modified_at"
@@ -623,6 +610,8 @@ ActiveRecord::Schema.define() do
     t.integer  "share_id"
     t.boolean  "sticky",                             :default => false
   end
+
+  add_index "topics", ["boardable_id","boardable_type"], :name => "index_topics_on_boardable"
 
   create_table "users", :force => true do |t|
     t.string   "login"
