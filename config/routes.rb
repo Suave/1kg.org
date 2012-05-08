@@ -198,7 +198,7 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :boxes
     admin.resources :bringings, :member => {:validate => :put, :refuse => :put}
     admin.resources :permissions
-    admin.resources :users, :collection => {:search => :get}, :member => {:block => :put}
+    admin.resources :users, :collection => {:search => :get,:reset_password => :post}, :member => {:block => :put}
     admin.resources :geos
     admin.resources :counties
     admin.resources :boards, :member => {:active => :put, :deactive => :put}

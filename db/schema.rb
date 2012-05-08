@@ -433,7 +433,7 @@ ActiveRecord::Schema.define() do
     t.integer  "geo_id"
     t.integer  "county_id"
     t.integer  "main_photo_id"
-    t.string   "title", 
+    t.string   "title",                                  :null => false
     t.datetime "last_modified_at"
     t.integer  "last_modified_by_id"
     t.datetime "validated_at"

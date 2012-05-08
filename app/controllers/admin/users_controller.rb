@@ -52,6 +52,19 @@ class Admin::UsersController < Admin::BaseController
     end
   end
   
+  def reset_password
+    if @user = User.find_by_email(params[:email])
+      @user.password = 'changeme'
+      @user.save(false)
+      @user.update_attribute(:password,nil)
+      flash[:notice] = "设置成功"
+      redirect_to :back
+    else
+      flash[:notice] = "没找到这个用户"
+      redirect_to :back
+    end
+  end
+
   def block
     @user = User.find(params[:id])
     @user.delete!
