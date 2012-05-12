@@ -20,6 +20,7 @@ config/config.yml
 config/deploy.rb
 public/user
 public/user/*
+public/docs/
 public/media/*
 public/user/**/*
 public/group
