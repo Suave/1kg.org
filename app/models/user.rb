@@ -278,7 +278,7 @@ class User < ActiveRecord::Base
     self.executions.with_box.present?
   end
 
-  def teams
+  def followed_teams
     teams_id_list = Follow.find(:all,:conditions => {:user_id => self.id,:followable_type => "Team"}).map(&:followable_id)
     Team.find(:all,:conditions => ["id in (?)",teams_id_list])
   end
