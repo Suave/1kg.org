@@ -2,7 +2,6 @@
 <% content_for :fullsize do -%>
   <%= image_tag('/images/boxes/box_banner.jpg',:style => 'margin:10px')%>
   <div style="position:absolute;top:170px;left:740px;text-align:right">
-    <%= link_to ' ',apply_boxes_path,:id => 'apply' %>
     <p style="color:#fff;font-weight:bold">
       共有 <%= link_to "#{@executions.count}份申请",executions_boxes_path,:style => 'color:#9d4' %> 已通过
       <%= link_to "立即查看",executions_boxes_path,:style => 'color:#9d4' %> 
