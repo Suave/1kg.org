@@ -109,8 +109,6 @@ class User < ActiveRecord::Base
   has_many :donations, :dependent => :destroy
   has_many :votes,     :dependent => :destroy
   has_many :activities,:dependent => :destroy
-  has_many :photos,    :dependent => :destroy
-  has_many :games,     :dependent => :destroy
   has_many :co_donations, :dependent => :destroy
   has_many :sub_donations,:dependent => :destroy
   

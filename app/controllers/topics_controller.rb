@@ -16,7 +16,9 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.user = current_user
-    if !@topic.has_spam_word? && @topic.save
+    if @topic.has_spam_word?
+      current_user.destroy
+    elsif @topic.save
       flash[:notice] = "发帖成功"
       redirect_to url_for(@topic.boardable)
     else

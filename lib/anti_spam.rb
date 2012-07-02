@@ -1,7 +1,7 @@
 module AntiSpam
-  SPAMWORD = %w(小姐 考级 考试答案 考前答案 性服务 小妹 淘宝 媛交 按摩服务 全套服务 特殊服务 妓 夜情 你妹 找美女 学生妹 淘宝商城 三陪)
+  SPAM_WORDS = APP_CONFIG["spam_words"].split
   def check_spam_word_for(entry,attr)
-    SPAMWORD.each do |w|
+    SPAM_WORDS.each do |w|
       return true if entry.attributes[attr].gsub(/ /,'').include? w
     end
     false
