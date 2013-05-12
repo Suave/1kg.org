@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ActivitiesController < ApplicationController
   before_filter :login_required, :except => [:index, :show,:ongoing, :over,:category,:with_school,:total_topics]
   before_filter :find_activity,  :except => [:index, :ongoing, :over, :new, :create,:category,:with_school,:total_topics]

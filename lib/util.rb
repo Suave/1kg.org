@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Util
     
   def avatar_convert(model_name, attribute_name)

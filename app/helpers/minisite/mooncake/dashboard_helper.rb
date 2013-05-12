@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Minisite::Mooncake::DashboardHelper
   def mooncake_avatar_for(user, size)
     if user.avatar.blank?

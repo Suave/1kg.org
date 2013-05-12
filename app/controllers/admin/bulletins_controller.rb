@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::BulletinsController < Admin::BaseController
   
   uses_tiny_mce :options => TINYMCE_OPTIONS, :only => [:new, :create, :edit, :update]

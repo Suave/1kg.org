@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module FusionChart
   @@FC_ColorCounter=0;
   @@arr_FCColors=[]

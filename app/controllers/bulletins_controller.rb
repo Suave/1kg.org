@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class BulletinsController < ApplicationController
   def index
     @bulletins = Bulletin.find :all, :order => "id desc"

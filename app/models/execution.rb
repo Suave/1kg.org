@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Execution < ActiveRecord::Base
   attr_accessor :agree_feedback_terms,:year,:month,:agree_receipient_terms 
   

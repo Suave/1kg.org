@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 class Visited < ActiveRecord::Base
   belongs_to :school

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SearchController < ApplicationController
   def show
     @type_hash = {'activity' => Activity,'group' => Group,'user' => User,'school' => School,'topic' => Topic}

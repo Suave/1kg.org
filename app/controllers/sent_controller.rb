@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SentController < ApplicationController
   before_filter :login_required
   

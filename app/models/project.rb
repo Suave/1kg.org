@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Project < ActiveRecord::Base  
   belongs_to :user
   has_many:executions,:include => [:school]

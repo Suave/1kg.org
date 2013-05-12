@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DonationsController < ApplicationController
   def index
     @requirements = RequirementType.exchangable.map(&:requirements).sum

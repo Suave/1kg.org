@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 every 1.day do
     rake "schools:to_json"
 end

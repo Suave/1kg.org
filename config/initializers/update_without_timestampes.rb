@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # 扩展ActiveRecord，增加一个方法，保存时不用更新时间戳
 module ActiveRecord
   class Base

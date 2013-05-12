@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PhotosController < ApplicationController
   before_filter :login_required, :except => [:show, :gallery, :index]
   session :cookie_only => false, :only => %w(create) 

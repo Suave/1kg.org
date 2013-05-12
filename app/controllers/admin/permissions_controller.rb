@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::PermissionsController < Admin::BaseController
   before_filter :find_permission, :only => [:new, :edit, :update, :destroy]
   

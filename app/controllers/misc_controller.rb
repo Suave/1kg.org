@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class MiscController < ApplicationController
   def index
     @page_title = "首页"

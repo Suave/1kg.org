@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Lets output something to the console when people use script/plugin to install tiny_mce
 puts <<-EOS
 -------

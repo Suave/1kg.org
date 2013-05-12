@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class BoxesController < ApplicationController
  
   before_filter :login_required, :only => [:create,:update,:new,:edit,:apply]

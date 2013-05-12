@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 OAUTH_CONFIG = {:sites => {}, :model => nil }
 
 Dir["#{Rails.root}/config/oauth/*.yml"].collect{|f|

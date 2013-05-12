@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'render_component/components'
 require 'action_controller'
 require 'action_dispatch/middleware/flash'

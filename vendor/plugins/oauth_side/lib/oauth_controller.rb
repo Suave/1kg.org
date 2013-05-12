@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class OauthController < ApplicationController
 
   def default_callback_url site

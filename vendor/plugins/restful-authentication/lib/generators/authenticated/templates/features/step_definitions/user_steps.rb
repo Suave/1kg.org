@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 RE_User      = %r{(?:(?:the )? *(\w+) *)}
 RE_User_TYPE = %r{(?: *(\w+)? *)}
 

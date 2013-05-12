@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module FusionchartsHelper
 
 #Contains an array of colors to be used as default set of colors for FusionCharts

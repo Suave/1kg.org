@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Minisite::Lightenschool::DashboardController < ApplicationController
   
   before_filter :login_required, :only => [:submit, :processing]

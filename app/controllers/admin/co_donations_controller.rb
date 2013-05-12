@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::CoDonationsController < Admin::BaseController
   def index
     @co_donations = CoDonation.find(:all,:order => "created_at desc")

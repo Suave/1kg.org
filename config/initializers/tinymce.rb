@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 TINYMCE_OPTIONS = { :theme => 'advanced',
 :browsers => %w{msie gecko safari},   
 :theme_advanced_layout_manager => "SimpleLayout",

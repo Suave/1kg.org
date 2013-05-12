@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module GMap
   DEFAULT_LONGITUDE = '121.475916'
   DEFAULT_LATITUDE  = '31.224353'

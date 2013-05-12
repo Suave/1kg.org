@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TinyMCE
   class Configuration
     # We use this to combine options and raw_options into one class and validate

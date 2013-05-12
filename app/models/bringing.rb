@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Bringing < ActiveRecord::Base
   belongs_to :user
   belongs_to :box,       :counter_cache =>  true

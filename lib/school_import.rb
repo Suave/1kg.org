@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module SchoolImport
   require 'rubygems'
   require 'open-uri'

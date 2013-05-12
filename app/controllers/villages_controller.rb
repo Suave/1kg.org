@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class VillagesController < ApplicationController
   before_filter :find_village, :except => [:index,:new,:create]
   before_filter :login_required, :except => [:show,:index,:large_map]

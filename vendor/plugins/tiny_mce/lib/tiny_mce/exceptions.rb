@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TinyMCE
   # Setup a couple of Exception classes that we use later on
   class TinyMCEInvalidOption < Exception

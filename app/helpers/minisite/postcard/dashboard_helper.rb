@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Minisite::Postcard::DashboardHelper
   def postcard_avatar_for(user, size)
     if user.avatar.blank?

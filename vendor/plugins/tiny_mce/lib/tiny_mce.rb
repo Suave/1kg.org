@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Require all the necessary files to run TinyMCE
 require 'tiny_mce/base'
 require 'tiny_mce/exceptions'

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ManagementsController < ApplicationController
   before_filter :login_required
 

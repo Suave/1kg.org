@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'oauth/consumer'
 
 require 'oauth_side/ext/hash'

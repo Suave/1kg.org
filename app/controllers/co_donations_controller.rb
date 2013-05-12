@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CoDonationsController < ApplicationController
   before_filter :find_co_donation, :except => [:over,:new, :create, :index]
   before_filter :login_required, :only => [:new, :create, :edit, :update, :destroy,:send_invitation,:invite]

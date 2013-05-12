@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ExecutionsController < ApplicationController
   before_filter :login_required, :except => [:show,:info_window,:apply_box]
   before_filter :manage_project_process, :only => [:validate,:refuse,:refuse_letter]

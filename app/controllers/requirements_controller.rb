@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RequirementsController < ApplicationController
   before_filter :login_required, :except => [:show]
   

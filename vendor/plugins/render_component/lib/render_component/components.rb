@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RenderComponent
   module Components
     def self.included(base) #:nodoc:

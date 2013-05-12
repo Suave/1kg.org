@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class TopicsController < ApplicationController
   before_filter :login_required, :except => [:show, :index,:total]
   before_filter :find_topic,     :except => [:index,:new,:create,:total]

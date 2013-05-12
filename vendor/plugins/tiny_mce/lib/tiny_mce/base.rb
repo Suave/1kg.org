@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module TinyMCE
   # The base module we include into ActionController::Base
   module Base

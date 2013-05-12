@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GeosController < ApplicationController
   def index
     @province = params[:province]? Geo.find( params[:province]) : nil

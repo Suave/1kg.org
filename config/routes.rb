@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Onekg::Application.routes.draw do 
   root :to  => "misc#index"
   match 'signup' => 'users#new', :as => :signup

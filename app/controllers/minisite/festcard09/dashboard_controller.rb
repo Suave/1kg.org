@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Minisite::Festcard09::DashboardController < ApplicationController
   include StuffUtil
   before_filter :find_requirement_type, :only => [:index, :password, :comment, :love_message, :messages]

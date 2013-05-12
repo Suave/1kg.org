@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::ProjectsController < Admin::BaseController
   def index
     @projects = Project.find :all, :order => "id desc"

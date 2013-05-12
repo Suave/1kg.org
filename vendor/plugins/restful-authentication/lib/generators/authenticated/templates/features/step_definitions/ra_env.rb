@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 
 Before do
   Fixtures.reset_cache

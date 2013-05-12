@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ProjectsController < ApplicationController
   
   before_filter :login_required, :except => [:show,:index,:large_map,:topics,:photos] 

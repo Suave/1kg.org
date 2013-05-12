@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Management < ActiveRecord::Base
   belongs_to :manageable,:polymorphic => true
   belongs_to :user

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Minisite::Musicclassroom::DashboardController < ApplicationController
   
   def index

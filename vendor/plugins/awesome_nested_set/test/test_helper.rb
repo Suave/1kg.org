@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 plugin_test_dir = File.dirname(__FILE__)
 
 $:.unshift(plugin_test_dir + '/../lib')

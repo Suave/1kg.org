@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'json'
 class SchoolsController < ApplicationController
   before_filter :login_required, :except => [:index, :show, :info_window, :large_map,:total_topics,:topics,:followers,:intro]

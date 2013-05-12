@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'action_view/helpers'
 require 'active_support/i18n'
 require 'active_support/core_ext/enumerable'

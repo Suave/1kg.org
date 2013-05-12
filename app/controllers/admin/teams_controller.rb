@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::TeamsController < Admin::BaseController
   def index
     @teams = Team.find(:all,:order => "created_at desc")

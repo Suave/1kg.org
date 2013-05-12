@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CoDonation < ActiveRecord::Base
   belongs_to :school
   belongs_to :user

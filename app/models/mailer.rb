@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Mailer < ActionMailer::Base
   def message_notification(message_copy)
     @recipients = message_copy.recipient.email

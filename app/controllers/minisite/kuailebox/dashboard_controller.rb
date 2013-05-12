@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Minisite::Kuailebox::DashboardController < ApplicationController
   
   def index

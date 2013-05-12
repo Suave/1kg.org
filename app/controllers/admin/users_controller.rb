@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::UsersController < Admin::BaseController
   def index
     @page_title = "管理员&版主设置"

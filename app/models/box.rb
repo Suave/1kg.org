@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Box < ActiveRecord::Base
   belongs_to :user
   has_attached_file :guide, :url=>"/media/boxes/:id/:attachment/:style.:extension"

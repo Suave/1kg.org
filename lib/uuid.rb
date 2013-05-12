@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #!/usr/bin/env ruby
 ### http://mput.dip.jp/mput/uuid.txt
 

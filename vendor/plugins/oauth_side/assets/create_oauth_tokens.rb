@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateOauthTokens < ActiveRecord::Migration
   def self.up
     create_table :oauth_tokens do |t|

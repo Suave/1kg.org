@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SchoolObserver < ActiveRecord::Observer
   def after_create(school)
     Management.new(:user_id => school.user_id,:manageable_id => school.id,:manageable_type => 'School').save

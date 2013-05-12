@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module RequirementTypesHelper
 
   def feedbacks_check_box(form, tag, value)

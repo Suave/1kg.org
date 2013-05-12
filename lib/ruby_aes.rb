@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 =begin
 module RubyAes
     KEY_LENGTH = [128,192,256].freeze

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Admin::BoardsController < Admin::BaseController
   
   def index

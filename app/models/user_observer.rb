@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UserObserver < ActiveRecord::Observer
 =begin  
   def after_create(user)

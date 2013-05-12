@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class OauthToken < ActiveRecord::Base
 
   attr_accessor :site_config

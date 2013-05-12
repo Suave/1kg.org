@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class TeamsController < ApplicationController
   before_filter :find_team, :except => [:new, :create, :index]
   before_filter :login_required, :except => [:index,:show,:large_map]
