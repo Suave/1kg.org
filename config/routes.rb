@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-Onekg::Application.routes.draw do 
+Onekg::Application.routes.draw do
   root :to  => "misc#index"
   match 'signup' => 'users#new', :as => :signup
   match 'register' => 'users#create', :as => :register
@@ -7,8 +7,8 @@ Onekg::Application.routes.draw do
   match 'login' => 'sessions#new', :as => :login
   match 'logout' => 'sessions#destroy', :as => :logout
   match 'search' => 'search#show', :as => :search
-  match 'reset_password' => 'sessions#reset_password',:as => :reset_password 
-  match 'forget_password' => 'sessions#forget_password',:as => :forget_password 
+  match 'reset_password' => 'sessions#reset_password',:as => :reset_password
+  match 'forget_password' => 'sessions#forget_password',:as => :forget_password
   match "/sent/by_system" => "sent#by_system"
 
   resources :executions
@@ -24,9 +24,9 @@ Onekg::Application.routes.draw do
   resources :comments
   resources :bulletins
   resource  :session
-  
+
   resources :users do
-    member do 
+    member do
       get :submitted_activities
       get :participated_activities
       get :submitted_schools
@@ -40,15 +40,15 @@ Onekg::Application.routes.draw do
     end
     resources :received, :member => {:reply => :get}, :collection => {:destroy_all => :delete}
   end
-    
+
   resources :geos do
      get :search,:on => :collection
      get :schools,:on => :member
      get :users,:on => :member
   end
-                           
-  resources :schools do 
-    member do 
+
+  resources :schools do
+    member do
       get :large_map
       get :photos
       get :apply
@@ -62,8 +62,8 @@ Onekg::Application.routes.draw do
       post :sent_apply
     end
     collection do
-      put :unconfirm 
-      get :archives 
+      put :unconfirm
+      get :archives
       get :total_topics
     end
   end
@@ -72,19 +72,19 @@ Onekg::Application.routes.draw do
     member do
       post :join
       get :mainphoto
-      post :mainphoto_create 
-      delete :quit  
+      post :mainphoto_create
+      delete :quit
     end
     collection do
-      get :with_school 
-      get :category 
-      get :ongoing 
-      get :over 
+      get :with_school
+      get :category
+      get :ongoing
+      get :over
       get :total_topics
     end
   end
-  
-  resources :groups do 
+
+  resources :groups do
     member do
       get :join
       get :quit
@@ -94,27 +94,27 @@ Onekg::Application.routes.draw do
       get :send_invitation
       get :members
     end
-    collection do 
+    collection do
       get :all
       get :participated
       get :submitted
     end
   end
-  
+
   resources :boxes do
-    collection do 
+    collection do
       get :apply
       get :feedback
-      get :topics 
-      get :photos 
-      post :submit 
+      get :topics
+      get :photos
+      post :submit
       get :new_photo
       get :new_topic
       get :execution
       get :executions
     end
   end
-  
+
   resources :teams do
     member do
       get :managers
@@ -130,45 +130,44 @@ Onekg::Application.routes.draw do
     end
   end
 
-  
-  #namespace :admin do 
-    #get '/' => "misc#index"
-    #resources :boxes
-    #resources :bringings do
-      #put :validate,:on => :member 
-      #put :refuse,:on =>   :member 
-    #end
-    #resources :permissions
-    #resources :users do
-     #get :serach, :on => :collection 
-     #put :block,  :on => :member
-    #end
-    #resources :geos
-    #resources :counties
-    #resources :schools
-    #resources :pages
-    #resources :groups
-    #resources :game_categories
-    #resources :co_donations do
-      #member do
-        #put :validate
-        #put :cancel
-      #end
-    #end
-    #resources :teams do
-      #member do
-        #put :validate
-        #put :cancel
-      #end
-    #end
-    #resources :bulletins
-    #resources :projects do
-      #member do
-        #put :validate
-        #get :refuse_letter 
-        #put :cancel
-      #end
-    #end
-  #end
+  namespace :admin do
+    resources :boxes
+    resources :bringings do
+      put :validate,:on => :member
+      put :refuse,:on =>   :member
+    end
+    resources :permissions
+    resources :users do
+     get :serach, :on => :collection
+     post :reset_password, :on => :collection
+     put :block,  :on => :member
+    end
+    resources :geos
+    resources :counties
+    resources :schools
+    resources :pages
+    resources :groups
+    resources :game_categories
+    resources :co_donations do
+      member do
+        put :validate
+        put :cancel
+      end
+    end
+    resources :teams do
+      member do
+        put :validate
+        put :cancel
+      end
+    end
+    resources :bulletins
+    resources :projects do
+      member do
+        put :validate
+        get :refuse_letter
+        put :cancel
+      end
+    end
+  end
 
 end

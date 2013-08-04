@@ -37,7 +37,7 @@
         <td><a class="more" href="#" onclick="javascript:$('.detail_n').not($('#detail_<%= n %>')).hide();$('#detail_<%= n %>').toggle();return false;"> 查看</a></td>  
       </tr>
        <tr>
-        <td class="detail_n" colspan="6"  id='<%= "detail_#{n}" %>' style="display:none">
+        <td class="detail_n" colspan="8"  id='<%= "detail_#{n}" %>' style="display:none">
           <p>
             <h5>盒子详情</h5>
             <%= execution.bringings.map{|b| "#{b.box.name}[#{b.number}]　"}%>
@@ -63,6 +63,8 @@
             姓名:<%= execution.realname %>
             <br/>
             电话/手机：<%= execution.telephone %>
+            <br/>
+            邮箱：<%= execution.email ? execution.email : "#{execution.user.email}(注册邮箱)"%>
           </p>
           <p>
             <h5>收货人&签收单位</h5>

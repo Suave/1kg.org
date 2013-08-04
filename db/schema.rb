@@ -256,6 +256,8 @@ ActiveRecord::Schema.define() do
     t.datetime "deleted_at"
   end
 
+  add_index "photos", ["photoable_id","photoable_type"], :name => "index_photos_on_photoable"
+
   create_table "profiles", :force => true do |t|
     t.integer "user_id"
     t.string  "blog_url"
@@ -412,7 +414,7 @@ ActiveRecord::Schema.define() do
     t.integer  "main_photo_id"
     t.string   "title",                                  :null => false
   end
-  
+
   create_table "schools", :force => true do |t|
     t.integer  "user_id"
     t.boolean  "validated",           :default => false
@@ -444,6 +446,7 @@ ActiveRecord::Schema.define() do
     t.integer  "village_id"
     t.integer  "project_id"
     t.string   "telephone"
+    t.string   "email"
     t.string   "address"
     t.string   "realname"
     t.string   "state"
@@ -528,6 +531,8 @@ ActiveRecord::Schema.define() do
     t.boolean  "sticky",                             :default => false
   end
 
+  add_index "topics", ["boardable_id","boardable_type"], :name => "index_topics_on_boardable"
+
   create_table "users", :force => true do |t|
     t.string   "login"
     t.string   "email"
@@ -537,7 +542,6 @@ ActiveRecord::Schema.define() do
     t.datetime "updated_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
-    t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
     t.string   "state",                                   :default => "passive"
     t.boolean  "is_admin"
@@ -548,7 +552,6 @@ ActiveRecord::Schema.define() do
     t.string   "ip"
     t.boolean  "email_notify",              :default => true
     t.integer  "topics_count"
-    t.integer  "guides_count"
   end
 
   add_index "users", ["email", "state"], :name => "index_users_on_email_and_state"

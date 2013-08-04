@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class TopicsController < ApplicationController
+
   before_filter :login_required, :except => [:show, :index,:total]
   before_filter :find_topic,     :except => [:index,:new,:create,:total]
   
@@ -16,7 +17,9 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(params[:topic])
     @topic.user = current_user
-    if @topic.save
+    if @topic.has_spam_word?
+      current_user.destroy
+    elsif @topic.save
       flash[:notice] = "发帖成功"
       redirect_to url_for(@topic.boardable)
     else

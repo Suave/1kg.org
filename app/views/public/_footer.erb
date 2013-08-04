@@ -1,0 +1,28 @@
+<div id="footer">
+  <div class="wrapper">
+  <% @page = Page.find_by_slug('footer') -%>
+  <%= render :text => @page.body if @page %>
+    <div style="color:#666;margin:4px">
+      <span>多背一公斤网站由 <%= link_to "监控宝","http://www.jiankongbao.com"%> 提供网站监控服务。 
+        <a href="http://ip.dnspod.cn/" target="_blank">帮助我们进行DNS优化</a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<% if RAILS_ENV == "production" %>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17296426-1']);
+  _gaq.push(['_setDomainName', '.1kg.org']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<% end -%>

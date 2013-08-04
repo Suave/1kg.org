@@ -65,6 +65,7 @@
   <div class="cleanfix" style="height:5px"></div>
   <div class="contents">
     <%= render :partial => "/topics/topics", :locals => {:topics => @topics} %>
+    <%= customize_paginate topics %>
   </div>
 </div>
  

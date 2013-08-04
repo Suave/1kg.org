@@ -32,10 +32,6 @@ class UsersController < ApplicationController
         render :action => "new"
       else
         @user = User.new(params[:user])
-        if !verify_recaptcha() 
-            flash[:notice] = "验证码输入有误"      
-            render :action => "new"
-        else
         @user.register! if @user.valid?
           if @user.errors.empty?
             @user.activate!

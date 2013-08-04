@@ -68,10 +68,7 @@ class GroupsController < ApplicationController
   end
   
   def show
-    @topics = @group.topics.find(:all,
-                            :order => "created_at desc",
-                            :include => [:user],
-                            :limit => 10)
+    @topics = @group.topics.paginate(:page => params[:page], :per_page => 10,:include => [:user])
   end
   
   def members

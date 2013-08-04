@@ -1,40 +1,41 @@
 <% @page_title = @box.name %>
-<div style="margin-bottom:20px">
-  <div style="float:left;text-align:center;width:150px">
+<div class="newbox">
+  <div style="float:right;text-align:center;width:150px">
     <%= image_tag(@box.image.url(:'150x90')) %>
+  </div>
+
+  <h1><%= @page_title%></h1>
     <p>
       <%= link_to '立即申请',apply_boxes_path,:class => 'buttonlink' %>
       <%= link_to '指南下载',@box.guide.url,:class => 'buttonlink' if @box.guide_file_name %>
     </p>
-  </div>
-  <div style="margin-left:160px">
-    <h1><%= @page_title%></h1>
-    <h5>盒子简介</h5>
-    <pre><%= @box.intro %></pre>
-    <h5>盒子内容</h5>
-    <pre><%= @box.content %></pre>
-    <% unless @box.video.blank? %>
-      <h5>盒子视频</h5>
-      <%= @box.video %>
-    <% end %>
-  </div>
+  <br/>
+  <h5>盒子简介</h5>
+  <pre><%= @box.intro %></pre>
+  <h5>盒子内容</h5>
+  <pre><%= @box.content %></pre>
+  <% unless @box.video.blank? %>
+    <h5>盒子视频</h5>
+    <%= @box.video %>
+  <% end %>
 </div>
-  
+    
+<% if current_user.try(:admin?) -%>
+  <div class="newbox">
+    <h3>盒子卡片： <%= link_to '添加卡片',new_photo_path(:photoable_id => @box.id ,:photoable_type => "Box"),:class => 'buttonlink'%></h3> 
+    <%= render :partial => "/public/card", :collection => @photos %>
+    <div class="cleanfix" style="clear:both;"></div>
+    <%= link_to '查看全部',photos_boxes_path %>
+  </div>
+<% end %>
+
+
 <%= render :partial => "/comments/comments", :object => @comments %>
 <%= render :partial => "/comments/form", :locals => {:commentable => @box,:cancel => true} %>
 
 <% content_for :sidebar do -%>
   <span class="remark"><%= link_to raw("&raquo;  回到一公斤盒子"),boxes_path %></span>
   <div class="cleanfix" style="clear:both;height:20px"></div> 
-  <% if current_user.try(:admin?) -%>
-    <div class="newbox">
-      <h3>盒子卡片： <%= link_to '添加卡片',new_photo_path(:photoable_id => @box.id ,:photoable_type => "Box"),:class => 'buttonlink'%></h3> 
-      <%= render :partial => "/photos/gallery", :collection => @photos,:locals => {:no_title => true}%>
-      <div class="cleanfix" style="clear:both;"></div>
-      <%= link_to '查看全部',photos_boxes_path %>
-    </div>
-  <% end %>
-
   <div> 
     <h4>其他盒子</h4>
     <%= render :partial => "/public/box", :collection => @boxes %>

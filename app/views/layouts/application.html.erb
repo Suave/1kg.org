@@ -6,7 +6,6 @@
     <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
     <%= stylesheet_link_tag "calendar",'core', :cache => "all.cache" %>
     <%= javascript_include_tag 'jquery', 'jrails', 'jquery-ui', 'calendar.js', 'application.js', :cache => 'all.cache' %>
-    <%= include_tiny_mce_if_needed %>
     <%= yield :heads %>
   </head>
   <body>
@@ -18,7 +17,7 @@
             <li><%= link_to "首页", root_path %></li>
             <li><%= link_to "学校", schools_path %></li>
             <li><%= link_to "活动", activities_path %></li>
-            <li><%= link_to "小组", groups_path %></li>
+            <li><%= link_to "独立团队", '/misc/teams' %></li>
             <li><%= link_to "盒子", boxes_path %></li>
             <li><a href="/misc/community-guide" target="_blank">帮助</a></li>
           </ul>
@@ -27,10 +26,10 @@
             <% end %>
           <div style="float:right">
             <% if logged_in? -%>
-              欢迎，<%= link_to current_user.login, user_path(current_user) %> | 
-              <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> | 
-              <%= link_to "帐号设置", setting_url %> | 
-              <%= link_to "退出", logout_path %> 
+              欢迎，<%= link_to current_user.login, user_path(current_user) %> |
+              <%= link_to("站内信(#{current_user.unread_messages.size})", messages_path)  %> |
+              <%= link_to "帐号设置", setting_url %> |
+              <%= link_to "退出", logout_path %>
             <% else -%>
               <%= link_to "登录", login_path  %> | <%= link_to "注册", signup_path %>
             <% end -%>
@@ -38,7 +37,7 @@
         </div>
       </div>
     </div>
-    
+
     <div id="content">
       <div class="container">
         <%= yield :fullsize %>

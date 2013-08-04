@@ -3,7 +3,7 @@
 
 <div id="signup" style="padding:20px 40px">
     <h3>用户注册</h3>
-          
+
     <% form_for :user, :url => users_path do |f| -%>
     <%= hidden_field_tag :to, params[:to] if params[:to] %>
     <p><label for="email" class="label">邮件地址</label>
@@ -20,13 +20,8 @@
     <input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
     <p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
 
-    <br/>
-    <p>
-      为了避免恶意注册，请黄色输入框输入下面图片中显示的两个单词，<br/>如果看不清请点击输入框边上的 <%= image_tag "/images/icon/recaptcha.png",:style=>"position:relative;top:3px"%> 刷新单词
-      <%= recaptcha_tags %>
-    </p>
     <p class="submit"><%= submit_tag '注 册' %></p>
-     
+
     <% end -%>
 
     <p class="login">&raquo; 我已经注册了，现在要<%= link_to "登录", login_url %></p>

@@ -14,6 +14,15 @@
       <li><%= link_to "团捐管理", admin_co_donations_path %>(<%= CoDonation.not_validated.size%>)</li>
       <li><%= link_to "团队管理", admin_teams_path %>(<%= Team.not_validated.size%>)</li>
       <li><%= link_to "公益项目", admin_projects_url %>(<%= Project.not_validated.size%>)</li>
+      <li><%= link_to "数据统计", :controller => "/admin/misc", :action => "statistics" %></li>
+    </ul>
+  </div>
+  <div class="newbox">
+    <h3>重设密码<span> (changeme)</span></h3>
+    <% form_tag reset_password_admin_users_path do -%>
+      <p><label for="email" class="label">邮件地址</label> <%= text_field_tag 'email' %></p>
+      <%= submit_tag '重设' %>
+    <% end %>
     </ul>
   </div>
 </div>
