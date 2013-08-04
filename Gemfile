@@ -7,7 +7,6 @@ gem "hpricot"
 gem "sanitize"
 gem "adzap-ar_mailer"
 gem 'thinking-sphinx'
-gem "rmagick"
 gem "state_machine"
 gem 'mysql2', '0.2.7'
 gem "paperclip"
@@ -18,6 +17,8 @@ gem 'oauth'
 gem 'date_validator'
 gem "json"
 gem 'capistrano'
+gem 'easy_captcha'
+gem 'rmagick'
 
 group :test, :development do
   gem "rspec"
@@ -26,5 +27,4 @@ group :test, :development do
   gem "watchr"
   gem "capybara"
 end
-
 
