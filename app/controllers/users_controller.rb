@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
-  
+
   # Be sure to include AuthenticationSystem in Application Controller instead
   #include AuthenticatedSystem
-  
+
   # Protect these actions behind an admin login
   # before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
   before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show, :topics, :participated_activities, :submitted_activities, :submitted_schools, :visited_schools, :group_topics, :visited,:envoy, :submitted_topics,:participated_topics,:friends,:groups]
@@ -12,37 +12,39 @@ class UsersController < ApplicationController
   # render new.rhtml
   def new
   end
-  
+
   def groups
     @groups = @user.joined_groups.paginate :page => params[:page] || 1, :per_page =>36
   end
 
   def create
     cookies.delete :auth_token
-    # protects against session fixation attacks, wreaks havoc with 
+    # protects against session fixation attacks, wreaks havoc with
     # request forgery protection.
     # uncomment at your own risk
     # reset_session
-    if in_black_list? 
+    if in_black_list?
       flash[:notice] = "对不起，你的IP地址由于发布垃圾信息已被列入黑名单，不能注册新用户，如果你确认这是一个错误，请联系我们的管理员"
       redirect_to root_path
     else
       if params[:terms] != "1"
-        flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"      
+        flash[:notice] = "认真阅读免责声明并同意其中条款后, 请在最后一项上打钩"
+        render :action => "new"
+      elsif not captcha_valid? params[:captcha]
+        flash[:notice] = "验证码不正确"
         render :action => "new"
       else
         @user = User.new(params[:user])
         @user.register! if @user.valid?
-          if @user.errors.empty?
-            @user.activate!
-            @user.update_attribute(:ip, request.remote_ip)
-            cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
-            self.current_user = @user
-            flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧。"
-            redirect_back_or_default CGI.unescape(params[:to] || '/setting')
-          else
-            render :action => 'new'
-          end
+        if @user.errors.empty?
+          @user.activate!
+          @user.update_attribute(:ip, request.remote_ip)
+          cookies[:onekg_id] = { :value => @user.id , :expires => 1.year.from_now }
+          self.current_user = @user
+          flash[:notice] = "注册成功！欢迎你来到多背一公斤, 补充一下你的个人信息吧。"
+          redirect_back_or_default CGI.unescape(params[:to] || '/setting')
+        else
+          render :action => 'new'
         end
       end
     end
@@ -58,15 +60,15 @@ class UsersController < ApplicationController
       flash[:notice] = "激活码不正确，请联系 feedback@1kg.org"
       redirect_back_or_default("/")
     end
-    
+
   end
-  
+
   def edit
     @page_title = "编辑个人信息"
     @user = current_user
     @type = params[:type] || 'avatar'
   end
-  
+
   def update
     @user = current_user
     @type = params[:type]
@@ -79,12 +81,12 @@ class UsersController < ApplicationController
   end
 
   def suspend
-    @user.suspend! 
+    @user.suspend!
     redirect_to users_path
   end
 
   def unsuspend
-    @user.unsuspend! 
+    @user.unsuspend!
     redirect_to users_path
   end
 
@@ -97,7 +99,7 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_path
   end
-  
+
   def show
     get_user_record(@user)
     # postcard
@@ -110,7 +112,7 @@ class UsersController < ApplicationController
     @submitted_topics = @user.topics.find :all, :limit => 6,:include => [:user]
     @participated_topics = @user.participated_topics.paginate(:page => 1, :per_page => 6).map(&:commentable)
   end
-  
+
   def topics
     @topics = @user.topics.paginate(:page => params[:page] || 1, :per_page => 6)
   end
@@ -121,37 +123,37 @@ class UsersController < ApplicationController
     # 关注此用户的人
     @followers = @user.followers.paginate(:page => params[:page] || 1, :per_page => 36)
   end
-  
+
   def participated_activities
     @activities = @user.participated_activities.paginate(:page => params[:page] || 1, :per_page => 10)
   end
-  
+
   def participated_topics
      @topics = @user.participated_topics.paginate(:page => params[:page] || 1, :per_page => 10)
   end
-  
+
   def submitted_activities
     @activities = @user.submitted_activities.paginate(:page => params[:page] || 1, :per_page => 10)
   end
-  
+
   def submitted_topics
     @topics = @user.topics.paginate(:page => params[:page] || 1, :per_page => 10)
   end
-  
+
   def submitted_schools
     @schools = @user.submitted_schools.paginate(:page => params[:page] || 1, :per_page => 10)
   end
-  
+
   def group_topics
     @topics = @user.joined_groups_topics.paginate :page => params[:page] || 1, :per_page => 10, :order => "last_replied_at desc"
   end
-  
+
   def visited
     @visits = Visited.find(:all,:conditions => {:user_id => @user,:status => 1},:include => [:school])
     @wannas = Visited.find(:all,:conditions => ['user_id = ? and status = ? and visited_at > ?', @user.id, 3, Time.now], :include => [:school])
     @interests = Visited.find(:all,:conditions => {:user_id => @user,:status => 2},:include => [:school])
   end
-  
+
   def envoy
     @schools = @user.managed('School')
   end
@@ -160,7 +162,7 @@ class UsersController < ApplicationController
   def find_user
     @user = User.find(params[:id])
   end
-  
+
   def get_user_record(user)
     # user's published activities
     @submitted    = @user.submitted_activities.find(:all, :limit => 6,:include => [:main_photo, :departure])
@@ -169,9 +171,10 @@ class UsersController < ApplicationController
     @followers = user.followers.find(:all, :limit => 6)
     @groups = user.joined_groups.find :all, :limit => 8
   end
-  
+
   def in_black_list?
-    blocked_ids = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:id)
-    cookies[:onekg_id] && blocked_ids.include?(cookies[:onekg_id].to_i)
+    # 先取消这个机制
+    # blocked_ids = User.find_only_deleted(:all, :conditions => ['state = ?', 'deleted']).map(&:id)
+    # cookies[:onekg_id] && blocked_ids.include?(cookies[:onekg_id].to_i)
   end
 end

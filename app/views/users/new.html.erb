@@ -20,6 +20,10 @@
     <input id='user_password_confirmation' name='user[password_confirmation]' size='20' type='password'>
     <p class="rememberMe"><%= check_box_tag 'terms', 1, true %> <label for="terms">我已认真阅读<a href="/misc/terms" target ="_blank" tabindex="-1">免责声明</a>, 并同意其中的条款</label></p>
 
+
+    <p>请输入以下验证码, 完成注册</p>
+    <p><%= captcha_tag %></p>
+    <p><%= text_field_tag :captcha %></p>
     <p class="submit"><%= submit_tag '注 册' %></p>
 
     <% end -%>

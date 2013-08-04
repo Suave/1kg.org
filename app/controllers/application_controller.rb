@@ -2,6 +2,9 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
 class ApplicationController < ActionController::Base
+  # reset captcha code after each request for security
+  after_filter :reset_last_captcha_code!
+
   helper :all # include all helpers, all the time
 
   include AuthenticatedSystem
@@ -18,6 +21,15 @@ class ApplicationController < ActionController::Base
 
   #before_filter :app_stop
 
+  # captcha action send the generated image to browser
+  def captcha
+    if params[:format] == "wav" and EasyCaptcha.espeak?
+      send_data generate_speech_captcha, :disposition => 'inline', :type => 'audio/wav'
+    else
+      send_data generate_captcha, :disposition => 'inline', :type => 'image/png'
+    end
+  end
+  
   def rescue_action(exception)
     if exception.is_a?(ActiveRecord::RecordInvalid)
       render_invalid_record(exception.record)
@@ -60,5 +72,6 @@ class ApplicationController < ActionController::Base
     render :file => "/public/maintain.html"
     return false
   end
-
 end
+
+    

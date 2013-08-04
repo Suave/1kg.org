@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 Onekg::Application.routes.draw do
+
   root :to  => "misc#index"
   match 'signup' => 'users#new', :as => :signup
   match 'register' => 'users#create', :as => :register
@@ -10,6 +11,8 @@ Onekg::Application.routes.draw do
   match 'reset_password' => 'sessions#reset_password',:as => :reset_password
   match 'forget_password' => 'sessions#forget_password',:as => :forget_password
   match "/sent/by_system" => "sent#by_system"
+  match 'captcha' => "application#captcha"
+
 
   resources :executions
   resources :projects
