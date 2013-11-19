@@ -533,6 +533,8 @@ ActiveRecord::Schema.define() do
     t.boolean  "auto_fill"
   end
 
+  add_index "stuffs", ['user_id'], :name => "index_stuffs_on_user_id"
+
   create_table "executions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "team_id"
