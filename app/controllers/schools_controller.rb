@@ -268,11 +268,11 @@ class SchoolsController < ApplicationController
     @photos = @school.photos.find(:all, :order => "created_at desc", :limit => 6,:include => [:user])
     @main_photo = @school.photos.find_by_id @school.main_photo_id
     
-    @activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user])
+    #@activities = Activity.find(:all,:conditions => {:school_id => @school.id},:include => [:user]) #活动
     @status = Visited.find(:first, :conditions => ["user_id=? and school_id=?", current_user.id, @school.id]) unless current_user.blank?
     
-    @executions = @school.executions.validated.find(:all,:limit => 3)
-    @co_donations = @school.co_donations.validated.find(:all,:limit => 3)
+    #@executions = @school.executions.validated.find(:all,:limit => 3) #公益项目
+    #@co_donations = @school.co_donations.validated.find(:all,:limit => 3) #团捐
   end
   
   def destroy

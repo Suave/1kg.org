@@ -106,35 +106,7 @@
     <% end %>
   </div>
   
-  <div class="newbox">
-      <div id="activity_tabs">
-        <div style="float:right">
-        <%= link_to '发起活动','/activities/new?school='+@school.id.to_s, :class => 'buttonlink'%>
-        <%= link_to '发起团捐','/co_donations/new?school='+@school.id.to_s, :class => 'buttonlink' if logged_in? && current_user.admin?%>
-        </div>
-      <h3>活动</h3>
-        <ul class="tab" >
-          <% [["公益活动", "all"], ["物资团捐", "co_donations"]].each do |type| %>
-            <li class="tabs_more"><%= link_to type[0], "##{type[1]}" %></li>
-          <% end -%>
-        </ul>
-        <div class="cleanfix" style="clear:both;height:10px"></div>
-        <div id = "all">
-          <%= render :partial => "/public/activity", :collection => @activities %>
-          <%= "还没有学校活动" if @activities.blank?%>
-        </div>
-        
-        <div id ="co_donations">
-          <%= render :partial => "/public/co_donation", :collection => @co_donations %>
-          <%= "还没有团捐活动" if @co_donations.blank?%>
-        </div>
-      </div>
-<script type="text/javascript">
-  jQuery("#activity_tabs").tabs();
-</script>
-  <div class="clearfix"></div>  
-  </div>
-   
+  
   <div class="newbox">
    <h4>学校论坛</h4> <%= @topics.blank? ? "还没有帖子" : link_to("共有#{@school.topics.size}篇帖子 >",topics_school_path(@school)) %>
    <%= link_to "写新帖子", new_topic_url(:boardable_id => @school.id,:boardable_type => 'School'),:class=>"buttonlink"%>
@@ -197,13 +169,5 @@
     </div>
   </div>
   <% end %>
-  <div class="school_sidebar">
-     <div style="float:right"><%= link_to '申请项目',projects_url(:school_id => @school),:class => "buttonlink" %></div>
-    <h4>公益项目</h4>
-    <div class="sidebar_inter">
-      <%= '目前学校还没有公益项目' if @executions.empty? %>
-      <%= render :partial => "/public/execution", :collection => @executions %>
-      <div style="clear:both;height:5px"></div>
-    </div>
-  </div>
+  
 <% end -%>
