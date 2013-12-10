@@ -3,7 +3,7 @@ class MiscController < ApplicationController
   def index
     @page_title = "首页"
     @school_count = School.validated.size
-    @activity_count = Activity.ongoing.size
+    #@activity_count = Activity.ongoing.size
     if logged_in? 
       public_look 
     else
