@@ -20,13 +20,6 @@
   </div>
   <% end -%>
 
-  <div class="newbox">
-   <h3>公益团队</h3>
-    
-      <%= render :partial => "/public/team", :collection => @teams %>
-    <p class="remark"><%= link_to "&raquo;  查看全部", teams_url %></p>
-  </div>
-
   <div id="records" class="newbox">
     <div id="record_tabs">
         <h3>用户动态</h3>
@@ -51,53 +44,4 @@
 
 <div class="cleanfix" style="clear:both;height:20px"></div>
 
-<div class="hot_box" style="height:210px">
- <h3>最受欢迎活动</h3>
-  <div class="cleanfix" style="height:3px"></div>
-    <% @hot_activities.each do |activity|%>
-    <div style="width:120px;height:160px;padding:5px;float:left">
-      <div class="hot_activity_frame">
-        <div class="hot_activity_image">
-          <%= link_to image_tag(activity.main_photo.image.url(:max240x180), :alt => activity.title,:style => "height:110px"),activity_url(activity) if activity.main_photo%>
-          <%= image_tag("activity_#{activity.category}.png", :alt => activity.title,:style => "height:110px")  unless activity.main_photo%>
-        </div>
-    </div>
-      <p class="hot_activity_title"><%= link_to short_title(activity,15), activity_path(activity)%></p>
-    </div>
-  <%end%> 
-  <div class="hot" style="float:right">
-    <div class="channel">
-      <%= link_to "&raquo; 活动频道",activities_url,:style=> "font-size:14px;font-weight:bold" %>
-      <br/><%= @activity_count%>个活动在进行</div>
-  </div>
-  <div  style="clear:both"></div>
-</div> 
 
-<div class="newbox">
-      <div class="clearfix"></div>
-     <h3>公益项目</h3>
-      <div class="clearfix" style="height:10px"></div>
-      <div class="contents clearfix">
-        <%= render :partial => '/public/project', :collection => @projects %>
-      </div>
-     <div class="remark"><%= link_to "&raquo; 查看全部公益项目 ",projects_url %></div>
-</div>
-
-<div class="cleanfix" style="height:20px"></div>
-  <div class="newbox">
-   <h3><%= link_to "物资团捐",co_donations_url %></h3>
-    <div class="cleanfix" style="height:10px"></div>
-    <%= render :partial => "/public/co_donation", :collection => @co_donations %>
-    <% if @co_donations.empty? %>
-      目前还没有新的团捐在进行,<%= link_to "查看更早的",co_donations_url %>
-    <%end%>
-    <div  style="clear:both"></div>
-  </div>
-
-<div class="newbox">
- <h3>最新推荐</h3>
-  <div class="contents">
-    <%= render :partial => "/public/vote", :collection => @voteds %>
-  </div>
-  <div class="cleanfix" style="height:20px"></div>
-</div>
