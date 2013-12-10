@@ -13,7 +13,7 @@ class SchoolsController < ApplicationController
       :include => [:user],
       :order => "last_replied_at desc",
       :limit => 4)
-        @projects = Project.validated.find :all, :order => "created_at desc",:limit => 2
+        #@projects = Project.validated.find :all, :order => "created_at desc",:limit => 2
         
         # 显示需求标签云
         @tags = SchoolNeed.tag_counts[0..50]
