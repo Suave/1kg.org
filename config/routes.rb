@@ -2,7 +2,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => "misc", :action => "index"
   # 用于公益积分
   map.receive_merchant_info "/gateway/receiveMerchantInfo", :controller => "gateway", :action => "receive_merchant_info"
-  map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
+  #map.resources :donations, :member => {:commenting => :get, :comment => :put}, :collection => {:thanks => :get}
   map.resources :requirements, :member => {}  
   map.system_message "/admin/sent/by_system", :controller => "sent", :action => "by_system"
   
