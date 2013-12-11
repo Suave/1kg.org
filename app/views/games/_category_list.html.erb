@@ -1,7 +1,0 @@
-<div class="clearfix" style="height:10px"></div>
-<h4>所有课程分类</h4>
-<div style="line-height:24px">
-<% GameCategory.all.each do |category| %>
-<%= link_to category.name,category_games_path(category.slug) %>　
-<% end %>
-</div>
