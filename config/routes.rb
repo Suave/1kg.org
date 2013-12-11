@@ -218,70 +218,70 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   # 专题页面
-  map.namespace :minisite do |site|
-    map.weixingfu "/minisite/weixingfu", :controller => "/minisite/weixingfu", :action => "index"
-    map.mangexingdong "/minisite/mangexingdong", :controller => "/minisite/mangexingdong", :action => "index"
-    map.mangexingdong_poster "/minisite/mangexingdong/poster", :controller => "/minisite/mangexingdong", :action => "poster"
-    site.namespace :postcard do |postcard|
-      postcard.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-        dash.password 'password', :action => "password"
-        dash.give     'give/:id', :action => "give"
-        dash.comment  'comment/:id', :action => "comment"
-        dash.messages 'messages', :action => "messages"
-        dash.donors   'donors/:id', :action => "donors"
-        dash.love_message 'love_message', :action => "love_message"
-      end
-    end
-    
-    site.namespace :mooncake do |mooncake|
-      mooncake.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-        dash.password '/password',:action => "password"
-        dash.comment  '/comment', :action => "comment"
-        dash.love_message 'love_message', :action => "love_message"
-        dash.messages 'messages', :action => "messages"
-        dash.donors   'donors/:id', :action => "donors"
-      end
-    end
-    
-    site.namespace :lightenschool do |lightenschool|
-      lightenschool.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-        #dash.submit   'submit',   :action => "submit"
-        dash.required   'required', :action => "required"
-        #dash.processing 'processing',  :action => "processing"
-        dash.processing 'winners',  :action => "winners"
-      end
-    end
-    
-    site.namespace :kuailebox do |kuailebox|
-      kuailebox.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-      end
-    end
-    
-    site.namespace :cnbloggercon09 do |cnbloggercon09|
-      cnbloggercon09.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-      end
-    end
-    
-    site.namespace :festcard09 do |festcard09|
-      festcard09.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-        dash.cards   '/cards',    :action => "cards"
-        dash.password '/password',:action => "password"
-        dash.comment  '/comment', :action => "comment"
-      end
-    end
-    
-    site.namespace :musicclassroom do |musicclassroom|
-      musicclassroom.with_options :controller => "dashboard" do |dash|
-        dash.index    '',         :action => "index"
-      end
-    end
-  end
+#  map.namespace :minisite do |site|
+#    map.weixingfu "/minisite/weixingfu", :controller => "/minisite/weixingfu", :action => "index"
+#    map.mangexingdong "/minisite/mangexingdong", :controller => "/minisite/mangexingdong", :action => "index"
+#    map.mangexingdong_poster "/minisite/mangexingdong/poster", :controller => "/minisite/mangexingdong", :action => "poster"
+#    site.namespace :postcard do |postcard|
+#      postcard.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#        dash.password 'password', :action => "password"
+#        dash.give     'give/:id', :action => "give"
+#        dash.comment  'comment/:id', :action => "comment"
+#        dash.messages 'messages', :action => "messages"
+#        dash.donors   'donors/:id', :action => "donors"
+#        dash.love_message 'love_message', :action => "love_message"
+#      end
+#    end
+#    
+#    site.namespace :mooncake do |mooncake|
+#      mooncake.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#        dash.password '/password',:action => "password"
+#        dash.comment  '/comment', :action => "comment"
+#        dash.love_message 'love_message', :action => "love_message"
+#        dash.messages 'messages', :action => "messages"
+#        dash.donors   'donors/:id', :action => "donors"
+#      end
+#    end
+#    
+#    site.namespace :lightenschool do |lightenschool|
+#      lightenschool.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#        #dash.submit   'submit',   :action => "submit"
+#        dash.required   'required', :action => "required"
+#        #dash.processing 'processing',  :action => "processing"
+#        dash.processing 'winners',  :action => "winners"
+#      end
+#    end
+#    
+#    site.namespace :kuailebox do |kuailebox|
+#      kuailebox.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#      end
+#    end
+#    
+#    site.namespace :cnbloggercon09 do |cnbloggercon09|
+#      cnbloggercon09.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#      end
+#    end
+#    
+#    site.namespace :festcard09 do |festcard09|
+#      festcard09.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#        dash.cards   '/cards',    :action => "cards"
+#        dash.password '/password',:action => "password"
+#        dash.comment  '/comment', :action => "comment"
+#      end
+#    end
+#    
+#    site.namespace :musicclassroom do |musicclassroom|
+#      musicclassroom.with_options :controller => "dashboard" do |dash|
+#        dash.index    '',         :action => "index"
+#      end
+#    end
+#  end
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
